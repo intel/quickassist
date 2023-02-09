@@ -1,3 +1,44 @@
+# Intel® QuickAssist Documentation
+
+This repository contains the public HTML and other static documentation files for Intel's QuickAssist Technology (Intel® QAT) Driver. 
+
+For more information on Intel® QAT, visit:
+- https://www.intel.com/quickassist (Marketing and onerview)
+- https://developer.intel.com/quickassist (Drivers, documentation, and other files)
+- https://intel.github.io/quickassist/ (This documentation site.)
+
+# Legal Notices & Disclaimers
+
+Performance varies by use, configuration and other factors. Learn more on Intel's `Performance Index site <https://edc.intel.com/content/www/us/en/products/performance/benchmarks/overview/>`_  . 
+
+Performance results are based on testing as of dates shown in configurations and may not reflect all publicly available updates.  See backup for configuration details.  No product or component can be absolutely secure. 
+
+Your costs and results may vary. 
+
+Intel technologies may require enabled hardware, software or service activation.
+
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+
+Code names are used by Intel to identify products, technologies, or services that are in development and not publicly available. These are not "commercial" names and not intended to function as trademarks.
+
+See Intel's `Legal Notices and Disclaimers <https://www.intel.com/LegalNoticesAndDisclaimers>`_
+
+© Intel Corporation. Intel, the Intel logo, Atom, Xeon, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 
+
+# Contributions
+
+For documentation updates, see 'Contributions' below. Feel free to create a new GitHub "issue" using the Issues tab at top, or click here: https://github.com/intel/quickassist/issues . 
+
+When creating an issue, please be specific on the page, section, and (if any) subsection requiring clarification, including links if possible.
+
+The built HTML files are generated elsewhere and only *hosted* on this repository, so *there is no benefit to making a pull request*.
+
+## Contact
+
+As an alternate, please contact qat-linux@intel.com .
+
+For customers with Intel® Premier Support (IPS) accounts, please submit a ticket via https://www.intel.com/content/www/us/en/design/support/ips/training/welcome.html .
+
 # Contributor Covenant Code of Conduct
 
 ## Our Pledge
