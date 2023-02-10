@@ -27,7 +27,7 @@ See Intel's `Legal Notices and Disclaimers <https://www.intel.com/LegalNoticesAn
 
 # Contributions
 
-For documentation updates, see 'Contributions' below. Feel free to create a new GitHub "issue" using the Issues tab at top, or click here: https://github.com/intel/quickassist/issues . 
+For documentation updates, please create a new GitHub "issue" using the Issues tab at top, or click here: https://github.com/intel/quickassist/issues . 
 
 When creating an issue, please be specific on the page, section, and (if any) subsection requiring clarification, including links if possible.
 
