@@ -1,0 +1,72 @@
+.. _qat_2.0_pg_introduction:
+
+About this Document
+===================
+
+This programmer's guide provides information on the architecture of the software and usage guidelines.
+
+Information on the use of Intel\ :sup:`®` QuickAssist Technology (Intel\ :sup:`®` QAT) APIs, which provide the interface to the 
+acceleration services (cryptographic and data compression), is documented in the related Intel\ :sup:`®` QAT software library documentation referenced in 
+the :ref:`Release Notes <qat_2.0_release_notes>`.
+
+In this document, for convenience:
+
+* *Software package* is used as a generic term for the Intel® QAT Software Package for Hardware Version 2.0.
+* *Acceleration driver* is used as a generic term for the software that allows the Intel® QAT Software Library APIs to access the Intel® QAT Endpoint(s).
+
+.. note::
+    Please refer to the :ref:`Release Notes <qat_2.0_release_notes>` for a list of supported platforms.
+
+.. note:: 
+    Current version of this document covers the out-of-tree acceleration driver.  Future version of this document will be updated to cover in-tree driver as well.
+    
+    For additional details on in-tree driver please refer to https://github.com/intel/qatlib.
+
+Conventions and Terminology
+-------------------------------------
+
+The following conventions are used in this manual:
+
+* ``Code text`` - code examples, command line entries, Application Porgramming Interface (API) names, parameters, filenames, directory paths, and executables.
+* **Bold text** - graphical user interface entries, buttons, and actions in instructions.
+* *Italic text* - key terms and publication titles.
+
+The following terms and acronyms are used in this manual.
+
+.. table:: Terminology
+
+    +---------------------+--------------------------------------------+
+    |  **Term**           |           **Description**                  |
+    +=====================+============================================+
+    | API                 | Application Programming Interface          |
+    +---------------------+--------------------------------------------+
+    | asym                | Asymmetric Cryptography                    |
+    +---------------------+--------------------------------------------+
+    | BDF                 | Bus Device Function                        |
+    +---------------------+--------------------------------------------+
+    | BOM                 | Bill of Materials                          |
+    +---------------------+--------------------------------------------+
+    | CBC                 | Cipher Block Chaining                      |
+    +---------------------+--------------------------------------------+
+    | cy                  | Cryptography                               |
+    +---------------------+--------------------------------------------+
+    | dc                  | Data Compression                           |
+    +---------------------+--------------------------------------------+
+    | GRUB                | Grand Unified Bootloader                   |
+    +---------------------+--------------------------------------------+
+    | OS                  | Operating System                           |
+    +---------------------+--------------------------------------------+
+    | PCI                 | Peripheral Component Interconnect          |
+    +---------------------+--------------------------------------------+
+    | PF                  | PCIe Physical Function                     |
+    +---------------------+--------------------------------------------+
+    | Intel\ :sup:`®` QAT | Intel\ :sup:`®` QuickAssist Technology     |
+    +---------------------+--------------------------------------------+
+    | SKU                 | Stock Keeping Unit                         |
+    +---------------------+--------------------------------------------+
+    | sIOV                | Scalable IOV                               |
+    +---------------------+--------------------------------------------+
+    | SR-IOV               | Single Root-I/O Virtualization            |
+    +---------------------+--------------------------------------------+
+    | VF                  | Virtual Function                           |
+    +---------------------+--------------------------------------------+

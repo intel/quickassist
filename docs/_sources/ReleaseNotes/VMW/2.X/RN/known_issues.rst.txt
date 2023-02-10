@@ -1,0 +1,135 @@
+.. _qat_2.0_rn_vmware_knownissues:
+
+Known Issues
+------------
+
+QAT20-23616 - [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT) disabled
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT)
+       disabled
+   * - **Reference**
+     - QAT20-23616
+   * - **Description**
+     - When running QAT workloads with AT enabled under loaded traffic
+       conditions, memory page corruption may occur.
+
+
+       Intel is looking at a possible workaround for the problem, and until
+       then the QAT firmware/Driver will not make use of or enable SVM with AT.
+
+   * - **Implication**
+     - It is not currently possible to run with SVM and AT.
+   * - **Resolution**
+     - Current workaround is disabling SVM and AT.
+
+QAT20-18924 - [MCC] MCC SKUs may consume more power than expected
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - [MCC] MCC SKUs may consume more power than expected
+   * - **Reference**
+     - QAT20-18924
+   * - **Description**
+     - Due to Power Management changes in MCC platforms one QAT device in
+       every socket is permanently clock gated when not processing requests
+       which leads to inevitable heartbeat failures and device resets. Current
+       FW workaround increases power consumption by keeping QAT in active
+       state. Intel is working on workaround that does not have impact on
+       power consumption.
+   * - **Implication**
+     - Higher power consumption is possible
+   * - **Resolution**
+     - This is no workaround currently available.
+
+QAT20-20272 - [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs
+   * - **Reference**
+     - QAT20-20272
+   * - **Description**
+     - Time tracking in FW is inaccurate due to power
+       management causing that frequency of HW counter that is
+       used as reference for time measurements appears lower
+       than expected. This may lead to delayed heartbeat
+       and telemetry updates when devices become idle.
+       Intel is working on workaround that removes dependency
+       on the HW counter.
+   * - **Implication**
+     - No functional impact, these messages can be ignored.
+   * - **Resolution**
+     - This is no workaround currently available.
+
+VQQ-1542 - VM with enabled vIOMMU may crash with IOMMU fault
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - VM with enabled vIOMMU may crash with IOMMU fault
+   * - **Reference**
+     - VQQ-1542
+   * - **Description**
+     - QAT usecases that require vIOMMU to be enabled for the guest are
+       currently not supported due issue in VMware ESXi*. Running such workload
+       inside VM may cause it's crash due IOMMU pagefault reported in logs.
+   * - **Implication**
+     - Workloads that require vIOMMU will crash VM
+   * - **Resolution**
+     - Avoid enabling vIOMMU. Use the latest version of VMware ESXi where this
+       issue will be resolved.
+
+VQQ-1553 - Incompatibility between legacy 1.7 and 2.0 drivers
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - Incompatibility between legacy 1.X and 2.0 drivers
+   * - **Reference**
+     - VQQ-1553
+   * - **Description**
+     - 1.7 driver (version 1.1.0.7) couldn't be installed on the same system
+       with 2.0 driver. They are using same namespaces and will conflict,
+       so one of the drivers will fail initialization.
+   * - **Implication**
+     - Only one of the driver could be installed on the system.
+   * - **Resolution**
+     - Use updated 1.X driver, starting from version 1.5.0* it's fully
+       compatible with driver for QAT 2.0.
+
+VQQ-1618 - Driver may accept incorrect service mask configuration and treat it as default configuration
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - Driver may accept incorrect service mask configuration and treat it as
+       default configuration
+   * - **Reference**
+     - VQQ-1618
+   * - **Description**
+     - Service mask parsing may interpret incorrect service mask passed to
+       driver as a valid mask that matches the default configuration and still
+       proceed with driver attachment.
+   * - **Implication**
+     - User will be not notified about incorrect service mask. Also device
+       will fall back to the default configuration.
+   * - **Resolution**
+     - User should configure service masks as described in the driver's
+       documentation.

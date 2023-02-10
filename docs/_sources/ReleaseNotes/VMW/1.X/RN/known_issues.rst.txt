@@ -1,0 +1,268 @@
+.. _qat_1.X_rn_vmware_knownissues:
+
+Known Issues
+------------
+
+Issues Relating to Violation of Trust Model
++++++++++++++++++++++++++++++++++++++++++++
+
+The second generation of Intel\ :sup:`®` QAT was designed with performance as
+the primary objective. To attain the best possible performance, applications
+are exposed directly to the hardware with no bounds checking. This approach
+implies a trusted programming model, wherein an application is expected to
+supply correctly formatted addresses and arguments at the Application
+Programming Interface (API).
+
+An application failing to follow the programming conventions runs the risk of
+negatively impacting the platform.
+
+
+QATE-7495 - An Incorrectly formatted requests to Intel\ :sup:`®` QAT can render the Intel\ :sup:`®` QAT endpoint unresponsive
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - An Incorrectly formatted request to Intel\ :sup:`®` QAT can render the
+       Intel\ :sup:`®` QAT endpoint unresponsive
+   * - **Reference**
+     - QATE-7495
+   * - **Description**
+     - This version of the Intel\ :sup:`®` QAT hardware does not perform
+       exhaustive request address and parameter checking. It follows that a
+       malicious application could submit requests that can bring down an
+       entire Intel\ :sup:`®` QAT endpoint or platform itself, which can impact
+       other Intel\ :sup:`®` QAT jobs associated with the hardware. This
+       presents a risk that must be managed by the host and guest operating
+       systems and other system policies. The exposure can extend to other
+       guest operating systems or applications outside of the typical access
+       boundary of the malicious guest or application.
+
+       Conditions like invalid address, address range that crosses the SecureRAM
+       boundaries, and invalid request can cause HW to hang or system reset.
+   * - **Implication**
+     - All guest operating systems and applications using QAT must be trusted,
+       and/or other steps must be taken to ensure that an untrusted application
+       or guest cannot submit incorrectly formatted requests.
+   * - **Resolution**
+     - There is no workaround available. However, system policies
+       (including limiting specific operating system permissions) can help to
+       mitigate this issue.
+   * - **Related issues**
+     - QATE-14706 - Partial descriptor submission may cause hang
+
+       QATE-14287 - IOMMU page fault provokes device hang
+
+       QATE-15430 - Malformed NULL descriptor may cause hang
+
+       QATE-30895 - Crossing SecureRAM boundaries may cause device hang
+
+       QATE-39377 - Continuous submitting malformed requests in VM may cause
+       the platform to hang or reboot
+
+
+       Root Cause Analysis:
+
+       When a non-posted transaction is initiated to an invalid target
+       (bad memory address), a UR is returned. Later, a Completion Time Out
+       happens. A tag is issued to the non-posted transaction, and a tag is
+       returned by the UR and a tag is returned by the CTO. This means that for
+       every one tag issued, two are returned. This causes unexpected overflows
+       in counters, too many outstanding transactions, and eventually leads to
+       system instability and a crash.
+
+
+QATE-30251 - Turning off Bus Master Enable may cause PF hang
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - Turning off Bus Master Enable may cause PF hang
+   * - **Reference**
+     - QATE-30251
+   * - **Description**
+     - Specific guest's operations to rings with disabled BME bit may cause PF
+       to hang.
+   * - **Implication**
+     - \-
+   * - **Resolution**
+     - If PF hangs, the system administrator should shut down all the VMs and
+       manually reload the driver or restart the whole system.
+
+
+QATE-64395 - Usage of DC Session Update API can render the application unresponsive
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - Usage of DC Session Update API can render the application unresponsive
+   * - **Reference**
+     - QATE-64395
+   * - **Description**
+     - In case of using Linux driver 4.10 with DC Session Update API user may
+       get a timeout and fatal errors in Guest OS dmesg:
+
+       .. code-block:: text
+
+          c6xxvf 0000:ff:00.0: Fatal error received from PF 0x6ac20013
+
+   * - **Implication**
+     - The application which is using the mentioned API may get a
+       timeout-related error or stuck on waiting for a response from HW
+   * - **Resolution**
+     - Use smaller chunks for submission or increase timeout values in the
+       application that is using Intel\ :sup:`®` QAT. Also, possible to
+       increase a Heartbeat and Quiesce timeouts for PF driver itself via the
+       next steps:
+
+       #. Power off all VMs that is using Intel\ :sup:`®` QAT hardware
+
+       #. Unload driver:
+
+          .. code-block:: console
+
+             > esxcfg-module -u icp_qat_pf
+
+       #. Load driver module via next command where hb_interval is ranged from
+          500 to 5000 ms and quiesce_timeout is from 350 to 20000 ms:
+
+          .. code-block:: console
+
+             > esxcli system module parameters set -m icp_qat_pf -p "hb_interval=5000 quiesce_timeout=20000"
+
+       #. Reset device manager:
+
+          .. code-block:: console
+
+             > kill -HUP $(cat /var/run/vmware/vmkdevmgr.pid)
+
+       To reset ``hb_interval`` and ``quiesce_timeout``, just repeat all steps
+       omitting setting time values on step 3
+
+
+VQQ-122 – Intel\ :sup:`®` QAT HW doesn't support “Number of VFs” SR-IOV configuration
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - Intel\ :sup:`®` QAT HW doesn't support “Number of VFs” SR-IOV
+       configuration
+   * - **Reference**
+     - VQQ-122
+   * - **Description**
+     - If the system administrator configures the number of VFs less than the
+       total number of VFs supported by PF, the driver will fail to attach the
+       device.
+   * - **Implication**
+     - The system administrator can't configure the VF number less than the
+       total VFs.
+   * - **Resolution**
+     - Enable all VFs per endpoint. If previously smaller number was configured
+       and no VFs are available, reconfigure SR-IOV with maximum number of VFs.
+
+
+Intel\ :sup:`®` QAT HW (c6xx and 200xx QAT) doesn't support VF reset functionality
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - Intel\ :sup:`®` QAT HW (c6xx and 200xx QAT) doesn't support VF reset
+       functionality
+   * - **Reference**
+     - \-
+   * - **Description**
+     - The Intel\ :sup:`®` QAT HW (c6xx and 200xx QAT) doesn't implement the
+       SR-IOV specification section, which requires VFs to support Function
+       Level Reset (FLR)
+   * - **Implication**
+     - \-
+   * - **Resolution**
+     - ESXi PF SR-IOV driver emulates VFLR for HW which doesn't support it.
+
+Intel\ :sup:`®` QAT HW requires masking some errors in AER register due to HW limitations
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - Intel\ :sup:`®` QAT HW requires masking some errors in AER register due
+       to HW limitations
+   * - **Reference**
+     - \-
+   * - **Description**
+     - QAT HW does not process Completion Timeout, Unsupported Request, and
+       Uncorrectable Internal Errors correctly, and the associated bits should
+       be masked in the AER mask register to prevent NMI failures which may
+       lead to platform crash.
+   * - **Implication**
+     - \-
+   * - **Resolution**
+     - ESXi PF SR-IOV driver masking appropriate errors to mitigate platform
+       crashes.
+
+
+VMware ESXi may require to manually toggle passthrough for Intel\ :sup:`®` QAT VFs
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - VMware ESXi may require to manually toggle passthrough for
+       Intel\ :sup:`®` QAT VFs
+   * - **Reference**
+     -
+   * - **Description**
+     - Due to limitations in VMware ESXi 7.0 Intel\ :sup:`®` QAT VFs could be
+       not marked for passthrough and require to enable passthrough for VFs in
+       vSphere UI manually.
+   * - **Implication**
+     - System administrator need to manually toggle passthrough for VFs before
+       assigning to VMs
+   * - **Resolution**
+     - Update to 7.0 Update 1 or newer release of ESXi or follow next
+       instruction to toggle passthrough manually:
+
+       #. Connect to the target ESXi host via Web User Interface (UI)
+
+       #. In the left pane, click on Manage.
+
+       #. Choose Hardware tab.
+
+       #. Using checkboxes select Intel\ :sup:`®` Co-processor devices that have
+          Disabled passthrough state.
+
+       #. Click on Toggle passthrough button to enable passthrough for disabled
+          devices.
+
+
+VQQ-1604 - HKDF is not currently supported by some Intel\ :sup:`®` QAT HW (c6xx and 200xx QAT)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - HKDF is not currently supported by some Intel\ :sup:`®` QAT HW (c6xx
+       and 200xx QAT)
+   * - **Reference**
+     - VQQ-1604
+   * - **Description**
+     - Intel\ :sup:`®` QAT driver for VMware ESXi is using DEFAULT
+       ``ServicesProfile`` and doesn't allow user to change it. Hence some of
+       the device capabilities like HKDF support could be not available on
+       c6xx and 200xx QAT HW.
+   * - **Implication**
+     - HKDF is not currently supported.
+   * - **Resolution**
+     - No workaround is available.

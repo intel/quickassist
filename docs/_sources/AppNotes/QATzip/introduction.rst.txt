@@ -1,0 +1,97 @@
+.. _qat_2.0_qatzip_introduction:
+
+The QATzip Library
+=====================================
+
+QATzip is a user space library which builds on top of the Intel® QuickAssist Technology user space library, 
+to provide extended accelerated compression and decompression services by offloading the actual compression 
+and decompression request(s) to the Intel® Chipset Series. QATzip produces data using the standard gzip* 
+format (RFC1952) with extended headers. The data can be decompressed with a compliant gzip* implementation. 
+QATzip is designed to take full advantage of the performance provided by Intel® QuickAssist Technology.
+
+Features
+-------------------------------------
+
+- Acceleration of compression and decompression utilizing Intel® QuickAssist Technology, including a utility to compress and decompress files.
+- Dynamic memory allocation for zero copy, by exposing ``qzMalloc()`` and ``qzFree()`` allowing working buffers to be pinned, contiguous buffers that can be used for DMA operations to and from the hardware.
+- Instance over-subscription, allowing a number of threads in the same process to seamlessly share a smaller number of hardware instances.
+- Memory allocation backed by huge page and kernel memory to provide access to pinned, contiguous memory. Allocating from huge-page when kernel memory contention.
+- Configurable accelerator device sharing among processes.
+- Optional software failover for both compression and decompression services. QATzip may switch to software if there is insufficient system resources including acceleration instances or memory. This feature allows for a common software stack between server platforms that have acceleration devices and non-accelerated platforms.
+- Automatic recovery from hardware compression failure.
+- Provide streaming interface of compression and decompression to achieve better compression ratio and throughput for data sets that are submitted piecemeal.
+- ``qzip`` utility supports compression from regular file, pipeline and block device.
+- For standard GZIP format, try hardware decompression first before switch to software decompression.
+- Enable adaptive polling mechanism to save CPU usage in stress mode.
+- ``qzip`` utility supports compression files and directories into 7z format.
+
+Hardware Requirements
+-------------------------------------
+
+This QATzip library supports compression and decompression offload to the following acceleration devices:
+
+- `Intel® C62X Series Chipset <https://www.intel.com/content/www/us/en/design/products-and-solutions/processors-and-chipsets/purley/intel-xeon-scalable-processors.html>`_
+- `Intel® Communications Chipset 8925 to 8955 Series <https://www.intel.com/content/www/us/en/ethernet-products/gigabit-server-adapters/quickassist-adapter-8950-brief.html>`_
+- `Intel® Communications Chipset 8960 to 8970 Series <https://www.intel.com/content/www/us/en/ethernet-products/gigabit-server-adapters/quickassist-adapter-8960-8970-brief.html>`_
+- `Intel® C3XXX Series Chipset <https://www.intel.com/content/www/us/en/products/docs/processors/atom/c-series/c3000-family-brief.html>`_
+
+Software Requirements
+-------------------------------------
+
+The QATzip library was validated on the following:
+
+- QATzip has been tested with the latest Intel® QuickAssist Acceleration Driver. Please download the QAT driver from `Intel® QuickAssist Technology (Intel® QAT) Overview <https://www.intel.com/content/www/us/en/developer/topic-technology/open/quick-assist-technology/overview.html>`_.
+- QATzip has been tested by Intel on CentOS 7.8.2003 with kernel 3.10.0-1127.19.1.el7.x86_64.
+- Zlib* library of version 1.2.7 or higher.
+- Suggest GCC* of version 4.8.5 or higher.
+
+Additional Information
+-------------------------------------
+
+The compression level in QATzip could be mapped to standard zlib* as below:
+
+- QATzip level 1 - 4, similar to zlib* level 1 - 4.
+- QATzip level 5 - 8, we map them to QATzip level 4.
+- QATzip level 9, we will use software zlib* to compress as level 9.
+
+Limitations
+-------------------------------------
+
+- The partitioned internal chunk size of 16 KB is disabled, this chunk is used for QAT hardware DMA.
+- For stream object, user should reset the stream object by calling ``qzEndStream()`` before reuse it in the other session.
+- For stream object, user should clear stream object by calling ``qzEndStream()`` before clear session object with ``qzTeardownSession()``. Otherwise, memory leak happens.
+- For stream object, stream lenth must be smaller than *strm_buff_sz*, or QATzip would generate multiple deflate block in order and has the last block with *BFIN* set.
+- For stream object, we will optimize the performance of the pre-allocation process using a thread-local stream buffer list in a future release.
+- For 7z format, decompression only supports \*.7z archives compressed by ``qzip``.
+- For 7z format, decompression only supports software.
+- For 7z format, the header compression is not supported.
+- Stream APIs do not support *deflate_4B* compression/decompression now.
+
+QATzip API Manual
+-------------------------------------
+
+Refer to the `QATzip API Manual <https://github.com/intel/QATzip/blob/master/docs/QATzip-man.pdf>`_ available in the `QATzip library repository <https://github.com/intel/QATzip>`_.
+
+Open Issues
+-------------------------------------
+
+QATAPP-26069 Buffers allocated with qzMalloc() can't be freed after calling qzMemDestory
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+
+    +-------------+-------------------------------------------------------------------------------------------------------------------------+
+    | Title       | Buffers allocated with qzMalloc() can't be freed after calling qzMemDestory                                             |
+    +-------------+-------------------------------------------------------------------------------------------------------------------------+
+    | Reference   | QATAPP-26069                                                                                                            |
+    +-------------+-------------------------------------------------------------------------------------------------------------------------+
+    | Affected OS | Linux                                                                                                                   |
+    +-------------+-------------------------------------------------------------------------------------------------------------------------+
+    | Description | If the users call ``qzFree`` after ``qzMemDestory``, they may encounter free memory error: ``free(): invalid pointer``  |
+    +-------------+-------------------------------------------------------------------------------------------------------------------------+
+    | Implication | User use ``qzMalloc`` API to allocate continuous memory.                                                                |
+    +-------------+-------------------------------------------------------------------------------------------------------------------------+
+    | Resolution  | Ensure ``qzMemDestory`` is invoked after ``qzFree``, now we use attribute destructor to invoke ``qzMemDestory``         |
+    +-------------+-------------------------------------------------------------------------------------------------------------------------+

@@ -1,0 +1,60 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_threadlessapis:
+
+Thread-Less APIs
+================
+
+These APIs can be used when the QAT acceleration driver has been configured not to spawn threads.
+
+These APIs can be used in the user space application.
+
+icp_sal_poll_device_events
+--------------------------
+
+This reads any pending device events from ``icp_dev%d_csr`` and forwards to interested subsystems.
+
+**Syntax**
+
+``CpaStatus icp_sal_poll_device_events(void);``
+
+**Parameters**
+
+None
+
+**Return Value**
+
+The ``icp_sal_poll_device_events`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successful operation.                                                                  |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates a failure.                                                                   |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+icp_sal_find_new_devices
+------------------------
+
+This tries to connect to any available devices that the kernel driver has brought up and initialized for use in user space process.
+
+**Syntax**
+
+``CpaStatus icp_sal_find_new_devices(void);``
+
+**Parameters**
+
+None
+
+**Return Value**
+
+The ``icp_sal_find_new_devices`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successful operation.                                                                  |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates a failure.                                                                   |
+   +------------------------------+----------------------------------------------------------------------------------------+

@@ -1,0 +1,5 @@
+Sample Configuration Files
+==========================
+
+Sample configuration files are available in ``quickassist/utilities/adf_ctl/conf_files``. Depending on the product and configuration, one or more of 
+these will be copied to ``/etc`` during the package installation.

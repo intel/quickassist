@@ -1,0 +1,318 @@
+.. _qat_2.0_virtualization_deployment_guide_system_configuration:
+
+System Configuration
+====================
+
+Installing Intel QAT on the Host
+--------------------------------
+
+.. note::
+    
+    For complete installation instructions refer to the :doc:`Getting Started Guide </GSG/GSG2/index>`.
+
+Assuming the Intel QAT package dependencies are met, the following steps can be performed to install the Intel QAT driver:
+
+#. **Obtain** the official released Intel QAT package: `Intel® QuickAssist Technology Driver for Linux* – HW Version 2.0 <https://www.intel.com/content/www/us/en/download/765501>`_
+
+#. **Configure** the Intel QAT driver to enable the *SR-IOV* feature on the host using the following command:
+
+    .. code-block:: console
+        
+        ./configure --enable-icp-sriov=host
+    
+    .. note:: This is required for both *SR-IOV* and *sIOV*.
+
+#. **Install** the Intel QAT software using the following command:
+
+    .. code-block:: console
+        
+        make -j install
+
+#. **Verify** the Virtual Functions (VF) have been started using the following command:
+
+    .. code-block:: console
+        
+        service qat_service status
+
+    .. note::
+
+        For Intel QAT 2.0 devices, the Physical Function (PF) device ID is ``4940`` and the Virtual Function (VF) device ID is ``4941``.
+
+.. ......................................................................... ..
+.. ......................................................................... .. 
+.. . VIDEO: Remove this part to generate the PDF version of this document. . ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+Software Installation on the Host Demo
+++++++++++++++++++++++++++++++++++++++
+
+Here is a demonstration of how to install the Intel QAT software package on the host.
+
+.. video:: ../_static/video/virt/compile.mp4
+    :width: 500
+    :height: 300
+
+|
+
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+Setting Up sIOV
+---------------
+
+.. note:: 
+    
+    If *sIOV* is required rather than *SR-IOV*, the PF configuration files under ``/etc/`` need to be modified. Detailed steps are listed below.
+
+#. **Modify** the PF configuration file to enable *sIOV*.
+
+    .. code-block:: console
+        
+        vim /etc/4xxx_dev0.conf
+
+    The configuration file for the *sIOV* section looks like the example below. By default, ``NumberAdis`` is set to ``0`` which disables *sIOV*. This value needs to be modifed to a value within the range ``[1,64]``. This needs to be done for **each** Intel QAT endpoint that *sIOV* is required.
+
+    .. figure:: ../../img/configure_sIOV.png
+        :width: 4.36in
+        :height: 1.1in
+
+#. **Restart** the Intel QAT driver to enable the new configuration by running the following command:
+
+    .. code-block:: console
+        
+        service qat_service restart
+
+    .. important:: 
+        
+        Enabling *sIOV* and *SR-IOV* on a per device basis is mutually exclusive. By setting different values of ``NumberAdis`` in the device configuration file, you can enable *sIOV* on ``qat_dev0`` and enable *SR-IOV* on other devices at same time.
+
+#. **Verify** *sIOV* is enabled on the device using the ``vqat_ctl`` utility. Refer to the section :ref:`Using the vqat_ctl utility <qat_2.0_virt_vqat_ctl_utility>` for more details.
+
+.. _qat_2.0_virt_vqat_ctl_utility:
+
+Using the vqat_ctl utility
+++++++++++++++++++++++++++++
+
+The ``vqat_ctl`` utility returns the available ``sym``, ``asym`` or ``dc`` ADI resources on the PFs. If *sIOV* is not enabled, available ``sym``, ``asym`` or ``dc`` will return ``0``. For devices that have already enabled *sIOV*, you can create the required vdev/vqat devices. 
+
+.. note:: 
+    
+    - In the example output below ``NumberAdis`` is set to ``4`` and ``ServicesEnabled`` is set to ``sym;dc`` in the ``/etc/4xxx_dev0.conf`` configuration file.
+    - The ``vqat_ctl`` utility is located in the ``$ICP_ROOT/build`` folder where ``$ICP_ROOT`` is the directory where the Intel QAT package was extracted.
+
+The command to return the available ADI resources (``sym``, ``asym`` or ``dc``) is the following:
+
+    .. code-block:: console
+        
+        ./build/vqat_ctl show
+
+    .. figure:: ../../img/vqat_ctl_show.png
+        :width: 5.80289in
+        :height: 1.91693in
+
+The ``-help`` parameter can be used to return usage instructions:
+
+    .. code-block:: console
+        
+        ./build/vqat_ctl -help
+
+    .. figure:: ../../img/vqat_ctl_help.png
+        :width: 4.50063in
+        :height: 2.33366in
+
+The following example will create 1 VQAT for ``sym`` and 1 VQAT for ``dc`` on the first Intel QAT endpoint.
+
+#. **Create** ``sym`` VQAT:
+
+    .. code-block:: console
+        
+        ./build/vqat_ctl create 0000:6b:00.0 sym
+
+    .. figure:: ../../img/vqat_ctl_create_sym.png
+        :width: 6.18836in
+        :height: 0.44798in
+ 
+#. **Create** ``dc`` VQAT:
+
+    .. code-block:: console
+        
+        ./build/vqat_ctl create 0000:6b:00.0 dc
+
+    .. figure:: ../../img/vqat_ctl_create_dc.png
+        :width: 5.95916in
+        :height: 0.33338in
+ 
+#. **Display** the VQAT devices that were created:
+
+    .. code-block:: console
+        
+        ./build/vqat_ctl show
+
+    .. figure:: ../../img/vqat_ctl_show2.png
+        :width: 5.38617in
+        :height: 2.17739in
+
+Passing-through the VF/VQAT to the Guest
+----------------------------------------
+
+.. note::
+    
+    When using ``libvirt``, both *sIOV* VQATs or SR-IOV VFs are attached to a guest OS using a xml configuration file. However, 
+    the addressing scheme of both differ because VQATs are identified using UUIDs, while VFs use PCIe BDF (``Bus:Device.Function``) numbering.
+
+SR-IOV VF Configuration
++++++++++++++++++++++++
+
+.. note:: 
+    
+    ``virt-manager`` GUI can be used to pass-through to the guest. The following steps utilize the ``libvirt`` command line utility to accomplish the same.
+
+#. **Create** the VF device file needed.
+
+    .. code-block:: console
+        
+        vi VF1.xml
+        
+    Contents of the file should look like the following. The BDF on the ``<address bus=...>`` line will need to be updated for each VF to be mapped:
+
+        .. code-block:: xml
+
+            <?xml version="1.0" encoding="UTF-8"?>
+            <hostdev managed="yes" mode="subsystem" type="pci">
+                <source>
+                <address bus="0xe9" domain="0x0000" function="0x1" slot="0x00"/>
+                </source>
+            </hostdev>
+   
+    .. note:: Repeat this process for additional VFs (either in the same file or separate files).
+
+#. **Assign** the VF to the guest Virtual Machine (VM).
+
+    The following command removes the VF from the host and attaches the VF to the guest named ``$VM_NAME``:
+
+        .. code-block:: console
+
+            virsh nodedev-dettach pci_0000_e9_00_1
+            virsh attach-device {$VM_NAME} VF1.xml
+
+#. **Remove** the VF from the guest VM.
+
+    The following commands can be used to remove the VF from the guest named ``$VM_NAME`` and re-attaches the VF to the host:
+
+        .. code-block:: console
+
+            virsh detach-device {$VM_NAME} VF1.xml
+            virsh nodedev-reattach pci_0000_e9_00_1
+
+sIOV VQAT Configuration
++++++++++++++++++++++++
+
+#. **Create** the VQAT device file needed.
+
+    .. code-block:: console
+
+        touch dev1.xml
+
+    The ``uuid`` used below is created by ``vqat_ctl``. The command ``vqat_ctl show`` can be used to return the VQATs and their UUIDs. Contents of the file 
+    should look like the following:
+
+        .. code-block:: xml
+            
+            <?xml version="1.0" encoding="UTF-8"?>
+            <hostdev mode='subsystem' type='mdev' model='vfio-pci'>
+                <source>
+                <address uuid='679fdae3-1930-4815-8896-220bfc5354b5'/>
+                </source>
+            </hostdev>
+
+   .. note:: 
+    
+        - The ``uuid`` in the file above can be seen with the ``vqat_ctl show`` command.
+        - Repeat this step for each additional VQAT that needs to be mapped. This can be done in the same file or a separate files.
+
+#. **Assign** the VQAT to the guest Virtual Machine (VM).
+
+    .. important ::
+        
+        Currently, VQAT doesn't support hot plug-in, so when the VM configuration file changes, the guest OS needs to be restarted.
+
+    The following commands attach the VQAT devices to the guest named  ``$VM_NAME`` and restart the guest:
+
+        .. code-block:: console
+
+            virsh attach-device {$VM_NAME} dev1.xml --config
+            virsh shutdown {$VM_NAME}
+            virsh start {$VM_NAME}
+
+#. **Remove** the VQAT from the guest VM.
+
+    The following commands remove the specified VQAT device from the guest named ``$VM_NAME`` and restart the guest:
+
+        .. code-block:: console
+
+            virsh detach-device {$VM_NAME} dev1.xml --config
+            virsh shutdown {$VM_NAME}
+            virsh start {$VM_NAME}
+
+Installing Intel QAT on the Guest
+---------------------------------
+
+#. **Verify** the Intel QAT devices are assigned.
+   
+    If *SRIOV* is utilized:
+
+        .. code-block:: console
+            
+            lspci -vnd:4941 
+
+    If *sIOV* is utilized:
+
+        .. note:: VQATs share the same device ID in guest. They can be distinguished with the subsystem ID ``SDevice``.
+   
+        - This command returns the **symmetric** VQAT devices:
+
+            .. code-block:: console
+
+                lspci -v -d 8086:0da5 -vmm \| grep -E 'SDevice \| 0000' 
+
+        - This command returns the **asymmetric** VQAT devices:
+
+            .. code-block:: console
+
+                lspci -v -d 8086:0da5 -vmm \| grep -E 'SDevice \| 0001' 
+
+        - This command returns the **data compression** VQAT devices:
+
+            .. code-block:: console
+
+                lspci -v -d 8086:0da5 -vmm \| grep -E 'SDevice \| 0002'
+
+#. **Obtain** the official released Intel QAT package: `Intel® QuickAssist Technology Driver for Linux* – HW Version 2.0 <https://www.intel.com/content/www/us/en/download/765501>`_
+
+#. **Configure** the Intel QAT driver to enable the *SR-IOV* feature on the guest using the following command:
+
+    .. code-block:: console
+
+        ./configure --enable-icp-sriov=guest
+
+    .. note:: This is required for both *SR-IOV* and *sIOV*.
+
+#. **Install** the Intel QAT software and sample codes using the following commands:
+
+    .. code-block:: console
+        
+        make -j install
+        make samples-install
+
+#. **Verify** the Intel QAT software stack has been installed by running the performance sample code:
+
+    .. code-block:: console
+        
+        cpa_sample_code signOfLife=1 runTests=1|2|4|8|16|32
+
+    ..  note:: 
+        
+        Refer to :ref:`Getting Started Guide<qat_2.0_gsg_sample_code_parameters>` for details on the ``runTests`` parameter.

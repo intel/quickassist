@@ -1,0 +1,141 @@
+Sample Code
+===========
+
+Default Configuration Files(4xxx devices only)
+----------------------------------------------
+
+.. note:: This section is only relevent when running on systems that contain the 4xxx devices.
+
+By default, the QAT configuration files enable symmetric crypto and data compression services. If asymmetric crypto is 
+desired, the service must be enabled in the QAT configuration file. The QAT configuration files are included in ``/etc`` folder and are 
+named ``4xxx_dev<x>.conf`` where ``x`` is the device number.
+
+In this file, **replace** the line:
+
+.. code-block:: text
+    
+    ServicesEnabled = sym;dc
+
+With:
+
+.. code-block:: text
+    
+    ServicesEnabled = asym;dc
+
+User Space Performance Sample Code
+----------------------------------
+
+#. Build the performance sample code application kernel module using the
+   following:
+
+    .. code-block:: bash
+
+        cd /root/QAT/
+        gmake samples-install
+
+#. Application can be run as follows:
+
+    Sign-of-Life tests
+
+    .. code-block:: bash
+
+        cpa_sample_code signOfLife=1
+
+    Complete test run
+
+    .. code-block:: bash
+
+        cpa_sample_code
+        
+    For complete list of command line options available refer to the :ref:`Getting Started Guide<qat_2.0_gsg_sample_code_parameters>`.
+
+Kernel Space Performance Sample Code
+------------------------------------
+
+#. Build the performance sample code application kernel module using the
+   following:
+
+.. note:: The output of the performance test is available in system message buffer.
+    It could be traced in real time by using separate console with ``tail
+    -F /var/log/messages`` or by ``dmesg`` tool after test execution.
+
+    .. code-block:: bash
+
+        cd /root/QAT/
+        gmake samples-install
+
+#. Execute kernel space performance sample code:
+
+    Sign-of-Life tests
+
+    .. code-block:: bash
+        
+        kenv cpa_sample_code.runTests=32
+        kenv cpa_sample_code.signOfLife=1
+        kldload ./build/cpa_sample_code.ko
+        kldunload cpa_sample_code.ko
+
+   Full performance application run:
+
+    .. code-block:: bash
+
+        kenv cpa_sample_code.runTests=32
+        kenv cpa_sample_code.signOfLife=0
+        kldload ./build/cpa_sample_code.ko
+        kldunload cpa_sample_code.ko
+
+
+.. note:: The performance tests are run during module load. The console
+    prompt will be back once tests finishes.
+
+Functional Sample Applications in User Space
+--------------------------------------------
+
+The acceleration driver package includes a number of functional sample applications.
+
+These applications can be built using these steps:
+
+    .. code-block:: bash
+
+        cd /root/QAT
+        export ICP_ROOT=`pwd\`
+        export ICP_OS=freebsd
+        export WITH_CMDRV=1
+        cd ./quickassist/lookaside/access_layer/src/sample_code/
+        gmake func
+
+The functional applications are built and placed in the
+``./functional/build`` directory. 
+
+Here is an example of how to run the functional sample applications:
+
+    .. code-block:: bash
+
+        cd ./functional/build
+        ./eddsa_sample
+
+Functional Data Compression Data Plane Sample Application in Kernel Space
+-------------------------------------------------------------------------
+
+The application can be built using these steps:
+
+   .. code-block:: bash
+
+        cd /root/QAT
+        export ICP_ROOT=`pwd\`
+        export ICP_OS=freebsd
+        export ICP_ENV_DIR=${ICP_ROOT}/quickassist/build_system/build_files/env_files/
+        cd ./quickassist/lookaside/access_layer/src/sample_code/functional/dc/dc_dp_sample
+        make
+
+The application can be executed using this step:
+
+    .. code-block:: bash
+        
+        kldload ./dc_dp_sample.ko
+
+The sample output is available in system message buffer.
+
+.. note:: Please ignore module load error. It is by design to unload module
+    automatically immediately after test execution.
+

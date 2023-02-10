@@ -1,0 +1,82 @@
+.. _qat_2.0_pg_infrastructure_debugability:
+
+Debugability
+============
+
+Overview of Intel\ :sup:`®` QAT debugfs entries
+-----------------------------------------------
+
+Some useful debugging information for the driver and configuration is available via the Linux debugfs file system, with the entries ``/sys/kernel/debug/qat_*`` and  ``/sys/kernel/debug/qae_mem_dbg/qae_mem_slabs`` .
+
+.. todo:: add: links
+.. For more information, see Chapter 8: Black Box Debug Tool or the Intel® QuickAssist Technology Debugging Guide .
+
+Entries in /sys/kernel/debug/qat_*
+++++++++++++++++++++++++++++++++++
+
+This includes:
+
+.. table:: Intel® QuickAssist Technology /sys/kernel/debug Entries
+
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+   | **Entry**                                                | **Description**                                                                                                                                    | **Supported Platforms**  |
+   +==========================================================+====================================================================================================================================================+==========================+
+   | ``cnv_errors``                                           | Indicates number of *compressAndVerify* errors. Refer to :ref:`Compress and Verify Error log in Sysfs <compress_verify_error_sysfs>`.              | All                      |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+   | ``dev_cfg``                                              | Displays internal device configuration information.                                                                                                | All                      |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+   | ``frequency``                                            | Displays frequency of Acceleration Engines.                                                                                                        | All                      |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+   | ``fw_counters``                                          | Displays Acceleration Engine firmware requests/responses.                                                                                          | All                      |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+   | ``heartbeat``, ``heartbeat_failed``, ``heartbeat_sent``  | Refer to :ref:`System Virtual Files <system_virtual_files>`.                                                                                       | All                      |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+   | ``pm_status``                                            | Displays power management status.  Refer to :ref:`Power Management <pm_status>` for additional information.                                        | QAT 2.0                  |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+   | ``transport``                                            | Contains firmware request/response data. Available only for kernel space instances.                                                                | All                      |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+   | ``version``                                              | Includes package version information.                                                                                                              | All                      |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+  
+   | ``vqat``                                                 | Contains sIOV Virtual QAT device details. Refer to :ref:`Scalable IOV <scalable_iov>` for additional information.                                  | QAT 2.0                  |
+   +----------------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------+--------------------------+
+
+
+Memory driver queries ( qae_mem_slabs ) 
++++++++++++++++++++++++++++++++++++++++
+
+Debug features are also available by reading and writing the file ``/sys/kernel/debug/qae_mem_dbg/qae_mem_slabs`` . When *reading* the virtual/physical ``address``, ``size`` and ``slab id`` together with the ``pid`` of the allocating process are shown. *Writing* a string to the file will start executing debug commands.
+
+For example:
+
+.. code-block:: bash
+
+   # cat /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs
+   Pid 78854, Slab Id 10550771712
+   Virtual address 000000000b39412d, Physical Address 274e00000, Size 2097152
+   Pid 78854, Slab Id 10309599232
+   Virtual address 000000003670dd45, Physical Address 266800000, Size 2097152
+   ...
+
+There are three commands supported, and the below table shows their output:
+
+.. table:: Read/Write to /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs
+
++---------------------------------------------------------+------------------------------------------------------+
+|                   Writing these strings…                |       …will output this when the file is read:       |
++=========================================================+======================================================+
+| d <pid> <virtual or physical address>                   | The 256 byte in hex and ascii from the start address |
++---------------------------------------------------------+------------------------------------------------------+
+| "c <pid> <slab id>" (pid should be the process id that  | The allocation bit map for the given slab identifier |
+| can be obtained by a previous read)                     |                                                      |
++---------------------------------------------------------+------------------------------------------------------+
+| “t”                                                     | Total size of NUMA memory allocated in kernel space  |
++---------------------------------------------------------+------------------------------------------------------+
+
+For example, by combining a write to the file and a subsequent read, you can see the total allocated NUMA memory, e.g.:
+
+.. code-block:: bash
+
+   # echo "t" > /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs ; cat /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs
+   Total allocated NUMA memory: 142606336 bytes
+ 
+As above, the “d” and “c” commands will output their respective information. 

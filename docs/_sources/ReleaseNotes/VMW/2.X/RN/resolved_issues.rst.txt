@@ -1,0 +1,6 @@
+.. _qat_2.0_rn_vmware_resolvedissues:
+
+Resolved Issues
+---------------
+
+No bug fixes in this release.

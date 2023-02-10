@@ -1,0 +1,17 @@
+.. _qat_vmw_1.x_rn_installation: ..
+
+Installation and Testing
+========================
+
+Please refer to the following documents for information on how to install the
+release and verify it on your system.
+
+For instructions on loading and running the release software, refer to the
+``README.txt`` file in the released software package, getting started guide
+and guest driver documentation (refer to the
+:ref:`Additional Resources <additional_resources>` section).
+
+``README.txt``: This file contain information on how to install, uninstall
+driver on VMware ESXi*, configure SR-IOV and device services. For instructions
+on how to install the driver in the Guest OS please refer to corresponding
+guest driver's collaterals.

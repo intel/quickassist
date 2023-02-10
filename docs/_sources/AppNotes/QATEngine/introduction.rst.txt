@@ -1,0 +1,166 @@
+.. _qat_2.0_qatengine_introduction:
+
+The Intel® QAT OpenSSL* Engine
+=====================================
+
+Intel® QuickAssist Technology OpenSSL* Engine (QAT_Engine) supports acceleration for both hardware as well as optimized software 
+based on vectorized instructions. This change starting with the `3rd Generation Intel® Xeon® Scalable Processors family <https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html>`_ 
+provides users more options to accelerate their workloads. The Intel® QAT OpenSSL* Engine now supports the ability to accelerate from the 
+stand OpenSSL* to basic Intel instruction set, to either hardware acceleration path ``qat_hw``, or via the 
+optimized software path ``qat_sw``. This document details the capabilities and interfaces for both internal libraries 
+which maintaining the cohesiveness of being all packaged up with the Intel® QAT OpenSSL* Engine.
+
+The image below illustrates the high-level software architecture of the Intel® QAT OpenSSL* Engine. Applications such as *NGINX* and *HAProxy* 
+are common applications which interfaces to OpenSSL*. OpenSSL* is a toolkit for TLS/SSL protocols and has developed a modular 
+system to plugin device-specific engines starting with version 1.1.0. As mentioned above, within the Intel® QAT OpenSSL* Engine are two 
+separate internal entities by which acceleration can be performed. Depending on your particular use case, the Intel® QAT OpenSSL* Engine 
+can be configured to meet your specific acceleration needs. This document details the capabilities of the Intel® QAT OpenSSL* Engine as well 
+as the limitations. Both the hardware and software requirements are explained followed by detailed instructions on how to 
+install Intel® QAT OpenSSL* Engine. If you have any issues integrating the Intel® QAT OpenSSL* Engine, we have added a troubleshooting section too.
+
+.. figure:: img/qat_engine.png
+    :width: 508px
+    :height: 452px
+
+Features
+------------------------------------
+
+Hardware Acceleration (QAT_HW)
++++++++++++++++++++++++++++++++++++
+
+*  Synchronous and :ref:`Asynchronous <qat_2.0_qatengine_features_asynchronous_mode>` operation.
+*  Asymmetric PKE acceleration:
+
+    *  RSA support for Key Sizes 1024/2048/4096.
+    *  DH support for Key Sizes 768/1024/1536/2048/3072/4096.
+    *  DSA support for Key Sizes 160/1024, 224/2048, 256/2048, 256/3072.
+    *  ECDH support for the following curves:
+
+        *  NIST Prime Curves: P-192/P-224/P-256/P-384/P-521.
+        *  NIST Binary Curves: B-163/B-233/B-283/B-409/B-571.
+        *  NIST Koblitz Curves: K-163/K-233/K-283/K-409/K-571.
+        *  Montgomery EC Curves: X25519/X448 (ECX).
+
+    *  ECDSA support for the following curves:
+
+        *  NIST Prime Curves: P-192/P-224/P-256/P-384/P-521.
+        *  NIST Binary Curves: B-163/B-233/B-283/B-409/B-571.
+        *  NIST Koblitz Curves: K-163/K-233/K-283/K-409/K-571.
+
+*  Symmetric Chained Cipher acceleration with pipelining capability:
+
+    *  AES128-CBC-HMAC-SHA1/AES256-CBC-HMAC-SHA1.
+    *  AES128-CBC-HMAC-SHA256/AES256-CBC-HMAC-SHA256.
+
+*  Pseudo Random Function (PRF) acceleration.
+*  :ref:`HMAC Key Derivation Function (HKDF) acceleration <qat_2.0_qatengine_features_HKDF_support>`.
+*  :ref:`Pipelined operations <qat_2.0_qatengine_features_pipelining_capability>`.
+*  :ref:`Intel® QAT OpenSSL* Engine Software Fallback <qat_2.0_qatengine_features_software_fallback_feature>`.
+*  RSA8K, SHA3-224/256/384/512 and ChaCha20-Poly1305 using 4xxx (Intel QAT gen4 devices) only.
+
+.. _qat_2.0_qatengine_qat_sw_features:
+
+Software Acceleration (QAT_SW)
++++++++++++++++++++++++++++++++++++
+
+* :ref:`Intel® QAT Software Acceleration for Asymmetric PKE and AES-GCM <qat_2.0_qatengine_features_asymmetric_pke_aes-gcm>`:
+
+    * RSA support for key size 2048, 3072, 4096
+    * ECDH support for the following curves:
+
+        * Montgomery EC Curve: X25519
+        * NIST Prime Curves: P-256/P-384
+        * SM2
+
+    * ECDSA support for the following curves:
+
+        * NIST Prime Curves: P-256/P-384
+        * SM2
+
+    * SM3 hash support using 16 multibuffer requests (experimental).
+    * AES128-GCM, AES192-GCM and AES256-GCM
+
+Additional Features
++++++++++++++++++++++++++++++++++++
+
+* :ref:`qat_2.0_qatengine_features_co-existene_feature`
+* :ref:`qat_2.0_qatengine_features_openssl_3.0_support`
+
+.. note:: 
+    RSA padding schemes are handled by OpenSSL* rather than accelerated, so the engine supports the same padding schemes as OpenSSL does natively.
+
+Limitations
+------------------------------------
+
+* When forking within an application it is not valid for a cryptographic operation to be started in the parent process, and completed in the child process.
+* Only one level of forking is permitted, if a child process forks again then the Intel® QAT OpenSSL* Engine will not be available in that forked process.
+* Event driven mode of polling operation is not supported in the FreeBSD Operating System or in the qatlib RPM.
+* *qat_contig_mem* memory driver is not supported when running under FreeBSD Operating System or in the qatlib RPM. The default is to use the USDM memory driver supplied as part of the Intel® QAT driver.
+* Support for cipher AES-128-CBC-HMAC-SHA1 and its related ciphers was broken in release OpenSSL* 1.1.1d. This was later fixed in OpenSSL* 1.1.1e release.
+* X25519/X448 support is available only from version 4.9 of the Intel® QAT driver for Linux. Use ``--disable-qat_hw_ecx`` in the Intel® QAT OpenSSL* Engine configure when building against earlier versions of the Linux driver.
+* Support for ``qaeMemFreeNonZeroNUMA()`` USDM API is available only from version 4.10 of the Intel® QAT driver for Linux. Use ``--with-cc-opt="-DQAT_HW_DISABLE_NONZERO_MEMFREE"`` in the Intel® QAT OpenSSL* Engine configuration when building against earlier versions of the Linux driver.
+* Support for *QAT_HW ECX*, *QAT_SW ECX*, *QAT_HW PRF* and *QAT_HW HKDF* is disabled when built against OpenSSL 3.0 engine interface due to known issues, instead it uses non-accelerated implementation from OpenSSL.
+* There is known performance scaling issue (performance drop with threads >32) with ECDSA Ciphers in the QAT Software Acceleration using multithread mode in the HAProxy application. This issue is not observed when using RSA ciphers or in multi-process mode.
+* There is an issue in *sshd daemon* application when using Intel QAT for default OpenSSL. Sshd looks to be closing the file descriptors associated with Intel® QAT OpenSSL* Engine and Intel® QAT driver after initialising OpenSSL. Work around in sshd which comments out the ``closefrom()`` calls is needed to unblock the issue.
+* SM2 ECDH and ECDSA application testing is done using *BabaSSL* only since OpenSSL doesn't support SMx cipher suites.
+* SM3 is disabled by default due to known issue from *cryto_mb*. When SM3 enabled, performance drop observed in mulithread scenario for all ciphers suites due to the locks at ``engine_table_select`` in OpenSSL.
+* OpenSSL 1.1.1n introduced misleading error message: ``undefined symbol: EVP_PKEY_get_base_id``, during engine load which can be ignored as it is not a real failure. This is later fixed in OpenSSL* 1.1.1o release.
+* AES-CBC-HMAC-SHA chained ciphers does not support pipeline feature when built with OpenSSL 3.0 as the corresponding support is not available in OpenSSL 3.0.
+* There is a known issue with *OpenSSL s_server* application using *qatprovider* on OpenSSL 3.0.
+
+Requirements
+------------------------------------
+
+Hardware Requirements
++++++++++++++++++++++++++++++++++++
+
+Hardware Acceleration (QAT_HW)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+This Intel® QAT OpenSSL* Engine supports crypto hardware acceleration to the following acceleration devices:
+
+    * `Intel® Xeon® with Intel® C62X Series Chipset <https://www.intel.com/content/www/us/en/design/products-and-solutions/processors-and-chipsets/purley/intel-xeon-scalable-processors.html>`_ 
+    * `Intel® Atom™ Processor C3000 <https://www.intel.com/content/www/us/en/design/products-and-solutions/processors-and-chipsets/denverton/ns/atom-processor-c3000-series.html>`_ 
+    * `Intel® Communications Chipset 8925 to 8955 Series <https://www.intel.com/content/www/us/en/ethernet-products/gigabit-server-adapters/quickassist-adapter-8950-brief.html>`_ 
+
+Software Acceleration (QAT_SW)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The :ref:`Software Acceleration (QAT_SW) features <qat_2.0_qatengine_qat_sw_features>` are only supported in the platforms starting with `3rd Generation Intel® Xeon® Scalable Processors family <https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html>`_.
+
+.. _qat_2.0_qatengine_sw_requirements:
+
+Software Requirements
++++++++++++++++++++++++++++++++++++
+
+Hardware Acceleration (QAT_HW)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Successful operation of Hardware Acceleration (QAT_HW) requires a software tool chain that supports OpenSSL* 1.1.1 or OpenSSL* 3.0 and 
+Intel® QAT driver for Linux or Intel® QAT driver for FreeBSD. This release was validated on the following:
+
+    * Operating system: CentOS* 7.4 64-bit version & FreeBSD* 11.4 64-bit version.
+    * Kernel: GNU*/Linux* 3.10.0-693.
+    * Intel® Communications Chipset C62X Series Software for Linux*, version 4.18.
+    * Intel® Communications Chipset C62X Series Software for FreeBSD*, version 3.12.
+    * OpenSSL* 1.1.1o & 3.0.3.
+
+.. _qat_2.0_qatengine_qat_sw_requirements:
+
+Software Acceleration (QAT_SW)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Successful operation of the Software Acceleration (QAT_SW) requires a software tool chain that supports OpenSSL* 1.1.1 or OpenSSL* 3.0 and 
+Intel® Crypto Multi-buffer library (for Asymmetric PKE) cloned from the `ipp-crypto <https://github.com/intel/ipp-crypto>`_ repo. The *crypto_mb* library needs to be installed using 
+the instructions from the `Crypto Multi-buffer Library <https://github.com/intel/ipp-crypto/tree/develop/sources/ippcp/crypto_mb>`_ Readme.
+
+For QAT_SW AES-GCM, prequisite is to have Intel® Multi-Buffer crypto for IPsec Library cloned from the `intel-ipsec-mb <https://github.com/intel/intel-ipsec-mb>`_  repo 
+and installed using the instructions from the *intel-ipsec-mb* README. Intel® QAT OpenSSL* Engine supports QAT_SW AES-GCM from OpenSSL* 1.1.1d.
+
+This release was validated on the following:
+
+    * Operating system: Ubuntu 20.04.2 LTS.
+    * Kernel: 5.4.0-62-generic.
+    * Intel® Crypto Multi-buffer library from the `ipp-crypto <https://github.com/intel/ipp-crypto>`_ release version IPP Crypto 2021.5.
+    * Intel® Multi-Buffer crypto for IPsec Library release version v1.2.
+    * OpenSSL* 1.1.1o & 3.0.3.

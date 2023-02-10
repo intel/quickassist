@@ -1,0 +1,445 @@
+.. _qat_2.0_gsg_installation:
+
+Software Installation
+=====================
+
+This section provides details on building and installing the software.  
+
+.. note::
+    
+    This document describes the steps required to install the out-of-tree acceleration software package. For details on installing the upstreamed acceleration software, refer to the `installation <https://github.com/intel/qatlib/blob/main/INSTALL>`_ and `readme <https://github.com/intel/qatlib/blob/main/README.md>`_ instructions at the `Intel QuickAssist Technology Library (QATlib) <https://github.com/intel/qatlib>`_ repository.
+
+Installation Overview
+---------------------
+
+The installation procedure handles a number of tasks that would otherwise have to be done manually, including the following:
+
+-  Create the kernel module files and copy them the appropriate directory (e.g. ``/usr/lib/modules/KERN_VERSION/kernel/drivers/crypto`` )
+-  Create the shared object (.so) files by building the source code.
+-  Copy the shared object (.so) files to the right directory (e.g., ``/lib`` or ``/lib64``).
+-  Build ``adf_ctl`` and copy it to the right directories (``$ICP_ROOT/build`` and ``/usr/sbin``).
+-  Copy the config files to ``/etc``.
+-  Copy the firmware files to ``/lib/firmware``.
+-  Copy the modules to the appropriate kernel source directory for loading by ``qat_service``.
+-  Start the ``qat_service``, which inserts the appropriate modules as required and runs ``adf_ctl`` to bring up the devices.
+-  Set up the ``qat_service`` to run on future boots (copy to ``/etc/init.d``, run ``chkconfig`` to add the service).
+
+Unpacking the Software
+----------------------
+
+The software package comes in the form of a tarball. 
+
+.. note:: 
+
+    * The instructions in this document assume that you have super user privileges.
+    * In this document, the working directory is assumed to be ``/QAT``. This directory is the ``ICP_ROOT``.
+
+#. **Create** a working directory for the software. This directory can be user defined, but for the purposes of this document, a recommendation is provided.
+
+    .. code-block:: console
+
+        export ICP_ROOT=/QAT
+        mkdir -p $ICP_ROOT    
+        cd $ICP_ROOT
+
+#. **Transfer** the tarball to the system in the ``$ICP_ROOT`` directory. **Unpack** the tarball using the following command:
+
+    .. code-block:: console
+
+        tar -zxof QAT20.L.*.tar.gz
+
+#. Restricting access to the files is recommended.
+
+    .. code-block:: console
+
+        chmod -R o-rwx *
+
+Configure Acceleration Software
+-------------------------------
+
+.. note:: 
+
+    * If installing the acceleration software for use in a virtual environment refer to the :ref:`Virtualization Deployment Guide <virtualization_deployment_guide>` for additional details.
+    * The ``./configure`` script handles many options that may be of interest. For instance, there is a wide range of possible configurations, including build or install virtualization support (host or guest) or no virtualization support. Some build options may need to be passed as a parameter to the ``./configure`` script before proceeding with the installation. A complete list of configuration options is available in :ref:`qat_2.0_gsg_configuration_options`.
+
+#.  **Prepare** the package installation by checking the prerequisites and configuring the build options by running a script using the following command:
+
+    .. code-block:: console
+
+        ./configure
+    
+    A welcome message is displayed, followed by the configured build options. Successfull configuration will look similar to the following:
+
+    .. code-block:: text
+
+        checking for a BSD-compatible install... /usr/bin/install -c
+        checking whether build environment is sane... yes
+        checking for a thread-safe mkdir -p... /usr/bin/mkdir -p
+        checking for gawk... gawk
+        ...
+        checking for kernel sources... yes
+        checking that generated files are newer than configure... done
+        configure: creating ./config.status
+        config.status: creating Makefile
+        config.status: creating config.h
+        config.status: executing depfiles commands
+
+        ============================================================================
+        Type make followed by make install to build QAT with the following options
+        ============================================================================
+            USE_HARD_CODED_PRIMES [0]
+            ICP_ARCH_USER [x86_64]
+            ICP_BUILDSYSTEM_PATH [/root/QAT/quickassist/build_system]
+            ICP_BUILD_OUTPUT [/root/QAT/build]
+            ICP_ENV_DIR [/root/QAT/quickassist/build_system/build_files/env_files]
+            ICP_TOOLS_TARGET [accelcomp]
+            MAX_MR [50]
+            KERNEL_SOURCE_ROOT [/lib/modules/4.18.0-193.el8.x86_64/build]
+            ICP_DEBUG [false]
+            QAT_UIO [false]
+            ICP_PARAM_CHECK [false]
+            ICP_DC_DYN_NOT_SUPPORTED [false]
+            DISABLE_STATS [false]
+            DRBG_POLL_AND_WAIT [false]
+            ICP_LOG_SYSLOG [false]
+            ICP_NONBLOCKING_PARTIALS_PERFORM [false]
+            ICP_TRACE [false]
+            ICP_DC_ONLY [false]
+            ICP_DC_RETURN_COUNTERS_ON_ERROR [false]
+            ICP_DISABLE_INLINE [false]
+            INLINE [false]
+        ============================================================================
+
+.. _qat_2.0_gsg_dependencies:
+
+Dependencies
+++++++++++++
+
+Dependencies are required, see configure output. ``yasm``, for example, may need to be manually downloaded and installed via https://yasm.tortall.net/Download.html . (``wget`` latest URL or http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz ; ``tar -zxvf yasm-1.3.0.tar.gz`` , ``cd yasm-1.3.0/`` , ``./configure``, ``make && make install`` . Then return to QAT configure/install commands.
+
+.. _qat_2.0_gsg_configuration_options:
+
+Configuration Options
++++++++++++++++++++++
+
+A complete list of compile flags and build parameters can also be obtained by executing the following command in the shell:
+
+.. code-block:: console
+
+    ./configure --help
+
+.. note::
+
+    Compiler flags to produce safer binaries are enabled by default.
+
+.. table:: Compile Flag Options
+    :widths: 50, 50
+
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | **Compile Flag**                              | **Description**                                                 |
+    +===============================================+=================================================================+
+    | ``--disable-option-checking``                 | Ignore unrecognized --enable/--with option.                     |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--disble-FEATURE``                          | Do not include FEATURE (same as ``--enable-FEATURE=no``).       |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-FEATURE[=ARG]``                    | Include ``FEATURE [ARG=yes]``.                                  |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-silent-rules``                     | Less verbose build output (undo: ``make V=1``).                 |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--disable-silent-rules``                    | Verbose build output (undo: ``make V=0``).                      |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-maintainer-mode``                  | Enable make rules and dependencies not useful (and sometimes    |
+    |                                               | confusing) to the casual installer.                             |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-dependency-tracking``              | Do not reject slow dependency extractors.                       |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--disable-dependency-tracking``             | Speeds up one-time build.                                       |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-debug``                        | Enables debugging.                                              |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-qat-uio``                          | Enables Userspace I/O.                                          |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--disable-param-check``                     | Disables parameters checking in the top-level APIs              |
+    |                                               | (use for performance optimization).                             |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--disable-dc-dyn``                          | Disables dynamic compression support.                           |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--disable-stats``                           | Disables statistic collection (use for performance              |
+    |                                               | optimization).                                                  |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-drbg-poll-and-wait``               | Modifies the behavior of DRBG HT functions to use single        |
+    |                                               | threaded operation.                                             |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-log-syslog``                   | Enables debugging messages to be outputted to the system log    |
+    |                                               | instead of standard output.                                     |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-nonblocking-partials-perform`` | Partial operations results are not being blocked.               |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-sriov``                        | Enables Single-root I/O Virtualization in the QAT driver        |
+    |                                               | (available options: ``host``, ``guest``).                       |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-trace``                        | Enables tracing for the Cryptography API.                       |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-asym-only``                    | Enables driver to support Asymmetric Crypto services only.      |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-sym-only``                     | Enables driver to support Symmetric Crypto services only.       |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-dc-only``                      | Enables driver supports only compression service                |
+    |                                               | (can optimize size of build objects).                           |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-dc-sym-only``                  | Enables driver to support Data Compression and                  |
+    |                                               | Symmetric Crypto services only.                                 |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-dc-return-counters-on-error``  | Enables updates of consumed/produced results in case            |
+    |                                               | of error during compression or decompression operations.        |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--disable-icp-inline``                      | When defined, function inlining for functions that cannot be    |
+    |                                               | inlined by the compiler is removed to enable compilation        |
+    |                                               | of the driver for kernels build without                         |
+    |                                               | ``CONFIG_ARCH_SUPPORTS_OPTIMIZED_INLINING``.                    |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-inline``                           | Enables ``INLINE`` feature.                                     |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-icp-hb-fail-sim``                  | Enable Heartbeat Failure Simulation.                            |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-qat-coexistence``                  | Enables legacy and upstream driver coexistence.                 |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-qat-lkcf``                         | Enables QAT registration with Linux Kernel Crypto Framework.    |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-qat-kpt-debug-key``                | Enable QAT debug issue certificate.                             |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--disable-dc-strict-mode``                  | Disables Compress and Verify (CnV) functionality.               |
+    |                                               | See :ref:`below <qat_2.0_cnv_messaging>` for details.           |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+    | ``--enable-dc-error-simulation``              | Enables Data Compression Error Simulation.                      |
+    +-----------------------------------------------+-----------------------------------------------------------------+
+
+.. _qat_2.0_cnv_messaging: 
+
+
+.. important:: The Compress and Verify feature checks and ensures data integrity in the compression operation of the 
+    Intel\ :sup:`®` QAT Data Compression API. This feature introduces an independent capability to verify the 
+    compression transformation. 
+    
+    Intel recommends that customers use the Compress and Verify capabilities for Intel\ :sup:`®` QAT compression operations. 
+    
+    As Compress and Verify provides an integrity check of the data, Intel cannot guarantee integrity of data that bypasses 
+    the Compress and Verify capability. 
+    
+    Intel does **not** support disabling Compress and Verify.        
+
+.. _qat_2.0_gsg_install_software:
+
+Install Acceleration Software
+-----------------------------
+
+.. note::
+
+    It is recommended to :ref:`uninstall <qat_2.0_gsg_uninstall_software>` previous installations of the acceleration software (if previously installed).  
+
+#. **Open** a terminal window and **switch** to superuser. Provide root password when prompted.
+
+    .. code-block:: console
+
+        su 
+        cd $ICP_ROOT
+
+#. **Enter** the following commands to build and install the acceleration software and sample code using the default options:
+
+    .. code-block:: console
+
+        ./configure
+        make -j install
+        make samples-install
+
+    .. note::
+
+        After building/installing the acceleration software, secure the build output files by either deleting them or setting permissions according to your needs.
+
+#. **Verify** the acceleration software kernel objects are loaded and ready to use with this command:
+
+    .. code-block:: console
+
+        lsmod | grep qat
+
+    Depending on the specific hardware present, this command will return an output similar to the following:
+
+    .. code-block:: text
+
+        qat_4xxx               45056  0
+        intel_qat             331776  2 qat_4xxx,usdm_drv
+        uio                    20480  1 intel_qat
+        mdev                   20480  2 intel_qat,vfio_mdev
+        vfio                   36864  3 intel_qat,vfio_mdev,vfio_iommu_type1
+        irqbypass              16384  2 intel_qat,kvm
+
+    .. note::
+
+        Not all modules will be required depending on the specific hardware present.
+
+.. ......................................................................... ..
+.. ......................................................................... .. 
+.. . VIDEO: Remove this part to generate the PDF version of this document. . ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+Software Installation Demo
+--------------------------
+
+Here is a demonstration of the process to setup and install the Intel\ :sup:`®` QAT software package.
+
+.. video:: ../../_static/video/gsg/install.mp4
+    :width: 500
+    :height: 300
+
+|
+
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+.. _qat_2.0_gsg_uninstall_software:
+
+Uninstall Acceleration Software
+-------------------------------
+
+#. **Open** a terminal windows and **switch** to superuser. Provide root password when prompted.
+
+    .. code-block:: console
+    
+        su 
+        cd $ICP_ROOT
+
+#. **Enter** the following commands to uninstall the acceleration software:
+
+    .. code-block:: console
+
+        make uninstall
+        make clean
+
+.. _qat_2.0_gsg_start_stop_software:
+
+Starting/Stopping the Acceleration Software
+-------------------------------------------
+
+When the acceleration software is installed, a script file titled ``qat_service`` is installed in the ``/etc/init.d`` directory. The script file can be used to start and stop the acceleration software. 
+
+To *start* the software, issue the following command:
+
+.. code-block:: console
+
+    service qat_service start
+
+To *stop* the software, issue the following command:
+
+.. code-block:: console
+
+    service qat_service stop
+
+To *stop* the software and *remove* the kernel driver, issue the following command:
+
+.. code-block:: console
+
+    service qat_service shutdown
+
+When the acceleration software is installed, it is set to load automatically when the operating system loads.
+
+Configuration Files
+-------------------
+
+When the acceleration software loads, it is configured based on the settings in the platform-specific configuration files. 
+
+The configuration files are in the ``/etc`` directory. Specifically:
+
+-  The name for the first configuration file for Intel\ :sup:`®` QuickAssist Technology Hardware Version 2.0 devices is ``4xxx_dev0.conf``
+-  The name of the first configuration file for Intel\ :sup:`®` Communications Chipset 8925 to 8955 Series devices is ``dh895xcc_dev0.conf``.
+-  The first configuration file for the Intel\ :sup:`®` C62x Chipset or Intel\ :sup:`®` Xeon\ :sup:`®` Processor D Family SoC is ``c6xx_dev0.conf``.
+-  The first configuration file for Intel\ :sup:`®` Atom\ :sup:`®` C3000 Processor SoC is ``c3xxx_dev0.conf``.
+-  The first configuration file for other Intel\ :sup:`®` Xeon\ :sup:`®` Processor D SoC platforms is ``d15xx_dev0.conf``.
+
+.. note:: 
+
+    If more than one device of a given type is present, its name includes ``dev1``, ``dev2``, etc.
+
+The files are processed when the system boots. If changes are made to the configuration file, the acceleration 
+software must be stopped and restarted for the changes to take effect.
+
+.. code-block:: console
+
+    service qat_service restart
+
+The software package includes multiple types of platform-specific configuration files. Depending on your 
+installation options and SKU, a valid configuration file is copied to the ``/etc`` directory. If your system 
+has more than one type of hardware device or SKU, verify that the correct configuration files were copied.
+
+.. important:: 
+
+    The software package has been validated with the default configuration files. Changes to the configuration files could have adverse effects.
+
+Refer to the :ref:`Programmer's Guide <qat_2.0_pg_configuration_files>` for additional information on the configuration files.
+
+.. _running_applications_as_non_root:
+
+Running Applications as Non-Root User
+-------------------------------------
+
+The installation of Intel\ :sup:`®` QAT software package configures the driver to allow applications to run as non-root user. The users must be added to the ``qat`` group.
+
+When the ``make install`` command is performed at the directory where the Intel\ :sup:`®` QAT package is installed, the following *udev* file is created which is responsible for setting up non-root access.
+
+.. code-block:: text
+
+   KERNEL=="qat_adf_ctl" MODE="0660" GROUP="qat" RUN+="/bin/chgrp qat/usr/local/bin/adf_ctl"
+   KERNEL=="qat_dev_processes" MODE="0660" GROUP="qat"
+
+   KERNEL=="usdm_drv" MODE="0660" GROUP="qat"
+
+   ACTION=="add", DEVPATH=="/module/usdm_drv" SUBSYSTEM=="module"
+   RUN+="/bin/mkdir / dev/hugepages/qat"
+
+   ACTION=="add", DEVPATH=="/module/usdm_drv" SUBSYSTEM=="module"
+   RUN+="/bin/chgrp qat /dev/hugepages/qat"
+
+   ACTION=="add", DEVPATH=="/module/usdm_drv" SUBSYSTEM=="module"
+   RUN+="/bin/chmod 0770 /dev/hugepages/qat"
+
+   ACTION=="remove", DEVPATH=="/module/usdm_drv" SUBSYSTEM=="module"
+   RUN+="/bin/rmdir
+
+   /dev/hugepages/qat"
+
+   KERNEL=="uio*", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x0435"
+   MODE="0660" GROUP="qat"
+
+   KERNEL=="uio*", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x0443"
+   MODE="0660" GROUP="qat"
+
+   KERNEL=="uio*", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x37c8"
+   MODE="0660" GROUP="qat"
+
+   KERNEL=="uio*", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x37c9"
+   MODE="0660" GROUP="qat"
+
+   KERNEL=="uio*", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x6f54"
+   MODE="0660" GROUP="qat"
+
+   KERNEL=="uio*", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x6f55"
+   MODE="0660" GROUP="qat"
+
+   KERNEL=="uio*", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x19e2"
+   MODE="0660" GROUP="qat"
+
+   KERNEL=="uio*", ATTRS{vendor}=="0x8086", ATTRS{device}=="0x19e3"
+   MODE="0660" GROUP="qat"
+
+The updates to the udev rules are performed during the installation of the Intel\ :sup:`®` QAT driver.
+
+The following steps need to be manually applied:
+
+#. **Change** the amount of max locked memory for the username included in the ``qat`` group (the default memory limit is 64). This can be done by specifying the limit in: ``/etc/security/limits.conf``.
+
+    .. code-block:: text
+
+        @qat - memlock 4096
+

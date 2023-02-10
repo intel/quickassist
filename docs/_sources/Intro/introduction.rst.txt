@@ -1,0 +1,38 @@
+.. _qat_2.0_introduction:
+
+Introduction
+============
+
+Intended Audience 
+----------------------------
+
+These documents are intended to be used by software engineers who wish to develop 
+application software that uses the Intel® QuickAssist Technology (Intel® QAT)
+to accelerate the supported workloads and/or services.
+
+Using This Document 
+----------------------------
+
+This document collects most of the user guides and application notes to use the Intel® QuickAssist Technology (Intel® QAT).
+There is a section to get started, as well as further sections that cover specific topics such as virtualization, 
+performance optimization, and others.
+
+Firsts sections of this document include a Terminology section for most common terms used along the document, and 
+the Release Notes which includes the latest updates introduced to the Intel® QAT driver.                     
+
+Conventions and Terminology
+----------------------------
+
+The following conventions are used in this manual:
+
+* ``Code text`` - code examples, command line entries, Application Porgramming Interface (API) names, parameters, filenames, directory paths, and executables.
+* **Bold text** - graphical user interface entries, buttons, and actions in instructions.
+* *Italic text* - key terms and publication titles.
+
+In this document, for convenience:
+
+* *Software package* is used as a generic term for the Intel® QAT Software Package for Hardware Version 2.0.
+* *Acceleration driver* is used as a generic term for the software that allows the Intel® QAT Software Library APIs to access the Intel® QAT Endpoint(s).
+
+.. note::
+    Please refer to :ref:`Release Notes <qat_2.0_release_notes>` for list of supported platforms.

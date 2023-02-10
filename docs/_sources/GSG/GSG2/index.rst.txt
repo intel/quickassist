@@ -1,0 +1,12 @@
+.. _qat_2.0_gsg:
+
+Getting Started Guide
+=====================
+
+.. toctree::
+   :maxdepth: 2
+   
+   introduction
+   systemconfiguration
+   installation
+   sampleapplications

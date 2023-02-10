@@ -1,0 +1,137 @@
+.. _qat_2.0_virtualization_deployment_guide_system_preparation:
+
+System Environment Preparation
+==============================
+
+Updating the BIOS Settings
+--------------------------
+ 
+#. **Enter** to the BIOS setup.
+#. **Enable** the *VT-d* parameter in BIOS. This setting is usually under ``Socket configuration > IIO configuration > Intel VT-d``.
+
+    .. note:: *VT-d* is required for both *sIOV* and *SR-IOV*.
+
+    .. figure:: ../../img/bios1.png
+        :width: 6.5in
+        :height: 2.84861in
+
+#. **Enable** *SR-IOV* in BIOS. This setting is usually under ``Platform Configuration > Miscellaneous Configuration > SR-IOV Support``.
+
+    .. note:: This is only required for *SR-IOV*.
+
+    .. figure:: ../../img/bios2.png
+        :width: 6.5in
+        :height: 2.87083in
+
+Configuring the Host OS
+-----------------------
+
+#. **Check** the :ref:`kernel requirements <qat_2.0_virt_kernel_requirements>` are met.
+
+#. **Verify** appropriate :ref:`kernel boot parameters <qat_2.0_virt_kernel_parameters>` are defined using the following command:
+
+    .. code-block:: console
+
+        cat /proc/cmdline
+
+    If the parameters are not defined, the ``grubby`` command can be used to add the parameters. Reboot the system after adding the kernel parameters, 
+    and verify they are correct with the above command.
+
+    For SR-IOV:
+
+        .. code-block:: console
+
+            grubby --update-kernel=ALL --args="intel_iommu=on"
+
+    For sIOV:
+
+        .. code-block:: console
+
+            grubby --update-kernel=ALL --args="intel_iommu=on,sm_on"
+
+    .. note:: ``grubby --remove-args`` argument can be used to remove any arguments that are not required.
+    
+    .. todo:: We may want to add the alternate method where we directly edit the grub.cfg file before running ``grub mkconfig``?
+
+#. Once the system is restarted, **check** the DMAR and IOMMU messages using the following command:
+
+    .. code-block:: console
+        
+        dmesg | grep -e DMAR -e IOMMU
+    
+    You should see a similar output as below:
+
+    .. figure:: ../../img/verify_dmar_settings.png
+        :width: 6.5in
+        :height: 2.85208in
+
+.. _qat_2.0_virt_kernel_requirements:
+
+Kernel Requirements
++++++++++++++++++++
+
++-----------------------------------+----------------------------------+
+| **SR-IOV**                        | **sIOV**                         |
++===================================+==================================+
+| No special limitations. Any       | Official kernel: 5.11 <= version |
+| kernel version which is           | < 5.16                           |
+| supported by Intel QAT 2.0 can    |                                  |
+| be used.                          |                                  |
++-----------------------------------+----------------------------------+
+
+.. _qat_2.0_virt_kernel_parameters:
+
+Kernel Boot Parameters
+++++++++++++++++++++++
+
++-----------------------------------+----------------------------------+
+| **SR-IOV**                        | **sIOV**                         |
++===================================+==================================+
+| ``intel_iommu=on``                | ``intel_iommu=on,sm_on``         |
++-----------------------------------+----------------------------------+
+
+Install Virtualization Packages
+-------------------------------
+
+#. **Install** virtualization related packages using the following command:
+
+    .. code-block:: console
+        
+        dnf -y install qemu-kvm libvirt
+
+#. **Verify** device capabilities using below command:
+
+    .. code-block:: console
+        
+        lspci -vnd 8086:4940
+
+    .. figure:: ../../img/lspci_virt_capabilities.png
+        :width: 6.5in
+        :height: 3.31736in
+
+    .. note::
+        
+        * For *sIOV*, ``Process Address Space ID (PASID)`` needs to be present.
+        * For *SR-IOV*, ``Single Root I/O Virtualization (SR-IOV)`` needs to be present.
+
+.. ......................................................................... ..
+.. ......................................................................... .. 
+.. . VIDEO: Remove this part to generate the PDF version of this document. . ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+System Environment Preparation Demo
+-----------------------------------
+
+Here is a demonstration of how to configure the system to enable virtualization.
+
+.. video:: ../_static/video/virt/configuration.mp4
+    :width: 500
+    :height: 300
+
+|
+
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..

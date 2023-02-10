@@ -1,0 +1,33 @@
+.. _qat_vmw_1.x_rn_env_assump: ..
+
+Environmental Assumptions
+=========================
+
+The following assumptions are made about the deployment environment:
+
+   -  The driver object/executable file on disk should be protected using
+      the normal file protection mechanisms, so it is writable by only
+      trusted users, for example, a privileged user or an administrator.
+
+   -  The public key firmware image on the disk should be protected using
+      normal file protection mechanisms, so it is writable only by trusted
+      users, for example, a privileged user or an administrator.
+
+   -  The Intel\ :sup:`®` QAT device should not be exposed (via Single-root
+      Input/Output Virtualization (SRIOV)) to untrusted guests.
+
+   -  The Intel\ :sup:`®` QAT device should not be exposed (through the
+      *user space direct* deployment model) to untrusted users.
+
+   -  The Dynamic Random-Access Memory (DRAM) is considered to be inside
+      the trust boundary. The traditional memory-protection schemes
+      provided by the Intel\ :sup:`®` architecture processor and memory
+      controller, and by the OS, is to prevent unauthorized access to these
+      memory regions.
+
+   -  Persistent keys were not considered, but the storage media are also
+      considered inside the cryptographic boundary.
+
+   -  The driver exposed device file should be protected using the normal
+      file protection mechanisms so that it could be opened and
+      read/written only by trusted users.

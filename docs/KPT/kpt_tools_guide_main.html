@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KPT Tools Guide &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>KPT Tools Guide</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="kpt-tools-guide">
+<h1>KPT Tools Guide<a class="headerlink" href="#kpt-tools-guide" title="Permalink to this headline"></a></h1>
+<section id="description-of-release">
+<h2>Description of Release<a class="headerlink" href="#description-of-release" title="Permalink to this headline"></a></h2>
+<p>KPT Tool is a reference code to generate and parse the Wrapped Private Key(WPK) used in Key Protection Technology feature.</p>
+</section>
+<section id="environment-setup">
+<h2>Environment Setup<a class="headerlink" href="#environment-setup" title="Permalink to this headline"></a></h2>
+<p>This section describes the environment setup for KPT Tools</p>
+<section id="hardware-requirements">
+<h3>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this headline"></a></h3>
+<p>Sapphire Rapids platform - D0 silicon or above is required</p>
+</section>
+<section id="software-requirements">
+<h3>Software Requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline"></a></h3>
+<p>The following software components are required:</p>
+<ul class="simple">
+<li><p>Intel<sup>®</sup> QuickAssist Technology Software for Linux*</p></li>
+<li><p>KPT Tools Package</p></li>
+</ul>
+<p>The following software is preferred:</p>
+<ul class="simple">
+<li><p>OpenSSL* 1.1.1x</p></li>
+</ul>
+</section>
+</section>
+<section id="installation-instructions">
+<h2>Installation Instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline"></a></h2>
+<section id="install-build-dependencies">
+<h3>Install Build Dependencies<a class="headerlink" href="#install-build-dependencies" title="Permalink to this headline"></a></h3>
+<p>Install package dependencies as documented in <a class="reference internal" href="../GSG/GSG2/systemconfiguration.html#installing-package-dependencies"><span class="std std-ref">Installing Package Dependencies</span></a></p>
+</section>
+<section id="build-install-openssl">
+<h3>Build/Install OpenSSL*<a class="headerlink" href="#build-install-openssl" title="Permalink to this headline"></a></h3>
+<p>The following steps can be followed to obtain and install OpenSSL*:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /home</span>
+<span class="go">git clone https://github.com/openssl/openssl.git</span>
+<span class="go">cd openssl</span>
+<span class="go">git checkout OpenSSL_1_1_1p</span>
+<span class="go">./config \</span>
+<span class="go">--prefix=/home/openssl_install \</span>
+<span class="go">--openssldir=/home/openssl_install \</span>
+<span class="go">-Wl,-rpath,\${LIBRPATH}</span>
+<span class="go">make -j &amp;&amp; make install</span>
+<span class="go">cd /home/openssl_install/bin &amp;&amp; ./openssl version</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="simple">
+<dt>Verify OpenSSL version is reported correctly as:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">OpenSSL</span> <span class="pre">1.1.1p</span>&#160; <span class="pre">21</span> <span class="pre">Jun</span> <span class="pre">2022</span></code></p>
+</dd>
+</dl>
+</section>
+<section id="build-install-qat-driver">
+<h3>Build/Install QAT Driver<a class="headerlink" href="#build-install-qat-driver" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>KPT requires firmware to enable the feature.  Please consult your Intel Representative to obtain this package.</p>
+</div>
+<p>The following steps can be followed to install the QAT Driver:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /QAT</span>
+<span class="go">./configure --enable-qat-uio --enable-kpt</span>
+<span class="go">make -j install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="install-qat-engine">
+<h3>Install QAT_Engine<a class="headerlink" href="#install-qat-engine" title="Permalink to this headline"></a></h3>
+<p>The following steps can be used to install the QAT_Engine:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /home/openssl/engines</span>
+<span class="go">git clone https://github.com/intel/QAT_Engine.git</span>
+<span class="go">cd QAT_Engine</span>
+<span class="go">./autogen.sh</span>
+<span class="go">./configure --with-qat_hw_dir=/QAT --with-openssl_install_dir=/home/openssl_install</span>
+<span class="go">make &amp;&amp; make install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="update-qat-configuration-files">
+<h3>Update QAT Configuration Files<a class="headerlink" href="#update-qat-configuration-files" title="Permalink to this headline"></a></h3>
+<p>The KPTTool package requires the SHIM section.  The following commands will update the configuration files:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sed -i &#39;s/SSL/SHIM/&#39; /etc/4xxx_dev*.conf</span>
+<span class="go">service qat_service restart</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="build-kpttool-package">
+<h3>Build KPTTool Package<a class="headerlink" href="#build-kpttool-package" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The following steps assume the following:</p>
+<ul class="simple">
+<li><p>QAT Driver package was extracted to <code class="docutils literal notranslate"><span class="pre">/QAT</span></code></p></li>
+<li><p>KPTTool package was extracted to <code class="docutils literal notranslate"><span class="pre">/home/kpt_tools</span></code></p></li>
+<li><p>OpenSSL was installed to <code class="docutils literal notranslate"><span class="pre">/home/openssl_install</span></code></p></li>
+</ul>
+</div>
+<p>The following steps can be used to compile the KPTTool package:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /home/kpt_tools/kpt2_tool_rel</span>
+<span class="go">export OPENSSL_DIR=/home/openssl_install/</span>
+<span class="go">export QAT_DIR=/QAT</span>
+<span class="go">make</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="using-kpt-tools">
+<h2>Using KPT Tools<a class="headerlink" href="#using-kpt-tools" title="Permalink to this headline"></a></h2>
+<p>This section describes the usage of KPTTools.</p>
+<section id="command-line-parameters">
+<h3>Command Line Parameters<a class="headerlink" href="#command-line-parameters" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><p>The following command can be used to display usage details:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./kpt_wpk_tool -h</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The output of this command will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Usage of kpt_wpk_tool is</span>
+<span class="go">kpt_wpk_tool -act [gen|par]  -alg [rsa|ecc] -in &lt;cpk.key&gt; -out &lt;wpk.pem&gt;</span>
+<span class="go">-kpt1 support for KPT1 key wrapping format</span>
+<span class="go">    e.g. kpt_wpk_tool -act gen -alg ecc -in c2tnb431r1.pem -out kpt_ecc.pem</span>
+<span class="go">    e.g. kpt_wpk_tool -act par -alg ecc -in kpt_ecc.pem</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
+</section>
+<section id="example-usage">
+<h3>Example Usage<a class="headerlink" href="#example-usage" title="Permalink to this headline"></a></h3>
+<p>The KPTTool will first generate a new Symmetric Wrapping Key(SWK) randomly and wrap the input key as Wrapped Private Key(WPK) using the SWK.
+Then KPTTool will query the KPT2.0 capability of each QAT device and get its Per-Part Key through the QAT Driver API to encrypt the SWK as Encrypted-SWK(ESWK).
+The number of ESWK depends on the number of the socket of silicon, because the devices on different socket have different Per-Part Key.
+Finally, KPTTool will combine all the materials(WPK, ESWKs, etc.) and encode them into ASN.1 style as the WPK PEM file.</p>
+<section id="rsa2k-wpk-example">
+<h4>RSA2K WPK Example<a class="headerlink" href="#rsa2k-wpk-example" title="Permalink to this headline"></a></h4>
+<p>This example highlights:</p>
+<ul class="simple">
+<li><p>creating RSA2K self-signed private key/certificate</p></li>
+<li><p>generating a Wrapped Private Key using the RSA2K private key</p></li>
+<li><p>verifying WPK created properly</p></li>
+<li><p>Accessing components of WPK</p></li>
+</ul>
+<section id="generate-self-signed-private-key-file">
+<h5>Generate Self-Signed Private Key File<a class="headerlink" href="#generate-self-signed-private-key-file" title="Permalink to this headline"></a></h5>
+<p>First generate the RSA2K self-signed private key file and certification using OpenSSL command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl req -newkey rsa:2048 -nodes -keyout rsa2k.pem -x509 -days 365 -out rsa2k_cert.crt</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="generate-wrapped-private-key-wpk-file">
+<h5>Generate Wrapped Private Key (WPK) File<a class="headerlink" href="#generate-wrapped-private-key-wpk-file" title="Permalink to this headline"></a></h5>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">kpt_wpk_tool</span></code> utility to create the WPK file:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./kpt_wpk_tool -act gen -alg rsa -in rsa2k.pem -out wpk_rsa2k.pem</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="verify-wpk-file">
+<h5>Verify WPK File<a class="headerlink" href="#verify-wpk-file" title="Permalink to this headline"></a></h5>
+<p>The format of the output WPK file is same as the normal PEM key file.
+But the WPK file can be identified with <code class="docutils literal notranslate"><span class="pre">KPT</span></code> keyword in the begin and end line.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat wpk_rsa2k.pem | more</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Output will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">-----BEGIN KPT RSA KEY-----</span>
+<span class="go">MIIM+QIBAQICAQAwggY4BglghkgBZQMEAS4CAQIwggYYMIIDCASCAYBGPawhTYsV</span>
+<span class="go">uPpSiIyPhBAQqFN8oJtC6X5tjDfLQZLJQ+GRQ8stqX3WCy6bH6kEyKU2vQhOx6nE</span>
+<span class="go">tNsyx0qSrG5UMWOeb9QWUsZu0Q7p3PL+T+m7Ls9yC3ITgFHFEWA42uJKvyiMR1ZF</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="parse-the-wpk-file">
+<h5>Parse the WPK File<a class="headerlink" href="#parse-the-wpk-file" title="Permalink to this headline"></a></h5>
+<p>The output only contains the protected parts and decrypted information is stored into an inside struct which
+can be retrieved through the API.</p>
+<p>The following command can be used to obtain:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./kpt_wpk_tool -act par -alg rsa -in wpk_rsa2k.pem</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Output looks like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">input file wpk_rsa2k.pem</span>
+<span class="go">output file (null)</span>
+<span class="go">alg rsa</span>
+<span class="go">action par</span>
+<span class="go">kpt generation 2</span>
+<span class="go">Dev 0</span>
+
+<span class="go">=== Sec SWK ===</span>
+<span class="go">3a fc 4d 48 bd 3f 40 44 50 47 56 b2 b9 48 81 31 ed 81 16 11 b0 23 79 41 db 2a 09 77 be ae d4 c1</span>
+<span class="go">9f 0b 8d 08 97 92 8f 25 58 64 77 45 8b 91 d4 08 8b 89 60 3e 1d d3 64 df cd 3c 02 14 df 7d fa c5</span>
+<span class="go">3e a4 33 0d e3 78 9b be 15 5d d9 bf ed 77 57 1b 4d b1 36 d1 fa 57 dd a2 1a 19 48 19 b9 78 aa 63</span>
+<span class="go">ac 84 7d 37 f8 56 1b 88 a3 8e 45 82 89 0a 56 a9 06 6f e3 e6 9d 62 6e ab 30 98 45 41 a4 69 84 b3</span>
+<span class="go">be f3 df 3b e4 84 80 ec 44 3c ec 8e 72 5e f0 4d 63 f1 79 8c 1f 7b c4 fd 3e 49 2c 5a 13 28 44 11</span>
+<span class="go">28 2e 09 f4 a8 8f 98 b8 eb 65 d4 b1 7e 54 57 a9 b4 49 dc 50 90 04 e1 9a 4a 2c af 04 0f 81 87 e2</span>
+<span class="go">23 7b c2 93 ae 2a 6d 4f 5e fa 8f 2f 31 de a7 1a c9 18 25 b1 b7 ec 69 51 1f 5d 06 63 6e ae 59 05</span>
+<span class="go">d1 ab 8b bc 60 33 bc 4f 02 21 bf cc a7 4b d9 2f ed 5e a9 89 af da d9 51 cd 6a 1b 6b f7 65 9a 29</span>
+<span class="go">b4 03 0d 4e 2e ec 78 58 ec 0e 7f 7c 32 a3 ce 59 60 37 39 e9 a1 d6 f6 97 11 2d 5b 34 83 0c 9f 94</span>
+<span class="go">d5 7d f8 93 ee 93 d3 98 54 2d 52 f6 bc c3 cd 98 42 97 d9 2f 63 76 92 86 df 99 c0 2a b0 3c 84 b3</span>
+<span class="go">66 22 dd ef 09 9f 42 00 ae 61 e4 a3 cb 4e e8 5e af 8a 1f c3 63 69 c6 01 44 f6 56 a4 ee 75 22 8e</span>
+<span class="go">d7 91 d5 d6 73 72 bc 0a c8 6f 67 c6 0b 7c 83 ea a2 92 da 7e 9f 36 8a dd 7c e6 8f f8 30 ef ef 03</span>
+
+
+<span class="go">=== Dev sig ===</span>
+<span class="go">46 3d ac 21 4d 8b 15 b8 fa 52 88 8c 8f 84 10 10 a8 53 7c a0 9b 42 e9 7e 6d 8c 37 cb 41 92 c9 43</span>
+<span class="go">e1 91 43 cb 2d a9 7d d6 0b 2e 9b 1f a9 04 c8 a5 36 bd 08 4e c7 a9 c4 b4 db 32 c7 4a 92 ac 6e 54</span>
+<span class="go">31 63 9e 6f d4 16 52 c6 6e d1 0e e9 dc f2 fe 4f e9 bb 2e cf 72 0b 72 13 80 51 c5 11 60 38 da e2</span>
+<span class="go">4a bf 28 8c 47 56 45 8a 7c 18 7f 44 5b 7f 8e 01 0b 8e f4 50 60 87 ce e4 21 fd b3 78 02 42 cf 2e</span>
+<span class="go">a8 a3 bf b3 b3 93 64 3e ef 4f ac b9 c7 69 ab ff 58 88 a4 2f 13 1c 2f 5e 3e 0f 7f 34 cf 33 fa aa</span>
+<span class="go">5c 1e b1 ca f2 58 3a 59 01 a9 27 6d 10 af c1 9f b3 bc 6c ef 28 da 32 59 01 48 87 ee 5c 5e c6 f2</span>
+<span class="go">eb f3 df 76 9e 07 bd 04 b3 0a 0b 5b 9f bc 14 48 68 64 ec 3f 4d 91 12 64 73 58 9b 24 3b 95 5e 73</span>
+<span class="go">a1 7a 1d 42 7e 96 d5 e8 22 5b 61 6d 4a c2 32 a6 b8 65 89 eb 3a 9a d6 96 32 18 db 40 9e 05 fb 28</span>
+<span class="go">7a 80 09 6a 55 fa ef dc 6a 0f e2 f4 a5 00 d3 3b 51 20 13 1f 53 9f a3 f7 3d d8 ae 92 70 ae 9d 1d</span>
+<span class="go">5f ec 4e a2 07 e4 17 e0 f5 43 69 c9 f5 d9 4d c5 eb c6 01 c9 49 43 d3 dc 15 f3 e9 e0 d7 30 cb 39</span>
+<span class="go">e7 05 1a 3a 25 31 51 a7 c5 e7 47 69 30 c8 83 88 ae dd 55 0e 1d 6a 3e 11 ff ab 69 e4 e8 73 4a 1a</span>
+<span class="go">f2 85 45 9a aa c6 91 6b 70 2b 6b 9d d2 43 d3 3b df 82 74 33 02 d5 d6 25 4f cf 46 06 5a c8 83 b3</span>
+
+<span class="go">Dev 1</span>
+
+<span class="go">=== Sec SWK ===</span>
+<span class="go">45 83 0b f4 8d ae 38 ad 3d 6d 94 f9 bf 3f 09 25 e3 6f 59 56 0a bb 37 e4 7e dd 1b bc c4 53 03 e4</span>
+<span class="go">77 d1 69 54 82 4e aa 46 4d 84 54 d0 dd 71 00 46 a5 1d 23 78 73 6f b5 8a 84 ff 4f 75 20 db c9 50</span>
+<span class="go">d0 c7 1f fc 4d 8f 8e 69 50 b1 35 b1 84 3c 3d 4a 39 bf 38 2a 6e 66 33 78 51 03 e1 fb 09 ef 8f 85</span>
+<span class="go">f2 5e 73 55 b9 66 94 45 d7 65 20 24 56 12 7b 41 ca 57 f4 6b 6c 57 3d 62 f9 97 83 e2 42 d0 77 87</span>
+<span class="go">3d b9 d0 3f f5 b8 d0 e4 61 f8 7e 92 ba a0 fc a9 84 fd 05 52 c7 a6 2d 66 6a 38 cd 7c 22 e6 aa 17</span>
+<span class="go">e5 a2 d5 03 aa 57 05 e9 9d de 57 82 73 31 75 03 3c 6b 2a 04 bf 50 9f ab ea 55 9b 99 32 d4 87 4d</span>
+<span class="go">79 d8 32 ce 1d 56 93 99 dc e3 1a f6 6e 8a 1f 2b a8 92 f6 00 fe df 60 9d f7 27 e8 e8 d2 63 5e 4d</span>
+<span class="go">e4 84 d2 30 b6 4d f3 68 19 23 c4 33 55 17 47 4d 53 c4 3d d8 73 c3 ad cc 61 ce fc 09 56 a8 3e 86</span>
+<span class="go">1b c5 88 08 ce 18 1a f7 35 92 d7 fb b8 4a 68 d4 0f 63 51 fa 75 bb 5a 38 c5 6b e1 8c 20 3a 42 ab</span>
+<span class="go">f1 09 72 01 d3 87 27 5b 27 3e 06 74 1a be 77 5c 84 84 e7 40 56 61 4d fd 42 a6 13 f0 e2 7e b5 b4</span>
+<span class="go">66 ed fa 3b f4 00 b9 da a9 1f 0a a1 79 c3 f8 84 2c 41 f0 f5 8f 70 82 dd 1f 69 86 e8 50 cd 8f 26</span>
+<span class="go">ea fa 89 85 b3 14 2b 97 31 f2 c9 65 91 db f7 5c f4 6c ef a3 bc 5a 8f 6c fd 5f 5a d2 78 3b 48 8d</span>
+
+
+<span class="go">=== Dev sig ===</span>
+<span class="go">c9 18 fd 9f 20 37 c9 90 cd d1 62 82 f5 94 14 02 e6 98 33 21 b1 d7 b5 00 dc 90 56 4d e1 68 cc b2</span>
+<span class="go">b7 57 34 b1 cb fc b7 1d 13 29 f1 7f bc 12 79 d4 59 d7 cb c8 51 05 c4 3c f2 18 82 90 5a 15 cb 3d</span>
+<span class="go">27 6f 0c 1c 34 9e bd 38 a2 ac f5 44 36 0d cf d4 b9 a2 74 03 d6 0b ad 98 89 91 4c ce 14 1d 44 df</span>
+<span class="go">75 6b 8d 4c b8 55 e9 bf 92 36 84 b4 cb 5b b8 77 34 78 51 51 3c 80 5b d5 ed 3a 91 e5 3e 56 5d 59</span>
+<span class="go">84 a7 ff 91 c3 70 52 d7 f8 87 2a c7 bb e8 5b 20 e4 a8 dc fb d1 1f d9 fc f9 b4 e5 12 a9 42 61 1e</span>
+<span class="go">73 7a 8e 28 5a e1 e4 76 77 fe 3c 53 1f 67 c3 48 b6 0f b1 b5 14 36 50 ea 85 f0 5a e3 39 f2 15 41</span>
+<span class="go">c1 54 d5 73 58 ca 27 4c eb e0 01 42 7d 95 78 74 70 0f 53 fa d1 2f 46 a4 1a 20 5a 07 c9 41 4a bd</span>
+<span class="go">ae 29 79 15 8a c8 2c b6 cb e1 06 c4 85 0c 75 45 14 af 11 8e 63 4d 84 e6 19 32 50 a5 42 e0 34 c3</span>
+<span class="go">dd 6e fa 09 da 5b 49 b4 e0 60 31 5d e1 10 00 bc a8 89 34 32 44 6c 3d a6 df 5f b3 19 53 50 b8 7e</span>
+<span class="go">44 1e 63 cd 90 39 ec cc 00 e3 62 92 55 b1 af e3 74 a5 8c 3b 0d 0e 93 54 fe 94 5b 55 bd 94 c8 a0</span>
+<span class="go">9f 54 c3 c0 ca e1 0e bb 77 47 26 00 0e 87 8b f2 fc 61 42 df 12 a8 ee f6 b9 68 fa 85 a7 f5 32 c4</span>
+<span class="go">5b 12 7e 72 fa 46 e4 0e f4 25 d0 fb bd 82 18 ef e3 8f ae 92 46 b1 1a c1 83 f5 dc 02 2c 52 44 3f</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="ecc-p256-wpk">
+<h4>ECC P256 WPK<a class="headerlink" href="#ecc-p256-wpk" title="Permalink to this headline"></a></h4>
+<p>This example highlights:</p>
+<ul class="simple">
+<li><p>creating ECC P256 self-signed private key/certificate</p></li>
+<li><p>generating a Wrapped Private Key using the ECC P256 private key</p></li>
+<li><p>verifying WPK created properly</p></li>
+<li><p>Accessing components of WPK</p></li>
+</ul>
+<section id="generate-ecc-p256-self-signed-private-key-file">
+<h5>Generate ECC P256 Self-Signed Private Key File<a class="headerlink" href="#generate-ecc-p256-self-signed-private-key-file" title="Permalink to this headline"></a></h5>
+<p>First generate the ECC P256 self-signed private key file and certification using the following OpenSSL commands:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl ecparam -name prime256v1 -genkey -out secp256r1.pem</span>
+<span class="go">openssl req -new -key secp256r1.pem -nodes -x509 -out secp256r1.crt</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="generate-ecc-p256-wrapped-private-key-wpk-file">
+<h5>Generate ECC P256 Wrapped Private Key (WPK) File<a class="headerlink" href="#generate-ecc-p256-wrapped-private-key-wpk-file" title="Permalink to this headline"></a></h5>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">kpt_wpk_tool</span></code> utility to create the WPK file:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./kpt_wpk_tool -act gen -alg ecc -in secp256r1.pem -out wpk_secp256r1.pem</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Output of this command will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">input file secp256r1.pem</span>
+<span class="go">output file wpk_secp256r1.pem</span>
+<span class="go">alg ecc</span>
+<span class="go">action gen</span>
+<span class="go">kpt generation 2</span>
+
+
+<span class="go">=== ck ===</span>
+<span class="go">B1 94 25 05 D8 A1 E3 FA 42 85 D1 F8 35 F8 2C BE</span>
+<span class="go">20 83 43 F8 95 3E E7 70 CD CD 6B A3 19 1F D7 F0</span>
+
+
+<span class="go">=== swk ===</span>
+<span class="go">AB 06 9C 5B C6 0F EE 78 B0 30 00 C4 8F F7 A6 E2</span>
+<span class="go">6D 59 5A D7 5D AE 42 AC 42 6B 4B 0A 0B C3 FA 3D</span>
+
+
+<span class="go">=== iv ===</span>
+<span class="go">8A EE 81 33 F9 64 E1 0A</span>
+<span class="go">nid: 415</span>
+
+<span class="go">=== aad ===</span>
+<span class="go">06 08 2A 86 48 CE 3D 03 01 07</span>
+
+<span class="go">...</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="verify-ecc-p256-wpk-file">
+<h5>Verify ECC P256 WPK File<a class="headerlink" href="#verify-ecc-p256-wpk-file" title="Permalink to this headline"></a></h5>
+<p>The format of the output WPK file is same as the normal PEM key file.
+But the WPK file can be identified with <code class="docutils literal notranslate"><span class="pre">KPT</span></code> keyword in the begin and end line.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat wpk_secp256r1.pem | more</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Output will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">-----BEGIN KPT ECC KEY-----</span>
+<span class="go">MIIGxwIBAQICAZYwggY4BglghkgBZQMEAS4CAQIwggYYMIIDCASCAYBGPawhTYsV</span>
+<span class="go">uPpSiIyPhBAQqFN8oJtC6X5tjDfLQZLJQ+GRQ8stqX3WCy6bH6kEyKU2vQhOx6nE</span>
+<span class="go">tNsyx0qSrG5UMWOeb9QWUsZu0Q7p3PL+T+m7Ls9yC3ITgFHFEWA42uJKvyiMR1ZF</span>
+<span class="go">inwYf0Rbf44BC470UGCHzuQh/bN4AkLPLqijv7Ozk2Q+70+sucdpq/9YiKQvExwv</span>
+<span class="go">Xj4PfzTPM/qqXB6xyvJYOlkBqSdtEK/Bn7O8bO8o2jJZAUiH7lxexvLr8992nge9</span>
+<span class="go">BLMKC1ufvBRIaGTsP02REmRzWJskO5Vec6F6HUJ+ltXoIlthbUrCMqa4ZYnrOprW</span>
+<span class="go">ljIY20CeBfsoeoAJalX679xqD+L0pQDTO1EgEx9Tn6P3PdiuknCunR1f7E6iB+QX</span>
+<span class="go">...</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="parse-the-ecc-p256-wpk-file">
+<h5>Parse the ECC P256 WPK File<a class="headerlink" href="#parse-the-ecc-p256-wpk-file" title="Permalink to this headline"></a></h5>
+<p>The output only contains the protected parts and decrypted information is stored into an inside struct which
+can be retrieved through the API.</p>
+<p>The following command can be used to obtain:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./kpt_wpk_tool -act par -alg ecc -in wpk_secp256r1.pem</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Output will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">input file wpk_secp256r1.pem</span>
+<span class="go">output file (null)</span>
+<span class="go">alg ecc</span>
+<span class="go">action par</span>
+<span class="go">kpt generation 2</span>
+<span class="go">Dev 0</span>
+
+<span class="go">=== Sec SWK ===</span>
+<span class="go">65 4A 57 7B F5 81 1C B3 BD A8 7C BA 5D 68 4E 46</span>
+<span class="go">86 44 0C 48 1D 5C CB FC 49 B0 60 51 3F DE 7F 5D</span>
+<span class="go">91 91 02 D8 65 C9 6C 94 4C 61 12 85 0C 62 2B E7</span>
+<span class="go">9F CC A8 DC 24 A7 3E 89 80 0D A5 B5 80 3F EE AA</span>
+<span class="go">4D 70 71 4B 45 F4 FE CB 80 52 3F 29 4C 3E 23 34</span>
+<span class="go">D2 89 CC F2 CF 49 12 45 67 39 51 AB 55 18 60 FA</span>
+<span class="go">BE 0B 5F 5E CA BF 08 24 6E 9F FD 39 36 D4 6B 48</span>
+<span class="go">95 07 5F 02 1C B0 91 E4 DF BD 74 C2 8D E6 0D 17</span>
+<span class="go">BD 5D 41 24 E8 72 72 FF 1A 8D 5E 1D B6 3D 9E 26</span>
+<span class="go">EF 44 3F 97 99 4D 7A 64 00 2E 90 CB 5A 89 25 4D</span>
+<span class="go">06 91 D8 2B 0C 94 02 D0 96 45 EF B5 80 39 7B D4</span>
+<span class="go">70 13 BE 74 F8 90 5A 66 42 46 F3 9B 49 FA B1 EA</span>
+<span class="go">60 D5 94 01 92 0E 0F 72 8E C3 5C 98 8A 1C E7 A5</span>
+<span class="go">D0 E0 F3 C8 06 00 CB E4 16 92 CC E4 20 0B A6 ED</span>
+<span class="go">BF D8 7B F5 F5 A5 35 DF DE 48 63 87 6C 4E 34 00</span>
+<span class="go">0E 22 02 EE 59 A2 A3 8F 5E D7 98 45 21 FC 58 27</span>
+<span class="go">E1 F1 57 25 8C 85 0D 3B 98 2D 1B 4E A5 82 11 B7</span>
+<span class="go">71 9F 88 02 F0 D6 CF 72 C5 6E DD B4 BC BC 8F E0</span>
+<span class="go">74 16 1F 34 51 2E 8C 6C FB C0 2C 52 2D E7 90 15</span>
+<span class="go">45 C4 0F F8 A2 9C 06 3C AD 88 2A DB 20 B6 DB A5</span>
+<span class="go">F1 F1 84 AC E1 62 B3 FE CF 4F 45 49 7C 91 DA 48</span>
+<span class="go">AA 3E 5C 7A 1D 65 41 BA 55 4D 66 25 92 21 CC 4E</span>
+<span class="go">AB E7 15 A5 7D A1 D7 AD 66 0E 6D 20 6F 24 A1 AF</span>
+<span class="go">7B A4 9B 9F E9 0E 44 38 89 BF C5 45 BF B5 07 DD</span>
+
+
+<span class="go">=== Dev sig ===</span>
+<span class="go">46 3D AC 21 4D 8B 15 B8 FA 52 88 8C 8F 84 10 10</span>
+<span class="go">A8 53 7C A0 9B 42 E9 7E 6D 8C 37 CB 41 92 C9 43</span>
+<span class="go">E1 91 43 CB 2D A9 7D D6 0B 2E 9B 1F A9 04 C8 A5</span>
+<span class="go">36 BD 08 4E C7 A9 C4 B4 DB 32 C7 4A 92 AC 6E 54</span>
+<span class="go">31 63 9E 6F D4 16 52 C6 6E D1 0E E9 DC F2 FE 4F</span>
+<span class="go">E9 BB 2E CF 72 0B 72 13 80 51 C5 11 60 38 DA E2</span>
+<span class="go">4A BF 28 8C 47 56 45 8A 7C 18 7F 44 5B 7F 8E 01</span>
+<span class="go">0B 8E F4 50 60 87 CE E4 21 FD B3 78 02 42 CF 2E</span>
+<span class="go">A8 A3 BF B3 B3 93 64 3E EF 4F AC B9 C7 69 AB FF</span>
+<span class="go">58 88 A4 2F 13 1C 2F 5E 3E 0F 7F 34 CF 33 FA AA</span>
+<span class="go">5C 1E B1 CA F2 58 3A 59 01 A9 27 6D 10 AF C1 9F</span>
+<span class="go">B3 BC 6C EF 28 DA 32 59 01 48 87 EE 5C 5E C6 F2</span>
+<span class="go">EB F3 DF 76 9E 07 BD 04 B3 0A 0B 5B 9F BC 14 48</span>
+<span class="go">68 64 EC 3F 4D 91 12 64 73 58 9B 24 3B 95 5E 73</span>
+<span class="go">A1 7A 1D 42 7E 96 D5 E8 22 5B 61 6D 4A C2 32 A6</span>
+<span class="go">B8 65 89 EB 3A 9A D6 96 32 18 DB 40 9E 05 FB 28</span>
+<span class="go">7A 80 09 6A 55 FA EF DC 6A 0F E2 F4 A5 00 D3 3B</span>
+<span class="go">51 20 13 1F 53 9F A3 F7 3D D8 AE 92 70 AE 9D 1D</span>
+<span class="go">5F EC 4E A2 07 E4 17 E0 F5 43 69 C9 F5 D9 4D C5</span>
+<span class="go">EB C6 01 C9 49 43 D3 DC 15 F3 E9 E0 D7 30 CB 39</span>
+<span class="go">E7 05 1A 3A 25 31 51 A7 C5 E7 47 69 30 C8 83 88</span>
+<span class="go">AE DD 55 0E 1D 6A 3E 11 FF AB 69 E4 E8 73 4A 1A</span>
+<span class="go">F2 85 45 9A AA C6 91 6B 70 2B 6B 9D D2 43 D3 3B</span>
+<span class="go">DF 82 74 33 02 D5 D6 25 4F CF 46 06 5A C8 83 B3</span>
+
+<span class="go">Dev 1</span>
+
+<span class="go">=== Sec SWK ===</span>
+<span class="go">6E 22 5E EF 14 56 18 E1 58 54 DB 8E 78 C2 A3 BF</span>
+<span class="go">E2 DC C3 0A A9 1B 64 30 33 EC DD 2C F5 FD A1 F4</span>
+<span class="go">BF 18 FF 3D 93 B3 6F 3A BC AA 3B 92 CA 7C E4 D4</span>
+<span class="go">8C 7C 46 53 0F 08 15 0C 9F 68 EB 67 81 DE 2C 77</span>
+<span class="go">09 51 BA F6 29 37 67 C2 D0 0B 5C E6 A5 C3 6B 82</span>
+<span class="go">FC A5 0D D6 6A 7C F7 6D E4 38 86 25 E4 88 24 F4</span>
+<span class="go">91 AD D4 32 11 54 DE 52 5D 38 25 12 CE 90 2D AE</span>
+<span class="go">2B 59 6A 47 A2 F7 85 79 D6 AA F9 14 E1 01 70 0C</span>
+<span class="go">DE 11 29 3A DB 9E DD C3 CC 72 5D E4 F0 38 9A 7A</span>
+<span class="go">EB 33 D1 71 DA F9 97 C0 F6 2D 9E 85 B9 C4 37 A4</span>
+<span class="go">04 49 F3 F3 D8 6A DF D8 DF 67 48 15 23 7E BC 8A</span>
+<span class="go">22 7E EA 8C 64 3D 6B 8C 71 8F AE 75 C4 E7 1C 14</span>
+<span class="go">CF A3 98 C6 AE D9 6E 2A 2A C3 0B EE FC 38 A5 F2</span>
+<span class="go">4D B9 D2 7F 3C FF 4F 5D 3A 66 BF 2A F0 8E AB 02</span>
+<span class="go">82 60 4C 48 77 CF 6A DA F9 70 DD 1B D3 96 1D 7A</span>
+<span class="go">21 43 57 8B 69 C1 C1 23 56 F5 83 3E E1 1E 0E 55</span>
+<span class="go">0F 9E E3 E1 8D E5 72 39 BB 39 56 1D F3 4F 7E E8</span>
+<span class="go">7A 07 AE 4C 0D 27 D1 F4 02 BC AC E0 03 86 33 B6</span>
+<span class="go">48 27 6F 7C 2D B8 D9 70 30 5D 89 2C 1C D1 B1 90</span>
+<span class="go">60 1A FC CC AD F9 4D 0C 63 38 12 1B D6 C5 63 AE</span>
+<span class="go">83 FF 84 64 35 67 C7 C2 64 7A 39 21 54 6B 1C 0E</span>
+<span class="go">5E CD 75 BD 85 1B D4 B2 28 B2 93 C1 2A D3 C7 8B</span>
+<span class="go">20 A3 E8 19 FA B9 BA FE 34 97 21 F6 F2 4E 12 58</span>
+<span class="go">E3 16 C5 41 A0 F3 39 7A 96 C2 1A 5D 95 25 6A 5C</span>
+
+
+<span class="go">=== Dev sig ===</span>
+<span class="go">C9 18 FD 9F 20 37 C9 90 CD D1 62 82 F5 94 14 02</span>
+<span class="go">E6 98 33 21 B1 D7 B5 00 DC 90 56 4D E1 68 CC B2</span>
+<span class="go">B7 57 34 B1 CB FC B7 1D 13 29 F1 7F BC 12 79 D4</span>
+<span class="go">59 D7 CB C8 51 05 C4 3C F2 18 82 90 5A 15 CB 3D</span>
+<span class="go">27 6F 0C 1C 34 9E BD 38 A2 AC F5 44 36 0D CF D4</span>
+<span class="go">B9 A2 74 03 D6 0B AD 98 89 91 4C CE 14 1D 44 DF</span>
+<span class="go">75 6B 8D 4C B8 55 E9 BF 92 36 84 B4 CB 5B B8 77</span>
+<span class="go">34 78 51 51 3C 80 5B D5 ED 3A 91 E5 3E 56 5D 59</span>
+<span class="go">84 A7 FF 91 C3 70 52 D7 F8 87 2A C7 BB E8 5B 20</span>
+<span class="go">E4 A8 DC FB D1 1F D9 FC F9 B4 E5 12 A9 42 61 1E</span>
+<span class="go">73 7A 8E 28 5A E1 E4 76 77 FE 3C 53 1F 67 C3 48</span>
+<span class="go">B6 0F B1 B5 14 36 50 EA 85 F0 5A E3 39 F2 15 41</span>
+<span class="go">C1 54 D5 73 58 CA 27 4C EB E0 01 42 7D 95 78 74</span>
+<span class="go">70 0F 53 FA D1 2F 46 A4 1A 20 5A 07 C9 41 4A BD</span>
+<span class="go">AE 29 79 15 8A C8 2C B6 CB E1 06 C4 85 0C 75 45</span>
+<span class="go">14 AF 11 8E 63 4D 84 E6 19 32 50 A5 42 E0 34 C3</span>
+<span class="go">DD 6E FA 09 DA 5B 49 B4 E0 60 31 5D E1 10 00 BC</span>
+<span class="go">A8 89 34 32 44 6C 3D A6 DF 5F B3 19 53 50 B8 7E</span>
+<span class="go">44 1E 63 CD 90 39 EC CC 00 E3 62 92 55 B1 AF E3</span>
+<span class="go">74 A5 8C 3B 0D 0E 93 54 FE 94 5B 55 BD 94 C8 A0</span>
+<span class="go">9F 54 C3 C0 CA E1 0E BB 77 47 26 00 0E 87 8B F2</span>
+<span class="go">FC 61 42 DF 12 A8 EE F6 B9 68 FA 85 A7 F5 32 C4</span>
+<span class="go">5B 12 7E 72 FA 46 E4 0E F4 25 D0 FB BD 82 18 EF</span>
+<span class="go">E3 8F AE 92 46 B1 1A C1 83 F5 DC 02 2C 52 44 3F</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

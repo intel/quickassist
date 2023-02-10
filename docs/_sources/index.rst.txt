@@ -1,0 +1,63 @@
+.. qat_docs documentation master file
+
+Intel QuickAssist Technology Documentation - Hardware Version 2.0
+=================================================================
+
+.. Notes to generate nice TOC for PDF documents
+..
+.. To generate a PDF of a single document (e.g. GSG only, RN only, PG only, etc.),
+.. comment out all unneeded sections in the below index and leave only the one you 
+.. want to generate the PDF for.
+..
+.. To generate a nice TOC for PDFs (multiple chapters), the content from the respective
+.. index.rst section must be copied to this master index.rst file. For example, to generate
+.. a nice TOC for the GSG, the following index content in this master index.rst file:
+..       GSG/GSG2/index
+.. must be replaced with the following content from the GSG index.rst file:
+..       GSG/GSG2/introduction
+..       GSG/GSG2/systemconfiguration
+..       GSG/GSG2/installation
+..       GSG/GSG2/sampleapplications
+.. This will make the PDF output to have multiple chapters for each of the sections in the document
+.. rather than only one chapter for the entire document.
+
+.. toctree::
+   :maxdepth: 1
+
+   .. Sections ready for release
+   qat/legal
+   Intro/introduction
+   Intro/terminology
+   ReleaseNotes/index
+   GSG/GSG2/index
+   PG/index
+   VIRT/index
+   qat/contact
+
+   .. Sections not ready for release
+   .. PERF/index
+   .. qat/telemetry
+   .. AppNotes/index
+   .. working/qatlib_with_oot_driver
+   .. THERMAL/thermal_main
+   .. FreeBSD/RN/index
+   .. TODO confirm above four (appnotes includes 3 + backporting + KPT) is the correct order and includes everything
+   .. api_reference
+   .. working/debug
+   .. working/test
+   
+.. Indices and tables
+.. ==================
+
+.. * :ref:`genindex`
+.. * :ref:`modindex`
+.. * :ref:`search`
+
+.. comments & removed:
+   .. ../removed/cmn_containers
+   .. ../removed/cmn_instance_mngt
+   .. virtualization doc: here https://01.org/sites/default/files/downloads//330689intelqatvirtualizationappnoterev012.pdf
+   .. working/test
+   .. working/qatlib_with_oot_driver
+   .. KPT/kpt_tools_guide_main
+   .. qat/back_porting

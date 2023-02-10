@@ -1,0 +1,26 @@
+Contact
+-------
+
+The public repository hosting these build files is located at https://github.com/intel/quickassist . 
+
+For documentation updates, please create a new GitHub "issue" here: https://github.com/intel/quickassist/issues . When creating an issue, please be specific on the page, section, and (if any) subsection requiring clarification, including links if possible.
+
+The built HTML files are generated elsewhere and only hosted on this repository, so *there is no benefit to making a pull request*.
+
+Support
+-------
+
+Before requesting support, please go through these common FAQ steps:
+
+- Have I installed the latest version for your hardware?
+- Have I read through the Release Notes and errata?
+- Have I gone through the Getting Started Guide?
+- Have I searched for my issue, especially in the Programmer's Guide?
+
+Links:
+
+- For customers with Intel® Premier Support (IPS) accounts, please submit a ticket via https://www.intel.com/content/www/us/en/design/support/ips/training/welcome.html .
+- Community Forum page: https://community.intel.com/t5/Product-Support-Forums/ct-p/product-support-forums
+- Customer Support page: https://www.intel.com/content/www/us/en/support/contact-intel.html
+
+As an alternate, please contact qat-linux@intel.com .

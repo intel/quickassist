@@ -1,0 +1,104 @@
+.. _qat_2.0_qatzip_testing:
+
+Library Testing
+=====================================
+
+Functionality Test with QATzip
+-------------------------------------
+
+Run the following command to check if QATzip is setup correctly for compressing or decompressing files.
+
+.. Note:: 
+    Add ``-h`` for help.
+
+.. code-block:: console
+
+    qzip -k $your_input_file
+    
+Alternately, QATzip can also be run with the following command:
+
+.. code-block:: console
+
+    cat $your_input_file | qzip > $yout_output_file
+
+This compression and decompression utility could support below options:
+
+.. table:: QATzip Supported Options
+    :widths: 20, 80
+
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | **Option**               | **Description**                                                                                                         |
+    +==========================+=========================================================================================================================+
+    | ``-A``, ``--algorithm``  | Set algorithm type, currently only support deflate.                                                                     |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-d``, ``--decompress`` | Decompress.                                                                                                             |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-f``, ``--force``      | Force overwrite of output file and compress links.                                                                      |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-h``, ``--help``       | Show help options.                                                                                                      |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-H``, ``--huffmanhdr`` | Set huffman header type.                                                                                                |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-k``, ``--keep``       | Keep (don't delete) input files.                                                                                        |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-V``, ``--version``    | Display version number.                                                                                                 |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-L``, ``--level``      | Set compression level.                                                                                                  |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-C``, ``--chunksz``    | Set chunk size.                                                                                                         |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-O``, ``--output``     | Set output header format (gzip/gzipext/7z).                                                                             |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-r``                   | Set max inflight request number.                                                                                        |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-R``                   | Set Recursive mode for decompressing a directory. It only supports for gzip/gzipext format and decompression operation. |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-o``                   | Set output file name.                                                                                                   |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+    | ``-P``, ``--polling``    | Set polling mode, only supports busy polling settings.                                                                  |
+    +--------------------------+-------------------------------------------------------------------------------------------------------------------------+
+
+Compression
++++++++++++++++++++++++++++++++++++++
+
+**File compression in 7z:**
+
+    .. code-block:: console
+
+        qzip -O 7z FILE1 FILE2 FILE3... -o result.7z
+
+**Directory compression in 7z:**
+
+    .. code-block:: console
+
+        qzip -O 7z DIR1 DIR2 DIR3... -o result.7z
+
+Decompression
++++++++++++++++++++++++++++++++++++++
+
+**File decompression in 7z:**
+
+    .. code-block:: console
+
+        qzip -d result.7z
+
+**Directory decompression with -R:**
+
+If the directory contains files that are compressed by ``qzip`` and using gzip/gzipext format, then it should be add ``-R`` option to decompress them:
+
+    .. code-block:: console
+
+        qzip -d -R DIR
+
+Performance Test with QATzip
+-------------------------------------
+
+Run the QATzip (de)compression performance test with the following command.
+
+.. note:: 
+    Update the drive configuration and process/thread argument in ``run_perf_test.sh`` before running the performance test. Note that when number for threads changes, the argument ``max_huge_pages_per_process`` in ``run_perf_test.sh`` should be changed accordingly, at least 6 times of threads number.
+
+.. code-block:: console
+
+    cd $QZ_ROOT/test/performance_tests
+    ./run_perf_test.sh

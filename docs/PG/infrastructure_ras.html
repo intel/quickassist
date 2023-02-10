@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reliability, Availability, and Stability (RAS) &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Acceleration Driver" href="acceleration_driver.html" />
+    <link rel="prev" title="Power Management" href="infrastructure_power_management.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_queue_pairs.html">Queues and Queue Pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_service_instances.html">Service Instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_memory_management.html">Memory Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_modes_of_operation.html">Modes of Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_debugability.html">Debugability</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_heartbeat.html">Heartbeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_device_telemetry.html">Telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_ratelimiting.html">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_power_management.html">Power Management</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Reliability, Availability, and Stability (RAS)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ras-usage">RAS Usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aer-errors">AER Errors</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
+      <li>Reliability, Availability, and Stability (RAS)</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="reliability-availability-and-stability-ras">
+<span id="qat-2-0-pg-infrastructure-ras"></span><h1>Reliability, Availability, and Stability (RAS)<a class="headerlink" href="#reliability-availability-and-stability-ras" title="Permalink to this headline"></a></h1>
+<p>The RAS feature goal is to support the acceleration devices Reliability, Availability and Stability by handling the error interrupts initiated
+by the device.</p>
+<p>Additionally the types of errors are counted and the counters made available via sysfs.</p>
+<section id="ras-usage">
+<h2>RAS Usage<a class="headerlink" href="#ras-usage" title="Permalink to this headline"></a></h2>
+<p>Following PCIe specifications, errors are categorized as follows:</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">RAS Error Types</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Error Type</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Correctable</p></td>
+<td><p>Device can recover on its own, no software involvement.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ras_correctable</span></code> counter is incremented in sysfs.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Uncorrectable</p></td>
+<td><p>Software intervention is needed to resolve the error.
+This may require the application to reset the session or
+resend the request to the device.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ras_uncorrectable</span></code> counter is incremented in sysfs.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Fatal</p></td>
+<td><p>Device unable to recover on its own even with software help.
+Restarting the device is required.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">ras_fatal</span></code> counter is incremented in sysfs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The RAS sysfs files are located at <code class="docutils literal notranslate"><span class="pre">/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/ras_X</span></code>
+where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">AAAA:BB:CC.D</span></code> is the <em>Domain:BDF</em> of the target Intel® QAT Endpoint.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ras_X</span></code> is the error type (<code class="docutils literal notranslate"><span class="pre">ras_correctable/ras_uncorrectable/ras_fatal</span></code>).</p></li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /sys/bus/pci/devices/0000\:6b\:00.0/ras_fatal</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RAS is enabled by default when the device is initialised.</p>
+</div>
+</section>
+<section id="aer-errors">
+<span id="aer-errors-link"></span><h2>AER Errors<a class="headerlink" href="#aer-errors" title="Permalink to this headline"></a></h2>
+<p>The Linux kernel implements an AER driver for each PCIe device to handle errors reported through the AER mechanism.</p>
+<p>AER error counters for each device are exposed through sysfs files categorized as follows:</p>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">RAS AER Errors</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Error Type</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AER Correctable</p></td>
+<td><p>Device can recover on its own, no software involvement.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aer_dev_correctable</span></code> counter is incremented in sysfs.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>AER Uncorrectable</p></td>
+<td><p>Software intervention is needed to resolve the error.
+In the case of an error caused by a transaction failure or
+for instance a packet memory buffer that can’t be restored
+by ECC, then the device will need to reset in order to
+retry the transaction and attempt recovery.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aer_dev_uncorrectable</span></code> counter is incremented in sysfs.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>AER Fatal</p></td>
+<td><p>In the case of a fatal error, the AER driver will additionally
+reset the PCIe link in an attempt to recover.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aer_dev_fatal</span></code> counter is incremented in sysfs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>AER errors counters are exposed at <code class="docutils literal notranslate"><span class="pre">/sys/bus/pci/devices/AAAA:BB:CC.D/aer_dev_X</span></code>
+where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">AAAA:BB:CC.D</span></code> is the <em>Domain:BDF</em> of the target Intel® QAT Endpoint.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aer_dev_X</span></code> is the error type (<code class="docutils literal notranslate"><span class="pre">aer_dev_correctable/aer_dev_uncorrectable/aer_dev_fatal</span></code>).</p></li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /sys/bus/pci/devices/0000\:6b\:00.0/aer_dev_correctable</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>AER reporting must be enabled in the BIOS to have errors reported through AER.</p>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="infrastructure_power_management.html" class="btn btn-neutral float-left" title="Power Management" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="acceleration_driver.html" class="btn btn-neutral float-right" title="Acceleration Driver" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

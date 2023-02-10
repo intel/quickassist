@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run Containers using Intel® QAT Acceleration &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Run Containers using Intel® QAT Acceleration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="run-containers-using-intel-qat-acceleration">
+<span id="qat-2-0-containers-run"></span><h1>Run Containers using Intel® QAT Acceleration<a class="headerlink" href="#run-containers-using-intel-qat-acceleration" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If not running as <em>root</em> user, <code class="docutils literal notranslate"><span class="pre">sudo</span></code> will need to be added to the Linux* instructions below.</p>
+</div>
+<section id="intel-qat-openssl-container">
+<h2>Intel® QAT + OpenSSL* Container<a class="headerlink" href="#intel-qat-openssl-container" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The commands below will run only the Intel® QuickAssist Technology OpenSSL* Engine (QAT_Engine) portion of the image built in <a class="reference internal" href="build.html#qat-2-0-containers-build"><span class="std std-ref">previous section</span></a>.</p>
+</div>
+<ol class="arabic">
+<li><p><strong>Run</strong> the image previously built in a container.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl engine -c -t -v qatengine</span>
+</pre></div>
+</div>
+<p>You should see an output similar to the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(qatengine) Reference implementation of QAT crypto engine(qat_hw &amp; qat_sw) v0.6.12
+
+[RSA, DSA, DH, AES-128-CBC-HMAC-SHA1, AES-128-CBC-HMAC-SHA256, AES-256-
+CBC-HMAC-SHA1, AES-256-CBC-HMAC-SHA256, ChaCha20-Poly1305, id-aes128-GCM,
+id-aes192-GCM, id-aes256-GCM, SHA3-224, SHA3-256, SHA3-384, SHA3-512,
+TLS1-PRF, X25519, X448, SM2]
+
+[ available ]
+
+ENABLE_EXTERNAL_POLLING, POLL, SET_INSTANCE_FOR_THREAD,
+GET_NUM_OP_RETRIES, SET_MAX_RETRY_COUNT, SET_INTERNAL_POLL_INTERVAL,
+GET_EXTERNAL_POLLING_FD, ENABLE_EVENT_DRIVEN_POLLING_MODE,
+GET_NUM_CRYPTO_INSTANCES, DISABLE_EVENT_DRIVEN_POLLING_MODE,
+SET_EPOLL_TIMEOUT, SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
+ENABLE_INLINE_POLLING, ENABLE_HEURISTIC_POLLING,
+GET_NUM_REQUESTS_IN_FLIGHT, INIT_ENGINE, SET_CONFIGURATION_SECTION_NAME,
+ENABLE_SW_FALLBACK, HEARTBEAT_POLL, DISABLE_QAT_OFFLOAD
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="intel-qat-nginx-container">
+<h2>Intel® QAT + NGINX* Container<a class="headerlink" href="#intel-qat-nginx-container" title="Permalink to this headline"></a></h2>
+<ol class="arabic">
+<li><p><strong>Create</strong> a temporary directory.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir /tmp/nginx</span>
+<span class="go">cd /tmp/nginx</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Set up</strong> the SSL certificates:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p><strong>Create</strong> a file named <em>openssl.cnf</em>.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">vi openssl.cnf</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Add</strong> the following content to the file <em>openssl.cnf</em>:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>openssl_conf = openssl_init
+[ openssl_init ]
+engines = engine_section
+[ engine_section ]
+qat = qat_section
+[ qat_section ]
+engine_id = avx512
+default_algorithms = ALL
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Create</strong> the SSL certificates.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl req -x509 -new -batch -nodes -subj &#39;/CN=localhost&#39; -keyout tls.key -out tls.pem</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p><strong>Set up</strong> the NGINX configuration file:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p><strong>Create</strong> a file named <em>nginx.conf</em>.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">vi nginx.conf</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Add</strong> the following content to the file <em>nginx.conf</em>:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>user root;
+worker_processes 8;
+
+load_module /usr/lib64/nginx/ngx_ssl_engine_qat_module.so;
+
+events {
+    worker_connections  102400;
+}
+
+ssl_engine {
+    use_engine qatengine;
+    default_algorithms RSA;
+    qat_engine {
+        qat_offload_mode async;
+        qat_notify_mode poll;
+        qat_poll_mode heuristic;
+        qat_shutting_down_release on;
+    }
+}
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    keepalive_timeout 0;
+
+    # HTTPS server
+    server {
+        ssl_asynch on;
+        listen       443 ssl;
+        server_name  localhost;
+        ssl_certificate      /etc/ssl/certs/tls.crt;
+        ssl_certificate_key  /etc/ssl/certs/tls.key;
+        ssl_session_cache    off;
+        ssl_session_timeout  5m;
+        ssl_protocols  TLSv1.2;
+        ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256;
+        ssl_ecdh_curve X25519;
+        ssl_prefer_server_ciphers   off;
+
+        location / {
+            root   html;
+            index  index.html index.htm;
+        }
+    }
+
+}
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p><strong>Run</strong> the image previously built in a container.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run --rm -it -p 9000:443 --cpuset-cpus 10-20 --security-opt seccomp=unconfined --security-opt apparmor=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) -v &quot;${PWD}&quot;/tls.pem:/etc/ssl/certs/tls.crt -v &quot;${PWD}&quot;/tls.key:/etc/ssl/certs/tls.key -v &quot;$PWD&quot;/nginx.conf:/usr/share/nginx/conf/nginx.conf intel/openssl-qatengine:devel</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><em>Within the running container</em>, <strong>run</strong> the NGINX server.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nginx</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><em>From the host</em>, <strong>verify</strong> the NGINX server is running.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -k https://localhost:9000</span>
+</pre></div>
+</div>
+<p>You should see an output similar to the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+    &lt;head&gt;
+        &lt;title&gt;Welcome to nginx!&lt;/title&gt;
+    &lt;/head&gt;
+    &lt;body&gt;
+        &lt;h1&gt;Welcome to nginx!&lt;/h1&gt;
+        &lt;p&gt;If you see this page, the nginx web server is successfully
+        installed and working. Further configuration is required.&lt;/p&gt;
+        &lt;p&gt;For online documentation and support please refer to
+        &lt;a href=&quot;http://nginx.org/&quot;&gt;nginx.org&lt;/a&gt;.&lt;br/&gt;
+        Commercial support is available at
+        &lt;a href=&quot;http://nginx.com/&quot;&gt;nginx.com&lt;/a&gt;.&lt;/p&gt;
+        &lt;p&gt;&lt;em&gt;Thank you for using nginx.&lt;/em&gt;&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="tuning-parameters">
+<h2>Tuning Parameters<a class="headerlink" href="#tuning-parameters" title="Permalink to this headline"></a></h2>
+<section id="container-runtime-memory-lock-limit-optional">
+<h3>Container Runtime Memory Lock Limit (optional)<a class="headerlink" href="#container-runtime-memory-lock-limit-optional" title="Permalink to this headline"></a></h3>
+<ol class="arabic">
+<li><p><strong>Create</strong> a systemd directory for the docker service.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mkdir -p /etc/systemd/system/docker.service.d</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Navigate</strong> to the docker service directory.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /etc/systemd/system/docker.service.d</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Create</strong> a file name <em>memlock.conf</em>.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">vi memlock.conf</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Add</strong> the following variable to the <em>memlock.conf</em> file:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Service]
+LimitMEMLOCK=16777216
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Save</strong> the file.</p></li>
+<li><p><strong>Flush</strong> the changes.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl daemon-reload</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Restart</strong> Docker.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl restart docker</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

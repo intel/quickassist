@@ -1,0 +1,86 @@
+.. _qat_2.0_pg_infrastructure_load_balancing:
+
+Load Balancing
+==============
+
+Per Endpoint
+------------
+
+There are four arbiters, which by default are used for the different services (with one spare/unused).
+
+Each partition:
+
+- Arbitrates across two request queues per bundle/VF, to pick a request.
+- Load balances all of these requests across all available “engines”.
+
+Within a partition, arbitration uses round robin.
+
+- Ensures fairness (in terms of number of requests) across queue pairs and guests
+
+.. figure:: ../../img/load_balancing_one_device.png
+
+Across Endpoints
+----------------
+
+In a platform or CPU with multiple Intel® QAT devices, software is responsible for load sharing across 
+devices/endpoints.
+Sapphire Rapids has up to four Intel® QAT devices/endpoints in a single CPU package (depending on SKU)
+PCIe card may have multiple (QAT 1.x) devices across one or more chipsets.
+
+Software-based Load Sharing can be implemented at various layers:
+
+- For applications using the Intel® QuickAssist Technology API, the application must implement load balancing.
+- For applications using a framework (e.g. OpenSSL), the framework implements load balancing.
+  
+Load Sharing Criteria
++++++++++++++++++++++
+
+- Simple round-robin scheme recommended.
+- May want to consider “locality” in a multi-socket (NUMA) platform.
+
+.. figure:: ../../img/load_balancing_multiple_devices.png
+
+.. _qat2.0_dimensions:
+
+Dimensions
+----------
+
+.. table:: Dimmensions Gen 1 & Gen 2
+
+   +-------------------+----------------------------------+------------------------------------------------------------+
+   |                   | **Gen 1**                        | **Gen 2**                                                  |
+   +===================+==================================+======================+=====================================+
+   |                   | Intel® Communication Chipset 8925| Intel® C62x Chipset  |  Intel Atom® Processor C3000        |
+   |                   | to 8955 Series                   |                      |                                     |
+   +-------------------+----------------------------------+----------------------+-------------------------------------+
+   | Number PCIe       | 1                                | 3                    | 1                                   |
+   | Endpoints         |                                  |                      |                                     |
+   +-------------------+----------------------------------+----------------------+-------------------------------------+
+   | Number of Bundles | 32                               | 16                   | 16                                  |
+   | /VFs per Endpoint |                                  |                      |                                     |
+   +-------------------+----------------------------------+----------------------+-------------------------------------+
+   | Number of Queue   | 8                                                                                             |
+   | Pairs per Bundle  |                                                                                               |
+   +-------------------+----------------------------------+----------------------+-------------------------------------+
+    
+.. table:: Dimmensions Gen 3 & Gen 4
+
+   +-------------------+----------------------------------+------------------------------------------------------------+
+   |                   | **Gen 3**                        | **Gen 4**                                                  |
+   +===================+==================================+============================================================+
+   |                   | Intel® Atom P5000 Processor/     | Intel®  4th Gen Intel® Xeon® Scalable Processor            |
+   |                   | Ice Lake D                       | (per socket)                                               |
+   +-------------------+----------------------------------+------------------------------------------------------------+
+   | Number PCIe       | 1                                | 4                                                          |
+   | Endpoints         |                                  |                                                            |
+   +-------------------+----------------------------------+------------------------------------------------------------+
+   | Number of         | 128                              | 16                                                         |
+   | VFs per Endpoint  |                                  |                                                            |
+   +-------------------+----------------------------------+------------------------------------------------------------+
+   | Number of Queue   | 8                                | 4                                                          |
+   | Pairs per Bundle  |                                  |                                                            |
+   +-------------------+----------------------------------+------------------------------------------------------------+
+   | Number of s-IOV   | N/A                              | 64                                                         |
+   | ADIs per Endpoint |                                  |                                                            |
+   +-------------------+----------------------------------+------------------------------------------------------------+
+

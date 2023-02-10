@@ -1,0 +1,17 @@
+.. _qat_2.0_pg_supported-apis:
+
+Supported APIs
+==============
+
+The supported APIs are classified in two categories:
+
+* Intel QuickAssist Technology APIs
+* Additional APIs
+
+Details on the APIs are included in the following sections.
+
+.. toctree::
+    :maxdepth: 1
+
+    apis_qat_apis
+    apis_additional_apis_index

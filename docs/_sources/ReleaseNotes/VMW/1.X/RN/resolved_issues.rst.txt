@@ -1,0 +1,24 @@
+.. _qat_1.x_rn_vmware_resolvedissues:
+
+Resolved Issues
+---------------
+
+VQQ-1553 Incompatibility between legacy 1.7 and 2.0 drivers
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. list-table::
+   :widths: 20, 80
+
+   * - **Title**
+     - Incompatibility between legacy 1.X and 2.0 drivers
+   * - **Reference**
+     - VQQ-1553
+   * - **Description**
+     - 1.7 driver (version 1.1.0.7) couldn't be installed on the same system
+       with 2.0 driver. They are using same namespaces and will conflict,
+       so one of the drivers will fail initialization.
+   * - **Implication**
+     - Only one of the driver could be installed on the system.
+   * - **Resolution**
+     - Use updated 1.X driver, starting from version 1.5.0.41 it's
+       compatible with 2.0 driver.

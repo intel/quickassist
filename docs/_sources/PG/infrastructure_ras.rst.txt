@@ -1,0 +1,108 @@
+.. _qat_2.0_pg_infrastructure_ras:
+
+Reliability, Availability, and Stability (RAS)
+==============================================
+
+The RAS feature goal is to support the acceleration devices Reliability, Availability and Stability by handling the error interrupts initiated 
+by the device.
+
+Additionally the types of errors are counted and the counters made available via sysfs.
+
+RAS Usage
+---------
+
+Following PCIe specifications, errors are categorized as follows: 
+
+.. table:: RAS Error Types
+   :widths: 20, 80
+
+   +------------------+---------------------------------------------------------------+
+   | **Error Type**   | **Description**                                               | 
+   +==================+===============================================================+
+   | Correctable      | Device can recover on its own, no software involvement.       |
+   |                  |                                                               |
+   |                  |                                                               |
+   |                  | The ``ras_correctable`` counter is incremented in sysfs.      |
+   +------------------+---------------------------------------------------------------+
+   | Uncorrectable    | Software intervention is needed to resolve the error.         |
+   |                  | This may require the application to reset the session or      | 
+   |                  | resend the request to the device.                             |
+   |                  |                                                               |
+   |                  |                                                               |
+   |                  | The ``ras_uncorrectable`` counter is incremented in sysfs.    |
+   +------------------+---------------------------------------------------------------+
+   | Fatal            | Device unable to recover on its own even with software help.  |
+   |                  | Restarting the device is required.                            | 
+   |                  |                                                               |
+   |                  |                                                               |
+   |                  | The ``ras_fatal`` counter is incremented in sysfs.            |
+   +------------------+---------------------------------------------------------------+
+
+
+The RAS sysfs files are located at ``/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/ras_X``
+where:
+
+   - ``AAAA:BB:CC.D`` is the *Domain:BDF* of the target Intel® QAT Endpoint.
+   - ``ras_X`` is the error type (``ras_correctable/ras_uncorrectable/ras_fatal``).
+
+Example:
+
+   .. code-block:: console
+
+       cat /sys/bus/pci/devices/0000\:6b\:00.0/ras_fatal
+
+.. note:: 
+
+   RAS is enabled by default when the device is initialised.
+
+.. _aer_errors_link:
+
+AER Errors
+----------
+
+The Linux kernel implements an AER driver for each PCIe device to handle errors reported through the AER mechanism. 
+
+AER error counters for each device are exposed through sysfs files categorized as follows:
+
+.. table:: RAS AER Errors
+   :widths: 20, 80
+
+   +------------------+---------------------------------------------------------------+
+   | **Error Type**   | **Description**                                               | 
+   +==================+===============================================================+
+   | AER Correctable  | Device can recover on its own, no software involvement.       |
+   |                  |                                                               |
+   |                  |                                                               |
+   |                  | The ``aer_dev_correctable`` counter is incremented in sysfs.  |
+   +------------------+---------------------------------------------------------------+
+   | AER Uncorrectable| Software intervention is needed to resolve the error.         |
+   |                  | In the case of an error caused by a transaction failure or    |   
+   |                  | for instance a packet memory buffer that can't be restored    |
+   |                  | by ECC, then the device will need to reset in order to        |
+   |                  | retry the transaction and attempt recovery.                   |
+   |                  |                                                               |
+   |                  | The ``aer_dev_uncorrectable`` counter is incremented in sysfs.|
+   +------------------+---------------------------------------------------------------+
+   | AER Fatal        | In the case of a fatal error, the AER driver will additionally|
+   |                  | reset the PCIe link in an attempt to recover.                 | 
+   |                  |                                                               |
+   |                  |                                                               |
+   |                  | The ``aer_dev_fatal`` counter is incremented in sysfs.        |
+   +------------------+---------------------------------------------------------------+
+
+AER errors counters are exposed at ``/sys/bus/pci/devices/AAAA:BB:CC.D/aer_dev_X``
+where:
+      
+   - ``AAAA:BB:CC.D`` is the *Domain:BDF* of the target Intel® QAT Endpoint.
+   - ``aer_dev_X`` is the error type (``aer_dev_correctable/aer_dev_uncorrectable/aer_dev_fatal``).
+
+Example:
+
+   .. code-block:: console
+
+      cat /sys/bus/pci/devices/0000\:6b\:00.0/aer_dev_correctable
+
+.. important:: 
+   
+   AER reporting must be enabled in the BIOS to have errors reported through AER.
+

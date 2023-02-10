@@ -1,0 +1,37 @@
+.. _qat_vmw_1.x_rn_resources: ..
+
+.. _additional_resources:
+
+Additional Resources
+====================
+
+.. list-table::
+   :widths: 10, 80
+
+   * - **Document Number**
+     - **Title**
+   * - 330689
+     - Using Intel\ :sup:`®` Virtualization Technology (Intel\ :sup:`®` VT) with
+       Intel\ :sup:`®` QuickAssist Technology Application Note
+   * - 336211
+     - Intel\ :sup:`®` QuickAssist Technology Software for Linux* - Release
+       Notes - Hardware Version 1.7
+   * - 336212
+     - Intel\ :sup:`®` QuickAssist Technology Software for Linux* - Getting
+       Started Guide - Hardware Version 1.7
+   * - 336210
+     - Intel\ :sup:`®` QuickAssist Technology Software for Linux* - Programmer's
+       Guide - Hardware Version 1.7
+   * - 337758
+     - Intel\ :sup:`®` QuickAssist Technology Software for Windows* - Release
+       Notes
+   * - 710073
+     - Intel\ :sup:`®` QuickAssist Technology Software for Windows* - Technical
+       Guide
+   * - 330684
+     - Intel\ :sup:`®` QuickAssist Technology API Programmer's Guide
+   * - 330685
+     - Intel\ :sup:`®` QuickAssist Technology Cryptographic API Reference
+       Manual
+   * - 330686
+     - Intel\ :sup:`®` QuickAssist Technology Compression API Reference Manual

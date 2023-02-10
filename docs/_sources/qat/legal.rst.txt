@@ -1,0 +1,23 @@
+.. _qat_legal_notes:
+
+.. this file is docs\qat\legal.rst
+.. use https://intel.sharepoint.com/sites/legal-marketing/sitepages/Notices%20and%20Disclaimers.aspx for legal; this updated 2023-01-05
+
+Legal Notices & Disclaimers
+---------------------------
+
+Performance varies by use, configuration and other factors. Learn more on Intel's `Performance Index site <https://edc.intel.com/content/www/us/en/products/performance/benchmarks/overview/>`_  . 
+
+Performance results are based on testing as of dates shown in configurations and may not reflect all publicly available updates.  See backup for configuration details.  No product or component can be absolutely secure. 
+
+Your costs and results may vary. 
+
+Intel technologies may require enabled hardware, software or service activation.
+
+The products described may contain design defects or errors known as errata which may cause the product to deviate from published specifications.  Current characterized errata are available on request.
+
+Code names are used by Intel to identify products, technologies, or services that are in development and not publicly available. These are not "commercial" names and not intended to function as trademarks.
+
+See Intel's `Legal Notices and Disclaimers <https://www.intel.com/LegalNoticesAndDisclaimers>`_
+
+© Intel Corporation. Intel, the Intel logo, Atom, Xeon, and other Intel marks are trademarks of Intel Corporation or its subsidiaries.  Other names and brands may be claimed as the property of others. 

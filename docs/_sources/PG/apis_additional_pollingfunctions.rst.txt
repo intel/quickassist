@@ -1,0 +1,262 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_pollingfunctions:
+
+Polling Functions
+=================
+
+These functions are intended for retrieving response messages that are on the rings and dispatching the associated callbacks.
+
+All polling function definitions are located in: ``$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_poll.h``
+
+icp_sal_pollBank
+----------------
+
+Poll all rings on the given Intel\ :sup:`®` QAT Endpoint on a given bank number to determine if any of the rings contain response 
+messages from the Intel\ :sup:`®` QAT Endpoint. The ``response_quota`` input parameter is per ring.
+
+**Syntax**
+
+``CpaStatus icp_sal_pollBank(Cpa32U accelId, Cpa32U bank_number, Cpa32U response_quota);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``accelId``          | The device number associated with the Intel\ :sup:`®` QAT Endpoint.                       |
+   |                      | valid range is 0 to number of Intel\ :sup:`®` QAT Endpoints in the system.                |
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``bank_number``      | The number of the memory bank on the Intel\ :sup:`®` QAT Endpoint that will be polled for |
+   |                      | response messages.  The valid range is 0 to 31.                                           |
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``response_quota``   | The maximum number of responses to take from the ring in one call.                        |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_pollBank`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully polled a ring with data.                                                        |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RETRY``   | There is no data on any ring on any bank or the banks are already being polled.              |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_pollAllBanks
+--------------------
+
+Poll all banks on the given Intel\ :sup:`®` QAT Endpoint to determine if any of the rings contain response messages from the 
+Intel\ :sup:`®` QAT Endpoint. The ``response_quota`` input parameter is per ring.
+
+**Syntax**
+
+``CpaStatus icp_sal_pollAllBanks(Cpa32U accelId, Cpa32U response_quota);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``accelId``          | The device number associated with the Intel\ :sup:`®` QAT Endpoint.                       |
+   |                      | valid range is 0 to number of Intel\ :sup:`®` QAT Endpoints in the system.                |
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``response_quota``   | The maximum number of responses to take from the ring in one call.                        |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_pollAllBanks`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully polled a ring with data.                                                        |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RETRY``   | There is no data on any ring on any bank or the banks are already being polled.              |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_CyPollInstance
+----------------------
+
+Poll the Cryptographic (CY) logical instance associated with the ``instanceHandle`` to retrieve requests that are on 
+response rings associated with that instance and dispatch the associated callbacks. The ``response_quota`` input parameter 
+is the maximum number of responses to process in one call. 
+
+.. note:: 
+   
+   The ``icp_sal_CyPollInstance()`` function is used in conjunction with the ``CyXIsPolled`` parameter in the acceleration configuration file.
+
+**Syntax**
+
+``CpaStatus icp_sal_CyPollInstance(CpaInstanceHandle instanceHandle, Cpa32U response_quota);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``instanceHandle``   | The logical instance to poll for responses on the response ring.                          |
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``response_quota``   | The maximum number of responses to take from the ring in one call.                        |
+   |                      | When set to 0, all responses are retrieved.                                               |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_CyPollInstance`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | The function was successful.                                                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RETRY``   | There are no responses on the rings associated with the specified logical instance.          |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+.. note:: 
+   
+   A ring is only polled if it contains data.
+
+icp_sal_DcPollInstance
+----------------------
+
+Poll the Data Compression (DC) logical instance associated with the ``instanceHandle`` to retrieve requests that are on 
+response rings associated with that instance and dispatch the associated callbacks. The ``response_quota`` input parameter 
+is the maximum number of responses to process in one call. 
+
+.. note:: 
+   
+   The ``icp_sal_DcPollInstance()`` function is used in conjunction with the ``DcXIsPolled`` parameter in the acceleration configuration file.
+
+**Syntax**
+
+``CpaStatus icp_sal_DcPollInstance(CpaInstanceHandle instanceHandle, Cpa32U response_quota);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``instanceHandle``   | The logical instance to poll for responses on the response ring.                          |
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``response_quota``   | The maximum number of responses to take from the ring in one call.                        |
+   |                      | When set to 0, all responses are retrieved.                                               |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_DcPollInstance`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | The function was successful.                                                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RETRY``   | There are no responses on the rings associated with the specified logical instance.          |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+.. note:: 
+   
+   A ring is only polled if it contains data.
+
+icp_sal_CyPollDpInstance
+------------------------
+
+Poll a particular Cryptographic (CY) data path logical instance associated with the ``instanceHandle`` to retrieve requests
+ that are on the high-priority symmetric ring associated with that instance and dispatch the associated callbacks. 
+ The ``response_quota`` input parameter is the maximum number of responses to process in one call. 
+
+.. note:: 
+   
+   This function is a Data Plane API function and consequently the restrictions in :ref:`Usage Constraints on the Data Plane APIs <data_plane_constraints>` apply.
+
+
+**Syntax**
+
+``CpaStatus icp_sal_CyPollDpInstance(CpaInstanceHandle instanceHandle, Cpa32U response_quota);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``instanceHandle``   | The logical instance to poll for responses on the response ring.                          |
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``response_quota``   | The maximum number of responses to take from the ring in one call.                        |
+   |                      | When set to 0, all responses are retrieved.                                               |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_CyPollDpInstance`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | The function was successful.                                                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RETRY``   | There are no responses on the rings associated with the specified logical instance.          |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_DcPollDpInstance
+------------------------
+
+Poll a particular Data Compression (DC) data path logical instance associated with the ``instanceHandle`` to retrieve 
+requests that are on the response ring associated with that instance. The ``response_quota`` input parameter is the 
+maximum number of responses to process in one call. 
+
+.. note:: 
+   
+   This function is a Data Plane API function and consequently the restrictions in :ref:`Usage Constraints on the Data Plane APIs <data_plane_constraints>` apply.
+
+**Syntax**
+
+``CpaStatus icp_sal_DcPollDpInstance(CpaInstanceHandle instanceHandle, Cpa32U response_quota);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``instanceHandle``   | The logical instance to poll for responses on the response ring.                          |
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``response_quota``   | The maximum number of responses to take from the ring in one call.                        |
+   |                      | When set to 0, all responses are retrieved.                                               |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_DcPollDpInstance`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | The function was successful.                                                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RETRY``   | There are no responses on the rings associated with the specified logical instance.          |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+

@@ -1,0 +1,130 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_congestionapis:
+
+Congestion Management APIs
+==========================
+
+Congestion Management or Back-pressure mechanism APIs are intended to handle the cases when the device is busy. 
+These APIs ensures there is enough space on the ring before submitting a request.
+
+Applications can query the appropriate ring on each instance and select any instance with enough space without 
+creating any ``OpData`` structures.
+
+All these API definitions are located in: ``$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_congestion_mgmt.h``.
+
+.. Important:: 
+   
+   *Congestion Management APIs* are not currently supported with the QAT2.0 driver.
+
+icp_sal_SymGetInflightRequests
+------------------------------
+
+This function is used to fetch in-flight and max in-flight request counts for the given symmetric instance handle.
+
+**Syntax**
+
+``CpaStatus icp_sal_SymGetInflightRequests(CpaInstanceHandle instanceHandle, Cpa32U *maxInflightRequests, Cpa32U *numInflightRequests);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``instanceHandle``           | Symmetric instance handle.                                                             |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``*maxInflightRequests``     | A pointer to the max in-flight request count.                                          |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``*numInflightRequests``     | A pointer to the current in-flight request count.                                      |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+
+**Return Value**
+
+The ``icp_sal_SymGetInflightRequests`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 30, 70
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successfully retrieved the request counts.                                             |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_INVALID_PARAM`` | Invalid parameter passed to the function.                                              |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates a failure.                                                                   |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+icp_sal_AsymGetInflightRequests
+-------------------------------
+
+This function is used to fetch in-flight and max in-flight request counts for the given asymmetric instance handle.
+
+**Syntax**
+
+``CpaStatus icp_sal_AsymGetInflightRequests(CpaInstanceHandle instanceHandle, Cpa32U *maxInflightRequests, Cpa32U *numInflightRequests);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``instanceHandle``           | Asymmetric instance handle.                                                            |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``*maxInflightRequests``     | A pointer to the max in-flight request count.                                          |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``*numInflightRequests``     | A pointer to the current in-flight request count.                                      |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+
+**Return Value**
+
+The ``icp_sal_AsymGetInflightRequests`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 30, 70
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successfully retrieved the request counts.                                             |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_INVALID_PARAM`` | Invalid parameter passed to the function.                                              |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates a failure.                                                                   |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+icp_sal_dp_SymGetInflightRequests
+---------------------------------
+
+This data plane function is used to fetch in-flight and max in-flight request counts for the given symmetric instance handle.
+
+**Syntax**
+
+``CpaStatus icp_sal_dp_SymGetInflightRequests(CpaInstanceHandle instanceHandle, Cpa32U *maxInflightRequests, Cpa32U *numInflightRequests);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``instanceHandle``           | Symmetric instance handle.                                                             |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``*maxInflightRequests``     | A pointer to the max in-flight request count.                                          |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``*numInflightRequests``     | A pointer to the current in-flight request count.                                      |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+
+**Return Value**
+
+The ``icp_sal_dp_SymGetInflightRequests`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 30, 70
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successfully retrieved the request counts.                                             |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_INVALID_PARAM`` | Invalid parameter passed to the function.                                              |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates a failure.                                                                   |
+   +------------------------------+----------------------------------------------------------------------------------------+

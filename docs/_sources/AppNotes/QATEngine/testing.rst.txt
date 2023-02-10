@@ -1,0 +1,113 @@
+.. _qat_2.0_qatengine_testing:
+
+Intel® QAT OpenSSL* Engine Testing
+=====================================
+
+Test the Intel® QAT OpenSSL* Engine
+-------------------------------------
+
+Run this command to verify the Intel® QAT OpenSSL* Engine is loaded correctly:
+
+.. code-block:: console
+
+    cd /path/to/openssl_install/bin
+    ./openssl engine -t -c -v qatengine
+
+The ``qat_hw`` target output will be:
+
+.. code-block:: text
+
+    (qatengine) Reference implementation of QAT crypto engine(qat_hw) <qatengine version>
+    [RSA, DSA, DH, AES-128-CBC-HMAC-SHA1, AES-128-CBC-HMAC-SHA256,
+    AES-256-CBC-HMAC-SHA1, AES-256-CBC-HMAC-SHA256, TLS1-PRF, HKDF, X25519, X448]
+        [ available ]
+        ENABLE_EXTERNAL_POLLING, POLL, SET_INSTANCE_FOR_THREAD,
+        GET_NUM_OP_RETRIES, SET_MAX_RETRY_COUNT, SET_INTERNAL_POLL_INTERVAL,
+        GET_EXTERNAL_POLLING_FD, ENABLE_EVENT_DRIVEN_POLLING_MODE,
+        GET_NUM_CRYPTO_INSTANCES, DISABLE_EVENT_DRIVEN_POLLING_MODE,
+        SET_EPOLL_TIMEOUT, SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
+        ENABLE_INLINE_POLLING, ENABLE_HEURISTIC_POLLING,
+        GET_NUM_REQUESTS_IN_FLIGHT, INIT_ENGINE, SET_CONFIGURATION_SECTION_NAME,
+        ENABLE_SW_FALLBACK, HEARTBEAT_POLL, DISABLE_QAT_OFFLOAD
+
+The ``qat_sw`` target output will be:
+
+.. code-block:: text
+
+    (qatengine) Reference implementation of QAT crypto engine(qat_sw) <qatengine version>
+    [RSA, id-aes128-GCM, id-aes192-GCM, id-aes256-GCM, X25519]
+        [ available ]
+        ENABLE_EXTERNAL_POLLING, POLL, ENABLE_HEURISTIC_POLLING,
+        GET_NUM_REQUESTS_IN_FLIGHT, INIT_ENGINE
+
+Detailed information about the engine specific messages is available in the :ref:`Intel® QAT OpenSSL* Engine Specific Messages <qat_2.0_qatengine_specific_messages>` section. 
+Also ``./openssl engine -t -c -vvvv qatengine`` gives brief decription about each control command.
+
+Test the Intel® QAT OpenSSL* Engine using OpenSSL* speed utility
+----------------------------------------------------------------
+
+.. code-block:: text
+
+    cd /path/to/openssl_install/bin
+
+    qat_hw
+
+    * RSA 2K
+    * Asynchronous
+    ./openssl speed -engine qatengine -elapsed -async_jobs 72 rsa2048
+    * Synchronous
+    ./openssl speed -engine qatengine -elapsed rsa2048
+    * OpenSSL Software
+    ./openssl speed -elapsed rsa2048
+    * ECDH Compute Key
+    * Asynchronous
+    ./openssl speed -engine qatengine -elapsed -async_jobs 36 ecdh
+    * Synchronous
+    ./openssl speed -engine qatengine -elapsed ecdh
+    * OpenSSL Software
+    ./openssl speed -elapsed ecdh
+    * Chained Cipher: aes-128-cbc-hmac-sha1
+    * Asynchronous
+    ./openssl speed -engine qatengine -elapsed -async_jobs 128 -multi 2 -evp aes-128-cbc-hmac-sha1
+    * Synchronous
+    ./openssl speed -engine qatengine -elapsed -multi 2 -evp aes-128-cbc-hmac-sha1
+    * OpenSSL Software
+    ./openssl speed -elapsed -multi 2 -evp aes-128-cbc-hmac-sha1
+
+    qat_sw (Intel(R) Crypto Multi-buffer library)
+
+    * RSA 2K
+    ./openssl speed -engine qatengine -elapsed -async_jobs 8 rsa2048
+    * ECDH X25519
+    ./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhx25519
+    * ECDH P-256
+    ./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhp256
+    * ECDSA P-256
+    ./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdsap256
+    * ECDH P-384
+    ./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhp384
+    * ECDSA P-384
+    ./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdsap384
+
+    qat_sw (Intel(R) Multi-Buffer Crypto for IPsec)
+
+    * AES-128-GCM
+    ./openssl speed -engine qatengine -elapsed -evp aes-128-gcm
+    * AES-192-GCM
+    ./openssl speed -engine qatengine -elapsed -evp aes-192-gcm
+    * AES-256-GCM
+    ./openssl speed -engine qatengine -elapsed -evp aes-256-gcm
+
+Test the Intel® QAT OpenSSL* Engine using testapp utility
+---------------------------------------------------------
+
+.. code-block:: text
+
+    cd /path/to/qat_engine
+    make test
+    ./testapp.sh QAT_HW (For testing algorithms supported by QAT_HW)
+    ./testapp.sh QAT_SW (For testing algorithms supported by QAT_SW)
+
+The ``testapp.sh`` script will run the corresponding functional tests supported by Hardware Acceleration (QAT_HW) and Software Acceleration (QAT_SW). Please note that the Intel® QAT OpenSSL* Engine should be built with that support for the tests.
+
+Additional information for testapp tests is available with the help option ``./testapp -help``.

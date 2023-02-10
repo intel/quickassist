@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>General Section &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Logical Instances Section" href="configuration_files_logicalsection.html" />
+    <link rel="prev" title="Configuration File Overview" href="configuration_files_overview.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_overview.html">Configuration File Overview</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">General Section</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#servicesenabled">ServicesEnabled</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#servicesprofile">ServicesProfile</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#concurrent-requests">Concurrent Requests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#power-management-parameters">Power Management Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_logicalsection.html">Logical Instances Section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_maxprocesscalculations.html">Maximum Number of Process Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_multipleendpoints.html">Configuring Multiple Intel<sup>®</sup> QuickAssist Technology Endpoints in a System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_multipleprocesses.html">Configuring Multiple Processes on a System with Multiple Intel<sup>®</sup> QAT Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_samplefiles.html">Sample Configuration Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
+      <li>General Section</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="general-section">
+<span id="qat-2-0-pg-configuration-files-general-section"></span><h1>General Section<a class="headerlink" href="#general-section" title="Permalink to this headline"></a></h1>
+<p>The general section of the configuration file contains general parameters and statistics parameters.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Default</em> denotes the value in the configuration file when shipped or the value used if not specified in the configuration file.</p>
+</div>
+<p>This table describes the other parameters that can be included in the General section.</p>
+<table class="colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">General Section Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 40%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Default</strong></p></th>
+<th class="head"><p><strong>Range</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code></p></td>
+<td><p>Defines the service(s) available (cryptographic [cy], symmetric [sym], asymmetric [asym],
+data compression [dc]).</p>
+<p>Please refer to <a class="reference external" href="#servicesenabled">ServicesEnabled</a> for additional details.</p>
+</td>
+<td><p>&lt;varies&gt;</p></td>
+<td><p>sym, asym, cy, dc</p>
+<p>Note: Multiple values permitted, use; as the delimiter.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ServicesProfile</span></code></p></td>
+<td><p>Specifies the services that are available when the driver loads.</p></td>
+<td><p>Default</p></td>
+<td><p>See <a class="reference external" href="#servicesprofile">ServicesProfile</a> for additional details.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CyNumConcurrentSymRequests</span></code></p></td>
+<td><p>Specifies the number of cryptographic concurrent symmetric requests for cryptographic instances in general.</p>
+<p>Please refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
+</td>
+<td><p>512</p></td>
+<td><p>64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CyNumConcurrentAsymRequests</span></code></p></td>
+<td><p>Specifies the number of cryptographic concurrent asymmetric requests for cryptographic instances in general.</p>
+<p>Please refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
+</td>
+<td><p>64</p></td>
+<td><p>64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DcNumConcurrentRequests</span></code></p></td>
+<td><p>Specifies the number of data compression concurrent requests for data compression instances in general.</p>
+<p>Please refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
+</td>
+<td><p>512</p></td>
+<td><p>64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DcIntermediateBufferSizeInKB</span></code></p></td>
+<td><p>Specifies the size in KB of each intermediate buffer in on-chip memory for dynamic compression.</p></td>
+<td><p>64</p></td>
+<td><p>32 or 64</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HeartbeatTimer</span></code></p></td>
+<td><p>Default heartbeat timer.</p></td>
+<td><p>1000</p></td>
+<td><p>&gt; 200</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AutoResetOnError</span></code></p></td>
+<td><p>Automatically resets the device in case of fatal error or heartbeat failure.</p></td>
+<td><p>0</p></td>
+<td><p>0 or 1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleInterruptDelay</span></code></p></td>
+<td><p>Default value for power management idle interrupt delay.</p>
+<p>Please refer to <a class="reference external" href="#power-management-parameters">Power Management Parameters</a> for additional details.</p>
+</td>
+<td><p>512</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code></p></td>
+<td><p>This flag is to enable power management idle support.</p>
+<p>Please refer to <cite>Power Management Parameters &lt;#power-management-parameters&gt;</cite> for additional details.</p>
+</td>
+<td><p>1</p></td>
+<td><p>0 or 1</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SVMEnabled</span></code></p></td>
+<td><p>This flag is to enable SMV support.</p>
+<p>Please refer to <span class="xref std std-ref">Shared Virtual Memory</span> for additional details.</p>
+</td>
+<td><p>0</p></td>
+<td><p>0 or 1</p></td>
+</tr>
+</tbody>
+</table>
+<section id="servicesenabled">
+<h2>ServicesEnabled<a class="headerlink" href="#servicesenabled" title="Permalink to this headline"></a></h2>
+<p>Additional details on the <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> parameter:</p>
+<ul class="simple">
+<li><p>This parameter is valid for all QAT devices.</p></li>
+<li><p>Default value varies depending on the underlying QAT Endpoint.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cy</span></code> is not valid value for QAT2.0 devices. <code class="docutils literal notranslate"><span class="pre">asym</span></code> and <code class="docutils literal notranslate"><span class="pre">sym</span></code> are used.</p></li>
+<li><p>Only two of the three services (<code class="docutils literal notranslate"><span class="pre">asym</span></code>, <code class="docutils literal notranslate"><span class="pre">sym</span></code>, and <code class="docutils literal notranslate"><span class="pre">dc</span></code>) may be enabled on an individual QAT2.0 Endpoints.</p></li>
+</ul>
+<section id="performance-considerations">
+<h3>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h3>
+<p>In order to maximize QAT throughput performance for a given service type, one should specify ONLY that service type parameter for ServicesEnabled.</p>
+<p>For example, in a system with 8 AEs:</p>
+<p>While using VFs on a system configured for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym;dc</span></code> , 4 acceleration engines will be dedicated to SYM and 4 acceleration engines will be dedicated to DC, so only 2 resource providers per child VF can be used for SYM. Here, we should expect some performance degradation for SYM (even if DC is not used).</p>
+<p>While using VFs on a system configured for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym</span></code> , all 8 acceleration engines will be dedicated to SYM, so all 4 resource providers of a child VF can be used for SYM only. Here, we will see the best SYM performance.</p>
+<p>Packet size will also mitigate the impact of the above configuration settings.  One may also be able to achieve full performance using a lower number of ring pairs.</p>
+</section>
+</section>
+<section id="servicesprofile">
+<span id="services-profile"></span><h2>ServicesProfile<a class="headerlink" href="#servicesprofile" title="Permalink to this headline"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This parameter is valid for QAT1.7x devices.</p>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ServicesProfile</span></code> parameter defines the services that are available when the driver loads. For example, if <code class="docutils literal notranslate"><span class="pre">ServicesProfile</span> <span class="pre">=</span> <span class="pre">COMPRESSION</span></code> is in the General section,
+the compression and decompression are available, along with service chaining, but not cryptography.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When a <code class="docutils literal notranslate"><span class="pre">ServicesProfiles</span></code> parameter value is used that supports rate limiting is defined, internal resources are reallocated to administrating Rate Limiting/Device Utilization. This reduces performance by roughly 5%.</p>
+</div>
+<section id="general-default-configuration-parameters">
+<h3>General Default Configuration Parameters<a class="headerlink" href="#general-default-configuration-parameters" title="Permalink to this headline"></a></h3>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">General Default Configuration Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 21%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Service</strong></p></th>
+<th class="head"><p><strong>DEFAULT</strong></p></th>
+<th class="head"><p><strong>CRYPTO</strong></p></th>
+<th class="head"><p><strong>COMPRESSION</strong></p></th>
+<th class="head"><p><strong>CUSTOM1</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Asymmetric Crypto</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-odd"><td><p>Symmetric Crypto</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-even"><td><p>Hash</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-odd"><td><p>Cipher</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-even"><td><p>MGF KeyGen</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>SSL/TLS KeyGen</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-even"><td><p>HKDF</p></td>
+<td></td>
+<td><p>YES</p></td>
+<td></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compression</p></td>
+<td><p>YES</p></td>
+<td></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-even"><td><p>Decompression (stateless)</p></td>
+<td><p>YES</p></td>
+<td></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-odd"><td><p>Decompression (stateful)</p></td>
+<td><p>YES</p></td>
+<td></td>
+<td><p>YES</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p>Service Chaining</p></td>
+<td></td>
+<td></td>
+<td><p>YES</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p>Device Utilization</p></td>
+<td></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+</tr>
+<tr class="row-even"><td><p>Rate Limiting</p></td>
+<td></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+<td><p>YES</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Set the service profile to determine available features.</p>
+</div>
+</section>
+</section>
+<section id="concurrent-requests">
+<h2>Concurrent Requests<a class="headerlink" href="#concurrent-requests" title="Permalink to this headline"></a></h2>
+<p>Additional details on the concurrent request parameters:</p>
+<ul class="simple">
+<li><p>This parameter is valid for all QAT devices.</p></li>
+<li><p>The concurrent request parameters include both Transmit (Tx) and  Receive (Rx) requests.</p></li>
+<li><p>For each service enabled, <code class="docutils literal notranslate"><span class="pre">NumConcurrentRequests</span></code> must be set to value from the range.</p></li>
+<li><p>The number of concurrent requests registered by the Intel<sup>®</sup> QuickAssist driver is set to <code class="docutils literal notranslate"><span class="pre">NumConcurrentRequests</span> <span class="pre">-</span> <span class="pre">2</span></code>.</p></li>
+</ul>
+<p>This implementation guarantees that the request ring will never be full and avoids the need for a Memory Mapped IO (MMIO) read. This implementation maximizes throughput performance.</p>
+</section>
+<section id="power-management-parameters">
+<h2>Power Management Parameters<a class="headerlink" href="#power-management-parameters" title="Permalink to this headline"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This parameter is valid for QAT2.0 devices.</p>
+</div>
+<p>Power management configuration is included in the device configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">/etc/4xxx_devX.conf</span></code> where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the 0-based index of
+the device.)</p>
+<p>Power management configurations parameters include:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">PmIdleInterruptDelay</span></code> - Configure power management interrupt delay from the system to QAT driver in millisecond(s). The default value is 512 milliseconds.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code> - Configure the device to enable/disable power management idle supporting. Power management idle support is enabled by default.</p></li>
+</ul>
+<p>Refer to the <a class="reference internal" href="infrastructure_power_management.html#qat-2-0-pg-infrastructure-power-management"><span class="std std-ref">Power Management</span></a> section for additional details.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration_files_overview.html" class="btn btn-neutral float-left" title="Configuration File Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration_files_logicalsection.html" class="btn btn-neutral float-right" title="Logical Instances Section" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

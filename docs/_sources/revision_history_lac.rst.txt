@@ -1,0 +1,37 @@
+
+Cryptographic API Reference Revision History
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
++--------------+----------+----------------------------------------------------+
+|     Date     | Revision |                    Description                     |
++==============+==========+====================================================+
+| April 2022   | 009      | Changed version of the crypto API to v3.0.         |
+|              |          | Added RSA8K support.                               |
++--------------+----------+----------------------------------------------------+
+| May 2021     | 008      | Changed version of the crypto API to v2.5.         |
+|              |          | Added support for SM2.                             |
++--------------+----------+----------------------------------------------------+
+| Nov 2020     | 007      | Changed version of the crypto API to v2.4.         |
+|              |          | Added support for ChaCha20-Poly1305.               |
+|              |          | Added support for SM4 in ECB, CBC and CTR modes.   |
+|              |          | Added support for SM3.                             |
+|              |          | Added support for SHA3-224, SHA3-384 and SHA3-512. |
++--------------+----------+----------------------------------------------------+
+| March 2020   | 006      | Added HKDF API                                     |
+|              |          | Added 22519 and 448 curve support to cpa_cy_ec.h   |
++--------------+----------+----------------------------------------------------+
+| April 2018   | 005      | Added session update API                           |
++--------------+----------+----------------------------------------------------+
+| July 2016    | 004      | Added Intel Key Protection Technology (KPT) API    |
++--------------+----------+----------------------------------------------------+
+| October 2015 | 003      | Changed version of the crypto API for v2.0.        |
+|              |          | Added ZUC-EEA3 and ZUC-EIA3 support                |
+|              |          | Added SHA3-256 support                             |
++--------------+----------+----------------------------------------------------+
+| Sept 2015    | 002      | Incrementing crypto API versio to v1.9.            |
+|              |          | Adding CPA_STATUS_UNSUPPORTED as a return status.  |
++--------------+----------+----------------------------------------------------+
+| June 2014    | 001      | First "public" version of the document. Based on   |
+|              |          | "Intel Confidential" document number 410923-1.8.   |
++--------------+----------+----------------------------------------------------+
+

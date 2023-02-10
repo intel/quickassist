@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Description of Release &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Description of Release</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="description-of-release">
+<h1>Description of Release<a class="headerlink" href="#description-of-release" title="Permalink to this headline"></a></h1>
+<p>This document describes extensions and deviations from the release
+functionality described in the Release Notes that support
+Intel<sup>®</sup> QuickAssist Technology (Intel<sup>®</sup> QAT).</p>
+<p>This software release is intended for platforms that contain:</p>
+<ul class="simple">
+<li><p>Intel® C62x Chipset</p></li>
+<li><p>Intel Atom® C3000 processor product family</p></li>
+<li><p>Intel® QuickAssist Adapter 8960/ Intel® QuickAssist Adapter 8970 (formerly known as “Lewis Hill”)</p></li>
+<li><p>Intel® Communications Chipset 8925 to 8955 Series</p></li>
+<li><p>Intel® Atom® P5300 processor product family</p></li>
+<li><p>Intel® 4th Gen Intel® Xeon® Scalable Processor</p></li>
+</ul>
+<section id="revision-history">
+<h2>Revision History<a class="headerlink" href="#revision-history" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Table . Package Version</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 14%" />
+<col style="width: 42%" />
+<col style="width: 29%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Document
+Number</p></th>
+<th class="head"><p>Revision
+Number</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Revision Date</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>621446</p></td>
+<td><p>013</p></td>
+<td><div class="line-block">
+<div class="line">3.13.0 Release (Current)</div>
+<div class="line">Support for Intel(R) QAT
+4xxx Series devices</div>
+</div>
+</td>
+<td><p>November 2022</p></td>
+</tr>
+<tr class="row-odd"><td><p>621446</p></td>
+<td><p>012</p></td>
+<td><p>3.12.0 Release</p>
+<p>Maintenance release</p>
+<p>Moved Known Issues to
+Resolved Issues -
+QATE-74788</p>
+</td>
+<td><p>June 2022</p></td>
+</tr>
+<tr class="row-even"><td><p>621446</p></td>
+<td><p>011</p></td>
+<td><p>3.11.0 Release</p>
+<p>Enable DC DP stateless
+support in kernel space
+for FreeBSD 11.4 and
+FreeBSD 13</p>
+</td>
+<td><p>October 2021</p></td>
+</tr>
+<tr class="row-odd"><td><p>621446</p></td>
+<td><p>010</p></td>
+<td><p>3.10.1 Alpha Release:</p>
+<p>Enable DC DP stateless
+support in kernel space
+for FreeBSD 13.0</p>
+</td>
+<td><p>July 2021</p></td>
+</tr>
+<tr class="row-even"><td><p>621446</p></td>
+<td><p>009</p></td>
+<td><p>3.10.0 Release</p>
+<p>Enable PKE processing on
+AE0 with RL/DU FW for
+CPM1.6/1.7 devices</p>
+<p>Adds support for CPM1.72
+devices</p>
+<p>QAT Debuggability Black
+Box tool</p>
+<p>USDM memory driver
+allocation performance
+improvement.</p>
+</td>
+<td><p>June 2021</p></td>
+</tr>
+<tr class="row-odd"><td><p>621446</p></td>
+<td><p>008</p></td>
+<td><p>3.9.1 Alpha Release</p>
+<p>FW change to enable
+processing AE0 on RL/DU FW
+for CPM1.6/1.7</p>
+</td>
+<td><p>March 2021</p></td>
+</tr>
+<tr class="row-even"><td><p>621446</p></td>
+<td><p>007</p></td>
+<td><p>Updated Section 3.1
+Compiling the Driver with
+additional step</p></td>
+<td><p>March 2021</p></td>
+</tr>
+<tr class="row-odd"><td><p>621446</p></td>
+<td><p>006</p></td>
+<td><p>3.9.0 Product Release</p>
+<p>Updated New features</p>
+<p>Configurable instance
+feature</p>
+<p>Single thread
+configuration option</p>
+<p>Support for P5300 devices</p>
+</td>
+<td><p>February 2021</p></td>
+</tr>
+<tr class="row-even"><td><p>621446</p></td>
+<td><p>005</p></td>
+<td><p>3.8.0 Product Release</p>
+<p>Updated New features</p>
+<p>Device utilization v2 for
+CPM1.6/1.7</p>
+<p>Added known issues
+QATE-66213</p>
+<p>Updated known issue
+QATE-30360</p>
+<p>Added resolved issues
+QATE-63079 and QATE-40359</p>
+</td>
+<td><p>October 2020</p></td>
+</tr>
+<tr class="row-odd"><td><p>621446</p></td>
+<td><p>004</p></td>
+<td><p>3.7.0 Product release</p></td>
+<td><p>June 2020</p></td>
+</tr>
+<tr class="row-even"><td><p>621446</p></td>
+<td><p>003</p></td>
+<td><p>3.6.0 Product release</p></td>
+<td><p>April 2020</p></td>
+</tr>
+<tr class="row-odd"><td><p>621446</p></td>
+<td><ol class="arabic simple" start="2">
+<li></li>
+</ol>
+</td>
+<td><p>3.5.0 Product release</p></td>
+<td><p>December 2019</p></td>
+</tr>
+<tr class="row-even"><td><p>621446</p></td>
+<td><p>001</p></td>
+<td><p>Initial release, 3.4.0
+Product release</p></td>
+<td><p>September 2019</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="new-features-added-with-this-release">
+<h2>New Features Added with this Release<a class="headerlink" href="#new-features-added-with-this-release" title="Permalink to this headline"></a></h2>
+<section id="intel-r-qat-4xxx-series-device-support">
+<h3>Intel (R) QAT 4xxx Series device support<a class="headerlink" href="#intel-r-qat-4xxx-series-device-support" title="Permalink to this headline"></a></h3>
+<p>This release introduces the support for Intel (R) QAT 4xxx Series devices (0x4940) with
+lookaside support for crypto and data compression.</p>
+<p>For list of supported cryptographic operations for supported platforms please refer to <a class="reference internal" href="../../PG/services_cryptography_api.html#qat-2-0-pg-services-cryptography"><span class="std std-ref">Programmer’s Guide</span></a>.
+For compression, the following limitations exist:</p>
+<ul class="simple">
+<li><p>LZ4/LZ4s are not currently supported</p></li>
+</ul>
+<p>Additional features:</p>
+<ul class="simple">
+<li><p>No VF driver available for FreeBSD</p></li>
+<li><p>Debuggability features are not currently enabled for QAT 4xxx devices.</p></li>
+</ul>
+</section>
+<section id="debuggability-feature-support-for-freebsd-guest-sriov-mode">
+<h3>Debuggability feature support for FreeBSD guest (SRIOV mode)<a class="headerlink" href="#debuggability-feature-support-for-freebsd-guest-sriov-mode" title="Permalink to this headline"></a></h3>
+<p>This release enables the support for debuggability feature for VF driver for FreeBSD.
+The usage of the features is the same as for host driver.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Debuggability features are not currently enabled for QAT4xxx devices.</p>
+</div>
+</section>
+</section>
+<section id="limitations-with-this-production-release">
+<h2>Limitations with this Production Release<a class="headerlink" href="#limitations-with-this-production-release" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Any version of FreeBSD* other than v13.1 is <strong>NOT</strong> fully validated.  Sign-of-life tests have been performed on v11.4 and v12.3.</p></li>
+<li><p>Data compression traditional API, Symmetric cryptography, PKE are not
+supported in kernel space.</p></li>
+<li><p>Mask Generation Function (MGF) and stateful compression are not
+supported starting with the 3.10 release for CPM 1.6, CPM 1.7x
+devices.</p></li>
+<li><p>Symmetric session update feature is not supported.</p></li>
+<li><p>Non-deterministic Random Bit Generator (NRBG) is not supported.</p></li>
+<li><p>The HMAC-based Extract-and-Expand Key Derivation Function (HKDF) operational
+data has to be allocated with the Unified System Diagnostic Manager
+(USDM) to be pinned in physical memory.</p></li>
+<li><p>No inline support</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are known issues with this release of the driver, as described
+in <a class="reference internal" href="known_issues.html#freebsd-known-issues"><span class="std std-ref">Known Issues</span></a></p>
+</div>
+</section>
+<section id="package-version">
+<h2>Package Version<a class="headerlink" href="#package-version" title="Permalink to this headline"></a></h2>
+<p>The following table shows the OS-specific package versions for each
+platform supported in this release.</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 38%" />
+<col style="width: 42%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Chipset or
+SoC</p></th>
+<th class="head"><p>Package Version</p></th>
+<th class="head"><p>SHA256 Checksum</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Top-Level
+Package</p></td>
+<td><p>QAT.B.3.13.0-00004.tar.gz</p></td>
+<td><p>507d8b6cedff5a0f2a9462aeee22
+98ddbff024470b44f455f00408aa
+77be1944</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</section>
+<section id="licensing-for-freebsd-acceleration-software">
+<h2>Licensing for FreeBSD* Acceleration Software<a class="headerlink" href="#licensing-for-freebsd-acceleration-software" title="Permalink to this headline"></a></h2>
+<p>The acceleration software is provided under the following license, as
+listed in the table below.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using or redistributing dual-licensed components, you may do so
+under either license.</p>
+</div>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 18%" />
+<col style="width: 55%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Component</p></th>
+<th class="head"><p>License</p></th>
+<th class="head"><p>Directories</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>User Space
+Library</p></td>
+<td><p>Berkeley
+Software
+Di
+stribution
+(BSD)</p></td>
+<td><p>./quickassist/build_system</p>
+<p>./quickassist/include</p>
+<p>./quickassist/lookaside</p>
+<p>./quickassist/utilities/osal</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel space
+driver</p></td>
+<td><p>BSD</p></td>
+<td><p>./quickassist/qat/drivers
+./quickassist/utilities/adf_ctl</p></td>
+</tr>
+<tr class="row-even"><td><p>User Space
+DMA-able Memory
+Driver</p></td>
+<td><p>BSD</p></td>
+<td><p>./quickassist/utilities/libusdm</p></td>
+</tr>
+<tr class="row-odd"><td><p>Libcrypto</p></td>
+<td><p>OpenSSL*</p></td>
+<td><p>./quickassist/utilities/osal
+/src/linux/user_space/openssl</p></td>
+</tr>
+<tr class="row-even"><td><p>CPM Firmware</p></td>
+<td><p>Redi
+stribution</p></td>
+<td><p>./quickassist/qat/fw</p></td>
+</tr>
+<tr class="row-odd"><td><p>Calgary corpus
+and Canterbury
+corpus test
+files</p></td>
+<td><p>Public
+domain</p></td>
+<td><p>./quic
+kassist/lookaside/access_layer/src/
+sample_code/performance/compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="intel-qat-application-program-interface-api-updates">
+<h2>Intel<sup>®</sup> QAT Application Program Interface (API) Updates<a class="headerlink" href="#intel-qat-application-program-interface-api-updates" title="Permalink to this headline"></a></h2>
+<p>API versions have been updated to:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>CY: 3.0</p></li>
+<li><p>DC: 3.2</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="technical-support">
+<h2>Technical Support<a class="headerlink" href="#technical-support" title="Permalink to this headline"></a></h2>
+<p>Intel offers support for this software at the API level only, defined in
+the programmer’s guide and API reference manuals listed in Section
+<em>2.1.1, Related Documents</em>.</p>
+</section>
+<section id="environmental-assumptions">
+<h2>Environmental Assumptions<a class="headerlink" href="#environmental-assumptions" title="Permalink to this headline"></a></h2>
+<p>The following assumptions are made about the deployment environment:</p>
+<ul class="simple">
+<li><p>The driver object/executable file on disk should be protected using
+the normal file protection mechanisms so that it is writable only by
+trusted users, for example, a privileged user or an administrator.</p></li>
+<li><p>The public key firmware image on disk should be protected using
+normal file protection mechanisms so that it is writable only by
+trusted users, for example, a privileged user or an administrator.</p></li>
+<li><p>The Intel<sup>®</sup> QAT device should not be exposed (via SR-IOV) to
+untrusted guests.</p></li>
+<li><p>The Intel<sup>®</sup> QAT device should not be exposed (via the “user
+space direct” deployment model) to untrusted users.</p></li>
+<li><p>Dynamic random-access memory (DRAM) is considered to be inside the
+trust boundary. The standard memory-protection schemes provided by
+the Intel<sup>®</sup> architecture processor and memory controller, and
+by the operating system, prevent unauthorized access to these memory
+regions.</p></li>
+<li><p>Persistent keys were not considered, but the storage media are also
+found inside the cryptographic boundary. The driver exposed device
+file should be protected using the normal file protection mechanisms
+so that it could be opened and read/written only by trusted users.</p></li>
+</ul>
+</section>
+<section id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 14%" />
+<col style="width: 86%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Term</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AEAD</p></td>
+<td><p>Authenticated encryption with associated data</p></td>
+</tr>
+<tr class="row-odd"><td><p>API</p></td>
+<td><p>Application program interface</p></td>
+</tr>
+<tr class="row-even"><td><p>BOM</p></td>
+<td><p>Bill of Materials</p></td>
+</tr>
+<tr class="row-odd"><td><p>BSD</p></td>
+<td><p>Berkeley Software Distribution</p></td>
+</tr>
+<tr class="row-even"><td><p>CNV</p></td>
+<td><p>Compress and Verify</p></td>
+</tr>
+<tr class="row-odd"><td><p>DRAM</p></td>
+<td><p>Dynamic random-access memory</p></td>
+</tr>
+<tr class="row-even"><td><p>ESP</p></td>
+<td><p>Enterprise Solution Platform program</p></td>
+</tr>
+<tr class="row-odd"><td><p>F
+reeBSD*</p></td>
+<td><p>Free Berkeley Software Distribution</p></td>
+</tr>
+<tr class="row-even"><td><p>GPL</p></td>
+<td><p>General Public License</p></td>
+</tr>
+<tr class="row-odd"><td><p>HKDF</p></td>
+<td><p>HMAC-based Extract-and-Expand Key Derivation Function</p></td>
+</tr>
+<tr class="row-even"><td><p>Intel<sup>®</sup>
+QAT</p></td>
+<td><p>Intel<sup>®</sup> QuickAssist Technology</p></td>
+</tr>
+<tr class="row-odd"><td><p>IPsec</p></td>
+<td><p>Internet Protocol Security</p></td>
+</tr>
+<tr class="row-even"><td><p>NRBG</p></td>
+<td><p>Non-deterministic Random Bit Generator</p></td>
+</tr>
+<tr class="row-odd"><td><p>MGF</p></td>
+<td><p>Mask Generation Function</p></td>
+</tr>
+<tr class="row-even"><td><p>OS</p></td>
+<td><p>Operating System</p></td>
+</tr>
+<tr class="row-odd"><td><p>SADB</p></td>
+<td><p>Security Association Database</p></td>
+</tr>
+<tr class="row-even"><td><p>SR-IOV</p></td>
+<td><p>Single Root I/O Virtualization</p></td>
+</tr>
+<tr class="row-odd"><td><p>PF</p></td>
+<td><p>Physical Function</p></td>
+</tr>
+<tr class="row-even"><td><p>RAS</p></td>
+<td><p>Remote Access Service</p></td>
+</tr>
+<tr class="row-odd"><td><p>RDK</p></td>
+<td><p>Reference Design Kit</p></td>
+</tr>
+<tr class="row-even"><td><p>RHEL*</p></td>
+<td><p>Red Hat Enterprise Linux*</p></td>
+</tr>
+<tr class="row-odd"><td><p>SOL</p></td>
+<td><p>Sign-of-Life</p></td>
+</tr>
+<tr class="row-even"><td><p>UDP</p></td>
+<td><p>User Datagram Protocol</p></td>
+</tr>
+<tr class="row-odd"><td><p>USDM</p></td>
+<td><p>Unified System Diagnostic Manager</p></td>
+</tr>
+<tr class="row-even"><td><p>VF</p></td>
+<td><p>Virtual Function</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

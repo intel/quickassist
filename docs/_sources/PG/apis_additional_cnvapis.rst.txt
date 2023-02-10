@@ -1,0 +1,66 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_cnvapis:
+
+Compress and Verify (CnV) Related APIs
+======================================
+
+APIs documented in this section are used for Compress and Verify.
+These APIs can be used in the user space application.
+
+icp_sal_get_dc_error
+--------------------
+
+This API allows the application to return the number of errors that occurred a particular number of times during the lifetime of a process. 
+
+**Syntax**
+
+``Cpa64U icp_sal_get_dc_error(Cpa8S dcError);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``dcError``                  | Compression Error code exposed by ``CpaDcReqStatus`` enum in ``cpa_dc.h``              |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_get_dc_error`` function returns a 64 bit unsigned integer representing how many times the error type specified 
+by ``Cpa8S`` ``dcError`` occurred in the current process.
+
+icp_sal_dc_simulate_error
+-------------------------
+
+This API injects a simulated compression error for a defined number of compression or decompression requests.
+The simulated compression errors can only be applied to the traditional APIs. It must be called prior the APIs that perform the request.
+In the case of a simulated Compress and Verify error for a single request, the application would call 
+``icp_sal_dc_simulate_error()`` API as such: ``icp_sal_dc_simulate_error(1, CPA_DC_VERIFY_ERROR);``
+
+**Syntax**
+
+``CpaStatus icp_sal_dc_simulate_error(Cpa8U numErrors, Cpa8S dcError);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``numErrors``                | Number of simulated compression or decompression errors desired.                       |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``dcError``                  | Desired error code to be returned by the compression or decompression API.             |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_dc_simulate_error`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successful operation.                                                                  |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates that an invalid error type was assigned to dcError parameter.                |
+   +------------------------------+----------------------------------------------------------------------------------------+

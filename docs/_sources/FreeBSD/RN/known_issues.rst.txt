@@ -1,0 +1,358 @@
+Known Issues 
+============
+
+The following are known issues for Intel\ :sup:`®` QAT FreeBSD\* release.
+
+.. _freebsd_known_issues:
+
+QATE-76612 - CY - Device Utilization data for Symmetric Cryptography requests less than 1K may be under reported
+----------------------------------------------------------------------------------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | CY - Device Utilization data for Symmetric Cryptography  |
+    |              | requests less than 1K may be under reported              |
+    +==============+==========================================================+
+    | Reference #  | QATE-76612                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | With symmetric cryptography requests less than 1k, the   |
+    |              | device utilization data provided may be more than        |
+    |              | reported.                                                |
+    +--------------+----------------------------------------------------------+
+    | Implication  | The actual device utilization for symmetric cryptography |
+    |              | may be higher than reported when packets sizes are less  |
+    |              | than 1K.                                                 |
+    +--------------+----------------------------------------------------------+
+    | Resolution   | There is no workaround available.                        |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD*/Linux\*                                         |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - Crypto                                          |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+
+QATE-73515 - SRIOV - Concurrent VF bring-up may fail.
+-----------------------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | Concurrent VF bring-up may fail.                         |
+    +==============+==========================================================+
+    | Reference #  | QATE-73515                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | If QAT VFs are started concurrently, it is possible that |
+    |              | one or more of these may not succeed.                    |
+    +--------------+----------------------------------------------------------+
+    | Implication  | Some interrupts may be ignored and the VF driver start   |
+    |              | should be retried.                                       |
+    +--------------+----------------------------------------------------------+
+    | Resolution   | There is no workaround available.                        |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD*                                                 |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - Common                                          |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+    
+
+QATE-76939 - SM4 algorithm may be not supported on FreeBSD VM in SRIOV mode on SNR platform.
+--------------------------------------------------------------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | SM4 algorithm may be not supported on FreeBSD VM in      |                          
+    |              | SRIOV mode on SNR platform.                              |
+    +==============+==========================================================+
+    | Reference #  | QATE-76939                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | In SRIOV environment SM4 algorithm may be not supported  |
+    |              | on FreeBSD virtual machine if the host Linux driver      |
+    |              | doesn't have SM4 support implemented.                    |
+    +--------------+----------------------------------------------------------+
+    | Implication  | SM4 algorithm not supported in SRIOV mode on FreeBSD VM  | 
+    +--------------+----------------------------------------------------------+
+    | Resolution   | Use newer Linux host QAT driver with SM4 support         |
+    |              | implemented.                                             |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD*                                                 |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - Crypto                                          |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+
+QATE-68760 - DC - Concurrent compression or decompression requests can encounter false CPA_DC_WDOG_TIMER_ERR errors by Intel\ :sup:`®` QAT
+------------------------------------------------------------------------------------------------------------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | DC - Concurrent compression or decompression requests    |                               
+    |              | can encounter false CPA_DC_WDOG_TIMER_ERR error by       |
+    |              | by Intel\ :sup:`®` QAT.                                  |
+    +==============+==========================================================+
+    | Reference #  | QATE-68760                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | If the CPA_DC_WDOG_TIMER_ERR error is encountered for a  |
+    |              | given compression request and there are concurrent       |
+    |              | compression or decompression requests running, the       |
+    |              | concurrent compression or decompression requests can     |
+    |              | encounter false CPA_DC_WDOG_TIMER_ERR errors being       |
+    |              | returned by Intel\ :sup:`®` QAT.                         |
+    +--------------+----------------------------------------------------------+
+    | Implication  | Concurrent compression or decompression requests can     | 
+    |              | encounter false CPA_DC_WDOG_TIMER_ERR errors by          | 
+    |              | Intel\ :sup:`®` QAT.                                     | 
+    +--------------+----------------------------------------------------------+
+    | Resolution   | There is no solution available yet, since FreeBSD*       |
+    |              | driver does not support DCSessionUpdate feature.         |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD* 12.1                                            |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - Compression                                     |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+
+QATE- 30931- Process Exit with Orphan Rings when spawning multiple processes
+----------------------------------------------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | Process Exit with Orphan Rings when spawning multiple    |                               
+    |              | processes                                                |
+    +==============+==========================================================+
+    | Reference #  | QATE-30931                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | If multiple processes start a user space service access  |
+    |              | layer (icp_sal_userStart) and they all exist together,   |
+    |              | the Syslog may show a message "Process <PID> <NAME>      |
+    |              | exit with orphan rings.                                  |
+    +--------------+----------------------------------------------------------+
+    | Implication  | A kernel panic might happen at reboot if an application  | 
+    |              | is using                                                 | 
+    |              | Intel\ :sup:`®` QAT.                                     | 
+    +--------------+----------------------------------------------------------+
+    | Resolution   | The suggested workaround is to fork the process only     |
+    |              | after the previous child process runs                    |
+    |              | icp_sal_userStartMultiProcess successfully.              |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD* 12.1                                            |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - Common                                          |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+
+QATE-30360 - LBG and DNV device pass-through available only on guests with PCIe
+-------------------------------------------------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | LBG and DNV device pass-through available only on guests |                                
+    |              | with PCIe                                                |
+    +==============+==========================================================+
+    | Reference #  | QATE-30360                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | LBG and DNV devices require PCIe support on guests for   |
+    |              | correct device initialization. Without PCIe support on   |
+    |              | guest FreeBSD* kernel recognizes passed through devices  |
+    |              | as PCI instead of PCIe and does not allow reading and    |
+    |              | writing PCI registers above 0xFF, while                  |
+    |              | SOFTSTRAP_CSR_OFFSET, required for correct               |
+    |              | initialization of LBG and DNV devices in pass-through    |
+    |              | mode, is 0x2EC.                                          |
+    +--------------+----------------------------------------------------------+
+    | Implication  | LBG and DNV device pass-through feature not available on | 
+    |              | guests without PCIe support.                             | 
+    +--------------+----------------------------------------------------------+
+    | Resolution   | Guests must be configured with PCIe support for          |
+    |              | pass-through mode to work correctly with LBG and DNV     |
+    |              | devices.                                                 |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD* 12.1                                            |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - Common                                          |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+
+
+QATE-39216 - Kasumi test duration issue 
+---------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | Kasumi test duration issue                               |                                
+    +==============+==========================================================+
+    | Reference #  | QATE-39216                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | Kasumi Performance sample code can show reduced          |
+    |              | performance.                                             |
+    +--------------+----------------------------------------------------------+
+    | Implication  | The performance degradation when running the sample code | 
+    |              | can be observed in case the system runs the excessive    | 
+    |              | number of threads.                                       | 
+    +--------------+----------------------------------------------------------+
+    | Resolution   | Avoid calling the cpaCyInstanceGetInfo2 function if      |
+    |              | possible (i.e., by caching the info data) and try to     |
+    |              | tune the FreeBSD* scheduler.                             |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD* 12.1                                            |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - Crypto                                          |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+
+QATE-66213 - Symmetric Device Utilisation data incorrectly reported for Intel\ :sup:`®` Communications Chipset 8925 to 8955 Series devices
+------------------------------------------------------------------------------------------------------------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | Symmetric Device Utilisation data incorrectly reported   |                                 
+    |              | for Intel\ :sup:`®` Communications Chipset 8925 to 8955  |
+    |              | Series devices                                           |
+    +==============+==========================================================+
+    | Reference #  | QATE-66213                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | Symmetric Device Utilization data reporting for          |
+    |              | Intel\ :sup:`®` Communications Chipset 8925 to 8955      |
+    |              | Series devices is                                        |
+    |              | incorrect, especially for larger packet sizes (16k,      |
+    |              | 32k), when the device reaches maximum throughput. The    |
+    |              | device utilization is under reported with these larger   |
+    |              | packet sizes.                                            |
+    +--------------+----------------------------------------------------------+
+    | Implication  | Symmetric crypto device utilization is under reported    | 
+    |              | for larger packet sizes as a result of PCIe bandwidth    | 
+    |              | limitations.                                             | 
+    +--------------+----------------------------------------------------------+
+    | Resolution   | The resolution of this issue is not yet known.           |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD* 12.1                                            |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - DU                                              |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+
+
+QATE-73180 - QAT API submissions with bad addresses that trigger DMA to invalid or unmapped addresses can cause a platform hang
+-------------------------------------------------------------------------------------------------------------------------------
+
+.. table::
+    :widths: 20, 80
+    :class: rn_table
+    
+    +--------------+----------------------------------------------------------+
+    | Title        | QAT API submissions with bad addresses that trigger DMA  |                                 
+    |              | to invalid or unmapped addresses can cause a platform    |
+    |              | hang                                                     |
+    +==============+==========================================================+
+    | Reference #  | QATE-73180                                               |
+    +--------------+----------------------------------------------------------+
+    | Description  | This version of the Intel\ :sup:`®` QAT hardware does    |
+    |              | not perform                                              |
+    |              | request checking. It follows that a malicious            |
+    |              | application can submit requests that can bring down an   |
+    |              | entire QAT endpoint, which can impact other QAT jobs     |
+    |              | associated with the hardware. Furthermore, if any QAT    |
+    |              | API submission have bad addresses that would trigger DMA |
+    |              | to invalid or unmapped addresses, these can induce a     |
+    |              | platform hang. This presents a risk to be managed by the |
+    |              | host and guest operating systems and other system        |
+    |              | policies. The exposure can extend to other guest         |
+    |              | operating systems or applications outside of the typical |
+    |              | access boundary of the malicious guest or application.   |
+    +--------------+----------------------------------------------------------+
+    | Implication  | All guest operating systems or other applications using  | 
+    |              | QAT must be trusted, and/or other steps must be taken to | 
+    |              | ensure that an untrusted application or guest cannot     | 
+    |              | submit incorrectly formatted requests.                   | 
+    +--------------+----------------------------------------------------------+
+    | Resolution   | There is no workaround available. However, system        |
+    |              | policies (including limiting certain operating system    |
+    |              | permissions) can help to mitigate this issue.            |
+    +--------------+----------------------------------------------------------+
+    | Affected     | FreeBSD* 12.1                                            |
+    | OS           |                                                          |
+    +--------------+----------------------------------------------------------+
+    | Driver       | CPM IA - Common                                          |
+    | /Module      |                                                          |
+    +--------------+----------------------------------------------------------+
+
+QATE20-22999 [Sample Code] Functional sample applications will fail if service is not enabled on first QAT Endpoint on systems with 4xxx devices 
+-------------------------------------------------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | [Sample Code] Functional sample applications will       |
+   |               | fail if service is not enabled on first QAT Endpoint    |
+   |               | with 4xxx devices                                       |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE20-22999                                            |
+   +---------------+---------------------------------------------------------+
+   | Description   | When sample application is executed which requests      |
+   |               | service that is not enabled on the first endpoint,      |
+   |               | the application will fail.                              |
+   +---------------+---------------------------------------------------------+
+   | Implication   | If first endpoint is configured with asym, running      |
+   |               | application that uses symmetric such as ccm_sample will |
+   |               | fail with following error signatures even if other      |
+   |               | endpoints enable symmetric crypto.                      |
+   |               |                                                         |
+   |               | # ./ccm_sample                                          |
+   |               |                                                         |
+   |               | main(): Starting CCM Sample Code App ...                |
+   |               |                                                         |
+   |               | algChainSample(): cpaCyStartInstance                    |
+   |               |                                                         |
+   |               | algChainSample(): Generation-Encryption Process         |
+   |               |                                                         |
+   |               | algChainSample(): cpaCySymSessionCtxGetSize CCM encrypt |
+   |               |                                                         |
+   |               | [error] cpaCySymSessionCtxGetSize() - : The instance    |
+   |               | handle is the wrong type                                |
+   |               |                                                         |
+   |               | algChainSample(): cpaCyStopInstance                     |
+   |               |                                                         |
+   |               | algChainSample(): Sample code failed with status of -1  |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | Workaround is to enable neccessary service on the first |
+   |               | endpoint.                                               |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Symmetric                                      |
+   +---------------+---------------------------------------------------------+
+
+

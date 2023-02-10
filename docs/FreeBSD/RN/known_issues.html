@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Known Issues &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Known Issues</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="known-issues">
+<h1>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline"></a></h1>
+<p>The following are known issues for Intel<sup>®</sup> QAT FreeBSD* release.</p>
+<section id="qate-76612-cy-device-utilization-data-for-symmetric-cryptography-requests-less-than-1k-may-be-under-reported">
+<span id="freebsd-known-issues"></span><h2>QATE-76612 - CY - Device Utilization data for Symmetric Cryptography requests less than 1K may be under reported<a class="headerlink" href="#qate-76612-cy-device-utilization-data-for-symmetric-cryptography-requests-less-than-1k-may-be-under-reported" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>CY - Device Utilization data for Symmetric Cryptography
+requests less than 1K may be under reported</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-76612</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>With symmetric cryptography requests less than 1k, the
+device utilization data provided may be more than
+reported.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>The actual device utilization for symmetric cryptography
+may be higher than reported when packets sizes are less
+than 1K.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>There is no workaround available.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD*/Linux*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-73515-sriov-concurrent-vf-bring-up-may-fail">
+<h2>QATE-73515 - SRIOV - Concurrent VF bring-up may fail.<a class="headerlink" href="#qate-73515-sriov-concurrent-vf-bring-up-may-fail" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>Concurrent VF bring-up may fail.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-73515</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>If QAT VFs are started concurrently, it is possible that
+one or more of these may not succeed.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Some interrupts may be ignored and the VF driver start
+should be retried.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>There is no workaround available.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-76939-sm4-algorithm-may-be-not-supported-on-freebsd-vm-in-sriov-mode-on-snr-platform">
+<h2>QATE-76939 - SM4 algorithm may be not supported on FreeBSD VM in SRIOV mode on SNR platform.<a class="headerlink" href="#qate-76939-sm4-algorithm-may-be-not-supported-on-freebsd-vm-in-sriov-mode-on-snr-platform" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>SM4 algorithm may be not supported on FreeBSD VM in
+SRIOV mode on SNR platform.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-76939</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>In SRIOV environment SM4 algorithm may be not supported
+on FreeBSD virtual machine if the host Linux driver
+doesn’t have SM4 support implemented.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>SM4 algorithm not supported in SRIOV mode on FreeBSD VM</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>Use newer Linux host QAT driver with SM4 support
+implemented.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-68760-dc-concurrent-compression-or-decompression-requests-can-encounter-false-cpa-dc-wdog-timer-err-errors-by-intel-qat">
+<h2>QATE-68760 - DC - Concurrent compression or decompression requests can encounter false CPA_DC_WDOG_TIMER_ERR errors by Intel<sup>®</sup> QAT<a class="headerlink" href="#qate-68760-dc-concurrent-compression-or-decompression-requests-can-encounter-false-cpa-dc-wdog-timer-err-errors-by-intel-qat" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>DC - Concurrent compression or decompression requests
+can encounter false CPA_DC_WDOG_TIMER_ERR error by
+by Intel<sup>®</sup> QAT.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-68760</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>If the CPA_DC_WDOG_TIMER_ERR error is encountered for a
+given compression request and there are concurrent
+compression or decompression requests running, the
+concurrent compression or decompression requests can
+encounter false CPA_DC_WDOG_TIMER_ERR errors being
+returned by Intel<sup>®</sup> QAT.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Concurrent compression or decompression requests can
+encounter false CPA_DC_WDOG_TIMER_ERR errors by
+Intel<sup>®</sup> QAT.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>There is no solution available yet, since FreeBSD*
+driver does not support DCSessionUpdate feature.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD* 12.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-30931-process-exit-with-orphan-rings-when-spawning-multiple-processes">
+<h2>QATE- 30931- Process Exit with Orphan Rings when spawning multiple processes<a class="headerlink" href="#qate-30931-process-exit-with-orphan-rings-when-spawning-multiple-processes" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>Process Exit with Orphan Rings when spawning multiple
+processes</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-30931</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>If multiple processes start a user space service access
+layer (icp_sal_userStart) and they all exist together,
+the Syslog may show a message “Process &lt;PID&gt; &lt;NAME&gt;
+exit with orphan rings.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>A kernel panic might happen at reboot if an application
+is using
+Intel<sup>®</sup> QAT.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The suggested workaround is to fork the process only
+after the previous child process runs
+icp_sal_userStartMultiProcess successfully.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD* 12.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-30360-lbg-and-dnv-device-pass-through-available-only-on-guests-with-pcie">
+<h2>QATE-30360 - LBG and DNV device pass-through available only on guests with PCIe<a class="headerlink" href="#qate-30360-lbg-and-dnv-device-pass-through-available-only-on-guests-with-pcie" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>LBG and DNV device pass-through available only on guests
+with PCIe</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-30360</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>LBG and DNV devices require PCIe support on guests for
+correct device initialization. Without PCIe support on
+guest FreeBSD* kernel recognizes passed through devices
+as PCI instead of PCIe and does not allow reading and
+writing PCI registers above 0xFF, while
+SOFTSTRAP_CSR_OFFSET, required for correct
+initialization of LBG and DNV devices in pass-through
+mode, is 0x2EC.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>LBG and DNV device pass-through feature not available on
+guests without PCIe support.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>Guests must be configured with PCIe support for
+pass-through mode to work correctly with LBG and DNV
+devices.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD* 12.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-39216-kasumi-test-duration-issue">
+<h2>QATE-39216 - Kasumi test duration issue<a class="headerlink" href="#qate-39216-kasumi-test-duration-issue" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>Kasumi test duration issue</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-39216</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>Kasumi Performance sample code can show reduced
+performance.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>The performance degradation when running the sample code
+can be observed in case the system runs the excessive
+number of threads.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>Avoid calling the cpaCyInstanceGetInfo2 function if
+possible (i.e., by caching the info data) and try to
+tune the FreeBSD* scheduler.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD* 12.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-66213-symmetric-device-utilisation-data-incorrectly-reported-for-intel-communications-chipset-8925-to-8955-series-devices">
+<h2>QATE-66213 - Symmetric Device Utilisation data incorrectly reported for Intel<sup>®</sup> Communications Chipset 8925 to 8955 Series devices<a class="headerlink" href="#qate-66213-symmetric-device-utilisation-data-incorrectly-reported-for-intel-communications-chipset-8925-to-8955-series-devices" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>Symmetric Device Utilisation data incorrectly reported
+for Intel<sup>®</sup> Communications Chipset 8925 to 8955
+Series devices</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-66213</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>Symmetric Device Utilization data reporting for
+Intel<sup>®</sup> Communications Chipset 8925 to 8955
+Series devices is
+incorrect, especially for larger packet sizes (16k,
+32k), when the device reaches maximum throughput. The
+device utilization is under reported with these larger
+packet sizes.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Symmetric crypto device utilization is under reported
+for larger packet sizes as a result of PCIe bandwidth
+limitations.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The resolution of this issue is not yet known.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD* 12.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - DU</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-73180-qat-api-submissions-with-bad-addresses-that-trigger-dma-to-invalid-or-unmapped-addresses-can-cause-a-platform-hang">
+<h2>QATE-73180 - QAT API submissions with bad addresses that trigger DMA to invalid or unmapped addresses can cause a platform hang<a class="headerlink" href="#qate-73180-qat-api-submissions-with-bad-addresses-that-trigger-dma-to-invalid-or-unmapped-addresses-can-cause-a-platform-hang" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Title</p></th>
+<th class="head"><p>QAT API submissions with bad addresses that trigger DMA
+to invalid or unmapped addresses can cause a platform
+hang</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Reference #</p></td>
+<td><p>QATE-73180</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>This version of the Intel<sup>®</sup> QAT hardware does
+not perform
+request checking. It follows that a malicious
+application can submit requests that can bring down an
+entire QAT endpoint, which can impact other QAT jobs
+associated with the hardware. Furthermore, if any QAT
+API submission have bad addresses that would trigger DMA
+to invalid or unmapped addresses, these can induce a
+platform hang. This presents a risk to be managed by the
+host and guest operating systems and other system
+policies. The exposure can extend to other guest
+operating systems or applications outside of the typical
+access boundary of the malicious guest or application.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>All guest operating systems or other applications using
+QAT must be trusted, and/or other steps must be taken to
+ensure that an untrusted application or guest cannot
+submit incorrectly formatted requests.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>There is no workaround available. However, system
+policies (including limiting certain operating system
+permissions) can help to mitigate this issue.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected
+OS</p></td>
+<td><p>FreeBSD* 12.1</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver
+/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-22999-sample-code-functional-sample-applications-will-fail-if-service-is-not-enabled-on-first-qat-endpoint-on-systems-with-4xxx-devices">
+<h2>QATE20-22999 [Sample Code] Functional sample applications will fail if service is not enabled on first QAT Endpoint on systems with 4xxx devices<a class="headerlink" href="#qate20-22999-sample-code-functional-sample-applications-will-fail-if-service-is-not-enabled-on-first-qat-endpoint-on-systems-with-4xxx-devices" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>[Sample Code] Functional sample applications will
+fail if service is not enabled on first QAT Endpoint
+with 4xxx devices</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE20-22999</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>When sample application is executed which requests
+service that is not enabled on the first endpoint,
+the application will fail.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>If first endpoint is configured with asym, running
+application that uses symmetric such as ccm_sample will
+fail with following error signatures even if other
+endpoints enable symmetric crypto.</p>
+<p># ./ccm_sample</p>
+<p>main(): Starting CCM Sample Code App …</p>
+<p>algChainSample(): cpaCyStartInstance</p>
+<p>algChainSample(): Generation-Encryption Process</p>
+<p>algChainSample(): cpaCySymSessionCtxGetSize CCM encrypt</p>
+<p>[error] cpaCySymSessionCtxGetSize() - : The instance
+handle is the wrong type</p>
+<p>algChainSample(): cpaCyStopInstance</p>
+<p>algChainSample(): Sample code failed with status of -1</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>Workaround is to enable neccessary service on the first
+endpoint.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Symmetric</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

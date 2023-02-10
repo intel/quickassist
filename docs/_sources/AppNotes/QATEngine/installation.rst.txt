@@ -1,0 +1,299 @@
+.. _qat_2.0_qatengine_installation:
+
+Intel® QAT OpenSSL* Engine Installation
+=======================================
+
+Prerequisites
+-------------------------------------
+
+.. important:: 
+    Make sure to install first the Intel® QuickAssist Technology Software. Refer to :ref:`Intel QAT Software Installation <qat_2.0_gsg_installation>` for details.
+
+Hardware Acceleration (QAT_HW)
++++++++++++++++++++++++++++++++++++++
+
+Contiguous Memory Driver
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Intel® QAT API requires many of the data structures (those that will be passed to the hardware) to be allocated in contiguous pinned memory 
+in order to support DMA operations. You must either supply your own contiguous memory driver and make changes to the engine to make use of it or 
+use one of the following drivers:
+
+**User Space DMA-able Memory (USDM) Component**
+
+The Intel® QAT driver - Hardware Version 1.7 comes with its own contiguous pinned memory driver that is compatible with the Intel® QAT OpenSSL* Engine. 
+The USDM component is of a higher quality than the *qat_contig_mem* driver provided within the Intel® QAT OpenSSL* Engine, and is the preferred option. 
+The USDM component is used by the Intel® QAT driver - Hardware Version 1.7 itself, and also has the following additional features:
+
+    * Support for virtualization.
+    * Support for configurable slab sizes.
+    * Support for configurable secure freeing of memory (overwrite with zeros).
+    * Support for configurable slab caching.
+    * Support for newer kernels.
+
+The USDM component is located within the Intel® QAT driver - Hardware Version 1.7 source code in the following subdirectory: ``quickassist/utilities/libusdm_drv``. 
+As the USDM component is also used by the Intel® QAT driver - Hardware Version 1.7 driver itself it will have already been built when the driver was built. 
+It may also already be loaded as well, and you can check by running ``lsmod`` and looking for ``usdm_drv`` in the list. If not present it can be loaded as follows:
+
+.. code-block:: console
+
+    modprobe usdm_drv.ko
+
+**Contiguous Memory Driver**
+
+.. note:: 
+    This step is not required if using the default USDM driver above.
+
+The Intel® QAT OpenSSL* Engine comes with an example kernel space contiguous memory 
+driver that can be used to try out operation of the engine. It is considered to be an example only and is not written to be a production quality driver. 
+The use of the *qat_contig_mem* driver can be enabled using the configure option ``--enable-qat_hw_contig_mem`` that tells the build that the 
+Intel® QAT OpenSSL* Engine should be compiled to use the *qat_contig_mem* component instead of the USDM memory driver above.
+
+To build/install the *qat_contig_mem* driver run these commands:
+
+.. note:: 
+    Building and loading the *qat_contig_mem* driver assumming that the Intel® QAT OpenSSL* Engine was cloned to its own location at the root of the drive: ``/``.
+
+.. code-block:: console
+
+    cd /QAT_Engine/qat_contig_mem
+    make
+    make load
+    make test
+
+The expected output from ``make test`` should be something similar to the following:
+
+.. code-block:: console
+
+    seg mapped to 0x7f9eedd6e000, virtualAddress in seg 0xffff880ac9c0c000,
+    length 64
+    Hello world!
+    PASS Verify for QAT Contig Mem Test
+
+Software Acceleration (QAT_SW)
++++++++++++++++++++++++++++++++++++++
+
+Verify ``qat_sw`` components are installed as described in  :ref:`Software Acceleration (QAT_SW) requirements <qat_2.0_qatengine_qat_sw_requirements>`.
+
+Install OpenSSL*
+-------------------------------------
+
+.. note:: 
+    This step is not required if OpenSSL* 1.1.1 is already installed.
+
+Build OpenSSL*
++++++++++++++++++++++++++++++++++++++
+
+This step is not required if building the Intel® QAT OpenSSL* Engine against system prebuilt OpenSSL* 1.1.1. When using the prebuild system 
+OpenSSL library the engine library is installed in the system OpenSSL engines directory.
+
+Clone OpenSSL* from Github* at the following location:
+
+.. code-block:: console
+
+    git clone https://github.com/openssl/openssl.git
+
+It is recommended to checkout and build against the OpenSSL* git tag specified in the :ref:`Software Requirements <qat_2.0_qatengine_sw_requirements>` section. 
+OpenSSL* Version 1.1.1 and 3.0 are only supported.
+
+Due to the nature of the Intel® QAT OpenSSL* Engine being a dynamic engine it can only be used with shared library builds of OpenSSL*.
+
+.. note:: 
+    * The OpenSSL* 1.1.0 and 1.1.1 baselines build as a shared library by default now so there is no longer any need to specify the shared option when running ``./config``.
+    * It is not recommended to install the accelerated version of OpenSSL* as your default system library. If you do, you may find that acceleration is used unexpectedly by other applications on the system resulting in undesired/unsupported behaviour. The ``--prefix`` can be used with the ``./config`` command to specify the location that ``make install`` will copy files to. Please see the OpenSSL* *INSTALL* file for full details on usage of the ``--prefix`` option.
+
+With OpenSSL* version 1.1.0 and on, binaries are installed in standard directories by default, and the addition of runpath directories is not done automatically. 
+If you wish to install OpenSSL* in a non-standard location (recommended), the runpath directories can be specified via the OpenSSL* *Configure* command, 
+which recognises the arguments ``-rpath`` and ``-R`` to support user-added runpaths. For convenience, a Makefile variable ``LIBRPATH`` has also been added 
+which is defined as the full path to a subdirectory of the installation directory. The subdirectory is named ``lib`` by default. If you do not wish 
+to use ``LIBRPATH``, the runpath can be specified directly. The syntax for specifying a runpath is as follows:
+
+.. code-block:: console
+
+    ./config [options] -Wl,-rpath,\${LIBRPATH}
+
+The ``-rpath`` can be replaced with ``-R`` for brevity. If you do not wish to use the built-in variable ``LIBRPATH``, the syntax for 
+specifying a runpath of ``/usr/local/ssl/lib`` for example would be:
+
+.. code-block:: console
+
+    ./config [options] -Wl,-rpath,/usr/local/ssl/lib
+
+Alternatively, you can specify the runpath by adding it to the environment variable ``LD_LIBRARY_PATH`` via the command:
+
+.. code-block:: console
+
+    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:`RPATH`
+
+``RPATH`` is the full path(s) to the shared libraries. This is not the preferred method though. An example build would be:
+
+.. note:: 
+    The following example is assuming:
+
+        * The OpenSSL* source was cloned from GitHub* to its own location at the root of the drive: ``/``.
+        * You want OpenSSL* to be installed to ``/usr/local/ssl``.
+
+.. code-block:: console
+
+    cd /openssl
+    ./config --prefix=/usr/local/ssl -Wl,-rpath,\${LIBRPATH}
+    make depend (if recommended by the OpenSSL* build system)
+    make
+    make install
+
+As the Intel® QAT OpenSSL* Engine will be built as a dynamic engine it is important to tell OpenSSL* where to find the dynamic engines at runtime. 
+This is achieved by exporting the following environment variable (assuming the example paths above):
+
+.. code-block:: console
+
+    export OPENSSL_ENGINES=/usr/local/ssl/lib/engines-1.1
+
+.. note:: 
+    This variable will need to be present in the environment whenever the engine is used.
+
+Load/Initialize Engine using the OpenSSL* config file. Details are described in :ref:`qat_2.0_qatengine_load_engines`.
+
+Further information on building OpenSSL* can be found in the *INSTALL* file distributed with the OpenSSL* source code or on the official 
+OpenSSL* Wiki in the `Compilation and Installation <https://wiki.openssl.org/index.php/Compilation_and_Installation>`_ section.
+
+.. _qat_2.0_qatengine_build_QAT_Engine:
+
+Build the Intel® QAT OpenSSL* Engine
+-------------------------------------
+
+Clone the GitHub* repository containing the Intel® QAT OpenSSL* Engine:
+
+.. code-block:: console
+
+    git clone https://github.com/intel/QAT_Engine.git
+
+When building it, it is possible to specify command line options that can be used to turn engine functionality on and off. 
+The complete list of these options is available in :ref:`qat_2.0_qatengine_build_options`.
+
+The prerequisite to run *autogen.sh* is to have autotools (*autoconf*, *automake*, *libtool* and *pkg-config*) installed in the system.
+
+.. code-block:: console
+
+    cd /QAT_Engine
+    ./autogen.sh
+
+*./autogen.sh* will regenerate autoconf tools files.
+
+Example Builds
++++++++++++++++++++++++++++++++++++++
+
+Here are a few example builds that demonstrate how the Intel® QAT OpenSSL* Engine can be configured to use ``qat_hw`` and/or ``qat_sw``.
+
+**Example 1: qat_hw target with OpenSSL* 1.1.1 built from source**
+
+The following example is assuming:
+
+    * The Intel® QAT OpenSSL* Engine was cloned to its own location at the root of the drive: ``/``.
+    * The Intel® QAT Driver was unpacked within ``/QAT`` and using the USDM component.
+    * OpenSSL* 1.1.1 built from source is being used and installed to ``/usr/local/ssl``.
+
+To build and install the Intel® QAT OpenSSL* Engine:
+
+.. code-block:: console
+
+    cd /QAT_Engine
+    ./configure --with-qat_hw_dir=/QAT --with-openssl_install_dir=/usr/local/ssl
+    make
+    make install
+
+In the above example this will create the file ``qatengine.so`` and copy it to ``/usr/local/ssl/lib/engines-1.1``.
+
+**Example 2: qat_hw target with Prebuilt OpenSSL 1.1.1**
+
+The following example is assuming:
+
+    * The Intel® QAT OpenSSL* Engine was cloned to its own location at the root of the drive: ``/``.
+    * The Intel® QAT Driver was unpacked within ``/QAT`` and using the USDM component.
+    * Prebuilt OpenSSL* (both library and devel RPM packages) are installed in the system and the OpenSSL* version is in the 1.1.1 series.
+
+To build and install the Intel® QAT OpenSSL* Engine:
+
+.. code-block:: console
+
+    cd /QAT_Engine
+    ./configure --with-qat_hw_dir=/QAT
+    make
+    make install
+
+In the above example this will create the file ``qatengine.so`` and copy it to the engines directory of the system which can be checked using ``pkg-config --variable=enginesdir libcrypto``.
+
+If OpenSSL* version in the system can not be updated to 1.1.1 series, then the engine needs to be built from source using the 
+option ``--with-openssl_install_dir``. An additional option ``--with-openssl_dir`` pointing to the top directory of the OpenSSL* source needs to be provided 
+for regenerating err files if there are any new error messages added/deleted in the source code.
+
+**Example 3: qat_hw + qat_sw target with Prebuilt OpenSSL 1.1.1**
+
+The following example is assuming:
+
+    * The Intel® QAT OpenSSL* Engine was cloned to its own location at the root of the drive: ``/``.
+    * The Intel® QAT Driver was unpacked within ``/QAT`` and using the USDM component.
+    * Intel® Multi-Buffer Crypto for IPsec Library was installed to the default path.
+    * OpenSSL* 1.1.1 built from source is being used and installed to ``/usr/local/ssl``.
+
+To build and install the Intel® QAT OpenSSL* Engine:
+
+.. code-block:: console
+
+    cd /QAT_Engine
+    ./configure --with-qat_hw_dir=/QAT --enable-qat_sw --with-openssl_install_dir=/usr/local/ssl
+    make
+    make install
+
+In the above example this will create the file ``qatengine.so`` and copy it to ``/usr/local/ssl/lib/engines-1.1``.
+
+.. note:: 
+    AES-GCM operations are handled by ``qat_sw``. Other cryptographic operations are handled by ``qat_hw``.
+
+**Example 4: qat_sw target with Prebuilt OpenSSL 1.1.1**
+
+The following example is assuming:
+
+    * The Intel® QAT OpenSSL* Engine was cloned to its own location at the root of the drive: ``/``.
+    * The Intel® Crypto Multi-buffer library was installed to the default path ``/usr/local``.
+    * The Intel® Multi-Buffer crypto for IPsec Library was installed to its default path ``/usr/`` (optional if QAT_SW AES-GCM support is not needed).
+    * Prebuilt OpenSSL* 1.1.1 from the system is used.
+
+To build and install the Intel® QAT OpenSSL* Engine with QAT_SW support:
+
+.. code-block:: console
+
+    cd /QAT_Engine
+    ./configure --enable-qat_sw
+    make
+    make install
+
+In the above example, ``--disable-qat_hw`` needs to be provided if the system has qatlib installed.
+
+.. note:: 
+    ``--enable-qat_sw`` checks *crypto_mb* and *IPSec_MB* libraries in its respective default path or in the path provided in the config flag ``--with-qat_sw_install_dir``. If any of the libraries is not installed then their corresponding algorithm support is disabled (*cryto_mb* library for PKE algorithms and *IPSec_mb* library for AES-GCM).
+
+Copy the Intel® QAT Driver config files for Hardware Acceleration (QAT_HW)
+---------------------------------------------------------------------------
+
+.. note:: 
+    This step is not required for ``qat_sw`` target.
+
+The Intel® QAT OpenSSL* Engine includes example conf files to use with the Intel® QAT driver. The Intel® QAT OpenSSL* Engine will not function with the default Intel® QAT driver 
+conf file because the default configuration does not contain a ``[SHIM]`` section which the Intel® QAT OpenSSL* Engine requires by default. The default section name in the QAT OpenSSL* Engine can 
+be modified if required by either using the engine control command ``SET_CONFIGURATION_SECTION_NAME`` or by setting the environment variable ``QAT_SECTION_NAME``. The conf files 
+are located at: ``/path/to/qat_engine/qat/config``
+
+The files are grouped by acceleration device (*dh895xcc* or *c6xx* or *c3xxx*). Choose the files appropriate to your acceleration device only.
+
+The files are also split into *multi_process_optimized* and *multi_thread_optimized*.
+
+    * If your application runs one (or very few) processes, but has multiple threads in each process, each accessing the acceleration device, then you should pick the *multi_thread_optimized* config files. An example of this is a webserver that creates a new thread for each incoming connection.
+    * If your application scales by creating new processes, then you should pick the *multi_process_optimized* config files. An example of this is an event driven application that runs as a single thread in an event loop. In this type of application it is usual for the application to create at least one new process for each cpu core you want to utilize.
+
+There are also similar config files for if you are using the event driven polling feature of the Intel® QAT driver contained in 
+*multi_thread_event-driven_optimized* and *multi_process_event-driven_optimized* respectively. Event driven config files are only 
+supported in Linux. Once you have decided which config file you should use, or created your own you should follow the procedure below to install it:
+
+    #. **Stop** the acceleration driver as decribed in :ref:`qat_2.0_gsg_start_stop_software` section of the Getting Started Guide.
+    #. **Copy** the appropriate ``.conf`` file to ``/etc``.
+    #. **Start** the acceleration driver as decribed in :ref:`qat_2.0_gsg_start_stop_software` section of the Getting Started Guide.

@@ -1,0 +1,107 @@
+.. _qat_2.0_containers_testing:
+
+Testing Performance of Intel® QAT + OpenSSL* Container with Docker
+==================================================================
+
+.. note::
+    - The commands below will run only the Intel® QuickAssist Technology OpenSSL* Engine (QAT_Engine) portion of the image built in :ref:`previous section <qat_2.0_containers_build>`.
+
+    - ``openssl speed`` measures the raw performance of the algorithm itself. The performance of real-world applications will vary depending on the workload and other factors. Configuring an application to use the QAT_Engine is an application-specific procedure, and at minimum, it requires that the application supports OpenSSL's asynchronous interface.
+
+    - If not running as *root* user, ``sudo`` will need to be added to the Linux* instructions below.
+
+RSA Test (2048-bit keys)
+------------------------
+
+**QAT_Engine for OpenSSL**
+
+    .. code-block:: console
+
+        docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -engine qatengine -elapsed -async_jobs 8 rsa2048
+
+**OpenSSL* Software (No QAT_Engine)**
+
+    .. code-block:: console
+
+        docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -elapsed rsa2048
+
+Results Comparison
++++++++++++++++++++++++++++++++++++++
+
+.. note::
+    Results below are shown for reference only.
+
+.. table:: RSA Test (2048-bit keys) Results Comparison
+    :widths: 20, 40, 40
+
+    +-------------+----------------------------+----------------------+
+    |             | **QAT_Engine for OpenSSL** | **OpenSSL Software** |
+    +=============+============================+======================+
+    | Result      | 16910.5 sign/s             | 1937.3 sign/s        |
+    +-------------+----------------------------+----------------------+
+    | Gain        | 8.73x                      | Baseline             |
+    +-------------+----------------------------+----------------------+
+
+ECDH Test (Montgomery EC Curve X25519)
+--------------------------------------
+
+**QAT_Engine for OpenSSL**
+
+    .. code-block:: console
+
+        docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhx25519
+
+**OpenSSL* Software (No QAT_Engine)**
+
+    .. code-block:: console
+
+        docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -elapsed ecdhx25519
+
+Results Comparison
+++++++++++++++++++
+
+.. note::
+    Results below are shown for reference only.
+
+.. table:: ECDH Test (Montgomery EC Curve X25519) Results Comparison
+    :widths: 20, 40, 40
+
+    +-------------+----------------------------+----------------------+
+    |             | **QAT_Engine for OpenSSL** | **OpenSSL Software** |
+    +=============+============================+======================+
+    | Result      | 100664.2 op/s              | 35664.4 op/s         |
+    +-------------+----------------------------+----------------------+
+    | Gain        | 2.82x                      | Baseline             |
+    +-------------+----------------------------+----------------------+
+
+AES GCM Encryption Test (128-bit keys)
+--------------------------------------
+
+**QAT_Engine for OpenSSL**
+
+    .. code-block:: console
+
+        docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -engine qatengine -elapsed -evp aes-128-gcm
+
+**OpenSSL* Software (No QAT_Engine)**
+
+    .. code-block:: console
+
+        docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -elapsed -evp aes-128-gcm
+
+Results Comparison
+++++++++++++++++++
+
+.. note::
+    Results below are shown for reference only.
+
+.. table:: AES GCM Encryption Test (128-bit keys) Results Comparison (8k blocks)
+    :widths: 20, 40, 40
+
+    +-------------+----------------------------+----------------------+
+    |             | **QAT_Engine for OpenSSL** | **OpenSSL Software** |
+    +=============+============================+======================+
+    | Result      | 19801120.77 kB/s           | 6952815.27 kB/s      |
+    +-------------+----------------------------+----------------------+
+    | Gain        | 2.85x                      | Baseline             |
+    +-------------+----------------------------+----------------------+

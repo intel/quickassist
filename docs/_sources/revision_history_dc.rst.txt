@@ -1,0 +1,60 @@
+
+Compression API Reference Revision History
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
++--------------+----------+-----------------------------------------------------+
+|     Date     | Revision |                     Description                     |
++==============+==========+=====================================================+
+| April 2022   | 014      | Compression API v3.1.                               |
+|              |          | Removing deprecated types, CpaDcFileType.           |
+|              |          | Added support for LZ4 and LZ4s.                     |
+|              |          | Added support for sessionless (Ns) functions.       |
++--------------+----------+-----------------------------------------------------+
+| July 2021    | 013      | Compression API v2.7.                               |
+|              |          | Added CPA_DC_ASB_ENABLED.                           |
+|              |          | Added a flag to notify of an uncompressed block in  |
+|              |          | CpaDcRqResults.                                     |
++--------------+----------+-----------------------------------------------------+
+| Nov 2020     | 012      | Compression API v2.6.                               |
+|              |          | Added support for integrity CRCs.                   |
++--------------+----------+-----------------------------------------------------+
+| Sept 2020    | 011      | Compression API v2.5.                               |
+|              |          | Added cpaDcDeflateCompressBound()                   |
++--------------+----------+-----------------------------------------------------+
+| June 2020    | 010      | Compression API v2.4.                               |
+|              |          | Added cpaDcUpdateSession()                          |
++--------------+----------+-----------------------------------------------------+
+| Jan 2019     | 009      | Compression API v2.3.                               |
+|              |          | Added chaining support for compression & hash       |
+|              |          | operations.                                         |
++--------------+----------+-----------------------------------------------------+
+| April 2018   | 008      | Compression API v2.2.                               |
+|              |          | Added support for compressAndVerifyAndRecover       |
++--------------+----------+-----------------------------------------------------+
+| Feb 2018     | 007      | Adding support for Compress and Verify strict mode  |
++--------------+----------+-----------------------------------------------------+
+| June 2016    | 006      | Compression API v2.1.                               |
+|              |          | Added support for Compress and Verify               |
+|              |          | Added support for Batch and Pack Compression        |
++--------------+----------+-----------------------------------------------------+
+| October 2015 | 005      | Compression API v2.0.                               |
+|              |          | Added new error codes to CpaDcReqStatus in cpa_dc.h |
++--------------+----------+-----------------------------------------------------+
+| Sept 2015    | 004      | Compression API v1.6.                               |
+|              |          | Added CPA_STATUS_UNSUPPORTED as a return status     |
+|              |          | Deprecating use of fileType and deflateWindowSize   |
+|              |          | fields from CpaDcSessionSetupData in cpa_dc.h       |
+|              |          | Clarifying documentation for srcBufferLen,          |
+|              |          | bufferLenToCompress, destBufferLen and              |
+|              |          | bufferLenForData in CpaDcDpOpData in cpa_dc_dp.h    |
++--------------+----------+-----------------------------------------------------+
+| August 2015  | 003      | Compression API v1.5.                               |
+|              |          | Adding reportParityError to the DC instance         |
+|              |          | capabilities.                                       |
++--------------+----------+-----------------------------------------------------+
+| October 2014 | 002      | Adding cpaDcResetSession API.                       |
++--------------+----------+-----------------------------------------------------+
+| June 2014    | 001      | First "public" version of the document. Based on    |
+|              |          | "Intel Confidential" document number 410926-1.3.    |
++--------------+----------+-----------------------------------------------------+
+

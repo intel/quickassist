@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cryptographic Services &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Supported APIs" href="apis_index.html" />
+    <link rel="prev" title="Data Compression" href="services_compression_api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="services_index.html">Services</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="services_compression_api.html">Data Compression</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Cryptographic Services</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cryptography-applications">Cryptography Applications</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="services_index.html">Services</a> &raquo;</li>
+      <li>Cryptographic Services</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="cryptographic-services">
+<span id="qat-2-0-pg-services-cryptography"></span><h1>Cryptographic Services<a class="headerlink" href="#cryptographic-services" title="Permalink to this headline"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<p>Intel<sup>®</sup> QuickAssist Technology (Intel<sup>®</sup> QAT) accelerates cryptographic workloads by offloading the data to
+hardware capable of optimizing those functions. This makes it easier for developers to integrate built-in cryptographic
+accelerators into network and security applications.</p>
+<p>Symmetric cryptography algorithms include:</p>
+<ul class="simple">
+<li><p>Cipher operations (AES, DES, 3DES, ARC4, CHA-CHA, SM4).</p></li>
+<li><p>Wireless (Kasumi, Snow, 3G).</p></li>
+<li><p>Hash/Authenticate operations (SHA-1, MD5, SHA-2, SHA-3, SHAKE).</p></li>
+<li><p>Authentication (HMAC, AES-XCBC, AES-CCM).</p></li>
+</ul>
+<p>Public key algorithms include:</p>
+<ul class="simple">
+<li><p>RSA operation.</p></li>
+<li><p>Diffie-Hellman operation.</p></li>
+<li><p>Digital signature standard operation.</p></li>
+<li><p>Key derivation operation.</p></li>
+<li><p>Elliptic curve cryptography (ECDSA and ECDH).</p></li>
+<li><p>Prime number testing.</p></li>
+</ul>
+<section id="supported-cipher-algorithms">
+<h3>Supported Cipher Algorithms<a class="headerlink" href="#supported-cipher-algorithms" title="Permalink to this headline"></a></h3>
+<p>The following table provides details on supported cipher algorithms for each platform.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaCySymInitSession()</span></code> returns error status of <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> if cipher algorithm is not supported.</p></li>
+<li><p>The QAT2.0 driver has not been updated to enable the Opt-In functionality.  This will be added in a future release.</p></li>
+</ul>
+</div>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Supported Cipher Algorithms</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 25%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Algorithm</strong></p></th>
+<th class="head"><p><strong>QAT 1.7x</strong></p></th>
+<th class="head"><p><strong>QAT 1.8</strong></p></th>
+<th class="head"><p><strong>QAT 2.0</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>NULL</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ARC4</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-ECB</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-CBC</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-CTR</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-CCM</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-GCM</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-F8</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-XTS</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>DES-ECB</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>DES-CBC</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>3DES-ECB</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>3DES-CBC</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>3DES-CTR</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>KASUMI-F8</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNOW3G-UEA2</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>ZUC-EEA3</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>CHACHA</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SM4-ECB</p></td>
+<td><p>No</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>SM4-CBC</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SM4-CTR</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="supported-hash-authenticate-algorithms">
+<h3>Supported Hash/Authenticate Algorithms<a class="headerlink" href="#supported-hash-authenticate-algorithms" title="Permalink to this headline"></a></h3>
+<p>The following table provides details on supported hash algorithms for each platform.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaCySymInitSession()</span></code> returns error status of <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> if hash algorithm is not supported.</p></li>
+<li><p>The QAT2.0 driver has not been updated to enable the Opt-In functionality.  This will be added in a future release.</p></li>
+</ul>
+</div>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">Supported Hash/Authenticate Algorithms</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 27%" />
+<col style="width: 25%" />
+<col style="width: 24%" />
+<col style="width: 24%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Algorithm</strong></p></th>
+<th class="head"><p><strong>QAT 1.7x</strong></p></th>
+<th class="head"><p><strong>QAT 1.8</strong></p></th>
+<th class="head"><p><strong>QAT 2.0</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>MD5</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA1</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-even"><td><p>SHA224</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA256</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SHA384</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA512</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SHA3-224</p></td>
+<td><p>No</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA3-256</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SHA3-384</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA3-512</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-XCBC</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-CBC_MAC</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-CCM</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-GCM</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-GMAC</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-CMAC</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>KASUMI-F9</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>SNOW3G-UIA2</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>ZUC-EIA3</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>POLY</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SM3</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="supported-public-key-algorithms">
+<h3>Supported Public Key Algorithms<a class="headerlink" href="#supported-public-key-algorithms" title="Permalink to this headline"></a></h3>
+<p>The following table provides details on supported asymmetric algorithms for each platform.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>QAT Public Key functions will return error status of <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> if algorithm is not supported.</p>
+</div>
+<table class="docutils align-default" id="id6">
+<caption><span class="caption-text">Supported Public Key Algorithms</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 23%" />
+<col style="width: 21%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Algorithm</strong></p></th>
+<th class="head"><p><strong>QAT 1.7x</strong></p></th>
+<th class="head"><p><strong>QAT 1.8</strong></p></th>
+<th class="head"><p><strong>QAT 2.0</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RSA-2048</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA-3072</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA-4096</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA-8192</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SM2</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDH Point Multiply</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDSA Sign</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDSA Verify</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>x25519</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>x448</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="cryptography-applications">
+<h2>Cryptography Applications<a class="headerlink" href="#cryptography-applications" title="Permalink to this headline"></a></h2>
+<p>Cryptography applications supported by the platforms described in this manual include, but are not limited to:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#ipsec-and-ssl-vpns"><span class="std std-ref">Virtual Private Networks</span></a></p></li>
+<li><p><a class="reference internal" href="#encrypted-storage"><span class="std std-ref">Encrypted Storage</span></a></p></li>
+<li><p><a class="reference internal" href="#web-proxy-appliances"><span class="std std-ref">Web Proxy Appliances</span></a></p></li>
+</ul>
+<section id="ipsec-and-ssl-vpns">
+<span id="id1"></span><h3>IPsec and SSL VPNs<a class="headerlink" href="#ipsec-and-ssl-vpns" title="Permalink to this headline"></a></h3>
+<p>Virtual Private Networks (VPNs) allow for private networks to be established over the public Internet by providing confidentiality,
+integrity and authentication using cryptography. VPN functionality can be provided by a standalone security gateway box at the
+boundary between the trusted and untrusted networks. It is also commonly combined with other networking and security functionality in a security appliance, or even in standard routers.</p>
+<p>VPNs are typically based on one of two cryptographic protocols, either IPsec or Datagram Transport Layer Security (DTLS).
+Each has its advantages and disadvantages.</p>
+<p>One of the most compute-intensive aspects of a VPN is the cryptographic processing required to encrypt/decrypt traffic for
+confidentiality, to perform cryptographic hash functionality for authentication and to perform public key cryptography, based
+on modular exponentiation of large numbers or elliptic curve cryptography as part of key negotiation and exchange. The
+accelerator provides cryptographic acceleration that can offload this computation from the CPU, thereby freeing up CPU cycles
+to perform other networking, encryption, or other value-add applications.</p>
+<p>The Intel<sup>®</sup> QAT Endpoint offers its acceleration services through an API, called the Intel<sup>®</sup> QAT Cryptographic API.
+This can be invoked from the Linux* kernel or from Linux* user space as well as from other operating systems.
+Intel<sup>®</sup> also provides plugins to enable many of the PCH’s cryptographic services to be accessed through open source
+cryptographic frameworks, such as the Linux* kernel crypto framework/API (also known as the <code class="docutils literal notranslate"><span class="pre">scatterlist</span></code> API) and
+OpenSSL* libcrypto* (through its EVP API). This facilitates ease of integration with certain open source implementations
+of protocol stacks, such as the Linux* kernel’s native IPsec stack (called <code class="docutils literal notranslate"><span class="pre">NETKEY</span></code>) or with OpenVPN* (an open source SSL
+VPN implementation).</p>
+</section>
+<section id="encrypted-storage">
+<span id="id2"></span><h3>Encrypted Storage<a class="headerlink" href="#encrypted-storage" title="Permalink to this headline"></a></h3>
+<p>In recent years, cases of lost laptops containing sensitive information have made the headlines all too frequently.
+Full disk encryption has become a standard procedure for many corporate PCs. Safe-guarding critical data however is not
+just a necessity in the client space, it is also a necessity in the data center.</p>
+<p>Enterprise-class storage appliances achieve throughput rates in excess of 50 Gbps. Several high-profile cases of data theft
+have triggered updates to government regulations and industry standards. These regulations/standards now require protection
+of data-at-rest for applications involving sensitive data such as medical and financial records, typically using strong encryption.
+The high computational cost of adding encryption to storage appliances makes offload solutions an attractive value proposition.</p>
+<p>Several complimentary standards exist for the encryption of data-at-rest, which, when combined with traditional network security
+protocols such as IPsec or SSL/TLS, provide an end-to-end encrypted storage solution, even for data-in-flight.</p>
+<p>The IEEE* Security in Storage working group is developing the IEEE 1619 series of standards that deal with cipher algorithms
+for disk and tape storage devices (AES in CCM and GCM modes). The cryptographic acceleration services of platforms that use
+the Intel<sup>®</sup> QAT Endpoints are ideally suited for long-term encrypted storage solutions implementing the IEEE 1619.1 standard,
+by providing acceleration of the AES-256 cipher in CBC, CCM, and GCM modes and HMAC authentication using SHA-1, SHA-256 and
+SHA-512 hashes.</p>
+<p>The Trusted Computing Group’s (TCG) Storage Working Group does not prescribe a particular set of algorithms for the disk
+encryption. Instead, it defines several Storage Subsystem Classes (SSC) for various usage models, which define services
+such as enrollment and connection, protected storage (an extension of Trusted Platform Module (TPM)), locking, logging,
+cryptographic services, authorization, and firmware updates. The cryptographic acceleration services of the platform
+can help by providing the highest level of encryption for authenticating the host to trusted peripherals implementing
+the TCG storage standards.</p>
+</section>
+<section id="web-proxy-appliances">
+<span id="id3"></span><h3>Web Proxy Appliances<a class="headerlink" href="#web-proxy-appliances" title="Permalink to this headline"></a></h3>
+<p>Historically, Web Proxy appliances have evolved to present a public or intermediary interface for clients seeking resources
+from other servers, providing services such as web page caching and load balancing. These appliances are located at the edge
+of the network, typically at network gateways. Due to their centralized presence in the network, Web Proxy appliances today
+(referred to with several different names, such as Application Delivery Controllers, Reverse Proxy, and so on) have become
+a collection of services that include:</p>
+<ul class="simple">
+<li><p>Application Load Balancing (L4-L7)</p></li>
+<li><p>SSL Acceleration</p></li>
+<li><p>WAN Acceleration</p></li>
+<li><p>Caching</p></li>
+<li><p>Traffic Management</p></li>
+<li><p>Web Application Firewall</p></li>
+</ul>
+<p>SSL and WAN acceleration have become common place capabilities of the Web Proxy appliance, requiring compute intensive
+algorithms for cryptography (SSL) and compression (WAN acceleration). Intel<sup>®</sup> QAT devices on the platforms
+described in this manual provide acceleration of asymmetric cryptography (RSA is the most commonly used key
+negotiation algorithm in SSL), symmetric cryptography (all algorithms defined in the TLS RFCs can be accelerated with
+the PCH) and compression (DEFLATE algorithm). With the prominence of Web Proxy appliances in typical networks, this use
+case has applications from cloud computing to small web server deployments.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="services_compression_api.html" class="btn btn-neutral float-left" title="Data Compression" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="apis_index.html" class="btn btn-neutral float-right" title="Supported APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

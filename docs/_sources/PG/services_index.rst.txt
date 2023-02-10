@@ -1,0 +1,21 @@
+.. _qat_2.0_pg_services:
+
+Services
+========
+
+Intel® QAT can accelerate the following services:
+
+- Data compression/decompression.
+- Symmetric cryptography.
+- Public key cryptography.
+
+Details on the services are included in the following sections.
+
+.. toctree::
+   :maxdepth: 2
+   
+   services_compression_api
+   services_cryptography_api
+
+ 
+   

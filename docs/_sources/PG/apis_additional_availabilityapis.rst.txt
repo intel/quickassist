@@ -1,0 +1,31 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_availabilityapis:
+
+Check Device Availability APIs
+==============================
+
+icp_sal_userIsQatAvailable
+--------------------------
+
+This API allows an application to establish if there is any active QAT device present on system, 
+without calling internal libadf APIs or without a dependency on ``icp_sal_userStart()``
+
+**Syntax**
+
+``CpaBoolean icp_sal_userIsQatAvailable(void);``
+
+**Parameters**
+
+None
+
+**Return Value**
+
+The ``icp_sal_userIsQatAvailable`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_TRUE``                 | Indicates that there is at least one active device.                                    |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_FALSE``                | Indicates that there are no active devices.                                            |
+   +------------------------------+----------------------------------------------------------------------------------------+

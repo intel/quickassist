@@ -1,0 +1,385 @@
+.. _qat_telemetry:
+
+Monitoring Telemetry Tutorial
+=============================
+
+.. todo::  Add more on the intro paragraph
+
+
+Telegraf is an agent responsible for gathering and aggregating data, like the current compression engine utilization for example.
+
+InfluxDB will store data, and expose it to Grafana, which provides modern dashboarding solution.
+
+In this tutorial, we are going to learn how to setup Telegraf, InfluxDB and Grafana and expose Intel(R) QAT Telemetry data. 
+  
+
+Configuring InfluxDB + Telegraf + Grafana
+-----------------------------------------
+
+Install InfluxDB
+++++++++++++++++
+
+-  Download and Extract InfluxDB 2.x
+
+   .. code-block:: shell
+
+      cd /usr/local/src   
+      wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.1.1-linux-amd64.tar.gz   
+      tar -xzvf influxdb2-2.1.1-linux-amd64.tar.gz
+
+-  Create Symbolic Link on System Path for InfluxDB 2.x
+
+   .. code-block:: shell
+
+      ln -s `pwd`/influxdb2-2.1-linux-amd64/influxd /usr/local/bin/influxd
+
+-  Update InfluxDB and Grafana Firewall Settings (if required)
+
+
+   These commands can be used to update Firewall on RHEL/CentOS Distros:
+
+   .. code-block:: shell
+
+      sudo firewall-cmd --add-port=8086/tcp --permanent
+      sudo firewall-cmd --add-port=3000/tcp --permanent
+      sudo firewall-cmd --reload
+
+   These commands can be used to update Firewall on Debian based Distros:
+
+   .. code-block:: shell
+
+      sudo ufw allow 8086/tcp 
+      sudo ufw allow 3000/tcp 
+      
+-  Start InfluxDB 2.x
+
+   .. code-block:: shell
+
+      influxd
+
+.. note:: - The error message ``'Error: listen tcp :8086: bind: address already in use'`` will be returned if the server was already started.
+
+Install and Configure Telegraf
+++++++++++++++++++++++++++++++
+
+.. todo:: Update the location to public URL once this is available.  This will be the addition of the qat plugin to public Telegraf  
+
+Install Telegraf
+~~~~~~~~~~~~~~~~
+
+-  Download Telegraf from GitHub
+
+   .. code-block:: shell
+
+      cd /usr/local/src
+      git clone https://github.com/intel-innersource/applications.infrastructure.observability.collectors.thirdparty.telegraf.git
+      cd applications.infrastructure.observability.collectors.thirdparty.telegraf
+      git checkout upstream_qat_plugin
+
+-  Install Golang (if required)
+
+   This command can be used to install Golang on RHEL/CentOS Distros:
+
+   .. code-block:: shell
+
+      sudo dnf -y install go
+
+   This command can be used to install Golang on Debian based Distros:
+
+   .. code-block:: shell
+
+      sudo apt install golang-go
+      
+
+-  Build Telegraf
+
+   .. code-block:: shell
+
+      make
+
+
+   .. note:: This build takes multiple minutes to complete.
+          
+       
+-  Create Symbolic Link for Telegraf
+
+   .. code-block:: shell
+      
+      sudo ln -s `pwd`/telegraf /usr/local/bin/telegraf
+
+-  Create Telegraf Configuration File. Default configuration file, set in Telegraf:
+
+   .. code-block:: shell
+      
+      sudo mkdir /etc/telegraf
+      sudo telegraf config > /etc/telegraf/telegraf_qat.conf
+      export TELEGRAF_CONFIG_PATH=/etc/telegraf/telegraf_qat.conf
+
+.. _influxdb_setup:
+
+Configure Telegraf
+~~~~~~~~~~~~~~~~~~
+
+-  Remotely Configure InfluxDB 2.x using Web Brower:
+
+   #. Enter **<ip_address>:8086** in your browser  (where ip_address is the ip address of target system)
+   #. Click on **Get Started** Button
+  
+   
+   #. Fill in values for:
+
+      -  Username
+      -  Password
+      -  Confirm Password
+      -  Initial Organization Name
+      -  Initial Bucket Name
+  
+
+   .. figure:: ./../../img/influx_setup.png
+      :width: 800
+      :alt: InfluxDB Initial User Setup
+   
+   #. Click on **Continue**
+   #. Click on **Quick Start**
+   #. On the Leftmost Pane, click on **Data**
+   #. Select **Telegraf** tab
+   #. Click on **+ Create Configuration**, select **System** and then click **Continue**
+  
+      Provide values for:
+
+      -  Telegraf Configuration Name
+      -  Telegraf Configuration Description
+
+   .. figure:: ./../../img/telegraf_plugin.png
+      :width: 800
+      :alt: Telegraf plugin Setup
+
+   #. Click **Create and Verify**
+   #. Under **2. Configure your API Token** , select **Copy to Clipboard** and paste this command into the Linux terminal of target system.
+   #. Under **3. Start Telegraf**, select **Copy to Clipboard** and paste this command into the Linux terminal of target system.
+   #. Click **Finish**
+
+.. note::  The previous two commands can be copied to a script that can be used to start Telegraf service.  
+  
+-  Add intel_qat configuration:
+
+   - On the leftmost pane, click on **Data**
+   - Click on the Telegraf configuration name you setup previously. This opens the configuration for editing. 
+   - Scroll to the bottom of the file and add the following lines:
+
+.. code-block:: bash
+
+   ## Intel QuickAssist Technology (Intel QAT) devices telemetry plugin
+   [[inputs.intel_qat]]
+
+   ## Optionally set device ID for which metrics will be collected.
+   ## Only valid IDs for Intel QAT devices should be provided.
+   ## If not provided, than default is 0x4940, which is device ID for Intel QAT 2.0a.
+   # qat_device_ids = ["0x4940"]
+
+   ## It is recommended to set plugin interval to "1000ms" or less.
+   interval = "990ms"
+
+   ## Keep the aggregate basicstats of each metric passing through.
+   [[aggregators.basicstats]] 
+   ## The period on which to flush & clear the aggregator.
+   period = "10s"
+   
+
+   ## If true, the original metric will be dropped by the
+   ## aggregator and will not get sent to the output plugins.
+   drop_original = true
+
+   ## Configures which basic stats to push as fields
+   stats = ["min", "max", "mean"]
+   
+   ## Sets the metrics names to aggregate
+   namepass = ["qat_util", "qat_device"]
+  
+
+ 
+- Click on Save **Changes**
+- Click **Save** to confirm
+
+.. _obtain_API_token:
+
+Obtain API Token
+~~~~~~~~~~~~~~~~
+
+Telegraf API Token will be used when configuring Grafana.  Obtain the API token for later use here.
+
+- Click on **Data** on the left pane
+- Select **API Tokens** tab
+
+.. figure:: ./../../img/telegraf_api_token.png
+      :width: 800
+      :alt: Telegraf API Token setup
+
+- Select Token.  
+  
+  In the image above we see two tokens created.  Select the token for the user created previously.  
+
+- Select **Copy to Clipboard** and save this away for use in the Grafana configuration
+  
+Install and Configure Grafana
++++++++++++++++++++++++++++++
+
+Install Grafana
+~~~~~~~~~~~~~~~
+
+  For Debian based distros, the following command can be used:
+  
+  .. code-block:: shell
+      
+      sudo apt-get install -y gnupg2 curl software-properties-common
+      curl https://packages.grafana.com/gpg.key | apt-key add -
+      add-apt-repository "deb https://packages.grafana.com/oss/deb stable main"
+      sudo apt-get -y install grafana
+      sudo systemctl enable --now grafana-server
+
+Configure Grafana
+~~~~~~~~~~~~~~~~~
+
+   - Open Web brower to **<ip_address>:3000** where **ip_address** is ip address of target system
+   - If this is a fresh install of Grafana, default credentials are:  ``admin/admin``
+     
+     Provide updated password when prompted.
+
+   - In the center pane, click on **Add your first data source**
+   
+   .. figure:: ./../../img/grafana_setup.png
+      :width: 400
+      :alt: Grafana Setup
+
+   - Search for InfluxDB
+
+   - Configure the InfluxDB data source
+
+      - Enter **Name**, or accept default name.  
+             
+             It is suggested to add Query language to the name  (i.e. InfluxDB-Flux)
+      
+      - For **Query Language**, select **Flux**
+      - Update **URL** with the IP address:port of the InfluxDB server (default is ``http://localhost:8086``)
+      - Under **Auth** section, ensure  **Basic auth** and **With Credentials** are enabled
+
+
+      
+      .. figure:: ./../../img/influxdb_config.png
+         :width: 500
+         :alt: Influxdb Configuration
+
+      - Under **Basic Auth Details** provide **User** and **Password**.  This was created in :ref:`influxdb_setup`
+        
+      - Under **InfluxDB Details**:
+  
+         - provide **Organization** created in :ref:`influxdb_setup`.
+         - provide **Token** created in :ref:`obtain_API_token`.
+         - provide **Default Bucket** created in :ref:`influxdb_setup`.
+  
+      .. figure:: ./../../img/grafana_influxdb_configuration.png
+         :width: 400
+         :alt: Influxdb Configuration
+
+
+      - Select **Save & test**
+      - Verify Success
+  
+         .. figure:: ./../../img/grafana_success.png
+            :width: 400
+            :alt: Telegraf API Token setup
+
+
+Enable Telemetry Service on Target
+++++++++++++++++++++++++++++++++++
+
+The Telemetry data needs to be enabled on the platform.   The following script detects the QAT Endpoints on the system and
+enables the telemetry service.  For additional information refer to :ref:`Telemetry chapter in the Programmer's Guide <qat_2.0_pg_infrastructure_device_telemetry>`.
+
+telemetry_helper.sh
+~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+   #! /bin/bash
+
+   # Copyright(c) 2007-2023 Intel Corporation. All rights reserved.
+   
+   # This file is provided under a Zero-Clause BSD license.
+   
+   # Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.
+   
+   # THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED 
+   # WARRANTIES OF MERCHANTABILITY AND FITNESS. 
+   
+   # IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER 
+   # RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING 
+   # OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+
+   # Command Line Parameters
+   #   - 1 => Enable Telemetry
+   #   - 0 => Disable Telemetry
+   if [ $# == 0 ];
+   then
+       echo "telemetry helper usage:"
+       echo " ./telemetry_helper.sh 1    <-- Enables Telemetry service on all QAT end points"
+       echo " ./telemetry_helper.sh 0    <-- Disables Telemetry service on all QAT end points"
+       exit
+   fi
+
+   # ensure cr/lf are not removed from lspci command
+   IFS=
+
+   # Capture all QuickAssist Device id info to logfile
+   echo "$(lspci -d 8086:4940)" > pci_ids.txt
+   control_file_names=()
+
+   # Parse the logfile extracting just the pci device ids to array
+   while IFS= read -r line; do
+       bus_num=${line:0:2}
+       control_file_name="/sys/devices/pci0000:"$bus_num"/0000:"$bus_num":00.0/telemetry/control"
+       control_file_names+=($control_file_name)
+       done < pci_ids.txt
+       
+       for ((i=0; i<${#control_file_names[@]}; i++))
+       do
+           if [ $1 = 0 ];
+           then
+               echo "Disabling telemetry for " ${control_file_names[$i]}
+           else
+               echo "Enabling telemetry for " ${control_file_names[$i]}
+           fi
+           echo $1 > ${control_file_names[$i]}
+       done
+
+   # Remove temporary file
+   rm pci_ids.txt
+
+- Execute this script:
+  
+  .. code-block:: shell
+      
+      ./telemetry_helper.sh 1
+
+
+Setup First Grafana Dashboard
++++++++++++++++++++++++++++++
+
+
+
+Additional resources
+--------------------
+
+- Getting Started with Telegraf https://docs.influxdata.com/influxdb/latest/write-data/no-code/use-telegraf/
+- Install and Configure Telegraf on RHEL 8 / CentOS 8 https://computingforgeeks.com/install-and-configure-telegraf-on-rhel-centos/ 
+
+Troubleshooting
+---------------
+
+- Double-check instruction steps above
+- Verify influxdb and telegraf are running
+- Verify API Token matches
+- Verify telegraf.config file
+- Verify system including environment variables, including: 
+   - ``TELEGRAF_CONFIG_PATH`` (i.e. ``export TELEGRAF_CONFIG_PATH=/etc/telegraf/telegraf_qat.conf``)
+   - ``INFLUX_TOKEN`` 

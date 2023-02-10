@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qatlib Usage (working copy) &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>qatlib Usage (working copy)</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="qatlib-usage-working-copy">
+<h1>qatlib Usage (working copy)<a class="headerlink" href="#qatlib-usage-working-copy" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These instructions refer to qatlib with the Quickassist out-of-tree (OOT) driver.</p>
+</div>
+<section id="bios">
+<h2>BIOS<a class="headerlink" href="#bios" title="Permalink to this headline"></a></h2>
+<p>Intel VT-d and SR-IOV must be enabled in the platform BIOS.  Refer to <span class="xref std std-ref">Virtualization Deployment Guide</span> for details.</p>
+<p>If using an Intel BKC these usually default to on, you can verify by rebooting, entering <code class="docutils literal notranslate"><span class="pre">F2</span></code> on the console to get to the BIOS menus and checking these are enabled:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Intel VT-d</p></li>
+<li><p>SR-IOV</p></li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The intel_iommu setting should be set to “ON” through grubby</p>
+</div>
+</section>
+<section id="build-oot-qat-driver">
+<h2>Build OOT QAT driver<a class="headerlink" href="#build-oot-qat-driver" title="Permalink to this headline"></a></h2>
+<p>Since SPR is not publicly available, we need the QAT firmware and kernel modules from the OOT driver. The latest QAT driver is available at:
+<a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/632583">https://cdrdv2.intel.com/v1/dl/getContent/632583</a> (Content ID 632583)</p>
+<ol class="arabic simple">
+<li><p>Copy this file to /QAT folder and extract package</p></li>
+<li><p>Configure the driver:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo ./configure
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Make the package, but <em>do not</em> install it:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo make -j
+</pre></div>
+</div>
+</section>
+<section id="install-qat-oot-kernel-modules-and-firmware">
+<h2>Install QAT OOT kernel modules and firmware.<a class="headerlink" href="#install-qat-oot-kernel-modules-and-firmware" title="Permalink to this headline"></a></h2>
+<p>The following script file can be run to copy QAT firmware to <code class="docutils literal notranslate"><span class="pre">/lib/firmware</span></code> directory and install kernel modules.:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="c1"># ICP_ROOT - directory where QAT OOT package is extracted</span><span class="w"></span>
+<span class="na">ICP_ROOT</span><span class="o">=</span><span class="s">/usr/local/src/QAT</span><span class="w"></span>
+<span class="na">echo &quot;Copying QAT firmware to the /lib/firmware directory&quot;</span><span class="w"></span>
+<span class="na">sudo cp $ICP_ROOT/build/qat_4xxx*.bin /lib/firmware</span><span class="w"></span>
+<span class="na">echo &quot;Removing QAT kernel modules (if needed)&quot;</span><span class="w"></span>
+<span class="na">sudo rmmod qat_4xxx.ko</span><span class="w"></span>
+<span class="na">sudo rmmod intel_qat.ko</span><span class="w"></span>
+<span class="na">echo &quot;Installing QAT kernel modules&quot;</span><span class="w"></span>
+<span class="na">sudo modprobe dh_generic</span><span class="w"></span>
+<span class="na">sudo modprobe authenc</span><span class="w"></span>
+<span class="na">sudo modprobe uio</span><span class="w"></span>
+<span class="na">sudo modprobe mdev</span><span class="w"></span>
+<span class="na">sudo insmod $ICP_ROOT/build/intel_qat.ko</span><span class="w"></span>
+<span class="na">sudo insmod $ICP_ROOT/build/qat_4xxx.ko</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Run this script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo chmod +x ./start_qat.sh
+sudo ./start_qat.sh
+</pre></div>
+</div>
+</section>
+<section id="obtaining-qatlib-library">
+<h2>Obtaining qatlib library<a class="headerlink" href="#obtaining-qatlib-library" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If switching from qatlib to the out-of-tree (OOT) QAT driver, qatlib must be uninstalled first or compile time issues will be observed with applications that utilize QAT.</p>
+</div>
+<p>Clone the repo from <a class="reference external" href="https://github.com/intel/qatlib.git">https://github.com/intel/qatlib.git</a> :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/local/src/
+sudo git clone https://github.com/intel/qatlib.git
+</pre></div>
+</div>
+</section>
+<section id="installing-qatlib-library">
+<h2>Installing qatlib library<a class="headerlink" href="#installing-qatlib-library" title="Permalink to this headline"></a></h2>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> qatlib
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li><p>Configure the driver with these options: <code class="docutils literal notranslate"><span class="pre">--enable-service</span> <span class="pre">--prefix=/usr</span></code> . enable-service allows <code class="docutils literal notranslate"><span class="pre">systemctl</span></code> access to <code class="docutils literal notranslate"><span class="pre">qat_service</span></code>. <code class="docutils literal notranslate"><span class="pre">--prefix=/usr</span></code> installs qatlib in the <code class="docutils literal notranslate"><span class="pre">/usr</span></code> folder. This allows QAT_Engine and QATzip to utilize qatlib with no additional configuration parameters:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo ./autogen.sh
+sudo ./configure --enable-service --prefix<span class="o">=</span>/usr
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Build and install qatlib:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo make -j
+sudo make install
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Verify qatlib is up and functional:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>systemctl status qat.service
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Build and install sample code:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo make samples-install
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>cpa_sample_code can now be run for symmetric crypto and asymmetric crypto:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>cpa_sample_code
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If switching from qatlib to the out-of-tree (OOT) QAT driver, qatlib must be uninstalled first or compile time issues will be observed with applications that utilize QAT.</p>
+</div>
+<section id="compression-tests">
+<h3>Compression Tests<a class="headerlink" href="#compression-tests" title="Permalink to this headline"></a></h3>
+<p>Compression is not enabled by default. It can be enabled on selected end points by performing the following steps:</p>
+<ol class="arabic simple">
+<li><p>Copy <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build/4xxx_dev0.conf</span></code> to local directory</p></li>
+<li><p>Replace the <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> section to <code class="docutils literal notranslate"><span class="pre">dc</span></code></p></li>
+<li><p>Repeat this for each QAT endpoint compression service is desired on. For QAT EndPoints that crypto is required, set <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> to <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code></p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It is not possible at this time to combine crypto (sym/asym) with compression (dc).</p>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Copy updated QAT configuration files to the <code class="docutils literal notranslate"><span class="pre">/etc</span></code> folder</p></li>
+<li><p>Restart QAT driver:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo <span class="nv">$ICP_ROOT</span>/build/adf_ctl restart
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Restart qatlib library:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo systemctl restart qat.service
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Run performance sample code, running the compression tests:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo cpa_sample_code <span class="nv">runTests</span><span class="o">=</span><span class="m">32</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="qatzip">
+<span id="section-1"></span><h2>QATzip<a class="headerlink" href="#qatzip" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>qatlib must be installed and configured to use compression services prior to running QATzip</p>
+</div>
+<p>These steps can be used to configure/install QATzip that works with
+qatlib</p>
+<ol class="arabic simple">
+<li><p>Obtain QATzip package:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/local/src
+sudo git clone https://github.com/intel/QATzip.git
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Change directories to the QATzip directory:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> QATzip
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Ensure ICP_ROOT environmental variable is not defined. If this is defined, QATzip will link against the OOT QAT drivers…which will lead to linking errors.:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">unset</span> ICP_ROOT
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Configure QATzip:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo yum install epel-release <span class="o">&amp;&amp;</span> sudo yum install lz4 <span class="o">&amp;&amp;</span> sudo yum install lz4-devel
+sudo ./configure
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Make and install:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo make clean
+sudo make all
+sudo make install
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>qzip application can be used to test compression:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo ls -alR / &gt; files.txt
+qzip files.txt
+</pre></div>
+</div>
+</section>
+<section id="qat-engine">
+<h2>QAT_Engine<a class="headerlink" href="#qat-engine" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>qatlib must be installed and configured to use crypto services prior to running QAT_Engine</p>
+</div>
+<p>These steps can be used to configure/install QAT_Engine that works with qatlib.</p>
+<ol class="arabic simple">
+<li><p>Obtain QAT_Engine package:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/local/src
+sudo git clone https://github.com/intel/QAT_Engine.git
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Change into the QAT_Engine folder:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> QAT_Engine
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Ensure <code class="docutils literal notranslate"><span class="pre">ICP_ROOT</span></code> environmental variable is <em>not</em> defined. If this is defined, QATzip will link against the OOT QAT drivers, which will lead to linking errors:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">unset</span> ICP_ROOT
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>Configure QAT_Engine:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo ./autogen.sh
+sudo ./configure
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>Make and install:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>make clean
+sudo make all
+sudo make install
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>Verify QAT_Engine is working with openssl:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl engine -t -c -v qatengine
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>Verify OpenSSL speed test:</p></li>
+</ol>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>openssl speed -engine qatengine -elapsed -async_jobs <span class="m">72</span> rsa2048
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

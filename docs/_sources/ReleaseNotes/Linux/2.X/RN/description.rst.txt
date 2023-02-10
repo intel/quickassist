@@ -1,0 +1,229 @@
+.. _qat_2.0_rn_description:
+
+Description of Release
+======================
+
+This document contains information on the accompanying Intel\ :sup:`®`
+QuickAssist Technology (Intel\ :sup:`®` QAT) Hardware Version 2.0 Driver for Linux*.
+
+For instructions on loading and running the release software, refer to the :doc:`Getting Started Guide </GSG/GSG2/index>` listed 
+in the :ref:`Related Documentation <qat2.0_rn_linux_related_documentation>` section.
+
+Refer to the :ref:`Revision History <qat2.0_rn_linux_revision_history>` to check the changes of this document.
+
+.. note:: These release notes may include known issues with third-party or reference platform components that affect the operation of the software.
+
+.. _features_implemented:
+
+Features
+--------
+
+-  Sym/Asym Crypto.
+-  TLS1.3 elliptical curves Montgomery encryption (curve 25519 and curve 448).
+-  Data Compression with CnV for Deflate and LZ4/LZ4s algorithms and CnVnR for Deflate and LZ4s.
+-  Telemetry.
+-  Power Management.
+-  SM3/SM4.
+-  Scalable IOV (sIOV).
+-  Asynchronous E2E support for compression.
+-  Extended RAS (uncorrectable and fatal error support).
+
+Limitations
+-----------
+
+-  Symmetric Crypto Sample applications do not run out of box without configuration file update. Refer to the :ref:`Getting Started Guide <default_configuration>` for additional information.
+-  Stateful decompression is not supported.
+-  Key Protection Technology (KPT) is not currently supported.
+-  Auto-select best (ASB) is not supported with rolling *XXHash32*.
+-  Dynamic Power Management (DPM) is not currently supported.
+-  Shared Virtual Memory (SVM) and Address Translation is not currently supported.
+  
+
+Supported Operating Systems and Platforms
+-----------------------------------------
+
+The software in this release has been validated with the following configurations.
+
+.. table::
+   :widths: 33, 34, 33
+
+   +-------------------+------------------------------------+--------------------+
+   | **OS**            | **Kernel Version**                 | **Platform**       |
+   +===================+====================================+====================+
+   | CentOS 8 Stream   | 5.15.0-spr.bkc.pc.10.4.11.x86_64   | Archer City E4->E5 |
+   +-------------------+------------------------------------+--------------------+
+   | RedHat 8.6        | 4.18.0-348.el8.x86_64              | Archer City E4->E5 |
+   +-------------------+------------------------------------+--------------------+
+
+Version Numbering Scheme
+++++++++++++++++++++++++
+
+The version numbering scheme is *name.os.major.minor.maintenance-build*, where:
+
+- *name* is "QAT20".
+- *os* is the Operating System: "L" for Linux*.
+- *major* is the major version of the software.
+- *minor* is the minor version of the software.
+- *maintenance-build* is the maintenance release and build number.
+
+Package Version
++++++++++++++++
+
+The following table shows the OS-specific package versions for each
+platform supported in this release.
+
+.. table::
+   :widths: 50, 50
+
+   +------------------------------+---------------------------------------+
+   | **Chipset or SoC**           | **Package Version**                   |
+   +==============================+=======================================+
+   | Top-Level Package            | QAT20.L.1.0.2-00004                   |
+   +------------------------------+---------------------------------------+
+
+Licensing for Linux* Acceleration Software
+++++++++++++++++++++++++++++++++++++++++++
+
+The acceleration software is provided under the licenses listed in
+the following table. When using or redistributing dual-licensed components, 
+you may do so under either license.
+
+.. table::
+   :widths: 30 30 40
+
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | **Component**              | **License**                                  | **Directories**                                                                  |
+   +============================+==============================================+==================================================================================+
+   | User Space only components | Berkeley Software Distribution (BSD)         | ``./quickassist/lookaside/access_layer/src/qat_direct``                          |
+   |                            |                                              |                                                                                  |
+   |                            |                                              | ``./quickassist/lookaside/access_layer/src/common/crypto/asym``                  |
+   |                            |                                              |                                                                                  |
+   |                            |                                              | ``./quickassist/utilities/osal/src/linux/user_space``                            |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | Common User Space and      | Berkeley Software Distribution (BSD)         | ``./quickassist/build_system``                                                   |
+   | Kernel Space Library       |                                              |                                                                                  |
+   |                            |                                              | ``./quickassist/include``                                                        |
+   |                            |                                              |                                                                                  |
+   |                            |                                              | ``./quickassist/lookaside``                                                      |
+   |                            |                                              |                                                                                  |
+   |                            |                                              | ``./quickassist/utilities/osal`` (except items in openssl)                       |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | adf_ctl                    | Dual BSD/GNU General Public License (GPL) v2 | ``./quickassist/utilities/adf_ctl``                                              |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | Kernel space driver        | GPL v2                                       | ``./quickassist/qat/drivers``                                                    |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | Compatibility layer for    | GPL                                          | ``./quickassist/qat/compat``                                                     |
+   | older kernel versions      |                                              |                                                                                  |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | User Space DMAble          | Dual BSD/GPL v2                              | ``./quickassist/utilities/libusdm_drv``                                          |
+   | Memory Driver              |                                              |                                                                                  |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | Libcrypto*                 | OpenSSL                                      | ``./quickassist/utilities/osal/src/linux/user_space/openssl``                    |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | QAT Firmware               | Redistribution                               | ``./quickassist/qat/fw``                                                         |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+   | Calgary corpus and         | Public Domain                                | ``./quickassist/lookaside/access_layer/src/sample_code/performance/compression`` |
+   | Canterbury corpus          |                                              |                                                                                  |
+   | test files                 |                                              |                                                                                  |
+   +----------------------------+----------------------------------------------+----------------------------------------------------------------------------------+
+
+SHA256 Checksum Information
++++++++++++++++++++++++++++
+
+The following table provides SHA256 checksum information.
+
+.. table::
+   :widths: 30 70
+
+   +-------------------------+------------------------------------------------------------------+
+   | **Package**             | **SHA256 Checksum**                                              |
+   +=========================+==================================================================+
+   | QAT20.L.1.0.2-00004     |e1994fa27fd386c0c6ded6068200edbc44a0c5064d00ebb8c346a86e1fca03c8  |
+   +-------------------------+------------------------------------------------------------------+
+
+List of Files in Release
+------------------------
+
+The Bill of Materials (BOM), sometimes referred to as the BOM, is
+included as a text file in the released software package. This text file
+is labeled a ``filelist`` and is located at the top directory level for
+each release.
+
+Intel QAT API Updates 
+---------------------
+
+The Intel QAT Application Program Interface (API) version
+number is different from the software package version number.
+
+For details on any changes to the Intel QAT APIs, refer to the
+*Revision History* pages in the following API reference manuals:
+
+   - `Intel QuickAssist Technology Cryptographic API Reference Manual <https://cdrdv2.intel.com/v1/dl/getContent/709199?explicitVersion=true>`_ 
+   - `Intel QuickAssist Technology Data Compression API Reference Manual <https://cdrdv2.intel.com/v1/dl/getContent/709201?explicitVersion=true>`_
+
+Technical Support
+-----------------
+
+Intel offers support for this software at the API level only,
+defined in the Programmer's Guide and API reference manuals listed in the :ref:`Related Documentation <qat2.0_rn_linux_related_documentation>` section.
+
+For technical support, including answers to questions not addressed in this
+document, visit the technical support forum, FAQs, and other support
+information at `Intel Support`_.
+
+.. _Intel Support: https://www.intel.com/content/www/us/en/support.html
+
+Environmental Assumptions
+-------------------------
+
+The following assumptions are made about the deployment environment:
+
+   -  The driver object/executable file on disk should be protected using
+      the normal file protection mechanisms, so it is writable by only
+      trusted users, for example, a privileged user or an administrator.
+
+   -  The public key firmware image on the disk should be protected using
+      normal file protection mechanisms, so it is writable only by trusted
+      users, for example, a privileged user or an administrator.
+
+   -  The Intel QAT device should not be exposed (through the
+      *user space direct* deployment model) to untrusted users.
+
+   -  The Dynamic Random-Access Memory (DRAM) is considered to be inside
+      the trust boundary. The traditional memory-protection schemes
+      provided by the Intel architecture processor and memory
+      controller, and by the OS, is to prevent unauthorized access to these
+      memory regions.
+
+   -  Persistent keys were not considered, but the storage media are also
+      considered inside the cryptographic boundary.
+
+   -  The driver exposed device file should be protected using the normal
+      file protection mechanisms so that it could be opened and
+      read/written only by trusted users.
+
+.. _qat2.0_rn_linux_related_documentation:
+
+Related Documentation
+---------------------
+
+.. table::
+    :widths: 85, 15
+
+    +-------------------------------------------------------------------------------------------------+------------+
+    |  **Title**                                                                                      | **Number** |
+    +=================================================================================================+============+
+    | Intel QuickAssist Technology for Linux* - Getting Started Guide (HW 2.0)                        | 632506     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology for Linux* - Release Notes (HW 2.0)                                | 632507     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology for VMware* - Release Notes (HW 2.0)                               | 766469     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology - Programmer's Guide (HW 2.0)                                      | 743912     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology API Programmer's Guide                                             | 330684     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology Cryptographic API Reference Manual                                 | 330685     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology Data Compression API Reference Manual                              | 330686     |
+    +-------------------------------------------------------------------------------------------------+------------+

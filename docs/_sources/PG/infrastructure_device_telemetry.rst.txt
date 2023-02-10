@@ -1,0 +1,399 @@
+.. _qat_2.0_pg_infrastructure_device_telemetry:
+
+Telemetry
+=========
+
+The telemetry feature is a tool to view the performance and utilization of an acceleration device.
+Telemetry data can be viewed on a per device and a per ring pair (also known as :ref:`queue pair<qat_2.0_pg_infrastructure_queue_pairs>`) basis.
+
+Telemetry Usage
+---------------
+
+The telemetry feature is configured and queried using sysfs files in the Linux filesystem.
+
+The telemetry sysfs folder is located at ``/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/telemetry`` where:
+
+   - ``AAAA:BB:CC.D`` is the *Domain:BDF* of the target Intel® QAT Endpoint.
+
+Example:
+
+    .. code-block:: console
+        
+        ls /sys/devices/pciAAAA:BB/0000:6b:00.0/telemetry
+
+The telemetry feature is controlled with standard linux file commands into the control file as outlined below.
+The telemetry data is accessed through the ``device_data`` or ``rp_<X>_data`` file depending on what data is required.
+
+The telemetry data for device level and ring pair level is updated each second. 
+
+Telemetry Control
+-----------------
+
+Device level telemetry is enabled by echoing ``1`` into the control file and disabled by echoing ``0``.
+Reading the control file will tell whether the feature is currently enabled or disabled.
+
+Ring Pair level telemetry is enabled when device level telemetry is enabled. However the ring pairs need to be selected.
+Only 4 ring pairs can be shown at any given time.
+By echoing the number of the ring pair (0-63) into a ``rp_<X>_data`` file it can be selected. Where X is A,B,C or D.
+
+Telemetry Commands
+++++++++++++++++++
+
+.. table:: Telemetry Commands
+
+    +--------------------------+-----------------------------------------------------------------+
+    | **Operation**            | **Command**                                                     |  
+    +==========================+=================================================================+
+    |  Enable Telemetry        | ``echo 1 > control``                                            |
+    +--------------------------+-----------------------------------------------------------------+
+    |  Disable Telemetry       | ``echo 0 > control``                                            |
+    +--------------------------+-----------------------------------------------------------------+
+    |  Query Telemetry data    | ``cat device_data``                                             |
+    +--------------------------+-----------------------------------------------------------------+
+    |  Select Ring Pairs       | ``echo Num > rp_<X>_data, Num is the ring pair to be selected`` |
+    +--------------------------+-----------------------------------------------------------------+
+    |  Query Ring Pair data    | ``cat rp_<X>_data``                                             |
+    +--------------------------+-----------------------------------------------------------------+
+
+Selecting Ring Pairs
+~~~~~~~~~~~~~~~~~~~~
+
+This section provides guidance on the mapping of ring pairs to the VFs for the PF.
+There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following:
+
+.. table:: Ring Pairs
+
+    +---------+-----+-----+-----+-----+
+    | **VF**  | **Ring Pairs**        |    
+    +=========+=====+=====+=====+=====+
+    | 1       | 0   | 1   | 2   | 3   |
+    +---------+-----+-----+-----+-----+
+    | 2       | 4   | 5   | 6   | 7   |
+    +---------+-----+-----+-----+-----+
+    | 3       | 8   | 9   | 10  | 11  |
+    +---------+-----+-----+-----+-----+
+    | 4       | 12  | 13  | 14  | 15  |
+    +---------+-----+-----+-----+-----+
+    | 5       | 16  | 17  | 18  | 19  |
+    +---------+-----+-----+-----+-----+
+    | 6       | 20  | 21  | 22  | 23  |
+    +---------+-----+-----+-----+-----+
+    | 7       | 24  | 25  | 26  | 27  |
+    +---------+-----+-----+-----+-----+
+    | 8       | 28  | 29  | 30  | 31  |
+    +---------+-----+-----+-----+-----+
+    | 9       | 32  | 33  | 34  | 35  |
+    +---------+-----+-----+-----+-----+
+    | 10      | 36  | 37  | 38  | 39  |
+    +---------+-----+-----+-----+-----+
+    | 11      | 40  | 41  | 42  | 43  |
+    +---------+-----+-----+-----+-----+
+    | 12      | 44  | 45  | 46  | 47  |
+    +---------+-----+-----+-----+-----+
+    | 13      | 48  | 49  | 50  | 51  |
+    +---------+-----+-----+-----+-----+
+    | 14      | 52  | 53  | 54  | 55  |
+    +---------+-----+-----+-----+-----+
+    | 15      | 56  | 57  | 58  | 59  |
+    +---------+-----+-----+-----+-----+
+    | 16      | 60  | 61  | 62  | 63  |
+    +---------+-----+-----+-----+-----+
+
+The ``ServicesEnabled`` defined for the PF control the mapping of the Ring Pairs:
+
+- If only one workload is enabled (``dc/sym/asym``), the first two columns are used for this service.
+- If ``dc`` and ``sym`` or ``asym`` is enabled, the first two columns are for ``sym`` or ``asym`` and the second two columns are for ``dc``
+- If ``sym`` and ``asym`` is enabled, the first and third columns are for ``asym`` and second and fourth columns are for ``sym``.
+    
+Device Level Telemetry Values
++++++++++++++++++++++++++++++
+
+.. table:: Device Level Telemetry Values
+
+    +------------------------------+--------------------------------------------------------------------------+
+    | **Value**                    | **Meaning**                                                              |  
+    +==============================+==========================================================================+
+    |  ``sample_cnt``              | Message count, counter.                                                  |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``pci_trans_cnt``           | PCIe Partial Transactions, counter.                                      |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``max_rd_lat``              | Max Read Latency, nanoseconds.                                           |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``rd_lat_acc_avg``          | Average Read Latency, nanoseconds.                                       |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``max_lat``                 | Max Get To Put latency, nanoseconds.                                     |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``lat_acc_avg``             | Average Get To Put latency, nanoseconds.                                 |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``bw_in``                   | PCIe write bandwidth, Mbps.                                              |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``bw_out``                  | PCIe read bandwidth, Mbps.                                               |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``at_page_req_lat_acc_avg`` | Average Page Request Latency, nanoseconds.                               |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``at_trans_lat_acc_avg``    | Average Translation Latency, nanoseconds.                                |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``at_max_tlb_used``         | Maximum uTLB Consumed, counter.                                          |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``util_cpr<x>``             | Compression Slice Utilization On Slice X, percentage execution cycles.   |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``util_dcpr<x>``            | Decompression Slice Utilization On Slice X, percentage execution cycles. |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``util_xlt<x>``             | Translator Slice Utilization On Slice X, percentage execution cycles.    |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``util_cph<x>``             | Cipher Slice Utilization On Slice X, percentage execution cycles.        |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``util_ath<x>``             | Authentication Slice Utilization On Slice X, percentage execution cycles.|
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``util_ucs<x>``             | UCS Slice Utilization On Slice X, percentage execution cycles.           |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``util_pke<x>``             |PKE Slice Utilization On Slice X, percentage execution cycles.            |
+    +------------------------------+--------------------------------------------------------------------------+
+
+Ring Pair Level Telemetry Values
+++++++++++++++++++++++++++++++++
+
+.. table:: Ring Pair Level Telemetry Values
+
+    +------------------------------+--------------------------------------------------------------------------+
+    | **Value**                    | **Meaning**                                                              |  
+    +==============================+==========================================================================+
+    |  ``sample_cnt``              | Message count, counter.                                                  |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``rp_num``                  | Number of the ring pair returning data.                                  |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``pci_trans_cnt``           | PCIe Partial Transactions, counter.                                      |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``lat_acc_avg``             | Average Get To Put latency, nanoseconds.                                 |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``bw_in``                   | PCIe write bandwidth, Mbps.                                              |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``bw_out``                  | PCIe read bandwidth, Mbps.                                               |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``at_glob_devtlb_hit``      | Descriptor DevTLB hit rate per ring, counter.                            |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``at_glob_devtlb_miss``     | Descriptor DevTLB miss rate per ring, counter.                           |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``tl_at_payld_devtlb_hit``  | Payload DevTLB hit rate per ring, counter.                               |
+    +------------------------------+--------------------------------------------------------------------------+
+    |  ``tl_at_payld_devtlb_miss`` | Payload DevTLB miss rate per ring, counter.                              |
+    +------------------------------+--------------------------------------------------------------------------+
+
+.. _qat2.0_text_based_telemetry:
+
+Monitoring Telemetry - Text Based 
+---------------------------------
+
+The following example Python script highlights how telemetry data can be monitored at the command line.  The
+script first enables telemetry service for each QAT endpoint that supports telemetry and is in the ``up``
+state. It then queries the telemetry data on a periodic basis collecting the data and formatting the display.
+
+.. figure:: ../../img/device_utilization.png
+
+
+Script can be downloaded from :download:`here <script/monitor_qat.py>`
+
+
+.. code-block:: python
+
+    #!/usr/bin/python3.6
+
+    import time
+    import curses
+    import subprocess
+    import re
+
+    devices=[]
+        
+    def EnableTelemetry():
+        
+        devices.clear()
+        command = "adf_ctl status"
+        sp = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=True)
+
+        # Store the return code in rc variable
+        rc=sp.wait()
+
+        # Separate the output and error.
+        # This is similar to Tuple where we store two values to two different variables
+        out,err=sp.communicate()
+        
+        # Split string into list of strings
+        output = out.split()
+        
+        i = 0
+        state = "down"
+        name = None
+        bus = None
+        telemetry_supported = False
+
+        while i < len(output):
+
+            if "qat_dev" in output[i]:
+                name = output[i]
+            elif "type:" == output[i]:
+                if "4xxx," == output[i+1]:
+                    telemetry_supported = True 
+            elif "bsf:" == output[i]:
+                bus = output[i+1][5:7]
+            elif "state:" == output[i]:
+                if "up" == output[i+1]:
+                    if telemetry_supported == True:
+                        devices.append((name, bus))            
+                # Reset variables to ensure we only attempt to enable telemetery on devices that support telemetry and are in up state
+                state = "down"
+                name = None
+                bus = None
+                telemetry_supported = False
+
+            i += 1
+        
+        for device in devices:
+            control_file_name="/sys/devices/pci0000:" + device[1] + "/0000:" + device[1] + ":00.0/telemetry/control"
+
+            command = "echo 1 > " + control_file_name
+            try:
+                str(subprocess.check_output(command, shell=True))
+            except:
+                break
+    
+    def pbar(window):
+        refresh_counter = 0
+
+        while True:
+            
+            try:
+                refresh_counter += 1
+
+                window.addstr(0, 10, "Intel(R) QuickAssist Device Utilization")
+                window.addstr(2, 10, "Device\t%Comp\t%Decomp\t%PKE\t%Cipher\t%Auth\t%UCS\tLatency(ns)")
+                window.addstr(3, 10, "=========================================================================")
+
+                count = 0
+                for device in devices:
+                    command = "cat /sys/devices/pci0000:" + device[1] + "/0000:" + device[1] + ":00.0/telemetry/device_data"
+                    
+                    sp = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=True)
+
+                    # Store the return code in rc variable
+                    rc=sp.wait()
+
+                    # Separate the output and error.
+                    # This is similar to Tuple where we store two values to two different variables
+                    out,err=sp.communicate()
+                    
+                    # Split string into list of strings
+                    output = out.split()
+
+                    i = 0
+                    
+                    while i < len(output):
+                
+                        if "lat_acc_avg" == output[i]:
+                            latency = output[i+1]
+                        elif "util_cpr0" == output[i]:
+                            compression = output[i+1]
+                        elif "util_dcpr0" == output[i]:
+                            decompression0 = output[i+1]
+                        elif "util_dcpr1" == output[i]:
+                            decompression1 = output[i+1]
+                        elif "util_dcpr2" == output[i]:
+                            decompression2 = output[i+1]
+                        elif "util_pke0" == output[i]:
+                            pke0 = output[i+1]
+                        elif "util_pke1" == output[i]:
+                            pke1 = output[i+1]
+                        elif "util_pke2" == output[i]:
+                            pke2 = output[i+1]
+                        elif "util_pke3" == output[i]:
+                            pke3 = output[i+1]
+                        elif "util_pke4" == output[i]:
+                            pke4 = output[i+1]
+                        elif "util_pke5" == output[i]:
+                            pke5 = output[i+1]
+                        elif "util_cph0" == output[i]:
+                            cph0 = output[i+1]
+                        elif "util_cph1" == output[i]:
+                            cph1 = output[i+1]
+                        elif "util_cph2" == output[i]:
+                            cph2 = output[i+1]
+                        elif "util_cph3" == output[i]:
+                            cph3 = output[i+1]
+                        elif "util_ath0" == output[i]:
+                            ath0 = output[i+1]
+                        elif "util_ath1" == output[i]:
+                            ath1 = output[i+1]
+                        elif "util_ath2" == output[i]:
+                            ath2 = output[i+1]
+                        elif "util_ath3" == output[i]:
+                            ath3 = output[i+1]
+                        elif "util_ucs0" == output[i]:
+                            ucs0 = output[i+1]
+                        elif "util_ucs1" == output[i]:
+                            ucs1 = output[i+1]
+                        i += 1
+
+                    decompress_utilization = int(decompression0) + int(decompression1) + int(decompression2)
+                    if decompress_utilization > 0:
+                        decompress_utilization = decompress_utilization / 3
+                        decompress_utilization = round(decompress_utilization)
+                    pke_utilization = int(pke0) + int(pke1) + int(pke2) + int(pke3) + int(pke4)+ int(pke5)
+                    if pke_utilization > 0:
+                        pke_utilization = pke_utilization / 6
+                        pke_utilization = round(pke_utilization)
+                    cph_utilization = int(cph0) + int(cph1) + int(cph2) + int(cph3) 
+                    if cph_utilization > 0:
+                        cph_utilization = cph_utilization / 4
+                        cph_utilization = round(cph_utilization)
+                    ath_utilization = int(ath0) + int(ath1) + int(ath2) + int(ath3) 
+                    if ath_utilization > 0:
+                        ath_utilization = ath_utilization / 4
+                        ath_utilization = round(ath_utilization)
+                    usc_utilization = int(ucs0) + int(ucs1)
+                    if usc_utilization > 0:
+                        usc_utilization = usc_utilization / 2
+                        usc_utilization = round(usc_utilization)
+                    if int(latency) == 0:
+                        window.addstr(4+count, 10, device[0] + '\t0\t0\t0\t0\t0\t00                 ') 
+                    
+                    window.addstr(4+count, 10, device[0] + '\t' + compression + '\t' + str(decompress_utilization) + '\t' + str(pke_utilization) + '\t' + str(cph_utilization) + '\t' + str(ath_utilization) + '\t' + str(usc_utilization) + '\t'+ latency)
+                    count += 1
+
+                window.addstr(4+count, 10, "=========================================================================")
+                window.refresh()
+                time.sleep(2)
+                if refresh_counter % 5 == 0:
+                    window.clear()
+                    EnableTelemetry()
+
+            except KeyboardInterrupt:
+                break
+            except:
+                break
+
+
+    if __name__ == "__main__":
+        EnableTelemetry()
+        curses.wrapper(pbar)
+
+.. ......................................................................... ..
+.. ......................................................................... .. 
+.. . VIDEO: Remove this part to generate the PDF version of this document. . ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+Monitoring Telemetry Demo
++++++++++++++++++++++++++
+
+Here is a demonstration of how to monitor telemetry while running the Intel\ :sup:`®` QAT sample code.
+
+.. video:: ../_static/video/pg/telemetry.mp4
+    :width: 500
+    :height: 300
+
+|
+
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..

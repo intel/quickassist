@@ -1,0 +1,118 @@
+.. _qat_2.0_pg_virtualization:
+
+Virtualization 
+==============
+
+Virtualization Deployment Model for Intel\ :sup:`®` QAT 2.0
+-----------------------------------------------------------
+
+Three different methods of virtualization are supported as shown in the below image.
+
+.. figure:: ../../img/virtualization_models.png
+    
+
+.. _direct_assignment:
+
+Physcial Device Direct Assignment
+---------------------------------
+
+The hardware exposes one Physical Function (PF) per QAT Endpoint to the host.  Number of QAT Endpoints per platform is included in the :ref:`qat2.0_dimensions`.
+
+One or more PFs may be passed to a single Virtual machine.   
+
+There is no sharing of the PF.
+
+.. _sriov:
+
+SR-IOV
+------
+
+When SR-IOV is enabled, the hardware exposes one Physical Function (PF) and **n** Virtual Functions(VFs) per QAT Endpoint to the host, where **n** is 
+defined in :ref:`Dimensions<qat2.0_dimensions>`.  Number of QAT Endpoints per platform is also included in the :ref:`qat2.0_dimensions`.
+
+One or more VFs can be passed through to different guests/VMs
+
+For details on enabling SR-IOV please refer to the :ref:`Virtualization Deployment Guide<virtualization_deployment_guide>`.
+
+.. _scalable_iov:
+
+Scalable IOV (S-IOV)
+--------------------
+
+Scalable I/O Virtualization enables flexible composition of Virtual Functions by software from native hardware interfaces.
+Rather than implementing a complete SR-IOV virtual function (VF) interface, an S-IOV device exposes light-weight Assignable Device 
+Interfaces (ADIs) that are optimized for fast-path (data-path) operations from the guest.
+
+S-IOV uses *PASID* rather than BDF to identify unique address spaces which allow greater scalability. Number of supported ADIs is defined in :ref:`Dimensions<qat2.0_dimensions>`. 
+
+The public specification is available at `Introducing Intel® Scalable I/O Virtualization <https://www.intel.com/content/www/us/en/developer/articles/technical/introducing-intel-scalable-io-virtualization.html>`_.
+
+.. note:: S-IOV is disabled in Linux Kernel after v5.16. Effort is underway to reenable in future kernel version. 
+
+.. figure:: ../../img/siov_updated.png
+   :width: 860px
+   :height: 409px
+    
+For details on enabling S-IOV please refer to the :ref:`Virtualization Deployment Guide<virtualization_deployment_guide>`.
+
+Reducing Number of VFs per Endpoint
+-----------------------------------
+
+.. note:: Reducing number of VFs per endpoint is supported starting with QAT Gen 4.
+
+When the acceleration software is installed for SR-IOV use case, all VFs are enabled.
+In some instances, it is not desirable to enable all VFs.
+
+The following commands can be used to limit VFs exposed per PF.
+
+#. **Disable** all VFs on a specific device (6b:00.0 in this example):
+
+    .. code-block:: console
+
+        echo 0 > /sys/bus/pci/devices/0000\:6b:00.0/sriov_numvfs
+
+#. **Enable** number of desired VFs for specific device (4 VFs on 6b:00.0 in this example):
+
+    .. code-block:: console
+
+        echo 4 > /sys/bus/pci/devices/0000\:6b:00.0/sriov_numvfs
+
+.. important:: 
+    
+    - Restart the acceleration software for this change to take place.
+    - This change is not persistent. After a reboot, all VFs are exposed per PF.
+
+After reducing the number of VFs per PF, it is possible that the mapping of QAT VF to configuration file has changed.  This mapping is very 
+important especially when there are different services enabled with each PF/VF configuration, remembering that to enable a service
+in a VF requires the same service to be enabled in the PF.  The configuration file for the VF can be determined by examining the qat_service output.
+
+For example, in the following output:
+
+    .. code-block:: console
+
+        Checking status of all devices.
+        There is 100 QAT acceleration device(s) in the system:
+        qat_dev0 - type: 4xxx,  inst_id: 0,  node_id: 0,  bsf: 0000:6b:00.0,  #accel: 1 #engines: 9 state: up
+        qat_dev1 - type: 4xxx,  inst_id: 1,  node_id: 0,  bsf: 0000:70:00.0,  #accel: 1 #engines: 9 state: up
+        qat_dev2 - type: 4xxx,  inst_id: 2,  node_id: 0,  bsf: 0000:75:00.0,  #accel: 1 #engines: 9 state: up
+        qat_dev3 - type: 4xxx,  inst_id: 3,  node_id: 0,  bsf: 0000:7a:00.0,  #accel: 1 #engines: 9 state: up
+        qat_dev4 - type: 4xxx,  inst_id: 4,  node_id: 1,  bsf: 0000:e8:00.0,  #accel: 1 #engines: 9 state: up
+        qat_dev5 - type: 4xxx,  inst_id: 5,  node_id: 1,  bsf: 0000:ed:00.0,  #accel: 1 #engines: 9 state: up
+        qat_dev6 - type: 4xxx,  inst_id: 6,  node_id: 1,  bsf: 0000:f2:00.0,  #accel: 1 #engines: 9 state: up
+        qat_dev7 - type: 4xxx,  inst_id: 7,  node_id: 1,  bsf: 0000:f7:00.0,  #accel: 1 #engines: 9 state: up
+        qat_dev8 - type: 4xxxvf,  inst_id: 80,  node_id: 0,  bsf: 0000:6b:00.1,  #accel: 1 #engines: 1 state: up
+        qat_dev9 - type: 4xxxvf,  inst_id: 81,  node_id: 0,  bsf: 0000:6b:00.2,  #accel: 1 #engines: 1 state: up
+        qat_dev10 - type: 4xxxvf,  inst_id: 82,  node_id: 0,  bsf: 0000:6b:00.3,  #accel: 1 #engines: 1 state: up
+        qat_dev11 - type: 4xxxvf,  inst_id: 83,  node_id: 0,  bsf: 0000:6b:00.4,  #accel: 1 #engines: 1 state: up
+        qat_dev12 - type: 4xxxvf,  inst_id: 84,  node_id: 0,  bsf: 0000:70:00.1,  #accel: 1 #engines: 1 state: up
+        qat_dev13 - type: 4xxxvf,  inst_id: 85,  node_id: 0,  bsf: 0000:70:00.2,  #accel: 1 #engines: 1 state: up
+        qat_dev14 - type: 4xxxvf,  inst_id: 86,  node_id: 0,  bsf: 0000:70:00.3,  #accel: 1 #engines: 1 state: up
+        qat_dev15 - type: 4xxxvf,  inst_id: 87,  node_id: 0,  bsf: 0000:70:00.4,  #accel: 1 #engines: 1 state: up
+        qat_dev16 - type: 4xxxvf,  inst_id: 88,  node_id: 0,  bsf: 0000:75:00.1,  #accel: 1 #engines: 1 state: up
+        qat_dev17 - type: 4xxxvf,  inst_id: 89,  node_id: 0,  bsf: 0000:75:00.2,  #accel: 1 #engines: 1 state: up
+        qat_dev18 - type: 4xxxvf,  inst_id: 90,  node_id: 0,  bsf: 0000:75:00.3,  #accel: 1 #engines: 1 state: up
+        qat_dev19 - type: 4xxxvf,  inst_id: 91,  node_id: 0,  bsf: 0000:75:00.4,  #accel: 1 #engines: 1 state: up
+
+    The configuration file name will be ``/etc/4xxxvf_dev<x>.conf`` where *x* is ``inst_id``.
+
+    For *qat_dev9*, the configuration file is ``/etc/4xxxvf_dev81.conf``

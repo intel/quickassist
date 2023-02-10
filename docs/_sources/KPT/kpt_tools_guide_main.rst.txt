@@ -1,0 +1,508 @@
+KPT Tools Guide
+===============
+
+Description of Release
+----------------------
+
+KPT Tool is a reference code to generate and parse the Wrapped Private Key(WPK) used in Key Protection Technology feature.
+
+Environment Setup
+-----------------
+
+This section describes the environment setup for KPT Tools
+
+Hardware Requirements
++++++++++++++++++++++
+
+Sapphire Rapids platform - D0 silicon or above is required
+
+.. todo:: Update this section with more specific HW Requirements
+
+
+Software Requirements
++++++++++++++++++++++
+
+The following software components are required:
+
+- Intel\ :sup:`®` QuickAssist Technology Software for Linux*
+- KPT Tools Package
+
+The following software is preferred:
+
+- OpenSSL* 1.1.1x
+
+Installation Instructions
+-------------------------
+
+Install Build Dependencies
+++++++++++++++++++++++++++
+
+Install package dependencies as documented in :ref:`gsg/gsg2/systemconfiguration:installing package dependencies`
+
+Build/Install OpenSSL*
+++++++++++++++++++++++
+
+The following steps can be followed to obtain and install OpenSSL*:
+
+    .. code-block:: console
+
+        cd /home
+        git clone https://github.com/openssl/openssl.git
+        cd openssl
+        git checkout OpenSSL_1_1_1p
+        ./config \
+        --prefix=/home/openssl_install \
+        --openssldir=/home/openssl_install \
+        -Wl,-rpath,\${LIBRPATH}
+        make -j && make install
+        cd /home/openssl_install/bin && ./openssl version
+
+Verify OpenSSL version is reported correctly as:
+    ``OpenSSL 1.1.1p  21 Jun 2022``
+
+
+Build/Install QAT Driver
+++++++++++++++++++++++++
+
+.. note:: KPT requires firmware to enable the feature.  Please consult your Intel Representative to obtain this package.
+
+The following steps can be followed to install the QAT Driver:
+
+    .. code-block:: console
+        
+        cd /QAT
+        ./configure --enable-qat-uio --enable-kpt
+        make -j install
+
+
+Install QAT_Engine
+++++++++++++++++++
+
+The following steps can be used to install the QAT_Engine:
+
+    .. code-block:: console
+        
+        cd /home/openssl/engines
+        git clone https://github.com/intel/QAT_Engine.git
+        cd QAT_Engine
+        ./autogen.sh
+        ./configure --with-qat_hw_dir=/QAT --with-openssl_install_dir=/home/openssl_install
+        make && make install
+
+
+Update QAT Configuration Files
+++++++++++++++++++++++++++++++
+
+The KPTTool package requires the SHIM section.  The following commands will update the configuration files:
+
+    .. code-block:: console
+        
+        sed -i 's/SSL/SHIM/' /etc/4xxx_dev*.conf
+        service qat_service restart
+  
+
+Build KPTTool Package
++++++++++++++++++++++
+
+.. note:: The following steps assume the following:
+    
+    - QAT Driver package was extracted to ``/QAT``
+    - KPTTool package was extracted to ``/home/kpt_tools`` 
+    - OpenSSL was installed to ``/home/openssl_install``
+
+The following steps can be used to compile the KPTTool package:
+
+    .. code-block:: console
+        
+        cd /home/kpt_tools/kpt2_tool_rel
+        export OPENSSL_DIR=/home/openssl_install/
+        export QAT_DIR=/QAT
+        make
+
+
+Using KPT Tools
+---------------
+
+This section describes the usage of KPTTools.
+
+Command Line Parameters
++++++++++++++++++++++++
+
+    The following command can be used to display usage details:
+
+        .. code-block:: console
+
+            ./kpt_wpk_tool -h
+
+    The output of this command will look like:
+
+        .. code-block:: console
+
+            Usage of kpt_wpk_tool is
+            kpt_wpk_tool -act [gen|par]  -alg [rsa|ecc] -in <cpk.key> -out <wpk.pem>
+            -kpt1 support for KPT1 key wrapping format
+                e.g. kpt_wpk_tool -act gen -alg ecc -in c2tnb431r1.pem -out kpt_ecc.pem
+                e.g. kpt_wpk_tool -act par -alg ecc -in kpt_ecc.pem
+
+
+Example Usage
++++++++++++++
+
+The KPTTool will first generate a new Symmetric Wrapping Key(SWK) randomly and wrap the input key as Wrapped Private Key(WPK) using the SWK.
+Then KPTTool will query the KPT2.0 capability of each QAT device and get its Per-Part Key through the QAT Driver API to encrypt the SWK as Encrypted-SWK(ESWK).
+The number of ESWK depends on the number of the socket of silicon, because the devices on different socket have different Per-Part Key.
+Finally, KPTTool will combine all the materials(WPK, ESWKs, etc.) and encode them into ASN.1 style as the WPK PEM file.
+
+
+RSA2K WPK Example
+~~~~~~~~~~~~~~~~~
+
+This example highlights:
+
+-  creating RSA2K self-signed private key/certificate
+-  generating a Wrapped Private Key using the RSA2K private key
+-  verifying WPK created properly
+-  Accessing components of WPK  
+
+Generate Self-Signed Private Key File
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+First generate the RSA2K self-signed private key file and certification using OpenSSL command:
+
+    .. code-block:: console
+
+        openssl req -newkey rsa:2048 -nodes -keyout rsa2k.pem -x509 -days 365 -out rsa2k_cert.crt
+
+Generate Wrapped Private Key (WPK) File
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use the ``kpt_wpk_tool`` utility to create the WPK file:
+
+    .. code-block:: console
+
+        ./kpt_wpk_tool -act gen -alg rsa -in rsa2k.pem -out wpk_rsa2k.pem
+
+
+Verify WPK File
+^^^^^^^^^^^^^^^
+
+The format of the output WPK file is same as the normal PEM key file.
+But the WPK file can be identified with ``KPT`` keyword in the begin and end line.
+
+    .. code-block:: console
+
+        cat wpk_rsa2k.pem | more
+
+Output will look like:
+
+    .. code-block:: console
+
+        -----BEGIN KPT RSA KEY-----
+        MIIM+QIBAQICAQAwggY4BglghkgBZQMEAS4CAQIwggYYMIIDCASCAYBGPawhTYsV
+        uPpSiIyPhBAQqFN8oJtC6X5tjDfLQZLJQ+GRQ8stqX3WCy6bH6kEyKU2vQhOx6nE
+        tNsyx0qSrG5UMWOeb9QWUsZu0Q7p3PL+T+m7Ls9yC3ITgFHFEWA42uJKvyiMR1ZF
+        ...
+
+Parse the WPK File
+^^^^^^^^^^^^^^^^^^
+
+The output only contains the protected parts and decrypted information is stored into an inside struct which 
+can be retrieved through the API.
+
+The following command can be used to obtain:
+
+    .. code-block:: console
+
+        ./kpt_wpk_tool -act par -alg rsa -in wpk_rsa2k.pem
+
+Output looks like:
+
+    .. code-block:: console
+
+        input file wpk_rsa2k.pem
+        output file (null)
+        alg rsa
+        action par
+        kpt generation 2
+        Dev 0
+
+        === Sec SWK ===
+        3a fc 4d 48 bd 3f 40 44 50 47 56 b2 b9 48 81 31 ed 81 16 11 b0 23 79 41 db 2a 09 77 be ae d4 c1
+        9f 0b 8d 08 97 92 8f 25 58 64 77 45 8b 91 d4 08 8b 89 60 3e 1d d3 64 df cd 3c 02 14 df 7d fa c5
+        3e a4 33 0d e3 78 9b be 15 5d d9 bf ed 77 57 1b 4d b1 36 d1 fa 57 dd a2 1a 19 48 19 b9 78 aa 63
+        ac 84 7d 37 f8 56 1b 88 a3 8e 45 82 89 0a 56 a9 06 6f e3 e6 9d 62 6e ab 30 98 45 41 a4 69 84 b3
+        be f3 df 3b e4 84 80 ec 44 3c ec 8e 72 5e f0 4d 63 f1 79 8c 1f 7b c4 fd 3e 49 2c 5a 13 28 44 11
+        28 2e 09 f4 a8 8f 98 b8 eb 65 d4 b1 7e 54 57 a9 b4 49 dc 50 90 04 e1 9a 4a 2c af 04 0f 81 87 e2
+        23 7b c2 93 ae 2a 6d 4f 5e fa 8f 2f 31 de a7 1a c9 18 25 b1 b7 ec 69 51 1f 5d 06 63 6e ae 59 05
+        d1 ab 8b bc 60 33 bc 4f 02 21 bf cc a7 4b d9 2f ed 5e a9 89 af da d9 51 cd 6a 1b 6b f7 65 9a 29
+        b4 03 0d 4e 2e ec 78 58 ec 0e 7f 7c 32 a3 ce 59 60 37 39 e9 a1 d6 f6 97 11 2d 5b 34 83 0c 9f 94
+        d5 7d f8 93 ee 93 d3 98 54 2d 52 f6 bc c3 cd 98 42 97 d9 2f 63 76 92 86 df 99 c0 2a b0 3c 84 b3
+        66 22 dd ef 09 9f 42 00 ae 61 e4 a3 cb 4e e8 5e af 8a 1f c3 63 69 c6 01 44 f6 56 a4 ee 75 22 8e
+        d7 91 d5 d6 73 72 bc 0a c8 6f 67 c6 0b 7c 83 ea a2 92 da 7e 9f 36 8a dd 7c e6 8f f8 30 ef ef 03
+
+
+        === Dev sig ===
+        46 3d ac 21 4d 8b 15 b8 fa 52 88 8c 8f 84 10 10 a8 53 7c a0 9b 42 e9 7e 6d 8c 37 cb 41 92 c9 43
+        e1 91 43 cb 2d a9 7d d6 0b 2e 9b 1f a9 04 c8 a5 36 bd 08 4e c7 a9 c4 b4 db 32 c7 4a 92 ac 6e 54
+        31 63 9e 6f d4 16 52 c6 6e d1 0e e9 dc f2 fe 4f e9 bb 2e cf 72 0b 72 13 80 51 c5 11 60 38 da e2
+        4a bf 28 8c 47 56 45 8a 7c 18 7f 44 5b 7f 8e 01 0b 8e f4 50 60 87 ce e4 21 fd b3 78 02 42 cf 2e
+        a8 a3 bf b3 b3 93 64 3e ef 4f ac b9 c7 69 ab ff 58 88 a4 2f 13 1c 2f 5e 3e 0f 7f 34 cf 33 fa aa
+        5c 1e b1 ca f2 58 3a 59 01 a9 27 6d 10 af c1 9f b3 bc 6c ef 28 da 32 59 01 48 87 ee 5c 5e c6 f2
+        eb f3 df 76 9e 07 bd 04 b3 0a 0b 5b 9f bc 14 48 68 64 ec 3f 4d 91 12 64 73 58 9b 24 3b 95 5e 73
+        a1 7a 1d 42 7e 96 d5 e8 22 5b 61 6d 4a c2 32 a6 b8 65 89 eb 3a 9a d6 96 32 18 db 40 9e 05 fb 28
+        7a 80 09 6a 55 fa ef dc 6a 0f e2 f4 a5 00 d3 3b 51 20 13 1f 53 9f a3 f7 3d d8 ae 92 70 ae 9d 1d
+        5f ec 4e a2 07 e4 17 e0 f5 43 69 c9 f5 d9 4d c5 eb c6 01 c9 49 43 d3 dc 15 f3 e9 e0 d7 30 cb 39
+        e7 05 1a 3a 25 31 51 a7 c5 e7 47 69 30 c8 83 88 ae dd 55 0e 1d 6a 3e 11 ff ab 69 e4 e8 73 4a 1a
+        f2 85 45 9a aa c6 91 6b 70 2b 6b 9d d2 43 d3 3b df 82 74 33 02 d5 d6 25 4f cf 46 06 5a c8 83 b3
+
+        Dev 1
+
+        === Sec SWK ===
+        45 83 0b f4 8d ae 38 ad 3d 6d 94 f9 bf 3f 09 25 e3 6f 59 56 0a bb 37 e4 7e dd 1b bc c4 53 03 e4
+        77 d1 69 54 82 4e aa 46 4d 84 54 d0 dd 71 00 46 a5 1d 23 78 73 6f b5 8a 84 ff 4f 75 20 db c9 50
+        d0 c7 1f fc 4d 8f 8e 69 50 b1 35 b1 84 3c 3d 4a 39 bf 38 2a 6e 66 33 78 51 03 e1 fb 09 ef 8f 85
+        f2 5e 73 55 b9 66 94 45 d7 65 20 24 56 12 7b 41 ca 57 f4 6b 6c 57 3d 62 f9 97 83 e2 42 d0 77 87
+        3d b9 d0 3f f5 b8 d0 e4 61 f8 7e 92 ba a0 fc a9 84 fd 05 52 c7 a6 2d 66 6a 38 cd 7c 22 e6 aa 17
+        e5 a2 d5 03 aa 57 05 e9 9d de 57 82 73 31 75 03 3c 6b 2a 04 bf 50 9f ab ea 55 9b 99 32 d4 87 4d
+        79 d8 32 ce 1d 56 93 99 dc e3 1a f6 6e 8a 1f 2b a8 92 f6 00 fe df 60 9d f7 27 e8 e8 d2 63 5e 4d
+        e4 84 d2 30 b6 4d f3 68 19 23 c4 33 55 17 47 4d 53 c4 3d d8 73 c3 ad cc 61 ce fc 09 56 a8 3e 86
+        1b c5 88 08 ce 18 1a f7 35 92 d7 fb b8 4a 68 d4 0f 63 51 fa 75 bb 5a 38 c5 6b e1 8c 20 3a 42 ab
+        f1 09 72 01 d3 87 27 5b 27 3e 06 74 1a be 77 5c 84 84 e7 40 56 61 4d fd 42 a6 13 f0 e2 7e b5 b4
+        66 ed fa 3b f4 00 b9 da a9 1f 0a a1 79 c3 f8 84 2c 41 f0 f5 8f 70 82 dd 1f 69 86 e8 50 cd 8f 26
+        ea fa 89 85 b3 14 2b 97 31 f2 c9 65 91 db f7 5c f4 6c ef a3 bc 5a 8f 6c fd 5f 5a d2 78 3b 48 8d
+
+
+        === Dev sig ===
+        c9 18 fd 9f 20 37 c9 90 cd d1 62 82 f5 94 14 02 e6 98 33 21 b1 d7 b5 00 dc 90 56 4d e1 68 cc b2
+        b7 57 34 b1 cb fc b7 1d 13 29 f1 7f bc 12 79 d4 59 d7 cb c8 51 05 c4 3c f2 18 82 90 5a 15 cb 3d
+        27 6f 0c 1c 34 9e bd 38 a2 ac f5 44 36 0d cf d4 b9 a2 74 03 d6 0b ad 98 89 91 4c ce 14 1d 44 df
+        75 6b 8d 4c b8 55 e9 bf 92 36 84 b4 cb 5b b8 77 34 78 51 51 3c 80 5b d5 ed 3a 91 e5 3e 56 5d 59
+        84 a7 ff 91 c3 70 52 d7 f8 87 2a c7 bb e8 5b 20 e4 a8 dc fb d1 1f d9 fc f9 b4 e5 12 a9 42 61 1e
+        73 7a 8e 28 5a e1 e4 76 77 fe 3c 53 1f 67 c3 48 b6 0f b1 b5 14 36 50 ea 85 f0 5a e3 39 f2 15 41
+        c1 54 d5 73 58 ca 27 4c eb e0 01 42 7d 95 78 74 70 0f 53 fa d1 2f 46 a4 1a 20 5a 07 c9 41 4a bd
+        ae 29 79 15 8a c8 2c b6 cb e1 06 c4 85 0c 75 45 14 af 11 8e 63 4d 84 e6 19 32 50 a5 42 e0 34 c3
+        dd 6e fa 09 da 5b 49 b4 e0 60 31 5d e1 10 00 bc a8 89 34 32 44 6c 3d a6 df 5f b3 19 53 50 b8 7e
+        44 1e 63 cd 90 39 ec cc 00 e3 62 92 55 b1 af e3 74 a5 8c 3b 0d 0e 93 54 fe 94 5b 55 bd 94 c8 a0
+        9f 54 c3 c0 ca e1 0e bb 77 47 26 00 0e 87 8b f2 fc 61 42 df 12 a8 ee f6 b9 68 fa 85 a7 f5 32 c4
+        5b 12 7e 72 fa 46 e4 0e f4 25 d0 fb bd 82 18 ef e3 8f ae 92 46 b1 1a c1 83 f5 dc 02 2c 52 44 3f
+
+
+
+ECC P256 WPK
+~~~~~~~~~~~~
+
+This example highlights:
+
+-  creating ECC P256 self-signed private key/certificate
+-  generating a Wrapped Private Key using the ECC P256 private key
+-  verifying WPK created properly
+-  Accessing components of WPK
+
+Generate ECC P256 Self-Signed Private Key File
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+First generate the ECC P256 self-signed private key file and certification using the following OpenSSL commands:
+
+    .. code-block:: console
+
+        openssl ecparam -name prime256v1 -genkey -out secp256r1.pem
+        openssl req -new -key secp256r1.pem -nodes -x509 -out secp256r1.crt
+
+Generate ECC P256 Wrapped Private Key (WPK) File
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Use the ``kpt_wpk_tool`` utility to create the WPK file:
+
+    .. code-block:: console
+
+        ./kpt_wpk_tool -act gen -alg ecc -in secp256r1.pem -out wpk_secp256r1.pem
+
+Output of this command will look like:
+
+    .. code-block:: console
+
+        input file secp256r1.pem
+        output file wpk_secp256r1.pem
+        alg ecc
+        action gen
+        kpt generation 2
+
+        
+        === ck ===
+        B1 94 25 05 D8 A1 E3 FA 42 85 D1 F8 35 F8 2C BE
+        20 83 43 F8 95 3E E7 70 CD CD 6B A3 19 1F D7 F0
+
+
+        === swk ===
+        AB 06 9C 5B C6 0F EE 78 B0 30 00 C4 8F F7 A6 E2
+        6D 59 5A D7 5D AE 42 AC 42 6B 4B 0A 0B C3 FA 3D
+
+
+        === iv ===
+        8A EE 81 33 F9 64 E1 0A
+        nid: 415
+
+        === aad ===
+        06 08 2A 86 48 CE 3D 03 01 07
+
+        ...
+
+
+Verify ECC P256 WPK File
+^^^^^^^^^^^^^^^^^^^^^^^^
+
+The format of the output WPK file is same as the normal PEM key file.
+But the WPK file can be identified with ``KPT`` keyword in the begin and end line.
+
+    .. code-block:: console
+
+        cat wpk_secp256r1.pem | more
+
+Output will look like:
+
+    .. code-block:: console
+
+        -----BEGIN KPT ECC KEY-----
+        MIIGxwIBAQICAZYwggY4BglghkgBZQMEAS4CAQIwggYYMIIDCASCAYBGPawhTYsV
+        uPpSiIyPhBAQqFN8oJtC6X5tjDfLQZLJQ+GRQ8stqX3WCy6bH6kEyKU2vQhOx6nE
+        tNsyx0qSrG5UMWOeb9QWUsZu0Q7p3PL+T+m7Ls9yC3ITgFHFEWA42uJKvyiMR1ZF
+        inwYf0Rbf44BC470UGCHzuQh/bN4AkLPLqijv7Ozk2Q+70+sucdpq/9YiKQvExwv
+        Xj4PfzTPM/qqXB6xyvJYOlkBqSdtEK/Bn7O8bO8o2jJZAUiH7lxexvLr8992nge9
+        BLMKC1ufvBRIaGTsP02REmRzWJskO5Vec6F6HUJ+ltXoIlthbUrCMqa4ZYnrOprW
+        ljIY20CeBfsoeoAJalX679xqD+L0pQDTO1EgEx9Tn6P3PdiuknCunR1f7E6iB+QX
+        ...
+
+Parse the ECC P256 WPK File
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The output only contains the protected parts and decrypted information is stored into an inside struct which 
+can be retrieved through the API.
+
+The following command can be used to obtain:
+
+    .. code-block:: console
+
+        ./kpt_wpk_tool -act par -alg ecc -in wpk_secp256r1.pem
+
+Output will look like:
+
+    .. code-block:: console
+
+        input file wpk_secp256r1.pem
+        output file (null)
+        alg ecc
+        action par
+        kpt generation 2
+        Dev 0
+
+        === Sec SWK ===
+        65 4A 57 7B F5 81 1C B3 BD A8 7C BA 5D 68 4E 46
+        86 44 0C 48 1D 5C CB FC 49 B0 60 51 3F DE 7F 5D
+        91 91 02 D8 65 C9 6C 94 4C 61 12 85 0C 62 2B E7
+        9F CC A8 DC 24 A7 3E 89 80 0D A5 B5 80 3F EE AA
+        4D 70 71 4B 45 F4 FE CB 80 52 3F 29 4C 3E 23 34
+        D2 89 CC F2 CF 49 12 45 67 39 51 AB 55 18 60 FA
+        BE 0B 5F 5E CA BF 08 24 6E 9F FD 39 36 D4 6B 48
+        95 07 5F 02 1C B0 91 E4 DF BD 74 C2 8D E6 0D 17
+        BD 5D 41 24 E8 72 72 FF 1A 8D 5E 1D B6 3D 9E 26
+        EF 44 3F 97 99 4D 7A 64 00 2E 90 CB 5A 89 25 4D
+        06 91 D8 2B 0C 94 02 D0 96 45 EF B5 80 39 7B D4
+        70 13 BE 74 F8 90 5A 66 42 46 F3 9B 49 FA B1 EA
+        60 D5 94 01 92 0E 0F 72 8E C3 5C 98 8A 1C E7 A5
+        D0 E0 F3 C8 06 00 CB E4 16 92 CC E4 20 0B A6 ED
+        BF D8 7B F5 F5 A5 35 DF DE 48 63 87 6C 4E 34 00
+        0E 22 02 EE 59 A2 A3 8F 5E D7 98 45 21 FC 58 27
+        E1 F1 57 25 8C 85 0D 3B 98 2D 1B 4E A5 82 11 B7
+        71 9F 88 02 F0 D6 CF 72 C5 6E DD B4 BC BC 8F E0
+        74 16 1F 34 51 2E 8C 6C FB C0 2C 52 2D E7 90 15
+        45 C4 0F F8 A2 9C 06 3C AD 88 2A DB 20 B6 DB A5
+        F1 F1 84 AC E1 62 B3 FE CF 4F 45 49 7C 91 DA 48
+        AA 3E 5C 7A 1D 65 41 BA 55 4D 66 25 92 21 CC 4E
+        AB E7 15 A5 7D A1 D7 AD 66 0E 6D 20 6F 24 A1 AF
+        7B A4 9B 9F E9 0E 44 38 89 BF C5 45 BF B5 07 DD
+
+
+        === Dev sig ===
+        46 3D AC 21 4D 8B 15 B8 FA 52 88 8C 8F 84 10 10
+        A8 53 7C A0 9B 42 E9 7E 6D 8C 37 CB 41 92 C9 43
+        E1 91 43 CB 2D A9 7D D6 0B 2E 9B 1F A9 04 C8 A5
+        36 BD 08 4E C7 A9 C4 B4 DB 32 C7 4A 92 AC 6E 54
+        31 63 9E 6F D4 16 52 C6 6E D1 0E E9 DC F2 FE 4F
+        E9 BB 2E CF 72 0B 72 13 80 51 C5 11 60 38 DA E2
+        4A BF 28 8C 47 56 45 8A 7C 18 7F 44 5B 7F 8E 01
+        0B 8E F4 50 60 87 CE E4 21 FD B3 78 02 42 CF 2E
+        A8 A3 BF B3 B3 93 64 3E EF 4F AC B9 C7 69 AB FF
+        58 88 A4 2F 13 1C 2F 5E 3E 0F 7F 34 CF 33 FA AA
+        5C 1E B1 CA F2 58 3A 59 01 A9 27 6D 10 AF C1 9F
+        B3 BC 6C EF 28 DA 32 59 01 48 87 EE 5C 5E C6 F2
+        EB F3 DF 76 9E 07 BD 04 B3 0A 0B 5B 9F BC 14 48
+        68 64 EC 3F 4D 91 12 64 73 58 9B 24 3B 95 5E 73
+        A1 7A 1D 42 7E 96 D5 E8 22 5B 61 6D 4A C2 32 A6
+        B8 65 89 EB 3A 9A D6 96 32 18 DB 40 9E 05 FB 28
+        7A 80 09 6A 55 FA EF DC 6A 0F E2 F4 A5 00 D3 3B
+        51 20 13 1F 53 9F A3 F7 3D D8 AE 92 70 AE 9D 1D
+        5F EC 4E A2 07 E4 17 E0 F5 43 69 C9 F5 D9 4D C5
+        EB C6 01 C9 49 43 D3 DC 15 F3 E9 E0 D7 30 CB 39
+        E7 05 1A 3A 25 31 51 A7 C5 E7 47 69 30 C8 83 88
+        AE DD 55 0E 1D 6A 3E 11 FF AB 69 E4 E8 73 4A 1A
+        F2 85 45 9A AA C6 91 6B 70 2B 6B 9D D2 43 D3 3B
+        DF 82 74 33 02 D5 D6 25 4F CF 46 06 5A C8 83 B3
+
+        Dev 1
+
+        === Sec SWK ===
+        6E 22 5E EF 14 56 18 E1 58 54 DB 8E 78 C2 A3 BF
+        E2 DC C3 0A A9 1B 64 30 33 EC DD 2C F5 FD A1 F4
+        BF 18 FF 3D 93 B3 6F 3A BC AA 3B 92 CA 7C E4 D4
+        8C 7C 46 53 0F 08 15 0C 9F 68 EB 67 81 DE 2C 77
+        09 51 BA F6 29 37 67 C2 D0 0B 5C E6 A5 C3 6B 82
+        FC A5 0D D6 6A 7C F7 6D E4 38 86 25 E4 88 24 F4
+        91 AD D4 32 11 54 DE 52 5D 38 25 12 CE 90 2D AE
+        2B 59 6A 47 A2 F7 85 79 D6 AA F9 14 E1 01 70 0C
+        DE 11 29 3A DB 9E DD C3 CC 72 5D E4 F0 38 9A 7A
+        EB 33 D1 71 DA F9 97 C0 F6 2D 9E 85 B9 C4 37 A4
+        04 49 F3 F3 D8 6A DF D8 DF 67 48 15 23 7E BC 8A
+        22 7E EA 8C 64 3D 6B 8C 71 8F AE 75 C4 E7 1C 14
+        CF A3 98 C6 AE D9 6E 2A 2A C3 0B EE FC 38 A5 F2
+        4D B9 D2 7F 3C FF 4F 5D 3A 66 BF 2A F0 8E AB 02
+        82 60 4C 48 77 CF 6A DA F9 70 DD 1B D3 96 1D 7A
+        21 43 57 8B 69 C1 C1 23 56 F5 83 3E E1 1E 0E 55
+        0F 9E E3 E1 8D E5 72 39 BB 39 56 1D F3 4F 7E E8
+        7A 07 AE 4C 0D 27 D1 F4 02 BC AC E0 03 86 33 B6
+        48 27 6F 7C 2D B8 D9 70 30 5D 89 2C 1C D1 B1 90
+        60 1A FC CC AD F9 4D 0C 63 38 12 1B D6 C5 63 AE
+        83 FF 84 64 35 67 C7 C2 64 7A 39 21 54 6B 1C 0E
+        5E CD 75 BD 85 1B D4 B2 28 B2 93 C1 2A D3 C7 8B
+        20 A3 E8 19 FA B9 BA FE 34 97 21 F6 F2 4E 12 58
+        E3 16 C5 41 A0 F3 39 7A 96 C2 1A 5D 95 25 6A 5C
+
+
+        === Dev sig ===
+        C9 18 FD 9F 20 37 C9 90 CD D1 62 82 F5 94 14 02
+        E6 98 33 21 B1 D7 B5 00 DC 90 56 4D E1 68 CC B2
+        B7 57 34 B1 CB FC B7 1D 13 29 F1 7F BC 12 79 D4
+        59 D7 CB C8 51 05 C4 3C F2 18 82 90 5A 15 CB 3D
+        27 6F 0C 1C 34 9E BD 38 A2 AC F5 44 36 0D CF D4
+        B9 A2 74 03 D6 0B AD 98 89 91 4C CE 14 1D 44 DF
+        75 6B 8D 4C B8 55 E9 BF 92 36 84 B4 CB 5B B8 77
+        34 78 51 51 3C 80 5B D5 ED 3A 91 E5 3E 56 5D 59
+        84 A7 FF 91 C3 70 52 D7 F8 87 2A C7 BB E8 5B 20
+        E4 A8 DC FB D1 1F D9 FC F9 B4 E5 12 A9 42 61 1E
+        73 7A 8E 28 5A E1 E4 76 77 FE 3C 53 1F 67 C3 48
+        B6 0F B1 B5 14 36 50 EA 85 F0 5A E3 39 F2 15 41
+        C1 54 D5 73 58 CA 27 4C EB E0 01 42 7D 95 78 74
+        70 0F 53 FA D1 2F 46 A4 1A 20 5A 07 C9 41 4A BD
+        AE 29 79 15 8A C8 2C B6 CB E1 06 C4 85 0C 75 45
+        14 AF 11 8E 63 4D 84 E6 19 32 50 A5 42 E0 34 C3
+        DD 6E FA 09 DA 5B 49 B4 E0 60 31 5D E1 10 00 BC
+        A8 89 34 32 44 6C 3D A6 DF 5F B3 19 53 50 B8 7E
+        44 1E 63 CD 90 39 EC CC 00 E3 62 92 55 B1 AF E3
+        74 A5 8C 3B 0D 0E 93 54 FE 94 5B 55 BD 94 C8 A0
+        9F 54 C3 C0 CA E1 0E BB 77 47 26 00 0E 87 8B F2
+        FC 61 42 DF 12 A8 EE F6 B9 68 FA 85 A7 F5 32 C4
+        5B 12 7E 72 FA 46 E4 0E F4 25 D0 FB BD 82 18 EF
+        E3 8F AE 92 46 B1 1A C1 83 F5 DC 02 2C 52 44 3F
+            
+
+
+

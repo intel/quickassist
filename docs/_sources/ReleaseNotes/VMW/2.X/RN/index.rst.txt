@@ -1,0 +1,11 @@
+.. _qat_2.0_vmware_release_notes:
+
+Release Notes - VMware*
+=======================
+
+.. toctree::
+   :maxdepth: 2
+   
+   description
+   updates
+   revision_history

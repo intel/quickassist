@@ -1,0 +1,157 @@
+.. _test:
+
+.rst Test File Level 1 equals
+=============================
+
+Level 2 dash
+------------
+
+Level 3 plus
+++++++++++++
+
+Level 4 tilde
+~~~~~~~~~~~~~
+
+Failed Links:
+-------------
+
+new line 
+
+.. _./search.html?q=test_example:
+
+Testing Links:
+--------------
+
+
+
+As a backup while we get API Reference Manual links (links to specific functions, classes, etc.) working, an alternate method is to create a fixed link to the search page with the term of interest.
+
+Example search links:
+
+    - .../html/search.html?q=CpaCyNrbgOpData&check_keywords=yes&area=default
+    - .../html/search.html?q=CpaCyNrbgOpData
+
+Here's a base link that will permanently link to the search page with term "cpaCyRsaGenKey" filled in: :ref:`test text here <./search.html?q=test_example>` . 
+
+file:///C:/git/qat_docs_include_all/html/search.html?q=cpaCyRsaGenKey&check_keywords=yes&area=default
+
+
+New Section 2
++++++++++++++
+
+.. _Denial_of_Service_test:
+
+Failed Links
+++++++++++++
+
+test denial of service with autosectionlabel (no manual ref created): :ref:`Denial of Service <Denial_of_Service_test>` .
+
+New Section 4
++++++++++++++
+
+Working Links on DIFFERENT page/section:
+++++++++++++++++++++++++++++++++++++++++
+
+
+This link SUCCESSFULLY goes to the exact page / local location :ref:`Supported APIs > Additional APIs <qat_2.0_pg_supported-apis_additional_apis>`  !!!
+
+Test telemetry link :ref:`This is the text displayed! Most characters are OK. <qat_telemetry>`.
+
+.. case doesn't matter
+.. format is : ref : ' visible link <internal-target>'
+.. so the target needs the underscore _at_front, but the reference in the source doc does not
+
+test security/dma: :ref:`security: dma here section <security_dma>`
+
+test compress verify: :ref:`srv_comp_api: Compress and Verify Error log in Sysfs <compress_verify_error_sysfs>`
+
+Working Links on THIS page:
++++++++++++++++++++++++++++
+
+Here's a test heartbeat link with tickmarks and underscore: `heartbeat2`_ and here the text continues.
+
+Here's another test heartbeat link with the ``:ref:`` method: :ref:`heartbeat2` with no underscore. 
+
+.. at link here to section name within this page: `heartbeat <#Heartbeat2>`_
+.. try un-commenting out the above... it will BREAK the link below, which will go instead to #id4 or something like that!
+.. RSTs are so finicky!
+
+This is a `manual link to compression section via the actual ../PG/compression/srv_comp_api.html file path <../PG/compression/srv_comp_api.html>`__ BUT BUT BUT it will break on any re-organization. A link to section/page NAME would be better.
+
+Lorem Ipsum
++++++++++++
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Dictum non consectetur a erat nam at lectus urna duis. Aliquet enim tortor at auctor urna. Habitasse platea dictumst vestibulum rhoncus est. Amet porttitor eget dolor morbi non arcu. Vel facilisis volutpat est velit. Viverra aliquet eget sit amet tellus. Cras tincidunt lobortis feugiat vivamus. Mattis pellentesque id nibh tortor id aliquet lectus proin nibh. Congue quisque egestas diam in arcu cursus.
+
+Nec dui nunc mattis enim ut. Non nisi est sit amet facilisis magna etiam. Neque sodales ut etiam sit amet nisl purus in mollis. Adipiscing bibendum est ultricies integer quis. Faucibus et molestie ac feugiat sed. Pretium lectus quam id leo in vitae turpis massa. Donec massa sapien faucibus et molestie ac feugiat. Amet consectetur adipiscing elit pellentesque habitant. Elementum pulvinar etiam non quam lacus suspendisse. Netus et malesuada fames ac turpis. Odio facilisis mauris sit amet. Aliquet sagittis id consectetur purus ut faucibus pulvinar. Faucibus ornare suspendisse sed nisi lacus sed viverra tellus. Tortor condimentum lacinia quis vel eros donec ac odio. Nibh nisl condimentum id venenatis a condimentum vitae.
+
+Phasellus faucibus scelerisque eleifend donec pretium vulputate sapien. Sagittis vitae et leo duis ut diam quam. Ultrices dui sapien eget mi. Maecenas sed enim ut sem viverra aliquet. Magnis dis parturient montes nascetur ridiculus mus. Tellus pellentesque eu tincidunt tortor aliquam. Ultricies leo integer malesuada nunc vel risus commodo viverra. Lacus sed turpis tincidunt id aliquet risus feugiat in ante. Ac placerat vestibulum lectus mauris. Morbi tristique senectus et netus et. Tincidunt augue interdum velit euismod in. Gravida arcu ac tortor dignissim convallis aenean et tortor at. Est placerat in egestas erat imperdiet sed.
+
+Amet dictum sit amet justo donec. Ut tristique et egestas quis ipsum suspendisse ultrices. Tellus at urna condimentum mattis pellentesque id nibh tortor id. Ut etiam sit amet nisl purus. Tortor posuere ac ut consequat. Et leo duis ut diam. Semper risus in hendrerit gravida rutrum quisque non tellus orci. In hac habitasse platea dictumst vestibulum rhoncus est pellentesque elit. Egestas purus viverra accumsan in. In fermentum et sollicitudin ac orci phasellus. Lorem mollis aliquam ut porttitor leo a diam. Eget nunc scelerisque viverra mauris in aliquam. Nulla aliquet enim tortor at auctor.
+
+Eget magna fermentum iaculis eu non diam. Metus dictum at tempor commodo ullamcorper a lacus. Cursus turpis massa tincidunt dui. In pellentesque massa placerat duis ultricies. Fames ac turpis egestas maecenas. Porttitor eget dolor morbi non. Nec feugiat nisl pretium fusce id. Pharetra vel turpis nunc eget lorem dolor. Orci porta non pulvinar neque laoreet suspendisse interdum consectetur. Tristique nulla aliquet enim tortor at auctor. Cursus metus aliquam eleifend mi in nulla posuere. Et tortor at risus viverra adipiscing at in tellus integer.
+
+Aliquam sem et tortor consequat id porta nibh venenatis. Eget lorem dolor sed viverra ipsum nunc aliquet. Purus viverra accumsan in nisl nisi scelerisque eu. Cursus turpis massa tincidunt dui ut ornare lectus sit amet. Luctus accumsan tortor posuere ac ut consequat semper. Nec tincidunt praesent semper feugiat nibh sed. Lorem mollis aliquam ut porttitor leo a diam sollicitudin. Ac tortor vitae purus faucibus ornare suspendisse sed nisi lacus. Maecenas accumsan lacus vel facilisis volutpat est velit egestas. Orci a scelerisque purus semper eget duis at tellus at.
+
+Quam viverra orci sagittis eu volutpat odio facilisis. Aliquet nibh praesent tristique magna sit amet purus gravida quis. In nisl nisi scelerisque eu ultrices vitae auctor. Ut sem nulla pharetra diam sit amet nisl suscipit. Suspendisse sed nisi lacus sed viverra. Eget arcu dictum varius duis at consectetur lorem donec. Arcu cursus euismod quis viverra nibh. Lectus nulla at volutpat diam ut. Viverra tellus in hac habitasse platea dictumst vestibulum. Egestas integer eget aliquet nibh praesent tristique magna. Arcu dui vivamus arcu felis bibendum ut tristique. Integer malesuada nunc vel risus commodo viverra maecenas accumsan lacus. Aliquam etiam erat velit scelerisque in dictum non consectetur. Sed sed risus pretium quam vulputate dignissim suspendisse. Odio pellentesque diam volutpat commodo sed. Rhoncus dolor purus non enim praesent elementum facilisis leo vel. Nibh tellus molestie nunc non blandit massa. Egestas diam in arcu cursus euismod. Lorem ipsum dolor sit amet.
+
+Bibendum at varius vel pharetra vel turpis nunc. Sed arcu non odio euismod lacinia at quis risus sed. Faucibus a pellentesque sit amet porttitor eget dolor morbi. Vulputate mi sit amet mauris commodo quis. Diam maecenas ultricies mi eget mauris pharetra. Adipiscing elit pellentesque habitant morbi tristique senectus et netus et. Massa sed elementum tempus egestas. Risus nec feugiat in fermentum posuere urna. Risus in hendrerit gravida rutrum quisque non. Diam sollicitudin tempor id eu nisl nunc mi ipsum. Eget gravida cum sociis natoque penatibus et magnis dis parturient. Tempus iaculis urna id volutpat lacus.
+
+Id aliquet lectus proin nibh nisl condimentum id venenatis a. Facilisis mauris sit amet massa vitae tortor condimentum lacinia quis. Adipiscing tristique risus nec feugiat. Neque laoreet suspendisse interdum consectetur libero. Mi tempus imperdiet nulla malesuada pellentesque elit eget gravida. Faucibus et molestie ac feugiat sed lectus vestibulum mattis. Lacus laoreet non curabitur gravida arcu ac tortor. Magna sit amet purus gravida. Diam sit amet nisl suscipit adipiscing bibendum. Mauris pellentesque pulvinar pellentesque habitant morbi tristique. Massa sed elementum tempus egestas sed. Elementum nibh tellus molestie nunc non blandit massa enim nec. Accumsan in nisl nisi scelerisque eu. Duis ultricies lacus sed turpis. Dictum fusce ut placerat orci. Interdum posuere lorem ipsum dolor sit amet consectetur adipiscing. Euismod lacinia at quis risus sed vulputate. Vitae purus faucibus ornare suspendisse. Diam ut venenatis tellus in metus vulputate eu scelerisque. Morbi tincidunt augue interdum velit euismod in pellentesque massa placerat.
+
+Velit scelerisque in dictum non consectetur a. Faucibus a pellentesque sit amet porttitor eget. Sed ullamcorper morbi tincidunt ornare massa eget egestas purus. Semper risus in hendrerit gravida rutrum quisque. Dui faucibus in ornare quam viverra orci sagittis eu. Turpis tincidunt id aliquet risus feugiat in ante. In nibh mauris cursus mattis molestie a. Ut pharetra sit amet aliquam id diam maecenas ultricies mi. Tortor at risus viverra adipiscing at in tellus. Porttitor leo a diam sollicitudin. Ut consequat semper viverra nam. Nec sagittis aliquam malesuada bibendum. Vitae auctor eu augue ut. Eget est lorem ipsum dolor sit amet consectetur adipiscing elit. Nulla malesuada pellentesque elit eget.
+
+.. _Heartbeat2:
+
+Heartbeat2
+----------
+
+Under some circumstances, firmware in the Intel\ :sup:`®` QAT devices could become unresponsive, requiring a device reset to recover. The Intel\ :sup:`®` QAT Heartbeat feature provides a mechanism for the customer application to detect and reset unresponsive devices. It also notifies the application processes of the start and end of the reset operation and suspends all Intel\ :sup:`®` QAT instances between the events.
+
+Heartbeat2 Operation
+--------------------
+
+A Heartbeat-enabled Intel\ :sup:`®` QAT device firmware periodically writes counters to a specified physical memory location. A pair of counters per thread is incremented at the start and end of the main processing loop within the firmware. Checking for Heartbeat consists of checking the validity of the pair of counter values for each thread. Stagnant counters indicate a firmware hang.
+
+
+.. Level 1 heading (name of page, included in TOC)
+.. ===============================================
+
+.. Level 2 Heading, YES in linked TOC
+.. ----------------------------------
+
+.. Level 2 Heading-links-are-like-this
+.. -----------------------------------
+
+.. heading level 3, subsection 1, Test include ~~ (included only when TOC section is expanded manually)
+.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. .. include:: test_2.rst
+
+.. Heading level 3, subsection 2
+.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. .. Do comments make it in to the HTML that customers can see? 
+.. YES in the 'view source .rst'
+.. NO in the actual html itself
+.. .. note:: here's a note
+
+.. another heading, level 4, NOT in left drop-down
+.. ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. *one asterisk italicises* 
+.. **two asterisks * * bold something**
+.. ***three do nothing***::
+
+..     > test tabbed over (indented)
+
+.. new line again un-indented
+.. these lines are continuing, why?
+.. new line, after a question mark.
+.. new line, after a period.
+
+.. Heading level 3, subsection 3
+.. ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. Level 1 heading, number two 
+.. ===========================
+.. (this WILL start a new section in the TOC, even if it's in the same file. so we do NOT want to re-use the === header...)

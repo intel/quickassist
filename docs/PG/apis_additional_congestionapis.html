@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Congestion Management APIs &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Service Specific Polling APIs" href="apis_additional_servicespecificapis.html" />
+    <link rel="prev" title="Device Polling APIs" href="apis_additional_pollingapis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="apis_index.html">Supported APIs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="apis_qat_apis.html">Intel QuickAssist Technology APIs</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="apis_additional_apis_index.html">Additional APIs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_dynamicfunctions.html">Dynamic Instance Allocation Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_iommufunctions.html">IOMMU Remapping Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_pollingfunctions.html">Polling Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_userspacefunctions.html">User Space Access Configuration Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_versioninformationfunctions.html">Version Information Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_resetfunctions.html">Reset Device Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_threadlessapis.html">Thread-Less APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_cnvapis.html">Compress and Verify (CnV) Related APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_heartbeatapis.html">Heartbeat APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_pollingapis.html">Device Polling APIs</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Congestion Management APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_servicespecificapis.html">Service Specific Polling APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_availabilityapis.html">Check Device Availability APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
+          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
+      <li>Congestion Management APIs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="congestion-management-apis">
+<span id="qat-2-0-pg-supported-apis-additional-apis-congestionapis"></span><h1>Congestion Management APIs<a class="headerlink" href="#congestion-management-apis" title="Permalink to this headline"></a></h1>
+<p>Congestion Management or Back-pressure mechanism APIs are intended to handle the cases when the device is busy.
+These APIs ensures there is enough space on the ring before submitting a request.</p>
+<p>Applications can query the appropriate ring on each instance and select any instance with enough space without
+creating any <code class="docutils literal notranslate"><span class="pre">OpData</span></code> structures.</p>
+<p>All these API definitions are located in: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_congestion_mgmt.h</span></code>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><em>Congestion Management APIs</em> are not currently supported with the QAT2.0 driver.</p>
+</div>
+<section id="icp-sal-symgetinflightrequests">
+<h2>icp_sal_SymGetInflightRequests<a class="headerlink" href="#icp-sal-symgetinflightrequests" title="Permalink to this headline"></a></h2>
+<p>This function is used to fetch in-flight and max in-flight request counts for the given symmetric instance handle.</p>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_SymGetInflightRequests(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">*maxInflightRequests,</span> <span class="pre">Cpa32U</span> <span class="pre">*numInflightRequests);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>Symmetric instance handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*maxInflightRequests</span></code></p></td>
+<td><p>A pointer to the max in-flight request count.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*numInflightRequests</span></code></p></td>
+<td><p>A pointer to the current in-flight request count.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_SymGetInflightRequests</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Successfully retrieved the request counts.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_INVALID_PARAM</span></code></p></td>
+<td><p>Invalid parameter passed to the function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-asymgetinflightrequests">
+<h2>icp_sal_AsymGetInflightRequests<a class="headerlink" href="#icp-sal-asymgetinflightrequests" title="Permalink to this headline"></a></h2>
+<p>This function is used to fetch in-flight and max in-flight request counts for the given asymmetric instance handle.</p>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_AsymGetInflightRequests(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">*maxInflightRequests,</span> <span class="pre">Cpa32U</span> <span class="pre">*numInflightRequests);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>Asymmetric instance handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*maxInflightRequests</span></code></p></td>
+<td><p>A pointer to the max in-flight request count.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*numInflightRequests</span></code></p></td>
+<td><p>A pointer to the current in-flight request count.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_AsymGetInflightRequests</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Successfully retrieved the request counts.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_INVALID_PARAM</span></code></p></td>
+<td><p>Invalid parameter passed to the function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-dp-symgetinflightrequests">
+<h2>icp_sal_dp_SymGetInflightRequests<a class="headerlink" href="#icp-sal-dp-symgetinflightrequests" title="Permalink to this headline"></a></h2>
+<p>This data plane function is used to fetch in-flight and max in-flight request counts for the given symmetric instance handle.</p>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_dp_SymGetInflightRequests(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">*maxInflightRequests,</span> <span class="pre">Cpa32U</span> <span class="pre">*numInflightRequests);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>Symmetric instance handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">*maxInflightRequests</span></code></p></td>
+<td><p>A pointer to the max in-flight request count.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*numInflightRequests</span></code></p></td>
+<td><p>A pointer to the current in-flight request count.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_dp_SymGetInflightRequests</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Successfully retrieved the request counts.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_INVALID_PARAM</span></code></p></td>
+<td><p>Invalid parameter passed to the function.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="apis_additional_pollingapis.html" class="btn btn-neutral float-left" title="Device Polling APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="apis_additional_servicespecificapis.html" class="btn btn-neutral float-right" title="Service Specific Polling APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+.. _qat_2.0_virtualization_deployment_guide_introduction:
+
+Introduction
+============
+
+This document provides the details on using Intel\ :sup:`®` Virtualization Technology 
+(Intel\ :sup:`®` VT) with the Intel\ :sup:`®` QuickAssist Technology (Intel\ :sup:`®` QAT) Software 
+This includes *SR-IOV* and *Intel Scalable IOV (sIOV)*.
+
+Below are the basic steps to deploy virtualization with Intel QAT. The following sections describe the step-by-step instructions to perform all these actions.
+
+#. **Update** the system BIOS.
+#. **Configure** the Host Operating System (OS).
+#. **Install** the Intel QAT software on the Host OS.
+#. **Pass** the Intel QAT devices to the Gues OS.
+#. **Install** the Intel QAT software on the Guest OS.
+
+.. important:: These instructions are intended to be used with the out-of-tree acceleration driver.

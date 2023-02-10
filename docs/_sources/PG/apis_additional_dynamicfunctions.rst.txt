@@ -1,0 +1,456 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_dynamicfunctions:
+
+Dynamic Instance Allocation Functions
+=====================================
+
+These functions are intended for the dynamic allocation of instances in user space. The user can use these functions to allocate/free instances defined in the ``[DYN]`` section of the configuration file.
+
+These functions are useful if the user needs to dynamically allocate/free cryptographic (CY) or Data Compression (DC) instances at runtime. This is in contrast to statically specifying the number of CY or DC instances at configuration time, where the number of instances cannot be changed unless the user modifies the ``.conf`` file and restarts the acceleration service.
+
+The advantage of using these functions is that the number of CY/DC instances can be changed on-demand at runtime. The disadvantage is that runtime performance is impacted if the number of CY/DC instances is changed frequently.
+
+If the user space application knows the number of instances to be used before starting, then the user can define ``Number<Service>Instances`` in the ``[User Process]`` section of the configuration file.
+
+If the user space application can only know the number of instances at runtime, or wants to change the number at runtime, then the user can call the Dynamic Instance Allocation functions to 
+allocate/free instances dynamically. The ``Number<Service>Instances`` in the ``[DYN]`` section of the .conf file(s) defines the maximum number of instances that can be allocated by user processes.
+
+This can be useful when sharing instances among multiple applications at runtime. The maximum number of instances in a system is known in advance and it is possible to distribute them statically between 
+applications using the configuration files. Once the driver is started, however, this cannot be changed. If, for example, there are 32 CY instances and we need to provision 16 processes, we can 
+statically assign two CY instances per process. This can be a problem when a process needs more instances at any given time. With dynamic instance allocation, we can create a pool of instances that can 
+be "shared" between the processes.
+
+Continuing the example above with 32 CY instances and 16 processes, we can assign statically one CY instance to each process and create a pool of 16 ``[DYN]`` instances from the remainder. 
+If at runtime one process needs more acceleration power, it can allocate some more instances from the pool, say, for example, eight, use them as appropriate and free them back to the pool 
+when the work has been completed. Thereafter, other processes can use these instances as needed.
+
+All dynamic instance allocation function definitions are located in: ``$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_user.h``
+
+.. Important:: 
+   
+      *Dynamic Instance Allocation Functions* are not currently supported with the QAT2.0 driver.
+
+icp_sal_userCyGetAvailableNumDynInstances
+-----------------------------------------
+
+Get the number of cryptographic instances that can be dynamically allocated using the ``icp_sal_userCyInstancesAlloc`` function.
+
+**Syntax**
+
+``CpaStatus icp_sal_userCyGetAvailableNumDynInstances (Cpa32U *pNumCyInstances);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``*pNumCyInstances`` | A pointer to the number of cryptographic instances available for dynamic allocation.      |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userCyGetAvailableNumDynInstances`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+-------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | A pointer to the number of cryptographic instances available for dynamic allocation.      |
+   +------------------------+-------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                      |
+   +------------------------+-------------------------------------------------------------------------------------------+
+
+icp_sal_userDcGetAvailableNumDynInstances
+-----------------------------------------
+
+Get the number of data compression instances that can be dynamically allocated using the ``icp_sal_userDcInstancesAlloc`` function.
+
+**Syntax**
+
+``CpaStatus icp_sal_userDcGetAvailableNumDynInstances (Cpa32U *pNuDcInstances);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``*pNumDcInstances`` | A pointer to the number of data compression instances available for dynamic allocation.      |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userDcGetAvailableNumDynInstances`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | A pointer to the number of data compression instances available for dynamic allocation.      |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_userCyInstancesAlloc
+----------------------------
+
+Allocate the specified number of Cryptographic (CY) instances from the amount specified in the ``[DYN]`` section of the configuration file. 
+The ``numCyInstances`` parameter specifies the number of CY instances to allocate and must be less than or equal to the value of the 
+``NumberCyInstances`` parameter in the ``[DYN]`` section of the configuration file.
+
+**Syntax**
+
+``CpaStatus icp_sal_userCyInstancesAlloc(Cpa32U numCyInstances, CpaInstanceHandle *pCyInstances);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``numCyInstances``   | The number of CY instances to allocate.                                                      |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``*pCyInstances``    | A pointer to the CY instances.                                                               |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+
+**Return Value**
+
+The ``icp_sal_userCyInstancesAlloc`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully allocated the specified number of CY instances.                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_userDcInstancesAlloc
+----------------------------
+
+Allocate the specified number of Data Compression (DC) instances from the amount specified in the ``[DYN]`` section of the 
+configuration file. The ``numDcInstances`` parameter specifies the number of dc instances to allocate and must be less than 
+or equal to the value of the ``NumberDcInstances`` parameter in the ``[DYN]`` section of the configuration file.
+
+**Syntax**
+
+``CpaStatus icp_sal_userDcInstancesAlloc(Cpa32U numDcInstances, CpaInstanceHandle *pDcInstances);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``numDcInstances``   | The number of DC instances to allocate.                                                      |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``*pDcInstances``    | A pointer to the DC instances.                                                               |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+
+**Return Value**
+
+The ``icp_sal_userDcInstancesAlloc`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully allocated the specified number of DC instances.                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_userCyFreeInstances
+---------------------------
+
+Free the specified number of Cryptographic (CY) instances from the amount specified in the ``[DYN]`` section of the configuration file. 
+The ``numCyInstances`` parameter specifies the number of CY instances to free.
+
+**Syntax**
+
+``CpaStatus icp_sal_userCyFreeInstances(Cpa32U numCyInstances, CpaInstanceHandle *pCyInstances);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``numCyInstances``   | The number of CY instances to free.                                                          |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``*pCyInstances``    | A pointer to the CY instances.                                                               |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userCyFreeInstances`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully freed the specified number of CY instances.                                     |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_userDcFreeInstances
+---------------------------
+
+Free the specified number of Data Compression (DC) instances from the amount specified in the ``[DYN]`` section of the configuration file. 
+The ``numDcInstances`` parameter specifies the number of DC instances to free.
+
+**Syntax**
+
+``CpaStatus icp_sal_userDcFreeInstances(Cpa32U numDcInstances, CpaInstanceHandle *pDcInstances);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``numDcInstances``   | The number of DC instances to free.                                                          |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``*pDcInstances``    | A pointer to the DC instances to free.                                                       |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userDcFreeInstances`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully freed the specified number of DC instances.                                     |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_userCyGetAvailableNumDynInstancesByDevPkg
+-------------------------------------------------
+
+Get the number of cryptographic instances that can be dynamically allocated. 
+
+**Syntax**
+
+``CpaStatus icp_sal_userCyGetAvailableNumDynInstancesByDevPkg(Cpa32U *pNumCyInstances, Cpa32U devPkgID);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +---------------------+--------------------------------------------------------------------------------------------+
+   | ``pNumCyInstances`` | A pointer to the number of cryptographic instances available for dynamic allocation.       |
+   +---------------------+--------------------------------------------------------------------------------------------+
+   | ``devPkgID``        | The device ID of the device of interest (same as accelID in other APIs) If -1 then selects |
+   |                     | from all devices.                                                                          |
+   +---------------------+--------------------------------------------------------------------------------------------+
+
+
+**Return Value**
+
+The ``icp_sal_userCyGetAvailableNumDynInstancesByDevPkg`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+------------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully retrieved the number of cryptographic instances available for dynamic allocation. |
+   +------------------------+------------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                           |
+   +------------------------+------------------------------------------------------------------------------------------------+
+
+icp_sal_userDcGetAvailableNumDynInstancesByDevPkg
+-------------------------------------------------
+
+Get the number of data compression instances that can be dynamically allocated. 
+
+**Syntax**
+
+``CpaStatus icp_sal_userDcGetAvailableNumDynInstancesByDevPkg(Cpa32U *pNumDcInstances, Cpa32U devPkgID);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+--------------------------------------------------------------------------------------------+
+   | ``*pNumDcInstances`` | A pointer to the number of data compression instances available for dynamic allocation.    |
+   +----------------------+--------------------------------------------------------------------------------------------+
+   | ``devPkgID``         | The device ID of the device of interest (same as accelID in other APIs) If -1 then selects |
+   |                      | from all devices.                                                                          |
+   +----------------------+--------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userDcGetAvailableNumDynInstancesByDevPkg`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully freed the specified number of DC instances.                                     |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_userCyInstancesAllocByDevPkg
+------------------------------------
+
+Allocate the specified number of Cryptographic (CY) instances from the amount specified in the ``[DYN]`` section of the 
+configuration file. The ``numCyInstances`` parameter specifies the number of CY instances to allocate and must be 
+less than or equal to the value of the ``NumberCyInstances`` parameter in the ``[DYN]`` section of the configuration file.
+
+**Syntax**
+
+``CpaStatus icp_sal_userCyInstancesAllocByDevPkg(Cpa32U numCyInstances, CpaInstanceHandle *pCyInstances, devPkgID);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``numCyInstances``   | The number of CY instances to allocate.                                                      |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``*pCyInstances``    | A pointer to the CY instances.                                                               |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``devPkgID``         | The device ID of the device of interest (same as accelID in other APIs) If -1 then selects   |
+   |                      | from all devices.                                                                            |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userCyInstancesAllocByDevPkg`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully allocated the specified number of CY instances.                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_userDcInstancesAllocByDevPkg
+------------------------------------
+
+Allocate the specified number of Data Compression (DC) instances from the amount specified in the ``[DYN]`` section of the 
+configuration file. The ``numDcInstances`` parameter specifies the number of DC instances to allocate and must be less 
+than or equal to the value of the ``NumberDcInstances`` parameter in the ``[DYN]`` section of the configuration file.
+
+**Syntax**
+
+``CpaStatus icp_sal_userDcInstancesAllocByDevPkg(Cpa32U numDcInstances, CpaInstanceHandle *pDcInstances, Cpa32U devPkgID;``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``numDcInstances``   | The number of DC instances to allocate.                                                      |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``*pDcInstances``    | A pointer to the DC instances.                                                               |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``devPkgID``         | The device ID of the device of interest (same as accelID in other APIs) If -1 then selects   |
+   |                      | from all devices.                                                                            |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userDcInstancesAllocByDevPkg`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully allocated the specified number of DC instances.                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_userCyGetAvailableNumDynInstancesByPkgAccel
+---------------------------------------------------
+
+Get the number of cryptographic instances that can be dynamically allocated. 
+
+**Syntax**
+
+``CpaStatus icp_sal_userCyGetAvailableNumDynInstancesByPkgAccel(Cpa32U *pNumCyInstances, Cpa32U devPkgID, Cpa32U accelerator_number);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +-----------------------+----------------------------------------------------------------------------------------------+
+   | ``pNumCyInstances``   | A pointer to the number of cryptographic instances available for dynamic allocation.         |
+   +-----------------------+----------------------------------------------------------------------------------------------+
+   | ``devPkgID``          | The device ID of the device of interest (same as accelID in other APIs) If -1 then selects   |
+   |                       | from all devices.                                                                            |
+   +-----------------------+----------------------------------------------------------------------------------------------+
+   |``accelerator_number`` | Accelerator Engine to use. As 0 is the only valid value on C62x device, this API is same as  | 
+   |                       | as ``icp_sal_userCyInstancesAllocByDevPkg``                                                  | 
+   +-----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userCyGetAvailableNumDynInstancesByPkgAccel`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+------------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully retrieved the number of cryptographic instances available for dynamic allocation. |
+   +------------------------+------------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                           |
+   +------------------------+------------------------------------------------------------------------------------------------+
+
+icp_sal_userCyInstancesAllocByPkgAccel
+--------------------------------------
+
+Allocates the specified number of Cryptographic (CY) instances from the amount specified in the ``[DYN]`` section of the 
+configuration file. The ``numCyInstances`` parameter specifies the number of CY instances to allocate and must be less 
+than or equal to the value of the ``NumberCyInstances`` parameter returned by a call to the 
+``icp_sal_userCyInstancesAllocByPkgAccel`` function.
+
+**Syntax**
+
+``CpaStatus icp_sal_userCyInstancesAllocByPkgAccel(Cpa32U numCyInstances, CpaInstanceHandle *pCyInstances, Cpa32U devPkgID, Cpa32U accelerator_number);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +-----------------------+----------------------------------------------------------------------------------------------+
+   | ``numCyInstances``    | The number of CY instances to allocate.                                                      |
+   +-----------------------+----------------------------------------------------------------------------------------------+
+   | ``*pCyInstances``     | A pointer to the CY instances.                                                               |
+   +-----------------------+----------------------------------------------------------------------------------------------+
+   | ``devPkgID``          | The device ID of the device of interest (same as accelID in other APIs) If -1 then selects   |
+   |                       | from all devices                                                                             |
+   +-----------------------+----------------------------------------------------------------------------------------------+
+   |``accelerator_number`` | Accelerator Engine to use. As 0 is the only valid value on C62x device, this API is same as  | 
+   |                       | as ``icp_sal_userCyInstancesAllocByDevPkg``                                                  | 
+   +-----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userCyInstancesAllocByPkgAccel`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully allocated the specified number of CY instances.                                 |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+

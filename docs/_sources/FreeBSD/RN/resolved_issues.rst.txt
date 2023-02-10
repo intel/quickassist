@@ -1,0 +1,540 @@
+Resolved Issues
+===============
+
+The following are resolved issues for Intel\ :sup:`®` QAT FreeBSD* release.
+
+QATE-74868 - QAT FreeBSD driver allows driver to be restarted with active QAT processes
+---------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | QAT FreeBSD driver allows driver to be restarted with   | 
+   |               | active QAT processes                                    |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-74868                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | QAT FreeBSD driver allows driver to be restarted with   |
+   |               | active QAT processes                                    |
+   +---------------+---------------------------------------------------------+
+   | Implication   | Restarting driver while traffic may break current       |
+   |               | inflight operations.                                    |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in 3.11.0 release.                |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Common                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-39335 - Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support
+------------------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Compression instances do not work on Virtual Machine    | 
+   |               | with Linux Host QAT driver without CnVnR support        |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-39335                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | FreeBSD* QAT VF driver does not obtain host capabilities|
+   |               | - the CnVnR support is enabled by default.              |
+   +---------------+---------------------------------------------------------+
+   | Implication   | The driver may fail to start compression instances on   |
+   |               | Virtual Machine with VF driver if no CnVnR support on   |
+   |               | Host QAT driver firmware.                               |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in 3.7.0 release.                 |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Compression                                    |
+   +---------------+---------------------------------------------------------+
+
+
+QATE-41486 - Misleading message observed in dmesg on LBG device with LimitDevAccess = 1 set in the configuration file.
+----------------------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Misleading message observed in dmesg on LBG device with | 
+   |               | LimitDevAccess = 1 set in the configuration file.       |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-41486                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | When using LimitDevAccess = 1 with more than one device |
+   |               | in upstate, the "qatX: failed to get NumberCyInstaces   |
+   |               | value from config!" message could be                    |
+   |               |                                                         |
+   |               | observed in dmesg for other devices than configured one.|
+   |               | This message indicates only that for the other devices, |
+   |               | the configuration was not found, which is expected.     |
+   +---------------+---------------------------------------------------------+
+   | Implication   | The driver may fail to start compression instances on   |
+   |               | Virtual Machine with VF driver if no CnVnR support on   |
+   |               | Host QAT driver firmware.                               |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in 3.7.0 release.                 |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Compression                                    |
+   +---------------+---------------------------------------------------------+
+
+QATE-33751 - GEN - Library, and driver do not support devices enumerated in a PCI domain different than 0
+---------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | GEN - Library, and driver do not support devices        | 
+   |               | enumerated in a PCI domain different than 0             |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-33751                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | The userspace driver and the Intel\ :sup:`®` QAT library|
+   |               | cannot handle devices enumerated in a domain different  |
+   |               | than 0.                                                 |
+   +---------------+---------------------------------------------------------+
+   | Implication   | It is not possible to use the software in systems where |
+   |               | the device is enumerated with a PCI domain different    |
+   |               | than 0.                                                 |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in 3.7.0 release.                 |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Common                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-59671 - Point Multiplication for Curve25519 and Curve448 not available on FreeBSD* guest machine 
+-----------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Point Multiplication for Curve25519 and Curve448 not    | 
+   |               | available on FreeBSD guest machine                      |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-59671                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | The SR-IOV environment uses a Linux driver on the host  |
+   |               | machine. At the time of the v3.6.0 FreeBSD release,     |
+   |               | the EC Mont Edwards API is not yet supported on Linux   |
+   |               | (in v4.8.0 release), which limits these elliptic curves |
+   |               | operations to the FreeBSD host.                         |
+   +---------------+---------------------------------------------------------+
+   | Implication   | Timeout observed on EcEd asymmetric crypto requests.    |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The latest release of the Linux Driver (4.9.0) includes |
+   |               | support for these algorithms. Ensure Linux driver       |
+   |               | version 4.9.0 or later is used to support these         |
+   |               | algorithms in a FreeBSD Guest OS.                       |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Crypto                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-52976 - AlgChain and HKDF threads cannot use the same cy instance 
+----------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | AlgChain and HKDF threads cannot use the same cy        | 
+   |               | instance                                                |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-52976                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | Possible bus error when symmetric and HKDF operation    |
+   |               | shares the same instance due to the request being       |
+   |               | overwritten.                                            |
+   +---------------+---------------------------------------------------------+
+   | Implication   | It is impossible to share the same instance for         |
+   |               | symmetric and HKDF operations.                          |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.6.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Common                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-31888 - Possible performance degradation 
+---------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Possible performance degradation                        | 
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-31888                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | The integrated configuration for the FreeBSD kernel is  |
+   |               | not optimized for all relevant Intel\ :sup:`®` QAT      |
+   |               | driver scenarios (issue with threading and scheduling). |
+   +---------------+---------------------------------------------------------+
+   | Implication   | Degradation of Intel\ :sup:`®` QAT data throughput can  |
+   |               | be observed in the deployment with FreeBSD*. The use    |
+   |               | cases:                                                  |
+   |               |                                                         |
+   |               | sharing the same core for the threads using request ring|
+   |               | (submission/working thread) and response ring (polling  |
+   |               | thread)                                                 |
+   |               |                                                         |
+   |               | sharing the same core for among more working threads    |
+   |               |                                                         |
+   |               | an extensive number of threads waiting on mutex queue   |
+   |               | for responses                                           |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.6.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Common                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-5092 - AES-XTS does not support buffers sizes that are not a multiple of 16B
+---------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | AES-XTS does not support buffers sizes that are not     | 
+   |               | a multiple of 16B                                       |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-5092                                               |
+   +---------------+---------------------------------------------------------+
+   | Description   | A single request with a data size that is not a         |
+   |               | multiple of 16B for AESXTS will fail with an invalid    |
+   |               | param check.                                            |
+   +---------------+---------------------------------------------------------+
+   | Implication   | The user cannot submit AES-XTS Crypto requests with     |
+   |               | buffers that are not multiples of 16B                   |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.6.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Crypto                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-7325 - AES-GCM operation with zero-length plain text results in an incorrect tag result
+--------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | AES-GCM operation with zero-length plain text results   | 
+   |               | in an incorrect tag result                              |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-7325                                               |
+   +---------------+---------------------------------------------------------+
+   | Description   | Sending an AES-GCM operation with zero-length plain text|
+   |               | may generate an incorrect tag result                    |
+   +---------------+---------------------------------------------------------+
+   | Implication   | Potentially harmful record errors and failing           |
+   |               | connections                                             |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.6.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Crypto                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-41846 - GEN - Intel\ :sup:`®` QAT API submissions with bad addresses that trigger DMA to invalid or unmapped addresses can cause a platform to hang 
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | GEN - Intel\ :sup:`®` QAT API submissions with bad      | 
+   |               | addresses that trigger DMA to invalid or unmapped       |
+   |               | addresses can cause a platform to hang                  |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-41846                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | This version of the Intel\ :sup:`®` QAT hardware does   |
+   |               | not perform request checking. It follows that a         |
+   |               | malicious application can submit requests that can bring|
+   |               | down an entire Intel\ :sup:`®` QAT endpoint, which can  |
+   |               | impact other Intel\ :sup:`®` QAT jobs associated with   |
+   |               | the hardware.                                           |
+   |               |                                                         |
+   |               | Furthermore, if any Intel\ :sup:`®` QAT API submission  |
+   |               | have bad addresses that would trigger DMA to invalid or |
+   |               | unmapped addresses, these can induce a platform hang.   |
+   |               | This presents a risk to be managed by the host and guest|
+   |               | operating systems and other system policies. The        |
+   |               | exposure can extend to other guest operating systems or |
+   |               | applications outside of the typical access boundary of  |
+   |               | the malicious guest or application.                     |
+   +---------------+---------------------------------------------------------+
+   | Implication   | Potentially harmful record errors and failing           |
+   |               | connections                                             |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.6.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Crypto                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-41745 - Segmentation fault when using inputs on QUAD word boundaries 
+-------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Segmentation fault when using inputs on QUAD word       | 
+   |               | boundaries                                              |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-41745                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | When using EC's cpaCyEcPointMultiply or                 |
+   |               | cpaCyEcPointVerify with an aligned size of input        |
+   |               | parameters to four, eight, or nine quadwords (4 \* 8B , |
+   |               | 8 \* 8B or 9 \* 8B), a segmentation fault occurs.       |
+   +---------------+---------------------------------------------------------+
+   | Implication   | Application crashes caused by a segfault.               |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.5.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Common                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-40630 - Hang of asymmetric crypto engines might not be detected by heartbeat
+---------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Hang of asymmetric crypto engines might not be detected | 
+   |               | by heartbeat                                            |
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-40630                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | Heartbeat might not detect a hang of an asymmetric      |
+   |               | crypto engine.                                          |
+   +---------------+---------------------------------------------------------+
+   | Implication   | The device might be reported as responsive even if one  |
+   |               | of the engines is hung.                                 |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.4.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Common                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-40628 - Access to /dev/qat_adf_ctl allows a limited-trust user to reconfigure or reset the Intel\ :sup:`®` QAT endpoint 
+----------------------------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Access to /dev/qat_adf_ctl allows a limited-trust user  | 
+   |               | to reconfigure or reset the Intel\ :sup:`®` QAT endpoint|
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-40628                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | The device /dev/qat_adf_ctl provides a number of ioctls.|
+   |               |                                                         |
+   |               | Some ioctls are used by regular users of Intel\ :sup:`®`|
+   |               | QAT for ring reservation and querying the configuration |
+   |               | values. Others are used to reconfigure or reset the     |
+   |               | device.                                                 |
+   |               |                                                         |
+   |               | With the current implementation, any user that can use  |
+   |               | Intel\ :sup:`®` QAT for crypto or compression service   |
+   |               | can also reconfigure, bring down, or reset the device.  |
+   |               |                                                         |
+   |               | These admin capabilities should be limited to admin     |
+   |               | users.                                                  |
+   +---------------+---------------------------------------------------------+
+   | Implication   | A user with access to /dev/qat_adf_ctl can reconfigure, |
+   |               | bring down, or reset the device.                        |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.4.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Common                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-40627 - Destination buffer is overrun in a Digest Verify + Decrypt that does not reserve output space for the digest 
+-------------------------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Destination buffer is overrun in a Digest Verify +      | 
+   |               | Decrypt that does not reserve output space for the      | 
+   |               | digest                                                  | 
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-40627                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | When the field verifyDigest in CpaCySymSessionSetupData |
+   |               | is set to                                               |
+   |               |                                                         |
+   |               | CPA_TRUE, the digest is written back to the destination |
+   |               | buffer even if there is not allocated space in the      |
+   |               | destination buffer for it.                              |
+   +---------------+---------------------------------------------------------+
+   | Implication   | Unallocated memory can be overwritten                   |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.4.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Crypto                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-63079 - cpaDcResetSession may not wait until all flights are processed prior to clearing the inflight counters 
+-------------------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | cpaDcResetSession may not wait until all flights are    | 
+   |               | processed prior to clearing the inflight counters       | 
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-63079                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | Excluding the compression session using the Data Plane  |
+   |               | API, cpaDcResetSession does not wait until all flights  |
+   |               | are processed prior to clearing the inflight counters.  |
+   |               | This is not correct behaviour since callback counters   |
+   |               | are reset before all the in-flight requests are         |
+   |               | processed.                                              |
+   +---------------+---------------------------------------------------------+
+   | Implication   | If the session is reset while there are in-flight       |
+   |               | requests, segmentation faults and other unexpected      |
+   |               | application behaviour may be encountered.               |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.8.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Common                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-40359 - Multiprocess 32 with LimitDevAccess = 0 fails with OpenSSL* Speed tests
+------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Multiprocess 32 with LimitDevAccess = 0 fails with      | 
+   |               | OpenSSL* Speed tests                                    | 
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-40359                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | The multiprocess application that uses more than 16     |
+   |               | processes for LBG/DNV and 32 processes for CLC fails    |
+   |               | during bundle allocation.                               |
+   +---------------+---------------------------------------------------------+
+   | Implication   | It is impossible to successfully run the multiprocess   |
+   |               | application with more processes than 16 for LBG/DNV and |
+   |               | 32 for CLC.                                             |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.8.0 release.              |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Multiprocess                                   |
+   +---------------+---------------------------------------------------------+
+
+QATE-77659 - CY - Unexpected behaviour may be triggered by certain Scatter-Gather-List (SGL) sub-buffer layouts on Intel® Communications Chipset 8925 to 8955 Series devices
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | CY - Unexpected behaviour may be triggered by certain   | 
+   |               | Scatter-Gather-List (SGL) sub-buffer layouts on         | 
+   |               | Intel\ :sup:`®` Communications Chipset 8925 to          | 
+   |               | 8955 Series devices                                     | 
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-77659                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | The DMA alignment optimization code in firmware does not|
+   |               | correctly handle an edge case where certain combinations|
+   |               | of unaligned buffer lengths are used.                   |
+   +---------------+---------------------------------------------------------+
+   | Implication   | Cipher operations may begin to fail requiring device    |
+   |               | restart.                                                |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.11.0 release.             |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Crypto                                         |
+   +---------------+---------------------------------------------------------+
+
+QATE-74788 - Cipher:AES-GCM, HASH:AES-GCM not able to support different IV Length
+---------------------------------------------------------------------------------
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +---------------+---------------------------------------------------------+
+   | Title         | Cipher:AES-GCM, HASH:AES-GCM not able to support        | 
+   |               | different IV Length                                     | 
+   +---------------+---------------------------------------------------------+
+   | Reference     | QATE-74788                                              |
+   +---------------+---------------------------------------------------------+
+   | Description   | Concurrent request handling in a single session context |
+   |               | of AES-GCM algchain request with different IV length    |
+   |               | results in improper encryption/decryption/hash          |
+   |               | generation.                                             |
+   +---------------+---------------------------------------------------------+
+   | Implication   | IV length change is not handled.                        |
+   +---------------+---------------------------------------------------------+
+   | Resolution    | The issue is resolved in a v3.12.0 release.             |
+   +---------------+---------------------------------------------------------+
+   | Affected OS   | FreeBSD*                                                |
+   +---------------+---------------------------------------------------------+
+   | Driver/Module | CPM IA - Crypto                                         |
+   +---------------+---------------------------------------------------------+

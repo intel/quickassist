@@ -1,0 +1,26 @@
+.. _qat_2.0_pg_infrastructure_service_instances:
+
+Service Instances
+=================
+
+At the Intel\ :sup:`®` QuickAssist Technology API, we abstract queue pairs using the concept of service instances.
+
+- To use a service, an application must first get a handle to a service instance.
+- Corresponds to one or more queue pairs:
+
+    - Data compression instance contains 1 queue pair.
+    - Cryptographic instance:
+
+        - QAT Gen2: contains 2 queue pairs, one for each sub-service of crypto (symmetric crypto, public key crypto).
+        - QAT Gen4: crypto instances can be specified as either sym (symmetric) or asym (asymmetric) cryptography and contain 1 queue pair.
+
+Configurable Items (via config file)
+------------------------------------
+
+- Queue depth (for each queue).
+- Number of service instances per process for a given device (limited by available rings), for example:
+
+    - One per address space (e.g. user space processes).
+    - One per software or hardware thread (logical core), to avoid contention.
+
+- Number of queue pairs per service, per bundle/VF, will be configurable in future.

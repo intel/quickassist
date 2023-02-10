@@ -1,0 +1,30 @@
+.. _qat_2.0_pg_configuration_files_overview:
+
+Configuration File Overview
+===========================
+
+There is a single configuration file for each Intel\ :sup:`®` QAT Endpoint and there may be multiple Intel\ :sup:`®` QAT Endpoints.
+
+.. note::
+
+    Depending on the model number, a device may also contain no  Intel\ :sup:`®` QAT Endpoints.
+
+The configuration file is split into a number of different sections: a General section and one or more Logical Instance sections.
+
+The *General* section includes parameters that allow the user to specify:
+
+-  Which services are enabled.
+-  Concurrent requests default configuration.
+-  Interrupt coalescing configuration (optional).
+-  Statistics gathering configuration.
+
+Additional details are included in :ref:`General Section <qat_2.0_pg_configuration_files_general-section>`.
+
+*Logical Instances* sections (there may be one or more) include parameters that allow the user to set:
+
+-  The number of cryptography or data compression instances being managed.
+-  For each instance, the name of the instance, whether or not polling is enabled, and the core to which an instance is affinitized.
+
+Additional details are included in :ref:`Logical Instances Section <qat_2.0_pg_configuration_files_logical-instances-section>`.
+
+Sample configuration files are included in the package in the ``quickassist/utilities/adf_ctl/conf_files`` directory.

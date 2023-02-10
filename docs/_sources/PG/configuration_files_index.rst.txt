@@ -1,0 +1,26 @@
+.. _qat_2.0_pg_configuration_files:
+
+Configuration Files
+===================
+
+This section describes the configuration file(s) that allows customization of runtime operation. The configuration file(s) must be 
+tuned to meet the performance needs of the target application. There is a single configuration file for each 
+Intel\ :sup:`®` QAT Endpoint in the system. 
+
+If Single-Root Input/Output Virtualization (SR-IOV) is enabled, a separate configuration file is used for each virtual function. 
+
+.. note::
+
+    The software package includes default configuration file(s), which may not provide optimal performance on all platforms. Consider performance implications as well as the configuration details provided in this section if your system requires modifications to the default configuration file.
+
+.. toctree::
+    :maxdepth: 1
+
+    configuration_files_overview
+    configuration_files_generalsection
+    configuration_files_logicalsection
+    configuration_files_maxprocesscalculations
+    configuration_files_multipleendpoints
+    configuration_files_multipleprocesses
+    configuration_files_samplefiles
+

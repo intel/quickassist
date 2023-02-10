@@ -1,0 +1,232 @@
+.. _qat_2.0_thermal_tests_guide:
+
+Thermal Load Test Guide
+=======================
+
+
+Introduction
+------------
+
+The Thermal Load Test suite is a collection of script files and associated text
+files used to heavily stress user specified workload on the Intel QAT hardware. 
+
+The following hardware configurations are supported:
+
+- Intel® 4th Gen Intel® Xeon® Scalable Processor
+
+Package Release Structure
+-------------------------
+
+After unpacking the tar file, the directory should contain the following:
+
+.. table:: Package Release Structure
+
+    +--------------------------------+-------------------------------------------------------------+
+    | **Files/Directory**            | **Comments**                                                |
+    +================================+=============================================================+
+    | ``./4xxx_base.conf``           | Base QAT configuration file.                                |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./build_binaries.sh``        | Generates test applications used for thermal stress tests.  |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./patches/*``                | Directory of patch files for base QAT package.              |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./thermal_tests.py``         | Python script to execute thermal stress tests.              |
+    +--------------------------------+-------------------------------------------------------------+
+
+.. ......................................................................... ..
+.. ......................................................................... .. 
+.. . VIDEO: Remove this part to generate the PDF version of this document. . ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+Thermal Test Demo
+--------------------------
+
+Here is a demonstration of the process to install and execute the thermal stress tools.
+
+.. video:: ../../_static/video/thermal/thermal.mp4
+    :width: 500
+    :height: 300
+
+|
+
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+Setup Instructions
+------------------
+
+Setup of the software includes the following:
+
+- Install QAT2.0 Driver and performance sample code as documented in :ref:`Getting Started Guide<qat_2.0_gsg_install_software>`
+- Extract thermal_test archive to top-level QAT2.0 directory  
+- Execute ``build_binaries.sh`` to generate test applications
+- Execute ``python thermal_tests.py`` to run thermal tests 
+- :ref:`monitor_qat.py<qat2.0_text_based_telemetry>` script can be used to monitor device utilization during the test run
+
+thermal_tests archive
++++++++++++++++++++++
+
+Script can be downloaded from :download:`here <tarball/thermal_tests.tgz>`
+
+build_binaries.sh
++++++++++++++++++
+
+The ``build_binaries.sh`` script is used to generate test applications that are used for thermal tests. The applications
+are generated using the performance sample code and application specific patch.
+
+The following applications are generated:
+
+- CHAINED - AES_CBC_SHA512 cipher/hash operation with 512KB buffer
+- COMP - Dynamic Level 1 deflate compression with 32KB buffer
+- DECOMP - Dynamic deflate compression with 128KB buffer
+- PKE - RSA2048 
+- UCS - AES_XTS cipher with 512KB buffer
+
+The build_binaries.sh assumes the following: 
+    - QAT2.0 driver is extracted to ``/usr/local/src/QAT``
+    - thermal_test archive is extracted in the directory specified above.
+
+Update ``ICP_ROOT`` and ``THERMAL_DIR`` environmental variables in this script if different directories are used.
+
+.. note:: The patch files in this package were based on the QAT20.L.0.9.6-00024 package
+
+thermal_tests.py
+++++++++++++++++
+
+The ``thermal_tests.py`` script is used to execute the thermal tests.  When the script is launched,
+the script detects QAT devices that are present on the system and creates default configuration that should result
+in the maximum power draw from the QAT endpoints.  A given QAT endpoint can have two of the three services enabled which 
+includes asymmetric crypto, symmetric crypto, and data compression.   In terms of power draw, PKE operations and compression operations
+draw the largest power.
+
+The script is launched as follows:
+
+.. code-block:: console
+
+    python thermal_tests.py
+
+The output will look like:
+
+.. code-block:: console
+
+    1 : Display Current Configuration                                                                                                                                                                                                                   
+    2 : Load Configuration                                                                                                                                                                                                                              
+    3 : Run Test                                                                                                                                                                                                                                        
+    4 : Exit
+
+Display Current Configuration
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Select **1** to display current configuration.  Output will look like:
+
+.. code-block:: console
+
+    Current Configuration
+    Device          pke     chained usc     comp    decomp
+    =======================================================
+    qat_dev0        True    False   False   True    False
+    qat_dev1        True    False   False   True    False
+    qat_dev2        True    False   False   True    False
+    qat_dev3        True    False   False   True    False
+    qat_dev4        True    False   False   True    False
+    qat_dev5        True    False   False   True    False
+    qat_dev6        True    False   False   True    False
+    qat_dev7        True    False   False   True    False
+
+Load Configuration
+~~~~~~~~~~~~~~~~~~
+
+Select **2** to load test configuration file.  Files should be placed in the same directory as the script.
+
+After the load is complete, the current test configuration is displayed.
+
+.. note::  There is no error checking or format checking performed on the test configuration file. The file is expected to be in the proper format.
+
+Here is an example of configuration that targets PKE only:
+
+    .. code-block:: console
+
+        Select option:  2
+        Loading Device Configuration
+        Enter name of configuration file:
+        pke
+        Current Configuration
+        Device          pke     chained usc     comp    decomp
+        =======================================================
+        qat_dev0        True    False   False   False   False
+        qat_dev1        True    False   False   False   False
+        qat_dev2        True    False   False   False   False
+        qat_dev3        True    False   False   False   False
+        qat_dev4        True    False   False   False   False
+        qat_dev5        True    False   False   False   False
+        qat_dev6        True    False   False   False   False
+        qat_dev7        True    False   False   False   False
+
+Test Configuration File Format
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The format of the test configuration files is quite simple.
+
+    qat_dev0,PKE,CHAINED,UCS,COMP,DECOMP
+
+The first entry on the line is the qat_device name.  The following values are either True or False
+and indicate whether we wish to test the given service on this QAT endpoint.
+
+Here is example config for the default configuration which enables PKE and COMP on each of the QAT endpoints:
+
+.. code-block:: console
+
+    qat_dev0,True,False,False,True,False
+    qat_dev1,True,False,False,True,False
+    qat_dev2,True,False,False,True,False
+    qat_dev3,True,False,False,True,False
+    qat_dev4,True,False,False,True,False
+    qat_dev5,True,False,False,True,False
+    qat_dev6,True,False,False,True,False
+    qat_dev7,True,False,False,True,False
+
+
+Run Test
+~~~~~~~~
+
+The following steps are performed when **Run Tests** is specified.
+
+- Validate Test Configuration
+- Create QAT Configuration Files
+- Copy QAT Configuration Files to /etc folder
+- Create script that runs the test  (runTests.sh)
+- Restart QAT devices
+- Launch the test script
+
+
+Validate Test Configuration
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The validate test configuration verifies that for each QAT endpoint, only two of the three services are active.
+Current implementation of the tests simply flag invalid configuration.  Test will still run, with only two services being enabled
+for the endpoint
+
+Create QAT Configuration Files
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Based on the current test configuration, the QAT configuration files are created and placed in the ./conf folder
+
+runTests.sh
+^^^^^^^^^^^
+
+runTests.sh script is generated and placed in the ./ directory.  The runTests script for the default test configuration looks like:
+
+.. code-block:: console
+
+    ./bin/PKE runTests=2 cyAsymLoops=40000 &
+    ./bin/COMP runTests=32 dcLoops=50000 &
+
+To run the test for longer duration, increase the Loop count specified on the commands above.
+If the same test configuration is used, there is no need to run the **thermal_tests.py** script again,
+**runTests.sh** can be run directly.
+
+
+

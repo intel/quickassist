@@ -1,0 +1,117 @@
+.. _qat_2.0_gsg_introduction:
+
+Introduction
+=====================================
+
+About This Document
+-------------------------------------
+
+This getting started guide documents the instructions to obtain, build, install, and exercise 
+the Intel\ :sup:`®` QuickAssist Technology (Intel\ :sup:`®` QAT) software for the Hardware Version 2.0 package.
+
+In this document, for convenience:
+
+* *Software package* is used as a generic term for the Intel\ :sup:`®` QAT Software Package for Hardware Version 2.0.
+* *Acceleration driver* is used as a generic term for the software that allows the Intel\ :sup:`®` QAT Software Library APIs to access the Intel\ :sup:`®` QAT Endpoint(s).
+
+.. note::
+    
+    Refer to the :ref:`Release Notes <qat_2.0_release_notes>` for a list of supported platforms.
+
+Conventions and Terminology
+-------------------------------------
+
+The following conventions are used in this manual:
+
+* ``Code text`` - code examples, command line entries, Application Porgramming Interface (API) names, parameters, filenames, directory paths, and executables.
+* **Bold text** - graphical user interface entries, buttons, and actions in instructions.
+* *Italic text* - key terms and publication titles.
+
+The following terms and acronyms are used in this manual.
+
+.. table:: Terminology
+
+    +------------+--------------------------------------------+
+    |  **Term**  |           **Description**                  |
+    +============+============================================+
+    | API        | Application Programming Interface          |
+    +------------+--------------------------------------------+
+    | asym       | Asymmetric Cryptography                    |
+    +------------+--------------------------------------------+
+    | BDF        | Bus Device Function                        |
+    +------------+--------------------------------------------+
+    | BOM        | Bill of Materials                          |
+    +------------+--------------------------------------------+
+    | CBC        | Cipher Block Chaining                      |
+    +------------+--------------------------------------------+
+    | cy         | Cryptography                               |
+    +------------+--------------------------------------------+
+    | dc         | Data Compression                           |
+    +------------+--------------------------------------------+
+    | GRUB       | Grand Unified Bootloader                   |
+    +------------+--------------------------------------------+
+    | OS         | Operating System                           |
+    +------------+--------------------------------------------+
+    | PCI        | Peripheral Component Interconnect          |
+    +------------+--------------------------------------------+
+    | PF         | PCIe Physical Function                     |
+    +------------+--------------------------------------------+
+    | Intel® QAT | Intel\ :sup:`®` QuickAssist Technology     |
+    +------------+--------------------------------------------+
+    | SKU        | Stock Keeping Unit                         |
+    +------------+--------------------------------------------+
+    | sIOV       | Scalable IOV                               |
+    +------------+--------------------------------------------+
+    | SR-IOV     | Single Root-I/O Virtualization             |
+    +------------+--------------------------------------------+
+    | VF         | Virtual Function                           |
+    +------------+--------------------------------------------+
+
+Features Implemented
+--------------------
+
+Implemented features are listed in :ref:`Release Notes <features_implemented>`.
+
+List of Files in Release
+------------------------
+
+A Bill of Materials (BOM) is included as a text file in the software package(s). This file is called ``filelist``.
+
+Package Release Structure
+-------------------------
+
+After unpacking the tar file, the directory should contain the following:
+
+.. table:: Package Release Structure
+
+    +--------------------------------+-------------------------------------------------------------+
+    | **Files/Directory**            | **Comments**                                                |
+    +================================+=============================================================+
+    | ``IntelQAT20<version>.tar.gz`` | Top-level Intel\ :sup:`®` QAT package                       |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./filelist``                 | List of files in this package                               |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./config_guess``             | Build and installer files                                   |
+    +--------------------------------+                                                             |
+    | ``./config.h.in``              |                                                             |
+    +--------------------------------+                                                             |
+    | ``./config.sh``                |                                                             |
+    +--------------------------------+                                                             |
+    | ``./config.sub``               |                                                             |
+    +--------------------------------+                                                             |
+    | ``./configure``                |                                                             |
+    +--------------------------------+                                                             |
+    | ``./install-sh``               |                                                             |
+    +--------------------------------+                                                             |
+    | ``./Makefile.in``              |                                                             |
+    +--------------------------------+                                                             |
+    | ``./missing``                  |                                                             |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./LICENSE.GPL``              | License file                                                |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./versionfile``              | Version file                                                |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./quickassist``              | Top-Level acceleration softare directory                    |
+    +--------------------------------+-------------------------------------------------------------+
+    | ``./README``                   | README file with instructions on how to compile the driver  |
+    +--------------------------------+-------------------------------------------------------------+

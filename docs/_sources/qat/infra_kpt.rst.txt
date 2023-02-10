@@ -1,0 +1,5 @@
+Key Protection Technology (KPT)
+================================
+
+Key Protection Technology (KPT) is an Intel platform security technology based on QAT 2.0, KPT is only open to the customers who have signed Non-Disclosure Agreement (NDA) with Intel.
+KPT is released in a separate release, for KPT release package download requirement, please contact with joel.d.schuetze@intel.com.

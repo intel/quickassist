@@ -1,0 +1,128 @@
+.. _qat_2.0_pg_infrastructure_memory_management:
+
+Memory Management 
+=================
+
+DMA-able Memory 
+---------------
+
+Memory passed to Intel\ :sup:`®` QuickAssist Technology hardware must be DMA'able.
+
+- Physically contiguous (can also deal with SGLs).
+- Physically addressed.
+
+  - If VT-d is enabled (e.g. in virtualized system), then Intel IOMMU will translate to host physical addresses as needed.
+
+- Pinned (i.e. locked, guaranteed resident in physical memory).
+
+Intel provides a User Space DMA-able Memory (USDM) component (kernel driver and corresponding user space library) which
+allocates/frees DMA-able memory, mapped to user space, performs virtual to physical address translation on memory allocated by this library
+
+This component is used by the sample code supplied with the user space library.
+
+Buffer Formats 
+--------------
+
+Data buffers are passed across the API interface in one of the following formats:
+
+- Flat Buffers represent a single region of physically contiguous memory.
+- Scatter-Gather Lists (SGL) are essentially an array of flat buffers, for cases where the memory is not all physically contiguous. 
+
+Flat Buffers
+++++++++++++
+
+Flat buffers are represented by the type ``CpaFlatBuffer``, defined in the file ``cpa.h``. It consists of two fields:
+
+- Data pointer ``pData``: points to the start address of the data or payload. The data pointer is a virtual address; however, the actual data pointed to is required to be in contiguous and DMAable physical memory. This buffer type is typically used when simple, unchained buffers are needed. 
+- Length of this buffer: ``dataLenInBytes`` specified in bytes.
+
+For data plane APIs (``cpa_sym_dp.h`` and ``cpa_dc_dp.h``), a flat buffer is represented by 
+the type ``CpaPhysFlatBuffer``, also defined in ``cpa.h``. This is similar to the 
+``CpaFlatBuffer`` structure; the difference is that, in this case, the data pointer, 
+``bufferPhysAddr``, is a physical address rather than a virtual address.
+
+.. figure:: ../../img/flat_buffer_updated.png
+   :width: 595px
+   :height: 211px
+   
+Scatter-Gather List (SGL) Buffers
++++++++++++++++++++++++++++++++++
+
+A scatter-gather list is defined by the type ``CpaBufferList``, also defined in the file 
+``cpa.h``. This buffer structure is typically used where more than one flat buffer can be 
+provided to a particular API. The buffer list contains four fields, as follows:
+
+- The number of buffers in the list.
+- ``pBuffers``: pointer to an unbounded array of flat buffers.
+- ``UserData``: an opaque field; is not read or modified internally by the API. This field could be used to provide a pointer back into an application data structure, providing the context of the call.
+- ``pMetaData``: pointer to metadata required by the API:
+  
+  - The metadata is required for internal use by the API. The memory for this buffer needs to be allocated by the client as contiguous data. The size of this metadata buffer is obtained by calling ``cpaCyBufferListGetMetaSize`` for crypto, ``cpaBufferLists``, and ``cpaDcBufferListGetMetaSize`` for data compression.
+  - The memory required to hold the ``CpaBufferList`` structure and the array of flat buffers is not required to be physically contiguous. However, the flat buffer data pointers and the metadata pointer are required to reference physically contiguous DMAable memory.
+  - There is a performance impact when using scatter-gather lists instead of flat buffers. Refer to the :ref:`Performance Optimization Guide <qat_2.0_performance_optimization_guide>` for additional information.
+  - Scatter-Gather list (SGL) buffers should not have more than 256 entries.
+
+.. figure:: ../../img/scatter_gather_updated.png
+   :width: 742px
+   :height: 393px
+
+For data plane APIs (``cpa_sym_dp.h`` and ``cpa_dc_dp.h``) a region of memory that is not 
+physically contiguous is described using the ``CpaPhysBufferList`` structure. This is 
+similar to the ``CpaBufferList`` structure; the difference, in this case, the individual flat 
+buffers are represented using physical rather than virtual addresses.
+
+Huge Pages
+----------
+
+The included User space DMAable Memory driver ``usdm_drv.ko`` supports 2MB pages. This allows direct access to 
+main memory by devices other than the CPU and the actual supported maximum memory size in one individual allocation 
+when huge pages is enabled is 2MB - 5KB. Where the 5KB is used for memory management for the memory driver. The use 
+of 2MB pages provides benefits, but also requires additional configuration. Use of this capability assumes that a 
+sufficient number of huge pages are allocated in the operating system for the particular use case and configuration.
+
+Here are some example use cases:
+
+- Default settings applied:
+
+   .. code-block:: console
+      
+      modprobe usdm_drv.ko
+
+- Set maximum amount of Non-uniform Memory Access (NUMA) type memory that the User Space DMAable Memory (USDM) driver can allocate to 32MB for all processes. Huge pages are disabled:
+
+   .. code-block:: console
+
+      modprobe usdm_drv.ko max_mem_numa=32768
+
+- Set maximum number of huge pages that the USDM can allocate to 50 in total and 5 per process:
+
+   .. code-block:: console
+      
+      modprobe usdm_drv.ko max_huge_pages=50 max_huge_pages_per_process=5
+
+.. note:: This configuration works for up to the first 10 processes.
+
+Here are examples of invalid use cases to avoid:
+
+- This is erroneous configuration, maximum number of huge pages that USDM can allocate is 3 totals: 3 for a first process, 0 for the next processes:
+
+   .. code-block:: console
+
+      insmod ./usdm_drv.ko max_huge_pages=3 max_huge_pages_per_process=5
+
+- This command results in huge pages being disabled because ``max_huge_pages`` is 0 by default:  
+
+   .. code-block:: console
+   
+      insmod ./usdm_drv.ko max_huge_pages_per_process=5
+
+- This command results in huge pages being disabled because ``max_huge_pages_per_process`` is 0 by default:
+
+   .. code-block:: console
+   
+      insmod ./usdm_drv.ko max_huge_pages=5
+
+.. note:: 
+   
+   The use of huge pages may not be supported for all use cases. For instance, depending on the driver version, some limitations may exist for an Input/Output Memory Management Unit (IOMMU).
+

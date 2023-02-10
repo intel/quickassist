@@ -1,0 +1,27 @@
+.. _qat_2.0_pg_architecture:
+
+Architecture
+============
+
+Because the hardware is accessed via the Intel® QAT APIs, it is not necessary to know all of the hardware and software architecture details, 
+but some knowledge of the underlying hardware and software is helpful for performance optimization and debug purposes.
+
+A simplified view of the hardware/software stack is shown in the following figure.
+
+.. figure:: ./../../img/architecture.png
+  :width: 384
+  :alt: Architecture Stack
+
+
+The flow can be broken down as:
+
+  #. Application submits payloads via the Intel® QuickAssist API as part of the request. The user space library converts these requests into descriptors and places these in the Transmit (Tx) :ref:`hardware-assisted queues<qat_2.0_pg_infrastructure_queue_pairs>` (aka ring).  
+
+  #. Firmware parses the descriptor and configures the accelerators accordingly. Upon a job completion firmware returns the processed payload (either encrypted or compressed or both) and generates a response message. This response message is inserted in the response ring.
+
+  #. A polling thread owned by the application queries the response ring via the Intel® QuickAssist Library. If the application choses non-blocking calls the user space library will issue a callback to the application to inform that the operation is complete.
+
+ .. note:: The UIO (to be replaced with VFIO) layer is a framework present in both Linux Kernel and user space library libudev. 
+   This framework enables exchanging data between Kernel and user space. It offers better latency performance than IOCTL.
+
+

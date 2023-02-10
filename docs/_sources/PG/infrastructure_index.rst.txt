@@ -1,0 +1,26 @@
+.. _qat_2.0_pg_infrastructure:
+
+Infrastructure
+==============
+
+The following sections describe the building blocks of the Intel\ :sup:`®` QAT Endpoints' architecture.
+
+.. toctree::
+   :maxdepth: 1
+
+   infrastructure_queue_pairs
+   infrastructure_service_instances
+   infrastructure_memory_management
+   infrastructure_modes_of_operation
+   infrastructure_load_balancing
+   infrastructure_debugability
+   infrastructure_heartbeat
+   infrastructure_device_telemetry
+   infrastructure_ratelimiting
+   infrastructure_power_management
+   infrastructure_ras
+
+
+.. Hidden sections for now
+.. infrastructure_user_queues
+.. infrastructure_reset

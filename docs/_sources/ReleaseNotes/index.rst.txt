@@ -1,0 +1,10 @@
+.. _qat_2.0_release_notes:
+
+Release Notes
+==============
+
+.. toctree::
+   :maxdepth: 2
+   
+   Linux/2.X/RN/index
+ ..  VMW/2.X/RN/index

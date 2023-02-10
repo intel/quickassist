@@ -1,0 +1,27 @@
+.. _qat_2.0_pg_supported-apis_additional_apis:
+
+Additional APIs
+===============
+
+.. Note:: 
+   
+    Not all *Additional APIs* are supported with all versions of the software package/hardware configuration.
+
+There are a number of additional APIs that can serve for optimization and other uses outside of the Intel\ :sup:`®` QuickAssist Technology services.
+
+.. toctree::
+    :maxdepth: 1
+
+    apis_additional_dynamicfunctions
+    apis_additional_iommufunctions
+    apis_additional_pollingfunctions
+    apis_additional_userspacefunctions
+    apis_additional_versioninformationfunctions
+    apis_additional_resetfunctions
+    apis_additional_threadlessapis
+    apis_additional_cnvapis
+    apis_additional_heartbeatapis
+    apis_additional_pollingapis
+    apis_additional_congestionapis
+    apis_additional_servicespecificapis
+    apis_additional_availabilityapis

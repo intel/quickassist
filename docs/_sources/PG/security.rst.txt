@@ -1,0 +1,292 @@
+.. _qat_2.0_pg_secure_architecture_considerations:
+
+Secure Architecture Considerations
+==================================
+
+This section describes the potential threats identified as part of the secure architecture analysis of the Intel\ :sup:`®` Quick Assist Technology 
+acceleration complex and the actions that can be taken to protect against these threats. 
+This chapter concentrates on the acceleration complex. First, the terminology covering the main threat categories and mechanisms, attacker privilege 
+and deployment models are presented. Then, some common mitigation actions that can be applied to many of these threat categories and mechanisms are 
+discussed. Finally, more specific threat/attack vectors, including attacks against specific services of the PCH device are described.
+
+.. _secure_architecture_terminology-1:
+
+Terminology
+-----------
+
+Each of the potential threat/attack vectors discussed may be described
+in terms of the following:
+
+-  `Threat Categories <#threat-categories>`__
+
+-  `Attack Mechanism <#attack-mechanism>`__
+
+-  `Attacker Privilege <#attacker-privilege>`__
+
+-  `Deployment Models <#deployment-models>`__
+
+Threat Categories
++++++++++++++++++
+
+System threats can be classified into the categories in the following table.
+
+.. table:: Threat Categories
+
+   +----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   |     **Category**     |                                                                                           **Nature of Threat and Examples**                                                                                          |
+   +======================+======================================================================================================================================================================================================================+
+   |                      | Attacker reads data to which they should not have read access.                                                                                                                                                       |
+   | Exposure of Data     +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   |                      | Attacker reads cryptographic keys.                                                                                                                                                                                   |
+   +----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   |                      | Attacker overwrites data to which they should not have write access.                                                                                                                                                 |
+   | Modification of Data +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   |                      | Attacker overwrites cryptographic keys.                                                                                                                                                                              |
+   +----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   |                      | Attacker causes application or driver software (running on an IA core) to fail or terminate.                                                                                                                         |
+   |                      +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Denial of Service    | Attacker causes Intel\ :sup:`®` QuickAssist Accelerator firmware to hang, temporarily impeding service.                                                                                                              |
+   |                      +----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   |                      | Attacker causes excessive use of resource (IA core, Intel\ :sup:`®` QuickAssist Accelerator firmware thread, silicon slice, PCIe* bandwidth, and so on), thereby reducing availability of the service to             |
+   |                      | legitimate client.                                                                                                                                                                                                   |
+   +----------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Attack Mechanism
+++++++++++++++++
+
+Attack Mechanisms and Examples
+
+Some of the mechanisms by which an attacker can carry out an attack are listed in the following table.
+
+.. table:: Attack Mechanism
+
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | **Mechanism**                       | **Examples**                                                                                                                                                                                                          |
+   +=====================================+=======================================================================================================================================================================================================================+
+   | Contrived Packet Stream             | Attacker crafts a packet stream that exploits known vulnerabilities in the software, firmware, or hardware. This could include vulnerabilities such as buffer overflow bugs, lack of parameter validation, and so on. |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Compromised Application Software    | Attacker modifies the application code calling the Intel\ :sup:`®` QuickAssist Technology API to exploit known vulnerabilities in the driver/hardware.                                                                |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Application Malware                 | In an environment where an attacker may be able to run                                                                                                                                                                |
+   |                                     | their own application, separate from the main application software, they may invoke the Intel\ :sup:`®` QuickAssist Technology API to exploit known vulnerabilities in the driver/hardware.                           |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Compromised IA driver software      | Attacker modifies the IA driver to exploit known vulnerabilities in the driver/hardware.                                                                                                                              |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Defect                              | It is also possible that the attack is not malicious, but rather an unintentional defect.                                                                                                                             |
+   +-------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Attacker Privilege
+++++++++++++++++++
+
+The following table describes the privileges that an attacker may have. The table describes the case of a non-virtualized system.
+
+.. table:: Attacker Privilege
+
+   +--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | **Privilege**                  | **Comments**                                                                                                                                                                                                                              |
+   +================================+===========================================================================================================================================================================================================================================+
+   | Physical access                | There is no attempt to protect against threats, such as signal probes, where the attacker has physical access to the system. Customers can protect their systems using physical locks, tamper-proof enclosures, Faraday cages, and so on. |
+   +--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Logged in as privileged user   | There is no attempt to protect against threats where the attacker is logged in as a privileged user. Customers can protect their systems using strong, frequently changed passwords, and so on.                                           |
+   +--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Logged in as unprivileged user | If the attacker is logged into a platform as an unprivileged user, it is important to ensure that they cannot use the services of the PCH to access (read or write) any data to which they would not otherwise have access.               |
+   +--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+   | Ability to send packets        | In almost all deployments, attackers have the ability to send arbitrary packets from the network into the system. It is assumed that threats (for example, denial of service attacks) may arrive in this way.                             |
+   +--------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+Deployment Models
++++++++++++++++++
+
+Some of the possible deployment models are given in the following table.
+
+.. table:: Deployment Models
+
+   ======================================= =============================
+   **Deployment Model**                    **Examples**
+   ======================================= =============================
+   System with no untrusted users          -  Network security appliance
+                                          
+                                           -  Server in data center
+   System with potentially untrusted users -  Server in data center
+   ======================================= =============================
+
+Threat/Attack Vectors
+---------------------
+
+A thorough analysis has been conducted by considering each of the threat
+categories, attack mechanisms, attacker privilege levels, and deployment
+models. As a result, the following threats have been identified. Also
+described are the steps a user of the PCH chipset can take to mitigate
+against each threat. Some general practices that mitigate many of the
+common threats are considered first. Thereafter, threats on specific
+services and mitigation against those threats are described.
+
+General Mitigation
+++++++++++++++++++
+
+The following mitigation techniques are generic to different threats and attack vectors:
+
+-  Ensure that all software running on the platform that has access to Intel\ :sup:`®` Quick Assist Technology devices is within the trust boundary of the platform owner. This mitigation includes software running in virtual machines and containers.
+-  Intel\ :sup:`®` follows Secure Coding guidelines, including performing code reviews and running static analysis on its driver software and firmware, to ensure its compliance with security guidelines. It is recommended that customers follow similar guidelines when developing application code. This should include the use of tools such as static analysis, fuzzing, and so on.
+-  Ensure each hardware component, including the PCH chipset, processor, and DRAM, is physically secured from attackers. This can include such examples as physical locks, tamper proofing, and Faraday cages (to prevent side-channel attacks via electromagnetic radiation).
+-  Ensure that network services not required on the module are not operating and that the corresponding network ports are locked down.
+-  Use strong passwords to protect against dictionary and other attacks on administrative and other login accounts.
+
+General Threats
++++++++++++++++
+
+General threats include the following:
+
+- :ref:`DMA <security_dma>`
+- :ref:`Intentional Modification of IA Driver <security_IA_Driver>`
+- :ref:`Modification of the QAT Configuration File <security_conf_file>`
+- :ref:`Malicious Application Code <security_app_code>`
+- :ref:`Denial of Service <security_denial-of-service>`
+
+.. _security_dma:
+
+DMA
+~~~
+
+**Threat:** The PCH can perform Direct Memory Access (DMA, the copying
+of data) between defined memory locations. Once an attacker has
+sufficient privilege to invoke the Intel\ :sup:`®` QuickAssist
+Technology API, or to write to/read from the hardware rings used by the
+driver to communicate with the device, they can send requests to the
+Intel\ :sup:`®` QuickAssist Accelerator to perform such DMA, passing
+arbitrary physical memory addresses as the source and/or destination
+addresses, thereby exposing or modifying regions of memory to which they
+would otherwise not have access.
+
+**Mitigation 1:**  Ensure that Intel\ :sup:`®` Input-Output Memory Management Unit 
+(IOMMU) is enabled. This will force USDM to create QuickAssist IOMMU domain and
+all memory allocated by USDM will be mapped into this domain, hence malicious
+user or error in user application cannot read or write memory outside this domain
+which mitigates the risk.  However because there is only single domain, there is 
+no protection between individual Virtual Functions(VFs) or applications.  This design
+is done for simplicity of memory manager and if needed, VFIO-PCI should be used 
+to create individual domains per VF.
+
+**Mitigation 2:** Ensure that only trusted users are granted permissions
+to access the Intel\ :sup:`®` QuickAssist Technology API, or to write to
+and read from the hardware rings. Specifically, the PCH configuration
+file describes logical instances of acceleration services and the set of
+hardware rings to be used for each such instance. User processes can ask
+the kernel driver to map these rings into their address spaces. To
+access a given device (identified by the number in the filenames below),
+the user must be granted read/write access to the following files, which
+may be in ``/dev``:
+
+-  ``uio<0..N>`` (where ``<0..N>`` are the qat uio device numbers)
+-  ``qat*``
+-  ``usdm_drv``
+
+.. _security_IA_Driver:
+
+Intentional Modification of IA Driver
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Threat**: An attacker can potentially modify the IA driver to behave
+maliciously. This may lead to a denial of service of Intel\ :sup:`®`
+Quick Assist Technology services.
+
+**Mitigation**: The driver object/executable file on disk should be
+protected using the normal file protection mechanisms so that it is
+writable only by trusted users, for example, a privileged user or an
+administrator. Specifically, the Intel\ :sup:`®` QuickAssist Technology
+kernel objects and libraries should not be writeable by user. If the
+*qat* user group is being used to provide access to Intel\ :sup:`®`
+Quick Assist Technology services, then this group should not have write
+permission to the binaries.
+
+.. _security_conf_file:
+
+Modification of the QAT Configuration File 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Threat**: The QAT configuration file is read at initialization time by
+the driver and specifies what instances of each service (cryptographic,
+data compression) should be created, and which rings each service
+instance will use. Modifying this file could lead to denial of service
+by deleting required instances or could be used to attempt to create
+additional instances that the attacker could subsequently attempt to
+access for malicious purposes.
+
+**Mitigation**: The configuration file should be protected using the
+normal file protection mechanisms so that it is writable only by trusted
+users, for example, a privileged user or an administrator.
+
+.. note:: 
+   
+   By default, the configuration file is stored in the ``/etc`` directory and may be named something like, ``c6xxx_dev0.conf`` . Its default permissions are that it is readable and writeable only by *root* user and *qat* group.
+
+
+.. _security_app_code:
+
+Malicious Application Code
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Threat**: An attacker who can gain access to the Intel\ :sup:`®`
+QuickAssist Technology API may be able to exploit the following features
+of the API:
+
+-  Buffers passed to the API have a specified length of up to 32 bits.
+   By specifying excessive lengths, an attacker may be able to cause
+   denial of service by overwriting data beyond the end of a buffer.
+
+-  Buffer lists passed to the API consist of a scatter gather list
+   (array of buffers). An attacker may incorrectly specify the number of
+   buffers, causing denial of service due to the reading or writing of
+   incorrect buffers.
+
+**Mitigation**: Platform management can include the Rate Limiting
+feature to mitigate against Noisy Neighbors. Only trusted users and
+applications should be allowed to access the Intel\ :sup:`®` QuickAssist
+Technology API, as described in General Mitigations.
+
+.. _security_denial-of-service:
+
+Denial of Service
+~~~~~~~~~~~~~~~~~
+
+**Threat**: An attacker may construct a service request that does not
+conform to the specification, resulting in low of service due to service
+timeouts, halting of Quick Assist service or undesired platform level
+conditions.
+
+**Mitigation**: The current generation of Intel\ :sup:`®` Quick Assist
+Technology has been designed for performance, providing direct access to
+hardware via PCIe\* MMIO space. Misuse of hardware registers is to be
+avoided, and the threat against intentional misuse must be mitigated by
+ensuring all software on the platform is trusted.
+
+An attacker may attempt to contrive a packet stream that monopolizes the
+acceleration services, thereby denying service to legitimate users. This
+may consist of one or more of the following:
+
+-  Sending packets that are compressed (for example, using IPComp) or
+   encrypted (for example, using IPsec), thereby reducing the
+   availability of these services to legitimate traffic.
+
+-  Sending excessively large packets, causing some latency for
+   legitimate packets.
+
+-  Sending small packets at a high packet rate, causing extra bandwidth
+   utilization on the PCI Express\* bus connecting the device to the
+   processor.
+
+**Mitigation**: Proper monitoring of Device Usage (DU) and the
+construction of Service Level Agreements (SLA) are now available as part
+of the Rate Limiting feature.
+
+Threats Specific to Cryptographic Service
++++++++++++++++++++++++++++++++++++++++++
+
+Threats against the cryptographic service include:
+
+Reading Cryptographic Keys
+~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**Threat**: Cryptographic keys are stored in DRAM. An attacker who can determine where these are stored could read the DRAM to get access to the keys or could write the DRAM to use keys known by the attacker, thereby compromising the confidentiality of data protected by these keys. Some cryptographic keys have long lives. The impact of an attacker obtaining the key may exist for the lifetime of the key itself.
+
+**Mitigation**: DRAM is considered inside the cryptographic boundary (as defined by FIPS 140-2). The normal memory protection schemes provided by the Intel\ :sup:`®` architecture processor and memory controller, and by the operating system, prevent unauthorized access to these memory regions.

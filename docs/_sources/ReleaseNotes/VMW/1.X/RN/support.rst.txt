@@ -1,0 +1,13 @@
+.. _qat_vmw_1.x_rn_support: ..
+
+Customer Support
+================
+
+For technical support, including answers to questions not addressed in this
+document, visit the technical support forum, FAQs, and other support
+information at `Intel Support`_.
+
+.. _Intel Support: https://www.intel.com/content/www/us/en/support.html
+
+VMware forwards all issues they suspect to be related to Intel\ :sup:`®` QAT
+to Intel to help triage and resolve with the customer directly.

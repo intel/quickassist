@@ -1,0 +1,94 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_heartbeatapis:
+
+Heartbeat APIs
+==============
+
+These APIs check firmware/hardware status for a given device and are used as part of the Heartbeat functionality.
+
+icp_sal_check_device
+--------------------
+
+This function checks the status of the firmware/hardware for a given device and is used as part of the Heartbeat functionality. 
+
+**Syntax**
+
+``CpaStatus icp_sal_check_device(Cpa32U accelID);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``accelID``                  | The device ID.                                                                         |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_check_device`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+-----------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successful operation. |
+   +------------------------+-----------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.  |
+   +------------------------+-----------------------+
+
+icp_sal_check_all_devices
+-------------------------
+
+This function checks the status of the firmware/hardware for all devices and is used as part of the Heartbeat functionality. 
+
+**Syntax**
+
+``CpaStatus icp_sal_check_all_devices(void);``
+
+**Parameters**
+
+None
+
+**Return Value**
+
+The ``icp_sal_check_all_devices`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+-----------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successful operation. |
+   +------------------------+-----------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.  |
+   +------------------------+-----------------------+
+
+icp_sal_heartbeat_simulate_failure
+----------------------------------
+
+This function simulates heartbeat failure for a specific device. 
+
+**Syntax**
+
+``CpaStatus icp_sal_heartbeat_simulate_failure(Cpa32U accelID);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``accelID``                  | The device ID.                                                                         |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_heartbeat_simulate_failure`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+-----------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successful operation. |
+   +------------------------+-----------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.  |
+   +------------------------+-----------------------+

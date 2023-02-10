@@ -1,0 +1,34 @@
+.. _qat_2.0_rn_wheretofind:
+
+Where to Find Current Software
+==============================
+
+List of Files in Release
+------------------------
+
+The Bill of Materials (BOM), sometimes referred to as the BOM, is
+included as a text file in the released software package. This text file
+is labeled a ``filelist`` and is located at the top directory level for
+each release.
+
+.. _related_documentation:
+
+Related Documentation
+---------------------
+
+.. table:: Reference Documents and Resources
+    :widths: 85, 15
+
+    +-----------------------------------------------------------------------------------------------------------+------------+
+    |  **Title**                                                                                                | **Number** |
+    +===========================================================================================================+============+
+    | Intel\ :sup:`®` QuickAssist Technology for Linux* - Getting Started Guide (Hardware Version 2.0)          | 632506     |
+    +-----------------------------------------------------------------------------------------------------------+------------+
+    | Intel\ :sup:`®` QuickAssist Technology for Linux* - Release Notes (Hardware Version 2.0)                  | 632507     |
+    +-----------------------------------------------------------------------------------------------------------+------------+
+    | Intel\ :sup:`®` QuickAssist Technology API Programmer's Guide                                             | 330684     |
+    +-----------------------------------------------------------------------------------------------------------+------------+
+    | Intel\ :sup:`®` QuickAssist Technology Cryptographic API Reference Manual                                 | 330685     |
+    +-----------------------------------------------------------------------------------------------------------+------------+
+    | Intel\ :sup:`®` QuickAssist Technology Data Compression API Reference Manual                              | 330686     |
+    +-----------------------------------------------------------------------------------------------------------+------------+

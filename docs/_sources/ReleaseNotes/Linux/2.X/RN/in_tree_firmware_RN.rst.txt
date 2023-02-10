@@ -1,0 +1,13 @@
+.. _in_tree_firmware_releasenotes:
+
+
+.. WE already have QAT firmware here:  https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/
+.. We’ll be adding the CPM2.0 firmware to that repo in the next few weeks.
+.. I think it would be useful to put a QAT Firmware release note somewhere
+.. Contents – should be pretty small, but I think these would be useful:
+.. 	• Name, FW Version, hash, Release Date, Licence, public location.
+.. 	• Which devices it's applicable to.
+.. 	• Nice to have:
+.. 	• How to detect which firmware version is on a platform / running in a device
+.. 	• Changes in each new release, i.e. each time we push externally
+.. 	• Limitations, Errata and fixed issues.

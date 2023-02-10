@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Thermal Load Test Guide &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Thermal Load Test Guide</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="thermal-load-test-guide">
+<span id="qat-2-0-thermal-tests-guide"></span><h1>Thermal Load Test Guide<a class="headerlink" href="#thermal-load-test-guide" title="Permalink to this headline"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h2>
+<p>The Thermal Load Test suite is a collection of script files and associated text
+files used to heavily stress user specified workload on the Intel QAT hardware.</p>
+<p>The following hardware configurations are supported:</p>
+<ul class="simple">
+<li><p>Intel® 4th Gen Intel® Xeon® Scalable Processor</p></li>
+</ul>
+</section>
+<section id="package-release-structure">
+<h2>Package Release Structure<a class="headerlink" href="#package-release-structure" title="Permalink to this headline"></a></h2>
+<p>After unpacking the tar file, the directory should contain the following:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Package Release Structure</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 66%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Files/Directory</strong></p></th>
+<th class="head"><p><strong>Comments</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">./4xxx_base.conf</span></code></p></td>
+<td><p>Base QAT configuration file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">./build_binaries.sh</span></code></p></td>
+<td><p>Generates test applications used for thermal stress tests.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">./patches/*</span></code></p></td>
+<td><p>Directory of patch files for base QAT package.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">./thermal_tests.py</span></code></p></td>
+<td><p>Python script to execute thermal stress tests.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="thermal-test-demo">
+<h2>Thermal Test Demo<a class="headerlink" href="#thermal-test-demo" title="Permalink to this headline"></a></h2>
+<p>Here is a demonstration of the process to install and execute the thermal stress tools.</p>
+
+    <video width="500" height="300" controls >
+    <source src="../../_static/video/thermal/thermal.mp4" type="video/mp4">
+    Video
+    </video>
+    <div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="setup-instructions">
+<h2>Setup Instructions<a class="headerlink" href="#setup-instructions" title="Permalink to this headline"></a></h2>
+<p>Setup of the software includes the following:</p>
+<ul class="simple">
+<li><p>Install QAT2.0 Driver and performance sample code as documented in <a class="reference internal" href="../GSG/GSG2/installation.html#qat-2-0-gsg-install-software"><span class="std std-ref">Getting Started Guide</span></a></p></li>
+<li><p>Extract thermal_test archive to top-level QAT2.0 directory</p></li>
+<li><p>Execute <code class="docutils literal notranslate"><span class="pre">build_binaries.sh</span></code> to generate test applications</p></li>
+<li><p>Execute <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">thermal_tests.py</span></code> to run thermal tests</p></li>
+<li><p><a class="reference internal" href="../PG/infrastructure_device_telemetry.html#qat2-0-text-based-telemetry"><span class="std std-ref">monitor_qat.py</span></a> script can be used to monitor device utilization during the test run</p></li>
+</ul>
+<section id="thermal-tests-archive">
+<h3>thermal_tests archive<a class="headerlink" href="#thermal-tests-archive" title="Permalink to this headline"></a></h3>
+<p>Script can be downloaded from <a class="reference download internal" download="" href="../_downloads/76c0219a935ee9ce69033abff6a0b4e3/thermal_tests.tgz"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
+</section>
+<section id="build-binaries-sh">
+<h3>build_binaries.sh<a class="headerlink" href="#build-binaries-sh" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">build_binaries.sh</span></code> script is used to generate test applications that are used for thermal tests. The applications
+are generated using the performance sample code and application specific patch.</p>
+<p>The following applications are generated:</p>
+<ul class="simple">
+<li><p>CHAINED - AES_CBC_SHA512 cipher/hash operation with 512KB buffer</p></li>
+<li><p>COMP - Dynamic Level 1 deflate compression with 32KB buffer</p></li>
+<li><p>DECOMP - Dynamic deflate compression with 128KB buffer</p></li>
+<li><p>PKE - RSA2048</p></li>
+<li><p>UCS - AES_XTS cipher with 512KB buffer</p></li>
+</ul>
+<dl class="simple">
+<dt>The build_binaries.sh assumes the following:</dt><dd><ul class="simple">
+<li><p>QAT2.0 driver is extracted to <code class="docutils literal notranslate"><span class="pre">/usr/local/src/QAT</span></code></p></li>
+<li><p>thermal_test archive is extracted in the directory specified above.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Update <code class="docutils literal notranslate"><span class="pre">ICP_ROOT</span></code> and <code class="docutils literal notranslate"><span class="pre">THERMAL_DIR</span></code> environmental variables in this script if different directories are used.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The patch files in this package were based on the QAT20.L.0.9.6-00024 package</p>
+</div>
+</section>
+<section id="thermal-tests-py">
+<h3>thermal_tests.py<a class="headerlink" href="#thermal-tests-py" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">thermal_tests.py</span></code> script is used to execute the thermal tests.  When the script is launched,
+the script detects QAT devices that are present on the system and creates default configuration that should result
+in the maximum power draw from the QAT endpoints.  A given QAT endpoint can have two of the three services enabled which
+includes asymmetric crypto, symmetric crypto, and data compression.   In terms of power draw, PKE operations and compression operations
+draw the largest power.</p>
+<p>The script is launched as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python thermal_tests.py</span>
+</pre></div>
+</div>
+<p>The output will look like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">1 : Display Current Configuration</span>
+<span class="go">2 : Load Configuration</span>
+<span class="go">3 : Run Test</span>
+<span class="go">4 : Exit</span>
+</pre></div>
+</div>
+<section id="display-current-configuration">
+<h4>Display Current Configuration<a class="headerlink" href="#display-current-configuration" title="Permalink to this headline"></a></h4>
+<p>Select <strong>1</strong> to display current configuration.  Output will look like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Current Configuration</span>
+<span class="go">Device          pke     chained usc     comp    decomp</span>
+<span class="go">=======================================================</span>
+<span class="go">qat_dev0        True    False   False   True    False</span>
+<span class="go">qat_dev1        True    False   False   True    False</span>
+<span class="go">qat_dev2        True    False   False   True    False</span>
+<span class="go">qat_dev3        True    False   False   True    False</span>
+<span class="go">qat_dev4        True    False   False   True    False</span>
+<span class="go">qat_dev5        True    False   False   True    False</span>
+<span class="go">qat_dev6        True    False   False   True    False</span>
+<span class="go">qat_dev7        True    False   False   True    False</span>
+</pre></div>
+</div>
+</section>
+<section id="load-configuration">
+<h4>Load Configuration<a class="headerlink" href="#load-configuration" title="Permalink to this headline"></a></h4>
+<p>Select <strong>2</strong> to load test configuration file.  Files should be placed in the same directory as the script.</p>
+<p>After the load is complete, the current test configuration is displayed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no error checking or format checking performed on the test configuration file. The file is expected to be in the proper format.</p>
+</div>
+<p>Here is an example of configuration that targets PKE only:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Select option:  2</span>
+<span class="go">Loading Device Configuration</span>
+<span class="go">Enter name of configuration file:</span>
+<span class="go">pke</span>
+<span class="go">Current Configuration</span>
+<span class="go">Device          pke     chained usc     comp    decomp</span>
+<span class="go">=======================================================</span>
+<span class="go">qat_dev0        True    False   False   False   False</span>
+<span class="go">qat_dev1        True    False   False   False   False</span>
+<span class="go">qat_dev2        True    False   False   False   False</span>
+<span class="go">qat_dev3        True    False   False   False   False</span>
+<span class="go">qat_dev4        True    False   False   False   False</span>
+<span class="go">qat_dev5        True    False   False   False   False</span>
+<span class="go">qat_dev6        True    False   False   False   False</span>
+<span class="go">qat_dev7        True    False   False   False   False</span>
+</pre></div>
+</div>
+</div></blockquote>
+<section id="test-configuration-file-format">
+<h5>Test Configuration File Format<a class="headerlink" href="#test-configuration-file-format" title="Permalink to this headline"></a></h5>
+<p>The format of the test configuration files is quite simple.</p>
+<blockquote>
+<div><p>qat_dev0,PKE,CHAINED,UCS,COMP,DECOMP</p>
+</div></blockquote>
+<p>The first entry on the line is the qat_device name.  The following values are either True or False
+and indicate whether we wish to test the given service on this QAT endpoint.</p>
+<p>Here is example config for the default configuration which enables PKE and COMP on each of the QAT endpoints:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qat_dev0,True,False,False,True,False</span>
+<span class="go">qat_dev1,True,False,False,True,False</span>
+<span class="go">qat_dev2,True,False,False,True,False</span>
+<span class="go">qat_dev3,True,False,False,True,False</span>
+<span class="go">qat_dev4,True,False,False,True,False</span>
+<span class="go">qat_dev5,True,False,False,True,False</span>
+<span class="go">qat_dev6,True,False,False,True,False</span>
+<span class="go">qat_dev7,True,False,False,True,False</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="run-test">
+<h4>Run Test<a class="headerlink" href="#run-test" title="Permalink to this headline"></a></h4>
+<p>The following steps are performed when <strong>Run Tests</strong> is specified.</p>
+<ul class="simple">
+<li><p>Validate Test Configuration</p></li>
+<li><p>Create QAT Configuration Files</p></li>
+<li><p>Copy QAT Configuration Files to /etc folder</p></li>
+<li><p>Create script that runs the test  (runTests.sh)</p></li>
+<li><p>Restart QAT devices</p></li>
+<li><p>Launch the test script</p></li>
+</ul>
+<section id="validate-test-configuration">
+<h5>Validate Test Configuration<a class="headerlink" href="#validate-test-configuration" title="Permalink to this headline"></a></h5>
+<p>The validate test configuration verifies that for each QAT endpoint, only two of the three services are active.
+Current implementation of the tests simply flag invalid configuration.  Test will still run, with only two services being enabled
+for the endpoint</p>
+</section>
+<section id="create-qat-configuration-files">
+<h5>Create QAT Configuration Files<a class="headerlink" href="#create-qat-configuration-files" title="Permalink to this headline"></a></h5>
+<p>Based on the current test configuration, the QAT configuration files are created and placed in the ./conf folder</p>
+</section>
+<section id="runtests-sh">
+<h5>runTests.sh<a class="headerlink" href="#runtests-sh" title="Permalink to this headline"></a></h5>
+<p>runTests.sh script is generated and placed in the ./ directory.  The runTests script for the default test configuration looks like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./bin/PKE runTests=2 cyAsymLoops=40000 &amp;</span>
+<span class="go">./bin/COMP runTests=32 dcLoops=50000 &amp;</span>
+</pre></div>
+</div>
+<p>To run the test for longer duration, increase the Loop count specified on the commands above.
+If the same test configuration is used, there is no need to run the <strong>thermal_tests.py</strong> script again,
+<strong>runTests.sh</strong> can be run directly.</p>
+</section>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

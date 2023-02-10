@@ -1,0 +1,150 @@
+.. _qat_2.0_pg_configuration_files_general-section:
+
+General Section
+===============
+
+The general section of the configuration file contains general parameters and statistics parameters.
+
+.. note:: 
+    
+    *Default* denotes the value in the configuration file when shipped or the value used if not specified in the configuration file.
+
+This table describes the other parameters that can be included in the General section.
+
+.. table:: General Section Parameters
+    :widths: 35, 40, 10, 15 
+
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | **Parameter**                    | **Description**                                                                                              | **Default**  | **Range**                                                                                    |
+    +==================================+==============================================================================================================+==============+==============================================================================================+
+    | ``ServicesEnabled``              | Defines the service(s) available (cryptographic [cy], symmetric [sym], asymmetric [asym],                    | <varies>     | sym, asym, cy, dc                                                                            |
+    |                                  | data compression [dc]).                                                                                      |              |                                                                                              |
+    |                                  |                                                                                                              |              | Note: Multiple values permitted, use; as the delimiter.                                      |
+    |                                  | Please refer to `ServicesEnabled <#servicesenabled>`__ for additional details.                               |              |                                                                                              |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``ServicesProfile``              | Specifies the services that are available when the driver loads.                                             | Default      | See `ServicesProfile <#servicesprofile>`__ for additional details.                           |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``CyNumConcurrentSymRequests``   | Specifies the number of cryptographic concurrent symmetric requests for cryptographic instances in general.  | 512          | 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536                            |
+    |                                  |                                                                                                              |              |                                                                                              |
+    |                                  | Please refer to `Concurrent Requests <#concurrent-requests>`__ for additional details.                       |              |                                                                                              |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``CyNumConcurrentAsymRequests``  | Specifies the number of cryptographic concurrent asymmetric requests for cryptographic instances in general. | 64           | 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536                            |
+    |                                  |                                                                                                              |              |                                                                                              |
+    |                                  | Please refer to `Concurrent Requests <#concurrent-requests>`__ for additional details.                       |              |                                                                                              |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``DcNumConcurrentRequests``      | Specifies the number of data compression concurrent requests for data compression instances in general.      | 512          | 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536                            |
+    |                                  |                                                                                                              |              |                                                                                              |
+    |                                  | Please refer to `Concurrent Requests <#concurrent-requests>`__ for additional details.                       |              |                                                                                              |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``DcIntermediateBufferSizeInKB`` | Specifies the size in KB of each intermediate buffer in on-chip memory for dynamic compression.              | 64           | 32 or 64                                                                                     |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``HeartbeatTimer``               | Default heartbeat timer.                                                                                     | 1000         | > 200                                                                                        |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``AutoResetOnError``             | Automatically resets the device in case of fatal error or heartbeat failure.                                 | 0            | 0 or 1                                                                                       |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``PmIdleInterruptDelay``         | Default value for power management idle interrupt delay.                                                     | 512          |                                                                                              |
+    |                                  |                                                                                                              |              |                                                                                              |
+    |                                  | Please refer to `Power Management Parameters <#power-management-parameters>`__ for additional details.       |              |                                                                                              |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``PmIdleSupport``                | This flag is to enable power management idle support.                                                        | 1            | 0 or 1                                                                                       |
+    |                                  |                                                                                                              |              |                                                                                              |
+    |                                  | Please refer to `Power Management Parameters <#power-management-parameters>` for additional details.         |              |                                                                                              |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+    | ``SVMEnabled``                   | This flag is to enable SMV support.                                                                          | 0            | 0 or 1                                                                                       |
+    |                                  |                                                                                                              |              |                                                                                              |
+    |                                  | Please refer to :ref:`Shared Virtual Memory <shared_virtual_memory>` for additional details.                 |              |                                                                                              |
+    +----------------------------------+--------------------------------------------------------------------------------------------------------------+--------------+----------------------------------------------------------------------------------------------+
+
+ServicesEnabled
+---------------
+
+Additional details on the ``ServicesEnabled`` parameter:
+
+- This parameter is valid for all QAT devices.
+- Default value varies depending on the underlying QAT Endpoint.
+- ``cy`` is not valid value for QAT2.0 devices. ``asym`` and ``sym`` are used.
+- Only two of the three services (``asym``, ``sym``, and ``dc``) may be enabled on an individual QAT2.0 Endpoints.
+
+Performance Considerations
+++++++++++++++++++++++++++
+
+In order to maximize QAT throughput performance for a given service type, one should specify ONLY that service type parameter for ServicesEnabled.
+
+For example, in a system with 8 AEs:
+
+While using VFs on a system configured for ``ServicesEnabled = sym;dc`` , 4 acceleration engines will be dedicated to SYM and 4 acceleration engines will be dedicated to DC, so only 2 resource providers per child VF can be used for SYM. Here, we should expect some performance degradation for SYM (even if DC is not used).
+
+While using VFs on a system configured for ``ServicesEnabled = sym`` , all 8 acceleration engines will be dedicated to SYM, so all 4 resource providers of a child VF can be used for SYM only. Here, we will see the best SYM performance.
+
+Packet size will also mitigate the impact of the above configuration settings.  One may also be able to achieve full performance using a lower number of ring pairs.
+
+.. _services_profile:
+
+ServicesProfile
+---------------
+
+.. important::
+    
+    This parameter is valid for QAT1.7x devices.
+
+The ``ServicesProfile`` parameter defines the services that are available when the driver loads. For example, if ``ServicesProfile = COMPRESSION`` is in the General section, 
+the compression and decompression are available, along with service chaining, but not cryptography.
+
+.. note:: 
+    When a ``ServicesProfiles`` parameter value is used that supports rate limiting is defined, internal resources are reallocated to administrating Rate Limiting/Device Utilization. This reduces performance by roughly 5%.
+
+General Default Configuration Parameters
+++++++++++++++++++++++++++++++++++++++++
+
+.. table:: General Default Configuration Parameters
+
+    ========================= =========== ========== =============== ===========
+    **Service**               **DEFAULT** **CRYPTO** **COMPRESSION** **CUSTOM1**
+    ========================= =========== ========== =============== ===========
+    Asymmetric Crypto         YES         YES                        YES
+    Symmetric Crypto          YES         YES                        YES
+    Hash                      YES         YES        YES             YES
+    Cipher                    YES         YES                        YES
+    MGF KeyGen                YES         YES               
+    SSL/TLS KeyGen            YES         YES                        YES
+    HKDF                                  YES                        YES
+    Compression               YES                    YES             YES
+    Decompression (stateless) YES                    YES             YES
+    Decompression (stateful)  YES                    YES        
+    Service Chaining                                 YES        
+    Device Utilization                    YES        YES             YES
+    Rate Limiting                         YES        YES             YES
+    ========================= =========== ========== =============== ===========
+
+.. note:: Set the service profile to determine available features.
+
+
+Concurrent Requests
+-------------------
+
+Additional details on the concurrent request parameters:
+
+- This parameter is valid for all QAT devices.
+- The concurrent request parameters include both Transmit (Tx) and  Receive (Rx) requests.
+- For each service enabled, ``NumConcurrentRequests`` must be set to value from the range.
+- The number of concurrent requests registered by the Intel\ :sup:`®` QuickAssist driver is set to ``NumConcurrentRequests - 2``.
+
+This implementation guarantees that the request ring will never be full and avoids the need for a Memory Mapped IO (MMIO) read. This implementation maximizes throughput performance.
+
+Power Management Parameters
+---------------------------
+
+.. important:: 
+    
+    This parameter is valid for QAT2.0 devices.
+
+Power management configuration is included in the device configuration file (i.e. ``/etc/4xxx_devX.conf`` where ``X`` is the 0-based index of 
+the device.) 
+
+Power management configurations parameters include:
+
+- ``PmIdleInterruptDelay`` - Configure power management interrupt delay from the system to QAT driver in millisecond(s). The default value is 512 milliseconds.
+
+- ``PmIdleSupport`` - Configure the device to enable/disable power management idle supporting. Power management idle support is enabled by default.
+
+Refer to the :ref:`Power Management <qat_2.0_pg_infrastructure_power_management>` section for additional details.

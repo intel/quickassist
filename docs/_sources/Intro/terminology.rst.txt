@@ -1,0 +1,279 @@
+.. _qat_2.0_terminology:
+
+Terminology
+===========
+
+.. glossary::
+
+    ADF
+        Acceleration Driver Framework.
+
+    AEAD
+        Authenticated Encryption With Associated Data.
+
+    AES
+        Advanced Encryption Standard.
+    
+    API
+        Application Programming Interface.
+    
+    ASIC
+        Application Specific Integrated Circuit.
+    
+    BDF
+        Bus Device Function.
+    
+    BIOS
+        Basic Input/Output System.
+    
+    BMSM
+        Broad Market Switch Mode.
+    
+    BOM
+        Bill of Materials.
+    
+    BSD
+        Berkeley Software Distribution.
+    
+    BTS
+        Base Transceiver Station.
+    
+    CBC
+        Cipher Block Chaining mode.
+    
+    CCM
+        Counter with CBC-MAC mode.
+    
+    CLI
+        Command Line Interface.
+    
+    CSR
+        Configuration Status Register.
+    
+    CnV
+        Compress and Verify.
+    
+    CnVnR
+        Compress and Verify and Recover.
+    
+    CPK
+        Columbia Park.
+    
+    C-States
+        C-States are advanced CPU current lowering technologies.
+    
+    CY
+        Cryptography.
+    
+    DC
+        Data Compression.
+    
+    DID
+        Device ID.
+    
+    DMA
+        Direct Memory Access.
+    
+    DPDK
+        Data Plane Development Kit.
+    
+    DRAM
+        Dynamic Random Access Memory.
+    
+    DSA
+        Digital Signature Algorithm.
+    
+    DTLS
+        Datagram Transport Layer Security.
+    
+    ECC
+        Elliptic Curve Cryptography.
+    
+    ECDH
+        Elliptic Curve Diffie-Hellman.
+    
+    ESP
+        Encapsulating Security Payload.
+    
+    EVP
+        Envelope (OpenSSL* high-level cryptographic functions).
+    
+    FLR
+        Function Level Reset.
+    
+    FW
+        Firmware.
+    
+    GCM
+        Galois/Counter Mode.
+    
+    GigE
+        Gigabit Ethernet.
+    
+    GPL
+        General Public License.
+    
+    GRUB
+        GRand Unified Bootloader.
+    
+    GUI
+        Graphical User Interface.
+    
+    HLP
+        Highland Park.
+    
+    HMAC
+        Hash-based Message Authentication Mode.
+
+    IA
+        Intel® Architecture.
+    
+    IDS/IPS
+        Intrusion Detection System/Intrusion Prevention System.
+    
+    IEEE
+        Institute of Electrical and Electronics Engineers.
+    
+    IKE
+        Internet Key Exchange.
+    
+    Intel® QAT
+        Intel® QuickAssist Technology.
+    
+    Intel® SpeedStep® Technology
+        Advanced means of enabling very high performance while also meeting the power-conservation needs of mobile systems.
+    
+    Intel® VT
+        Intel® Virtualization Technology.
+    
+    IOCTL
+        Input Output Control function.
+    
+    IOMMU
+        Input-Output Memory Management Unit.
+    
+    IPSec
+        Internet Protocol Security.
+    
+    KVM
+        Kernel-based Virtual Machine.
+    
+    LAC
+        LookAside Crypto.
+    
+    Latency
+        The time between the submission of an operation via the QuickAssist API and the completion of that operation.
+    
+    LKCF
+        Linux* Kernel Cryptographic Framework.
+    
+    MGF
+        Mask Generation Function.
+    
+    MSI
+        Message Signaled Interrupts.
+    
+    NUMA
+        Non-uniform Memory Access.
+    
+    Offload Cost
+        This refers to the cost, in CPU cycles, of driving the hardware accelerator. This cost includes the cost of submitting an operation via the Intel® QuickAssist API and the cost of processing responses from the hardware.
+    
+    OP Data
+        Operational Data.
+    
+    OS
+        Operating System.
+    
+    PCH
+        Platform Controller Hub. In this manual, a Platform Controller Hub device includes standard interfaces and Intel® QAT Endpoint and I/O interfaces.
+    
+    PCI
+        Peripheral Component Interconnect.
+    
+    PF
+        Physical Function.
+    
+    PKE
+        Public Key Encryption.
+    
+    PMD
+        Poll Mode Driver.
+    
+    RAS
+        Reliability, Availability, Serviceability.
+    
+    RDK
+        Reference Design Kit.
+    
+    RHEL*
+        Red Hat Enterprise Linux*.
+    
+    RSA
+        Rivest-Shamir-Adleman.
+    
+    SAL
+        Service Access Layer.
+    
+    SATA
+        Serial Advanced Technology Attachment.
+    
+    SGL
+        Scatter-Gather List.
+    
+    SHA
+        Secure Hash Algorithm.
+    
+    sIOV
+        Intel® Scalable I/O Virtualization
+    
+    SoC
+        System-on-a-Chip.
+    
+    SOL
+        Sign-Of-Life.
+    
+    SPI
+        Serial Peripheral Interconnect.
+    
+    SR-IOV
+        Single-Root Input/Output Virtualization.
+    
+    SSC
+        Storage Subsystem Class.
+    
+    SSL
+        Secure Sockets Layer.
+    
+    SYM
+        Symmetric Crypto.
+    
+    TCG
+        Trusted Computing Group.
+    
+    Throughput
+        The accelerator throughput usually expressed in terms of either requests per second or bytes per second.
+    
+    TLS
+        Transport Layer Security.
+    
+    TPM
+        Trusted Platform Module.
+    
+    UDP
+        User Datagram Protocol.
+    
+    USDM
+        User Space DMA-able Memory.
+    
+    VF
+        Virtual Function.
+    
+    VM
+        Virtual Machine.
+    
+    VPN
+        Virtual Private Network.
+    
+    WAN
+        Wide Area Network.

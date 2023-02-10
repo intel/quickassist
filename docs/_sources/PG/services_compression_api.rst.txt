@@ -1,0 +1,992 @@
+.. _qat_2.0_pg_services_compression:
+
+Data Compression
+================
+
+Compresion Features
+-------------------
+
+* Deflate Compression Algorithm.
+* LZ77 and Huffman Encoding.
+* LZ4/LZ4s Compression Algorithm.
+* Compress and Verify.
+* Checksums.
+* Programmable CRC64.
+
+Compression Limitations
+-----------------------
+
+* Stateful compression is not supported.
+* Stateful decompression is not supported on QAT2.0 hardware devices.
+* Batch and Pack (BnP) compression is not supported. 
+  
+Compression Session Setup
+-------------------------
+
+The following table lists the properties that should be configured in the ``CpaDcSessionSetupData`` structure depending on the compression algorithm requested.
+
+.. table:: Compression CpaDcSessionSetupData Properties
+
+   +------------------------------------+-----------------------+
+   | **Property**                       | **Details**           |
+   +====================================+=======================+
+   | ``CpaDcCompLvl compLevel``         | Properties common to  | 
+   +------------------------------------+ all algorithms        |
+   | ``CpaDcCompType compType``         |                       |
+   +------------------------------------+                       |
+   | ``CpaDcAutoSelectBest``            |                       |
+   | ``autoSelectBestHuffmanTree``      |                       |
+   +------------------------------------+                       |
+   | ``CpaDcSessionDir sessDirection``  |                       |
+   +------------------------------------+                       |
+   | ``CpaDcSessionState sessState``    |                       |
+   +------------------------------------+                       |
+   | ``CpaDcCompWindowSize windowSize`` |                       |
+   +------------------------------------+                       |
+   | ``CpaDcChecksum checksum``         |                       |
+   +------------------------------------+-----------------------+
+   | ``CpaDcHuffType huffType``         | Deflate specific      |
+   +------------------------------------+-----------------------+
+   | ``CpaDcCompLZ4BlockMaxSize``       | LZ4 specific          |
+   | ``lz4BlockMaxSize``                |                       |
+   +------------------------------------+                       |
+   | ``CpaBoolean lz4BlockChecksum``    |                       |
+   +------------------------------------+                       |
+   | ``CpaBoolean lz4BlockIndependence``|                       |
+   +------------------------------------+                       |
+   | ``CpaBoolean accumulateXXHash``    |                       |
+   | (currently unsupported)            |                       |
+   +------------------------------------+-----------------------+
+   | ``CpaDcCompMinMatch minMatch``     | LZ4s specific         |
+   +------------------------------------+-----------------------+
+
+.. note:: 
+   
+   Should the application use no-session API ``cpaDcNsCompressData()``, the properties listed above are available in the ``CpaDcNsSetupData`` data structure.
+
+Decompression Session Setup
+---------------------------
+
+The following table lists the properties that should be configured in the ``CpaDcSessionSetupData`` structure depending on the format of the payload to decompression.
+
+.. table:: Decompression CpaDcSessionSetupData Properties
+
+   +------------------------------------+-------------+----------+
+   | **Property**                       | **Deflate** | **LZ4**  |
+   +====================================+=============+==========+
+   | ``CpaDcCompType compType``         | Yes         | Yes      |
+   +------------------------------------+-------------+----------+
+   | ``CpaDcSessionDir sessDirection``  | Yes         | Yes      |
+   +------------------------------------+-------------+----------+
+   | ``CpaDcSessionState sessState``    | Yes         | Yes      |
+   +------------------------------------+-------------+----------+
+   | ``CpaDcCompWindowSize windowSize`` | Yes         | Yes      |
+   +------------------------------------+-------------+----------+
+   | ``CpaDcChecksum checksum``         | Yes         | Yes      |
+   +------------------------------------+-------------+----------+
+
+Deflate Decompression
++++++++++++++++++++++
+
+With deflate based format such as Gzip the application is required to skip the GZip header and present to Intel\ :sup:`®` QAT the first byte of the deflate block.
+
+.. figure:: ./../../img/deflate_decompression.png
+  :width: 600
+
+When the *Deflate Block #3* is processed, the property ``endOfLastBlock`` in the ``CpaDcRqResults`` structure will be set to ``CPA_TRUE``. This notifies the application that no more data can be decompressed. At this point, the session must be either removed and re-initialized, or reset.   
+With an application handling multi-gzip data, the both the Gzip footer and Gzip header must be skipped.
+
+LZ4 Decompresion
+++++++++++++++++
+
+When decompressing LZ4 frames, the application is required to parse the frame header to extract ``B.Checksum`` flag. This flag is used to set the configuration parameter ``lz4BlockChecksum`` in ``CpaDcSessionSetupData``. When decompressing LZ4 frames, the application should not include the frame header nor the frame footer in the source buffer to be processed by Intel\ :sup:`®` QAT hardware.
+
+.. figure:: ./../../img/lz4_decompression.png
+  :width: 600
+
+.. NOTE:: 
+   
+   In decompression direction, the property ``endOfLastBlock`` removes the need for the application to know where the last block ends. The QAT hardware will stop after processing the last block. This applies to both GZIP and LZ4 formats.
+
+LZ4 Decompression Limitations
++++++++++++++++++++++++++++++
+
+When decompressing LZ4 data compressed without Intel\ :sup:`®` QAT  hardware, it is important to ensure that the compressor limits the history buffer to 32KB. Data compressed using a history buffer larger than 32KB will result with a ``CPA_DC_INVALID_DIST (-10)`` error code.
+
+Multi-frame decompression support
++++++++++++++++++++++++++++++++++
+
+Intel\ :sup:`®` QAT hardware can decompress a payload that includes multiple frames. This applies to both Gzip and LZ4 formats. The figure below shows how the application must behave to decompress LZ4 multi frame payloads.
+
+.. figure:: ./../../img/multi-frame_decompression.png
+  :width: 800
+
+Performance Considerations
+--------------------------
+
+To enable the application benefiting from the QAT2.0 HW maximal performance, it is recommended to populate all the DIMMs around the CPU sockets in use.  
+
+Flush Flags
+-----------
+
+The table below shows the flush flags that should be used depending on the application’s use case. The application programming model should follow this table.
+
+.. table:: Flush Flags
+   :widths: 20, 30, 25, 25
+
+   +-------------------------+------------------------------------------------------------+--------------------------+------------------------+
+   | **Algorithm**           | **Use Case**                                               | **Intermediate Request** | **Last Request**       |
+   +=========================+============================================================+==========================+========================+
+   | Deflate                 | Stateless compression                                      | ``CPA_DC_FLUSH_FULL``    | ``CPA_DC_FLUSH_FINAL`` |
+   |                         |                                                            |                          | to set BFinal          |
+   |                         +------------------------------------------------------------+--------------------------+------------------------+
+   |                         | Stateless decompression                                    | ``CPA_DC_FLUSH_FINAL``   |                        |
+   |                         +------------------------------------------------------------+--------------------------+------------------------+
+   |                         | Stateful decompression (QAT1.X devices only)               | ``CPA_DC_FLUSH_SYNC``    | ``CPA_DC_FLUSH_FINAL`` |
+   +-------------------------+------------------------------------------------------------+--------------------------+------------------------+
+   | LZ4                     | Stateless compression with accumulateXxHash = CPA_FALSE    | ``CPA_DC_FLUSH_FINAL``   | ``CPA_DC_FLUSH_FINAL`` |
+   |                         +------------------------------------------------------------+--------------------------+------------------------+
+   |                         | Stateless compression with accumulateXxHash = CPA_TRUE     | ``CPA_DC_FLUSH_FULL``    | ``CPA_DC_FLUSH_FINAL`` |
+   |                         +------------------------------------------------------------+--------------------------+------------------------+
+   |                         | Stateless decompression                                    | ``CPA_DC_FLUSH_FINAL``   | ``CPA_DC_FLUSH_FINAL`` |
+   +-------------------------+------------------------------------------------------------+--------------------------+------------------------+
+   | LZ4s                    | Stateless compression                                      | ``CPA_DC_FLUSH_FINAL``   | ``CPA_DC_FLUSH_FINAL`` |
+   +-------------------------+------------------------------------------------------------+--------------------------+------------------------+
+
+.. Note::
+   
+   QAT1.X hardware devices still support stateful decompression operations. QAT2.0 hardware device only supports stateless operations. 
+
+Checksums
+---------
+
+With the addition of LZ4 algorithm support on QAT2.0, the compression hardware accelerators are now capable to generate XXash32 checksums. QAT2.0 device is now supporting the following checksums:
+
+.. table:: Checksums
+
+   +-------------------+---------------------------+
+   | **Checksum Type** | **Usage**                 |
+   +===================+===========================+
+   | CRC32             | Required for GZip support |
+   +-------------------+---------------------------+
+   | Adler32           | Required for Zlib support |
+   +-------------------+---------------------------+
+   | XXhash32          | Required for LZ4 support  |
+   +-------------------+---------------------------+
+
+.. Note:: 
+   
+   In the event the *XXHash32* checksum should be reset, it must be done calling the API ``cpaDcResetXXHashState()``.
+
+LZ4s Compressed Data Block format
+---------------------------------
+
+LZ4s is a variant of LZ4 block format. LZ4s should be considered as an intermediate compressed block format. The LZ4s format is selected when the application sets the ``compType`` to ``CPA_DC_LZ4S`` in ``CpaDcSessionSetupData``.
+The LZ4s block returned by the Intel\ :sup:`®` QAT hardware can be used by an external software post-processing to generate other compressed data formats.
+
+The following table lists the differences between LZ4 and LZ4s block format. LZ4s block format uses the same high-level formatting as LZ4 block format with the following encoding changes:
+
+.. table:: Differences between LZ4 and LZ4s block format
+   :widths: 20, 30, 50
+
+   +-----------------+---------------------------+---------------------------------+
+   | **Feature**     | **LZ4**                   | **LZ4s**                        |
+   +=================+===========================+=================================+
+   | Sequence Header |   4-bit copy length       | Same as LZ4                     |             
+   |                 |   4-bit literal length    |                                 |
+   +-----------------+---------------------------+---------------------------------+
+   | Copy Length     | Length 4-19 bytes         | Copy length value of 0 means    | 
+   |                 | (encoding values 0-15),   | no copy                         |
+   |                 |                           | with this sequence.             |
+   |                 | 19 bytes adds an extra    | For Min Match of 3 bytes, Copy  |
+   |                 | byte with value 0x00.     | length value 1-15 means length  |
+   |                 |                           | 3-17 with 17 bytes adding an    |
+   |                 |                           | extra byte with value 0x00.     |
+   |                 |                           |                                 |
+   |                 |                           | For Min Match of 4 bytes, Copy  |
+   |                 |                           | length value 1-15 means length  |
+   |                 |                           | 4-18 with 18 bytes adding an    |
+   |                 |                           | extra byte with value 0x00.     |
+   +-----------------+---------------------------+---------------------------------+
+
+.. Note:: 
+   
+   - LZ4 requires a copy/token in every sequence, except the last sequence.
+   - The last sequence in block does not contain a copy in both LZ4 and LZ4s.
+   
+LZ4s encoding creates a single block of compressed data per request. This is different from LZ4 which creates multiple blocks defined by the LZ4 max block size setting. An LZ4s block is only made of LZ4s sequences. 
+
+A sequence in LZ4s can contain:
+
+* Only a token.
+* Only literals.
+* A token and literals.
+
+Any of the sequence types can exist anywhere in the LZ4s block. The last LZ4s sequence in the LZ4s block shall satisfy the end-of-block restrictions outlined in the LZ4 specification.
+
+LZ4 Compression Support
++++++++++++++++++++++++
+
+With the QAT 2.0 API, the application can create LZ4 frames. This is achieved using APIs ``cpaDcGenerateHeader()`` and ``cpaDcGenerateFooter()``. These APIs are also able to generate GZip and Zlib formats. More information is available in the API reference manual.
+
+The ``cpaDcGenerateHeader()`` creates a 7 byte LZ4 frame header which includes:
+
+* Magic number 0x184D2204.
+* The LZ4 max block size defined in the ``CpaDcSessionSetupData``.
+* Flag byte as:
+
+   * Version = 1
+   * Block independence = 0
+   * Block checksum = 0
+   * Content size present = 0
+   * Content checksum present = 1
+   * Dictionary ID present = 0
+
+* Content size = 0
+* Dictionary ID = 0
+* Header checksum = 1 byte representing the second byte of the XXH32 of the frame descriptor field.
+
+The ``cpaDcGenerateFooter()`` API must be used after processing all the requests. This API must be called last to append the frame footer. The ``cpaDcGenerateFooter()`` API creates an 8 byte frame footer adding both the end marker (4 bytes set to 0x00) and the XXHash32 checksum computed by Intel\ :sup:`®` QAT hardware.  
+
+Compress-and-Verify
+-------------------
+
+The Compress and Verify (CnV) feature checks and ensures data integrity in the compression
+operation of the Data Compression API. This feature introduces an independent capability to
+verify the compression transformation.
+
+Refer to Intel\ :sup:`®` QuickAssist Technology Data Compression API Reference Manual. 
+
+.. Note:: 
+   
+   - CnV is always enabled via the compression APIs (``cpaDcCompressData()``, ``cpaDcCompressData2()``, ``cpaDcNsCompressData()``, ``cpaDcDpEnqueueOp()``).
+   - CnV supports compression operations only.
+   - The ``compressAndVerify`` flag in the ``CpaDcDpOpData`` structure should be set to ``CPA_TRUE`` when using the ``cpaDcDpEnqueueOp()`` or ``cpaDcDpEnqueueOpBatch()`` API. 
+
+.. _compress_verify_error_sysfs:
+
+Compress and Verify Error log in Sysfs
+++++++++++++++++++++++++++++++++++++++
+
+The implementation of the Compress and Verify solution keeps a record of the CnV errors that have occurred since the driver was loaded. 
+The error count is provided on a per Acceleration Engine basis.
+
+The path to the CnV error log is: ``/sys/kernel/debug/qat_<qat_device>_<Bus>\:<device>.<function>/cnv_errors``
+
+Each Acceleration Engine keeps a count of the CnV errors. The CnV error counter is reset when the driver is loaded. The tool also reports the last error type that caused a CnV error.
+
+Compress and Verify and Recover (CnVnR) 
++++++++++++++++++++++++++++++++++++++++
+
+The Compress and Verify and Recover (CnVnR) feature allows a compression error to be recovered in a seamless manner. It is supported in both the Traditional and in the Data Plane APIs.
+
+The CnVnR feature is an enhancement of the Compress and Verify (CnV) solution. When a compress and verify error is detected, the Intel\ :sup:`®` QAT software will do a 
+correction without returning a CnV error to the application.
+
+When a recovery occurs, ``CpaDcRqResults.status`` will return ``CPA_DC_OK`` or ``CPA_DC_OVERFLOW`` and the destination buffer will hold valid deflate data.
+
+The application can find out if CnVnR is supported by querying the instance capabilities via the ``cpaDcQueryCapabilities`` API. On completion, the 
+``compressAndVerifyAndRecover`` property of the ``CpaDcInstanceCapabilitie: ..\image:: ./s`` structure will be set to ``CPA_TRUE`` if the feature is supported.
+
+.. table:: Compress and Verify and Recover (CnVnR) Behaviors
+   :widths: 30, 70
+
+   +---------------------------+--------------------------------------------------------+
+   | **API**                   | **CnVnR Behavior**                                     |
+   +===========================+========================================================+
+   | ``cpaDcCompressData``     | Enabled by default, no option to disable.              |
+   +---------------------------+--------------------------------------------------------+
+   | ``cpaDcCompressData2``    | CnVnR is enabled when ``compressAndVerifyAndRecover``  |
+   |                           | property is set to ``CPA_TRUE`` in ``CpaDcDpOpData``   |
+   |                           | structure.                                             |
+   +---------------------------+--------------------------------------------------------+
+   | ``cpaDcNsCompressData``   | CnVnR is enabled by default.                           |
+   +---------------------------+--------------------------------------------------------+
+   | ``cpaDcDecompressData``   | Not applicable                                         |
+   +---------------------------+--------------------------------------------------------+
+   | ``cpaDcDecompressData2``  | Not applicable                                         |
+   +---------------------------+--------------------------------------------------------+
+   | ``cpaDcNsDecompressData`` | Not applicable                                         |
+   +---------------------------+--------------------------------------------------------+
+   | ``cpaDcDpEnqueueOp``      | CnVnR is enabled when ``compressAndVerifyAndRecover``  |
+   |                           | property is set to ``CPA_TRUE`` in ``CpaDcDpOpData``   |
+   |                           | structure.                                             |
+   +---------------------------+--------------------------------------------------------+
+   | ``cpaDcDpEnqueueOpBatch`` | CnVnR is enabled when ``compressAndVerifyAndRecover``  |
+   |                           | property is set to ``CPA_TRUE`` in ``CpaDcDpOpData``   |
+   |                           | structure.                                             |
+   +---------------------------+--------------------------------------------------------+
+
+When a CnV recovery takes place, the Intel\ :sup:`®` QAT software creates a stored block out of the input payload that could not be compressed. The maximal size of a stored block allowed by the deflate standard is 65,535 bytes.
+
+.. figure:: ./../../img/cnvnr1_updated.png
+   :width: 978px
+   :height: 220px
+
+When a stored block is created, the DEFLATE header specifies that the data is uncompressed so that the
+decompressor does not attempt to decode the cleartext data that follows the header. The size of a stored block can be
+defined as: *Stored block size = Source buffer size + 5 Bytes* (used for the deflate header).
+
+The recovery behaves differently on QAT2.0 than on QAT1.X devices. With QAT1.X devices, the recovery creates only one stored block, If the stored block size exceeds 65,535 bytes, the Intel\ :sup:`®` QAT solution creates one stored block of 65,535 bytes and ``CpaDcRqResults.status`` returns ``CPA_DC_OVERFLOW``.  
+On QAT2.0 device, when the recovery takes place, multiple stored blocks are created. This improvement was added to avoid the application having to handle the overflow.
+
+**CnV Recovery with LZ4 compression**
+
+When LZ4 compression is used, QAT software will generate an uncompressed LZ4 block in the event of a recovery. The LZ4 uncompressed block will have bit <31> set in the block header followed by the cleartext in the data section of the block.
+
+**CnV Recovery with LZ4s compression**
+
+LZ4s algorithm is an Intel\ :sup:`®` specific format. LZ4s  payloads do not have a block header like LZ4. When a CnV recovery occurs, the source data will be copied to the destination and ``dataUncompressed`` property will be set to ``CPA_TRUE`` in ``CpaDcRqResults`` structure.
+
+**Counting Recovered Compression Errors**
+
+The Intel\ :sup:`®` QAT API has been updated to allow the application to track recovered compression errors. The ``CpaDcStats`` data structure has a new property called ``numCompCnvErrorsRecovered`` 
+that is incremented every time a compression recovery happens.
+
+The compression recovery process is agnostic to the application. 
+
+``CpaDcRqResults.status`` returns ``CPA_DC_OK`` when a compression recovery takes place. The only way to know if a compression recovery took place on the current request is to call the ``cpaDcGetStats()`` API and to monitor ``CpaDcStats.numCompCnvErrorsRecovered``.
+
+Dynamic Compression
+-------------------
+
+Dynamic compression involves feeding the data produced by the compression hardware block to the translator hardware block.
+
+.. figure:: ./../../img/dynamic_compression_updated.png
+   :width: 979px
+   :height: 160px
+
+When the application selects the Huffman type to ``CPA_DC_HT_FULL_DYNAMIC`` in the session and auto-select best feature is set to ``CPA_DC_ASB_DISABLED``, the compression service may not always produce 
+a deflate stream with dynamic Huffman trees.
+
+When using QAT2.0 device, it is no longer required to allocate intermediate buffers. The API ``cpaDcGetNumIntermediateBuffers()`` returns 0. As a good programming practise, the application should still call ``cpaDcGetNumIntermediateBuffers()`` and ensure that the number of intermediate buffers returned is 0.
+
+Maximum Expansion with Auto Select Best Feature (ASB)
+-----------------------------------------------------
+
+Compressing some input data may lead to a lower-than-expected compression ratio. This is because the input data may not be very compressible. To achieve a maximum compression ratio, 
+the acceleration unit provides an auto select best (ASB) feature. 
+
+With QAT1.X devices, the Intel\ :sup:`®` QuickAssist Technology hardware will first execute static compression followed by dynamic compression and then select the output that yields the best compression ratio.
+
+With QAT2.0 devices, the behaviour is different. ASB features chooses between a static and a stored block. ASB features with choose the block type that offers the best compression ratio.
+
+Regardless of the ASB setting selected, dynamic compression will only be attempted if the session is configured for dynamic compression.
+
+.. table:: ASB Settings
+
+   +-------------------------+-----------------------+
+   | **Setting**             | **Description**       |
+   +=========================+=======================+
+   | ``CPA_DC_ASB_DISABLED`` | ASB mode is disabled. |
+   +-------------------------+-----------------------+
+   | ``CPA_DC_ASB_ENABLED``  | ASB mode is enabled.  |
+   +-------------------------+-----------------------+
+
+.. Note:: 
+   
+   - Setting ASB mode to ``CPA_DC_ASB_ENABLED``, corresponds to the setting ``CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_STORED_HDRS``.
+   - These ASB modes have been deprecated:
+
+      * ``CPA_DC_ASB_STATIC_DYNAMIC``
+      * ``CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_STORED_HDRS``
+      * ``CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_NO_HDRS``
+   
+   - Based on the ASB settings, the produced data returned in the ``CpaDcRqResults`` structure will vary.
+
+.. _maximum_compression_expansion:
+
+Maximum Compression Expansion
+-----------------------------
+
+To facilitate the programming model of the application, Intel\ :sup:`®` added a new set of APIs that return the size of the destination according to the algorithm used. 
+
+These APIs are:
+
+* ``cpaDcDeflateCompressBound()``
+* ``cpaDcLZ4CompressBound()``
+* ``cpaDcLZ4SCompressBound()``
+
+This new set of APIs will return to the application the size of the destination buffer that must be allocated to avoid an overflow exception. Each function initializes the ``outputSize`` parameter. The ``outputSize`` parameter takes into account the maximal expansion that the compressed data size can reach.   
+The returned ``outputSize`` value must be used both to allocate the size of the ``pData`` and to initialize the ``dataLenInBytes`` in the ``CpaBufferList`` structure. 
+
+.. Note:: 
+   
+   Each one of the ``compressBound()`` APIs accepts as a parameter the instance handle. The instance handle is used internally by the library to determine on which hardware version the instance lives on. The size of the destination buffer to be allocated depends on the hardware generation the instance lives on.
+
+No Session API
+--------------
+
+The no session API is a simplification of the existing compression and decompression APIs that does not require the application to create/remove a session. Instead the parameters that would normally be set when creating a session are passed into the compress/decompress APIs via a ``CpaDcNsSetupData`` structure.
+The no session API is especially useful to simplify existing applications as sessions no longer need to be created/tracked/removed. The no session API can be thought of as a "one shot" API and is intended for use cases where all the data to be compressed or decompressed for the current job is being submitted as one request. In addition to the simpler protocol, the API has a smaller memory footprint.
+
+The no session API consists of the following API calls:
+
+* ``cpaDcNsCompressData()``
+* ``cpaDcNsDecompressData()``
+* ``cpaDcNsGenerateHeader()``
+* ``cpaDcNsGenerateFooter()``
+
+The ``cpaDcNsCompressData()`` and ``cpaDcNsDecompressData()`` functions are very similar to the ``cpaDcCompressData2()`` and ``cpaDcDecompressData2()`` functions. Instead of passing in a ``CpaDcSessionHandle``, a ``CpaDcNsSetupData`` structure and a ``CpaDcCallbackFn`` are passed in. The ``CpaDcCallbackFn`` is the user callback to be called on request completion when running asynchronously. For synchronous operation ``CpaDcCallbackFn`` must be set to ``NULL``.
+
+The no session API will work with all versions of QAT hardware but does not support stateful operation as without a session no state can be maintained between requests.
+
+It is still possible to seed checksums for CRC32 and Adler32 by setting the ``checksum`` field of the ``CpaDcRqResults`` to the seed checksum value before submission. This will allow an overall checksum to be maintained across multiple submissions. For LZ4, checksum seeding is not supported. If checksums need to be maintained between LZ4 requests then the session based API must be used. The no session API supports data integrity checksums but as stateful operation is not supported the integrity checksums will always be for the current request only.
+
+The no session API does support stateless overflow in the compression direction only like the session based API. In that case ``consumed``, ``produced`` and ``checksum`` fields within the ``CpaDcRqResults`` structure will be valid when a status of ``CPA_DC_OVERFLOW`` is returned. It is the application's responsibility to arrange data buffers for the next submission, ensure the checksum is seeded and maintain an overall count of the bytes consumed if footer generation is required. For performance reasons it is recommended that the compressBound API is used to size the destination buffer correctly to avoid overflow. It is necessary for an application to seed the checksum whether it wishes to continue the series of requests or to start a new one, only in the latter case, the seed is 0 for CRC32 and 1 for Adler32.
+
+The no session API does not support setting the ``sessDirection`` field of the ``CpaDcNsSetupData`` structure to ``CPA_DC_DIR_COMBINED``. In addition, it does not support setting the ``sessState`` field to ``CPA_DC_STATEFUL``, or the ``flushFlag`` field of the ``CpaDcOpData`` structure to ``CPA_DC_FLUSH_NONE`` or ``CPA_DC_FLUSH_SYNC``.
+
+The ``cpaDcNsGenerateHeader()`` and ``cpaDcNsGenerateFooter()`` functions are also very similar to the session based equivalents but take a ``CpaDcNsSetupData`` instead of a ``CpaDcSessionHandle``. For ``cpaDcNsGenerateFooter()`` an additional parameter is required called ``count`` that contains the overall length of the uncompressed input data. For most cases this will be the ``consumed`` value from the single submission contained in the ``CpaDcRqResults`` structure but in cases where multiple submissions represent the overall file then it is the application's responsibility to maintain the overall count of consumed bytes.
+
+Compression Levels
+------------------
+
+.. table:: Compression Levels
+
+   +-----------+----------------+---------------------------------------------------+-------------------------------------------+
+   | **Level** | **lvl_enum**   | **QAT 2.0 (Deflate, iLZ77, LZ4, LZ4s)**           | **QAT 1.7/1.8 (Deflate)**                 |
+   +===========+================+===================================================+===========================================+
+   | 1         | ``CPA_DC_L1``  |                     2 (``HW_L1``)                 |                  ``DEPTH_1``              |
+   +-----------+----------------+                                                   +-------------------------------------------+
+   | 2         | ``CPA_DC_L2``  |                                                   |                  ``DEPTH_4``              |
+   +-----------+----------------+                                                   +-------------------------------------------+
+   | 3         | ``CPA_DC_L3``  |                                                   |                  ``DEPTH_8``              |
+   +-----------+----------------+                                                   +-------------------------------------------+
+   | 4         | ``CPA_DC_L4``  |                                                   |                  ``DEPTH_16``             |
+   +-----------+----------------+                                                   |                                           +
+   | 5         | ``CPA_DC_L5``  |                                                   |                                           |
+   +-----------+----------------+---------------------------------------------------+                                           +
+   | 6         | ``CPA_DC_L6``  |                     8 (``HW_L6``)                 |                                           |
+   +-----------+----------------+                                                   |                                           +
+   | 7         | ``CPA_DC_L7``  |                                                   |                                           |
+   +-----------+----------------+                                                   |                                           +
+   | 8         | ``CPA_DC_L8``  |                                                   |                                           |
+   +-----------+----------------+---------------------------------------------------+                                           +
+   | 9         | ``CPA_DC_L9``  |                     16 (``HW_L9``)                |                                           |
+   +-----------+----------------+                                                   +-------------------------------------------+
+   | 10        | ``CPA_DC_L10`` |                                                   | Unsupported.  Will be rejected at the API.|
+   +-----------+----------------+                                                   |                                           +
+   | 11        | ``CPA_DC_L11`` |                                                   |                                           |
+   +-----------+----------------+                                                   |                                           +
+   | 12        | ``CPA_DC_L12`` |                                                   |                                           |
+   +-----------+----------------+---------------------------------------------------+                                           +
+   | > 12      |                | Unsupported.  Will be rejected at the API.        |                                           |
+   +-----------+----------------+---------------------------------------------------+-------------------------------------------+
+
+Compression Status Codes
+------------------------
+
+The ``CpaDcRqResults`` structure should be checked for compression status
+codes in the ``CpaDcReqStatus`` data field. The mapping of the error codes
+to the enums is included in the ``quickassist/include/dc/cpa_dc.h`` file.
+
+Intel\ :sup:`®` QuickAssist Technology Compression API Errors
+-------------------------------------------------------------
+
+The Intel\ :sup:`®` QuickAssist Technology Compression APIs that send
+requests to the compression hardware can return the error codes shown in
+:ref:`error_codes`. 
+
+These APIs are:
+
+* ``cpaDcCompressData()``
+* ``cpaDcCompressData2()``
+* ``cpaDcNsCompressData()``
+* ``cpaDcDecompressData()``
+* ``cpaDcDecompressData2()``
+* ``cpaDcNsDecompressData()``
+* ``cpaDcDpEnqueueOp()``
+* ``cpaDcDpEnqueueOpBatch()``
+
+.. NOTE:: 
+   
+   Decompression issues in may also apply to the compression
+   use case due to potential issues encountered during a
+   Compress-and-Verify operation. In this case, the file(s)
+   ``/sys/kernel/debug/qat_*/cnv_errors`` may show these nested errors. In
+   some cases, the suggested corrective action may need to be to store
+   the block uncompressed or to compress the block with software.
+
+
+.. _error_codes:
+
+Compression API Errors
+++++++++++++++++++++++
+
+.. table:: Compression API Errors - Part 1
+   :widths: 15, 35, 25, 25
+
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | **Error Code** | **Error Type**                             | **Description**     | **Suggested Corrective Action(s)**  |
+   +================+============================================+=====================+=====================================+
+   | 0              | ``CPA_DC_OK``                              | No error detected   | None.                               |
+   |                |                                            | by compression      |                                     |
+   |                |                                            | hardware.           |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -1             | ``CPA_DC_INVALID_BLOCK_TYPE``              | Invalid block       | Decompression                       |
+   |                |                                            | type (type = 3);    | error. Discard                      |
+   |                |                                            | invalid input       | output. For a                       |
+   |                |                                            | stream detected     | stateless session,                  |
+   |                |                                            | for decompression   | resubmit affected                   |
+   |                |                                            |                     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -2             | ``CPA_DC_BAD_STORED_BLOCK_LEN``            | Stored block        | Decompression                       |
+   |                |                                            | length did not      | error. Discard                      |
+   |                |                                            | match one's         | output. For a                       |
+   |                |                                            | complement;         | stateless session,                  |
+   |                |                                            | invalid input       | resubmit affected                   |
+   |                |                                            | stream detected     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -3             | ``CPA_DC_TOO_MANY_CODES``                  | Too many length     | Decompression                       |
+   |                |                                            | or distance         | error. Discard                      |
+   |                |                                            | codes; invalid      | output. For a                       |
+   |                |                                            | input stream        | stateless session,                  |
+   |                |                                            | detected            | resubmit affected                   |
+   |                |                                            |                     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -4             | ``CPA_DC_INCOMPLETE_CODE_LENS``            | Code length codes   | Decompression                       |
+   |                |                                            | incomplete:         | error. Discard                      |
+   |                |                                            | invalid input       | output. For a                       |
+   |                |                                            | stream detected     | stateless session,                  |
+   |                |                                            |                     | resubmit affected                   |
+   |                |                                            |                     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -5             | ``CPA_DC_REPEATED_LENS``                   | Repeated lengths    | Decompression                       |
+   |                |                                            | with no first       | error. Discard                      |
+   |                |                                            | length; invalid     | output. For a                       |
+   |                |                                            | input stream        | stateless session,                  |
+   |                |                                            | detected            | resubmit affected                   |
+   |                |                                            |                     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -6             | ``CPA_DC_MORE_REPEAT``                     | Repeat more than    | Decompression                       |
+   |                |                                            | specified           | error. Discard                      |
+   |                |                                            | lengths; invalid    | output. For a                       |
+   |                |                                            | input stream        | stateless session,                  |
+   |                |                                            | detected            | resubmit affected                   |
+   |                |                                            |                     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+
+.. table:: Compression API Errors - Part 2
+   :widths: 15, 35, 25, 25
+
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | **Error Code** | **Error Type**                             | **Description**     | **Suggested Corrective Action(s)**  |
+   +================+============================================+=====================+=====================================+
+   | -7             | ``CPA_DC_BAD_LITLEN_CODES``                | Invalid             | Decompression                       |
+   |                |                                            | literal/length      | error. Discard                      |
+   |                |                                            | code lengths;       | output. For a                       |
+   |                |                                            | invalid input       | stateless session,                  |
+   |                |                                            | stream detected     | resubmit affected                   |
+   |                |                                            |                     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -8             | ``CPA_DC_BAD_DIST_CODES``                  | Invalid distance    | Decompression                       |
+   |                |                                            | code lengths;       | error. Discard                      |
+   |                |                                            | invalid input       | output. For a                       |
+   |                |                                            | stream detected     | stateless session,                  |
+   |                |                                            |                     | resubmit affected                   |
+   |                |                                            |                     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -9             | ``CPA_DC_INVALID_CODE``                    | Invalid             | Decompression                       |
+   |                |                                            | literal/length or   | error. Discard                      |
+   |                |                                            | distance code in    | output. For a                       |
+   |                |                                            | fixed or dynamic    | stateless session,                  |
+   |                |                                            | block; invalid      | resubmit affected                   |
+   |                |                                            | input stream        | request. For a                      |
+   |                |                                            | detected            | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -10            | ``CPA_DC_INVALID_DIST``                    | Distance is too     | Decompression                       |
+   |                |                                            | far back in fixed   | error. Discard                      |
+   |                |                                            | or dynamic block;   | output. For a                       |
+   |                |                                            | invalid input       | stateless session,                  |
+   |                |                                            | stream detected     | resubmit affected                   |
+   |                |                                            |                     | request. For a                      |
+   |                |                                            |                     | stateful session,                   |
+   |                |                                            |                     | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   |                |                                            |                     | If the error is                     |
+   |                |                                            |                     | observed with LZ4                   |
+   |                |                                            |                     | decompression, please               |
+   |                |                                            |                     | ensure that the                     |
+   |                |                                            |                     | compressor has a                    |
+   |                |                                            |                     | history buffer limited              |
+   |                |                                            |                     | to 32KB.                            |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -11            | ``CPA_DC_OVERFLOW``                        | Overflow            | Resubmit with a                     |
+   |                |                                            | detected. This is   | larger output                       |
+   |                |                                            | not an error, but   | buffer when                         |
+   |                |                                            | an exception.       | appropriate.                        |
+   |                |                                            | Overflow is         |                                     |
+   |                |                                            | supported and can   |                                     |
+   |                |                                            | be handled.         |                                     |
+   |                |                                            |                     | With decompression                  |
+   |                |                                            |                     | executed on QAT2.0,                 |
+   |                |                                            |                     | the application is                  |
+   |                |                                            |                     | required to resubmit                |
+   |                |                                            |                     | the compressed data                 |
+   |                |                                            |                     | with a larger                       |
+   |                |                                            |                     | destination buffer.                 |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -12            | ``CPA_DC_SOFTERR``                         | Other non-fatal     | Discard output. For                 |
+   |                |                                            | detected.           | a stateless                         |
+   |                |                                            |                     | session, resubmit                   |
+   |                |                                            |                     | affected request.                   |
+   |                |                                            |                     | For a stateful                      |
+   |                |                                            |                     | session, abort the                  |
+   |                |                                            |                     | session calling                     |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -13            | ``CPA_DC_FATALERR``                        | Fatal error         | Discard output and                  |
+   |                |                                            | detected.           | abort the session                   |
+   |                |                                            |                     | calling                             |
+   |                |                                            |                     | ``CpaDcRemoveSession()``.           |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+
+.. table:: Compression API Errors - Part 3
+   :widths: 15, 35, 25, 25
+
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | **Error Code** | **Error Type**                             | **Description**     | **Suggested Corrective Action(s)**  |
+   +================+============================================+=====================+=====================================+
+   | -14            | ``CPA_DC_MAX_RESUBMITERR``                 | On an error being   | Discard output and                  |
+   |                |                                            | detected, the       | abort the session                   |
+   |                |                                            | firmware            | calling                             |
+   |                |                                            | attempted to        | ``CpaDcRemoveSession()``.           |
+   |                |                                            | correct and         |                                     |
+   |                |                                            | resubmitted the     |                                     |
+   |                |                                            | request, however,   |                                     |
+   |                |                                            | the maximum         |                                     |
+   |                |                                            | resubmit value      |                                     |
+   |                |                                            | was exceeded.       |                                     |
+   |                |                                            | Maximal value is    |                                     |
+   |                |                                            | internally set in   |                                     |
+   |                |                                            | the firmware to     |                                     |
+   |                |                                            | 10 attempts.        |                                     |
+   |                |                                            | This is a QAT1.6    |                                     |
+   |                |                                            | error only. This    |                                     |
+   |                |                                            | error code is       |                                     |
+   |                |                                            | considered as a     |                                     |
+   |                |                                            | fatal error.        |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -15            | ``CPA_DC_INCOMPLETE_FILE_ERR``             | QAT1.X device can   | No corrective                       |
+   |                |                                            | report this error   | action is required                  |
+   |                |                                            | with Deflate        | as it is not                        |
+   |                |                                            | decompression.      | exposed to the                      |
+   |                |                                            |                     | application.                        |
+   |                |                                            | However, it is      |                                     |
+   |                |                                            | not exposed to      |                                     |
+   |                |                                            | the application.    |                                     |
+   |                |                                            | The input file is   |                                     |
+   |                |                                            | incomplete. This    |                                     |
+   |                |                                            | indicates that      |                                     |
+   |                |                                            | the request was     |                                     |
+   |                |                                            | submitted with a    |                                     |
+   |                |                                            | CPA_DC_FLUSH_FINAL. |                                     |
+   |                |                                            | However, a BFINAL   |                                     |
+   |                |                                            | bit was not found   |                                     |
+   |                |                                            | in the request.     |                                     |
+   |                |                                            |                     |                                     |
+   |                |                                            | QAT2.0 can return   |                                     |
+   |                |                                            | this error code to  |                                     |
+   |                |                                            | the application     |                                     |
+   |                |                                            | during LZ4          |                                     |
+   |                |                                            | decompression. This |                                     |
+   |                |                                            | error is returned   |                                     |
+   |                |                                            | when a LZ4 block is |                                     |
+   |                |                                            | incomplete.         |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -16            | ``CPA_DC_WDOG_TIMER_ERR``                  | The request was     | Discard output and                  |
+   |                |                                            | not completed as    | resubmit the                        |
+   |                |                                            | a watchdog timer    | affected request.                   |
+   |                |                                            | hardware event      |                                     |
+   |                |                                            | occurred.           |                                     |
+   |                |                                            | With QAT2.0 this    |                                     |
+   |                |                                            | error can be        |                                     |
+   |                |                                            | triggered by an     |                                     |
+   |                |                                            | internal parity     |                                     |
+   |                |                                            | error.              |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -17            | ``CPA_DC_EP_HARDWARE``                     | This is a           | Discard output and                  |
+   |                |                                            | recoverable error.  | abort the session                   |
+   |                |                                            | Request was not     | calling                             |
+   |                |                                            | completed as an end | ``CpaDcRemoveSession()``.           |
+   |                |                                            | point               |                                     |
+   |                |                                            | hardware error      |                                     |
+   |                |                                            | occurred (for       |                                     |
+   |                |                                            | example, a parity   |                                     |
+   |                |                                            | error).             |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -18            | ``CPA_DC_VERIFY_ERR``                      | Compress and        | Discard output;                     |
+   |                |                                            | Verify (CnV).       | resubmit affected                   |
+   |                |                                            | This is a           | request.                            |
+   |                |                                            | compression         |                                     |
+   |                |                                            | direction error     |                                     |
+   |                |                                            | only. During the    |                                     |
+   |                |                                            | decompression of    |                                     |
+   |                |                                            | the compressed      |                                     |
+   |                |                                            | payload, an error   |                                     |
+   |                |                                            | was detected and    |                                     |
+   |                |                                            | the deflate block   |                                     |
+   |                |                                            | produced is         |                                     |
+   |                |                                            | invalid.            |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+
+.. table:: Compression API Errors - Part 4
+   :widths: 15, 45, 20, 20
+
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | **Error Code** | **Error Type**                             | **Description**     | **Suggested Corrective Action(s)**  |
+   +================+============================================+=====================+=====================================+
+   | -19            | ``CPA_DC_EMPTY_DYM_BLK``                   | Decompression       | Discard output.                     |
+   |                |                                            | request contained   |                                     |
+   |                |                                            | an empty dynamic    |                                     |
+   |                |                                            | stored block (not   |                                     |
+   |                |                                            | supported).         |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -20            | ``CPA_DC_CRC_INTEG_ERR``                   | A data              | Discard output.                     |
+   |                |                                            | integrity CRC error |                                     |
+   |                |                                            | was detected.       |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -93            | ``CPA_DC_LZ4_MAX_BLOCK_SIZE_EXCEEDED``     | LZ4 max block       | Discard output.                     |
+   |                |                                            | size exceeded.      |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -95            | ``CPA_DC_LZ4_BLOCK_OVERFLOW_ERR``          | LZ4 block           | Discard output.                     |
+   |                |                                            | overflow.           |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -98            | ``CPA_DC_LZ4_TOKEN_IS_ZERO_ERR``           | LZ4 Decoded         | Discard output.                     |
+   |                |                                            | token offset or     |                                     |
+   |                |                                            | token length is     |                                     |
+   |                |                                            | zero.               |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   | -100           | ``CPA_DC_LZ4_DISTANCE_OUT_OF_RANGE_ERR``   | LZ4 distance out of | Discard output.                     |
+   |                |                                            | range for the len/  |                                     |
+   |                |                                            | distance pair.      |                                     |
+   +----------------+--------------------------------------------+---------------------+-------------------------------------+
+   
+
+.. Note:: 
+   
+   - Except for the errors ``CPA_DC_OK``, ``CPA_DC_OVERFLOW``, ``CPA_DC_FATALERR``, ``CPA_DC_MAX_RESUBMITERR``, ``CPA_DC_WDOG_TIMER_ERR``, ``CPA_DC_VERIFY_ERR``, and ``CPA_DC_EP_HARDWARE_ERR``, the rest of the error codes can be considered as invalid input stream errors.
+
+   - When the suggested corrective action is to discard the output, it implies that the application must also ignore the consumed data, the produced data, and the checksum values.
+
+.. _OverflowErrors:
+
+Overflows Errors
+----------------
+
+This table describes the behavior of the Intel\ :sup:`®` QAT compression service when an overflow occurs during a compression or decompression operation. 
+It also describes the expected behavior of an application when an overflow occurs.
+
+.. table:: Overflows Errors
+
+   +--------------------+-----------------------------+-----------------------+-----------------------------------------------------+-----------------------------------------------------+-------------------------------+---------------------------------------------+
+   |                    | **Operation**               | **Overflow Supported**| **Input Data Consumed**                             | **Valid Data Produced?**                            | **Status Returned in Results**| **Note**                                    |
+   +====================+=============================+=======================+=====================================================+=====================================================+===============================+=============================================+
+   |                    | Stateless compression       | YES                   | Possible - indicated in results consumed field      | Possible - indicated in results produced field      | -11                           | Overflow is considered as an exception      |
+   |                    +-----------------------------+-----------------------+-----------------------------------------------------+-----------------------------------------------------+-------------------------------+---------------------------------------------+
+   | Traditional API    | Stateless decompression     | NO                    | NO                                                  | NO                                                  | -11                           | Overflow is considered as an error          |
+   |                    +-----------------------------+-----------------------+-----------------------------------------------------+-----------------------------------------------------+-------------------------------+---------------------------------------------+
+   |                    | Stateful decompression      | YES on QAT1.x devices | Possible - indicated in results consumed field      | Possible - indicated in results produced field      | -11                           | Overflow is considered as an exception on   |
+   |                    |                             | NO on QAT2.x devices  |                                                     |                                                     |                               | QAT1.x devices.  QAT2.x does not support    |
+   |                    |                             |                       |                                                     |                                                     |                               | stateful decompression.                     |
+   +--------------------+-----------------------------+-----------------------+-----------------------------------------------------+-----------------------------------------------------+-------------------------------+---------------------------------------------+
+   |                    | Stateless compression       | NO                    | NO                                                  | NO                                                  | -11                           | Overflow is considered as an error          |
+   | Data Plane API     +-----------------------------+-----------------------+-----------------------------------------------------+-----------------------------------------------------+-------------------------------+---------------------------------------------+
+   |                    | Stateful decompression      | NO                    | NO                                                  | NO                                                  | -11                           | Overflow is considered as an error          |
+   +--------------------+-----------------------------+-----------------------+-----------------------------------------------------+-----------------------------------------------------+-------------------------------+---------------------------------------------+
+
+Traditional API Overflow Exception
+++++++++++++++++++++++++++++++++++
+
+Stateless sessions support overflow as an exception for traditional API in the compression direction only. This means that the application can rely on the ``cpaDcRqResults.consumed`` to resubmit from where the overflow occurred. An overflow in the decompression direction must be treated as an error. 
+
+In this case, the application must resubmit the request with a larger buffer as described in the procedure for handling overflow errors. For stateful sessions, overflow is supported only in the decompression direction.
+
+Data Plane API Overflow Error
++++++++++++++++++++++++++++++
+
+The Data Plane API considers overflow status as an error. If an overflow occurs with the data plane API, the driver will output the following error message to the user:
+
+   ``Unrecoverable error: stateless overflow. You may need to increase the size of your destination buffer``
+
+In this case, ``cpaDcRqResults.consumed``, ``.produced`` and ``.checksum`` should be ignored. If length and checksum are required, they must be tracked in the application, because they are not maintained in the session.
+
+Handling Overflow Errors
+++++++++++++++++++++++++
+
+Resubmit the request with the following data:
+
+* Use the same source buffer.
+* Allocate a bigger destination buffer. It is recommended to use the ``compressBound()`` APIs in compression direction.  
+* If the overall checksum needs to be maintained, insert the checksum from the previous successful request into the ``cpaDcRqResults`` struct.
+
+Compression Overflows in a Virtual Environment
+++++++++++++++++++++++++++++++++++++++++++++++
+
+In a virtual environment, the guest does not download the firmware. Only the host downloads the firmware.
+As a consequence, if the guest runs a newer Intel\ :sup:`®` QAT driver than the host, the guest application might experience false CNV errors. 
+The correct course of action would be to update the host with the latest Intel\ :sup:`®` QAT driver.
+
+Avoiding Compression Overflow Exceptions
+++++++++++++++++++++++++++++++++++++++++
+
+Overflow exceptions happen for 2 reasons:
+
+#. The application allocated a destination buffer that was too small to receive the compressed data.
+#. A recovery occurred after a compress and verify error with an input payload greater than 65,535 bytes if the instance lives on a QAT1.X device.
+
+To minimize the impact of resubmitting data after and overflow exception, the API ``cpaDcDeflateCompressBound()`` has been added to the Intel\ :sup:`®` QAT driver. 
+A detailed explanation of *compressBound* APIs is provided in the :ref:`Maximum Compression Expansion <maximum_compression_expansion>` section. 
+
+Integrity Checksums
+-------------------
+
+Integrity checksums are an additional method for payload verification throughout the compression/decompression lifecycle. They may be used to verify corruption has not happened when sending data to and from the Intel\ :sup:`®` QuickAssist HW, or for example the integrity checksums may be stored by an application along with the compressed data and used to detect corruption in the future without needing to decompress the data.
+
+They should not be confused with the Gzip/Zlib/LZ4 footer checksums of CRC32, Adler32 and Xxhash32 that are calculated over the uncompressed input data only.
+
+Integrity checksums use an additional structure that is the application's responsibility to allocate, maintain, and free. The structure is ``cpaCrcData`` and contains the following fields:
+
+.. table:: Integrity Checksums
+   :widths: 25, 75
+
+   +----------------------------------------+------------------------------------+
+   | **cpaCrcData Fields**                  | **Description**                    |
+   +========================================+====================================+
+   | ``Cpa32U crc32``                       | This is the existing CRC32 for the |
+   |                                        | footer calculated across the       |
+   |                                        | uncompressed data in either the    |
+   |                                        | source or dest buffer depending    |
+   |                                        | whether it is a compress or        |
+   |                                        | decompress operation. This is the  |
+   |                                        | same as the value returned in the  |
+   |                                        | cpaDcRqResults checksum field.     |
+   +----------------------------------------+------------------------------------+
+   | ``Cpu32U adler32``                     | This is the existing               |
+   |                                        | Adler32/Xxhash32 for the footer    |
+   |                                        | calculated across the uncompressed |
+   |                                        | data in either the source or dest  |
+   |                                        | buffer depending whether it is a   |
+   |                                        | compress or decompress operation.  |
+   |                                        | This is the same as the value      |
+   |                                        | returned in the cpaDcRqResults     |
+   |                                        | checksum field.                    |
+   +----------------------------------------+------------------------------------+
+   | ``CpaIntegrityCrc integrityCrc``       | This field contains the QAT 1.8    |
+   |                                        | integrity checksums that consist   |
+   |                                        | of two 32bit CRC32's. These are    |
+   |                                        | calculated on the input data to    | 
+   |                                        | the request within the HW and on   |
+   |                                        | the output data from the request   |
+   |                                        | within the HW.                     |
+   +----------------------------------------+------------------------------------+
+   | ``CpaIntegrityCrc64b integrityCrc64b`` | This field contains the QAT 2.0    | 
+   |                                        | integrity checksums that consist   |
+   |                                        | of two 64 bit checksums. CPM 2.0   |
+   |                                        | uses CRC64 by default for these    |
+   |                                        | checksums. The checksums are       |
+   |                                        | calculated on the input data to    | 
+   |                                        | the request within the HW and on   |
+   |                                        | the output data from the request   |
+   |                                        | within the HW.                     |
+   +----------------------------------------+------------------------------------+
+
+Once allocated, a pointer to the ``cpaCrcData`` structure must be assigned to the ``pCrcData`` field of the requests ``CpaDcOpData`` structure.
+The ``cpaCrcData`` structure assigned to the ``pCrcData`` pointer should be treated in the same way as the destination buffer, not freed until the request has completed, and not shared across requests if running asynchronously.
+
+The integrity checksum feature itself is enabled on a per request basis by setting the ``integrityCrcCheck`` field contained in the ``CpaDcOpData`` structure to ``CPA_TRUE``.
+Integrity checksums are available on the Traditional API including No Session requests, but are not available on the Data Plane API.
+Integrity checksums are calculated across only the current request in QAT 2.0. With QAT 1.8 it is possible to seed the integrity checksums on stateful decompression requests by reusing the same ``cpaCrcData`` structure on the subsequent request without resetting the contents. For QAT 1.8 stateful decompression requests it is the application's responsibility to allocate the ``cpaCrcData`` structure and keep it allocated for the lifetime of the session. Integrity checksums are not available on devices prior to QAT 1.8.
+
+Verify HW Integrity CRC's
++++++++++++++++++++++++++
+
+There is an additional feature to integrity checksums that can be enabled to automatically check that no corruption to data buffers has occured during transport to and from the Intel\ :sup:`®` QAT HW. This works by calculating integrity checksums across the source and destination buffers within the Intel\ :sup:`®` QAT API, and comparing the checksums with those generated within the Intel\ :sup:`®` QAT HW. Any discrepencies will result in a status of ``CPA_DC_INTEG_ERR`` being returned within the ``cpaDcRqResults`` structure. These additional checksums are calculated in SW using the CPU and have a cost in terms of performance.
+In order to enable the *Verify HW Integrity CRC* feature on a per request basis the ``verifyHwIntegrityCrcs`` field contained in the ``cpaDcOpdata`` structure needs to be set to ``CPA_TRUE``. Additionally the ``integrityCrcCheck`` field must be enabled and a ``cpaCrcData`` structure allocated and a pointer to it must be assigned to the ``pCrcData`` field.
+
+Data Compression Applications
+-----------------------------
+
+Data compression can be used as part of application delivery networks, data de-duplication, as well as in a number of crypto applications, for example, VPNs, IDS/IPS and so on.
+
+Compression for Storage
++++++++++++++++++++++++
+
+In a time when the amount of online information is increasing dramatically, but budgets for storing that information remain static, 
+compression technology is a powerful tool for improved information management, protection and access.
+
+Compression appliances can transparently compress data such that clients can keep between two- and five-times more data online and 
+reap the benefit of other efficiencies throughout the data lifecycle. By shrinking the primary data, all subsequent copies of that data, 
+such as backups, archives, snapshots, and replicas are also compressed. Compression is the newest advancement in storage efficiency. 
+
+Storage compression appliances can shrink primary online data in real time, without performance degradation. This can significantly 
+lower storage capital and operating expenses by reducing the amount of data that is stored, and the required hardware that must be powered and cooled.
+
+Compression can help slow the growth of storage, reducing storage costs while simplifying both operations and management. 
+It also enables organizations to keep more data available for use, as opposed to storing data offsite or on harder-to-access media (such as tape).
+Compression algorithms are very compute-intensive, which is one of the reasons why the adoption of compression techniques in 
+mainstream applications has been slow. 
+
+As an example, the DEFLATE Algorithm, which is one of the most used and popular compression 
+techniques today, involves several compute-intensive steps: string search and match, sort logic, binary tree generation, 
+Huffman Code generation. Intel\ :sup:`®` QAT devices in the platforms described in this manual provide acceleration capabilities in hardware 
+that allow the CPU to offload the compute-intensive DEFLATE algorithm operations, thereby freeing up CPU cycles for other networking,
+encryption, or other value-add operations.
+
+
+Data Deduplication and WAN Acceleration
++++++++++++++++++++++++++++++++++++++++
+
+Data Deduplication and WAN Acceleration are coarse-grain data compression techniques centered around the concept of single-instance storage. 
+Identical blocks of data (either to be stored on disk or to be transferred across a WAN link) are only stored/moved once, and any further
+occurrences are replaced by a reference to the first instance.
+
+While the benefits of deduplication and WAN acceleration obviously depend on the type of data, multi-user collaborative environments 
+are the most suitable due to the amount of naturally occurring replication caused by forwarded emails and multiple (similar) versions of 
+documents in various stages of development.
+
+Deduplication strategies can vary in terms of inline vs post-processing, block size granularity (file-level only, fixed block size or 
+variable block-size chunking), duplicate identification (cryptographic hash only, simple CRC followed by byte-level comparison or hybrids) 
+and duplicate look-up (for example, Bloom filter based index).
+
+Cryptographic hashes are the most suitable techniques for reliably identifying matching blocks with an improbably low risk for false positives, 
+but they also represent the most compute-intensive workload in the application. As such, the cryptographic acceleration services offered by the 
+hardware through the Intel\ :sup:`®` QAT Cryptographic API can be used to considerably improve the throughput of deduplication/WAN acceleration applications. 
+Additionally, the compression/decompression acceleration services can be used to further compress blocks for storage on disk, while optionally encrypting the compressed contents.

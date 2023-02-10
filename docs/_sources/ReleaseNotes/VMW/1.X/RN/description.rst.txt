@@ -1,0 +1,206 @@
+.. _qat_1.x_rn_description: ..
+
+Description of Release
+======================
+
+This document contains information on the accompanying Intel\ :sup:`®`
+QuickAssist Technology (Intel\ :sup:`®` QAT) Hardware Version 1.X Driver for VMware ESXi*.
+
+This software enables single root I/O virtualization (SR-IOV) for the Intel QAT driver on VMware ESXi*.
+SR-IOV enables the creation of Virtual Functions (VF) from a single
+Intel QAT device to support acceleration for multiple virtual machines.
+
+There are 2 components are available for this release - one with ``7.0.0`` in
+name for VMware ESXi 7.0 and with ``8.0.0`` for VMware ESXi 8.0. Right
+package should be chosen based on the version of VMware ESXi installed on the
+target host. Hence installation commands from ``README.txt`` may require
+adjustments and pointing to a particular device component with compatible
+version.
+
+For instructions on loading and running the release software, refer to the
+``README.txt`` file in the released software package. For instructions on
+how to install the driver in the Guest Operating System (OS) refer to corresponding guest
+driver's collaterals listed in the :ref:`Related Documentation <qat1.x_rn_vmware_related_documentation>` section.
+
+Refer to the :ref:`Revision History <qat1.x_rn_vmware_revision_history>` to check the changes of this document.
+
+.. note:: These release notes may include known issues with third-party or reference platform components that affect the operation of the software.
+
+
+Features
+--------
+
+- Sym/Asym Crypto.
+- Data Compression.
+
+Feature Addition and Enhancements
+---------------------------------
+
+.. table::
+   :widths: 30, 70
+
+   +-----------------------------+----------------------------------------------------------------------------+
+   | **Feature**                 | **Description**                                                            |
+   +=============================+============================================================================+
+   | New HW support              |Support for QAT on next platforms is added:                                 |
+   |                             |                                                                            |
+   |                             |- Intel\ :sup:`®` Atom\ :sup:`®` P5300 processor product family (c4xxx QAT) |
+   |                             |- Intel\ :sup:`®` Atom\ :sup:`®` P5700 processor product family (c4xxx QAT) |
+   |                             |- Intel\ :sup:`®` Atom\ :sup:`®` C5000 processor product family (200xx QAT) |
+   |                             |- Intel\ :sup:`®` Xeon\ :sup:`®` D2700 processor product family (c4xxx QAT) |
+   |                             |- Intel\ :sup:`®` Xeon\ :sup:`®` D1700 processor product family (200xx QAT) |
+   +-----------------------------+----------------------------------------------------------------------------+
+   | Service configuration       | User can change default service configuration per QAT endpoint             |
+   +-----------------------------+----------------------------------------------------------------------------+
+   | Support for VMware ESXi 8.0 | Package for VMware ESXi 8.0 is added to the package                        |
+   +-----------------------------+----------------------------------------------------------------------------+
+
+Limitations
+-----------
+
+- HKDF is not currently supported on all devices.
+- Intel\ :sup:`®` Key Protection Technology (KPT) is not supported.
+- Ratelimiting is not supported.
+- Due to HW limitations, only all (maximum number) VFs could be enabled,
+  arbitrary number of VFs is not supported.
+- The Intel\ :sup:`®` QAT device should not be exposed (via SR-IOV) to
+  untrusted guests.
+- ESXi limitation: number of PCI passthrough devices per VM is limited, so
+  please check this `KB article`_ for exact limits. ESXi will not allow to power on
+  VM if such limit is exceeded.
+
+.. _KB article: https://kb.vmware.com/s/article/1003497
+
+
+Package Information
+-------------------
+
+.. table::
+   :widths: 20, 80
+
+   +---------------------------+----------------------------------------------------------------------------+
+   | **Package Name**          | qat-1.x_ext_rel_bin_1.5.0.47.tar.gz                                        |
+   +---------------------------+----------------------------------------------------------------------------+
+   | **Release Date**          | 02/13/2023                                                                 |
+   +---------------------------+----------------------------------------------------------------------------+
+   | **Supported**             |- Intel\ :sup:`®` C62x Chipset (c6xx QAT)                                   |
+   |                           |- Intel\ :sup:`®` QuickAssist Adapter 8960/8970 (c6xx QAT)                  |
+   | **Hardware**              |- Intel\ :sup:`®` Atom\ :sup:`®` P5300 processor product family (c4xxx QAT) |
+   |                           |- Intel\ :sup:`®` Atom\ :sup:`®` P5700 processor product family (c4xxx QAT) |
+   |                           |- Intel\ :sup:`®` Atom\ :sup:`®` C5000 processor product family (200xx QAT) |
+   |                           |- Intel\ :sup:`®` Xeon\ :sup:`®` D2700 processor product family (c4xxx QAT) |
+   |                           |- Intel\ :sup:`®` Xeon\ :sup:`®` D1700 processor product family (200xx QAT) |
+   +---------------------------+----------------------------------------------------------------------------+
+   | **Supported**             | VMware ESXi 7.0 and 8.0                                                    |
+   |                           |                                                                            |
+   | **ESXi Version(s)**       |                                                                            |
+   +---------------------------+----------------------------------------------------------------------------+
+   | **Driver Version**        | 1.5.0.47                                                                   |
+   +---------------------------+----------------------------------------------------------------------------+
+   | **Package**               | SHA256: 47ad7615b9b44b2ec786547d10d8fea928dc411fec2fed405af757fdfce3a1aa   |
+   |                           |                                                                            |
+   | **Checksum**              |                                                                            |
+   +---------------------------+----------------------------------------------------------------------------+
+
+List of Files in Release
+------------------------
+
+.. table::
+   :widths: 50, 50
+
+   +-----------------------------------------------------------------+---------------------------------------------------------+
+   | **File**                                                        | **Description**                                         |
+   +=================================================================+=========================================================+
+   | ``icp-qat-pf-drv_1.5.0.47-1OEM.700.1.0.15843807_21250985.zip``  | Driver component for 7.0                                |
+   +-----------------------------------------------------------------+---------------------------------------------------------+
+   | ``icp-qat-pf-drv_1.5.0.47-1OEM.800.1.0.20613240_21262822.zip``  | Driver component for 8.0                                |
+   +-----------------------------------------------------------------+---------------------------------------------------------+
+   | ``LICENSE.txt``                                                 | License information                                     |
+   +-----------------------------------------------------------------+---------------------------------------------------------+
+   | ``README.txt``                                                  | Basic driver installation and configuration information |
+   +-----------------------------------------------------------------+---------------------------------------------------------+
+
+Supported Guest Drivers
+-----------------------
+
+The software in this release has been validated against the following guest
+drivers:
+
+- **Linux\*:** Intel QAT driver ``QAT.L.4.19.0-*``
+- **Windows\*:** Intel QAT driver ``QAT1.7.W.1.8.0-*``
+
+Actual list of supported guest OS depends on the guest driver compatibility.
+Refer to the corresponding documentation for more information.
+
+Technical Support
+-----------------
+
+Intel offers support for this software at the API level only,
+defined in the Programmer's Guide and API reference manuals listed in the :ref:`Related Documentation <qat1.x_rn_vmware_related_documentation>` section.
+
+For technical support, including answers to questions not addressed in this
+document, visit the technical support forum, FAQs, and other support
+information at `Intel Support`_.
+
+.. _Intel Support: https://www.intel.com/content/www/us/en/support.html
+
+VMware forwards all issues they suspect to be related to Intel QAT
+to Intel to help triage and resolve with the customer directly.
+
+Environmental Assumptions
+-------------------------
+
+The following assumptions are made about the deployment environment:
+
+   -  The driver object/executable file on disk should be protected using
+      the normal file protection mechanisms, so it is writable by only
+      trusted users, for example, a privileged user or an administrator.
+
+   -  The public key firmware image on the disk should be protected using
+      normal file protection mechanisms, so it is writable only by trusted
+      users, for example, a privileged user or an administrator.
+
+   -  The Intel\ :sup:`®` QAT device should not be exposed (via Single-root
+      Input/Output Virtualization (SRIOV)) to untrusted guests.
+
+   -  The Intel QAT device should not be exposed (through the
+      *user space direct* deployment model) to untrusted users.
+
+   -  The Dynamic Random-Access Memory (DRAM) is considered to be inside
+      the trust boundary. The traditional memory-protection schemes
+      provided by the Intel architecture processor and memory
+      controller, and by the OS, is to prevent unauthorized access to these
+      memory regions.
+
+   -  Persistent keys were not considered, but the storage media are also
+      considered inside the cryptographic boundary.
+
+   -  The driver exposed device file should be protected using the normal
+      file protection mechanisms so that it could be opened and
+      read/written only by trusted users.
+
+.. _qat1.x_rn_vmware_related_documentation:
+
+Related Documentation
+---------------------
+
+.. table::
+    :widths: 85, 15
+
+    +-------------------------------------------------------------------------------------------------+------------+
+    |  **Title**                                                                                      | **Number** |
+    +=================================================================================================+============+
+    | Intel QuickAssist Technology for Linux* - Getting Started Guide (HW 1.7)                        | 336212     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology for Linux* - Release Notes (HW 1.7)                                | 336211     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology for VMware* - Release Notes (HW 1.7)                               | 627385     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology - Programmer's Guide (HW 1.7)                                      | 336210     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology API Programmer's Guide                                             | 330684     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology Cryptographic API Reference Manual                                 | 330685     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology Data Compression API Reference Manual                              | 330686     |
+    +-------------------------------------------------------------------------------------------------+------------+

@@ -1,0 +1,40 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_resetfunctions:
+
+Reset Device Function
+=====================
+
+This API can only be called in user-space.
+
+The device can be reset using this API call. This will schedule a reset of the device. 
+The device can also be reset using the ``adf_ctl`` utility, e.g., by calling ``adf_ctl qat_dev0 reset``.
+
+icp_sal_reset_device
+--------------------
+
+Resets the device.
+
+**Syntax**
+
+``CpaStatus icp_sal_reset_device(Cpa32U accelid);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``accelid``          | The device number.                                                                        |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_reset_device`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successful operation.                                                                  |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates a failure.                                                                   |
+   +------------------------------+----------------------------------------------------------------------------------------+

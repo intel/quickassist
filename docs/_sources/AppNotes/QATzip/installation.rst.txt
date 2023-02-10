@@ -1,0 +1,126 @@
+.. _qat_2.0_qatzip_installation:
+
+Library Installation
+=====================================
+
+.. important:: 
+    Make sure to install first the Intel® QuickAssist Technology Software. Refer to :ref:`Intel QAT Software Installation <qat_2.0_gsg_installation>` for details.
+
+Install QATzip as Root User
+-------------------------------------
+
+#. **Download** the QATzip library from the `QATzip library repository <https://github.com/intel/QATzip>`_.
+
+    .. code-block:: console
+
+        git clone https://github.com/intel/QATzip.git
+
+#. **Set** the following environment variables:
+
+    - ``ICP_ROOT`` - Root directory of your QAT driver source tree.
+    - ``QZ_ROOT`` - Root directory of your QATzip source tree.
+
+#. **Enable** huge pages.
+
+    .. code-block:: console
+
+        echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+        rmmod usdm_drv
+        insmod $ICP_ROOT/build/usdm_drv.ko max_huge_pages=1024 max_huge_pages_per_process=16
+    
+#. **Compile** and **install** QATzip.
+
+    .. code-block:: console
+
+        cd $QZ_ROOT
+        ./autogen.sh
+        ./configure --with-ICP_ROOT=$ICP_ROOT
+        make clean
+        make all install
+
+    .. note:: 
+        For more configure options, run ``./configure -h`` for help.
+    
+#. **Update** the configuration files.
+
+    .. note:: 
+        The QATzip library comes with some example configuration files to use with the Intel® QAT Software. The QATzip will not function with the default Intel® QAT Software configuration file because the default configuration does not contain a ``[SHIM]`` section which the Intel® QATzip requires by default. The default section name in QATzip can be modified if required by setting the environment variable ``QAT_SECTION_NAME``.
+
+    To update the configuration file, copy the configure file(s) from directory of ``$QZ_ROOT/config_file/$YOUR_PLATFORM/$CONFIG_TYPE/*.conf`` to directory of ``/etc``.
+    
+        * ``YOUR_PLATFORM`` - The Intel QAT hardware platform.
+        * ``CONFIG_TYPE`` - Tuned configure file(s) for different usage: ``multiple_process_opt`` for multiple process optimization or ``multiple_thread_opt`` for multiple thread optimization.
+
+#. **Restart** the Intel QAT driver.
+
+    .. code-block:: console
+
+        service qat_service restart
+
+    .. note::
+        With current configuration, each PCI-e device in C6XX platform could support 32 processes in maximum.
+
+#. **Enable** QATzip for Non-root user.
+
+    Execute the following script as root user to modify the file properties.
+
+    .. code-block:: console
+
+        cd $QZ_ROOT
+        ./setenv.sh
+
+Install QATzip as Non-root User
+-------------------------------------
+
+#. **Enable** huge page as root user.
+
+    .. code-block:: console
+
+        echo 1024 > /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+        rmmod usdm_drv
+        insmod $ICP_ROOT/build/usdm_drv.ko max_huge_pages=1024 max_huge_pages_per_process=16
+
+#. **Execute** the following script as root user to modify the file properties.
+
+    .. code-block:: console
+
+        cd $QZ_ROOT
+        ./setenv.sh
+
+#. **Update** the configuration files as root user.
+
+    .. note:: 
+        The QATzip library comes with some example configuration files to use with the Intel® QAT Software. The QATzip will not function with the default Intel® QAT Software configuration file because the default configuration does not contain a ``[SHIM]`` section which the Intel® QATzip requires by default. The default section name in QATzip can be modified if required by setting the environment variable ``QAT_SECTION_NAME``.
+
+    To update the configuration file, copy the configure file(s) from directory of ``$QZ_ROOT/config_file/$YOUR_PLATFORM/$CONFIG_TYPE/*.conf`` to directory of ``/etc``.
+
+        * ``YOUR_PLATFORM`` - The Intel QAT hardware platform.
+        * ``CONFIG_TYPE`` - Tuned configure file(s) for different usage: ``multiple_process_opt`` for multiple process optimization or ``multiple_thread_opt`` for multiple thread optimization.
+
+#. **Restart** the QAT driver as root user.
+
+    .. code-block:: console
+
+        service qat_service restart
+
+    .. note::
+        With current configuration, each PCI-e device in C6XX platform could support 32 processes in maximum.
+
+#. **Set** the following environment variables as non-root user:
+
+    - ``ICP_ROOT`` - Root directory of your QAT driver source tree.
+    - ``QZ_ROOT`` - Root directory of your QATzip source tree.
+
+#. **Compile** and **install** QATzip as non-root user.
+
+    .. code-block:: console
+
+        cd $QZ_ROOT
+        ./autogen.sh
+        ./configure --with-ICP_ROOT=$ICP_ROOT
+        make clean
+        make all
+        export LD_LIBRARY_PATH=$QZ_ROOT/utils:$LD_LIBRARY_PATH
+    
+    .. note:: 
+        For more configure options, run ``./configure -h`` for help.

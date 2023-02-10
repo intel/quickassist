@@ -1,0 +1,20 @@
+.. _qat_2.0_containers_build:
+
+Build Containers with Intel® QAT Software
+==========================================
+
+.. note::
+    If not running as *root* user, ``sudo`` will need to be added to the Linux* instructions below.
+
+#. **Copy** the repository.
+
+    .. code-block:: console
+        
+        git clone https://github.com/intel/intel-device-plugins-for-kubernetes
+
+#. **Build** the image.
+
+    .. code-block:: console
+        
+        cd intel-device-plugins-for-kubernetes
+        make openssl-qat-engine

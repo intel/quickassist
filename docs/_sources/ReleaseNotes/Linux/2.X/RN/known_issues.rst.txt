@@ -1,0 +1,429 @@
+.. _qat_2.0_rn_linux_knownissues:
+
+Known Issues
+------------
+
+QATE20-8981 [Sample Code] sym_dp_update_sample Functional Sample Code application execution will fail
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [Sample Code] sym_dp_update_sample Functional Sample  |
+   |                   | Code application execution will fail                  |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-8981                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | CPM2.0 hardware does not support the wireless Kasumi  |
+   |                   | F8 algorithm and the associated sample code           |
+   |                   | application will fail.                                |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | The sym_dp_update_sample functional applications will |
+   |                   | fail with the following output:                       |
+   |                   |                                                       |
+   |                   | main(): Starting Sym Dp Update Sample Code App ...    |
+   |                   |                                                       |
+   |                   | symDpUpdateSample(): cpaCyStartInstance               |
+   |                   |                                                       |
+   |                   | initSession(): cpaCySymDpSessionCtxGetSize            |
+   |                   |                                                       |
+   |                   | initSession(): cpaCySymDpInitSession                  |
+   |                   |                                                       |
+   |                   | [error] LacSymSession_ParamCheck() - : Invalid API    |
+   |                   | Param - cipherAlgorithm                               |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This will not be resolved as the CPM2.0 hardware does |
+   |                   | not support this algorithm.                           |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Symmetric                                    |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-9131 [DC] - Incorrect XXHASH32 can be generated when using error injection and buffer overflow occurs when using accumulated XXHASH32
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - Incorrect XXHASH32 can be generated when using |
+   |                   | error injection and buffer overflow occurs when using |
+   |                   | accumulated XXHASH32                                  |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-9131                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | When using Data Compression service with LZ4          |
+   |                   | accumulated XXHASH32 sessions in conjunction with     |
+   |                   | Error Injection the service will not trigger Recovery |
+   |                   | mode but shall return a CPA_DC_VERIFY_ERROR error     |
+   |                   | instead.                                              |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | Recovery mode will not trigger for LZ4 with Error     |
+   |                   | Injection and instead return a Verify error:          |
+   |                   | -18 CPA_DC_VERIFY_ERROR.                              |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | Future Fix                                            |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-9671 [DC] - Accumulated XXHash32 is not supported for LZ4 decompress operations
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - Accumulated XXHash32 is not supported for LZ4  |
+   |                   | decompress operations                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-9671                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | Accumulated XXHash32 enables the calculation of a     |
+   |                   | final XXHash32 that is accumulated across all         |
+   |                   | previous requests in a stream. This feature is        |
+   |                   | available for the Compress direction only. The        |
+   |                   | decompression flow is not finalized and not currently |
+   |                   | functional.                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | Accumulated XXHash32 is functional for the            |
+   |                   | Compression direction only.                           |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | Future Fix                                            |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - Additional configuration required to enable 8K |
+   |                   | data decompression performance                        |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-19310                                          |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | To utilize compression HW slices to full potential    |
+   |                   | while symmetric service enabled a modified policy     |
+   |                   | needs to be applied for this mode of operation.       |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | Decompression performance is not fully realized and   |
+   |                   | limited to ~83% for 8K compressed payloads.           |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This issue can be resolved by modifying               |
+   |                   | ./quickassist/                                        |
+   |                   | qat/drivers/crypto/qat/qat_4xxx/adf_4xxx_hw_data.c:50 |
+   |                   | and changing dc_me_active_thd_mask = 0x03; to         |
+   |                   | dc_me_active_thd_mask = 0x01; and then recompile.     |
+   |                   | This modification is for the singular use case where  |
+   |                   | decompression performance at 8K is payloads is        |
+   |                   | required. This will be addressed in a future release. |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QAT20-21905 SVM/AT cannot be enabled when PRS is disabled 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+----------------------------------------------------------------+
+   | **Title**         | SVM/AT cannot be enabled when PRS is disabled.                 |
+   +-------------------+----------------------------------------------------------------+
+   | **Reference**     | QATE20-21905                                                   |
+   +-------------------+----------------------------------------------------------------+
+   | **Description**   | Shared Virtual Memory(SVM) with Address translation            | 
+   |                   | (AT) requires Page Request Support (PRS) to be                 |
+   |                   | enabled in BIOS.  PRS is disabled by default.                  |
+   +-------------------+----------------------------------------------------------------+
+   | **Implication**   | The following error signatures maybe observed if               |
+   |                   | application attempts to use SVM with AT when PRS is            |
+   |                   | disabled:                                                      |
+   |                   |                                                                |
+   |                   +----------------------------------------------------------------+
+   |                   | Following error code is returned an calls to the QAT APIs:     |
+   |                   |                                                                |
+   |                   | Unable to get the physical address of the client buffer        |
+   |                   |                                                                |
+   |                   +----------------------------------------------------------------+
+   |                   | Following message displayed in dmesg when running              |
+   |                   | applications using the QAT APIs:                               |
+   |                   |                                                                |
+   |                   | DMAR: [DMA Read] Request device [75:00.1] PASID ffffffff       |  
+   |                   | fault addr 7fb0c81c0000 [fault reason 113] SM: Present bit     |
+   |                   | in first-level paging entry is clear                           |
+   |                   |                                                                |
+   |                   +----------------------------------------------------------------+
+   |                   | Some Telemetry data is not updated in this configuration.      |
+   |                   |                                                                |
+   +-------------------+----------------------------------------------------------------+
+   | **Resolution**    | PRS should be enabled. For this release, user can enable       | 
+   |                   | PRS in BIOS by updating the following setting to *Enabled*:    |
+   |                   |                                                                |
+   |                   |                                                                |
+   |                   | Socket Configuration->IIO Configuration->Intel VT for Directed |
+   |                   | I/O (VT-d)->Opt-Out Illegal MSI Mitigation                     |
+   |                   |                                                                |
+   |                   |                                                                |
+   |                   | This will be addressed in a future release.                    |
+   +-------------------+----------------------------------------------------------------+
+   | **Affected OS**   | Linux                                                          |
+   +-------------------+----------------------------------------------------------------+
+   | **Driver/Module** | QAT IA - General                                               |
+   +-------------------+----------------------------------------------------------------+
+
+
+QATE20-21751 [VIRT] -  Missing VFs on host when attaching to VMs
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [VIRT] - Missing VFs on host when attaching to VMs    |
+   |                   |                                                       |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-21751                                          |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | When listing VFs on the host with any amount of VFs   |
+   |                   | attached to a virtual machine, you may see missing VFs| 
+   |                   | reported on the host.                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | For every virtual machine with an attached VF you may |
+   |                   | observe two less VFs reported on the host.            |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | When assigning a VF to a virtual machine always start | 
+   |                   | with the ones with the highest BDF and work back.     | 
+   |                   | This workaround ensures no missing VFs on the host.   |
+   |                   |                                                       |
+   |                   |                                                       |
+   |                   |                                                       |
+   |                   | This will be addressed in a future release.           |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | 4xxx Kernel module                                    |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-22999 [Sample Code] Functional sample applications will fail if service is not enabled on first QAT Endpoint
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+---------------------------------------------------------+
+   | **Title**         | [Sample Code] Functional sample applications will       |
+   |                   | fail if service is not enabled on first QAT Endpoint    |
+   +-------------------+---------------------------------------------------------+
+   | **Reference**     | QATE20-22999                                            |
+   +-------------------+---------------------------------------------------------+
+   | **Description**   | When sample application is executed which requests      |
+   |                   | service that is not enabled on the first endpoint,      |
+   |                   | the application will fail.                              |
+   +-------------------+---------------------------------------------------------+
+   | **Implication**   | If first endpoint is configured with asym, running      |
+   |                   | application that uses symmetric such as ccm_sample will |
+   |                   | fail with following error signatures even if other      |
+   |                   | endpoints enable symmetric crypto.                      |
+   |                   |                                                         |
+   |                   | # ./ccm_sample                                          |
+   |                   |                                                         |
+   |                   | main(): Starting CCM Sample Code App ...                |
+   |                   |                                                         |
+   |                   | algChainSample(): cpaCyStartInstance                    |
+   |                   |                                                         |
+   |                   | algChainSample(): Generation-Encryption Process         |
+   |                   |                                                         |
+   |                   | algChainSample(): cpaCySymSessionCtxGetSize CCM encrypt |
+   |                   |                                                         |
+   |                   | [error] cpaCySymSessionCtxGetSize() - : The instance    |
+   |                   | handle is the wrong type                                |
+   |                   |                                                         |
+   |                   | algChainSample(): cpaCyStopInstance                     |
+   |                   |                                                         |
+   |                   | algChainSample(): Sample code failed with status of -1  |
+   +-------------------+---------------------------------------------------------+
+   | **Resolution**    | Workaround is to enable necessary service on the first  |
+   |                   | endpoint.                                               |
+   +-------------------+---------------------------------------------------------+
+   | **Affected OS**   | Linux                                                   |
+   +-------------------+---------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Symmetric                                      |
+   +-------------------+---------------------------------------------------------+
+
+.. _qat_2.0_rn_svm_issue:
+
+QAT20-23616 [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT) disabled
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+---------------------------------------------------------+
+   | **Title**         | [Firmware] Shared Virtual Memory (SVM) and Address      |
+   |                   | Translation (AT) disabled                               |
+   +-------------------+---------------------------------------------------------+
+   | **Reference**     | QAT20-23616                                             |
+   +-------------------+---------------------------------------------------------+
+   | **Description**   | When running QAT workloads with AT enabled under loaded | 
+   |                   | traffic conditions, memory page corruption may occur.   | 
+   |                   |                                                         |
+   |                   | Intel is looking at a possible workaround for the       |                                                         
+   |                   | problem, and until then the QAT firmware/Driver will    |  
+   |                   | not make use of or enable SVM with AT.                  |
+   +-------------------+---------------------------------------------------------+
+   | **Implication**   | It is not currently possible to run with SVM and AT.    |
+   +-------------------+---------------------------------------------------------+
+   | **Resolution**    | Current workaround is disabling SVM and AT.             |
+   +-------------------+---------------------------------------------------------+
+   | **Affected OS**   | All                                                     |
+   +-------------------+---------------------------------------------------------+
+   | **Driver/Module** | QAT Firmware                                            |
+   +-------------------+---------------------------------------------------------+
+
+QAT20-18924 [MCC] MCC SKUs may consume more power than expected
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+---------------------------------------------------------+
+   | **Title**         | [MCC] MCC SKUs may consume more power than expected     |
+   +-------------------+---------------------------------------------------------+
+   | **Reference**     | QAT20-18924                                             |
+   +-------------------+---------------------------------------------------------+
+   | **Description**   | Due to Power Management changes in MCC platforms one    | 
+   |                   | QAT device in every socket is permanently clock gated   | 
+   |                   | when not processing requests which leads to inevitable  |
+   |                   | heartbeat failures and device resets. Current FW        | 
+   |                   | workaround increases power consumption by keeping QAT   |
+   |                   | in active state. Intel is working on workaround that    | 
+   |                   | does not have impact on power consumption.              |
+   +-------------------+---------------------------------------------------------+
+   | **Implication**   | Higher power consumption is possible                    | 
+   +-------------------+---------------------------------------------------------+
+   | **Resolution**    | This is no workaround currently available.              |
+   +-------------------+---------------------------------------------------------+
+   | **Affected OS**   | Linux                                                   |
+   +-------------------+---------------------------------------------------------+
+   | **Driver/Module** | QAT Firmware                                            |
+   +-------------------+---------------------------------------------------------+
+
+QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+---------------------------------------------------------+
+   | **Title**         | [XCC/MCC] Spurious heartbeat failures may be observed   | 
+   |                   | on some SKUs                                            | 
+   +-------------------+---------------------------------------------------------+
+   | **Reference**     | QAT20-20272                                             |
+   +-------------------+---------------------------------------------------------+
+   | **Description**   | Time tracking in FW is inaccurate due to power          | 
+   |                   | management causing that frequency of HW counter that is | 
+   |                   | used as reference for time measurements appears lower   |
+   |                   | than expected. This may lead to delayed heartbeat       | 
+   |                   | and telemetry updates when devices become idle.         |
+   |                   | Intel is working on workaround that removes dependency  |  
+   |                   | on the HW counter.                                      |
+   +-------------------+---------------------------------------------------------+
+   | **Implication**   | No functional impact, these messages can be ignored.    | 
+   +-------------------+---------------------------------------------------------+
+   | **Resolution**    | This is no workaround currently available.              |
+   +-------------------+---------------------------------------------------------+
+   | **Affected OS**   | Linux                                                   |
+   +-------------------+---------------------------------------------------------+
+   | **Driver/Module** | QAT Firmware                                            |
+   +-------------------+---------------------------------------------------------+
+
+QAT20-24970 [Firmware] Potential false positive heartbeat failures
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+---------------------------------------------------------+
+   | **Title**         | [Firmware] Potential false positive heartbeat failures  |
+   +-------------------+---------------------------------------------------------+
+   | **Reference**     | QAT20-24970                                             |
+   +-------------------+---------------------------------------------------------+
+   | **Description**   | When a QAT device is fully utilized and is processing   |
+   |                   | requests with large payloads (e.g. >512MB), false       |
+   |                   | positive heartbeat failures may be reported if the      |
+   |                   | heartbeat check interval is set too low.                |
+   +-------------------+---------------------------------------------------------+
+   | **Implication**   | Processing multiple requests with big payload sizes may |
+   |                   | cause false positive heartbeat failure and trigger PF   |
+   |                   | restart.                                                |
+   +-------------------+---------------------------------------------------------+
+   | **Resolution**    | This issue can be resolved by ensuring that heartbeat   |
+   |                   | interval is large enough to allow big payload request be|
+   |                   | correctly processed.                                    |
+   |                   |                                                         |
+   |                   | Recommended minimal heartbeat interval value to be used |
+   |                   | is 1500 ms. This issue will be addressed in future      |
+   |                   | release.                                                |
+   +-------------------+---------------------------------------------------------+
+   | **Affected OS**   | All                                                     |
+   +-------------------+---------------------------------------------------------+
+   | **Driver/Module** | QAT Firmware                                            |
+   +-------------------+---------------------------------------------------------+
+
+QAT20-23946 [SVM/IOMMU] Request issue doesn't appear in response
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+---------------------------------------------------------+
+   | **Title**         | [SVM/IOMMU] Request issue doesn't appear in response    |
+   +-------------------+---------------------------------------------------------+
+   | **Reference**     | QAT20-23946                                             |
+   +-------------------+---------------------------------------------------------+
+   | **Description**   | Without Address Translation (AT) enabled, QAT hardware  |
+   |                   | can't reliably handle page faults on write operations   | 
+   |                   | to invalid memory addresses.                            |
+   |                   |                                                         |
+   |                   | This may lead to situations where the operation does    | 
+   |                   | not complete properly and error is not reported to user.|
+   |                   | Only IOMMU pagefault is reported to the user in this    |
+   |                   | case.                                                   |
+   |                   |                                                         |
+   |                   | This does not result in system memory corruption.       | 
+   +-------------------+---------------------------------------------------------+
+   | **Implication**   | User is responsible for making sure that all            |
+   |                   | destination addresses submitted to HW are valid. Also   |
+   |                   | verify that SW doesn't generate IOMMU pagefaults.       |
+   +-------------------+---------------------------------------------------------+
+   | **Resolution**    | Enable AT for SVM/IOMMU use cases.                      |
+   +-------------------+---------------------------------------------------------+
+   | **Affected OS**   | All                                                     |
+   +-------------------+---------------------------------------------------------+
+   | **Driver/Module** | QAT Firmware                                            |
+   +-------------------+---------------------------------------------------------+

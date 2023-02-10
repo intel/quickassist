@@ -1,0 +1,196 @@
+.. _qat_2.0_gsg_systemconfiguration:
+
+System Configuration
+====================
+
+This section describes the process of configuring the system prior to the Intel\ :sup:`®` QuickAssist Technology (Intel® QAT) driver installation.
+
+Configuring BIOS
+----------------
+
+.. note::
+
+    If installing the Intel QAT 2.0 driver for use in a virtual environment, refer to the :ref:`Virtualization Deployment Guide <virtualization_deployment_guide>` for additional details.
+
+If BIOS updates are required, the following command can be used to reboot the system and enter the BIOS setup:
+
+.. code-block:: console
+
+    systemctl reboot --firmware-setup
+
+Disabling QAT Endpoints
+-----------------------
+
+Depending on the hardware SKU, there can be up to 4 QAT endpoints per socket. It is possible to disable individual QAT endpoints by following the instructions below: 
+
+#. **Enter** BIOS setup.
+#. **Navigate** to the following path where ``<n>`` corresponds to the socket containing the QAT endpoint(s) to be disabled: ``EDKII Menu > Socket Configuration > IIO Configuration > IOAT Configuration > Sck<n> > IOAT Configuration``
+#. **Update** the *CPM* value to *Disable* for each QAT endpoint to be disabled for each socket.
+#. **Save** changes.
+#. **Reboot** the system.
+
+.. figure:: img/disable_qat.png
+    :width: 641px
+    :height: 304px
+
+Configuring Operating System
+-------------------------------------
+
+There are a few configuration items that may need to be completed, such as updating ``dnf`` or ``apt`` configuration files 
+as well as the system security configuration. This section describes these items.
+
+Updating dnf Configuration Files
+++++++++++++++++++++++++++++++++
+
+.. important::
+
+    This section is optional for RPM-based Linux distributions such as RHEL*, CentOS*, and Fedora*.
+
+``dnf`` is an application that can be used to perform operating system updates. To use ``dnf`` in a corporate network, 
+the following change may be required:
+
+#. **Add** a line similar to the following in the ``/etc/dnf/dnf.conf`` file. The line can be added to the end of the file.
+
+    .. code-block:: console
+        
+        proxy=http://<proxy_server:portnum>
+
+    .. note::
+
+        ``<proxy_server:portnum>`` is replaced with your server information. Contact your network administrator for details on the proxy server.
+
+#. If your corporate proxy server requires a username and password, **specify** these by adding the following two settings in the ``dnf.conf`` file.
+
+    .. code-block:: console
+        
+        proxy_username=YOUR-PROXY-USERNAME-HERE
+        proxy_password=YOUR-SUPER-SECRET-PASSWORD-HERE
+
+Updating apt Configuration Files 
+++++++++++++++++++++++++++++++++
+
+.. important::
+
+    This section is optional for DEB-based Linux distributions such as Ubuntu*.
+
+``apt`` is the default package manager for Debian* based distributions such as Ubuntu*. To use ``apt`` in a corporate network,
+the following updates may be required:
+
+#. **Create** (or **edit** if the file already exists) a file named as ``apt.conf`` in the ``/etc/apt`` directory.
+
+    .. code-block:: console
+        
+        sudo nano /etc/apt/apt.conf
+
+#. **Add** the following lines to the ``apt.conf`` file:
+
+    .. code-block:: console
+
+        Acquire::http::Proxy "http://[YOUR-PROXY-USERNAME-HERE]:[YOUR-SUPER-SECRET-PASSWORD-HERE]@ [proxy-web-or-IP-address]:[port-number]";
+        Acquire::https::Proxy "http://[YOUR-PROXY-USERNAME-HERE]:[YOUR-SUPER-SECRET-PASSWORD-HERE]@ [proxy-web-or-IP-address]:[port-number]";
+
+    .. note::
+
+        ``YOUR-PROXY-USERNAME-HERE`` and ``YOUR-SUPER-SECRET-PASSWORD-HERE`` are optional parameters.
+
+#. **Save** the file and **exit**.
+#. **Reboot** the system. The configuration wil be applied after a reboot.
+
+Installing Package Dependencies
++++++++++++++++++++++++++++++++
+
+The Intel QAT package depends on a number of libraries that must be installed first on the system.
+
+
+RPM-based package dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. important::
+
+    This section is required for RPM-based Linux distributions such as RHEL*, CentOS*, and Fedora*.
+
+#. **Enable** PowerTools Repository  (may be required for yasm package).
+
+    .. code-block:: console
+
+        sudo dnf -y install dnf-plugins-core
+        sudo dnf upgrade
+        sudo dnf config-manager --set-enabled powertools
+
+#. **Install** the RPM-based package dependencies:
+
+    .. code-block:: console
+
+        sudo dnf groupinstall "Development Tools"
+        sudo dnf install -y systemd-devel
+        sudo dnf install -y pciutils
+        sudo dnf install -y libudev-devel
+        sudo dnf install -y readline-devel
+        sudo dnf install -y libxml2-devel
+        sudo dnf install -y boost-devel
+        sudo dnf install -y elfutils-libelf-devel
+        sudo dnf install -y python3
+        sudo dnf install -y libnl3-devel
+        sudo dnf install -y kernel-devel-$(uname -r)
+        sudo dnf install -y gcc
+        sudo dnf install -y gcc-c++
+        sudo dnf install -y yasm
+        sudo dnf install -y zlib
+        sudo dnf install -y openssl-devel
+        sudo dnf install -y zlib-devel
+        sudo dnf install -y make
+
+
+
+DEB-based package dependencies
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. important::
+
+    This section is required for DEB-based Linux distributions such as Ubuntu*.
+
+#. **Install** the DEB-based package dependencies:
+
+    .. code-block:: console
+
+        sudo apt-get update
+        sudo apt-get install -y libsystemd-dev
+        sudo apt-get install -y pciutils-dev
+        sudo apt-get install -y libudev-dev
+        sudo apt-get install -y libreadline6-dev
+        sudo apt-get install -y pkg-config 
+        sudo apt-get install -y libxml2-dev
+        sudo apt-get install -y pciutils-dev
+        sudo apt-get install -y libboost-all-dev
+        sudo apt-get install -y libelf-dev
+        sudo apt-get install -y libnl-3-dev
+        sudo apt-get install -y kernel-devel-$(uname -r)
+        sudo apt-get install -y build-essential
+        sudo apt-get install -y yasm
+        sudo apt-get install -y zlib1g-dev
+        sudo apt-get install -y libssl-dev
+
+System Security Considerations
+++++++++++++++++++++++++++++++
+
+.. note:: 
+
+    * Specific OS/filesystem topics are outside of the scope of this document. For more information, refer to the :ref:`Programmer's Guide <qat_2.0_pg_secure_architecture_considerations>`.
+    
+    * This section contains a high-level list of system security topics. This is not an exhaustive list.
+
+Securing your operating system is critical. Consider the following items:
+
+-  Employ effective security policies and tools; for instance, SELinux* is configured correctly and is active.
+-  Run and configure the firewall(s).
+-  Prevent privilege escalation at boot (including recovery mode); for instance, set a grub password. Additional details are described below.
+-  Remove unnecessary software packages.
+-  Patch software in a timely manner.
+-  Monitor the system and the network.
+-  Configure and disable remote access, as appropriate.
+-  Disable network boot.
+-  Require secure passwords.
+-  Encrypt files, up to full-disk encryption.
+-  Ensure physical security of the system and the network.
+-  Use mlock to prevent swapping sensitive variables from RAM to disk.
+-  Zero out sensitive variables in RAM.

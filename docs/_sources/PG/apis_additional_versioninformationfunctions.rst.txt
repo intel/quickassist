@@ -1,0 +1,49 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_versioninformationfunctions:
+
+Version Information Function
+============================
+
+A function that allows the retrieval of version information related to the software and hardware being used.
+
+The version information function definition is located in: ``$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_versions.h.``
+
+icp_sal_getDevVersionInfo
+-------------------------
+
+Retrieves the hardware revision and information on the version of the software components being run on a given device.
+
+.. note:: 
+   
+   The ``icp_sal_userStart`` function must be called before calling this function. If not, calling this function returns ``CPA_STATUS_INVALID_PARAM`` indicating an error. The ``icp_sal_userStart`` function is responsible for setting up the ADF user space component, which is required for this function to operate successfully.
+
+**Syntax**
+
+``CpaStatus icp_sal_getDevVersionInfo(Cpa32U devId, icp_sal_dev_version_info_t *pVerInfo);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``devId``            | The ID (number) of the device for which version information is to be retrieved.           |
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``*pVerInfo``        | A pointer to a structure that holds the version information.                              |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_getDevVersionInfo`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 30, 70
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Operation finished successfully; version information retrieved.                        |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_INVALID_PARAM`` | Invalid parameter passed to the function.                                              |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RESOURCE``      | System resource problem.                                                               |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Operation failed.                                                                      |
+   +------------------------------+----------------------------------------------------------------------------------------+

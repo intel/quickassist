@@ -1,0 +1,93 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_servicespecificapis:
+
+Service Specific Polling APIs
+=============================
+
+These service specific polling APIs are intended for retrieving response messages that are on the specific ring 
+and dispatching the associated callback. 
+
+All these API definitions are located in: ``$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_poll.h``
+
+icp_sal_CyPollSymRing
+---------------------
+
+Poll the symmetric logical instance associated with the ``instanceHandle`` to retrieve requests that are on the response 
+rings associated with that instance and dispatch the associated callbacks. The ``response_quota`` input parameter is the 
+maximum number of responses to process in one call.
+
+**Syntax**
+
+``CpaStatus icp_sal_CyPollSymRing(CpaInstanceHandle instanceHandle, Cpa32U response_quota);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``instanceHandle``           | Instance handle to poll for responses on the response ring.                            |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``response_quota``           | The maximum number of messages that will be read in one polling. Setting the response  | 
+   |                              | quota to zero means that all messages on the ring will be read.                        |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_CyPollSymRing`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 30, 70
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successfully polled a ring with data.                                                  |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_INVALID_PARAM`` | Invalid parameter passed to the function.                                              |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RETRY``         | There are no responses on the rings associated with the instance.                      |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates a failure.                                                                   |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RESTARTING``    | Device restarting. Resubmit the request.                                               |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+icp_sal_CyPollAsymRing
+----------------------
+
+Poll the asymmetric logical instance associated with the ``instanceHandle`` to retrieve requests that are on the response 
+rings associated with that instance and dispatch the associated callbacks. The ``response_quota`` input parameter is the 
+maximum number of responses to process in one call.
+
+**Syntax**
+
+``CpaStatus icp_sal_CyPollAsymRing(CpaInstanceHandle instanceHandle, Cpa32U response_quota);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``instanceHandle``           | Instance handle to poll for responses on the response ring.                            |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``response_quota``           | The maximum number of messages that will be read in one polling. Setting the response  | 
+   |                              | quota to zero means that all messages on the ring will be read.                        |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_CyPollAsymRing`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 30, 70
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS``       | Successfully polled a ring with data.                                                  |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_INVALID_PARAM`` | Invalid parameter passed to the function.                                              |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RETRY``         | There are no responses on the rings associated with the instance.                      |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``          | Indicates a failure.                                                                   |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_RESTARTING``    | Device restarting. Resubmit the request.                                               |
+   +------------------------------+----------------------------------------------------------------------------------------+

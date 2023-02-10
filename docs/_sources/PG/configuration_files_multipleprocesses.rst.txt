@@ -1,0 +1,118 @@
+.. _qat_2.0_pg_configuration_files_multiple_processes_multiple_endpoints:
+
+Configuring Multiple Processes on a System with Multiple Intel\ :sup:`®` QAT Endpoints
+======================================================================================
+
+As an example, consider a system with two Intel\ :sup:`®` QAT Endpoints where it is necessary to configure two user space sections. 
+One section is identified as SSL and the other is identified as Internet Protocol Security (IPSec).
+
+-  For the SSL section, configure eight processes, where each process has access to one acceleration instance.
+-  For the IPSec section, configure one process, with access to eight acceleration instances, four per Intel\ :sup:`®` QAT Endpoint.
+
+In this scenario, the user space section of the configuration file would look like the following for the first Intel\ :sup:`®` QAT Endpoint.
+
+    .. code-block:: bash
+
+        [SSL] #User space section name
+        NumProcesses=4 # There are 4 user space process with section name SSL with access to this device
+        LimitDevAccess=1 # These 4 SSL user space processes only use this device
+        NumCyInstances=1 # Each process has access to 1 Cy instance on this device
+        NumDcInstances=0 # Each process has access to 0 Dc instances on this device
+
+        # Crypto - User instance #0
+        Cy0Name = "SSL0"
+        Cy0IsPolled = 1
+        Cy0CoreAffinity = 0 # Core affinity not used for polled instance
+
+        [IPsec] #User space section name
+        NumProcesses=1 # There is 1 user space process with section name IPSec with access to this device
+        LimitDevAccess=0 # This IPSec user space process may have access to other devices
+        NumCyInstances=4 # The IPSec process has access to 4 Cy instances on this device
+        NumDcInstances=0 # The IPSec process has access to 0 Dc instances on this device
+
+        # Crypto - User instance #0
+        Cy0Name = "IPSec0"
+        Cy0IsPolled = 1
+        Cy0CoreAffinity = 0 # Core affinity not used for polled instance
+        # Crypto - User instance #1
+
+        Cy1Name = "IPSec1"
+        Cy1IsPolled = 1
+        Cy1CoreAffinity = 0 # Core affinity not used for polled instance
+
+        # Crypto - User instance #2
+        Cy2Name = "IPSec2"
+        Cy2IsPolled = 1
+        Cy2CoreAffinity = 0 # Core affinity not used for polled instance
+
+        # Crypto - User instance #3
+        Cy3Name = "IPSec3"
+        Cy3IsPolled = 1
+        Cy3CoreAffinity = 0 # Core affinity not used for polled instance
+
+The second Intel\ :sup:`®` QAT Endpoint configuration looks like:
+
+    .. code-block:: bash
+
+        [SSL] #User space section name
+        NumProcesses=4 # There are 4 user space process with section name SSL with access to this device
+        LimitDevAccess=1 # These 4 SSL user space processes only use this device
+        NumCyInstances=1 # Each process has access to 1 Cy instance on this device
+        NumDcInstances=0 # Each process has access to 0 Dc instances on this device
+
+        # Crypto - User instance #0
+        Cy0Name = "SSL0"
+        Cy0IsPolled = 1
+        Cy0CoreAffinity = 0 # Core affinity not used for polled instance
+
+        [IPsec] #User space section name
+        NumProcesses=1 # There is 1 user space process with section name IPSec with access to this device
+        LimitDevAccess=0 # This IPSec user space process may have access to other devices
+        NumCyInstances=4 # The IPSec process has access to 4 Cy instances on this device
+        NumDcInstances=0 # The IPSec process has access to 0 Dc instances on this device
+
+        # Crypto - User instance #0
+        Cy0Name = "IPSec0"
+        Cy0IsPolled = 1
+        Cy0CoreAffinity = 0 # Core affinity not used for polled instance
+
+        # Crypto - User instance #1
+        Cy1Name = "IPSec1"
+        Cy1IsPolled = 1
+        Cy1CoreAffinity = 0 # Core affinity not used for polled instance
+
+        # Crypto - User instance #2
+        Cy2Name = "IPSec2"
+        Cy2IsPolled = 1
+        Cy2CoreAffinity = 0 # Core affinity not used for polled instance
+
+        # Crypto - User instance #3
+        Cy3Name = "IPSec3"
+        Cy3IsPolled = 1
+        Cy3CoreAffinity = 0 # Core affinity not used for polled instance
+
+Eight processes (with section name SSL) can call the ``icp_sal_userStart("SSL")`` function to get access to one crypto instance each. One process (with section name IPSec) can call the ``icp_sal_userStart("IPSec")`` function to get access to eight crypto instances.
+
+Internally in the driver, this works as follows:
+
+#. When the driver is configured (that is, the ``service qat_service`` is called), the driver reads the configuration file for the device and populates an internal configuration table.
+
+#. Reading the configuration file for ``dev0``:
+
+    a. For the section named ``[SSL]``, the driver determines that four processes are required and that these processes limit access to this device only. In this case, the driver creates four internal sections that it labels ``SSL_DEV0_INT_0``, ``SSL_DEV0_INT_1``, ``SSL_DEV0_INT_2`` and ``SSL_DEV0_INT_3``. Each section is given access to one crypto instance as described.
+    b. For section name ``[IPSec]``, the driver determines that one process is required and that this process does not limit access to this device only (that is, it may access instances on other devices). In this case, the driver creates one internal section that it labels ``IPSec_INT_0`` and gives this access to four crypto instances on this device.
+
+#. Reading the configuration file for ``dev1``:
+
+    a. For the section named ``[SSL]``, the driver determines that four processes are required and that these processes are limited to access this device only. In this case, the driver creates four internal sections that it labels ``SSL_DEV1_INT_0``, ``SSL_DEV1_INT_1``, ``SSL_DEV1_INT_2`` and ``SSL_DEV1_INT_3``. Each section is given access to one crypto instance as described.
+    b. For the section named ``[IPSec]``, the driver determines that one process is required and that this process may have access to instances on other devices. In this case, the driver creates one internal section that it labels ``IPSec_INT_0`` and gives this access to four crypto instances on this device.
+
+    .. note:: This section name now appears in both devices' internal configuration and, therefore, the process that gets assigned this section name will have access to instances on both devices.
+
+#. In total, there are nine separate sections (``SSL_DEV0_INT_0``, ``SL_DEV0_INT_1``, ``SSL_DEV0_INT_2``, ``SSL_DEV0_INT_3``, ``SSL_DEV1_INT_0``, ``SSL_DEV1_INT_1``, ``SSL_DEV1_INT_2``, ``SSL_DEV1_INT_3`` and ``IPSec_INT_0``) with access to crypto instances.
+
+When a process calls the ``icp_sal_userStart ("SSL")`` function, the driver locates the next available section of the form ``SSL_DEV<m>_INT<....>`` (of which there are eight in total in this example) and assigns this section to the process. This gives the process access to corresponding crypto instances.
+
+When a process calls the ``icp_sal_userStart ("IPSec")`` function, the driver locates the next available section of the form ``IPSec_INT_<....>`` (of which there is only one in total for this example) and assigns this section to the process. This gives the process access to the corresponding crypto instances.
+
+.. note:: The ``icp_sal_userStartMultiProcess()`` function has been deprecated. The API still exists, but it simply calls ``icp_sal_userStart()``.

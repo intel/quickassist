@@ -1,0 +1,105 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_userspacefunctions:
+
+User Space Access Configuration Functions
+=========================================
+
+Functions that allow the configuration of user space access to the Intel\ :sup:`®` QAT services from processes running in user space.
+
+All user space access configuration function definitions are located in ``$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_user.h``
+
+.. _icp_sal_userstart:
+
+icp_sal_userStart
+-----------------
+
+Initializes user space access to an Intel\ :sup:`®` QAT Endpoint and starts the ``ProcessName`` section in the given section of the 
+configuration file. This function needs to be called prior to any call to Intel\ :sup:`®` QAT API function from the user space process. 
+This function is typically called only once in a user space process.
+
+.. note::
+   
+   The ``icp_sal_userStartMultiProcess()`` function is still supported, but the parameter ``limitDevAccess`` is ignored because its value is set once in the configuration file and is not allowed to be specified again in the function.
+
+The configuration format allows the user to easily create a configuration for many user spaces processes. The driver internally 
+generates unique process names and a valid configuration for each process based on the section name (``pSectionName``) and mode (``limitDevAccess``) provided.
+
+For example, on a system with *M* number of devices, if all *M* configuration files contain: 
+
+   .. code-block:: text
+
+      [IPSec]
+      NumProcesses = N
+      LimitDevAccess = 0
+
+Then *N* internal sections are generated (each with instances on all devices) and *N* processes can be started at any given time. 
+Each process can call ``icp_sal_userStart("IPSec")`` and the driver determines the unique name to use for each process.
+
+Similarly, on an *M* device system, if all *M* configuration files contain:
+   
+   .. code-block:: text
+
+      [SSL]
+      NumProcesses = N 
+      LimitDevAccess = 1
+
+Then *MxN* internal sections are generated (each with instances on one device only) and *MxN* processes can be started at any given time. 
+Each process can call ``icp_sal_userStart("SSL")`` and the driver determines the unique name to use for each process.
+
+Refer to :ref:`Configuring Multiple Processes on a System with Multiple Intel® QAT Endpoints <qat_2.0_pg_configuration_files_multiple_processes_multiple_endpoints>` for detailed example. 
+   
+**Syntax**
+
+``CpaStatus icp_sal_userStart(const char *pSectionName);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``pSectionName``     | The section name described in the configuration file.                                     |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_userStart`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+---------------------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully started user space access to the Intel\ :sup:`®` QAT Endpoint as defined in the            |
+   |                        | configuration file.                                                                                     |
+   +------------------------+---------------------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Operation failed.                                                                                       |
+   +------------------------+---------------------------------------------------------------------------------------------------------+
+
+.. _icp_sal_userstop:
+
+icp_sal_userStop
+----------------
+
+Closes user space access to the Intel\ :sup:`®` QAT Endpoint; stops the services that were running and frees the allocated resources. 
+After a successful call to this function, user space access to the Intel\ :sup:`®` QAT Endpoint from a calling process is not possible. 
+This function should be called once when the process is finished using the Intel\ :sup:`®` QAT Endpoint and does not intend to use it again.
+
+**Syntax**
+
+``CpaStatus icp_sal_userStop( void);``
+
+**Parameters**
+
+None
+
+**Return Value**
+
+The ``icp_sal_userStop`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successfully stopped user space access to the Intel\ :sup:`®` QAT Endpoint.                  |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Operation failed.                                                                            |
+   +------------------------+----------------------------------------------------------------------------------------------+

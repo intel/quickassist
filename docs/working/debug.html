@@ -1,0 +1,1511 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Old File: &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Old File:</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="old-file">
+<h1>Old File:<a class="headerlink" href="#old-file" title="Permalink to this headline"></a></h1>
+<section id="debuggability-for-intel-quickassist-technology-qat">
+<h2>Debuggability for Intel QuickAssist Technology (QAT)<a class="headerlink" href="#debuggability-for-intel-quickassist-technology-qat" title="Permalink to this headline"></a></h2>
+<dl class="simple">
+<dt>In general, when debugging QAT, ask:</dt><dd><ul class="simple">
+<li><p>“Is QuickAssist installed and running?”</p></li>
+<li><p>“Are the QAT devices ‘up’?”</p></li>
+</ul>
+</dd>
+</dl>
+<p>If either answers is <em>“no”</em>:</p>
+<ol class="arabic simple">
+<li><p>Review all steps from GSG were taken according to your driver package, hardware version, and OS. Review especially all package dependencies are installed</p></li>
+<li><p>Confirm system time is accurate.</p></li>
+<li><dl class="simple">
+<dt>Execute the icp_dump.sh script, located in <code class="docutils literal notranslate"><span class="pre">&lt;ICP_ROOT&gt;/quickassist/utilities/debug_tool/icp_dump.sh</span></code></dt><dd><ol class="loweralpha simple">
+<li><p>If you have an Intel Premier Service (IPS) account, this <code class="docutils literal notranslate"><span class="pre">icp_dump</span></code> tarball .tar.gz package will assist us in serving you more efficiently.</p></li>
+</ol>
+</dd>
+</dl>
+</li>
+<li><p>If uninstalling/reinstalling QAT, be sure to perform these three in the &lt;ICP_ROOT&gt; directory: <code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">make</span> <span class="pre">uninstall</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">clean</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">distclean</span></code> , and try again.</p></li>
+</ol>
+<p>If the answers are <em>“yes</em>:</p>
+<ol class="arabic simple">
+<li><p>See dmesg/kernel logs (journalctl, etc.) for any QAT-related errors</p></li>
+<li><p>Note: there are a number of debug files created in /sys/kernel/debug/qat&lt;devID&gt;/*</p></li>
+<li><p>Note: note device utilization.</p></li>
+<li><p>Continue with this documentation.</p></li>
+</ol>
+<hr class="docutils" />
+<p>Copies of docs below… better to link?</p>
+<hr class="docutils" />
+<p>Testing Heartbeat</p>
+<hr class="docutils" />
+<p>Compile flag options:</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">--enable-icp-debug</span></code>                        | Enables debugging.                                              |</div>
+</div>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">--enable-icp-log-syslog</span></code>                   | Enables debugging messages to be outputted to the system log    |</div>
+<div class="line-block">
+<div class="line">| instead of standard output.                                     |</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line"><code class="docutils literal notranslate"><span class="pre">--enable-qat-kpt-debug-key</span></code>                | Enable QAT debug issue certificate.                             |</div>
+</div>
+</div></blockquote>
+<hr class="docutils" />
+<blockquote>
+<div><p>Debug information for the driver and configuration is available with the entries <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_*</span></code>. This includes:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 67%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Entry</p></th>
+<th class="head"><p>Description</p></th>
+<th class="head"><p>Supported Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>cnv_errors</p></td>
+<td><p>Indicates number of compressAndVerify errors. Refer to <a class="reference internal" href="../PG/services_compression_api.html#compress-verify-error-sysfs"><span class="std std-ref">Compress and Verify Error log in Sysfs</span></a>.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p>dev_cfg</p></td>
+<td><p>Displays internal device configuration information</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-even"><td><p>frequency</p></td>
+<td><p>Displays frequency of Acceleration Engines</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p>fw_counters</p></td>
+<td><p>Displays Acceleration Engine firmware requests/responses</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-even"><td><p>heartbeat, heartbeat_failed, heartbeat_sent</p></td>
+<td><p>Refer to <a class="reference internal" href="../PG/infrastructure_heartbeat.html#system-virtual-files"><span class="std std-ref">System Virtual Files</span></a>.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p>pm_status</p></td>
+<td><p>Displays power management status.  Refer to <a class="reference internal" href="../PG/infrastructure_power_management.html#pm-status"><span class="std std-ref">Power Management</span></a> for additional information.</p></td>
+<td><p>QAT 2.0</p></td>
+</tr>
+<tr class="row-even"><td><p>transport</p></td>
+<td><p>Contains firmware request/response data. Available only for kernel space instances.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p>version</p></td>
+<td><p>Includes package version information</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-even"><td><p>vqat</p></td>
+<td><p>Contains sIOV Virtual QAT device details.  TODO:  Include xref to relevent section.</p></td>
+<td><p>QAT 2.0</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<hr class="docutils" />
+<p>Build Options to see (either link or include)</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>--disable-qat_warnings/--enable-qat_warnings
+    Disable/Enable warnings to aid debugging. Warning: This option should never
+    be left on in a production environment as it may introduce side channel
+    timing attack vulnerabilities (disabled by default).
+
+--disable-qat_debug/--enable-qat_debug
+    Disable/Enable debug output to aid debugging. This will also enable the
+    warning messages above. Warning: This option should never be enabled in a
+    production environment as it may output private key information to the
+    console/logs and may also introduce side channel timing attack
+    vulnerabilities (disabled by default).
+
+--disable-qat_mem_warnings/--enable-qat_mem_warnings
+    Disable/Enable warnings from the userspace memory management code to aid
+    debugging. Warning: This option should never be left on in a production
+    environment as it may introduce side channel timing attack vulnerabilities
+    (disabled by default).
+
+--disable-qat_mem_debug/--enable-qat_mem_debug
+    Disable/Enable debug output from the userspace memory management code to
+    aid debugging. This will also enable the warning messages above. This
+    option produces quite verbose output hence why it is separate to the
+    standard debug. Warning: This option should never be enabled in a
+    production environment as it may output private key information to the
+    console/logs and may also introduce side channel timing attack
+    vulnerabilities (disabled by default).
+
+--with-qat_debug_file=/file/and/path/to/log/qat/debug/to
+    This option turns on logging to a file instead of to stderr. It works with
+    any combination of the following flags:
+    --enable-qat_warnings
+    --enable-qat_debug
+    --enable-qat_mem_warnings
+    --enable-qat_mem_debug
+    The option should specify the full absolute path and filename that you would
+    like to log to. The directory needs to be writable by the user the process
+    is running as, and the log file can get very big, very quickly.
+    The existing log file will be replaced rather than appended to on each run
+    of the application. If the file cannot be opened for writing then the
+    logging will default to output to stderr.
+    As with the other logging options this option should never be enabled in a
+    production environment as private key information and plaintext data will
+    be logged to the file (logging to file is disabled by default).
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="debugging-guide">
+<h2>Debugging Guide<a class="headerlink" href="#debugging-guide" title="Permalink to this headline"></a></h2>
+<blockquote>
+<div><p>June 2021</p>
+<p>Revision 1.4</p>
+</div></blockquote>
+<section id="introduction">
+<h3>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h3>
+<p>This document was designed to help debug issues with Intel® QuickAssist Technology (Intel® QAT).</p>
+<p>It contains the following sections:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#how-to">How To…</a></p></li>
+<li><p><a class="reference external" href="#intel-qat-driver-installation-issues">Intel® QAT Driver Installation
+Issues</a></p></li>
+<li><p><a class="reference external" href="#system-configuration-issues">System Configuration Issues</a></p></li>
+<li><p><a class="reference external" href="#application-issues">Application Issues</a></p></li>
+<li><p><a class="reference external" href="#_6.0__Intel®">Intel® QAT Virtualization Issues</a></p></li>
+<li><p><a class="reference external" href="#intel-qat-performance-issues">Intel® QAT Performance Issues</a></p></li>
+<li><p><a class="reference external" href="#nginx-issues">NGINX* Issues</a></p></li>
+<li><p><a class="reference external" href="#_9.0__OpenSSL*/QAT_Engine">OpenSSL*/QAT_Engine Issues</a></p></li>
+<li><p><a class="reference external" href="#haproxy-issues">HAProxy* Issues</a></p></li>
+<li><p><a class="reference external" href="#dpdk-issues">DPDK Issues</a></p></li>
+<li><p><a class="reference external" href="#miscellaneous-issues">Miscellaneous Issues</a></p></li>
+</ul>
+</section>
+</section>
+<section id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline"></a></h2>
+<section id="how-to">
+<h3>How To…<a class="headerlink" href="#how-to" title="Permalink to this headline"></a></h3>
+<p>This chapter describes how to perform various status checks on Intel®
+QAT.</p>
+</section>
+</section>
+<section id="how-to-determine-if-intel-qat-is-installed">
+<h2>How to Determine if Intel® QAT is Installed<a class="headerlink" href="#how-to-determine-if-intel-qat-is-installed" title="Permalink to this headline"></a></h2>
+<ol class="arabic simple">
+<li><p>Determine if Intel® QAT is installed by running the following
+command:</p></li>
+</ol>
+<p>lsmod | grep qa</p>
+<p>If Intel® QAT is installed, you should see output like the following:</p>
+<p>]# lsmod | grep qa qat_c62x</p>
+<blockquote>
+<div><p>13473 0 intel_qat 141688 1</p>
+<p>qat_c62x authenc 17776 1</p>
+<p>intel_qat dh_generic 13323</p>
+<p>1 intel_qat rsa_generic 18819</p>
+<p>1 intel_qat</p>
+</div></blockquote>
+<ol class="arabic simple" start="2">
+<li><p>If Intel QAT is not installed, follow the instructions in 336212,
+<em>Intel® QuickAssist Technology Software for Linux* Getting Started
+Guide Hardware Version 1.7</em>, at 01.org or in the Intel® QuickAssist
+Technology Videos a<a class="reference external" href="https://software.intel.com/enus/networking/quickassist">t
+https://software.intel.com/enus/networking/quickassist.</a></p></li>
+<li><p>Then rerun the command above to verify Intel® QAT is installed.</p></li>
+</ol>
+<ul class="simple">
+<li><p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p></li>
+<li><p>336212, Intel® QuickAssist Technology Software for Linux* – Getting
+Started Guide – Hardware Version 1.7, at 01.org</p></li>
+<li><p>Intel® QuickAssist Technology Videos a<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">t
+https://software.intel.com/enus/networking/quickassist</a></p></li>
+</ul>
+<p>Monitor the Intel® QAT firmware counters to determine if Intel® QAT is
+running as in the following example:</p>
+<p>watch cat /sys/kernel/debug/qat_c6xx_0000:3d:00.0/fw_counters</p>
+<p>These firmware counters are the -</p>
+<p>/sys/kernel/debug/qat_&lt;devicetype&gt;_&lt;bus_device_function&gt;/fw_counters.</p>
+<p>Intel® QAT firmware counters increase when Intel® QAT is running. If
+Intel® QAT is not running, the firmware counters remain at their current
+value.</p>
+<p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p>
+</section>
+<section id="how-to-determine-if-intel-qat-is-active">
+<h2>How to Determine if Intel® QAT is Active<a class="headerlink" href="#how-to-determine-if-intel-qat-is-active" title="Permalink to this headline"></a></h2>
+<p>Run one of the following commands: systemctl status qat_service</p>
+<p>or service qat_service status</p>
+<p>You should see the resulting output similar to the following:</p>
+<p>]# systemctl status qat_service</p>
+<p>qat_service.service - LSB: modprobe the QAT modules, which loads
+dependant modules, before calling the user space utility to pass
+configuration parameters</p>
+<p>Loaded: loaded (/etc/init.d/qat_service; generated)</p>
+<p>Active: <strong>active</strong> (exited) since Fri 2019-12-20 18:32:32 UTC; 28min ago</p>
+<p>Docs: man:systemd-sysv-generator(8)</p>
+<p>Process: 48577 ExecStop=/etc/init.d/qat_service stop (code=exited,
+status=0/SUCCESS)</p>
+<p>Process: 48635 ExecStart=/etc/init.d/qat_service start (code=exited,
+status=0/SUCCESS)</p>
+<p>Dec 20 18:32:30 dbubuntu qat_service[48635]: Restarting all devices.</p>
+<p>Dec 20 18:32:30 dbubuntu qat_service[48635]: Processing</p>
+<p>/etc/c6xx_dev0.conf</p>
+<p>Dec 20 18:32:30 dbubuntu qat_service[48635]: Processing</p>
+<p>/etc/c6xx_dev1.conf</p>
+<p>Dec 20 18:32:31 dbubuntu qat_service[48635]: Processing</p>
+<p>/etc/c6xx_dev2.conf</p>
+<p>Dec 20 18:32:32 dbubuntu qat_service[48635]: Checking status of all
+devices. Dec 20 18:32:32 dbubuntu qat_service[48635]: There is 3 QAT
+acceleration device(s) in the system:</p>
+<p>Dec 20 18:32:32 dbubuntu qat_service[48635]: qat_dev0 - type: c6xx,
+inst_id: 0, node_id: 0, bsf: 0000:3d:00.0, #accel: 5 #engines: 10 state:
+up</p>
+<p>Dec 20 18:32:32 dbubuntu qat_service[48635]: qat_dev1 - type: c6xx,
+inst_id: 1, node_id: 0, bsf: 0000:3f:00.0, #accel: 5 #engines: 10 state:
+up</p>
+<p>Dec 20 18:32:32 dbubuntu qat_service[48635]: qat_dev2 - type: c6xx,
+inst_id: 2, node_id: 1, bsf: 0000:da:00.0, #accel: 5 #engines: 10 state:
+up</p>
+<p>Dec 20 18:32:32 dbubuntu systemd[1]: Started LSB: modprobe the QAT
+modules, which loads dependant modules, before calling the user space
+utility to pass configuration parameters.</p>
+<p>]# service qat_service status Checking status of all devices.</p>
+<p>There is 3 QAT acceleration device(s) in the system: qat_dev0 - type:
+c6xx, inst_id: 0, node_id: 0, bsf: 0000:3d:00.0,</p>
+<p>#accel: 5 #engines: 10 state: up</p>
+<p>qat_dev1 - type: c6xx, inst_id: 1, node_id: 0, bsf: 0000:3f:00.0,</p>
+<p>#accel: 5 #engines: 10 state: up</p>
+<p>qat_dev2 - type: c6xx, inst_id: 2, node_id: 1, bsf: 0000:da:00.0,</p>
+<p>#accel: 5 #engines: 10 state: up</p>
+<ol class="arabic simple">
+<li><p>You can also run the systemctl &lt;start, restart or stop&gt; qat_service
+command, or qat_service &lt;start, restart or stop&gt; to perform the
+specific request.</p></li>
+</ol>
+<p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p>
+</section>
+<section id="how-to-determine-if-the-intel-qat-device-has-failed-or-hung-with-heartbeat-monitoring">
+<h2>How to Determine if the Intel® QAT Device Has Failed or Hung with Heartbeat Monitoring<a class="headerlink" href="#how-to-determine-if-the-intel-qat-device-has-failed-or-hung-with-heartbeat-monitoring" title="Permalink to this headline"></a></h2>
+<p>You can use Heartbeat monitoring to determine if the Intel® QAT device
+is in a functional state.</p>
+<p>To simulate the Heartbeat management process, run the following
+commands:</p>
+<p>cat /sys/kernel/debug/&lt;device&gt;/heartbeat</p>
+<p>If 0 is returned, it indicates the device is responding. If –1 is
+returned, it indicates the device is not responding.</p>
+<p>cat /sys/kernel/debug/&lt;device&gt;/heartbeat_sent</p>
+<p>This number will increase each time the CAT heartbeat is sent because it
+tracks the number of times the control process checks to see if the
+device is responsive.</p>
+<p>cat /sys/kernel/debug/&lt;device&gt;/heartbeat_fail</p>
+<p>This number will increase each time the return value of the cat
+heartbeat is –1 because it keeps track of the number of times the
+control process finds the device unresponsive.</p>
+<p>cat /sys/kernel/debug/&lt;device&gt;/heartbeat_sim_fail</p>
+<p>This command simulates a failure on the Intel® QAT device. The return
+value will be zero. In addition, you can use the
+icp_sal_heartbeat_simulate_failure() API to simulate a heartbeat failure
+as well. For examples of other types of applications, refer to the
+following subdirectory of the Intel® QAT directory where the
+acceleration software is unpacked:</p>
+<p>quickassist/lookaside/access_layer/src/sample_code/functional/common</p>
+<ol class="arabic simple" start="2">
+<li><p>To simulate the heartbeat failure, Intel® QAT has to be configured as
+follows:</p></li>
+</ol>
+<p>./configure –enable-icp-hb-fail-sim</p>
+<p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, Section 3.17, at 01.org</p>
+</section>
+<section id="how-to-reset-or-restart-the-intel-qat-device-when-it-has-failed-or-hung-using-adf-ctl">
+<h2>How to Reset or Restart the Intel® QAT device When it has Failed or Hung, Using adf_ctl<a class="headerlink" href="#how-to-reset-or-restart-the-intel-qat-device-when-it-has-failed-or-hung-using-adf-ctl" title="Permalink to this headline"></a></h2>
+<p>When the Heartbeat monitoring detects that the Intel® QAT device has
+failed or hung, the device can be reset or restarted with the adf_ctl
+utility. In addition, the Intel® QAT device can be configured for
+auto-reset via the configuration file. For more information, please
+refer to Document Number 336210, <em>Intel® QuickAssist Technology Software
+for Linux* – Programmer’s</em></p>
+<p><em>Guide</em>. Sections 3.3 and 5.2.6 contain information on the adf_ctl
+utility. “Resetting a Failed Device,” under Section 3.17.1, contains
+information on Intel® QAT device auto-resetting via the configuration
+file.</p>
+<p>The adf_ctl tool is in the subdirectory quickassist/utilities/adf_ctl of
+the Intel® QAT directory, where the acceleration software is unpacked.
+In the following steps, /opt/APP/driver/QAT is the directory where the
+acceleration software is unpacked.</p>
+<p>/opt/APP/driver/QAT/quickassist/utilities/adf_ctl]# ./adf_ctl qat_dev0
+reset</p>
+<p>/opt/APP/driver/QAT/quickassist/utilities/adf_ctl]# ./adf_ctl qat_dev0
+restart</p>
+<p>The first example above resets the QAT_dev0 device, while the second
+example restarts the</p>
+<p>QAT_dev0 device. Note that if AutoResetOnError is set to 1 in the
+[GENERAL] section of the Intel® QAT Config file (i.e., c6xx_dev0.conf),
+the reset is done automatically, and there is no need to perform the
+first example.</p>
+<p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p>
+</section>
+<section id="how-to-gather-necessary-information-for-debugging">
+<h2>How to Gather Necessary Information for Debugging<a class="headerlink" href="#how-to-gather-necessary-information-for-debugging" title="Permalink to this headline"></a></h2>
+<p>The icp_dump.sh tool is in the quickassist/utilities/debug_tool
+subdirectory of the Intel® QAT directory, where the acceleration
+software is unpacked. In the following steps, the Intel® QAT directory
+is /opt/APP/driver/QAT and the tar file (created from icp_dump.sh) will
+be stored in the /root/iss_nfvi/icp_dump directory.</p>
+<ol class="arabic simple" start="3">
+<li><p>Run the command mkdir /root/iss_nfvi/icp_dump (or the directory of
+your choice) before running these steps.</p></li>
+</ol>
+<ol class="arabic simple">
+<li><p>Define ICP_ROOT as the directory you have installed Intel® QAT</p></li>
+</ol>
+<blockquote>
+<div><p>export ICP_ROOT=/opt/APP/driver/QAT</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Run icp_dump.sh with one parameter: the directory where you would
+like the tar file to be stored.</p></li>
+</ol>
+<blockquote>
+<div><p>debug_tool ]# ./icp_dump.sh /root/iss_nfvi/icp_dump</p>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li><p>Accept and run the debug tool, type <strong>yes</strong> when prompted.</p></li>
+<li><p>Unzip the file and verify Intel® QAT acceleration devices in the
+system are up.</p></li>
+</ol>
+<blockquote>
+<div><p>iss_nfvi]# tar -xzvf ICP_debug_18h_52m_07s_17d_10m_19y.tar.gz</p>
+<p>iss_nfvi]# cd ICP_debug</p>
+<p>ICP_debug]# cat adf_ctl_status.txt</p>
+<p>Checking status of all devices.</p>
+</div></blockquote>
+<p>There are three Intel® QAT acceleration devices in the system:</p>
+<blockquote>
+<div><p>qat_dev0 - type: c6xx, inst_id: 0, node_id: 0, bsf: 0000:3d:00.0,
+#accel: 5 #engines: 10 state: up qat_dev1 - type: c6xx, inst_id: 1,
+node_id: 0, bsf: 0000:3f:00.0, #accel: 5 #engines: 10 state: up
+qat_dev2 - type: c6xx, inst_id: 2, node_id: 1, bsf: 0000:da:00.0,
+#accel: 5 #engines: 10 state: up</p>
+</div></blockquote>
+<ol class="arabic simple" start="6">
+<li><p>Verify that all Intel® QAT configuration files are the same.</p></li>
+</ol>
+<ol class="arabic simple" start="5">
+<li><p>The SHIM section needs to be in place when Intel® QAT SHIMs is used,
+and this includes the Intel® QAT Engine and QATqzip. The CPA sample
+code uses the default Intel® QAT configuration files that are
+installed along with the Intel® QAT driver.</p></li>
+</ol>
+<p>The following is an example of the configuration that contains the
+[SHIM] section:</p>
+<p>ICP_debug]# cd config_files/ config_files]# cat c6xx_dev0.conf …</p>
+<hr class="docutils" />
+<p># User Process Instance Section</p>
+<hr class="docutils" />
+<p>[SHIM]</p>
+<p>NumberCyInstances = 1</p>
+<p>NumberDcInstances = 0</p>
+<p>NumProcesses = 10</p>
+<p># Crypto - User space</p>
+<p>Cy0Name = “UserCY0”</p>
+<p>Cy0IsPolled = 1</p>
+<p>Cy0CoreAffinity = 0</p>
+<p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p>
+</section>
+<section id="how-to-enable-debug-symbols-for-the-qat-driver">
+<h2>How to Enable Debug symbols for the QAT Driver<a class="headerlink" href="#how-to-enable-debug-symbols-for-the-qat-driver" title="Permalink to this headline"></a></h2>
+<p>For the QAT driver, you can enable debugging with these changes:</p>
+<div class="line-block">
+<div class="line">quickassist/build_system/build_files/env_files/environment.mk</div>
+<div class="line">ICP_DEFENSES_ENABLED ?= n</div>
+</div>
+<div class="line-block">
+<div class="line">quickassist/build_system/build_files/common.mk</div>
+<div class="line">$(PROG_ACY)_OPT_LEVEL?=0</div>
+</div>
+<div class="line-block">
+<div class="line">Makefile (change it after ./configure, then make and install)</div>
+<div class="line">CFLAGS = -g</div>
+</div>
+</section>
+<section id="how-to-enable-debug-compile-for-qat-engine">
+<h2>How to enable debug compile for QAT_engine<a class="headerlink" href="#how-to-enable-debug-compile-for-qat-engine" title="Permalink to this headline"></a></h2>
+<p>For the QAT_engine / openssl, you can enable debugging with these
+changes:</p>
+<p>QAT_Engine:</p>
+<p> (1)     run ./configure with additional parameters such as the
+following:</p>
+<p>              –enable-qat_debug \</p>
+<p>              –enable-qat_warnings \</p>
+<p>              –enable-qat_mem_warnings \</p>
+<p>              –enable-qat_mem_debug</p>
+<p>              –with-qat_debug_file=/qat_engine_debug.log</p>
+<ol class="arabic simple" start="2">
+<li><p>check QAT Engine Makefile and make the following changes:</p></li>
+</ol>
+<p>Change cflags = -shared -fPIC -Wall -Wformat -Wformat-security -O2
+-D_FORTIFY_SOURCE=2 -fstack-protector to cflags = -shared -fPIC -Wall
+-Wformat -Wformat-security –O0 -g -D_FORTIFY_SOURCE=0 -fstack-protector</p>
+<p>Change “CFLAGS = -g -O2” to “CFLAGS = -g –O0”</p>
+<p>Change “CXXFLAGS = -g -O2” to “CXXFLAGS = -g –O0”</p>
+<blockquote>
+<div><p>Intel® QAT Driver Installation Issues</p>
+</div></blockquote>
+<hr class="docutils" />
+<p>The following sections describe steps for resolving Intel® QAT driver
+installation issues.</p>
+</section>
+<section id="intel-qat-driver-does-not-compile">
+<h2>Intel® QAT Driver Does Not Compile<a class="headerlink" href="#intel-qat-driver-does-not-compile" title="Permalink to this headline"></a></h2>
+<p>If you experience compile errors, try one or more of the following
+steps:</p>
+<ul class="simple">
+<li><p>Update to the latest Intel® QAT Driver version</p></li>
+<li><p>Study the errors and warnings</p></li>
+<li><p>Update driver to use the kernel functions that correspond with your
+kernel and structures</p></li>
+<li><p>Install dependencies as described in the Intel® QAT Getting Started
+Guide</p></li>
+</ul>
+<ol class="arabic simple" start="6">
+<li><p>Compile errors related to the kernel version are usually observed
+with newer kernels.</p></li>
+</ol>
+<p>Please update to the latest version of the Intel® QAT driver available
+on 01.org. If you still experience issues, consult with your Intel
+representative.</p>
+<p>336212, Intel QuickAssist Technology Software for Linux* Getting
+Started Guide Hardware Version 1.7, at 01.org.</p>
+</section>
+<section id="linux-crypto-api-doesn-t-use-intel-qat">
+<h2><strong>Linux* Crypto API Doesn’t Use Intel® QAT</strong><a class="headerlink" href="#linux-crypto-api-doesn-t-use-intel-qat" title="Permalink to this headline"></a></h2>
+<p>Users may be attempting to use Intel® QAT integrated into the Linux*
+Crypto API and looking for confirmation that Intel® QAT is being used.
+Users can look to the Intel® QAT FW counters and verify that they
+increase as crypto operations are performed. If Intel® QAT counters are
+not increasing, it may be due to one of the following:</p>
+<ul class="simple">
+<li><p>Depending on the user’s version of Intel® QAT, the Linux* Crypto API
+may not be enabled by default. In Intel® QAT HW Version 1.7 L.4.7 and
+earlier, the Linux* Crypto API was enabled by default. With Intel®
+QAT HW Version 1.7 L.4.8 and later, the option must be enabled when
+installing Intel® QAT, with the following command:</p></li>
+</ul>
+<p>./configure –enable-qat-lkcf</p>
+<ul class="simple">
+<li><p>The required algorithm may not be installed. The user may add the
+algorithm or ask their Intel representative to add the algorithm. The
+following is an example of how to determine the algorithms supported
+in the current installation:</p></li>
+</ul>
+<p># cat /proc/crypto | grep</p>
+<p>qat driver : qat-dh</p>
+<p>module : intel_qat</p>
+<p>driver : qat-rsa</p>
+<p>module : intel_qat</p>
+<p>driver :</p>
+<p>qat_aes_cbc_hmac_sha512</p>
+<p>module : intel_qat</p>
+<p>driver :</p>
+<p>qat_aes_cbc_hmac_sha256</p>
+<p>module : intel_qat</p>
+<p>driver :</p>
+<p>qat_aes_cbc_hmac_sha1</p>
+<p>module :</p>
+<p>intel_qat driver</p>
+<p>: qat_aes_xts module</p>
+<p>: intel_qat driver</p>
+<p>: qat_aes_ctr module</p>
+<p>: intel_qat driver</p>
+<p>: qat_aes_cbc module</p>
+<p>: intel_qat</p>
+<p>Driver code and O.S. registered functions</p>
+</section>
+<section id="issues-with-the-intel-qat-make-or-with-starting-intel-qat">
+<h2>Issues with the Intel® QAT Make or with Starting Intel® QAT<a class="headerlink" href="#issues-with-the-intel-qat-make-or-with-starting-intel-qat" title="Permalink to this headline"></a></h2>
+<p>For the issues listed below, the root cause may be a mismatch of the
+install kernel and/or headers.</p>
+<ul class="simple">
+<li><p>Kernel Header Files Missing:</p></li>
+</ul>
+<blockquote>
+<div><p>make[1]: Entering directory `/opt/APP/driver/QAT’</p>
+<p>make[2]: Entering directory `/opt/APP/driver/QAT/quickassist/qat’</p>
+<p>Makefile:66: *** ERROR: Kernel header files not found. Install the
+appropriate kernel development package necessary for building
+external kernel modules or run ‘make oldconfig &amp;&amp; make
+modules_prepare’ on kernel src to fix it. Stop.</p>
+<p>make[2]: Leaving directory `/opt/APP/driver/QAT/quickassist/qat’
+make[1]: *** [qat-driver-all] Error 2 make[1]: Leaving directory
+`/opt/APP/driver/QAT’ make: *** [all] Error 2</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Errors in Intel® QAT Make:</p></li>
+</ul>
+<blockquote>
+<div><p>include/asm-generic/pgtable.h:632:19: note: previous definition of
+‘pud_trans_huge’ was here static inline int pud_trans_huge(pud_t pud)
+^ In file included from ./arch/x86/include/asm/pgtable.h:1235:0, from
+include/linux/mm.h:63, from ./arch/x86/include/asm/pci.h:4, from
+include/linux/pci.h:1641, from
+/opt/APP/driver/QAT/quickassist/qat/compat/ qat_compat.h:87, from
+&lt;command-line&gt;:0: include/asm-generic/pgtable.h: At top level:
+include/asm-generic/pgtable.h:632:19: error: redefinition of
+‘pud_trans_huge’ static inline int pud_trans_huge(pud_t pud)</p>
+</div></blockquote>
+<ul class="simple">
+<li><p>Unable to Start/Restart Intel® QAT:</p></li>
+</ul>
+<p>Failed to restart qat_service.service: Unit not found.</p>
+<p>Follow these steps:</p>
+<ol class="arabic simple">
+<li><p>Use the following code to determine what kernels are installed on
+your system, as in the following example:</p></li>
+</ol>
+<blockquote>
+<div><p># yum list installed kernel</p>
+<p>Loaded plugins: langpacks, product-id, search-disabled-repos,
+subscription-manager Installed Packages kernel.x86_64 3.10.0-957.el7
+&#64;anaconda/7.6 kernel.x86_64 3.10.0-957.12.2.el7 &#64;rhel-7-server-rpms
+kernel.x86_64 3.10.0-1062.12.1.el7 &#64;rhel-7-server-rpms</p>
+</div></blockquote>
+<ol class="arabic simple" start="7">
+<li><p>If there is no kernel list as shown in the previous step, then
+install it as follows:</p></li>
+</ol>
+<blockquote>
+<div><p>yum install kernel-devel-$(uname -r)</p>
+</div></blockquote>
+<ol class="arabic simple" start="8">
+<li><p>If multiple kernels are installed, remove the kernels that you do not
+need as in the following example:</p></li>
+</ol>
+<blockquote>
+<div><p>yum remove kernel-devel-3.10.0-1062.12.1.el7.x86_64</p>
+</div></blockquote>
+<ol class="arabic simple" start="9">
+<li><p>If the only kernel installed is the one you want, then reinstall it
+by performing Step 3, followed by Step 2.</p></li>
+</ol>
+<p>Reinstalling the kernel will verify the correct headers are being used
+(i.e., there may be a chance that Intel® QAT was previously built with a
+different Linux* kernel, with different headers.)</p>
+<p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p>
+<p>§</p>
+<section id="system-configuration-issues">
+<h3>System Configuration Issues<a class="headerlink" href="#system-configuration-issues" title="Permalink to this headline"></a></h3>
+<p>This section describes resolution steps for system configuration issues.</p>
+</section>
+</section>
+<section id="intel-qat-endpoint-is-trained-to-less-than-the-pcie-max-capability">
+<h2>Intel® QAT Endpoint is Trained to Less than the PCIe* Max Capability<a class="headerlink" href="#intel-qat-endpoint-is-trained-to-less-than-the-pcie-max-capability" title="Permalink to this headline"></a></h2>
+<p>This issue includes one or more of the following symptoms:</p>
+<ul class="simple">
+<li><p>lspci returns a trained value below the maximum PCIe* capability</p></li>
+<li><p>Intel® QAT performance is low</p></li>
+<li><p>Platform issues: BIOS, jumpers, or analog issues</p></li>
+<li><p>Intel® QAT endpoint is trained correctly, but the internal switches
+report at lower speeds</p></li>
+</ul>
+<p>Verify that the cpa_sample_code gives the expected performance.</p>
+<p>Contact your Intel representative for the expected performance numbers,
+if necessary.</p>
+<ul class="simple">
+<li><p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p></li>
+<li><p>330687, Intel® QuickAssist Technology – Performance Optimization
+Guide, at 01.org</p></li>
+<li><p>Intel® QuickAssist Technology Videos a<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">t
+https://software.intel.com/enus/networking/quickassist</a></p></li>
+</ul>
+</section>
+<section id="adf-ctl-status-shows-fewer-than-expected-devices">
+<h2>“adf_ctl status” Shows Fewer than Expected Devices<a class="headerlink" href="#adf-ctl-status-shows-fewer-than-expected-devices" title="Permalink to this headline"></a></h2>
+<p>If adf_ctl status shows fewer than expected devices, try the resolution
+steps below.</p>
+<p>Check for one or more of the following conditions:</p>
+<ul class="simple">
+<li><p>Intel® QAT modules were not successfully installed with insmod</p></li>
+<li><p>Intel® QAT modules were not installed with insmod in the correct
+order</p></li>
+</ul>
+<ul class="simple">
+<li><p>336212, Intel® QuickAssist Technology Software for Linux* – Getting
+Started Guide – Hardware Version 1.7, at 01.org</p></li>
+<li><p>Intel® QuickAssist Technology Videos at
+<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">https://software.intel.com/enus/networking/quickassist</a></p></li>
+</ul>
+</section>
+<section id="firmware-authentication-error">
+<h2>Firmware Authentication Error<a class="headerlink" href="#firmware-authentication-error" title="Permalink to this headline"></a></h2>
+<p>If you see the following symptom, please try the resolution steps below:
+dmesg Intel® QAT: authentication error (FCU_STATUS = 0x3),retry = 0</p>
+<p>If there is not a PCIe AER error, double-check the firmware version.
+Mismatching the firmware. version and driver version will cause an
+authentication error.</p>
+<p>336212, Intel® QuickAssist Technology Software for Linux* – Getting
+Started Guide – Hardware Version 1.7, at 01.org</p>
+</section>
+<section id="kernel-oops-and-or-segmentation-fault-when-bringing-up-the-driver-via-adf-ctl-or-qat-service">
+<h2>Kernel oops and/or segmentation fault when bringing up the driver via adf_ctl or qat_service<a class="headerlink" href="#kernel-oops-and-or-segmentation-fault-when-bringing-up-the-driver-via-adf-ctl-or-qat-service" title="Permalink to this headline"></a></h2>
+<p>If Kernel oops when bringing up the driver with adf_ctl or qat_service,
+try the resolution steps below. Oops may include the kernel message
+keywords “SMP PTI”.</p>
+<p>Ensure that all modules were built correctly and are not a mix of assets
+from <a class="reference external" href="http://01.org/">01.org</a> and <a class="reference external" href="http://kernel.org/">kernel.org</a>.
+Use modinfo on all modules returned from “lsmod | grep qa”, if
+necessary. If following the Getting Started Guide and using the
+configure and make commands per the guide, this will be handled
+correctly.</p>
+<ul class="simple">
+<li><p>336212, Intel® QuickAssist Technology Software for Linux* – Getting
+Started Guide – Hardware Version 1.7, at 01.org</p></li>
+</ul>
+<p>§</p>
+<section id="application-issues">
+<h3>Application Issues<a class="headerlink" href="#application-issues" title="Permalink to this headline"></a></h3>
+<p>This section describes resolution steps for application issues.</p>
+</section>
+</section>
+<section id="intel-qat-app-fails-to-run">
+<h2>Intel® QAT app fails to run<a class="headerlink" href="#intel-qat-app-fails-to-run" title="Permalink to this headline"></a></h2>
+<p>Error messages result when starting the Intel® QAT app, usually during
+the userStart function.</p>
+<p>Try one or more of the following:</p>
+<ul class="simple">
+<li><p>Install Intel® QAT.</p></li>
+<li><p>Update Intel® QAT configuration files to include the correct section
+name.</p></li>
+</ul>
+<ol class="arabic simple" start="7">
+<li><p>Run the CPA Sample App first to verify that you get good results.</p></li>
+</ol>
+<p>Please refer to Section 4.1 of the <em>Intel® QAT Getting Started Guide</em>.</p>
+<ul class="simple">
+<li><p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p></li>
+<li><p>336212, Intel® QuickAssist Technology Software for Linux* – Getting
+Started Guide – Hardware Version 1.7, at 01.org</p></li>
+<li><p>Intel® QuickAssist Technology Videos a<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">t
+https://software.intel.com/enus/networking/quickassist</a></p></li>
+</ul>
+<p>For example, Section 3, “Building and Installing Software,” and Section
+4, “Sample Applications,” in the Getting Started Guide, will show all
+the necessary steps.</p>
+<p>Also, please refer to the following entries in Section 2.0 of this
+document:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#how-to-determine-if-intel-qat-is-installed">How to Determine if Intel® QAT is
+Installed</a></p></li>
+<li><p><a class="reference external" href="#how-to-determine-if-intel-qat-is-active">How to Determine if Intel® QAT is
+Active</a></p></li>
+</ul>
+</section>
+<section id="application-is-not-using-intel-qat">
+<h2><strong>Application is Not Using Intel® QAT</strong><a class="headerlink" href="#application-is-not-using-intel-qat" title="Permalink to this headline"></a></h2>
+<p>Intel® QAT counters are not increasing. For example,</p>
+<p>watch cat /sys/kernel/debug/qat_c6xx_0000:3d:00.0/fw_counters</p>
+<ol class="arabic simple" start="8">
+<li><p>Check /sys/kernel/debug for your applicable qat_c6xx* directory.</p></li>
+</ol>
+<p>Applications may not be patched or configured to use Intel® QAT. Consult
+the relevant documentation.</p>
+<ul class="simple">
+<li><p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p></li>
+<li><p>330687, Intel® QuickAssist Technology – Performance Optimization
+Guide, at 01.org</p></li>
+<li><p>Intel® QuickAssist Technology Videos at
+<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">https://software.intel.com/enus/networking/quickassist</a></p></li>
+</ul>
+</section>
+<section id="intel-qat-endpoint-hangs">
+<h2><strong>Intel® QAT Endpoint Hangs</strong><a class="headerlink" href="#intel-qat-endpoint-hangs" title="Permalink to this headline"></a></h2>
+<p>If the Intel® QAT device is not responsive, try the resolution steps
+below.</p>
+<p>Try one or more of the following:</p>
+<ul class="simple">
+<li><p>Step through the application to identify the operation that led to
+the hang, i.e., focus on replication.</p></li>
+<li><p>Run adf_ctl reset to recover.</p></li>
+<li><p>Verify that all Intel® QAT API operations and addresses are valid.</p></li>
+</ul>
+<p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p>
+</section>
+<section id="error-reading-dev-qat-dev-processes-file">
+<h2><strong>Error Reading /dev/qat_dev_processes File</strong><a class="headerlink" href="#error-reading-dev-qat-dev-processes-file" title="Permalink to this headline"></a></h2>
+<p>When testing the driver (e.g., with functional sample code), you receive
+the error reading /dev/qat_dev_processes file:</p>
+<p># ./ipsec_sample main(): Starting IPSec Sample Code App …</p>
+<p>ADF_UIO_PROXY err: icp_adf_userProcessToStart: Error reading</p>
+<p>/dev/qat_dev_processes file main(): Failed to start user process SSL</p>
+<ol class="arabic simple">
+<li><p>Ensure that the configuration files match the application code, i.e.,
+that icp_sal_userStart references “SSL” and that the configuration
+files in /etc/ also mention “SSL” sections with a declared number of
+instances.</p></li>
+<li><p>Restart qat_service.</p></li>
+</ol>
+<p>336212, Intel® QuickAssist Technology Software for Linux* – Getting
+Started Guide – Hardware Version 1.7, at 01.org</p>
+</section>
+<section id="hkdf-or-ecedmont-operations-do-not-succeed">
+<h2><strong>HKDF or ECEDMONT Operations do not Succeed</strong><a class="headerlink" href="#hkdf-or-ecedmont-operations-do-not-succeed" title="Permalink to this headline"></a></h2>
+<p>There are multiple options for this issue, such as the following:</p>
+<p>“The device does not support ECEDMONT”</p>
+<p>“The device does not support HKDF”</p>
+<p>“ExtAlgChain feature not supported”</p>
+<p>There are multiple steps you can take, such as follows:</p>
+<ul class="simple">
+<li><p>Ensure that you have the correct ServicesProfile option</p></li>
+<li><p>Ensure that you are on the latest release. 4.10 on the host and guest
+may solve the issue.</p></li>
+</ul>
+<ul class="simple">
+<li><p>336211, Intel QuickAssist Technology Software for Linux* Release
+Notes H.W. version 1.7, at 01.org</p></li>
+<li><p>336210, Intel QuickAssist Technology Software for Linux* Programmers
+Guide Hardware Version 1.7, at 01.org</p></li>
+</ul>
+</section>
+<section id="proxy-application-qat-no-performance-improvement-using-multi-threads">
+<h2>Proxy Application+QAT, no Performance Improvement using Multi-threads<a class="headerlink" href="#proxy-application-qat-no-performance-improvement-using-multi-threads" title="Permalink to this headline"></a></h2>
+<p>Try the resolution steps below if there is no performance improvement
+with 1 process and multithreading(multi workers).</p>
+<p>Try setting the flag ICP_WITHOUT_THREAD in the USDM
+(quickassist/utilities/libusdm_drv ) and recompile the USDM alone. Set
+the additional environment variables mentioned below to recompile USDM
+alone.</p>
+<p>export ICP_WITHOUT_THREAD=1 export
+ICP_BUILDSYSTEM_PATH=$ICP_ROOT/quickassist/build_system</p>
+<p>export</p>
+<p>ICP_ENV_DIR=$ICP_ROOT/quickassist/build_system/build_files/env_files</p>
+</section>
+<section id="qat1-7-shows-a-hang-or-slice-hang-but-recovers-automatically">
+<h2>QAT1.7 shows a hang or slice hang but recovers automatically<a class="headerlink" href="#qat1-7-shows-a-hang-or-slice-hang-but-recovers-automatically" title="Permalink to this headline"></a></h2>
+<p>When an automatic recovery occurs after a hang or slice hang, there is
+no longer a possibility to perform a register or ring dump analysis to
+determine the root cause of the hang. Kernel messages may be seen that
+mention slice hang, with a possible application error.</p>
+<p>Increase CySymAndDcWatchDogTimer and/or CyAsymWatchDogTimer (in ms) in
+the general section of the config file to set the watchdog timer to a
+high value (e.g. 1000000).</p>
+<p>You can also disable/enable slice hang detection for a device or all
+devices as follows:</p>
+<p>./qat_debug.sh
+[[–disable_slicehang_detection|–enable_slicehang_detection]
+&lt;bus&gt;:&lt;device&gt;.&lt;func&gt;]</p>
+<p>./qat_debug.sh
+[[–disable_slicehang_detection|–enable_slicehang_detection] all]</p>
+<p>Please contact your Intel representative for more information on
+qat_debug.sh.</p>
+</section>
+<section id="compilation-of-functional-sample-code-with-alternative-to-gcc">
+<h2>Compilation of Functional Sample Code with alternative to gcc<a class="headerlink" href="#compilation-of-functional-sample-code-with-alternative-to-gcc" title="Permalink to this headline"></a></h2>
+<p>The functional sample code can be compiled with an alternative compiler
+other than the gcc compiler.</p>
+<p>Use the “CC” option when building. For example, to use the icc compiler,
+you would change “make all” to “make CC=icc all”. (Please refer to
+Section 4.2.1 of the Getting Started Guide.)</p>
+<p>336212, Intel QuickAssist Technology Software for Linux* Getting
+Started Guide Hardware Version 1.7, at 01.org.</p>
+</section>
+<section id="application-failure-and-error-when-trying-to-run-openssl-or-an-openssl-based-application-with-qat-engine-with-the-usdm-driver-with-huge-pages">
+<h2>Application failure and error when trying to run openssl (or an openssl-based application) with QAT_engine with the USDM driver with huge pages<a class="headerlink" href="#application-failure-and-error-when-trying-to-run-openssl-or-an-openssl-based-application-with-qat-engine-with-the-usdm-driver-with-huge-pages" title="Permalink to this headline"></a></h2>
+<p>An error message similar to the following may be received when running
+openssl (or an openssl-based application):</p>
+<div class="line-block">
+<div class="line">hugepage_mmap_phy_addr:159 qae_mmap(/dev/hugepages/qat/usdm.jxZf9Y)
+for hpg_fd failed with errno:12</div>
+<div class="line">hugepage_alloc_slab:204 mmap on huge page memory allocation failed</div>
+<div class="line">ADF_UIO_PROXY err: adf_init_ring: unable to get
+ringbuf(v:(nil),p:(nil)) for rings in bank(0)</div>
+<div class="line">ADF_UIO_PROXY err: icp_adf_transCreateHandle: adf_init_ring failed</div>
+<div class="line">[error] SalCtrl_ServiceInit() - : Failed to initialise all service
+instances</div>
+<div class="line">ADF_UIO_PROXY err: adf_user_subsystemInit: Failed to initialise
+Subservice SAL</div>
+<div class="line">[error] SalCtrl_ServiceEventStart() - : Private data is NULL</div>
+<div class="line">ADF_UIO_PROXY err: adf_user_subsystemStart: Failed to start Subservice
+SAL</div>
+<div class="line">[error] SalCtrl_AdfServicesStartedCheck() - : Sal Ctrl failed to start
+in given time</div>
+</div>
+<p>[error] do_userStart() - : Failed to start services</p>
+<p>ADF_UIO_PROXY err: icp_adf_subsystemUnregister: Failed to shutdown
+subservice SAL.</p>
+<p>Ensure that huge pages are created.</p>
+<div class="line-block">
+<div class="line"># cat /sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages</div>
+<div class="line">(should be greater than zero)</div>
+</div>
+<p>Inf the number of huge pages is zero, as an example, they can be
+increased temporarily as follows:</p>
+<p># echo 1024 &gt; /proc/sys/vm/nr_hugepages</p>
+<p>Other things to try could be reducing the number of QAT instances
+allocated in the /etc config file, or adjusting the huge pages allocated
+on insmod of usdm:</p>
+<p># insmod ./usdm_drv.ko max_huge_pages=&lt;adjust&gt;
+max_huge_pages_per_process=&lt;adjust&gt;</p>
+<p>§</p>
+<blockquote>
+<div><p>Intel® QAT Virtualization Issues</p>
+</div></blockquote>
+<hr class="docutils" />
+<p>This section describes resolution steps for Intel® QAT virtualization
+issues.</p>
+</section>
+<section id="too-many-intel-qat-vfs-are-created">
+<h2>Too Many Intel® QAT VFs are Created<a class="headerlink" href="#too-many-intel-qat-vfs-are-created" title="Permalink to this headline"></a></h2>
+<p>When trying to create fewer virtual functions than the maximum, the
+maximum number always gets created.</p>
+<p>None; this is a hardware limitation, currently.</p>
+<ul class="simple">
+<li><p>330689, Using Intel® Virtualization Technology (Intel® V.T.) with
+Intel® QuickAssist Technology Application Note, at 01.org</p></li>
+<li><p>Videos at <a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">https://software.intel.com/en-us/networking/quickassist</a></p></li>
+</ul>
+</section>
+<section id="intel-qat-vfs-are-not-created">
+<h2>Intel® QAT VFs are Not Created<a class="headerlink" href="#intel-qat-vfs-are-not-created" title="Permalink to this headline"></a></h2>
+<p>If the virtual functions are not created, try resolving this issue using
+the resolution steps below.</p>
+<p>Check for one or more of the following causes:</p>
+<ul class="simple">
+<li><p>configure was not run with the right options and needed to be run
+with the correct option.</p></li>
+<li><p>intel_iommu=on is not part of the GRUB boot settings and needs to be
+included in the grub • Virtualization is not enabled in the BIOS and
+needs to be enabled</p></li>
+</ul>
+<ol class="arabic simple">
+<li><p>Run lscpu to check if virtualization (vmx) is enabled in the BIOS:</p></li>
+</ol>
+<p># lscpu | grep vmx</p>
+<p>Flags: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat
+pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb
+rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology
+nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx
+smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic
+movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm</p>
+<p>3dnowprefetch epb cat_l3 cdp_l3 invpcid_single intel_ppin intel_pt ssbd
+mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid
+fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm mpx
+rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb avx512cd avx512bw
+avx512vl xsaveopt xsavec xgetbv1 cqm_llc cqm_occup_llc cqm_mbm_total
+cqm_mbm_local dtherm arat pln pts hwp hwp_act_window hwp_epp hwp_pkg_req
+pku ospke avx512_vnni md_clear spec_ctrl intel_stibp flush_l1d
+arch_capabilities</p>
+<ol class="arabic simple" start="10">
+<li><p>Check dmesg to see if Virtualization (DMAR) is enabled for your
+particular device:</p></li>
+</ol>
+<p># dmesg | grep -i DMAR | grep d8:00.0</p>
+<p>[ 5.361824] DMAR: Hardware identity mapping for device</p>
+<p>0000:d8:00.0</p>
+<ul class="simple">
+<li><p>330689, Using Intel® Virtualization Technology (Intel® V.T.) with
+Intel® QuickAssist Technology Application Note, at 01.org</p></li>
+<li><p>Videos a<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">t
+https://software.intel.com/en-us/networking/quickassist</a></p></li>
+</ul>
+</section>
+<section id="virtualization-use-case-issues">
+<h2>Virtualization Use Case Issues<a class="headerlink" href="#virtualization-use-case-issues" title="Permalink to this headline"></a></h2>
+<p>You may encounter a kernel message such as “PTAE Read access is not set”
+and/or “Cannot use PF with IOMMU enabled.”</p>
+<ul class="simple">
+<li><p>Get cpa_sample_code working by referring to Table 2, Using Intel®
+Virtualization Technology (Intel® VT) with Intel® QuickAssist
+Technology Application Note.</p></li>
+<li><p>Ensure that the BIOS enables virtualization.</p></li>
+<li><p>Ensure that intel_iommu=on is set in grub, verified using “cat
+/proc/cmdline”.</p></li>
+</ul>
+<ol class="arabic simple" start="9">
+<li><p>If intel_iommu=on is not set in the grub, then it implies that QAT
+should be run without the configure script option enable-icp-sriov.
+The converse is also true.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Ensure that host configure script was run with “./configure
+–enable-icp-sriov=host” and that the guest configure script (if
+applicable) was run with “./configure –enable-icp-sriov=guest”</p></li>
+</ul>
+<ul class="simple">
+<li><p>330689, Using Intel® Virtualization Technology (Intel® V.T.) with
+Intel® QuickAssist Technology Application Note, at 01.org</p></li>
+<li><p>Videos a<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">t
+https://software.intel.com/en-us/networking/quickassist</a></p></li>
+</ul>
+<p>§</p>
+<section id="intel-qat-performance-issues">
+<h3>Intel® QAT Performance Issues<a class="headerlink" href="#intel-qat-performance-issues" title="Permalink to this headline"></a></h3>
+<p>This section describes resolution steps for Intel® QAT performance
+issues.</p>
+</section>
+</section>
+<section id="cpu-performance-beats-intel-qat-performance">
+<h2>CPU Performance Beats Intel® QAT Performance<a class="headerlink" href="#cpu-performance-beats-intel-qat-performance" title="Permalink to this headline"></a></h2>
+<p>If the CPU performance beats Intel® QAT performance resolve this by
+using the resolution steps below.</p>
+<p>Try one or more of the following steps:</p>
+<ul class="simple">
+<li><p>Optimize the application for memory recycling.</p></li>
+<li><p>Increase application concurrency and Intel® QAT configuration to use
+full parallelization.</p></li>
+<li><p>Increase buffer/packet sizes (small packets may not see the
+offloading benefit).</p></li>
+<li><p>CPU performance may beat Intel® QAT for certain algorithms, for
+certain packages, with enough cores.</p></li>
+</ul>
+<ul class="simple">
+<li><p>330687, Intel® QuickAssist Technology – Performance Optimization
+Guide, at 01.org</p></li>
+<li><p>Videos a<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">t
+https://software.intel.com/en-us/networking/quickassist</a></p></li>
+</ul>
+</section>
+<section id="intel-qat-performance-is-low">
+<h2>Intel® QAT Performance is Low<a class="headerlink" href="#intel-qat-performance-is-low" title="Permalink to this headline"></a></h2>
+<p>When Intel® QAT is not performing as expected try one or more of the
+following resolution steps to resolve the issue.</p>
+<p>Try one or more of the following steps:</p>
+<ul class="simple">
+<li><p>Optimize the application for memory recycling.</p></li>
+<li><p>Increase application concurrency and Intel® QAT configuration to use
+full parallelization.</p></li>
+<li><p>Increase buffer/packet sizes (small packets may not see the
+offloading benefit).</p></li>
+<li><p>CPU performance may beat Intel® QAT for certain algorithms, for
+certain packages, with enough cores.</p></li>
+<li><p>Remove software stack layers to verify that Intel® QAT performance at
+the lower-lever layers is as expected.</p></li>
+</ul>
+<ul class="simple">
+<li><p>330687, Intel® QuickAssist Technology – Performance Optimization
+Guide, at 01.org</p></li>
+<li><p>336210, Intel® QuickAssist Technology Software for Linux* –
+Programmer’s Guide – Hardware Version 1.7, at 01.org</p></li>
+<li><p>Videos a<a class="reference external" href="https://software.intel.com/en-us/networking/quickassist">t
+https://software.intel.com/en-us/networking/quickassist</a></p></li>
+</ul>
+<p>§</p>
+<section id="nginx-issues">
+<h3>NGINX* Issues<a class="headerlink" href="#nginx-issues" title="Permalink to this headline"></a></h3>
+<p>This section describes steps to resolve NGINX* issues.</p>
+</section>
+</section>
+<section id="nginx-intel-qat-performance-is-low">
+<h2>NGINX* + Intel® QAT Performance is Low<a class="headerlink" href="#nginx-intel-qat-performance-is-low" title="Permalink to this headline"></a></h2>
+<p>If performance is low with NGINX and Intel® QAT, follow the resolution
+steps below.</p>
+<p>Try one or more of the following steps:</p>
+<ul class="simple">
+<li><p>Use the <a class="reference external" href="https://www.intel.com/content/www/us/en/products/solutions/select-solutions/network/nfvi.html">Intel® Select Solutions for NFVI
+s</a>cript
+to apply the correct settings (i.e., more worker processes,
+keep-alive settings, high concurrency, etc.)</p></li>
+<li><p>Ensure that Intel® QAT is being used with the firmware counters</p></li>
+<li><p>Ensure that GRUB does not have idle=poll</p></li>
+<li><p>Isolating cores in the GRUB has been shown to reduce performance</p></li>
+</ul>
+<p><a class="reference external" href="https://www.intel.com/content/www/us/en/products/solutions/select-solutions/network/nfvi.html">Intel® Select Solutions for
+NFVI</a></p>
+</section>
+<section id="core-dump-occurs-during-nginx-reload">
+<h2>Core Dump Occurs During NGINX Reload<a class="headerlink" href="#core-dump-occurs-during-nginx-reload" title="Permalink to this headline"></a></h2>
+<p>The following is an example of a core dump that occurred during NGINX
+Reload (i.e. backtrace stack):</p>
+<p>Core dump during Nginx reload, backtrace stack:</p>
+<p>#0 0x00007f6964a20544 in Lac_MemPoolCleanUpInternal () from
+/usr/local/lib/libqat_s.so</p>
+<p>#1 0x00007f6964a208a0 in Lac_MemPoolCreate () from
+/usr/local/lib/libqat_s.so</p>
+<p>#2 0x00007f6964a3cb5a in SalCtrl_AsymInit () from
+/usr/local/lib/libqat_s.so</p>
+<p>#3 0x00007f6964a3d573 in SalCtrl_CryptoInit () from
+/usr/local/lib/libqat_s.so</p>
+<p>#4 0x00007f6964a40ac5 in SalCtrl_ServiceInit.constprop.2 () from
+/usr/local/lib/libqat_s.so</p>
+<p>#5 0x00007f6964a41918 in SalCtrl_ServiceEventHandler () from
+/usr/local/lib/libqat_s.so</p>
+<p>#6 0x00007f6964a4821d in adf_user_subsystemInit () from
+/usr/local/lib/libqat_s.so</p>
+<p>#7 0x00007f6964a48edc in adf_proxy_get_device () from
+/usr/local/lib/libqat_s.so</p>
+<p>#8 0x00007f6964a49030 in adf_proxy_get_devices () from
+/usr/local/lib/libqat_s.so</p>
+<p>#9 0x00007f6964a47688 in icp_adf_userProxyInit () from
+/usr/local/lib/libqat_s.so</p>
+<p>#10 0x00007f6964a450cc in do_userStart (process_name=0x7ffd66ddd660
+“SHIM_INT_33”) at
+/root/qat_upstream_driver/quickassist/lookaside/access_layer/src/user/sal_user.c:137</p>
+<p>#11 icp_sal_userStart (process_name=&lt;optimized out&gt;) at
+/root/qat_upstream_driver/quickassist/lookaside/access_layer/src/user/sal_user.c:187</p>
+<p>#12 0x00007f6964a45335 in icp_sal_userStartMultiProcess
+(pProcessName=&lt;optimized out&gt;,
+<a class="reference external" href="mailto:limitDevAccess=limitDevAccess&#37;&#52;&#48;entry=CPA_FALSE">limitDevAccess=limitDevAccess<span>&#64;</span>entry=CPA_FALSE</a>) at
+/root/qat_upstream_driver/quickassist/lookaside/access_layer/src/user/sal_user.c:220</p>
+<p>#13 0x00007f69627a4e4f in qat_engine_init (<a class="reference external" href="mailto:e=e&#37;&#52;&#48;entry=0x55d014708140">e=e<span>&#64;</span>entry=0x55d014708140</a>) at
+e_qat.c:475</p>
+<p>#14 0x00007f69627a5f30 in engine_init_child_at_fork_handler () at
+qat_fork.c:91</p>
+<p>#15 0x00007f6964d8caae in fork () from /lib64/libc.so.6</p>
+<p>#16 0x000055d01326c90a in ngx_spawn_process
+(<a class="reference external" href="mailto:cycle=cycle&#37;&#52;&#48;entry=0x55d01473c3f0">cycle=cycle<span>&#64;</span>entry=0x55d01473c3f0</a>, <a class="reference external" href="mailto:proc=proc&#37;&#52;&#48;entry=0x55d01326e380">proc=proc<span>&#64;</span>entry=0x55d01326e380</a>
+&lt;ngx_worker_process_cycle&gt;, <a class="reference external" href="mailto:data=data&#37;&#52;&#48;entry=0x1">data=data<span>&#64;</span>entry=0x1</a>,
+<a class="reference external" href="mailto:name=name&#37;&#52;&#48;entry=0x55d0132d11db">name=name<span>&#64;</span>entry=0x55d0132d11db</a> “worker process”,
+<a class="reference external" href="mailto:respawn=respawn&#37;&#52;&#48;entry=-4">respawn=respawn<span>&#64;</span>entry=-4</a>)</p>
+<p>at src/os/unix/ngx_process.c:186</p>
+<p>#17 0x000055d01326db10 in ngx_start_worker_processes
+(<a class="reference external" href="mailto:cycle=cycle&#37;&#52;&#48;entry=0x55d01473c3f0">cycle=cycle<span>&#64;</span>entry=0x55d01473c3f0</a>, n=32, <a class="reference external" href="mailto:type=type&#37;&#52;&#48;entry=-4">type=type<span>&#64;</span>entry=-4</a>) at
+src/os/unix/ngx_process_cycle.c:361</p>
+<p>#18 0x000055d01326eebb in ngx_master_process_cycle
+(cycle=0x55d01473c3f0, <a class="reference external" href="mailto:cycle&#37;&#52;&#48;entry=0x55d0146fcfe0">cycle<span>&#64;</span>entry=0x55d0146fcfe0</a>) at
+src/os/unix/ngx_process_cycle.c:246</p>
+<p>#19 0x000055d013246605 in main (argc=&lt;optimized out&gt;, argv=&lt;optimized
+out&gt;) at src/core/nginx.c:389</p>
+<ol class="arabic simple" start="10">
+<li><p>Hugepage memory is used up and there is no 2MB slab memory. Neither
+can be checked with `cat /proc/meminfo` and `cat
+/proc/buddyinfo`. Usually, if check with `free -m`, the
+buffer/cache number will be high.</p></li>
+</ol>
+<p>There is a work around. Allocate enough Hugepage Memory for Nginx. If
+there are 32 Nginx worker processes, during reload, the maximum number
+of work processes will be 64.</p>
+<p>insmod ./usdm_drv.ko max_huge_pages=N max_huge_pages_per_process=32</p>
+<p>N should be larger than or equal to 32 * 64</p>
+<p>§</p>
+<section id="openssl-qat-engine-issues">
+<h3>OpenSSL*/QAT_Engine Issues<a class="headerlink" href="#openssl-qat-engine-issues" title="Permalink to this headline"></a></h3>
+<p>This section describes resolution steps for OpenSSL*/QAT_Engine issues.</p>
+</section>
+</section>
+<section id="error-with-version-of-openssl">
+<h2>Error with Version of OpenSSL*<a class="headerlink" href="#error-with-version-of-openssl" title="Permalink to this headline"></a></h2>
+<p>If you see a result like the following:</p>
+<p>[<a class="reference external" href="mailto:root&#37;&#52;&#48;SR1B011">root<span>&#64;</span>SR1B011</a> apps]# ./openssl version</p>
+<p>./openssl: error while loading shared libraries:</p>
+<p>libssl.so.1.1: cannot open shared object file: No such file or directory</p>
+<p>Then most likely, the library path is not set up.</p>
+<p>[<a class="reference external" href="mailto:root&#37;&#52;&#48;SR1B011">root<span>&#64;</span>SR1B011</a> apps]# echo $LD_LIBRARY_PATH</p>
+<p>Export the $LD_LIBRARY_PATH and rerun the command as follows:</p>
+<p>[<a class="reference external" href="mailto:root&#37;&#52;&#48;SR1B011">root<span>&#64;</span>SR1B011</a> apps]# export</p>
+<p>LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/ssl/lib</p>
+<p>[<a class="reference external" href="mailto:root&#37;&#52;&#48;SR1B011">root<span>&#64;</span>SR1B011</a> apps]# ./openssl version</p>
+<p>OpenSSL 1.1.1 11 Sep 2018</p>
+<p><a class="reference external" href="https://github.com/intel/QAT_Engine">https://github.com/intel/QAT_Engine
+(</a>including the
+Troubleshooting section)</p>
+</section>
+<section id="errors-with-make-make-install-of-the-intel-qat-openssl-engine">
+<h2>Errors with make/make install of the Intel® QAT OpenSSL* Engine<a class="headerlink" href="#errors-with-make-make-install-of-the-intel-qat-openssl-engine" title="Permalink to this headline"></a></h2>
+<p>You experience errors with make or make install as in the following:</p>
+<p>qat_ciphers.c:464:26: note: each undeclared identifier is reported only
+once for each function it appears in make[1]: *** [qat_rsa.lo] Error 1
+qat_ciphers.c: In function ‘qat_chained_ciphers_do_cipher’:</p>
+<p>qat_ciphers.c:1651:59: error: ‘ASYNC_STATUS_OK’ undeclared (first use in
+this function) if ((job_ret = qat_pause_job(done.opDone.job,
+ASYNC_STATUS_OK)) == 0) ^ qat_ciphers.c: In function
+‘qat_sym_perform_op’:</p>
+<p>qat_ciphers.c:1778:48: error: ‘ASYNC_STATUS_EAGAIN’ undeclared (first
+use in this function)</p>
+<p>if ((qat_wake_job(opDone-&gt;job, ASYNC_STATUS_EAGAIN)</p>
+<p>== 0) ||</p>
+<p>The root cause could be you have cloned the QAT_Engine with the OpenSSL
+repository. It is not normally advised to clone one git repo within
+another. In this case, clone the QAT_Engine somewhere other than in the
+OpenSSL repository.</p>
+<p><a class="reference external" href="https://github.com/intel/QAT_Engine">https://github.com/intel/QAT_Engine
+(</a>including the
+Troubleshooting section).</p>
+</section>
+<section id="errors-observed-with-openssl-speed">
+<h2>Errors observed with openssl_speed<a class="headerlink" href="#errors-observed-with-openssl-speed" title="Permalink to this headline"></a></h2>
+<p>You see errors such as the following:</p>
+<div class="line-block">
+<div class="line">./openssl speed -engine qatengine -elapsed -evp aes-128-cbc-hmac-sha1
+-bytes 1400</div>
+<div class="line">17086849.27k</div>
+</div>
+<p>140242605822464:error:0607F08A:digital envelope
+routines:EVP_EncryptFinal_ex:data not multiple of block
+length:crypto/evp/evp_enc.c:405:</p>
+<p>Two issues are present here:</p>
+<p>1) The buffer size should be in multiple of block length (for AES128 its
+16) hence the error at software and engine  which then leads to:</p>
+<ol class="arabic simple" start="2">
+<li><p>Reported throughput being invalid</p></li>
+</ol>
+<p>When issuing OpenSSL speed commands, ensure buffer sizes are in multiple
+of block length.  This is the default behavior for OpenSSL speed.</p>
+<p>In this case the extra parameter -bytes was used to manually set the
+buffer size.</p>
+<p>§</p>
+<section id="haproxy-issues">
+<h3>HAProxy* Issues<a class="headerlink" href="#haproxy-issues" title="Permalink to this headline"></a></h3>
+<p>This section describes resolution steps for HAProxy* issues.</p>
+</section>
+</section>
+<section id="haproxy-intel-qat-error-when-starting-haproxy">
+<h2>HAProxy* + Intel® QAT Error when Starting HAProxy<a class="headerlink" href="#haproxy-intel-qat-error-when-starting-haproxy" title="Permalink to this headline"></a></h2>
+<p>Starting HAProxy results in the following message:</p>
+<p>“ssl-engine qat: failed to get structural reference”</p>
+<p>Review the <em>HAProxy* with Intel® QuickAssist Technology Application
+Note</em> to verify that all required steps were covered.</p>
+<p>337430, HAProxy* with Intel® QuickAssist Technology Application Note,
+on 01.org</p>
+</section>
+<section id="haproxy-intel-qat-performance-is-low">
+<h2>HAProxy* + Intel® QAT Performance is Low<a class="headerlink" href="#haproxy-intel-qat-performance-is-low" title="Permalink to this headline"></a></h2>
+<p>If you experience a low performance of HAProxy and Intel® QAT, refer to
+the resolution steps below to isolate the issue.</p>
+<ul class="simple">
+<li><p>Use the <a class="reference external" href="https://www.intel.com/content/www/us/en/products/solutions/select-solutions/network/nfvi.html">Intel® Select Solutions for NFVI
+s</a>cript
+to reapply the correct settings (i.e., more worker processes,
+keep-alive settings, high concurrency, etc.)</p></li>
+<li><p>Ensure that Intel® QAT is being used, with the firmware counters</p></li>
+<li><p>Ensure that GRUB does not have idle=poll</p></li>
+<li><p>Isolating cores in the GRUB has been shown to reduce performance</p></li>
+</ul>
+<p><a class="reference external" href="https://www.intel.com/content/www/us/en/products/solutions/select-solutions/network/nfvi.html">Intel® Select Solutions for
+NFVI</a></p>
+</section>
+<section id="error-with-haproxy-version">
+<h2>Error with HAProxy* Version<a class="headerlink" href="#error-with-haproxy-version" title="Permalink to this headline"></a></h2>
+<p>If you experience the following error:</p>
+<p># ./haproxy -vv</p>
+<p>./haproxy: error while loading shared libraries: libssl.so.1.1: cannot
+open shared object file: No such file or directory</p>
+<p>It is likely that the LD_LIBRARY_PATH variable is not set up.</p>
+<p>Define the LD_LIBRARY_PATH and verify that the “Built with” and “Running
+on” OpenSSL versions are the same.</p>
+<p>]# export LD_LIBRARY_PATH=/usr/local/ssl/lib</p>
+<p>]# ./haproxy -vv</p>
+<p>HA-Proxy version 1.9.4 2019/02/06 –</p>
+<p><a class="reference external" href="https://haproxy.org/">https://haproxy.org/</a></p>
+<ul class="simple">
+<li><p>TARGET = linux2628</p></li>
+<li><p>CPU = generic</p></li>
+<li><p>CC = gcc</p></li>
+<li><p>CFLAGS = -O2 -g -fno-strict-aliasing -Wdeclaration-after-statement
+-fwrapv -Wno-unusedlabel -Wno-sign-compare -Wno-unused-parameter
+-Wno-old-style-declaration -Wnoignored-qualifiers -Wno-clobbered
+-Wno-missing-field-initializers -Wtype-limits</p></li>
+<li><p>OPTIONS = USE_OPENSSL=1</p></li>
+</ul>
+<ul class="simple">
+<li><p>maxconn=2000, bufsize=16384, maxrewrite=1024, maxpollevents=200</p></li>
+<li><p>Built with OpenSSL version: OpenSSL 1.1.1 11 Sep 2018</p></li>
+<li><p>Running on OpenSSL version: OpenSSL 1.1.1 11 Sep 2018</p></li>
+</ul>
+<p>337430, HAProxy* with Intel® QuickAssist Technology Application Note,
+at 01.org, especially the following sections:</p>
+<ul class="simple">
+<li><p>Section 3.0, “HAProxy* Setup and Testing for HTTP Connections”</p></li>
+<li><p>Section 3.1, “Installing HAProxy*”</p></li>
+<li><p>Section 3.2, “Verifying HAProxy* Installation”</p></li>
+</ul>
+</section>
+<section id="haproxy-shared-libraries-libssl-so-1-1-and-libcrypto-so-1-1-are-not-found">
+<h2>HAProxy* Shared Libraries libssl.so.1.1. and libcrypto.so.1.1 are Not Found<a class="headerlink" href="#haproxy-shared-libraries-libssl-so-1-1-and-libcrypto-so-1-1-are-not-found" title="Permalink to this headline"></a></h2>
+<p>The Haproxy shared libraries libssl.so.1.1. and libcrypto.so.1.1 are not
+found when running the command “ldd haproxy”.</p>
+<p>]# ldd haproxy linux-vdso.so.1 =&gt; (0x00007ffe4853e000) libcrypt.so.1 =&gt;
+/lib64/libcrypt.so.1 (0x00007ff32d26e000) libdl.so.2 =&gt;
+/lib64/libdl.so.2 (0x00007ff32d06a000) libpthread.so.0 =&gt;
+/lib64/libpthread.so.0 (0x00007ff32ce4e000) librt.so.1 =&gt;
+/lib64/librt.so.1 (0x00007ff32cc46000) libssl.so.1.1 =&gt; not found
+libcrypto.so.1.1 =&gt; not found libc.so.6 =&gt; /lib64/libc.so.6
+(0x00007ff32c878000) libfreebl3.so =&gt; /lib64/libfreebl3.so
+(0x00007ff32c675000)</p>
+<p>/lib64/ld-linux-x86-64.so.2 (0x00007ff32d4a5000)</p>
+<p>Define the LD_LIBRARY_PATH variable and verify that the libssl.so.1.1
+and libcrpto.so.1.1 files point to the correct libraries.</p>
+<p>]# export LD_LIBRARY_PATH=/usr/local/ssl/lib ]# ldd haproxy
+linux-vdso.so.1 =&gt; (0x00007ffd75bbf000)</p>
+<p>libcrypt.so.1 =&gt; /lib64/libcrypt.so.1 (0x00007feaeb0e4000) libdl.so.2 =&gt;
+/lib64/libdl.so.2 (0x00007feaeaee0000) libpthread.so.0 =&gt;
+/lib64/libpthread.so.0 (0x00007feaeacc4000) librt.so.1 =&gt;
+/lib64/librt.so.1 (0x00007feaeaabc000) libssl.so.1.1 =&gt;
+/usr/local/ssl/lib/libssl.so.1.1 (0x00007feaea82a000) libcrypto.so.1.1
+=&gt; /usr/local/ssl/lib/libcrypto.so.1.1 (0x00007feaea345000) libc.so.6 =&gt;
+/lib64/libc.so.6 (0x00007feae9f77000) libfreebl3.so =&gt;
+/lib64/libfreebl3.so (0x00007feae9d74000) /lib64/ld-linux-x86-64.so.2
+(0x00007feaeb31b000)</p>
+<p>337430, HAProxy* with Intel® QuickAssist Technology Application Note,
+at 01.org, especially the following sections:</p>
+<ul class="simple">
+<li><p>Section 3.0, “HAProxy* Setup and Testing for HTTP Connections”</p></li>
+<li><p>Section 3.1, “Installing HAProxy*”</p></li>
+<li><p>Section 3.2, “Verifying HAProxy* Installation”</p></li>
+</ul>
+</section>
+<section id="fatal-errors-with-haproxy-configuration-file">
+<h2>Fatal Errors with HAProxy* Configuration File<a class="headerlink" href="#fatal-errors-with-haproxy-configuration-file" title="Permalink to this headline"></a></h2>
+<p>If you experience fatal errors with the HAProxy configuration file, like
+the following:</p>
+<p>#] ./haproxy -f /etc/haproxy/allhaproxy.cfg</p>
+<p>[ALERT] 178/155753 (38095) : ssl-engine qat: failed to get structural
+reference</p>
+<p>[ALERT] 178/155753 (38095) : parsing [/etc/haproxy/allhaproxy.cfg:3] :</p>
+<p>(null)</p>
+<p>[ALERT] 178/155753 (38095) : Error(s) found in configuration file :</p>
+<p>/etc/haproxy/allhaproxy.cfg [ALERT] 178/155753 (38095) : Fatal errors
+found in configuration.</p>
+<p>It is likely that the LD_LIBRARY_PATH variable is not set up.</p>
+<p>Run the following commands:</p>
+<p>]# export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/ssl/lib</p>
+<p>#] ./haproxy -f /etc/haproxy/allhaproxy.cfg</p>
+<p>337430, HAProxy* with Intel® QuickAssist Technology Application Note,
+at 01.org, especially the following sections:</p>
+<ul class="simple">
+<li><p>Section 3.0, “HAProxy* Setup and Testing for HTTP Connections”</p></li>
+<li><p>Section 3.1, “Installing HAProxy*.”</p></li>
+<li><p>Section 3.2, “Verifying HAProxy* Installation.”</p></li>
+</ul>
+</section>
+<section id="haproxy-test-does-not-appear-to-produce-the-expected-results-using-apachebench-as-a-load-generator">
+<h2>HAProxy* Test Does not Appear to Produce the Expected Results using ApacheBench as a Load Generator<a class="headerlink" href="#haproxy-test-does-not-appear-to-produce-the-expected-results-using-apachebench-as-a-load-generator" title="Permalink to this headline"></a></h2>
+<p>If you experience this issue, you may need to use the OpenSSL* s_time
+command as a load generator, with a new HAProxy Intel® QAT configuration
+file.</p>
+<p>An example of a recommended HAProxy Intel® QAT configuration file is
+listed below for use when running the OpenSSL s_time command. Please
+note that the <strong>bold</strong> line would be removed if you were running the
+test without Intel® QAT (i.e., with software).</p>
+<p>]# cat myhaproxy-qat.cfg global user root group root nbproc 15 maxconn
+200000 ulimit-n 700000 daemon</p>
+<p>ssl-engine qat algo ALL ssl-mode-async</p>
+<p>ssl-default-bind-ciphers AES128-SHA</p>
+<p>ssl-default-bind-options no-tls-tickets no-sslv3 no-tlsv10 no-tlsv11
+tune.bufsize 65536 defaults backlog 327680 balance source retries 3</p>
+<p>frontend myfrontend</p>
+<p>mode http</p>
+<p>bind 127.0.0.1:4400 ssl crt /etc/ssl/myhaproxy/myhaproxy.pem option
+forceclose option httpclose option http-server-close option nolinger
+timeout client 100s</p>
+<p>timeout client-fin 0s timeout http-keep-alive 0s default_backend
+mybackend backend mybackend balance roundrobin option httpclose option
+http-server-close timeout connect 100s</p>
+<p>timeout server 100s</p>
+<p>timeout server-fin 0s</p>
+<p>option nolinger</p>
+<p>option forceclose</p>
+<p>mode http</p>
+<p>timeout http-keep-alive 0s</p>
+<p>server myvm 127.0.0.1:80 check</p>
+<p>337430, HAProxy* with Intel® QuickAssist Technology Application Note,
+at 01.org, especially the following sections:</p>
+<ul class="simple">
+<li><p>Section 3.0, “HAProxy* Setup and Testing for HTTP Connections”</p></li>
+<li><p>Section 3.1, “Installing HAProxy*.”</p></li>
+<li><p>Section 3.2, “Verifying HAProxy* Installation.”</p></li>
+</ul>
+</section>
+<section id="issues-making-ssl-connection-against-haproxy-launched-with-intel-qat-configured-as-non-root-user">
+<h2>Issues making ssl Connection against HAProxy Launched with Intel® QAT Configured as Non-root User.<a class="headerlink" href="#issues-making-ssl-connection-against-haproxy-launched-with-intel-qat-configured-as-non-root-user" title="Permalink to this headline"></a></h2>
+<ol class="arabic simple" start="11">
+<li><p>You may be able to start HAProxy, and everything is fine. Intel® QAT
+reports no warnings, but issues occur as soon as a request is made.</p></li>
+</ol>
+<p>One example of debug output:</p>
+<p>[DEBUG][qat_rsa.c:911:qat_rsa_priv_enc()] - Started.</p>
+<p>[DEBUG][qat_rsa.c:403:build_decrypt_op_buf()] - Started</p>
+<p>[DEBUG][qat_rsa.c:415:build_decrypt_op_buf()] flen = 256, padding = 3</p>
+<p>[WARNING][qat_asym_common.c:112:qat_BN_to_FB()] Failed to allocate fb-</p>
+<p>&gt;pData</p>
+<p>[WARNING][qat_rsa.c:460:build_decrypt_op_buf()] Failed to convert
+privateKeyRep2 elements to flatbuffer</p>
+<p>[WARNING][qat_rsa.c:944:qat_rsa_priv_enc()] Failure in
+build_decrypt_op_buf [DEBUG][qat_rsa.c:210:rsa_decrypt_op_buf_free()] -
+Started</p>
+<p>[DEBUG][qat_rsa.c:233:rsa_decrypt_op_buf_free()] - Finished</p>
+<p>Another example:</p>
+<p>[DEBUG][qat_rsa.c:845:qat_rsa_priv_enc()] - Started.</p>
+<p>[DEBUG][qat_rsa.c:369:build_decrypt_op_buf()] - Started</p>
+<p>[DEBUG][qat_rsa.c:381:build_decrypt_op_buf()] flen = 256, padding = 3</p>
+<p>[MEM_DEBUG][cmn_mem_drv_inf.c:87:qaeCryptoMemAlloc()] pthread_mutex_lock</p>
+<p>[DEBUG][cmn_mem_drv_inf.c:95:qaeCryptoMemAlloc()] Address: (nil) Size:</p>
+<p>128 File: qat_asym_common.c:104</p>
+<p>[MEM_DEBUG][cmn_mem_drv_inf.c:99:qaeCryptoMemAlloc()]
+pthread_mutex_unlock</p>
+<p>[WARNING][qat_asym_common.c:107:qat_BN_to_FB()] Failed to allocate fb-</p>
+<p>&gt;pData</p>
+<p>[WARNING][qat_rsa.c:426:build_decrypt_op_buf()] Failed to convert
+privateKeyRep2 elements to flatbuffer
+[WARNING][qat_rsa.c:872:qat_rsa_priv_enc()] Failure in
+build_decrypt_op_buf [DEBUG][qat_rsa.c:209:rsa_decrypt_op_buf_free()] -
+Started</p>
+<p>[DEBUG][qat_rsa.c:232:rsa_decrypt_op_buf_free()] - Finished</p>
+<p>The Intel® QAT Engine/libqat uses usdm_drv and mmap()’s physical memory
+regions it gets from the memory driver. On some distro’s with systemd,
+non-root users have a memlock limit set by default to a too low value,
+and that triggers mmap()’ error with -EAGAIN.</p>
+<p>To see if this is the case, run:</p>
+<ol class="arabic simple">
+<li><p>The Linux* command strace to see the error.</p></li>
+<li><p>See the memlock limit for your HAProxy process.</p></li>
+<li><p>If memlock is your problem, set a bigger value, e.g., for your
+haproxy.service by adding an override .conf to it:</p></li>
+</ol>
+<blockquote>
+<div><p>[Service]</p>
+<p>LimitMEMLOCK=&lt;some value, e.g, 16M&gt;</p>
+</div></blockquote>
+<p>337430, HAProxy* with Intel® QuickAssist Technology Application Note,
+at 01.org, especially the following sections:</p>
+<p>§</p>
+<section id="miscellaneous-issues">
+<h3>Miscellaneous Issues<a class="headerlink" href="#miscellaneous-issues" title="Permalink to this headline"></a></h3>
+<p>This section describes resolution steps for otherwise uncategorized
+issues.</p>
+</section>
+</section>
+<section id="possible-errors-due-to-bios-setting">
+<h2>Possible Errors Due to BIOS Setting<a class="headerlink" href="#possible-errors-due-to-bios-setting" title="Permalink to this headline"></a></h2>
+<p>Issues like the following may be due to BIOS settings:</p>
+<ul class="simple">
+<li><p>Running make install on the Intel® QAT Engine returns an error
+similar to error -14:</p></li>
+</ul>
+<p>dh895xcc: probe of 0000:b1:00.0 failed with error -14</p>
+<ol class="arabic simple" start="12">
+<li><p>The above result may be seen in dmesg and/or /var/log/syslog.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Error “Failed to send admin msg to accelerator”:</p></li>
+</ul>
+<p>dh895xcc 0000:b1:00.0: Failed to send init message</p>
+<ol class="arabic simple" start="13">
+<li><p>The above result may be seen in /var/log/messages.</p></li>
+</ol>
+<ul class="simple">
+<li><p>Fewer qat acceleration devices than you expect when starting Intel®
+QAT:</p></li>
+</ul>
+<p>For example, you may see all the c6xx type devices, but not the dh895x
+device.</p>
+<p>Please refer to Section 4.4 of <em>QuickAssist Technology Software for
+Linux* - Release Notes - H.W. version 1.7</em> (Document ID 336211). The
+title of the section is, “When trying to start the Intel QuickAssist
+Technology driver, I see errors similar to one of the following…”</p>
+<p>336211, Intel® QuickAssist Technology Software for Linux* – Release
+Notes – H.W. version 1.7</p>
+<p>§</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

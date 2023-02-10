@@ -1,0 +1,100 @@
+.. _qat_2.0_pg_infrastructure_rate_limiting:
+
+Rate Limiting
+=============
+
+Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service. Resources are shared across guests and the resource utilization of each guest is measured relative to the capacity of the physical function. 
+
+The feature is supported only for SYM and ASYM services.
+
+To enable the Rate Limiting feature:
+
+#. **Install** the driver package on the host with Single-Root Input/Output Virtualization (SR-IOV) enabled.
+#. **Set** ``ServicesEnabled`` to ``asym`` or ``sym``.
+#. **Perform** ``qat_service shutdown`` and ``qat_service start``.
+
+Service Level Agreement (SLA)
+-----------------------------
+
+Service Level Agreement enforcement allocates a specified amount of capacity for a specified service to a specified VF:
+*max SLA enforced = (number of VFs) X (number of services)* where:
+
+    * Number of VFs varies based on device type
+    * Number of services = 2 (asymmetric or symmetric)
+
+SLA Units
+---------
+
+SLA units are measured as follows:
+
+* Symmetric Crypto – 1Mbps of throughput.
+* Asymmetric Crypto – 1 operation (ops) of reference operation.
+
+SLA Manager Application
+-----------------------
+
+The ``sla_mgr`` tool is used to create, update, delete, list and get SLA capabilities.
+The SLA Manager executable is available in ``$ICP_ROOT/build/sla_mgr`` after the package is built and installed using ``./configure; make install`` commands.
+
+SLA Commands
+++++++++++++
+
+.. table:: Rate Limiting SLA Commands
+
+    +-------------------------+---------------------------------------------------------------+
+    | **Operation**           | **Command**                                                   |  
+    +=========================+===============================================================+
+    |  Create SLA             | ``./sla_mgr create <vf_addr> <rate_in_sla_units> <service>``  |
+    +-------------------------+---------------------------------------------------------------+
+    |  Update SLA             | ``./sla_mgr update <pf_addr> <sla_id> <rate_in_sla_units>``   |
+    +-------------------------+---------------------------------------------------------------+
+    |  Delete SLA             | ``./sla_mgr delete <pf_addr> <sla_id>``                       |
+    +-------------------------+---------------------------------------------------------------+
+    |  Delete all SLAs        | ``./sla_mgr delete_all <pf_addr>``                            |
+    +-------------------------+---------------------------------------------------------------+
+    |  Query SLA capabilities | ``./sla_mgr caps <pf_addr>``                                  |
+    +-------------------------+---------------------------------------------------------------+
+    |  Query list of SLAs     | ``./sla_mgr list <pf_addr>``                                  |
+    +-------------------------+---------------------------------------------------------------+
+
+Options:
+
+* ``pf_addr`` - Physical address in domain:bus:device.function(xxxx:xx:xx.x) format.
+* ``vf_addr`` - Virtual address in domain:bus:device.function(xxxx:xx:xx.x) format.
+* ``Service`` - Asym(=0) or Sym(=1).
+* ``rate_in_sla_units`` - [ 0-MAX]. MAX is found by querying the capabilities.
+* ``sla_id`` - Value returned by ``create`` command.
+
+One ``rate_in_sla_units`` is equal to:
+
+* 1 operation per second - for asymmetric service.
+* 1 Megabits per second - for symmetric service/compression service.
+
+.. ......................................................................... ..
+.. ......................................................................... .. 
+.. . VIDEO: Remove this part to generate the PDF version of this document. . ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+
+SLA Manager Application Demo
+++++++++++++++++++++++++++++
+
+Here is a demonstration of using the ``sla_mgr`` tool to create, update, and delete SLAs.
+The device utilization script from the previous section is used to visualize the SLAs in action.
+The demo consists of the following steps:
+
+#. **Run** Encryption workload without SLA in place to observe full utilization.
+#. **Create** SLA enabling 75% of bandwidth and observe reduced utilization.
+#. **Update** the SLA to enable 25% of bandwidth and observe reduced utilization.
+#. **Remove** the SLA and verify full utilization.
+
+.. video:: ../_static/video/pg/ratelimiting.mp4
+    :width: 600
+    :height: 300
+
+|
+
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..
+.. ......................................................................... ..

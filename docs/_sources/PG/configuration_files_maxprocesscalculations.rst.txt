@@ -1,0 +1,160 @@
+.. _qat_2.0_pg_configuration_files_max_numofprocesses_calculation:
+
+Maximum Number of Process Calculations
+======================================
+
+The ``NumProcesses`` parameter is the number of user space processes per service within the [xxxx] section domain with access to this Intel\ :sup:`®` QAT Endpoint.
+
+The value to which this parameter can be set is determined by a number of factors including the number of cryptography instances and/or data 
+compression instances in the process section along with ``ServicesEnabled`` and potentially ``ServicesProfile``. The total number of processes, per service, 
+created by the driver is given by the expression (e.g., for cryptography):
+
+    ``(NumProcesses) x (NumberCyInstances)``
+
+The maximum number of processes that can be supported is dependant upon the underlying hardware.    
+
+.. _increasing_max_numofprocesses:
+
+Increasing the Maximum Number of Processes/Instances
+----------------------------------------------------
+
+.. note:: 
+    
+    - One bank is used per Intel\ :sup:`®` QAT virtual function (VF).
+    - This section only applies when the instances that make use of polled mode.
+
+The maximum number of instances can be increased with the careful selection of the ``ServiceEnabled`` parameter.
+
+Compression, symmetric cryptography, and asymmetric cryptography each require two rings out of the 16 possible rings for a ring bank. By selecting only, 
+the services needed, the number of instances can be increased.
+
+Here are the variations including the maximum number of processes that can be supported for given configuration:
+
+.. _services_enabled_definitions:
+
+.. table:: Configuration Variations
+
+    +---------------------+--------------+-------------+------------------------------------------------------------------+
+    | **ServicesEnabled** | **QAT 1.7x** | **QAT 2.0** | **Notes**                                                        |
+    +=====================+==============+=============+==================================================================+
+    | ``sym``             | 128          | 64          | Compression and asymmetric crypto service not available.         |
+    +---------------------+--------------+-------------+------------------------------------------------------------------+
+    | ``asym``            | 128          | 64          | Compression and symmetric crypto service not available.          |
+    +---------------------+--------------+-------------+------------------------------------------------------------------+
+    | ``cy``              | 128          | Invalid     | Compression and symmetric crypto service not available.          |
+    +---------------------+--------------+-------------+------------------------------------------------------------------+
+    | ``dc``              | 128          | 64          | Asymmetric and symmetric crypto service not available.           |
+    +---------------------+--------------+-------------+------------------------------------------------------------------+
+    | ``dc;sym``          | 64           | 32          | Asymmetric crypto services will not be available.                |
+    +---------------------+--------------+-------------+------------------------------------------------------------------+
+    | ``dc;asym``         | 64           | 32          | Symmetric crypto services will not be available.                 |
+    +---------------------+--------------+-------------+------------------------------------------------------------------+
+    | ``sym;asym``        | Invalid      | 32          | Compression services will not be available.                      |
+    +---------------------+--------------+-------------+------------------------------------------------------------------+
+
+.. note:: 
+    
+    The ``ServicesProfile`` parameter value may also need to be changed. See :ref:`Services Profile<services_profile>` for additional information.
+
+Invalid Configurations
+++++++++++++++++++++++
+
+If maximum number of processes is exceeded, the acceleration software will fail to load. The error message will be similiar to:
+
+.. code-block:: console
+
+    service qat_service restart qat_dev0
+
+.. code-block:: text
+    
+    Stopping device qat_dev0
+    Starting device qat_dev0
+    Processing /etc/4xxx_dev0.conf
+    Ioctl failed
+    QAT Error: Failed to load config data to device
+
+And ``dmesg`` output will look similar to:
+
+.. code-block:: text
+
+        [116378.383041] Don't have enough rings for instance SSL0 in process SHIM_DEV0_INT_32
+        [116378.391976] 4xxx 0000:6b:00.0: Failed to create rings for cy
+        [116378.398881] 4xxx 0000:6b:00.0: Failed to process user section SHIM
+        [116378.406484] 4xxx 0000:6b:00.0: Failed to config device
+        
+Configuring Instances for Virtual Functions
++++++++++++++++++++++++++++++++++++++++++++
+
+To configure the number of instances for a virtual function:
+
+#. **Install** the driver package on the host with SR-IOV enabled.
+
+#. **Update** the physical function configuration file to set ``ServicesEnabled`` (refer to :ref:`Increasing the Maximum Number of Processes/Instances <increasing_max_numofprocesses>`).
+
+#. **Perform** ``qat_service shutdown`` and ``qat_service start``.
+
+#. **Update** the virtual function configuration file to set ``ServicesEnabled`` (refer to :ref:`Increasing the Maximum Number of Processes/Instances <increasing_max_numofprocesses>`).
+
+#. **Restart** the ``qat_service``.
+
+The value of ``ServicesEnabled`` in the VF configuration file should be the same as the value of ``ServicesEnabled`` in the PF configuration file, 
+or a subset of that value as shown in this table. For instance, if a PF is configured as ``cy``, allowable VF configurations related to that PF can 
+only be ``cy``, ``asym``, or ``sym``. VF device restart will fail if a VF configuration is not allowed for that related PF.
+
+If a VF service is configured to a subset of PF service, the number of VF instances is limited to the number allowed for that PF service as described 
+in :ref:`Increasing the Maximum Number of Processes/Instances. <increasing_max_numofprocesses>` For example, if the PF configuration file has 
+``ServicesEnabled=dc;asym``, only four (not eight) dc instances are enabled if the VF is configured for dc only.
+
+.. note:: 
+    
+    Valid Physical Function for each supported platform is described in the :ref:`Configuration Variations <services_enabled_definitions>` table.
+
+.. table:: Configuring Physical Functions and Virtual Functions
+
+    +------------------------------+------------------------------+
+    | **Configured PF Service**    | **Available VF Services**    |
+    +==============================+==============================+
+    |                              | ``cy;dc``                    |
+    |                              +------------------------------+
+    |                              | ``cy``                       |
+    |                              +------------------------------+
+    |                              | ``dc``                       |
+    |                              +------------------------------+
+    | ``cy;dc``                    | ``sym``                      |
+    |                              +------------------------------+
+    |                              | ``asym``                     |
+    |                              +------------------------------+
+    |                              | ``dc;sym``                   |
+    |                              +------------------------------+
+    |                              | ``dc;asym``                  |
+    +------------------------------+------------------------------+
+    |                              | ``cy``                       |
+    |                              +------------------------------+
+    | ``cy``                       | ``sym``                      |
+    |                              +------------------------------+
+    |                              | ``asym``                     |
+    +------------------------------+------------------------------+
+    |                              | ``dc;asym``                  |
+    |                              +------------------------------+
+    | ``dc;asym``                  | ``asym``                     |
+    |                              +------------------------------+
+    |                              | ``dc``                       |
+    +------------------------------+------------------------------+
+    |                              | ``dc;sym``                   |
+    |                              +------------------------------+
+    | ``dc;sym``                   | ``sym``                      |
+    |                              +------------------------------+
+    |                              | ``dc``                       |
+    +------------------------------+------------------------------+
+    |                              | ``asym;sym``                 |
+    |                              +------------------------------+
+    | ``asym;sym``                 | ``sym``                      |
+    |                              +------------------------------+
+    |                              | ``asym``                     |
+    +------------------------------+------------------------------+
+    | ``asym``                     | ``asym``                     |
+    +------------------------------+------------------------------+
+    | ``sym``                      | ``sym``                      |
+    +------------------------------+------------------------------+
+    | ``dc``                       | ``dc``                       |
+    +------------------------------+------------------------------+

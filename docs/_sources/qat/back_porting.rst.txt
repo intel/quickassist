@@ -1,0 +1,88 @@
+Backporting to Kernel 5.10
+==========================
+
+The instructions below allow to backport to kernel 5.10 the patches to the QAT driver included up to kernel version 5.18.
+
+Pre-requisite: a kernel tree where to backport patches into. For this example I’m going to take the 5.10 branch in the stable Linux Kernel tree:
+
+    .. code-block:: bash
+
+        git clone https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+        cd linux
+        git checkout linux-5.10.y
+
+Instructions:
+
+1.	Add mainline tree as new remote to the destination backport repo and fetch it:
+
+    .. code-block:: bash
+
+        git remote add linus https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
+        git fetch linus
+
+2.	Cherry-pick QAT patches:
+
+    The following command will utomatically cherry-pick all the patches and ignore the ones (fixes to stable) that are already applied to the stable tree. 
+
+    .. code-block:: bash
+
+        git rev-list --reverse --topo-order v5.10^..v5.18 -- drivers/crypto/qat/ | while read rev; do git cherry-pick --strategy=recursive -X theirs $rev || git cherry-pick --skip; done
+
+    For greater control of the update, following the following steps:
+
+    - Obtain list of patches between kernel versions to cherry-pick:
+
+        .. code-block:: bash
+
+            git log --pretty=format:"pick %h12 %s" --reverse v5.10^..v5.18 -- drivers/crypto/qat/ > qat_patch_list.txt
+
+    - Execute interactive rebase:
+
+        .. code-block:: bash
+
+            git rebase -i ./qat_patch_list.txt
+
+    .. note:: This method provides greater control, but is more complicated since requires manual steps.
+
+3.  Install Pre-requisite packages for installing kernel
+   
+    
+    For RHEL/CentOS based distros, using the following command:
+
+    .. code-block:: bash
+
+        sudo dnf install -y libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf
+    
+    .. todo:: Update the list above with package dependencies for RHEL/CentOS
+        
+    For Debian based distros, use the following command:
+
+    .. code-block:: bash
+
+        sudo apt-get install -y libncurses-dev gawk flex bison openssl libssl-dev dkms libelf-dev libudev-dev libpci-dev libiberty-dev autoconf
+        
+4.  Build and install the new kernel using the folllowing commands:
+   
+    .. code-block:: bash
+
+        cp /boot/config-`uname -r` ./
+        make oldconfig   # you can also use olddefconfig to set all new options to default values
+        make menuconfig  # select QAT 4XXX driver (under Cryptographic API > Hardware crypto devices)
+        make -j
+        sudo make modules_install -j
+        sudo make headers_install
+        sudo make install
+
+
+5.	Set grub default to new kernel next boot to verify functionality:
+
+    .. code-block:: bash
+
+        grub2-reboot 0 
+
+6. Select this as default kernel (once functionality is confirmed):
+   
+   .. code-block:: bash
+
+        grubby --set-default-index=0 # Permanent change
+        reboot

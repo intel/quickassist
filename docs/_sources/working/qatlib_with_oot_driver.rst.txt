@@ -1,0 +1,266 @@
+qatlib Usage (working copy)
+===========================
+
+.. note:: These instructions refer to qatlib with the Quickassist out-of-tree (OOT) driver. 
+
+BIOS
+----
+
+Intel VT-d and SR-IOV must be enabled in the platform BIOS.  Refer to :ref:`Virtualization Deployment Guide<virtualization_deployment_guide>` for details. 
+
+
+If using an Intel BKC these usually default to on, you can verify by rebooting, entering ``F2`` on the console to get to the BIOS menus and checking these are enabled:
+
+   - Intel VT-d
+   - SR-IOV
+
+.. note:: The intel_iommu setting should be set to "ON" through grubby
+
+
+Build OOT QAT driver
+--------------------
+
+Since SPR is not publicly available, we need the QAT firmware and kernel modules from the OOT driver. The latest QAT driver is available at: 
+https://cdrdv2.intel.com/v1/dl/getContent/632583 (Content ID 632583)
+
+1. Copy this file to /QAT folder and extract package
+2. Configure the driver:
+
+.. code-block:: bash
+
+    sudo ./configure
+
+3. Make the package, but *do not* install it:
+
+.. code-block:: bash
+
+   sudo make -j
+
+
+Install QAT OOT kernel modules and firmware.
+--------------------------------------------
+
+The following script file can be run to copy QAT firmware to ``/lib/firmware`` directory and install kernel modules.:
+
+.. code-block:: ini
+
+   # ICP_ROOT - directory where QAT OOT package is extracted
+   ICP_ROOT=/usr/local/src/QAT
+   echo "Copying QAT firmware to the /lib/firmware directory"
+   sudo cp $ICP_ROOT/build/qat_4xxx*.bin /lib/firmware
+   echo "Removing QAT kernel modules (if needed)"
+   sudo rmmod qat_4xxx.ko
+   sudo rmmod intel_qat.ko
+   echo "Installing QAT kernel modules"
+   sudo modprobe dh_generic
+   sudo modprobe authenc
+   sudo modprobe uio
+   sudo modprobe mdev
+   sudo insmod $ICP_ROOT/build/intel_qat.ko
+   sudo insmod $ICP_ROOT/build/qat_4xxx.ko
+
+Run this script:
+
+.. code-block:: bash
+
+   sudo chmod +x ./start_qat.sh
+   sudo ./start_qat.sh
+
+Obtaining qatlib library
+------------------------
+
+.. note:: If switching from qatlib to the out-of-tree (OOT) QAT driver, qatlib must be uninstalled first or compile time issues will be observed with applications that utilize QAT.
+
+
+Clone the repo from https://github.com/intel/qatlib.git :
+
+.. code-block:: bash
+
+   cd /usr/local/src/
+   sudo git clone https://github.com/intel/qatlib.git
+
+Installing qatlib library
+-------------------------
+
+.. code-block:: bash
+
+   cd qatlib
+
+
+
+1. Configure the driver with these options: ``--enable-service --prefix=/usr`` . enable-service allows ``systemctl`` access to ``qat_service``. ``--prefix=/usr`` installs qatlib in the ``/usr`` folder. This allows QAT_Engine and QATzip to utilize qatlib with no additional configuration parameters:
+
+.. code-block:: bash
+
+   sudo ./autogen.sh
+   sudo ./configure --enable-service --prefix=/usr
+
+2. Build and install qatlib:
+
+.. code-block:: bash
+
+   sudo make -j
+   sudo make install
+
+3. Verify qatlib is up and functional:
+
+.. code-block:: bash
+
+   systemctl status qat.service
+
+
+4. Build and install sample code:
+
+.. code-block:: bash
+
+   sudo make samples-install
+
+
+5. cpa_sample_code can now be run for symmetric crypto and asymmetric crypto:
+
+.. code-block:: bash
+
+   cpa_sample_code
+
+.. important:: If switching from qatlib to the out-of-tree (OOT) QAT driver, qatlib must be uninstalled first or compile time issues will be observed with applications that utilize QAT.
+
+Compression Tests
++++++++++++++++++
+
+Compression is not enabled by default. It can be enabled on selected end points by performing the following steps:
+
+1. Copy ``$ICP_ROOT/build/4xxx_dev0.conf`` to local directory
+
+2. Replace the ``ServicesEnabled`` section to ``dc``
+
+3. Repeat this for each QAT endpoint compression service is desired on. For QAT EndPoints that crypto is required, set ``ServicesEnabled`` to ``sym;asym``
+
+.. note:: It is not possible at this time to combine crypto (sym/asym) with compression (dc).
+
+4. Copy updated QAT configuration files to the ``/etc`` folder
+
+5. Restart QAT driver:
+
+.. code-block:: bash
+
+   sudo $ICP_ROOT/build/adf_ctl restart
+
+6. Restart qatlib library:
+
+.. code-block:: bash
+
+   sudo systemctl restart qat.service
+
+7. Run performance sample code, running the compression tests:
+
+.. code-block:: bash
+
+   sudo cpa_sample_code runTests=32
+
+.. _section-1:
+
+QATzip
+------
+
+.. note:: qatlib must be installed and configured to use compression services prior to running QATzip
+
+These steps can be used to configure/install QATzip that works with
+qatlib
+
+1. Obtain QATzip package:
+
+.. code-block:: bash
+
+   cd /usr/local/src
+   sudo git clone https://github.com/intel/QATzip.git
+
+2. Change directories to the QATzip directory:
+
+.. code-block:: bash
+
+   cd QATzip
+
+3. Ensure ICP_ROOT environmental variable is not defined. If this is defined, QATzip will link against the OOT QAT drivers…which will lead to linking errors.:
+
+.. code-block:: bash
+
+   unset ICP_ROOT
+
+4. Configure QATzip:
+
+.. code-block:: bash
+
+   sudo yum install epel-release && sudo yum install lz4 && sudo yum install lz4-devel
+   sudo ./configure
+
+5. Make and install:
+
+.. code-block:: bash
+
+   sudo make clean
+   sudo make all
+   sudo make install
+
+
+6. qzip application can be used to test compression:
+
+.. code-block:: bash
+
+   sudo ls -alR / > files.txt
+   qzip files.txt
+
+QAT_Engine
+----------
+
+.. note:: qatlib must be installed and configured to use crypto services prior to running QAT_Engine
+
+These steps can be used to configure/install QAT_Engine that works with qatlib.
+
+1. Obtain QAT_Engine package:
+
+.. code-block:: bash
+
+   cd /usr/local/src
+   sudo git clone https://github.com/intel/QAT_Engine.git
+
+2. Change into the QAT_Engine folder:
+
+.. code-block:: bash
+
+   cd QAT_Engine
+
+3. Ensure ``ICP_ROOT`` environmental variable is *not* defined. If this is defined, QATzip will link against the OOT QAT drivers, which will lead to linking errors:
+
+.. code-block:: bash
+
+   unset ICP_ROOT
+
+4. Configure QAT_Engine:
+
+.. code-block:: bash
+
+   sudo ./autogen.sh
+   sudo ./configure
+
+5. Make and install:
+
+.. code-block:: bash
+
+   make clean
+   sudo make all
+   sudo make install
+
+
+6. Verify QAT_Engine is working with openssl:
+
+.. code-block:: bash
+
+   openssl engine -t -c -v qatengine
+
+7. Verify OpenSSL speed test:
+
+.. code-block:: bash
+
+   openssl speed -engine qatengine -elapsed -async_jobs 72 rsa2048
+
+

@@ -1,0 +1,82 @@
+.. _qat_2.0_pg_configuration_files_multiple_endpoints:
+
+Configuring Multiple Intel\ :sup:`®` QuickAssist Technology Endpoints in a System
+=================================================================================
+
+A platform may include more than one Intel\ :sup:`®` QAT Endpoint. Each device must have its own configuration file. When the acceleration software is installed,
+default configuration files are installed to the ``/etc`` folder. The format and structure of the configuration file is 
+exactly the same for all devices. 
+
+.. warning:: 
+    
+    If a configuration file does not exist for an Intel\ :sup:`®` QAT  Endpoint, that endpoint will not start, and an error is displayed indicating that a configuration file was not found.
+
+To determine the number of Intel\ :sup:`®` QAT Endpoints in a system, use the ``lspci`` utility:
+
+    .. code-block:: console
+        
+        lspci -nn | egrep -e '8086:37c8|8086:19e2|8086:0435|8086:6f54|8086:4940|8086:4942'
+
+The output from a high-end 4th Gen Intel\ :sup:`®`  Xeon\ :sup:`®`  Scalable Processor is similar to the following:
+
+    .. code-block:: text
+
+        6b:00.0 Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+        70:00.0 Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+        75:00.0 Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+        7a:00.0 Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+        e8:00.0 Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+        ed:00.0 Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+        f2:00.0 Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+        f7:00.0 Co-processor [0b40]: Intel Corporation Device [8086:4940] (rev 40)
+
+The output from a system with a high-end Intel\ :sup:`®` C62x Chipset SKU is similar to the following:
+
+    .. code-block:: text
+
+        88:00.0 Co-processor [0b40]: Intel Corporation Device [8086:37c8] (rev 03)
+        8a:00.0 Co-processor [0b40]: Intel Corporation Device [8086:37c8] (rev 03)
+        8c:00.0 Co-processor [0b40]: Intel Corporation Device [8086:37c8] (rev 03)
+
+Then, after the driver is loaded, the user can use the ``qat_service`` script to determine the name of each 
+Intel\ :sup:`®` QAT Endpoint and its status. For example:
+    
+    .. code-block:: console
+        
+        service qat_service status
+    
+The output from a high-end 4th Gen Intel\ :sup:`®`  Xeon\ :sup:`®`  Scalable Processor is similar to the following:
+
+    .. code-block:: text
+
+        Checking status of all devices.
+        There is 8 QAT acceleration device(s) in the system:
+            qat_dev0 - type: 4xxx,  inst_id: 0,  node_id: 0,  bsf: 0000:6b:00.0,  #accel: 1 #engines: 9 state: up
+            qat_dev1 - type: 4xxx,  inst_id: 1,  node_id: 0,  bsf: 0000:70:00.0,  #accel: 1 #engines: 9 state: up
+            qat_dev2 - type: 4xxx,  inst_id: 2,  node_id: 0,  bsf: 0000:75:00.0,  #accel: 1 #engines: 9 state: up
+            qat_dev3 - type: 4xxx,  inst_id: 3,  node_id: 0,  bsf: 0000:7a:00.0,  #accel: 1 #engines: 9 state: up
+            qat_dev4 - type: 4xxx,  inst_id: 4,  node_id: 1,  bsf: 0000:e8:00.0,  #accel: 1 #engines: 9 state: up
+            qat_dev5 - type: 4xxx,  inst_id: 5,  node_id: 1,  bsf: 0000:ed:00.0,  #accel: 1 #engines: 9 state: up
+            qat_dev6 - type: 4xxx,  inst_id: 6,  node_id: 1,  bsf: 0000:f2:00.0,  #accel: 1 #engines: 9 state: up
+            qat_dev7 - type: 4xxx,  inst_id: 7,  node_id: 1,  bsf: 0000:f7:00.0,  #accel: 1 #engines: 9 state: up
+
+
+The output from a system with a high-end Intel\ :sup:`®` C62x Chipset SKU is similar to the following:
+
+    .. code-block:: text
+
+        qat_dev0 - type: c6xx, inst_id: 0, bsf: 06:00:0, #accel: 5 #engines: 10 state: up 
+        qat_dev1 - type: c6xx, inst_id: 1, bsf: 85:00:0, #accel: 5 #engines: 10 state: up 
+        qat_dev2 - type: c6xx, inst_id: 2, bsf: 87:00:0, #accel: 5 #engines: 10 state: up
+
+
+The ``qat_service`` can start, stop, restart and shutdown each device separately or all Intel\ :sup:`®` QAT Endpoints together. 
+Refer to :ref:`Managing Intel QuickAssist Technology Endpoints Using qat_service <managing_endpoints_using_qat_service>` for more information.
+
+Some important configuration file information when using multiple Intel\ :sup:`®` QAT Endpoints:
+
+-  When specifying kernel and user space instances in the configuration file, the ``Cy<Number>Name`` and ``Dc<Number>Name`` parameters must be unique in the context of the section name only. 
+
+    - For example, it is valid to have a parameter called ``Cy0Name`` in both a kernel instance section (if supported) and a user instance section in the same configuration file without issue. Also, the parameter names do not need to be unique at a system-wide level. For example, it is valid to have a parameter called ``Cy0Name`` in both the configuration file for ``dev0`` and the configuration file for ``dev1`` without issue.
+
+-  For Intel\ :sup:`®` QAT Endpoints with configuration files that have the same section name (for example, ``[SSL]`` and the same data in that section), it is necessary to use the ``cpaCyInstanceGetInfo2()`` function to distinguish between Intel\ :sup:`®` QAT Endpoints. The ``cpaCyInstanceGetInfo2()`` allows the user of the API to query which Intel\ :sup:`®` QAT Endpoint a cryptography instance handle belongs to. In addition, for any application domain defined in the configuration files (e.g. ``[SSL]``), a call to ``cpaCyGetNumInstances()`` returns the number of cryptography instances defined for that domain across all configuration files. A subsequent call to ``cpaCyGetInstances()`` obtains these instance handles.

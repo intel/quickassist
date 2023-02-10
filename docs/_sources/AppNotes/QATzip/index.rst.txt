@@ -1,0 +1,11 @@
+.. _qat_2.0_qatzip:
+
+Intel® QATzip
+=====================================
+
+.. toctree::
+   :maxdepth: 2
+
+   introduction
+   installation
+   testing

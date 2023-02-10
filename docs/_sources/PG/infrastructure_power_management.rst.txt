@@ -1,0 +1,66 @@
+.. _qat_2.0_pg_infrastructure_power_management:
+
+Power Management
+================
+
+The goal of power management is to manage and save power consumed by the device in the following states:
+
+-  idle => whenever no request is sent, power state is minimum.
+-  initialized or reset.
+-  active => whenever there are requests to be handled, power state is max.
+
+Configuration
+-------------
+
+Power management configuration is included in the device configuration file (i.e. ``/etc/4xxx_devX.conf`` where ``X`` is the 0-based index of 
+the device.) 
+
+Power management configurations parameters include:
+
+.. table:: Power Management Configuration
+   :widths: 30, 70
+
+   +---------------------------+---------------------------------------------------------------+
+   | **Parameter**             | **Description**                                               | 
+   +===========================+===============================================================+
+   | ``PmIdleInterruptDelay``  | Configure power management interrupt delay from the system to |      
+   |                           | QAT driver in millisecond(s).                                 |
+   |                           |                                                               |
+   |                           | The default value is 512 milliseconds.                        |
+   +---------------------------+---------------------------------------------------------------+
+   | ``PmIdleSupport``         | Configure the device to enable/disable power management idle  |       
+   |                           | supporting.                                                   |
+   |                           |                                                               |
+   |                           | Power management idle support is enabled by default.          |
+   +---------------------------+---------------------------------------------------------------+
+
+.. _pm_status:
+
+Usage
+-----
+
+The information of power management status are exposed in debug sysfs file ``/sys/kernel/debug/qat_4xxx_AAAA:BB:CC.D/pm_status`` where:
+
+   - ``AAAA:BB:CC.D`` is the *Domain:BDF* of the target Intel® QAT Endpoint.
+    
+Example:
+
+    .. code-block:: console
+
+        cat /sys/kernel/debug/qat_4xxx_0000:6b:00.0/pm_status
+
+The QAT device is statically configured, so any change in device configuration file will only be effective after the device is rebooted.
+
+
+Considerations
+--------------
+
+While power management is an important feature in reducing power consumed, it can affect the internal components' clocks of QAT devices, 
+and that can affect example telemetry work. It also can impact latency numbers.
+
+.. important:: 
+   
+    It is recommended to disable the power management feature if either of the following is true:
+    
+    - Using feature dependent on clock speed, such as telemetry, or
+    - Supporting latency-sensative workload.

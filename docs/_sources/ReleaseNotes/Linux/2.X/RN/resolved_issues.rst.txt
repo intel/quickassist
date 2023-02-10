@@ -1,0 +1,564 @@
+.. _qat_2.0_rn_linux_resolvedissues:
+
+Resolved Issues
+---------------
+
+QATE20-3331 [Sample Code] Functional Sample Code Compression applications execution will fail
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+----------------------------------------------------------+
+   | **Title**         | [Sample Code] Functional Sample Code Compression         |
+   |                   | applications execution will fail                         |
+   +-------------------+----------------------------------------------------------+
+   | **Reference**     | QATE20-3331                                              |
+   +-------------------+----------------------------------------------------------+
+   | **Description**   | Due to internal implementation details of QAT2.0 Data    |
+   |                   | Compression, there are additional constraints on the     |
+   |                   | expected output buffer sizes for compression operation.  |
+   |                   |                                                          |
+   |                   | The current output buffer sizes are not sufficiently     |
+   |                   | large enough to accommodate the compression operations   |
+   |                   | involved. This will be addressed in later software       |
+   |                   | releases where an API will be made available to          |
+   |                   | determine at runtime the correct output buffer size to   |
+   |                   | be allocated.                                            |
+   +-------------------+----------------------------------------------------------+
+   | **Implication**   | These functional applications will fail with the         |
+   |                   | following output:                                        |
+   |                   |                                                          |
+   |                   | ./dc_dp_sample: [error] dcCompression_ProcessCallback()  |
+   |                   | - : Unrecoverable error: stateless overflow. You may     |
+   |                   | need to increase the size of your destination buffer     |
+   |                   |                                                          |
+   |                   | ./dc_stateless_multi_op_sample: [error]                  |
+   |                   | dcCheckDestinationData() - : Invalid API Param -         |
+   |                   | Destination buffer size should be greater or equal to    |
+   |                   | 512 bytes                                                |
+   |                   |                                                          |
+   |                   | ./dc_stateless_sample: compPerformOp(): Results status   |
+   |                   | not as expected (status = -11)                           |
+   +-------------------+----------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.5.5 release.                 |
+   +-------------------+----------------------------------------------------------+
+   | **Affected OS**   | Linux                                                    |
+   +-------------------+----------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Compression                                     |
+   +-------------------+----------------------------------------------------------+
+
+QATE20-9755 [SRIOV] RLT_ERRLOG may be reported under high concurrent loads
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+--------------------------------------------------------+
+   | **Title**         | [SRIOV] RLT_ERRLOG may be reported under high          |
+   |                   | concurrent loads                                       |
+   +-------------------+--------------------------------------------------------+
+   | **Reference**     | QATE20-9755                                            |
+   +-------------------+--------------------------------------------------------+
+   | **Description**   | The following error may be reported when running high  |
+   |                   | concurrency loads on Virtual Machines:                 |
+   |                   |                                                        |
+   |                   | 4xxx 0000:6b:00.0:                                     |
+   |                   | AT_GLOBA                                               |
+   |                   | L0_PAR_STS[0], 00000000, AT_GLOBAL1_PAR_STS[0],        |
+   |                   |                                                        |
+   |                   | 00000000, AT_PAR_STS[0], 00000000                      |
+   |                   |                                                        |
+   |                   | ...                                                    |
+   |                   |                                                        |
+   |                   | 4xxx 0000:6b:00.0:                                     |
+   |                   | RLT_ERRLOG[0],00000001, UERRSSMSHAD[0],00000000,xxxvf  |
+   |                   | 0000:6b:00.7: Fatal error received from PF 0x1         |
+   |                   |                                                        |
+   |                   | This relates a counter flow and does not have a        |
+   |                   | functional impact to the operation of SR-IOV Virtual   |
+   |                   | Functions.                                             |
+   +-------------------+--------------------------------------------------------+
+   | **Implication**   | Additional debug prints in dmesg may be observed.      |
+   +-------------------+--------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.5.5 release.               |
+   +-------------------+--------------------------------------------------------+
+   | **Affected OS**   | Linux                                                  |
+   +-------------------+--------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Virtualization                                |
+   +-------------------+--------------------------------------------------------+
+
+QATE20-9669 [DC] - Deflate Dynamic Decompression not optimized for payloads of source length < 4K, destination length <= 16K
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - Deflate Dynamic Decompression not optimized    |
+   |                   | for payloads of source length < 4K, destination       |
+   |                   | length <= 16K                                         |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-9669                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | Current data path operations are not optimized for    |
+   |                   | all traffic profiles.                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | Expected performance profile for this release does    |
+   |                   | not meet expectations. This can be observed with      |
+   |                   | performance sample code when using 8K payloads that   |
+   |                   | are compressed in HW and where throughput metrics are |
+   |                   | then reported for the decompress direction.           |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.5.5 release.              |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-9394 [SRIOV] Virtual Functions (VFs) are not automatically detached by hypervisor after Physical Function (PF) restart
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+--------------------------------------------------------+
+   | **Title**         | [SRIOV] Virtual Functions (VFs) are not automatically  |
+   |                   | detached by hypervisor after Physical Function (PF)    |
+   |                   | restart                                                |
+   +-------------------+--------------------------------------------------------+
+   | **Reference**     | QATE20-9394                                            |
+   +-------------------+--------------------------------------------------------+
+   | **Description**   | The following error may be encountered when attempting |
+   |                   | to detach SR-IOV VFs:                                  |
+   |                   |                                                        |
+   |                   | error: Failed to detach device pci_0000_6b_00_1        |
+   |                   |                                                        |
+   |                   | error: Requested operation is not valid: PCI device    |
+   |                   | 0000:6b:00.1 is in use by driver QEMU, domain <name>   |
+   +-------------------+--------------------------------------------------------+
+   | **Implication**   | VFs are not automatically detached by hypervisor after |
+   |                   | PF restart, requiring a VM shutdown.                   |
+   +-------------------+--------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.5.5 release.               |
+   +-------------------+--------------------------------------------------------+
+   | **Affected OS**   | Linux                                                  |
+   +-------------------+--------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Virtualization                                |
+   +-------------------+--------------------------------------------------------+
+
+QATE20-3860 [SR-IOV] Virtual Functions (VFs) require restart after changing Physical Function (PF) Service configuration
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+--------------------------------------------------------+
+   | **Title**         | [SR-IOV] Virtual Functions(VFs) require restart after  |
+   |                   | changing Physical Function(PF) Service configuration   |
+   +-------------------+--------------------------------------------------------+
+   | **Reference**     | QATE20-3860                                            |
+   +-------------------+--------------------------------------------------------+
+   | **Description**   | Each QAT PF is configurated with at most 2 services    |
+   |                   | (Symmetric Crypto, PKE, Data Compression), this is     |
+   |                   | shared with all VFs on the same PCIe endpoint whereby  |
+   |                   | default each PF is configurated to use Symmetric +     |
+   |                   | Data Compression services.                             |
+   |                   |                                                        |
+   |                   | If a change in enabled services is required then the   |
+   |                   | normal operating procedure is to reconfigure PF and    |
+   |                   | re-create the VFs.                                     |
+   +-------------------+--------------------------------------------------------+
+   | **Implication**   | Following PF and associated VF reconfiguration         |
+   |                   | ./adf_ctl status may report all VFs being operational, |
+   |                   | however applications can report:                       |
+   |                   |                                                        |
+   |                   | ADF_UIO_PROXY err: icp_adf_userProcessToStart: Error   |
+   |                   | reading /dev/qat_dev_processes file.                   |
+   +-------------------+--------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.5.5 release.               |
+   +-------------------+--------------------------------------------------------+
+   | **Affected OS**   | Linux                                                  |
+   +-------------------+--------------------------------------------------------+
+   | **Driver/Module** | QAT IA - SRIOV - PF/VF comms                           |
+   +-------------------+--------------------------------------------------------+
+
+QATE20-10981 [DC] EOLB incorrectly set during stateful decompression
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+--------------------------------------------------------+
+   | **Title**         | [DC] EOLB incorrectly set during stateful              |
+   |                   | decompression                                          |
+   +-------------------+--------------------------------------------------------+
+   | **Reference**     | QATE20-10981                                           |
+   +-------------------+--------------------------------------------------------+
+   | **Description**   | The application that performs the decompression may    |
+   |                   | stop decompressing the remaing deflate blocks if it is |
+   |                   | testing the endOfLastBlock field in CpaDcRqResults     |
+   |                   | structure.                                             |
+   +-------------------+--------------------------------------------------------+
+   | **Implication**   | The application that performs the decompression may    |
+   |                   | stop decompressing the remaing deflate blocks if it is |
+   |                   | testing the endOfLastBlock field in CpaDcRqResults     |
+   |                   | structure.                                             |
+   +-------------------+--------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.8.0 release.               |
+   +-------------------+--------------------------------------------------------+
+   | **Affected OS**   | Linux                                                  |
+   +-------------------+--------------------------------------------------------+
+   | **Driver/Module** | QAT FW - Compression                                   |
+   +-------------------+--------------------------------------------------------+
+
+QAT20-10966 DC - Invalid checksum value returned with multi-Gzip payload
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+--------------------------------------------------------+
+   | **Title**         | DC - Invalid checksum value returned with multi-Gzip   |
+   |                   | payload                                                |
+   +-------------------+--------------------------------------------------------+
+   | **Reference**     | QAT20-10966                                            |
+   +-------------------+--------------------------------------------------------+
+   | **Description**   | The issue happens with stateless decompression when    |
+   |                   | submitting a payload with multiple GZip frames. During |
+   |                   | the decompression of the second GZip frame, the        |
+   |                   | checksum returned by QAT device is incorrect. It does  |
+   |                   | not match the CRC32 checksum reported in the Gzip      |
+   |                   | footer.                                                |
+   +-------------------+--------------------------------------------------------+
+   | **Implication**   | The application will fail to validate the checksum of  |
+   |                   | the decompressed data against the checksum in the GZip |
+   |                   | footer.                                                |
+   +-------------------+--------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.8.0 release.               |
+   +-------------------+--------------------------------------------------------+
+   | **Affected OS**   | Linux                                                  |
+   +-------------------+--------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Compression                                   |
+   +-------------------+--------------------------------------------------------+
+
+QATE20-9756 [DC] - autoSelectBestHuffmanTree flag parameter is not honored by acceleration library
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - autoSelectBestHuffmanTree flag parameter is    |
+   |                   | not honored by acceleration library                   |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-9756                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | The autoSelectBestHuffmanTree parameter in            |
+   |                   | CpaDcSessionSetupData is treated as FALSE by          |
+   |                   | acceleration library.                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | Applications cannot currently set                     |
+   |                   | autoSelectBestHuffmanTree. This could result in lower |
+   |                   | compressibility.                                      |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.8.0 release.              |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-11081 [DC] - API cpaDcResetSession() does not reset E2E internal structure
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - API cpaDcResetSession() does not reset E2E     |
+   |                   | internal structure                                    |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-11081                                          |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | The issue happens with stateless decompression when   |
+   |                   | submitting a payload with multiple GZip frames. If    |
+   |                   | the application calls cpaDcResetSession() API after   |
+   |                   | the first Gzip frame has been processed. It will not  |
+   |                   | reset the various checksums defined in                |
+   |                   | dc_integrity_crc_fw_t.                                |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | Application will see unexpected checksums after       |
+   |                   | calling cpaDcResetSession() API.                      |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.8.0 release.              |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-9501 [DC] - Overflow can occur when using output buffer sizes defined by the cpaDcCompressBound API with Dynamic Deflate compression operations under concurrent execution
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - Overflow can occur when using output buffer    |
+   |                   | sizes defined by the cpaDcCompressBound API with      |
+   |                   | Dynamic Deflate compression operations under          |
+   |                   | concurrent execution                                  |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-9501                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | The internal calculation for optimal output buffer    |
+   |                   | size for a given input and session configuration when |
+   |                   | using the cpaDcCompressBound API can yield overflow   |
+   |                   | conditions. This has been observed under concurrent   |
+   |                   | SW thread execution in particular with LZ4s and       |
+   |                   | Dynamic Deflate requests being concurrently           |
+   |                   | processed.                                            |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | An application using the cpaDcCompressBound API may   |
+   |                   | require overflow handling until the refinement of the |
+   |                   | algorithm completes.                                  |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.9.0 release.              |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-9764 [DC] - XXHash32 Checksum is not correct on Overflow when Flush Final is set
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - XXHash32 Checksum is not correct on Overflow   |
+   |                   | when Flush Final is set                               |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-9764                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | When the Accumulated XXHash is used, for the last     |
+   |                   | request if the CPA_DC_OVERFLOW (-11) occurs, this     |
+   |                   | ceases checksum accumulation.                         |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | The user application will observe a CPA_DC_OVERFLOW   |
+   |                   | (-11).                                                |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.9.0 release.              |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-9078 [CY] Concurrent sym;asym services not supported by Performance Sample Code (cpa_sample_code)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [CY] Concurrent sym;asym services not supported by    |
+   |                   | Performance Sample Code (cpa_sample_code)             |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-9078                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | If symmetric and asymmetric crypto is enabled in QAT  |
+   |                   | configuration files, the driver will report error     |
+   |                   | when running performance sample code                  |
+   |                   | (cpa_sample_code).                                    |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | It is not possible to currently test symmetric crypto |
+   |                   | and asymmetric crypto with performance sample code    |
+   |                   | (cpa_sample_code) on one test run.                    |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.9.0 release.              |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QATE20-10480 [DC] - LZ4 compression request may result in a timeout event (-16 CPA_DC_WDOG_TIMER_ERR)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - LZ4 compression request may result in a        |
+   |                   | timeout event (-16 CPA_DC_WDOG_TIMER_ERR)             |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-10480                                          |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | When executing LZ4 compression requests, a watchdog   |
+   |                   | timer timeout error (error code -16) may be returned  |
+   |                   | to the application.                                   |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | No data will be produced by QAT HW and error code -16 |
+   |                   | will be reported to the application.                  |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.9.0 release.              |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT FW - Data Compression                             |
+   +-------------------+-------------------------------------------------------+
+
+QAT20-10606 [Configuration] - Device configurations files are not copied to /etc/ for physical devices on systems with > 2 sockets
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+--------------------------------------------------------+
+   | **Title**         | [Configuration] - Device configurations files are not  |
+   |                   | copied to /etc/ for physical devices on systems with > |
+   |                   | 2 sockets                                              |
+   +-------------------+--------------------------------------------------------+
+   | **Reference**     | QAT20-10606                                            |
+   +-------------------+--------------------------------------------------------+
+   | **Description**   | The installation scripts will not create configuration |
+   |                   | files in /etc/                                         |
+   +-------------------+--------------------------------------------------------+
+   | **Implication**   | Devices on sockets >2 will not be brought up and will  |
+   |                   | be reported as being in the "down" state.              |
+   |                   |                                                        |
+   |                   | The following status will be observed:                 |
+   |                   | qat_dev0 - type: 4xxx, inst_id: 0, node_id: 0, bsf:    |
+   |                   | 0000:6b:00.0, #accel: 1 #engines: 9 state: up          |
+   |                   | ...                                                    |
+   |                   | qat_dev7 - type: 4xxx, inst_id: 7, node_id: 1, bsf:    |
+   |                   | 0000:f8:00.0, #accel: 1 #engines: 9 state: up          |
+   |                   | qat_dev8 - type: 4xxx, inst_id: 8, node_id: 2, bsf:    |
+   |                   | 0001:6b:00.0, #accel: 1 #engines: 9 state: down        |
+   |                   | qat_dev9 - type: 4xxx, inst_id: 9, node_id: 2, bsf:    |
+   |                   | 0001:70:00.0, #accel: 1 #engines: 9 state: down        |
+   |                   | ...                                                    |
+   |                   | qat_dev15 - type: 4xxx, inst_id: 15, node_id: 3, bsf:  |
+   |                   | 0001:f8:00.0, #accel: 1 #engines: 9 state: down        |
+   +-------------------+--------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.9.0 release.               |
+   +-------------------+--------------------------------------------------------+
+   | **Affected OS**   | Linux                                                  |
+   +-------------------+--------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Configuration                                 |
+   +-------------------+--------------------------------------------------------+
+
+QAT20-12942 [DC] - Overflow can occur when using output buffer sizes defined by the cpaDcCompressBound API with Dynamic Deflate compression operations under concurrent execution 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+--------------------------------------------------------+
+   | **Title**         | [DC] - Overflow can occur when using output buffer     |
+   |                   | sizes defined by the cpaDcCompressBound API with       |
+   |                   | Dynamic Deflate compression operations under           |
+   |                   | concurrent execution                                   |
+   +-------------------+--------------------------------------------------------+
+   | **Reference**     | QAT20-12942                                            |
+   +-------------------+--------------------------------------------------------+
+   | **Description**   | The internal calculation for optimal output buffer     |
+   |                   | size for a given input and session configuration when  |
+   |                   | using the cpaDcCompressBound API can yield overflow    |
+   |                   | conditions. This has been observed under concurrent SW |
+   |                   | thread execution in particular with LZ4s and Dynamic   |
+   |                   | Deflate requests being concurrently processed.         |
+   +-------------------+--------------------------------------------------------+
+   | **Implication**   | An application using the cpaDcCompressBound API may    |
+   |                   | require overflow handling until the refinement of the  |
+   |                   | algorithm completes.                                   |
+   +-------------------+--------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.9.0 release.               |
+   +-------------------+--------------------------------------------------------+
+   | **Affected OS**   | Linux                                                  |
+   +-------------------+--------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                              |
+   +-------------------+--------------------------------------------------------+
+
+QAT20-11092 [SRIOV] Default number of VF devices is not available for 4S+ platform
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+--------------------------------------------------------+
+   | **Title**         | [SRIOV] Default number of VF devices is not available  |
+   |                   | for 4S+ platform                                       |
+   +-------------------+--------------------------------------------------------+
+   | **Reference**     | QAT20-11092                                            |
+   +-------------------+--------------------------------------------------------+
+   | **Description**   | When installing VFs in default configuration on 4S+    |
+   |                   | platform, some of the VFs are not usable.              |
+   |                   |                                                        |
+   |                   | e.g. Sample application execution fails with error     |
+   |                   | message:                                               |
+   |                   |                                                        |
+   |                   | [error] SalCtrl_AdfServicesStartedCheck() - : Sal Ctrl |
+   |                   | failed to start in given time                          |
+   |                   |                                                        |
+   |                   | [error] do_userStart() - : Failed to start services    |
+   +-------------------+--------------------------------------------------------+
+   | **Implication**   | Sample code application is not usable, some of the     |
+   |                   | devices are down.                                      |
+   +-------------------+--------------------------------------------------------+
+   | **Resolution**    | This is resolved with the 0.9.0 release.               |
+   +-------------------+--------------------------------------------------------+
+   | **Affected OS**   | Linux                                                  |
+   +-------------------+--------------------------------------------------------+
+   | **Driver/Module** | N/A                                                    |
+   +-------------------+--------------------------------------------------------+
+
+QATE20-9754 [DC] - Deflate Decompression Overflow may result in a timeout event (-16 CPA_DC_WDOG_TIMER_ERR)
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. table::
+   :widths: 20, 80
+   :class: rn_table
+
+   +-------------------+-------------------------------------------------------+
+   | **Title**         | [DC] - Deflate Decompression Overflow may result in a |
+   |                   | timeout event (-16 CPA_DC_WDOG_TIMER_ERR)             |
+   +-------------------+-------------------------------------------------------+
+   | **Reference**     | QATE20-9754                                           |
+   +-------------------+-------------------------------------------------------+
+   | **Description**   | When utilizing either stateless/stateful Deflate      |
+   |                   | Decompression sessions, under certain conditions an   |
+   |                   | overflow event may cause watchdog timer timeout error |
+   |                   | and the driver will report a timeout event (-16       |
+   |                   | CPA_DC_WDOG_TIMER_ERR).                               |
+   +-------------------+-------------------------------------------------------+
+   | **Implication**   | The user application will observe a                   |
+   |                   | CPA_DC_WDOG_TIMER_ER (-16) error rather than          |
+   |                   | CPA_DC_OVERFLOW (-11 ).                               |
+   +-------------------+-------------------------------------------------------+
+   | **Resolution**    | Issue is resolved with updated silicon.               |
+   +-------------------+-------------------------------------------------------+
+   | **Affected OS**   | Linux                                                 |
+   +-------------------+-------------------------------------------------------+
+   | **Driver/Module** | QAT IA - Data Compression                             |
+   +-------------------+-------------------------------------------------------+

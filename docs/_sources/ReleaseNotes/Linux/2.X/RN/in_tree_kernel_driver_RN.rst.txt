@@ -1,0 +1,8 @@
+.. _in_tree_kernel_driver_releasenotes:
+
+	• Name, Linux kernel Version, Code location.
+	• Which devices it enables.
+	• Should be updated for each kernel release with a list of changes
+	• How to detect which QAT kernel driver is running on a platform and how to tell if it’s an in-tree or OOT driver.
+	• Info about the denylist and how to enable pre-CPM2.0 devices
+Limitations, Errata and fixed issues.

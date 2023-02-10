@@ -1,0 +1,3 @@
+.. _qatlib_release_note:
+
+The QATLib Release Notes are available here:  https://github.com/intel/qatlib#revision-history .

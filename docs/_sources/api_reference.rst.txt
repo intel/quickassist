@@ -1,0 +1,28 @@
+.. _API_Reference_Manuals:
+
+API Reference Manuals
+=====================
+
+.. todo:: include disclaimer page in pdfs?
+
+.. todo:: add this ..note from DPDK to our own docs:
+
+.. Note::
+
+   If you see the following warning in ``/var/log/messages``, it can be ignored:
+   ``IOMMU should be enabled for SR-IOV to work correctly``.
+
+.. include:: revision_history_lac.rst
+
+.. include:: revision_history_dc.rst
+
+API Reference Manuals
+~~~~~~~~~~~~~~~~~~~~~
+
+Link to: deprecated list: .
+Link to: file heirarchy: .
+
+.. toctree::
+   :maxdepth: 3
+
+   api/library_root

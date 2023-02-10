@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Architecture Considerations &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Virtualization Deployment Guide" href="../VIRT/index.html" />
+    <link rel="prev" title="Virtualization" href="virtualization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Secure Architecture Considerations</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#terminology">Terminology</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#threat-categories">Threat Categories</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attack-mechanism">Attack Mechanism</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attacker-privilege">Attacker Privilege</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#deployment-models">Deployment Models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#threat-attack-vectors">Threat/Attack Vectors</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#general-mitigation">General Mitigation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#general-threats">General Threats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#threats-specific-to-cryptographic-service">Threats Specific to Cryptographic Service</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+      <li>Secure Architecture Considerations</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="secure-architecture-considerations">
+<span id="qat-2-0-pg-secure-architecture-considerations"></span><h1>Secure Architecture Considerations<a class="headerlink" href="#secure-architecture-considerations" title="Permalink to this headline"></a></h1>
+<p>This section describes the potential threats identified as part of the secure architecture analysis of the Intel<sup>®</sup> Quick Assist Technology
+acceleration complex and the actions that can be taken to protect against these threats.
+This chapter concentrates on the acceleration complex. First, the terminology covering the main threat categories and mechanisms, attacker privilege
+and deployment models are presented. Then, some common mitigation actions that can be applied to many of these threat categories and mechanisms are
+discussed. Finally, more specific threat/attack vectors, including attacks against specific services of the PCH device are described.</p>
+<section id="terminology">
+<span id="secure-architecture-terminology-1"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline"></a></h2>
+<p>Each of the potential threat/attack vectors discussed may be described
+in terms of the following:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="#threat-categories">Threat Categories</a></p></li>
+<li><p><a class="reference external" href="#attack-mechanism">Attack Mechanism</a></p></li>
+<li><p><a class="reference external" href="#attacker-privilege">Attacker Privilege</a></p></li>
+<li><p><a class="reference external" href="#deployment-models">Deployment Models</a></p></li>
+</ul>
+<section id="threat-categories">
+<h3>Threat Categories<a class="headerlink" href="#threat-categories" title="Permalink to this headline"></a></h3>
+<p>System threats can be classified into the categories in the following table.</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Threat Categories</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 91%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Category</strong></p></th>
+<th class="head"><p><strong>Nature of Threat and Examples</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td rowspan="2"><p>Exposure of Data</p></td>
+<td><p>Attacker reads data to which they should not have read access.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Attacker reads cryptographic keys.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>Modification of Data</p></td>
+<td><p>Attacker overwrites data to which they should not have write access.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Attacker overwrites cryptographic keys.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="3"><p>Denial of Service</p></td>
+<td><p>Attacker causes application or driver software (running on an IA core) to fail or terminate.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Attacker causes Intel<sup>®</sup> QuickAssist Accelerator firmware to hang, temporarily impeding service.</p></td>
+</tr>
+<tr class="row-even"><td><p>Attacker causes excessive use of resource (IA core, Intel<sup>®</sup> QuickAssist Accelerator firmware thread, silicon slice, PCIe* bandwidth, and so on), thereby reducing availability of the service to
+legitimate client.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attack-mechanism">
+<h3>Attack Mechanism<a class="headerlink" href="#attack-mechanism" title="Permalink to this headline"></a></h3>
+<p>Attack Mechanisms and Examples</p>
+<p>Some of the mechanisms by which an attacker can carry out an attack are listed in the following table.</p>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Attack Mechanism</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 85%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Mechanism</strong></p></th>
+<th class="head"><p><strong>Examples</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Contrived Packet Stream</p></td>
+<td><p>Attacker crafts a packet stream that exploits known vulnerabilities in the software, firmware, or hardware. This could include vulnerabilities such as buffer overflow bugs, lack of parameter validation, and so on.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compromised Application Software</p></td>
+<td><p>Attacker modifies the application code calling the Intel<sup>®</sup> QuickAssist Technology API to exploit known vulnerabilities in the driver/hardware.</p></td>
+</tr>
+<tr class="row-even"><td><p>Application Malware</p></td>
+<td><p>In an environment where an attacker may be able to run
+their own application, separate from the main application software, they may invoke the Intel<sup>®</sup> QuickAssist Technology API to exploit known vulnerabilities in the driver/hardware.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compromised IA driver software</p></td>
+<td><p>Attacker modifies the IA driver to exploit known vulnerabilities in the driver/hardware.</p></td>
+</tr>
+<tr class="row-even"><td><p>Defect</p></td>
+<td><p>It is also possible that the attack is not malicious, but rather an unintentional defect.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attacker-privilege">
+<h3>Attacker Privilege<a class="headerlink" href="#attacker-privilege" title="Permalink to this headline"></a></h3>
+<p>The following table describes the privileges that an attacker may have. The table describes the case of a non-virtualized system.</p>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Attacker Privilege</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 88%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Privilege</strong></p></th>
+<th class="head"><p><strong>Comments</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Physical access</p></td>
+<td><p>There is no attempt to protect against threats, such as signal probes, where the attacker has physical access to the system. Customers can protect their systems using physical locks, tamper-proof enclosures, Faraday cages, and so on.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Logged in as privileged user</p></td>
+<td><p>There is no attempt to protect against threats where the attacker is logged in as a privileged user. Customers can protect their systems using strong, frequently changed passwords, and so on.</p></td>
+</tr>
+<tr class="row-even"><td><p>Logged in as unprivileged user</p></td>
+<td><p>If the attacker is logged into a platform as an unprivileged user, it is important to ensure that they cannot use the services of the PCH to access (read or write) any data to which they would not otherwise have access.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ability to send packets</p></td>
+<td><p>In almost all deployments, attackers have the ability to send arbitrary packets from the network into the system. It is assumed that threats (for example, denial of service attacks) may arrive in this way.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="deployment-models">
+<h3>Deployment Models<a class="headerlink" href="#deployment-models" title="Permalink to this headline"></a></h3>
+<p>Some of the possible deployment models are given in the following table.</p>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Deployment Models</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 57%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Deployment Model</strong></p></th>
+<th class="head"><p><strong>Examples</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>System with no untrusted users</p></td>
+<td><ul class="simple">
+<li><p>Network security appliance</p></li>
+<li><p>Server in data center</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>System with potentially untrusted users</p></td>
+<td><ul class="simple">
+<li><p>Server in data center</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="threat-attack-vectors">
+<h2>Threat/Attack Vectors<a class="headerlink" href="#threat-attack-vectors" title="Permalink to this headline"></a></h2>
+<p>A thorough analysis has been conducted by considering each of the threat
+categories, attack mechanisms, attacker privilege levels, and deployment
+models. As a result, the following threats have been identified. Also
+described are the steps a user of the PCH chipset can take to mitigate
+against each threat. Some general practices that mitigate many of the
+common threats are considered first. Thereafter, threats on specific
+services and mitigation against those threats are described.</p>
+<section id="general-mitigation">
+<h3>General Mitigation<a class="headerlink" href="#general-mitigation" title="Permalink to this headline"></a></h3>
+<p>The following mitigation techniques are generic to different threats and attack vectors:</p>
+<ul class="simple">
+<li><p>Ensure that all software running on the platform that has access to Intel<sup>®</sup> Quick Assist Technology devices is within the trust boundary of the platform owner. This mitigation includes software running in virtual machines and containers.</p></li>
+<li><p>Intel<sup>®</sup> follows Secure Coding guidelines, including performing code reviews and running static analysis on its driver software and firmware, to ensure its compliance with security guidelines. It is recommended that customers follow similar guidelines when developing application code. This should include the use of tools such as static analysis, fuzzing, and so on.</p></li>
+<li><p>Ensure each hardware component, including the PCH chipset, processor, and DRAM, is physically secured from attackers. This can include such examples as physical locks, tamper proofing, and Faraday cages (to prevent side-channel attacks via electromagnetic radiation).</p></li>
+<li><p>Ensure that network services not required on the module are not operating and that the corresponding network ports are locked down.</p></li>
+<li><p>Use strong passwords to protect against dictionary and other attacks on administrative and other login accounts.</p></li>
+</ul>
+</section>
+<section id="general-threats">
+<h3>General Threats<a class="headerlink" href="#general-threats" title="Permalink to this headline"></a></h3>
+<p>General threats include the following:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#security-dma"><span class="std std-ref">DMA</span></a></p></li>
+<li><p><a class="reference internal" href="#security-ia-driver"><span class="std std-ref">Intentional Modification of IA Driver</span></a></p></li>
+<li><p><a class="reference internal" href="#security-conf-file"><span class="std std-ref">Modification of the QAT Configuration File</span></a></p></li>
+<li><p><a class="reference internal" href="#security-app-code"><span class="std std-ref">Malicious Application Code</span></a></p></li>
+<li><p><a class="reference internal" href="#security-denial-of-service"><span class="std std-ref">Denial of Service</span></a></p></li>
+</ul>
+<section id="dma">
+<span id="security-dma"></span><h4>DMA<a class="headerlink" href="#dma" title="Permalink to this headline"></a></h4>
+<p><strong>Threat:</strong> The PCH can perform Direct Memory Access (DMA, the copying
+of data) between defined memory locations. Once an attacker has
+sufficient privilege to invoke the Intel<sup>®</sup> QuickAssist
+Technology API, or to write to/read from the hardware rings used by the
+driver to communicate with the device, they can send requests to the
+Intel<sup>®</sup> QuickAssist Accelerator to perform such DMA, passing
+arbitrary physical memory addresses as the source and/or destination
+addresses, thereby exposing or modifying regions of memory to which they
+would otherwise not have access.</p>
+<p><strong>Mitigation 1:</strong>  Ensure that Intel<sup>®</sup> Input-Output Memory Management Unit
+(IOMMU) is enabled. This will force USDM to create QuickAssist IOMMU domain and
+all memory allocated by USDM will be mapped into this domain, hence malicious
+user or error in user application cannot read or write memory outside this domain
+which mitigates the risk.  However because there is only single domain, there is
+no protection between individual Virtual Functions(VFs) or applications.  This design
+is done for simplicity of memory manager and if needed, VFIO-PCI should be used
+to create individual domains per VF.</p>
+<p><strong>Mitigation 2:</strong> Ensure that only trusted users are granted permissions
+to access the Intel<sup>®</sup> QuickAssist Technology API, or to write to
+and read from the hardware rings. Specifically, the PCH configuration
+file describes logical instances of acceleration services and the set of
+hardware rings to be used for each such instance. User processes can ask
+the kernel driver to map these rings into their address spaces. To
+access a given device (identified by the number in the filenames below),
+the user must be granted read/write access to the following files, which
+may be in <code class="docutils literal notranslate"><span class="pre">/dev</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">uio&lt;0..N&gt;</span></code> (where <code class="docutils literal notranslate"><span class="pre">&lt;0..N&gt;</span></code> are the qat uio device numbers)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">qat*</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">usdm_drv</span></code></p></li>
+</ul>
+</section>
+<section id="intentional-modification-of-ia-driver">
+<span id="security-ia-driver"></span><h4>Intentional Modification of IA Driver<a class="headerlink" href="#intentional-modification-of-ia-driver" title="Permalink to this headline"></a></h4>
+<p><strong>Threat</strong>: An attacker can potentially modify the IA driver to behave
+maliciously. This may lead to a denial of service of Intel<sup>®</sup>
+Quick Assist Technology services.</p>
+<p><strong>Mitigation</strong>: The driver object/executable file on disk should be
+protected using the normal file protection mechanisms so that it is
+writable only by trusted users, for example, a privileged user or an
+administrator. Specifically, the Intel<sup>®</sup> QuickAssist Technology
+kernel objects and libraries should not be writeable by user. If the
+<em>qat</em> user group is being used to provide access to Intel<sup>®</sup>
+Quick Assist Technology services, then this group should not have write
+permission to the binaries.</p>
+</section>
+<section id="modification-of-the-qat-configuration-file">
+<span id="security-conf-file"></span><h4>Modification of the QAT Configuration File<a class="headerlink" href="#modification-of-the-qat-configuration-file" title="Permalink to this headline"></a></h4>
+<p><strong>Threat</strong>: The QAT configuration file is read at initialization time by
+the driver and specifies what instances of each service (cryptographic,
+data compression) should be created, and which rings each service
+instance will use. Modifying this file could lead to denial of service
+by deleting required instances or could be used to attempt to create
+additional instances that the attacker could subsequently attempt to
+access for malicious purposes.</p>
+<p><strong>Mitigation</strong>: The configuration file should be protected using the
+normal file protection mechanisms so that it is writable only by trusted
+users, for example, a privileged user or an administrator.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>By default, the configuration file is stored in the <code class="docutils literal notranslate"><span class="pre">/etc</span></code> directory and may be named something like, <code class="docutils literal notranslate"><span class="pre">c6xxx_dev0.conf</span></code> . Its default permissions are that it is readable and writeable only by <em>root</em> user and <em>qat</em> group.</p>
+</div>
+</section>
+<section id="malicious-application-code">
+<span id="security-app-code"></span><h4>Malicious Application Code<a class="headerlink" href="#malicious-application-code" title="Permalink to this headline"></a></h4>
+<p><strong>Threat</strong>: An attacker who can gain access to the Intel<sup>®</sup>
+QuickAssist Technology API may be able to exploit the following features
+of the API:</p>
+<ul class="simple">
+<li><p>Buffers passed to the API have a specified length of up to 32 bits.
+By specifying excessive lengths, an attacker may be able to cause
+denial of service by overwriting data beyond the end of a buffer.</p></li>
+<li><p>Buffer lists passed to the API consist of a scatter gather list
+(array of buffers). An attacker may incorrectly specify the number of
+buffers, causing denial of service due to the reading or writing of
+incorrect buffers.</p></li>
+</ul>
+<p><strong>Mitigation</strong>: Platform management can include the Rate Limiting
+feature to mitigate against Noisy Neighbors. Only trusted users and
+applications should be allowed to access the Intel<sup>®</sup> QuickAssist
+Technology API, as described in General Mitigations.</p>
+</section>
+<section id="denial-of-service">
+<span id="security-denial-of-service"></span><h4>Denial of Service<a class="headerlink" href="#denial-of-service" title="Permalink to this headline"></a></h4>
+<p><strong>Threat</strong>: An attacker may construct a service request that does not
+conform to the specification, resulting in low of service due to service
+timeouts, halting of Quick Assist service or undesired platform level
+conditions.</p>
+<p><strong>Mitigation</strong>: The current generation of Intel<sup>®</sup> Quick Assist
+Technology has been designed for performance, providing direct access to
+hardware via PCIe* MMIO space. Misuse of hardware registers is to be
+avoided, and the threat against intentional misuse must be mitigated by
+ensuring all software on the platform is trusted.</p>
+<p>An attacker may attempt to contrive a packet stream that monopolizes the
+acceleration services, thereby denying service to legitimate users. This
+may consist of one or more of the following:</p>
+<ul class="simple">
+<li><p>Sending packets that are compressed (for example, using IPComp) or
+encrypted (for example, using IPsec), thereby reducing the
+availability of these services to legitimate traffic.</p></li>
+<li><p>Sending excessively large packets, causing some latency for
+legitimate packets.</p></li>
+<li><p>Sending small packets at a high packet rate, causing extra bandwidth
+utilization on the PCI Express* bus connecting the device to the
+processor.</p></li>
+</ul>
+<p><strong>Mitigation</strong>: Proper monitoring of Device Usage (DU) and the
+construction of Service Level Agreements (SLA) are now available as part
+of the Rate Limiting feature.</p>
+</section>
+</section>
+<section id="threats-specific-to-cryptographic-service">
+<h3>Threats Specific to Cryptographic Service<a class="headerlink" href="#threats-specific-to-cryptographic-service" title="Permalink to this headline"></a></h3>
+<p>Threats against the cryptographic service include:</p>
+<section id="reading-cryptographic-keys">
+<h4>Reading Cryptographic Keys<a class="headerlink" href="#reading-cryptographic-keys" title="Permalink to this headline"></a></h4>
+<p><strong>Threat</strong>: Cryptographic keys are stored in DRAM. An attacker who can determine where these are stored could read the DRAM to get access to the keys or could write the DRAM to use keys known by the attacker, thereby compromising the confidentiality of data protected by these keys. Some cryptographic keys have long lives. The impact of an attacker obtaining the key may exist for the lifetime of the key itself.</p>
+<p><strong>Mitigation</strong>: DRAM is considered inside the cryptographic boundary (as defined by FIPS 140-2). The normal memory protection schemes provided by the Intel<sup>®</sup> architecture processor and memory controller, and by the operating system, prevent unauthorized access to these memory regions.</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="virtualization.html" class="btn btn-neutral float-left" title="Virtualization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../VIRT/index.html" class="btn btn-neutral float-right" title="Virtualization Deployment Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

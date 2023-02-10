@@ -1,0 +1,9 @@
+.. _qat_2.0_rn_linux_updates:
+
+Release Updates
+===============
+
+.. include:: known_issues.rst
+
+.. include:: resolved_issues.rst
+

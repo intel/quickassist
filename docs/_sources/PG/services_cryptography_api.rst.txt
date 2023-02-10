@@ -1,0 +1,269 @@
+.. _qat_2.0_pg_services_cryptography:
+
+Cryptographic Services
+======================
+
+Introduction
+------------
+
+Intel\ :sup:`®` QuickAssist Technology (Intel\ :sup:`®` QAT) accelerates cryptographic workloads by offloading the data to 
+hardware capable of optimizing those functions. This makes it easier for developers to integrate built-in cryptographic 
+accelerators into network and security applications.
+
+Symmetric cryptography algorithms include: 
+
+- Cipher operations (AES, DES, 3DES, ARC4, CHA-CHA, SM4).
+- Wireless (Kasumi, Snow, 3G).
+- Hash/Authenticate operations (SHA-1, MD5, SHA-2, SHA-3, SHAKE).
+- Authentication (HMAC, AES-XCBC, AES-CCM).
+   
+Public key algorithms include: 
+
+- RSA operation.
+- Diffie-Hellman operation.
+- Digital signature standard operation.
+- Key derivation operation.
+- Elliptic curve cryptography (ECDSA and ECDH).
+- Prime number testing.
+
+Supported Cipher Algorithms
++++++++++++++++++++++++++++
+
+The following table provides details on supported cipher algorithms for each platform.   
+
+.. note:: 
+    
+    - ``cpaCySymInitSession()`` returns error status of ``CPA_STATUS_UNSUPPORTED`` if cipher algorithm is not supported.
+    - The QAT2.0 driver has not been updated to enable the Opt-In functionality.  This will be added in a future release.
+
+.. table:: Supported Cipher Algorithms
+
+    +---------------+--------------+-------------+-------------+
+    | **Algorithm** | **QAT 1.7x** | **QAT 1.8** | **QAT 2.0** |
+    +===============+==============+=============+=============+
+    | NULL          | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | ARC4          | Opt-in       | Opt-in      | No          |
+    +---------------+--------------+-------------+-------------+
+    | AES-ECB       | Opt-in       | Opt-in      | Opt-in      |
+    +---------------+--------------+-------------+-------------+
+    | AES-CBC       | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-CTR       | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-CCM       | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-GCM       | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-F8        | Opt-in       | Opt-in      | Opt-in      |
+    +---------------+--------------+-------------+-------------+
+    | AES-XTS       | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | DES-ECB       | Opt-in       | Opt-in      | No          |
+    +---------------+--------------+-------------+-------------+
+    | DES-CBC       | Opt-in       | Opt-in      | No          |
+    +---------------+--------------+-------------+-------------+
+    | 3DES-ECB      | Opt-in       | Opt-in      | No          |
+    +---------------+--------------+-------------+-------------+
+    | 3DES-CBC      | Opt-in       | Opt-in      | No          |
+    +---------------+--------------+-------------+-------------+
+    | 3DES-CTR      | Opt-in       | Opt-in      | No          |
+    +---------------+--------------+-------------+-------------+
+    | KASUMI-F8     | Yes          | Yes         | No          |
+    +---------------+--------------+-------------+-------------+
+    | SNOW3G-UEA2   | Yes          | Yes         | No          |
+    +---------------+--------------+-------------+-------------+
+    | ZUC-EEA3      | Yes          | Yes         | No          |
+    +---------------+--------------+-------------+-------------+
+    | CHACHA        | No           | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | SM4-ECB       | No           | Opt-in      | Opt-in      |
+    +---------------+--------------+-------------+-------------+
+    | SM4-CBC       | No           | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | SM4-CTR       | No           | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+
+Supported Hash/Authenticate Algorithms
+++++++++++++++++++++++++++++++++++++++
+
+The following table provides details on supported hash algorithms for each platform.   
+
+.. note:: 
+    
+    - ``cpaCySymInitSession()`` returns error status of ``CPA_STATUS_UNSUPPORTED`` if hash algorithm is not supported.
+    - The QAT2.0 driver has not been updated to enable the Opt-In functionality.  This will be added in a future release.
+
+.. table:: Supported Hash/Authenticate Algorithms
+
+    +---------------+--------------+-------------+-------------+
+    | **Algorithm** | **QAT 1.7x** | **QAT 1.8** | **QAT 2.0** |
+    +===============+==============+=============+=============+
+    | MD5           | Opt-in       | Opt-in      | No          |
+    +---------------+--------------+-------------+-------------+
+    | SHA1          | Opt-in       | Opt-in      | Opt-in      |
+    +---------------+--------------+-------------+-------------+
+    | SHA224        | Opt-in       | Opt-in      | Opt-in      |
+    +---------------+--------------+-------------+-------------+
+    | SHA256        | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | SHA384        | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | SHA512        | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | SHA3-224      | No           | Opt-in      | Opt-in      |
+    +---------------+--------------+-------------+-------------+
+    | SHA3-256      | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | SHA3-384      | No           | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | SHA3-512      | No           | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-XCBC      | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-CBC_MAC   | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-CCM       | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-GCM       | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-GMAC      | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | AES-CMAC      | Yes          | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | KASUMI-F9     | Yes          | Yes         | No          |
+    +---------------+--------------+-------------+-------------+
+    | SNOW3G-UIA2   | Yes          | Yes         | No          |
+    +---------------+--------------+-------------+-------------+
+    | ZUC-EIA3      | Yes          | Yes         | No          |
+    +---------------+--------------+-------------+-------------+
+    | POLY          | No           | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+    | SM3           | No           | Yes         | Yes         |
+    +---------------+--------------+-------------+-------------+
+
+Supported Public Key Algorithms
++++++++++++++++++++++++++++++++
+
+The following table provides details on supported asymmetric algorithms for each platform.   
+
+.. note:: 
+    
+    QAT Public Key functions will return error status of ``CPA_STATUS_UNSUPPORTED`` if algorithm is not supported.
+
+.. table:: Supported Public Key Algorithms
+
+    +---------------------+--------------+-------------+-------------+
+    | **Algorithm**       | **QAT 1.7x** | **QAT 1.8** | **QAT 2.0** |
+    +=====================+==============+=============+=============+
+    | RSA-2048            | Yes          | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | RSA-3072            | Yes          | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | RSA-4096            | Yes          | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | RSA-8192            | No           | No          | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | SM2                 | No           | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | ECDH Point Multiply | Yes          | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | ECDSA Sign          | Yes          | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | ECDSA Verify        | Yes          | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | x25519              | Yes          | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+    | x448                | Yes          | Yes         | Yes         |
+    +---------------------+--------------+-------------+-------------+
+
+
+Cryptography Applications
+-------------------------
+
+Cryptography applications supported by the platforms described in this manual include, but are not limited to:
+
+- :ref:`Virtual Private Networks <ipsec-and-ssl-vpns>`
+- :ref:`Encrypted Storage <encrypted-storage>`
+- :ref:`Web Proxy Appliances <web-proxy-appliances>`
+
+.. _ipsec-and-ssl-vpns:
+
+IPsec and SSL VPNs
+++++++++++++++++++
+
+Virtual Private Networks (VPNs) allow for private networks to be established over the public Internet by providing confidentiality,
+integrity and authentication using cryptography. VPN functionality can be provided by a standalone security gateway box at the
+boundary between the trusted and untrusted networks. It is also commonly combined with other networking and security functionality in a security appliance, or even in standard routers.
+
+VPNs are typically based on one of two cryptographic protocols, either IPsec or Datagram Transport Layer Security (DTLS). 
+Each has its advantages and disadvantages.
+
+One of the most compute-intensive aspects of a VPN is the cryptographic processing required to encrypt/decrypt traffic for 
+confidentiality, to perform cryptographic hash functionality for authentication and to perform public key cryptography, based
+on modular exponentiation of large numbers or elliptic curve cryptography as part of key negotiation and exchange. The 
+accelerator provides cryptographic acceleration that can offload this computation from the CPU, thereby freeing up CPU cycles
+to perform other networking, encryption, or other value-add applications. 
+
+The Intel\ :sup:`®` QAT Endpoint offers its acceleration services through an API, called the Intel\ :sup:`®` QAT Cryptographic API.
+This can be invoked from the Linux* kernel or from Linux* user space as well as from other operating systems. 
+Intel\ :sup:`®` also provides plugins to enable many of the PCH's cryptographic services to be accessed through open source 
+cryptographic frameworks, such as the Linux* kernel crypto framework/API (also known as the ``scatterlist`` API) and 
+OpenSSL* libcrypto* (through its EVP API). This facilitates ease of integration with certain open source implementations 
+of protocol stacks, such as the Linux* kernel's native IPsec stack (called ``NETKEY``) or with OpenVPN* (an open source SSL 
+VPN implementation).
+
+.. _encrypted-storage:
+
+Encrypted Storage
++++++++++++++++++
+
+In recent years, cases of lost laptops containing sensitive information have made the headlines all too frequently. 
+Full disk encryption has become a standard procedure for many corporate PCs. Safe-guarding critical data however is not 
+just a necessity in the client space, it is also a necessity in the data center.
+
+Enterprise-class storage appliances achieve throughput rates in excess of 50 Gbps. Several high-profile cases of data theft 
+have triggered updates to government regulations and industry standards. These regulations/standards now require protection 
+of data-at-rest for applications involving sensitive data such as medical and financial records, typically using strong encryption. 
+The high computational cost of adding encryption to storage appliances makes offload solutions an attractive value proposition.
+
+Several complimentary standards exist for the encryption of data-at-rest, which, when combined with traditional network security 
+protocols such as IPsec or SSL/TLS, provide an end-to-end encrypted storage solution, even for data-in-flight.
+
+The IEEE* Security in Storage working group is developing the IEEE 1619 series of standards that deal with cipher algorithms 
+for disk and tape storage devices (AES in CCM and GCM modes). The cryptographic acceleration services of platforms that use 
+the Intel\ :sup:`®` QAT Endpoints are ideally suited for long-term encrypted storage solutions implementing the IEEE 1619.1 standard, 
+by providing acceleration of the AES-256 cipher in CBC, CCM, and GCM modes and HMAC authentication using SHA-1, SHA-256 and 
+SHA-512 hashes.
+
+The Trusted Computing Group's (TCG) Storage Working Group does not prescribe a particular set of algorithms for the disk 
+encryption. Instead, it defines several Storage Subsystem Classes (SSC) for various usage models, which define services 
+such as enrollment and connection, protected storage (an extension of Trusted Platform Module (TPM)), locking, logging, 
+cryptographic services, authorization, and firmware updates. The cryptographic acceleration services of the platform 
+can help by providing the highest level of encryption for authenticating the host to trusted peripherals implementing 
+the TCG storage standards.
+
+.. _web-proxy-appliances:
+
+Web Proxy Appliances
+++++++++++++++++++++
+
+Historically, Web Proxy appliances have evolved to present a public or intermediary interface for clients seeking resources 
+from other servers, providing services such as web page caching and load balancing. These appliances are located at the edge
+of the network, typically at network gateways. Due to their centralized presence in the network, Web Proxy appliances today 
+(referred to with several different names, such as Application Delivery Controllers, Reverse Proxy, and so on) have become 
+a collection of services that include:
+
+- Application Load Balancing (L4-L7)
+- SSL Acceleration
+- WAN Acceleration
+- Caching
+- Traffic Management
+- Web Application Firewall
+
+SSL and WAN acceleration have become common place capabilities of the Web Proxy appliance, requiring compute intensive 
+algorithms for cryptography (SSL) and compression (WAN acceleration). Intel\ :sup:`®` QAT devices on the platforms 
+described in this manual provide acceleration of asymmetric cryptography (RSA is the most commonly used key 
+negotiation algorithm in SSL), symmetric cryptography (all algorithms defined in the TLS RFCs can be accelerated with 
+the PCH) and compression (DEFLATE algorithm). With the prominence of Web Proxy appliances in typical networks, this use 
+case has applications from cloud computing to small web server deployments.

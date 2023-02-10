@@ -1,0 +1,179 @@
+.. _qat_2.0_rn_description: ..
+
+Description of Release
+======================
+
+This document contains information on the accompanying Intel\ :sup:`®`
+QuickAssist Technology (Intel\ :sup:`®` QAT) Hardware Version 2.0 Driver for VMware ESXi*.
+
+This software enables single root I/O virtualization (SR-IOV) for the Intel QAT driver on VMware ESXi*.
+SR-IOV enables the creation of Virtual Functions (VF) from a single
+Intel QAT device to support acceleration for multiple virtual machines.
+
+For instructions on loading and running the release software, refer to the
+``README.txt`` file in the released software package. For instructions on
+how to install the driver in the Guest Operating System (OS) refer to corresponding guest
+driver's collaterals listed in the :ref:`Related Documentation <qat2.0_rn_vmware_related_documentation>` section.
+
+Refer to the :ref:`Revision History <qat2.0_rn_vmware_revision_history>` to check the changes of this document.
+
+.. note:: These release notes may include known issues with third-party or reference platform components that affect the operation of the software.
+
+
+Features
+--------
+
+- Sym/Asym Crypto.
+- TLS1.3 elliptical curves Montgomery encryption (curve 25519 and curve 448).
+- Data Compression with CnV for Deflate and LZ4/LZ4s algorithms and CnVnR for
+  Deflate and LZ4s.
+- Telemetry.
+- Power Management.
+- SM3/SM4.
+- Asynchronous E2E support for compression.
+- Extended RAS (uncorrectable and fatal error support).
+- Ratelimiting for Sym/Asym crypto services.
+
+Limitations
+-----------
+
+- Symmetric services are not configured by default, refer to the *Device configuration* section in ``README.txt`` for additional information.
+- Stateful decompression is not supported.
+- Intel\ :sup:`®` Key Protection Technology (KPT) is not currently supported.
+- Auto-select best (ASB) is not supported with rolling *XXHash32*.
+- Dynamic Power Management (DPM) is not currently supported.
+- Scalable IOV is not currently supported.
+- Ratelimiting for compression service is not currently supported.
+- Shared Virtual Memory (SVM) and Address Translation is not currently supported.
+- ESXi limitation: number of PCI passthrough devices per VM is limited, check this `KB article`_ for exact limits. ESXi will not allow to power on
+  VM if such limit is exceeded.
+
+.. _KB article: https://kb.vmware.com/s/article/1003497
+
+Package Information
+-------------------
+
+.. table::
+   :widths: 20, 80
+
+   +-------------------------------+----------------------------------------------------------------------------+
+   | **Package Name**              | qat-2.0_ext_rel_bin_2.4.0.72-7.0.0-15843807.tar.gz                         |
+   +-------------------------------+----------------------------------------------------------------------------+
+   | **Release Date**              | 01/23/2023                                                                 |
+   +-------------------------------+----------------------------------------------------------------------------+
+   | **Supported**                 | 4th Generation Intel® Xeon® Scalable Processor (4xxx QAT)                  |
+   |                               |                                                                            |
+   | **Hardware**                  |                                                                            |
+   +-------------------------------+----------------------------------------------------------------------------+
+   | **Supported**                 | VMware ESXi 7.0 Update 3i and 8.0                                          |
+   |                               |                                                                            |
+   | **ESXi Version**              |                                                                            |
+   +-------------------------------+----------------------------------------------------------------------------+
+   | **Driver Version**            | 2.4.0.72                                                                   |
+   +-------------------------------+----------------------------------------------------------------------------+
+   | **Package**                   | SHA256: 95AC6B63A7BC6FBEB556C29FD25EA32AD210AC684408B3B080DB1E94CE07A96D   |
+   |                               |                                                                            |
+   | **Checksum**                  |                                                                            |
+   +-------------------------------+----------------------------------------------------------------------------+
+
+List of Files in Release
+------------------------
+
+.. table::
+   :widths: 50, 50
+
+   +---------------------------------------------------------------------------+---------------------------------------------------------+
+   | **File**                                                                  | **Description**                                         |
+   +===========================================================================+=========================================================+
+   | ``Intel-qat_2.4.0.72-1OEM.700.1.0.15843807_20962237.zip``                 | Driver component                                        |
+   +---------------------------------------------------------------------------+---------------------------------------------------------+
+   | ``LICENSE.txt``                                                           | License information                                     |
+   +---------------------------------------------------------------------------+---------------------------------------------------------+
+   | ``README.txt``                                                            | Basic driver installation and configuration information |
+   +---------------------------------------------------------------------------+---------------------------------------------------------+
+
+Supported Guest Drivers
+-----------------------
+
+The software in this release has been validated against the following guest
+drivers:
+
+- **Linux\*:** Intel QAT driver ``QAT20.L.1.0.0-*``
+- **Windows\*:** Intel QAT driver ``QAT2.0.W.2.0.1-*``
+
+Actual list of supported guest OS depends on the guest driver compatibility.
+Refer to the corresponding documentation for more information.
+
+Technical Support
+-----------------
+
+Intel offers support for this software at the API level only,
+defined in the Programmer's Guide and API reference manuals listed in the :ref:`Related Documentation <qat2.0_rn_vmware_related_documentation>` section.
+
+For technical support, including answers to questions not addressed in this
+document, visit the technical support forum, FAQs, and other support
+information at `Intel Support`_.
+
+.. _Intel Support: https://www.intel.com/content/www/us/en/support.html
+
+VMware forwards all issues they suspect to be related to Intel QAT
+to Intel to help triage and resolve with the customer directly.
+
+Environmental Assumptions
+-------------------------
+
+The following assumptions are made about the deployment environment:
+
+   -  The driver object/executable file on disk should be protected using
+      the normal file protection mechanisms, so it is writable by only
+      trusted users, for example, a privileged user or an administrator.
+
+   -  The public key firmware image on the disk should be protected using
+      normal file protection mechanisms, so it is writable only by trusted
+      users, for example, a privileged user or an administrator.
+
+   -  The Intel QAT device should not be exposed (through the
+      *user space direct* deployment model) to untrusted users.
+
+   -  The Dynamic Random-Access Memory (DRAM) is considered to be inside
+      the trust boundary. The traditional memory-protection schemes
+      provided by the Intel architecture processor and memory
+      controller, and by the OS, is to prevent unauthorized access to these
+      memory regions.
+
+   -  Persistent keys were not considered, but the storage media are also
+      considered inside the cryptographic boundary.
+
+   -  The driver exposed device file should be protected using the normal
+      file protection mechanisms so that it could be opened and
+      read/written only by trusted users.
+
+.. _qat2.0_rn_vmware_related_documentation:
+
+Related Documentation
+---------------------
+
+.. table::
+    :widths: 85, 15
+
+    +-------------------------------------------------------------------------------------------------+------------+
+    |  **Title**                                                                                      | **Number** |
+    +=================================================================================================+============+
+    | Intel QuickAssist Technology for Linux* - Getting Started Guide (HW 2.0)                        | 632506     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology for Linux* - Release Notes (HW 2.0)                                | 632507     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology for VMware* - Release Notes (HW 2.0)                               | 766469     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology - Programmer's Guide (HW 2.0)                                      | 743912     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology API Programmer's Guide                                             | 330684     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology Cryptographic API Reference Manual                                 | 330685     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | Intel QuickAssist Technology Data Compression API Reference Manual                              | 330686     |
+    +-------------------------------------------------------------------------------------------------+------------+
+    | `Intel Device Manager for VMware vCenter Server`_                                               | \-         |
+    +-------------------------------------------------------------------------------------------------+------------+
+
+.. _Intel Device Manager for VMware vCenter Server: https://www.intel.com/content/www/us/en/developer/articles/tool/device-manager-vc.html

@@ -1,0 +1,75 @@
+Driver Installation  
+===================
+
+The user must have root privileges to perform the compiling of the
+drivers. 
+
+Installing the Driver
+---------------------
+
+#. Copy package onto the system.
+
+#. Extract package.
+
+    .. code-block:: bash
+
+        cd /root/
+        mkdir QAT
+        cd QAT
+        tar -xzomf <path_to>/ QAT.B.3.13.0-00004.tar.gz
+
+#. Set network proxy (if required)
+
+    .. code-block:: bash
+
+        export http_proxy=http://<proxy_server>:<proxy_port>
+
+#. Install dependencies:
+
+    .. code-block:: bash
+
+        pkg install gmake
+        pkg install automake
+        pkg install autoconf
+        pkg install bash
+        pkg install pkgconf
+        pkg install yasm
+
+#. Setup the environment to build driver.
+
+    .. code-block:: bash
+
+        cd /root/QAT/
+        ./configure
+
+    .. note:: Add ``--enable-kapi``  to add kernel space support
+
+#. Build and install driver
+
+    .. code-block:: bash
+
+        gmake install
+
+
+Uninstalling Driver
+-------------------
+
+#. When using ``--enable-kapi`` unload performance sample code module
+   prior to uninstall:
+
+    .. code-block:: bash
+
+        kldunload cpa_sample_code.ko
+
+#. Bring down the driver:
+
+    .. code-block:: bash
+
+        adf_ctl down
+
+#. Uninstall the driver:
+
+    .. code-block:: bash
+
+        cd /root/QAT/
+        gmake uninstall

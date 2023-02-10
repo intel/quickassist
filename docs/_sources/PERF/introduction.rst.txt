@@ -1,0 +1,108 @@
+.. _qat_perf_opt_guide_introduction:
+
+Introduction
+============
+
+This performance optimization guide for Intel\ :sup:`®` QuickAssist Technology (Intel\ :sup:`®` QAT)
+can be used both during the architecture/design phases and the
+implementation/integration phases of a project that involves the
+integration of the Intel QAT software with an application stack.
+
+Accordingly, the guide is divided into two main sections:
+
+* **Software Design Guidelines:** Architecture and design guidelines
+  on how best to integrate the Intel QAT software into the application
+  software stack. Trade-offs between various design choices are described together with recommended approaches.
+
+* **Application Tuning:** Guidelines to further increase the performance of Intel QAT in the context of a full application.
+
+The intended audience for this document includes software architects,
+developers and performance engineers.
+ 
+In this document, for convenience *acceleration drivers* is used as a generic term for the software that
+allows the Intel QAT Software Library APIs to access the Intel QAT accelerator(s) integrated in the following devices:
+
+- Intel\ :sup:`®` Atom\ :sup:`®` processor C3000 product family
+- Intel\ :sup:`®` C620 Series Chipsets
+- Intel\ :sup:`®` Xeon\ :sup:`®` D-1500 processor
+- Intel\ :sup:`®` Xeon\ :sup:`®` D-2100 processor
+- Intel\ :sup:`®` Xeon\ :sup:`®` 4th Gen Scalable Processors  
+
+Conventions and Terminology
+---------------------------
+
+The following conventions are used in this manual:
+
+* ``Code text`` - code examples, command line entries, Application Porgramming Interface (API) names, parameters, filenames, directory paths, and executables.
+* **Bold text** - graphical user interface entries, buttons, and actions in instructions.
+* *Italic text* - key terms and publication titles.
+
+The following terms and acronyms are used in this manual.
+
+.. table:: Terminology
+
+    +--------------------+--------------------------------------------------------------------------+
+    | **Term**           | **Description**                                                          |
+    +====================+==========================================================================+
+    | ATS                | Address Translation Service                                              |
+    +--------------------+--------------------------------------------------------------------------+
+    | C-States           | C-States are advanced CPU current lowering technologies                  |
+    +--------------------+--------------------------------------------------------------------------+
+    | ECDH               | Elliptic Curve Diffie-Hellman                                            |
+    +--------------------+--------------------------------------------------------------------------+
+    | IA                 | Intel\ :sup:`®` architecture CPU                                         |
+    +--------------------+--------------------------------------------------------------------------+
+    | Intel\ :sup:`®`    | Advanced means of enabling very high performance while also              |
+    | SpeedStep\ :sup:`®`| meeting the power-conservation needs of mobile systems.                  |
+    | Technology         |                                                                          |
+    +--------------------+--------------------------------------------------------------------------+
+    | LAC                | LookAside Crypto                                                         |
+    +--------------------+--------------------------------------------------------------------------+
+    | Latency            | The time between the submission of an operation via the                  |
+    |                    | QuickAssist API and the completion of that operation.                    |
+    +--------------------+--------------------------------------------------------------------------+
+    | MSI                | Message Signaled Interrupts                                              | 
+    +--------------------+--------------------------------------------------------------------------+
+    | NUMA               | Non Uniform Memory Access                                                |
+    +--------------------+--------------------------------------------------------------------------+
+    | Offload Cost       | This refers to the cost, in CPU cycles, of driving the hardware          |
+    |                    | accelerator. This cost includes the cost of submitting an                |
+    |                    | operation via the Intel\ :sup:`®` QuickAssist API and the cost of        |
+    |                    | processing responses from the hardware.                                  |
+    +--------------------+--------------------------------------------------------------------------+
+    | PCH                | Platform Controller Hub                                                  |
+    +--------------------+--------------------------------------------------------------------------+
+    | PKE                | Public Key Encryption                                                    |
+    +--------------------+--------------------------------------------------------------------------+
+    | SVM                | Shared Virtual Memory                                                    |
+    +--------------------+--------------------------------------------------------------------------+
+    | Throughput         | The accelerator throughput usually expressed in terms of                 |
+    |                    | either requests per second or bytes per second.                          |
+    +--------------------+--------------------------------------------------------------------------+
+
+
+Intel QuickAssist Technology Software Overview 
+----------------------------------------------
+
+This section provides a very brief overview of the Intel QuickAssist
+Technology software. It is included here to set the context for
+terminology used in later sections of this document. More details are
+available in the :doc:`Programmer's Guide </PG/index>`.
+
+The Intel QuickAssist Technology API supports two acceleration
+services:
+
+- Cryptographic (asymmetric, symmetric)
+- Data Compression
+
+The acceleration driver interfaces to the hardware via hardware-assisted
+rings. These rings are used as request and response rings. Request rings
+are used by the driver to submit requests to the accelerator and
+response rings are used to retrieve responses back from the accelerator.
+The availability of responses can be indicated to the driver using
+either interrupts or by having software poll the response rings.
+
+At the Intel QuickAssist Technology API level, services are accessed via
+*instances*. A set of rings is assigned to an instance and so any
+operations performed on a service instance will involve communication
+over the rings assigned to that instance.

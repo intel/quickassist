@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Monitoring Telemetry Tutorial &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html">Contact</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact.html#support">Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Monitoring Telemetry Tutorial</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="monitoring-telemetry-tutorial">
+<span id="qat-telemetry"></span><h1>Monitoring Telemetry Tutorial<a class="headerlink" href="#monitoring-telemetry-tutorial" title="Permalink to this headline"></a></h1>
+<p>Telegraf is an agent responsible for gathering and aggregating data, like the current compression engine utilization for example.</p>
+<p>InfluxDB will store data, and expose it to Grafana, which provides modern dashboarding solution.</p>
+<p>In this tutorial, we are going to learn how to setup Telegraf, InfluxDB and Grafana and expose Intel(R) QAT Telemetry data.</p>
+<section id="configuring-influxdb-telegraf-grafana">
+<h2>Configuring InfluxDB + Telegraf + Grafana<a class="headerlink" href="#configuring-influxdb-telegraf-grafana" title="Permalink to this headline"></a></h2>
+<section id="install-influxdb">
+<h3>Install InfluxDB<a class="headerlink" href="#install-influxdb" title="Permalink to this headline"></a></h3>
+<ul>
+<li><p>Download and Extract InfluxDB 2.x</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/local/src
+wget https://dl.influxdata.com/influxdb/releases/influxdb2-2.1.1-linux-amd64.tar.gz
+tar -xzvf influxdb2-2.1.1-linux-amd64.tar.gz
+</pre></div>
+</div>
+</li>
+<li><p>Create Symbolic Link on System Path for InfluxDB 2.x</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>ln -s <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/influxdb2-2.1-linux-amd64/influxd /usr/local/bin/influxd
+</pre></div>
+</div>
+</li>
+<li><p>Update InfluxDB and Grafana Firewall Settings (if required)</p>
+<p>These commands can be used to update Firewall on RHEL/CentOS Distros:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo firewall-cmd --add-port<span class="o">=</span><span class="m">8086</span>/tcp --permanent
+sudo firewall-cmd --add-port<span class="o">=</span><span class="m">3000</span>/tcp --permanent
+sudo firewall-cmd --reload
+</pre></div>
+</div>
+<p>These commands can be used to update Firewall on Debian based Distros:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo ufw allow <span class="m">8086</span>/tcp
+sudo ufw allow <span class="m">3000</span>/tcp
+</pre></div>
+</div>
+</li>
+<li><p>Start InfluxDB 2.x</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>influxd
+</pre></div>
+</div>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The error message <code class="docutils literal notranslate"><span class="pre">'Error:</span> <span class="pre">listen</span> <span class="pre">tcp</span> <span class="pre">:8086:</span> <span class="pre">bind:</span> <span class="pre">address</span> <span class="pre">already</span> <span class="pre">in</span> <span class="pre">use'</span></code> will be returned if the server was already started.</p></li>
+</ul>
+</div>
+</section>
+<section id="install-and-configure-telegraf">
+<h3>Install and Configure Telegraf<a class="headerlink" href="#install-and-configure-telegraf" title="Permalink to this headline"></a></h3>
+<section id="install-telegraf">
+<h4>Install Telegraf<a class="headerlink" href="#install-telegraf" title="Permalink to this headline"></a></h4>
+<ul>
+<li><p>Download Telegraf from GitHub</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /usr/local/src
+git clone https://github.com/intel-innersource/applications.infrastructure.observability.collectors.thirdparty.telegraf.git
+<span class="nb">cd</span> applications.infrastructure.observability.collectors.thirdparty.telegraf
+git checkout upstream_qat_plugin
+</pre></div>
+</div>
+</li>
+<li><p>Install Golang (if required)</p>
+<p>This command can be used to install Golang on RHEL/CentOS Distros:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo dnf -y install go
+</pre></div>
+</div>
+<p>This command can be used to install Golang on Debian based Distros:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt install golang-go
+</pre></div>
+</div>
+</li>
+<li><p>Build Telegraf</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This build takes multiple minutes to complete.</p>
+</div>
+</li>
+<li><p>Create Symbolic Link for Telegraf</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo ln -s <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>/telegraf /usr/local/bin/telegraf
+</pre></div>
+</div>
+</li>
+<li><p>Create Telegraf Configuration File. Default configuration file, set in Telegraf:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo mkdir /etc/telegraf
+sudo telegraf config &gt; /etc/telegraf/telegraf_qat.conf
+<span class="nb">export</span> <span class="nv">TELEGRAF_CONFIG_PATH</span><span class="o">=</span>/etc/telegraf/telegraf_qat.conf
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+<section id="configure-telegraf">
+<span id="influxdb-setup"></span><h4>Configure Telegraf<a class="headerlink" href="#configure-telegraf" title="Permalink to this headline"></a></h4>
+<ul>
+<li><p>Remotely Configure InfluxDB 2.x using Web Brower:</p>
+<ol class="arabic simple">
+<li><p>Enter <strong>&lt;ip_address&gt;:8086</strong> in your browser  (where ip_address is the ip address of target system)</p></li>
+<li><p>Click on <strong>Get Started</strong> Button</p></li>
+<li><p>Fill in values for:</p>
+<ul class="simple">
+<li><p>Username</p></li>
+<li><p>Password</p></li>
+<li><p>Confirm Password</p></li>
+<li><p>Initial Organization Name</p></li>
+<li><p>Initial Bucket Name</p></li>
+</ul>
+</li>
+</ol>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/influx_setup.png"><img alt="InfluxDB Initial User Setup" src="../_images/influx_setup.png" style="width: 800px;" /></a>
+</figure>
+<ol class="arabic">
+<li><p>Click on <strong>Continue</strong></p></li>
+<li><p>Click on <strong>Quick Start</strong></p></li>
+<li><p>On the Leftmost Pane, click on <strong>Data</strong></p></li>
+<li><p>Select <strong>Telegraf</strong> tab</p></li>
+<li><p>Click on <strong>+ Create Configuration</strong>, select <strong>System</strong> and then click <strong>Continue</strong></p>
+<p>Provide values for:</p>
+<ul class="simple">
+<li><p>Telegraf Configuration Name</p></li>
+<li><p>Telegraf Configuration Description</p></li>
+</ul>
+</li>
+</ol>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/telegraf_plugin.png"><img alt="Telegraf plugin Setup" src="../_images/telegraf_plugin.png" style="width: 800px;" /></a>
+</figure>
+<ol class="arabic simple">
+<li><p>Click <strong>Create and Verify</strong></p></li>
+<li><p>Under <strong>2. Configure your API Token</strong> , select <strong>Copy to Clipboard</strong> and paste this command into the Linux terminal of target system.</p></li>
+<li><p>Under <strong>3. Start Telegraf</strong>, select <strong>Copy to Clipboard</strong> and paste this command into the Linux terminal of target system.</p></li>
+<li><p>Click <strong>Finish</strong></p></li>
+</ol>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The previous two commands can be copied to a script that can be used to start Telegraf service.</p>
+</div>
+<ul class="simple">
+<li><p>Add intel_qat configuration:</p>
+<ul>
+<li><p>On the leftmost pane, click on <strong>Data</strong></p></li>
+<li><p>Click on the Telegraf configuration name you setup previously. This opens the configuration for editing.</p></li>
+<li><p>Scroll to the bottom of the file and add the following lines:</p></li>
+</ul>
+</li>
+</ul>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1">## Intel QuickAssist Technology (Intel QAT) devices telemetry plugin</span>
+<span class="o">[[</span>inputs.intel_qat<span class="o">]]</span>
+
+<span class="c1">## Optionally set device ID for which metrics will be collected.</span>
+<span class="c1">## Only valid IDs for Intel QAT devices should be provided.</span>
+<span class="c1">## If not provided, than default is 0x4940, which is device ID for Intel QAT 2.0a.</span>
+<span class="c1"># qat_device_ids = [&quot;0x4940&quot;]</span>
+
+<span class="c1">## It is recommended to set plugin interval to &quot;1000ms&quot; or less.</span>
+<span class="nv">interval</span> <span class="o">=</span> <span class="s2">&quot;990ms&quot;</span>
+
+<span class="c1">## Keep the aggregate basicstats of each metric passing through.</span>
+<span class="o">[[</span>aggregators.basicstats<span class="o">]]</span>
+<span class="c1">## The period on which to flush &amp; clear the aggregator.</span>
+<span class="nv">period</span> <span class="o">=</span> <span class="s2">&quot;10s&quot;</span>
+
+
+<span class="c1">## If true, the original metric will be dropped by the</span>
+<span class="c1">## aggregator and will not get sent to the output plugins.</span>
+<span class="nv">drop_original</span> <span class="o">=</span> <span class="nb">true</span>
+
+<span class="c1">## Configures which basic stats to push as fields</span>
+<span class="nv">stats</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;min&quot;</span>, <span class="s2">&quot;max&quot;</span>, <span class="s2">&quot;mean&quot;</span><span class="o">]</span>
+
+<span class="c1">## Sets the metrics names to aggregate</span>
+<span class="nv">namepass</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&quot;qat_util&quot;</span>, <span class="s2">&quot;qat_device&quot;</span><span class="o">]</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Click on Save <strong>Changes</strong></p></li>
+<li><p>Click <strong>Save</strong> to confirm</p></li>
+</ul>
+</section>
+<section id="obtain-api-token">
+<span id="id3"></span><h4>Obtain API Token<a class="headerlink" href="#obtain-api-token" title="Permalink to this headline"></a></h4>
+<p>Telegraf API Token will be used when configuring Grafana.  Obtain the API token for later use here.</p>
+<ul class="simple">
+<li><p>Click on <strong>Data</strong> on the left pane</p></li>
+<li><p>Select <strong>API Tokens</strong> tab</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/telegraf_api_token.png"><img alt="Telegraf API Token setup" src="../_images/telegraf_api_token.png" style="width: 800px;" /></a>
+</figure>
+<ul>
+<li><p>Select Token.</p>
+<p>In the image above we see two tokens created.  Select the token for the user created previously.</p>
+</li>
+<li><p>Select <strong>Copy to Clipboard</strong> and save this away for use in the Grafana configuration</p></li>
+</ul>
+</section>
+</section>
+<section id="install-and-configure-grafana">
+<h3>Install and Configure Grafana<a class="headerlink" href="#install-and-configure-grafana" title="Permalink to this headline"></a></h3>
+<section id="install-grafana">
+<h4>Install Grafana<a class="headerlink" href="#install-grafana" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><p>For Debian based distros, the following command can be used:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo apt-get install -y gnupg2 curl software-properties-common
+curl https://packages.grafana.com/gpg.key <span class="p">|</span> apt-key add -
+add-apt-repository <span class="s2">&quot;deb https://packages.grafana.com/oss/deb stable main&quot;</span>
+sudo apt-get -y install grafana
+sudo systemctl <span class="nb">enable</span> --now grafana-server
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="configure-grafana">
+<h4>Configure Grafana<a class="headerlink" href="#configure-grafana" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><ul>
+<li><p>Open Web brower to <strong>&lt;ip_address&gt;:3000</strong> where <strong>ip_address</strong> is ip address of target system</p></li>
+<li><p>If this is a fresh install of Grafana, default credentials are:  <code class="docutils literal notranslate"><span class="pre">admin/admin</span></code></p>
+<p>Provide updated password when prompted.</p>
+</li>
+<li><p>In the center pane, click on <strong>Add your first data source</strong></p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/grafana_setup.png"><img alt="Grafana Setup" src="../_images/grafana_setup.png" style="width: 400px;" /></a>
+</figure>
+<ul>
+<li><p>Search for InfluxDB</p></li>
+<li><p>Configure the InfluxDB data source</p>
+<blockquote>
+<div><ul>
+<li><p>Enter <strong>Name</strong>, or accept default name.</p>
+<blockquote>
+<div><p>It is suggested to add Query language to the name  (i.e. InfluxDB-Flux)</p>
+</div></blockquote>
+</li>
+<li><p>For <strong>Query Language</strong>, select <strong>Flux</strong></p></li>
+<li><p>Update <strong>URL</strong> with the IP address:port of the InfluxDB server (default is <code class="docutils literal notranslate"><span class="pre">http://localhost:8086</span></code>)</p></li>
+<li><p>Under <strong>Auth</strong> section, ensure  <strong>Basic auth</strong> and <strong>With Credentials</strong> are enabled</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/influxdb_config.png"><img alt="Influxdb Configuration" src="../_images/influxdb_config.png" style="width: 500px;" /></a>
+</figure>
+<ul>
+<li><p>Under <strong>Basic Auth Details</strong> provide <strong>User</strong> and <strong>Password</strong>.  This was created in <a class="reference internal" href="#influxdb-setup"><span class="std std-ref">Configure Telegraf</span></a></p></li>
+<li><p>Under <strong>InfluxDB Details</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>provide <strong>Organization</strong> created in <a class="reference internal" href="#influxdb-setup"><span class="std std-ref">Configure Telegraf</span></a>.</p></li>
+<li><p>provide <strong>Token</strong> created in <a class="reference internal" href="#obtain-api-token"><span class="std std-ref">Obtain API Token</span></a>.</p></li>
+<li><p>provide <strong>Default Bucket</strong> created in <a class="reference internal" href="#influxdb-setup"><span class="std std-ref">Configure Telegraf</span></a>.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/grafana_influxdb_configuration.png"><img alt="Influxdb Configuration" src="../_images/grafana_influxdb_configuration.png" style="width: 400px;" /></a>
+</figure>
+<ul>
+<li><p>Select <strong>Save &amp; test</strong></p></li>
+<li><p>Verify Success</p>
+<blockquote>
+<div><figure class="align-default">
+<a class="reference internal image-reference" href="../_images/grafana_success.png"><img alt="Telegraf API Token setup" src="../_images/grafana_success.png" style="width: 400px;" /></a>
+</figure>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+<section id="enable-telemetry-service-on-target">
+<h3>Enable Telemetry Service on Target<a class="headerlink" href="#enable-telemetry-service-on-target" title="Permalink to this headline"></a></h3>
+<p>The Telemetry data needs to be enabled on the platform.   The following script detects the QAT Endpoints on the system and
+enables the telemetry service.  For additional information refer to <a class="reference internal" href="../PG/infrastructure_device_telemetry.html#qat-2-0-pg-infrastructure-device-telemetry"><span class="std std-ref">Telemetry chapter in the Programmer’s Guide</span></a>.</p>
+<section id="telemetry-helper-sh">
+<h4>telemetry_helper.sh<a class="headerlink" href="#telemetry-helper-sh" title="Permalink to this headline"></a></h4>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /bin/bash</span>
+
+<span class="c1"># Copyright(c) 2007-2023 Intel Corporation. All rights reserved.</span>
+
+<span class="c1"># This file is provided under a Zero-Clause BSD license.</span>
+
+<span class="c1"># Permission to use, copy, modify, and/or distribute this software for any purpose with or without fee is hereby granted.</span>
+
+<span class="c1"># THE SOFTWARE IS PROVIDED &quot;AS IS&quot; AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED</span>
+<span class="c1"># WARRANTIES OF MERCHANTABILITY AND FITNESS.</span>
+
+<span class="c1"># IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER</span>
+<span class="c1"># RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING</span>
+<span class="c1"># OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.</span>
+
+<span class="c1"># Command Line Parameters</span>
+<span class="c1">#   - 1 =&gt; Enable Telemetry</span>
+<span class="c1">#   - 0 =&gt; Disable Telemetry</span>
+<span class="k">if</span> <span class="o">[</span> <span class="nv">$#</span> <span class="o">==</span> <span class="m">0</span> <span class="o">]</span><span class="p">;</span>
+<span class="k">then</span>
+    <span class="nb">echo</span> <span class="s2">&quot;telemetry helper usage:&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot; ./telemetry_helper.sh 1    &lt;-- Enables Telemetry service on all QAT end points&quot;</span>
+    <span class="nb">echo</span> <span class="s2">&quot; ./telemetry_helper.sh 0    &lt;-- Disables Telemetry service on all QAT end points&quot;</span>
+    <span class="nb">exit</span>
+<span class="k">fi</span>
+
+<span class="c1"># ensure cr/lf are not removed from lspci command</span>
+<span class="nv">IFS</span><span class="o">=</span>
+
+<span class="c1"># Capture all QuickAssist Device id info to logfile</span>
+<span class="nb">echo</span> <span class="s2">&quot;</span><span class="k">$(</span>lspci -d <span class="m">8086</span>:4940<span class="k">)</span><span class="s2">&quot;</span> &gt; pci_ids.txt
+<span class="nv">control_file_names</span><span class="o">=()</span>
+
+<span class="c1"># Parse the logfile extracting just the pci device ids to array</span>
+<span class="k">while</span> <span class="nv">IFS</span><span class="o">=</span> <span class="nb">read</span> -r line<span class="p">;</span> <span class="k">do</span>
+    <span class="nv">bus_num</span><span class="o">=</span><span class="si">${</span><span class="nv">line</span><span class="p">:</span><span class="nv">0</span><span class="p">:</span><span class="nv">2</span><span class="si">}</span>
+    <span class="nv">control_file_name</span><span class="o">=</span><span class="s2">&quot;/sys/devices/pci0000:&quot;</span><span class="nv">$bus_num</span><span class="s2">&quot;/0000:&quot;</span><span class="nv">$bus_num</span><span class="s2">&quot;:00.0/telemetry/control&quot;</span>
+    <span class="nv">control_file_names</span><span class="o">+=(</span><span class="nv">$control_file_name</span><span class="o">)</span>
+    <span class="k">done</span> &lt; pci_ids.txt
+
+    <span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span><span class="m">0</span><span class="p">;</span> i&lt;<span class="si">${#</span><span class="nv">control_file_names</span><span class="p">[@]</span><span class="si">}</span><span class="p">;</span> i++<span class="o">))</span>
+    <span class="k">do</span>
+        <span class="k">if</span> <span class="o">[</span> <span class="nv">$1</span> <span class="o">=</span> <span class="m">0</span> <span class="o">]</span><span class="p">;</span>
+        <span class="k">then</span>
+            <span class="nb">echo</span> <span class="s2">&quot;Disabling telemetry for &quot;</span> <span class="si">${</span><span class="nv">control_file_names</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+        <span class="k">else</span>
+            <span class="nb">echo</span> <span class="s2">&quot;Enabling telemetry for &quot;</span> <span class="si">${</span><span class="nv">control_file_names</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+        <span class="k">fi</span>
+        <span class="nb">echo</span> <span class="nv">$1</span> &gt; <span class="si">${</span><span class="nv">control_file_names</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="si">}</span>
+    <span class="k">done</span>
+
+<span class="c1"># Remove temporary file</span>
+rm pci_ids.txt
+</pre></div>
+</div>
+<ul>
+<li><p>Execute this script:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./telemetry_helper.sh <span class="m">1</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
+<section id="setup-first-grafana-dashboard">
+<h3>Setup First Grafana Dashboard<a class="headerlink" href="#setup-first-grafana-dashboard" title="Permalink to this headline"></a></h3>
+</section>
+</section>
+<section id="additional-resources">
+<h2>Additional resources<a class="headerlink" href="#additional-resources" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Getting Started with Telegraf <a class="reference external" href="https://docs.influxdata.com/influxdb/latest/write-data/no-code/use-telegraf/">https://docs.influxdata.com/influxdb/latest/write-data/no-code/use-telegraf/</a></p></li>
+<li><p>Install and Configure Telegraf on RHEL 8 / CentOS 8 <a class="reference external" href="https://computingforgeeks.com/install-and-configure-telegraf-on-rhel-centos/">https://computingforgeeks.com/install-and-configure-telegraf-on-rhel-centos/</a></p></li>
+</ul>
+</section>
+<section id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Double-check instruction steps above</p></li>
+<li><p>Verify influxdb and telegraf are running</p></li>
+<li><p>Verify API Token matches</p></li>
+<li><p>Verify telegraf.config file</p></li>
+<li><dl class="simple">
+<dt>Verify system including environment variables, including:</dt><dd><ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">TELEGRAF_CONFIG_PATH</span></code> (i.e. <code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">TELEGRAF_CONFIG_PATH=/etc/telegraf/telegraf_qat.conf</span></code>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">INFLUX_TOKEN</span></code></p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

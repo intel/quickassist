@@ -1,0 +1,285 @@
+.. _qat_2.0_containers_setup:
+
+Setting Up Host Platform
+=====================================
+
+Updating the BIOS Settings
+-------------------------------------
+
+.. note:: 
+    - The BIOS settings for your system may differ from the following steps.
+
+    - Enabling the SR-IOV BIOS parameter is not required if you are not using SR-IOV.
+
+#. **Power on** the development board. Watch closely for the prompt to enter the BIOS setup. **Press** *F2* when prompted.
+
+#. **Enable** the VT-d parameter in BIOS. The option may be available under: *Advanced > System Agent (SA) Configuration > VT-d*
+
+#. **Enable** the SR-IOV parameter in BIOS. The option may be available under: *Advanced > System Agent (SA) Configuration > SR-IOV*
+
+#. **Press** *F4* to save and exit. The BIOS changes are saved, and the system will boot.
+
+Configuring the Host Operating System with SR-IOV/IOMMU
+--------------------------------------------------------
+
+.. note:: 
+    - CentOS* requires the ``intel_iommu=on`` kernel boot parameter to use SR-IOV and VTd functionality.
+
+    - If not running as *root* user, ``sudo`` will need to be added to the Linux* instructions below.
+
+#. **Verify** SR-IOV hardware capabilities.
+
+    .. code-block:: console
+
+        lspci -vnd 8086:4940
+
+    It should display one of the capabilities as:
+
+    .. code-block:: text
+
+        Capabilities: [140] Single Root I/O Virtualization (SR-IOV)
+
+    .. note::
+        Refer to the `qatlib README <https://github.com/intel/qatlib>`_ for a list of Intel® QAT supported devices and their device IDs.
+
+#. **Ensure** that the system supports VT extensions.
+
+    .. code-block:: console
+
+        egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+    
+    .. note::
+        If nothing is printed out after executing the above command, then the system does not support VT extensions.
+
+#. **Open** the grub file.
+
+    .. code-block:: console
+
+        vi /etc/default/grub
+
+#. In the grub file, **enable** IOMMU and **register** the Intel® QAT Virtual Function (VF) IDs.
+
+    .. code-block:: text
+
+        GRUB_CMDLINE_LINUX="intel_iommu=on vfio-pci.ids=8086:4941"
+
+    .. note::
+        Add the parameters above to the end of the list defined in ``GRUB_CMDLINE_LINUX`` in your current grub file.
+
+#. **Save** the grub file.
+
+#. **Update** grub to load the changes.
+
+    .. code-block:: console
+
+        grub2-mkconfig -o /boot/efi/EFI/centos/grub.cfg
+    
+    .. note::
+        The grub file location depends on the Linux* distribution used. To locate the grub file in your system, use the command ``find / -name "grub.cfg"``
+
+#. **Restart** the system.
+
+    .. code-block:: console
+
+        shutdown –r now
+
+#. **Check** for *DMAR* and *IOMMU* messages once the system is restarted.
+
+    .. code-block:: console
+
+        dmesg | grep -e DMAR -e IOMMU
+    
+    You should see an output similar to the following:
+
+    .. code-block:: text
+
+        [0.000000] ACPI: DMAR 000000007b79c000 00080 (v01 INTEL INTEL ID 00000001 INTL 20091013)
+        [0.000000] Intel-IOMMU: enabled
+        [0.064454] dmar: IOMMU 0: reg_base_addr fbffc000 ver 1:0 cap d2078c106f0466 ecap f020df
+        [0.065560] IOAPIC id 8 under DRHD base 0xfbffc000 IOMMU 0
+        [0.065919] IOAPIC id 9 under DRHD base 0xfbffc000 IOMMU 0
+        [2.168898] DMAR: No ATSR found
+        [2.169358] IOMMU 0 0xfbffc000: using Queued invalidation
+        [2.169728] IOMMU: Setting RMRR:
+        [2.170091] IOMMU: Setting identity map for device 0000:00:1d.0 [0x7a23f000 - 0x7a241fff]
+        [2.170767] IOMMU: Prepare 0-16MiB unity mapping for LPC
+        [2.171133] IOMMU: Setting identity map for device 0000:00:1f.0 [0x0 - 0xffffff]
+    
+    .. note::
+        If the above command fails, a BIOS update or kernel reconfiguration may be required.
+
+#. **Verify** kernel modules.
+
+    .. code-block:: console
+
+        lsmod | grep vfio
+    
+    An output similar to the following should be displayed:
+
+    .. code-block:: text
+        
+        vfio_pci 16384 0
+        vfio_pci_core 61440 1 vfio_pci
+        vfio_virqfd 16384 1 vfio_pci_core
+
+Enable Intel® QAT Virtual Function (VF) Devices
+------------------------------------------------
+
+.. note::
+    The below script must be run on every boot.
+
+#. **Enable** the VF devices with the following script.
+
+    .. code-block:: console
+
+        for i in `lspci -D -d :4940| awk '{print $1}'`; do echo 16|sudo tee /sys/bus/pci/devices/$i/sriov_numvfs; done
+
+Installing Container Runtime
+-------------------------------------
+
+The container runtime will allow you to start a container running the Intel®
+QuickAssist Technology (Intel® QAT) Software in it. This guide uses the *Docker Container Runtime*.
+
+Docker
++++++++++++++++++++++++++++++++++++++
+
+Docker is an open-source containerization technology for building and containerizing applications.
+
+The Linux* environment must be set up to build and run containers. Certain packages
+will need to be loaded and configuration files created and/or updated, which can be
+system specific.
+
+These instructions were tested against the following Linux* distribution: *CentOS Stream 8 version*.
+
+.. note::
+    - If not running as *root* user, ``sudo`` will need to be added to the Linux* instructions below.
+
+    - General installation instructions for other Linux* distributions are available in the Docker documentation: `Install Docker Engine <https://docs.docker.com/engine/install/#server>`_.
+
+Installing Docker Engine
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#. **Uninstall** old Docker versions.
+
+    .. code-block:: console
+
+        dnf remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-selinux docker-engine-selinux docker-engine
+
+#. **Setup** the YUM utilities repository.
+
+    .. code-block:: console
+        
+        yum install yum-utils
+
+#. **Install** Docker.
+
+    .. code-block:: console
+        
+        yum install docker-ce docker-ce-cli containerd.io
+
+#. **Start** Docker.
+
+    .. code-block:: console
+        
+        systemctl start docker
+
+#. **Display** Docker version.
+
+    .. code-block:: console
+        
+        docker --version
+
+Proxy Settings
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If the system needs to connect to the internet through a corporate firewall, proxy
+settings must be enabled. Contact your network administrator for details on the proxy
+server.
+
+.. note::
+    General proxy setup instructions are available in the Docker documentation: `Configure Docker to use a proxy server <https://docs.docker.com/network/proxy/>`_.
+
+#. **Setup** proxy services.
+
+    .. code-block:: console
+        
+        export http_proxy=http://<proxy_server:portnum>
+        export https_proxy=http://<proxy_server:portnum>
+        export no_proxy=.example2.com,localhost,127.0.0.1
+
+2. **Create** a systemd directory for the docker service.
+
+    .. code-block:: console
+        
+        mkdir -p /etc/systemd/system/docker.service.d
+
+#. **Navigate** to the docker service directory.
+
+    .. code-block:: console
+        
+        cd /etc/systemd/system/docker.service.d
+
+#. **Create** a file named *http-proxy.conf*.
+
+    .. code-block:: console
+        
+        vi http-proxy.conf
+
+#. **Add** the required environment variables to the *http-proxy.conf* file.
+
+    .. code-block:: text
+
+        [Service]
+        Environment="HTTP_PROXY=http://<proxy_server:portnum>"
+        Environment="HTTPS_PROXY=http://<proxy_server:portnum> "
+        Environment="NO_PROXY=.example2.com,localhost,127.0.0.1,dockerregistry.example.com"
+
+#. **Save** the file.
+
+#. **Flush** the changes.
+
+    .. code-block:: console
+        
+        sudo systemctl daemon-reload
+
+#. **Restart** Docker.
+
+    .. code-block:: console
+        
+        sudo systemctl restart docker
+
+#. **Verify** the Docker configuration has been loaded and matches the changes made.
+
+    .. code-block:: console
+
+        systemctl show --property=Environment docker
+
+Running Docker
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+#. If required, **login** with your DockerID to push and pull images from Docker Hub. If you do not have a Docker ID, create one at `https://hub.docker.com <https://hub.docker.com>`_
+
+    .. code-block:: console
+        
+        docker login
+
+#. **Verify** that the Docker Engine is installed correctly by running the *hello-world* image. This command downloads a test image and runs it in a container. When the container runs, it prints a message and exits.
+
+    .. code-block:: console
+        
+        docker run hello-world
+
+Container Target Setup
+-------------------------------------
+
+Intel® QuickAssist Technology + NGINX* Setup
+++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The target setup consists of one container running NGINX* (Asynch Mode) with the
+Intel® QAT Software and the Intel® QuickAssist Technology OpenSSL* Engine
+(QAT_Engine). This setup will allow you to run an NGINX application with Intel®
+QuickAssist Technology acceleration.
+
+.. figure:: img/ContainerTargetSetup.png
+    :width: 397px
+    :height: 420px

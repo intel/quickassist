@@ -1,0 +1,159 @@
+.. _qat_perf_opt_guide_application_tuning:
+
+Application Tuning
+==================
+
+This chapter describes techniques you may employ to optimize your
+application.
+
+Platform-Level Optimizations 
+----------------------------
+
+This section describes platform-level optimizations required to achieve
+the best performance.
+
+BIOS Configuration
+++++++++++++++++++
+
+In some cases, maximum performance may only be achieved with the
+following BIOS configuration settings:
+
+CPU Power and Performance:
+
+-  Intel\ :sup:`®` SpeedStep\ :sup:`®` technology is disabled
+
+-  All C-states are disabled
+
+-  Max CPU Performance is selected
+
+Core Selection 
+++++++++++++++
+
+Using physical cores as opposed to hyper threads may result in higher
+performance.
+
+Memory Configuration 
+++++++++++++++++++++
+
+Ensure that memory is not a bottleneck. For instance, ensure that all
+CPU nodes have enough local memory and can take advantage of available
+memory channels.
+
+.. important:: For optimal performance it is recommended to populate all the DIMMs around the CPU sockets in use.
+
+.. _qat_perf_opt_guide_payload_alignment:
+
+Payload Alignment 
++++++++++++++++++
+
+For optimal performance, data pointers should be at least 8-byte
+aligned. In some cases, this is a requirement. Refer to the API for
+details.
+
+For optimal performance, all data passed to the Intel QuickAssist
+Technology engines should be aligned to 64B. The `Intel QuickAssist Technology Cryptographic API Reference Manual <https://cdrdv2.intel.com/v1/dl/getContent/709199?explicitVersion=true>`_ 
+and the `Intel QuickAssist Technology Data Compression API Reference Manual <https://cdrdv2.intel.com/v1/dl/getContent/709201?explicitVersion=true>`_ 
+document the memory alignment requirements of each data structure
+submitted for acceleration.
+
+.. note:: 
+
+    * The driver, firmware, and hardware handle unaligned *payload* memory without any functional issue but performance will be impacted.
+
+    * It is common that packet payloads will not be aligned on a 64B
+      boundary in memory, as the alignment usually depends upon which
+      packet headers are present. In general, the mitigation for handling
+      this is to adjust the buffer pointer, length and cipher offsets
+      passed to hardware to make the pointer aligned. This works on the
+      assumption that there is a point in the packet, before the payload,
+      that is 64B aligned. See the diagram below for an illustration of
+      adjusted alignment in the context of encrypt/decrypt of an IPsec
+      packet.
+
+.. figure:: ../../img/packet_encrypt_decrypt.png
+   :width: 5.33748in
+   :height: 6.98197in
+
+NUMA Awareness
+++++++++++++++
+
+For a dual processor system, memory allocated for data submitted to the
+acceleration device should be allocated on the same node as the attached
+acceleration device. This is to prevent having to fetch data for
+processing on memory of the remote node.
+
+Intel QuickAssist Technology Optimization
+-----------------------------------------
+
+This section references parameters that can be modified in the
+configuration file or build system to help maximize throughput and
+minimize latency or reduce memory footprint. Refer to the :doc:`Programmer's Guide </PG/index>` for detailed descriptions of the
+configuration file and its parameters.
+
+Disable Services Not Used 
++++++++++++++++++++++++++
+
+The compression service, when enabled, impacts the throughput
+performance of crypto services at larger packet sizes and vice versa.
+This is due to partitioning of internal resources between the two
+services when both are enabled. It is recommended to disable unused
+services.
+
+Disable Parameter Checking 
+++++++++++++++++++++++++++
+
+Parameter checking results in more Intel architecture cycles consumed
+by the driver. By default, parameter checking is enabled. This is
+controlled by ``ICP_PARAM_CHECK``, which can be set as an environment
+variable or it can be controlled with the configure script option, if
+available.
+
+Adjusting the Polling Interval 
+++++++++++++++++++++++++++++++
+
+This section describes how to get an indication of whether your
+application is polling at the right frequency. As described in the :ref:`Polling Mode <qat_perf_opt_guide_polling_mode>` section
+the rate of polling will impact latency, offload cost
+and throughput. This section also describes two ways of
+polling:
+
+* Polling via a separate thread.
+
+* Polling within the same context as the submit thread.
+
+With option 1, there is limited control over the poll interval, unless a
+real time operating system is employed. With option 2, the user can
+control the interval to poll based on the number of submissions made.
+
+Whichever method is employed, the user should start with a low frequency
+of polling, and this will ensure maximum throughput is achieved.
+Gradually increase the polling interval until the throughput starts to
+drop. The polling interval just before throughput drops should be the
+optimal for throughput and offload cost.
+
+This method is only applicable where the submit rate is relatively
+stable and the average packet size does not vary. To allow for
+variances, a larger ring size is recommended, but this in turn will add
+to the maximum latency.
+
+Application enqueue/dequeue tuning in Intel QAT multi-instances under stress condition
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+.. note:: This applies only to platforms starting with Intel QAT Gen 4.
+
+It is up to the application level to decide how many frames to enqueue/dequeue in a single burst, but different tunning 
+is expected across Intel QAT generations in multi-instances under stress conditions. 
+
+The common scheme for async engines usually enqueue a full burst size of frames to Intel QAT and the crypto dispatch function 
+dequeued from Intel QAT, the dequeue call back function is called periodically in a loop until full burst size of frames are dequeued. 
+
+This common scheme design works well for Intel QAT Gen 2 and Gen 3 platforms as the dequeue is more responsive, hence the application 
+always gets responses. For Intel QAT Gen 4 platform, if the dequeue requests been called are too aggressive, the Intel QAT is constantly 
+busy during stress, and it eventually cannot catch up filling the responses for the next dequeue. This behaviour can directly lead to 
+dequeue number constantly to be zero, even if some processes are already completed. 
+
+It is recommended for the application to always check the inflight number at the beginning before calling enqueue burst and don't dequeue 
+as many as possible but only a certain number (e.g. 64) of frames that are enough to process. Then the enqueue and dequeue can be followed in turns. 
+This approach will make Intel QAT Gen 4 platforms more comfortable to process the queues across multiple instances concurrently.
+
+

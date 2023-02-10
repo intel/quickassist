@@ -1,0 +1,155 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_pollingapis:
+
+Device Polling APIs
+===================
+
+APIs documented in this section are used for polling devices.
+
+icp_sal_poll_device_events
+--------------------------
+
+This function polls for device reset events. 
+
+**Syntax**
+
+``CpaStatus icp_sal_poll_device_events(void);``
+
+**Parameters**
+
+None
+
+**Return Value**
+
+The ``icp_sal_poll_device_events`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+-----------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successful operation. |
+   +------------------------+-----------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.  |
+   +------------------------+-----------------------+
+
+.. note:: 
+   
+   The events are sent to each instance that has registered a callback function. The callbacks are registered using ``cpaCyInstanceSetNotificationCb`` and ``cpaDcInstanceSetNotificationCb``.
+
+cpaCyInstanceSetNotificationCb 
+------------------------------
+
+Cryptographic instances use this function to register for device event notifications.
+
+**Syntax**
+
+``CpaStatus cpaCyInstanceSetNotificationCb(const CpaInstanceHandle instanceHandle, const CpaCyInstanceNotificationCbFunc pinstanceNotificationCb, void *pCallbackTag);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 30, 70
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``instanceHandle``           | Instance handle.                                                                       |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``pinstanceNotificationCb``  | Instance notification callback function pointer.                                       |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``*pCallbackTag``            | Opaque value provided by user.                                                         |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``cpaCyInstanceSetNotificationCb`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 30, 70
+
+   +-------------------------------+------------------------------+
+   | ``CPA_STATUS_SUCCESS``        | The function was successful. |
+   +-------------------------------+------------------------------+
+   | ``CPA_STATUS_FAIL``           | Indicates a failure.         |
+   +-------------------------------+------------------------------+
+   | ``CPA_STATUS_INVALID_PARAM``  | Invalid parameter passed in. |
+   +-------------------------------+------------------------------+
+   | ``CPA_STATUS_UNSUPPORTED``    | Function is not supported.   |
+   +-------------------------------+------------------------------+
+
+The signature for the callback function is:
+
+   .. code-block:: c
+
+      typedef void (*CpaCyInstanceNotificationCbFunc)(  
+            const CpaInstanceHandle instanceHandle,  
+            void * pCallbackTag,
+            const CpaInstanceEvent instanceEvent);
+
+Parameter:
+
+   .. code-block:: c
+
+      typedef enum _CpaInstanceEvent
+      {
+         CPA_INSTANCE_EVENT_RESTARTING = 0,
+         CPA_INSTANCE_EVENT_RESTARTED,
+         CPA_INSTANCE_EVENT_FATAL_ERROR
+      } CpaInstanceEvent;
+
+cpaDcInstanceSetNotificationCb 
+------------------------------
+
+Data compression instances use this function to register for device event notifications.
+
+**Syntax**
+
+``CpaStatus cpaDcInstanceSetNotificationCb(const CpaInstanceHandle instanceHandle, const CpaDcInstanceNotificationCbFunc pinstanceNotificationCb, void *pCallbackTag);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 30, 70
+
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``instanceHandle``           | Instance handle.                                                                       |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``pinstanceNotificationCb``  | Instance notification callback function pointer.                                       |
+   +------------------------------+----------------------------------------------------------------------------------------+
+   | ``*pCallbackTag``            | Opaque value provided by user.                                                         |
+   +------------------------------+----------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``cpaDcInstanceSetNotificationCb`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 30, 70
+
+   +-------------------------------+------------------------------+
+   | ``CPA_STATUS_SUCCESS``        | The function was successful. |
+   +-------------------------------+------------------------------+
+   | ``CPA_STATUS_FAIL``           | Indicates a failure.         |
+   +-------------------------------+------------------------------+
+   | ``CPA_STATUS_INVALID_PARAM``  | Invalid parameter passed in. |
+   +-------------------------------+------------------------------+
+   | ``CPA_STATUS_UNSUPPORTED``    | Function is not supported.   |
+   +-------------------------------+------------------------------+
+
+The signature for the callback function is:
+
+   .. code-block:: c
+
+      typedef void (*CpaDcInstanceNotificationCbFunc)(  
+            const CpaInstanceHandle instanceHandle,  
+            void * pCallbackTag,
+            const CpaInstanceEvent instanceEvent);
+
+Parameter:
+
+   .. code-block:: c
+
+      typedef enum _CpaInstanceEvent
+      {
+         CPA_INSTANCE_EVENT_RESTARTING = 0,
+         CPA_INSTANCE_EVENT_RESTARTED,
+         CPA_INSTANCE_EVENT_FATAL_ERROR
+      } CpaInstanceEvent;
+

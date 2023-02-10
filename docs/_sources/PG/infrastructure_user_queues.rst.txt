@@ -1,0 +1,54 @@
+.. _qat_2.0_pg_infrastructure_user_queues:
+
+User Queues
+===========
+
+Hardware View
+-------------
+
+User Queues layers on top of Queue Pairs:
+
+- Presents a simple interface to IA to dispatch work to CPM and receive notification of completions. 
+- QAT UQ and ENQCMD allows a QP to be efficiently shared between multiple processes without requiring software to manage.
+  locking when using the Queue; previously the QP had to be dedicated.
+- *Dedicated* mode and *Shared* mode are mutually exclusive per QP.
+- QAT UQ HW implementation backs UQ with a 4KB internal memory per QP.
+
+ENQCMD(S) Instruction
++++++++++++++++++++++
+
+- Allows software process to write commands to special device *Queue Pair Registers*.
+- 64 Byte Write Command, with PASID (20-bits) and Device Specific Command Fields (60 Bytes) fields.
+- PASID can be used to identify individual User Thread.
+
+.. figure:: ../../img/user_queues.png
+
+Software View
+-------------
+
+QAT SW Library in User Space provides usage of ENQCMD instruction in User Space.
+
+- Infrastructure requires 4KB User Space Page (Virtual QP Buffer) to Map to UQ HW. 
+
+    - 64 B TX/ RX descriptors are constructed inside this buffers by the QAT Library.
+    - QAT Library manages the index (head/tail to this buffer).
+  
+- Provide a UQ as dedicated mode (QP Mode), in which the UQ can only be consumed by a single process.
+- Provide a UQ as shared mode (UQ Mode), in which the UQ can be consumed by multiple processes.
+- In shared UQ mode, the MAX number of processes sharing the UQ is controllable.
+- In shared UQ mode, each PASID/process can issue reset its own UQ without affecting Process UQ's.
+- Configuration: New UQ Parameters per service instance configuration.
+
+PASID Management 
+++++++++++++++++
+
+- IOMMU Kernel Driver dependencies to PASID allocation.
+- Linux kernel dependencies to management of ``IA32_PASID`` MSR required for UQ. 
+  
+.. note:: 
+  Requires updated Linux Kernel revision, such as v5.20.
+
+- QAT HW exposes a QP PASID MMIO register per QP.
+
+    - In QP Mode, QAT driver explicitly sets corresponding ``QAT_QP_PASID`` register.
+    - In UQ Mode, QAT driver does not set ``QAT_QP_PASID`` register, ``IA32_PASID`` register/ ENQ Payload holds the Processes' PASID information.

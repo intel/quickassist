@@ -1,0 +1,11 @@
+.. _qat_vmw_1.x_release_notes:
+
+Release Notes
+=============
+
+.. toctree::
+   :maxdepth: 2
+   
+   description
+   updates
+   revision_history

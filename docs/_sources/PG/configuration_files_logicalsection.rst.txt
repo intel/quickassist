@@ -1,0 +1,158 @@
+.. _qat_2.0_pg_configuration_files_logical-instances-section:
+
+Logical Instances Section
+=========================
+
+This section allows the configuration of logical instances in each address domain (kernel space and individual user space processes).
+
+The address domains are in the following format:
+
+-  For the kernel address domain: ``[KERNEL]`` targeted to Linux\* Kernel Crypto Framework (LKCF).
+-  For user process address domains: ``[xxxxx]``, where ``xxxxx`` may be any ASCII value that uniquely identifies the user mode process.
+
+In user space, to allow the driver to configure the logical instances associated with a user process correctly, the process must call the function 
+``icp_sal_userStart`` passing the ``xxxxx`` string during process initialization. When the user space process is finished, it must call the function 
+``icp_sal_userStop`` to free resources. Refer to :ref:`User Space Access Configuration Functions <qat_2.0_pg_supported-apis_additional_apis_userspacefunctions>` for more information.
+
+A single VF configured for the SR-IOV use case cannot have both user space instances and kernel space instances. Separate VFs must be created for user space and kernel space.
+
+The ``NumProcesses`` parameter (in the User Process section) indicates the max number of user space processes within that section name with access to instances on this device. Refer to :ref:`icp_sal_userStart <icp_sal_userstart>` for more information.
+
+The items that can be configured for a logical instance are:
+
+-  The name of the logical instance.
+-  The polling mode.
+-  The core to which the instance is affinitized (optional).
+
+[KERNEL] Section
+----------------
+
+In the ``[KERNEL]`` section of the configuration file, information about the number and type of kernel instances can be defined. This table describes the parameters that determine the number of kernel instances for each service.
+
+.. table:: [KERNEL] Section Parameters
+    :widths: 25, 55, 10, 10
+
+    +-----------------------+---------------------------------------------------------------+-------------+-----------+
+    | **Parameter**         | **Description**                                               | **Default** | **Range** |
+    +=======================+===============================================================+=============+===========+
+    | ``NumberCyInstances`` | Specifies the number of cryptographic instances.              | 0           | 0 to 32   |
+    |                       |                                                               |             |           |
+    |                       | Note: Depends on the number of allocations to other services. |             |           |
+    +-----------------------+---------------------------------------------------------------+-------------+-----------+
+    | ``NumberDcInstances`` | Specifies the number of data compression instances.           | 0           | 0 to 32   |
+    |                       |                                                               |             |           |
+    |                       | Note: Depends on the number of allocations to other services. |             |           |
+    +-----------------------+---------------------------------------------------------------+-------------+-----------+
+
+.. note:: 
+    
+    The maximum number of cryptographic and data compression instances supported per Intel\ :sup:`®` QAT Endpoint is 32. 
+    For exceptions refer to :ref:`Increasing the Maximum Number of Processes/Instances. <increasing_max_numofprocesses>` 
+
+User Process [xxxxx] Sections
+-----------------------------
+
+There is one [xxxxx] section of the configuration file for each Intel\ :sup:`®` QAT Endpoint to be configured. In each [xxxxx] section of the 
+configuration file, user space access to the Intel\ :sup:`®` QAT Endpoint can be configured. Parameters for each user process instance can also 
+be defined. Common names for this section are ``[SSL]`` or ``[SHIM]``
+
+.. note:: Check the SKU information for your specific device to determine how  many Intel\ :sup:`®` QAT Endpoints the device contains. 
+    
+This table shows the parameters in the configuration file that can be set for user process [xxxxx] sections.
+
+.. table:: [User Process] Section Parameters
+    :widths: 25, 35, 10, 30
+
+    +-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+----------------------------------------------------------------------------------------------------------------------------+
+    | **Parameter**         | **Description**                                                                                                                                                    | **Default** | **Range**                                                                                                                  |
+    +=======================+====================================================================================================================================================================+=============+============================================================================================================================+
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    |                       | The number of user space processes with section name [xxxxx] that have access to this device.                                                                      |             | For constraints, see :ref:`qat_2.0_pg_configuration_files_max_numofprocesses_calculation`.                                 |
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    | ``NumProcesses``      | The maximum number of processes that can call ``icp_sal_userStart`` and be active at any one time. See :ref:`icp_sal_userStart <icp_sal_userstart>`                | 1           | For exceptions, see :ref:`increasing_max_numofprocesses`.                                                                  |
+    |                       | for additional information.                                                                                                                                        |             |                                                                                                                            |
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    |                       | *Caution*: Resources are pre-allocated. If this parameter value is set too high, the driver fails to load.                                                         |             |                                                                                                                            |
+    +-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+----------------------------------------------------------------------------------------------------------------------------+
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    |                       |                                                                                                                                                                    |             | 0 (disabled, processes in this section can access multiple Intel® QAT Endpoints), or                                       |
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    | ``LimitDevAccess``    | Indicates if the user space processes in this section are limited to only access instances on this Intel® QAT Endpoint.                                            | 0           | 1 (enabled, processes in this section can only access this Intel® QAT Endpoint).                                           |
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    |                       |                                                                                                                                                                    |             | For additional information, see :ref:`qat_2.0_pg_configuration_files_multiple_processes_multiple_endpoints`.               |
+    +-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+----------------------------------------------------------------------------------------------------------------------------+
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    | ``NumberCyInstances`` | Specifies the number of cryptographic instances.                                                                                                                   | 6           | 0 to 32. For exceptions, see :ref:`increasing_max_numofprocesses`.                                                         |
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    |                       | Note: Depends on the number of allocations to other services.                                                                                                      |             |                                                                                                                            |
+    +-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+----------------------------------------------------------------------------------------------------------------------------+
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    | ``NumberDcInstances`` | Specifies the number of data compression instances.                                                                                                                | 2           | 0 to 32. For exceptions, see :ref:`increasing_max_numofprocesses`.                                                         |
+    |                       |                                                                                                                                                                    |             |                                                                                                                            |
+    |                       | Note: Depends on the number of allocations to other services.                                                                                                      |             |                                                                                                                            |
+    +-----------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------+-------------+----------------------------------------------------------------------------------------------------------------------------+
+
+Cryptographic Logical Instance Parameters
+-----------------------------------------
+
+The following table shows the parameters that can be set for cryptographic logical instances.
+
+.. table:: Cryptographic Logical Instance Parameters
+    :widths: 20, 35, 20, 25
+
+    +---------------------+------------------------------------------------------------------------------------------------+-----------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+    | **Parameter**       | **Description**                                                                                | **Default**                                               | **Range**                                                                                                                         |
+    +=====================+================================================================================================+===========================================================+===================================================================================================================================+
+    |                     |                                                                                                |                                                           |                                                                                                                                   |
+    | ``CyXName``         | Specifies the name of cryptographic instance number X.                                         | IPSec0 for ``KERNEL`` section.                            | String (max. 64 characters)                                                                                                       |
+    |                     |                                                                                                | SSL0 for user section                                     |                                                                                                                                   |
+    +---------------------+------------------------------------------------------------------------------------------------+-----------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+    |                     |                                                                                                |                                                           |                                                                                                                                   |
+    | ``CyXIsPolled``     | Specifies if cryptographic instance number x works in poll mode, interrupt mode or epoll mode. | 0 for kernel space instances                              | 0 (interrupt mode) for instances in the ``KERNEL`` section.                                                                       |
+    |                     |                                                                                                | 1 for user space instance                                 | 1 (poll mode) for instances in user space sections.                                                                               |
+    |                     |                                                                                                |                                                           | 2 (epoll mode eventbased polling mode) for instances in user space section.                                                       |
+    +---------------------+------------------------------------------------------------------------------------------------+-----------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+    |                     |                                                                                                |                                                           |                                                                                                                                   |
+    | ``CyXCoreAffinity`` | Specifies the core to which the instance should be affinitized.                                | Varies depending on the value of X.                       | 0 to max. number of cores in the system.                                                                                          |
+    +---------------------+------------------------------------------------------------------------------------------------+-----------------------------------------------------------+-----------------------------------------------------------------------------------------------------------------------------------+
+
+.. note:: 
+    
+    *Default* denotes the value in the configuration file when shipped.
+
+Data Compression Logical Instance Parameters 
+--------------------------------------------
+
+This table shows the parameters in the configuration file that can be set for data compression logical instances.
+
+.. table:: Data Compression Logical Instance Parameters
+    :widths: 20, 35, 20, 25
+
+    +---------------------+-----------------------------------------------------------------------------------------------------+----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    | **Parameter**       | **Description**                                                                                     | **Default**                            | **Range**                                                                                                                       |
+    +=====================+=====================================================================================================+========================================+=================================================================================================================================+
+    |                     |                                                                                                     |                                        |                                                                                                                                 |
+    | ``DcXName``         | Specifies the name of data compression instance number X.                                           | IPComp0                                | String (max. 64 characters)                                                                                                     |
+    +---------------------+-----------------------------------------------------------------------------------------------------+----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |                     |                                                                                                     |                                        |                                                                                                                                 |
+    | ``DcXIsPolled``     | Specifies if data compression instance number x works in poll mode, interrupt mode or epoll mode.   | 0 for kernel space instances           | 0 (interrupt mode) for instances in the KERNEL.                                                                                 |
+    |                     |                                                                                                     | 1 for user space instances             | 1 (poll mode) for instances in the KERNEL_QAT and user space sections.                                                          |
+    |                     |                                                                                                     |                                        | 2 (epoll mode eventbased polling mode) for instances in user space section.                                                     |
+    +---------------------+-----------------------------------------------------------------------------------------------------+----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+    |                     |                                                                                                     |                                        |                                                                                                                                 |
+    | ``DcXCoreAffinity`` | Specifies the core to which the data compression instance should be affinitized.                    | Varies depending on the value of X.    | 0 to max. number of cores in the system.                                                                                        |
+    +---------------------+-----------------------------------------------------------------------------------------------------+----------------------------------------+---------------------------------------------------------------------------------------------------------------------------------+
+
+.. note:: 
+    
+    - The maximum number of data compression instances supported is 64.
+    - *Default* denotes the value in the configuration file when shipped.
+
+Setting the Core Affinity Parameter for a Logical Instance 
+----------------------------------------------------------
+
+When instances are configured with ``IsPolled = 1`` (Polling mode), the parameter ``CoreAffinity`` does not have any impact.
+
+Although not used, it is a valid parameter and applications can query the value using ``cpaCyInstanceGetInfo2`` (see ``coreAffinity`` bitmask in ``CpaInstanceInfo2``). For example, the sample code affinitizes the thread that uses an instance to the core indicated in ``CoreAffinity`` the config file for that instance.
+
+For instances configured in Interrupt Mode (``IsPolled = 2`` in user space (epoll) and ``IsPolled = 1`` in kernel space), the value of ``CoreAffinity`` is used to affinitize the interrupt handler to that core.

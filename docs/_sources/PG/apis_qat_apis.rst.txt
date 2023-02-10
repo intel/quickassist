@@ -1,0 +1,154 @@
+.. _qat_2.0_pg_supported-apis_qat-apis:
+
+Intel QuickAssist Technology APIs
+=================================
+
+The platforms described in this manual support the following Intel\ :sup:`®` QAT API libraries:
+
+* **Cryptographic**: API definitions are located in: ``$ICP_ROOT/quickassist/include/lac``, where ``$ICP_ROOT`` is the directory where the Acceleration software is unpacked. See the `Intel QuickAssist Technology Cryptographic API Reference Manual <https://cdrdv2.intel.com/v1/dl/getContent/709199?explicitVersion=true>`_  for details.
+* **Data Compression**: API definitions are located in: ``$ICP_ROOT/quickassist/include/dc``. See the `Intel QuickAssist Technology Data Compression API Reference Manual <https://cdrdv2.intel.com/v1/dl/getContent/709201?explicitVersion=true>`_ for details.
+
+Cryptographic and Data Compression API Descriptions
+---------------------------------------------------
+
+Full descriptions of the Intel\ :sup:`®` QAT APIs are contained in the :ref:`Intel QuickAssist Technology Cryptographic API Reference Manual <qat_2.0_pg_supported-apis_qat-apis>` and the :ref:`Intel QuickAssist Technology Data Compression API Reference Manual <qat_2.0_pg_supported-apis_qat-apis>`. 
+
+In addition to the Intel\ :sup:`®` QAT Data Plane APIs, there are a number of Data Plane Polling APIs that are 
+described in the :ref:`Polling Functions <qat_2.0_pg_supported-apis_additional_apis_pollingfunctions>` section.
+
+Data Plane APIs Overview
+++++++++++++++++++++++++
+
+The :ref:`Intel QuickAssist Technology Cryptographic API Reference Manual <qat_2.0_pg_supported-apis_qat-apis>` and the :ref:`Intel QuickAssist Technology Data Compression API Reference Manual <qat_2.0_pg_supported-apis_qat-apis>` contain information on the APIs that are specific to data plane applications.
+
+The APIs are recommended for applications that are executing in a data plane environment where the cost of offload (that is, the cycles consumed by the driver sending requests to the hardware) needs to be minimized. To minimize the cost of offload, several constraints have been placed on the APIs. If these constraints are too restrictive for your application, the traditional APIs can be used instead (at a cost of additional IA cycles).
+
+The definition of the Cryptographic Data Plane APIs are contained in: 
+``$ICP_ROOT/quickassist/include/lac/cpa_cy_sym_dp.h``
+
+The definition of the Data Compression Data Plane APIs are contained in:
+``$ICP_ROOT/quickassist/include/dc/cpa_dc_dp.h``
+
+IA Cycle Count Reduction When Using Data Plane APIs
++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+From an IA cycle count perspective, the Data Plane APIs are more performant than the traditional APIs. The majority of the cycle count reduction is realized by the 
+reduction of supported functionality in the Data Plane APIs and the application of constraints on the calling application.
+
+In addition, to further improve performance, the Data Plane APIs attempt to amortize the cost of an MMIO access when sending requests to, and receiving responses from, the hardware.
+
+A typical usage is to call the ``cpaCySymDpEnqueueOp()`` or the ``cpaDcDpEnqueueOp()`` function multiple times with requests to process and the ``performOpNow`` flag set to ``CPA_FALSE``. 
+Once multiple requests have been enqueued, ``cpaCySymDpEnqueueOp()`` or ``cpaDcDpEnqueueOp()`` may be called with the ``performOpNow`` flag set to ``CPA_TRUE``. This sends the requests to 
+the Intel\ :sup:`®` QAT Endpoint for processing.
+
+.. figure:: ../../img/dataplane_amortizing_updated.png
+   :width: 938px
+   :height: 479px
+
+
+The Intel\ :sup:`®` QAT API returns a ``CPA_STATUS_RETRY`` when the ring becomes full.
+
+The number of requests to place on the ring is application dependent and it is recommended that performance testing be conducted with tunable parameter values.
+
+Two functions, ``cpaCySymDpPerformOpNow()`` and ``cpaDCDpPerformOpNow()``, are also provided that allow queued requests to be sent to the hardware without the need for queuing an additional request. This is typically used in the scenario where a request has not been received for some time and the application would like the enqueued requests to be sent to the hardware for processing.
+
+.. _data_plane_constraints:
+
+Usage Constraints on the Data Plane APIs
+++++++++++++++++++++++++++++++++++++++++
+
+The following constraints apply to the use of the Data Plane APIs. If the application can handle these constraints, the Data Plane APIs can be used:
+
+* Thread safety is not supported. Each software thread should have access to its own unique instance (``CpaInstanceHandle``) to avoid contention on the hardware rings.
+* For performance, polling is supported, as opposed to interrupts (which are comparatively more expensive). 
+* :ref:`Polling functions <qat_2.0_pg_supported-apis_additional_apis_pollingfunctions>` are provided to read responses from the hardware response queue and dispatch callback functions.
+* Buffers and buffer lists are passed using physical addresses to avoid virtual-to- physical address translation costs.
+* Alignment restrictions are placed on the operation data (that is, the ``CpaCySymDpOpData`` structure) passed to the Data Plane API. The operation data must be at least 8-byte aligned, contiguous, resident, DMA-accessible memory.
+* Only asynchronous invocation is supported, that is, synchronous invocation is not supported.
+* There is no support for cryptographic partial packets. If support for partial packets is required, the traditional Intel\ :sup:`®` QAT APIs should be used.
+* Since thread safety is not supported, statistic counters on the Data Plane APIs are not atomic.
+* The default instance (``CPA_INSTANCE_HANDLE_SINGLE``) is not supported by the Data Plane APIs. The specific handle should be obtained using the instance discovery functions (``cpaCyGetNumInstances()``, ``cpaCyGetInstances()``, ``cpaDcGetNumInstances()``, ``cpaDcGetInstances()``).
+* The submitted requests are always placed on the high-priority ring.
+* The data plane APIs are supported in both user space and polling mode in kernel space, but not supported in interrupt mode in kernel space.
+
+Intel\ :sup:`®` QAT API Limitations
+-----------------------------------
+
+The following limitations apply when using the Intel® QAT APIs on the platforms described in
+this manual: 
+
+* For all services, the maximum size of a single perform request is 4 GB. 
+* For all services, data structures that contain data required by the Intel\ :sup:`®` QAT Endpoint should be on a 64-byte-aligned address to maximize performance. This alignment helps minimize latency when transferring data from DRAM to an Intel\ :sup:`®` QAT Endpoint integrated in the PCH device. 
+* For the key generation cryptographic API, the following limitations apply:
+
+   .. table:: Key Generation Cryptographic API Limitations
+   
+      +--------------------------------------------------------+----------------------------------------------------+
+      | Secure Sockets Layer (SSL) key generation op-data:     | Maximum secret length is 512 bytes                 |
+      +                                                        +----------------------------------------------------+
+      |                                                        | Maximum ``userLabel`` length is 136 bytes          |
+      +                                                        +----------------------------------------------------+
+      |                                                        | Maximum ``generatedKeyLenInBytes`` is 248          |
+      +--------------------------------------------------------+----------------------------------------------------+
+      | Transport Layer Security (TLS) key generation op-data: | Secret length must be <128 bytes for TLS           |
+      |                                                        | v1.0/1.1;                                          |
+      +                                                        +----------------------------------------------------+
+      |                                                        | Secret length must be <512 bytes for TLS v1.2      |
+      +                                                        +----------------------------------------------------+
+      |                                                        | Secret length must be <512 bytes for TLS v1.3      |
+      +                                                        +----------------------------------------------------+
+      |                                                        | ``userLabel`` length must be <256 bytes            |
+      +                                                        +----------------------------------------------------+
+      |                                                        | Maximum seed size is 64 bytes                      |
+      +                                                        +----------------------------------------------------+
+      |                                                        | Maximum ``generatedKeyLenInBytes`` is 248 bytes    |
+      +--------------------------------------------------------+----------------------------------------------------+
+      | Mask Generation Function (MGF) op-data:                | Maximum seed length is 255 bytes                   |
+      +                                                        +----------------------------------------------------+
+      |                                                        | Maximum ``maskLenInBytes`` is 65528                |
+      +--------------------------------------------------------+----------------------------------------------------+    
+
+* For the cryptographic service, SNOW 3G and KASUMI* operations are not supported when ``CpaCySymPacketType`` is set to ``CPA_CY_SYM_PACKET_TYPE_PARTIAL``. The error returned in this case is ``CPA_STATUS_INVALID_PARAM``.
+* For the cryptographic service, when using the asymmetric crypto APIs, the buffer size passed to the API should be rounded to the next power of 2, or the next 3- times a power of 2, for optimum performance.
+* For the data compression service, the size of all stateful decompression requests have to be a multiple of two with the exception of the last request.
+* For the data compression service, the ``CpaDcFileType`` field in the ``CpaDcSessionSetupData`` data structure is ignored (previously this was considered for semi-dynamic compression/decompression).
+* For static compression, the maximum expansion during compression is ceiling *(9xTotal_Input_Byte/8)+7* bytes. If ``CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_STORED_HDRS`` or ``CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_NO_HDRS`` is selected, the maximum expansion during compression is the input buffer size plus up to ceiling *(Total_Input_Byte/65535)x5* bytes, depending on whether the stored headers are selected. 
+   
+   .. Note:: 
+      
+      Due to the need for a skid pad and the way the checksum is calculated in the stored block case to prevent compression overflow, an output buffer size of ceiling (9*Total_Input_Byte/8) + 55 bytes needs to be supplied (even though the stored block output size might be less).
+
+* The decompression service can report various error conditions, most of which arise from processing dynamic Huffman code trees that are ill-formed. These soft error conditions are reported at the Intel\ :sup:`®` QuickAssist Technology API using the ``CpaDcReqStatus`` enumeration. At the point of soft error, the hardware state will not be accurate to allow recovery. Therefore, in this case, the Intel\ :sup:`®` QuickAssist Technology software rolls back to the previous known good state and reports that no input has been processed and no output produced. This allows an application to correct the source of the error and resubmit the request.
+  
+  For example, if the following source and destination buffers were submitted to the Intel\ :sup:`®` QuickAssist Technology:
+  
+  .. figure:: ../../img/api_limitation1_updated.png
+   :width: 839px
+   :height: 193px
+
+  The result would be:
+
+  .. figure:: ../../img/api_limitation2_updated.png
+   :width: 839px
+   :height: 193px
+
+* Behavior when build flag ``ICP_DC_RETURN_COUNTERS_ON_ERROR`` is defined. In some specialized applications, when a decompression soft error occurs, the application has no way of correcting the source of the error and resubmitting the request. The session will need to be invalidated and terminated. In this case it is more useful to the application to output the uncompressed data up to the point of soft error before terminating the session. There is a compile time build flag (``ICP_DC_RETURN_COUNTERS_ON_ERROR``) to select this mode of operation. This is the behavior of decompression in case of soft error when this build flag is used.
+  
+  If the following source and destination buffers were submitted to the Intel\ :sup:`®` QuickAssist Technology API:
+
+  .. figure:: ../../img/api_limitation3_updated.png
+   :width: 839px
+   :height: 193px
+
+  The result would be:
+
+  .. figure:: ../../img/api_limitation4_updated.png
+   :width: 839px
+   :height: 193px
+  
+  .. Warning::
+   
+      It is important to note in this case:
+
+         * The consumed value returned in the ``CpaDcRqResults`` structure is not reliable.
+         * No further requests can be submitted on this session.

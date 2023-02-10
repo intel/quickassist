@@ -1,0 +1,341 @@
+Description of Release 
+======================
+
+This document describes extensions and deviations from the release
+functionality described in the Release Notes that support
+Intel\ :sup:`®` QuickAssist Technology (Intel\ :sup:`®` QAT).
+
+This software release is intended for platforms that contain:
+
+- Intel® C62x Chipset
+
+- Intel Atom® C3000 processor product family
+
+- Intel® QuickAssist Adapter 8960/ Intel® QuickAssist Adapter 8970 (formerly known as "Lewis Hill")
+
+- Intel® Communications Chipset 8925 to 8955 Series
+
+- Intel® Atom® P5300 processor product family
+
+- Intel® 4th Gen Intel® Xeon® Scalable Processor  
+
+
+Revision History
+----------------
+
+.. table:: Table . Package Version
+
+   +----------+---------+----------------------------+-------------------+
+   | Document | Revision| Description                | Revision Date     |
+   | Number   | Number  |                            |                   |
+   +==========+=========+============================+===================+
+   | 621446   | 013     | | 3.13.0 Release (Current) | November 2022     |
+   |          |         | | Support for Intel(R) QAT |                   |
+   |          |         |   4xxx Series devices      |                   |
+   |          |         |                            |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 012     | 3.12.0 Release             | June 2022         |
+   |          |         |                            |                   |
+   |          |         | Maintenance release        |                   |
+   |          |         |                            |                   |
+   |          |         | Moved Known Issues to      |                   |
+   |          |         | Resolved Issues -          |                   |
+   |          |         | QATE-74788                 |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 011     | 3.11.0 Release             | October 2021      |
+   |          |         |                            |                   |
+   |          |         | Enable DC DP stateless     |                   |
+   |          |         | support in kernel space    |                   |
+   |          |         | for FreeBSD 11.4 and       |                   |
+   |          |         | FreeBSD 13                 |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 010     | 3.10.1 Alpha Release:      | July 2021         |
+   |          |         |                            |                   |
+   |          |         | Enable DC DP stateless     |                   |
+   |          |         | support in kernel space    |                   |
+   |          |         | for FreeBSD 13.0           |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 009     | 3.10.0 Release             | June 2021         |
+   |          |         |                            |                   |
+   |          |         | Enable PKE processing on   |                   |
+   |          |         | AE0 with RL/DU FW for      |                   |
+   |          |         | CPM1.6/1.7 devices         |                   |
+   |          |         |                            |                   |
+   |          |         | Adds support for CPM1.72   |                   |
+   |          |         | devices                    |                   |
+   |          |         |                            |                   |
+   |          |         | QAT Debuggability Black    |                   |
+   |          |         | Box tool                   |                   |
+   |          |         |                            |                   |
+   |          |         | USDM memory driver         |                   |
+   |          |         | allocation performance     |                   |
+   |          |         | improvement.               |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 008     | 3.9.1 Alpha Release        | March 2021        |
+   |          |         |                            |                   |
+   |          |         | FW change to enable        |                   |
+   |          |         | processing AE0 on RL/DU FW |                   |
+   |          |         | for CPM1.6/1.7             |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 007     | Updated Section 3.1        | March 2021        |
+   |          |         | Compiling the Driver with  |                   |
+   |          |         | additional step            |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 006     | 3.9.0 Product Release      | February 2021     |
+   |          |         |                            |                   |
+   |          |         | Updated New features       |                   |
+   |          |         |                            |                   |
+   |          |         | Configurable instance      |                   |
+   |          |         | feature                    |                   |
+   |          |         |                            |                   |
+   |          |         | Single thread              |                   |
+   |          |         | configuration option       |                   |
+   |          |         |                            |                   |
+   |          |         | Support for P5300 devices  |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 005     | 3.8.0 Product Release      | October 2020      |
+   |          |         |                            |                   |
+   |          |         | Updated New features       |                   |
+   |          |         |                            |                   |
+   |          |         | Device utilization v2 for  |                   |
+   |          |         | CPM1.6/1.7                 |                   |
+   |          |         |                            |                   |
+   |          |         | Added known issues         |                   |
+   |          |         | QATE-66213                 |                   |
+   |          |         |                            |                   |
+   |          |         | Updated known issue        |                   |
+   |          |         | QATE-30360                 |                   |
+   |          |         |                            |                   |
+   |          |         | Added resolved issues      |                   |
+   |          |         | QATE-63079 and QATE-40359  |                   |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 004     | 3.7.0 Product release      | June 2020         |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 003     | 3.6.0 Product release      | April 2020        |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 2.      | 3.5.0 Product release      | December 2019     |
+   +----------+---------+----------------------------+-------------------+
+   | 621446   | 001     | Initial release, 3.4.0     | September 2019    |
+   |          |         | Product release            |                   |
+   +----------+---------+----------------------------+-------------------+
+
+
+
+
+New Features Added with this Release
+------------------------------------
+
+Intel (R) QAT 4xxx Series device support
+++++++++++++++++++++++++++++++++++++++++
+
+This release introduces the support for Intel (R) QAT 4xxx Series devices (0x4940) with 
+lookaside support for crypto and data compression.
+
+For list of supported cryptographic operations for supported platforms please refer to :ref:`Programmer's Guide<qat_2.0_pg_services_cryptography>`.
+For compression, the following limitations exist:
+
+- LZ4/LZ4s are not currently supported
+
+Additional features:
+
+- No VF driver available for FreeBSD
+- Debuggability features are not currently enabled for QAT 4xxx devices. 
+
+Debuggability feature support for FreeBSD guest (SRIOV mode)
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+This release enables the support for debuggability feature for VF driver for FreeBSD.
+The usage of the features is the same as for host driver.
+
+.. note:: Debuggability features are not currently enabled for QAT4xxx devices.
+
+
+
+Limitations with this Production Release
+----------------------------------------
+
+-  Any version of FreeBSD* other than v13.1 is **NOT** fully validated.  Sign-of-life tests have been performed on v11.4 and v12.3.
+
+-  Data compression traditional API, Symmetric cryptography, PKE are not
+   supported in kernel space.
+
+-  Mask Generation Function (MGF) and stateful compression are not
+   supported starting with the 3.10 release for CPM 1.6, CPM 1.7x
+   devices.
+
+-  Symmetric session update feature is not supported.
+
+-  Non-deterministic Random Bit Generator (NRBG) is not supported.
+
+-  The HMAC-based Extract-and-Expand Key Derivation Function (HKDF) operational
+   data has to be allocated with the Unified System Diagnostic Manager
+   (USDM) to be pinned in physical memory.
+
+-  No inline support
+
+.. note:: There are known issues with this release of the driver, as described
+   in :ref:`Known Issues<freebsd_known_issues>`
+
+Package Version 
+----------------
+
+The following table shows the OS-specific package versions for each
+platform supported in this release.
+
+   +---------------+---------------------------+------------------------------+
+   | Chipset or    | Package Version           | SHA256 Checksum              |
+   | SoC           |                           |                              |
+   +===============+===========================+==============================+
+   | Top-Level     | QAT.B.3.13.0-00004.tar.gz | 507d8b6cedff5a0f2a9462aeee22 |
+   | Package       |                           | 98ddbff024470b44f455f00408aa |  
+   |               |                           | 77be1944                     |
+   +---------------+---------------------------+------------------------------+
+
+Licensing for FreeBSD\* Acceleration Software 
+----------------------------------------------
+
+The acceleration software is provided under the following license, as
+listed in the table below.
+
+.. note:: When using or redistributing dual-licensed components, you may do so
+       under either license.
+
+.. table:: 
+
+   +------------------+------------+-------------------------------------+
+   | Component        | License    | Directories                         |
+   +==================+============+=====================================+
+   | User Space       | Berkeley   | ./quickassist/build_system          |
+   | Library          | Software   |                                     |
+   |                  | Di         | ./quickassist/include               |
+   |                  | stribution |                                     |
+   |                  | (BSD)      | ./quickassist/lookaside             |
+   |                  |            |                                     |
+   |                  |            | ./quickassist/utilities/osal        |
+   +------------------+------------+-------------------------------------+
+   | Kernel space     | BSD        | ./quickassist/qat/drivers           |
+   | driver           |            | ./quickassist/utilities/adf_ctl     |
+   +------------------+------------+-------------------------------------+
+   | User Space       | BSD        | ./quickassist/utilities/libusdm     |
+   | DMA-able Memory  |            |                                     |
+   | Driver           |            |                                     |
+   +------------------+------------+-------------------------------------+
+   | Libcrypto        | OpenSSL\*  | ./quickassist/utilities/osal        |
+   |                  |            | /src/linux/user_space/openssl       |
+   +------------------+------------+-------------------------------------+
+   | CPM Firmware     | Redi       | ./quickassist/qat/fw                |
+   |                  | stribution |                                     |
+   +------------------+------------+-------------------------------------+
+   | Calgary corpus   | Public     | ./quic                              |
+   | and Canterbury   | domain     | kassist/lookaside/access_layer/src/ |
+   | corpus test      |            | sample_code/performance/compression |
+   | files            |            |                                     |
+   +------------------+------------+-------------------------------------+
+
+Intel\ :sup:`®` QAT Application Program Interface (API) Updates 
+----------------------------------------------------------------
+
+API versions have been updated to:
+      
+      - CY: 3.0
+      - DC: 3.2
+
+Technical Support 
+------------------
+
+Intel offers support for this software at the API level only, defined in
+the programmer's guide and API reference manuals listed in Section
+*2.1.1, Related Documents*.
+
+Environmental Assumptions 
+--------------------------
+
+The following assumptions are made about the deployment environment:
+
+-  The driver object/executable file on disk should be protected using
+   the normal file protection mechanisms so that it is writable only by
+   trusted users, for example, a privileged user or an administrator.
+
+-  The public key firmware image on disk should be protected using
+   normal file protection mechanisms so that it is writable only by
+   trusted users, for example, a privileged user or an administrator.
+
+-  The Intel\ :sup:`®` QAT device should not be exposed (via SR-IOV) to
+   untrusted guests.
+
+-  The Intel\ :sup:`®` QAT device should not be exposed (via the "user
+   space direct" deployment model) to untrusted users.
+
+-  Dynamic random-access memory (DRAM) is considered to be inside the
+   trust boundary. The standard memory-protection schemes provided by
+   the Intel\ :sup:`®` architecture processor and memory controller, and
+   by the operating system, prevent unauthorized access to these memory
+   regions.
+
+-  Persistent keys were not considered, but the storage media are also
+   found inside the cryptographic boundary. The driver exposed device
+   file should be protected using the normal file protection mechanisms
+   so that it could be opened and read/written only by trusted users.
+
+Terminology 
+------------
+
++----------+-----------------------------------------------------------+
+| Term     | Description                                               |
++==========+===========================================================+
+| AEAD     | Authenticated encryption with associated data             |
++----------+-----------------------------------------------------------+
+| API      | Application program interface                             |
++----------+-----------------------------------------------------------+
+| BOM      | Bill of Materials                                         |
++----------+-----------------------------------------------------------+
+| BSD      | Berkeley Software Distribution                            |
++----------+-----------------------------------------------------------+
+| CNV      | Compress and Verify                                       |
++----------+-----------------------------------------------------------+
+| DRAM     | Dynamic random-access memory                              |
++----------+-----------------------------------------------------------+
+| ESP      | Enterprise Solution Platform program                      |
++----------+-----------------------------------------------------------+
+| F        | Free Berkeley Software Distribution                       |
+| reeBSD\* |                                                           |
++----------+-----------------------------------------------------------+
+| GPL      | General Public License                                    |
++----------+-----------------------------------------------------------+
+| HKDF     | HMAC-based Extract-and-Expand Key Derivation Function     |
++----------+-----------------------------------------------------------+
+| Intel\   | Intel\ :sup:`®` QuickAssist Technology                    |
+| :sup:`®` |                                                           |
+| QAT      |                                                           |
++----------+-----------------------------------------------------------+
+| IPsec    | Internet Protocol Security                                |
++----------+-----------------------------------------------------------+
+| NRBG     | Non-deterministic Random Bit Generator                    |
++----------+-----------------------------------------------------------+
+| MGF      | Mask Generation Function                                  |
++----------+-----------------------------------------------------------+
+| OS       | Operating System                                          |
++----------+-----------------------------------------------------------+
+| SADB     | Security Association Database                             |
++----------+-----------------------------------------------------------+
+| SR-IOV   | Single Root I/O Virtualization                            |
++----------+-----------------------------------------------------------+
+| PF       | Physical Function                                         |
++----------+-----------------------------------------------------------+
+| RAS      | Remote Access Service                                     |
++----------+-----------------------------------------------------------+
+| RDK      | Reference Design Kit                                      |
++----------+-----------------------------------------------------------+
+| RHEL\*   | Red Hat Enterprise Linux\*                                |
++----------+-----------------------------------------------------------+
+| SOL      | Sign-of-Life                                              |
++----------+-----------------------------------------------------------+
+| UDP      | User Datagram Protocol                                    |
++----------+-----------------------------------------------------------+
+| USDM     | Unified System Diagnostic Manager                         |
++----------+-----------------------------------------------------------+
+| VF       | Virtual Function                                          |
++----------+-----------------------------------------------------------+
+
+
+

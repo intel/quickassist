@@ -1,0 +1,147 @@
+.. _qat_2.0_pg_supported-apis_additional_apis_iommufunctions:
+
+IOMMU Remapping Functions
+=========================
+
+These functions are intended for IOMMU remapping operations.
+
+All IOMMU remapping function definitions are located in: ``$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_iommu.h``
+
+icp_sal_iommu_get_remap_size
+----------------------------
+
+Returns the ``page_size`` rounded for IOMMU remapping.
+
+**Syntax**
+
+``size_t icp_sal_iommu_get_remap_size(size_t size);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+-------------------------------------------------------------------------------------------+
+   | ``size``             | The minimum required page size.                                                           |
+   +----------------------+-------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_iommu_get_remap_size`` function returns the ``page_size`` rounded for IOMMU remapping.
+
+icp_sal_iommu_map
+-----------------
+
+Adds an entry to the IOMMU remapping table.
+
+**Syntax**
+
+``CpaStatus icp_sal_iommu_map(Cpa64U phaddr, Cpa64U iova, size_t size);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``phaddr``           | Host physical address.                                                                       |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``iova``             | Guest physical address.                                                                      |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``size``             | Size of the remapped region.                                                                 |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_iommu_map`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successful operation.                                                                        |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+icp_sal_iommu_unmap
+-------------------
+
+Removes an entry from the IOMMU remapping table.
+
+**Syntax**
+
+``CpaStatus icp_sal_iommu_unmap(Cpa64U iova, size_t size);``
+
+**Parameters**
+
+.. table:: 
+   :widths: 25, 75
+
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``iova``             | Guest physical address.                                                                      |
+   +----------------------+----------------------------------------------------------------------------------------------+
+   | ``size``             | Size of the remapped region.                                                                 |
+   +----------------------+----------------------------------------------------------------------------------------------+
+
+**Return Value**
+
+The ``icp_sal_iommu_unmap`` function returns one of the following codes:
+
+.. table:: 
+   :widths: 25, 75
+
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_SUCCESS`` | Successful operation.                                                                        |
+   +------------------------+----------------------------------------------------------------------------------------------+
+   | ``CPA_STATUS_FAIL``    | Indicates a failure.                                                                         |
+   +------------------------+----------------------------------------------------------------------------------------------+
+
+IOMMU Remapping Function Usage
+------------------------------
+
+These functions are required when the user wants to access an acceleration service from the Physical Function (PF) when 
+SR-IOV is enabled in the driver. In this case, all I/O transactions from the device go through DMA remapping hardware. 
+
+This hardware checks:
+
+   #. If the transaction is legitimate
+   #. What physical address the given I/O address needs to be translated to. 
+
+If the I/O address is not in the transaction table, it fails with a DMA Read error shown as follows:
+
+   - **DRHD**: Handling fault status reg 3.
+   - **DMAR**:[DMA Read] Request device [02:01.2] fault addr <ADDR> DMAR:[fault reason 06] PTE Read access is not set.
+
+To make this work, the user must add a 1:1 mapping as follows:
+
+#. **Get** the size required for a buffer.
+  
+      ``int size = icp_sal_iommu_get_remap_size(size_of_data);``
+
+#. **Allocate** a buffer.
+  
+      ``char *buff = malloc(size);``
+
+#. **Get** a physical pointer to the buffer.
+  
+      ``buff_phys_addr = virt_to_phys(buff);``
+   
+#. **Add** a 1:1 mapping to the IOMMU tables.
+  
+      ``icp_sal_iommu_map(buff_phys_addr, buff_phys_addr, size;``
+
+#. **Use** the buffer to send data to the Intel\ :sup:`®` QAT Endpoint.
+
+#. Before freeing the buffer, **remove** the IOMMU table entry.
+  
+      ``icp_sal_iommu_unmap(buff_phys_addr, size);``
+
+#. **Free** the buffer.
+  
+      ``free(buff);``
+
+The IOMMU remapping functions can be used in all contexts that the Intel\ :sup:`®` QAT APIs can be used, that is, kernel and user 
+space in a Physical Function (PF) Domain 0, as well as kernel and user space in a Virtual Machine (VM). 
+
+In the case of VM, the APIs will do nothing. In the PF Domain 0 case, the APIs will update the hardware IOMMU tables.

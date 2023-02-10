@@ -1,0 +1,68 @@
+.. _qat_2.0_pg_infrastructure_modes_operation:
+
+Modes of Operation
+==================
+
+Calling Semantics
+-----------------
+
+Asynchronous (Polled)
++++++++++++++++++++++
+
+Hardware “request/response” interface is inherently asynchronous (non-blocking).
+
+- Calling function returns once request submitted.
+- Callback invoked when response available (polled).
+
+.. figure:: ../../img/polled_async.png
+   :width: 895px
+   :height: 632px
+
+Asynchronous (Interrupts)
++++++++++++++++++++++++++
+
+Hardware “request/response” interface is inherently asynchronous (non-blocking).
+
+- Calling function returns once request submitted.
+- Callback invoked when response available (interrupt-driven).
+
+.. figure:: ../../img/async_interrupts.png
+   :width: 895px
+   :height: 632px
+
+Synchronous
++++++++++++
+
+Software interface is traditionally synchronous (blocking).
+
+- Calling function blocks until response available.
+- Can be implemented “on top of” asynchronous hardware semantics.
+
+.. figure:: ../../img/synch.png
+   :width: 897px
+   :height: 633px
+
+Pros And Cons
++++++++++++++
+
+.. table:: 
+   :widths: 20, 40, 40
+
+   +-------------------+-----------------------------------------+-------------------------------------------------------------------+
+   |                   | **Asynchronous**                        | **Synchronous**                                                   |
+   +===================+=========================================+===================================================================+
+   | | CPU Utilization | | Software thread can do other things   | | Software thread blocked or idle awaiting response.              |
+   |                   |   while hardware processes job,         |   Can use multi-threading, but context switching can be expensive.|
+   |                   |   without need for expensive context    |                                                                   |
+   |                   |   switch.                               |                                                                   |
+   +-------------------+-----------------------------------------+-------------------------------------------------------------------+
+   | | Acceleration    | | A single software thread can have     | | Hardware has at most one request outstanding per CPU/software   |
+   |   Utilization     |   multiple requests outstanding,        |   thread, remaining threads are idle.                             |
+   |                   |   keeping multiple accelerator engines. |                                                                   |
+   +-------------------+-----------------------------------------+-------------------------------------------------------------------+
+   | | Ease of Use     | | Can be difficult if application is    | | Easier to integrate if application is designed to use           |
+   |                   |   designed to use synchronous APIs.     |   synchronous APIs.                                               |
+   +-------------------+-----------------------------------------+-------------------------------------------------------------------+
+   
+.. note:: 
+   Asynchronous API tends to be optimal for performance, but harder to integrate.
