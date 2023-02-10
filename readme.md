@@ -33,11 +33,13 @@ When creating an issue, please be specific on the page, section, and (if any) su
 
 The built HTML files are generated elsewhere and only *hosted* on this repository, so *there is no benefit to making a pull request*.
 
-## Contact
+## Contact & Support
+
+- For customers with Intel® Premier Support (IPS) accounts, please submit a ticket via https://www.intel.com/content/www/us/en/design/support/ips/training/welcome.html .
+- Community Forum page: https://community.intel.com/t5/Product-Support-Forums/ct-p/product-support-forums
+- Customer Support page: https://www.intel.com/content/www/us/en/support/contact-intel.html
 
 As an alternate, please contact qat-linux@intel.com .
-
-For customers with Intel® Premier Support (IPS) accounts, please submit a ticket via https://www.intel.com/content/www/us/en/design/support/ips/training/welcome.html .
 
 # Contributor Covenant Code of Conduct
 
