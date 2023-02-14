@@ -1,0 +1,211 @@
+/* Intel Colors */
+:root {
+    --classic-blue-shade-2: #00285A;
+	--classic-blue-shade-1: #004A86;
+	--classic-blue: #0068B5;
+    --classic-blue-tint-1: #00A3F6;
+    --classic-blue-tint-2: #76CEFF;
+    --energy-blue-shade-2: #005B85;
+	--energy-blue-shade-1: #0095CA;
+	--energy-blue: #00C7Fd;
+    --energy-blue-tint-1: #7BDEFF;
+    --energy-blue-tint-2: #B4F0FF;
+    --carbon-shade-2: #262626;
+	--carbon-shade-1: #525252;
+	--carbon: #808080;
+    --carbon-tint-1: #AEAEAE;
+    --carbon-tint-2: #E9E9E9;
+    --blue-steel-shade-2: #183544;
+	--blue-steel-shade-1: #41728A;
+	--blue-steel: #548FAD;
+    --blue-steel-tint-1: #86B3CA;
+    --blue-steel-tint-2: #B9D6E5;
+	--geode-shade-1: #653171;
+	--geode: #8F5DA2;
+    --geode-tint-1: #CC94DA;
+    --geode-tint-2: #EEC3F7;
+    --cobalt-shade-2: #000864;
+	--cobalt-shade-1: #000F8A;
+	--cobalt-steel: #1E2EB8;
+    --cobalt-tint-1: #5B69FF;
+    --cobalt-tint-2: #98A1FF;
+}
+/* Intel Fonts */
+@font-face {
+	font-family: intelone-display-light; src: url("../fonts/intelone-display-font-family-ttf/intelone-display-light.ttf");
+}
+@font-face {
+	font-family: intelone-display-regular; src: url("../fonts/intelone-display-font-family-ttf/intelone-display-regular.ttf");
+}
+@font-face {
+	font-family: intelone-display-medium; src: url("../fonts/intelone-display-font-family-ttf/intelone-display-medium.ttf");
+}
+@font-face {
+    font-family: intelone-text-light; src: url("../fonts/intelone-bodytext-font-family-ttf/intelone-text-light.ttf");
+}
+@font-face {
+    font-family: intelone-text-regular; src: url("../fonts/intelone-bodytext-font-family-ttf/intelone-text-regular.ttf");
+}
+@font-face {
+    font-family: intelone-text-medium; src: url("../fonts/intelone-bodytext-font-family-ttf/intelone-text-medium.ttf");
+}
+/* General Font & Background */
+body {
+    font-family: intelone-text-light;
+    background: white;
+    color: var(--carbon-shade-2);
+  }
+h1, h2, h3, h4, h5, h6 {
+    font-family: intelone-display-light;
+    font-weight: bold;
+}
+h1, h2 {
+    color: var(--classic-blue-shade-1);
+}
+h3, h4 {
+    color: var(--classic-blue);
+}
+h5, h6 {
+    color: var(--classic-blue-shade-1);
+}
+a {
+    color: var(--cobalt-steel);
+}
+.toctree-wrapper ul li {
+    list-style-type: none !important;
+}
+/* Table of Content */
+.wy-nav-side {
+    background: var(--carbon-shade-2);
+}
+.wy-side-nav-search {
+    background: var(--classic-blue-shade-1);
+}
+.wy-side-nav-search>a {
+    font-weight: normal;
+    font-family: intelone-display-light;
+    font-size: 18px;
+    color: white;
+}
+.wy-side-nav-search>a:hover {
+    background: transparent;
+}
+.wy-side-nav-search>div.version {
+    font-weight: normal;
+    font-family: intelone-display-light;
+    font-size: 15px;
+    color: white;
+}
+/* Level 1 */
+.wy-menu-vertical li.toctree-l1>a, .wy-menu-vertical li.toctree-l1>a>button.toctree-expand {
+    color: var(--carbon-tint-2);
+    background: var(--carbon-shade-2);
+}
+.wy-menu-vertical li.toctree-l1>a:hover, .wy-menu-vertical li.toctree-l1>a:hover>button.toctree-expand {
+    background: var(--classic-blue-shade-1);
+    color: var(--carbon-tint-2);
+    font-family: intelone-text-medium;
+}
+.wy-menu-vertical li.toctree-l1.current>a, .wy-menu-vertical li.toctree-l1.current>a>button.toctree-expand {
+    background: var(--classic-blue-shade-1);
+    color: var(--carbon-tint-2);
+    font-weight: normal;
+    font-family: intelone-text-medium;
+    border-color: var(--classic-blue-shade-1);
+}
+/* Level 2 */
+.wy-menu-vertical li.toctree-l2>a, .wy-menu-vertical li.toctree-l2>a>button.toctree-expand {
+    color: var(--carbon-shade-2);
+    background: var(--carbon-tint-2);
+    border-color: var(--carbon-tint-2);
+}
+.wy-menu-vertical li.toctree-l2>a:hover, .wy-menu-vertical li.toctree-l2>a:hover>button.toctree-expand {
+    background: var(--carbon-tint-1);
+    color: var(--carbon-shade-2);
+    border-color: var(--carbon-tint-1);
+    font-family: intelone-text-medium;
+}
+.wy-menu-vertical li.toctree-l2.current>a, .wy-menu-vertical li.toctree-l2.current>a>button.toctree-expand {
+    color: var(--carbon-shade-2);
+    background: var(--carbon-tint-1);
+    font-weight: normal;
+    font-family: intelone-text-medium;
+}
+/* Level 3 */
+.wy-menu-vertical li.toctree-l3>a, .wy-menu-vertical li.toctree-l3>a>button.toctree-expand {
+    color: var(--carbon-shade-2);
+    background: var(--carbon-tint-1) !important;
+    border-color: var(--carbon-tint-1);
+}
+.wy-menu-vertical li.toctree-l3>a:hover, .wy-menu-vertical li.toctree-l3>a:hover>button.toctree-expand {
+    background: var(--classic-blue) !important;
+    color: var(--carbon-tint-2);
+    border-color: var(--classic-blue);
+    font-family: intelone-text-medium;
+}
+.wy-menu-vertical li.toctree-l3.current>a, .wy-menu-vertical li.toctree-l3.current>a>button.toctree-expand {
+    color: var(--carbon-tint-2);
+    background: var(--classic-blue) !important;
+    font-weight: normal;
+    font-family: intelone-text-medium;
+}
+/* Level 4 */
+.wy-menu-vertical li.toctree-l4>a, .wy-menu-vertical li.toctree-l4>a>button.toctree-expand {
+    color: var(--carbon-shade-2);
+    background: var(--carbon-tint-2) !important;
+    border-color: var(--carbon-tint-2);
+}
+.wy-menu-vertical li.toctree-l4>a:hover, .wy-menu-vertical li.toctree-l4>a:hover>button.toctree-expand {
+    color: var(--classic-blue);
+    font-family: intelone-text-medium;
+}
+.wy-menu-vertical li.toctree-l4.current>a, .wy-menu-vertical li.toctree-l4.current>a>button.toctree-expand {
+    color: var(--classic-blue);
+    font-weight: normal;
+    font-family: intelone-text-medium;
+}
+/* Content */
+.wy-nav-content {
+    background-color: white;
+    max-width: none;
+}
+/* Note Boxes */
+.note .admonition-title {
+    font-family: intelone-text-regular;
+    font-weight: normal;
+    background: var(--blue-steel) !important;
+}
+.note {
+    background: var(--carbon-tint-2) !important;
+}
+.important .admonition-title {
+    font-family: intelone-text-regular;
+    font-weight: normal;
+    background: var(--geode) !important;
+}
+.important {
+    background: var(--carbon-tint-2) !important;
+}
+/* Tables */
+.wy-table-responsive tr.row-even td {
+    background-color: var(--carbon-tint-2) !important;
+}
+.wy-table-responsive tr.row-odd td {
+    background-color: white !important;
+}
+/* Center headers */
+.wy-table-responsive tr th {
+    text-align: center;
+}
+.wy-table-responsive table td,
+.wy-table-responsive table th {
+  white-space: normal !important;
+}
+/* Specific for tables in Release Notes (Issues) */
+.wy-table-responsive table.rn-table {
+    width: 100% !important;
+}
+/* Code Blocks */
+pre {
+    white-space: pre-wrap !important;
+}

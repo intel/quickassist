@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configuring Multiple Processes on a System with Multiple Intel® QAT Endpoints &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sample Configuration Files" href="configuration_files_samplefiles.html" />
+    <link rel="prev" title="Configuring Multiple Intel® QuickAssist Technology Endpoints in a System" href="configuration_files_multipleendpoints.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_overview.html">Configuration File Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_generalsection.html">General Section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_logicalsection.html">Logical Instances Section</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_maxprocesscalculations.html">Maximum Number of Process Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_multipleendpoints.html">Configuring Multiple Intel<sup>®</sup> QuickAssist Technology Endpoints in a System</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Configuring Multiple Processes on a System with Multiple Intel<sup>®</sup> QAT Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_samplefiles.html">Sample Configuration Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
+      <li>Configuring Multiple Processes on a System with Multiple Intel<sup>®</sup> QAT Endpoints</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="configuring-multiple-processes-on-a-system-with-multiple-intel-qat-endpoints">
+<span id="qat-2-0-pg-configuration-files-multiple-processes-multiple-endpoints"></span><h1>Configuring Multiple Processes on a System with Multiple Intel<sup>®</sup> QAT Endpoints<a class="headerlink" href="#configuring-multiple-processes-on-a-system-with-multiple-intel-qat-endpoints" title="Permalink to this headline"></a></h1>
+<p>As an example, consider a system with two Intel<sup>®</sup> QAT Endpoints where it is necessary to configure two user space sections.
+One section is identified as SSL and the other is identified as Internet Protocol Security (IPSec).</p>
+<ul class="simple">
+<li><p>For the SSL section, configure eight processes, where each process has access to one acceleration instance.</p></li>
+<li><p>For the IPSec section, configure one process, with access to eight acceleration instances, four per Intel<sup>®</sup> QAT Endpoint.</p></li>
+</ul>
+<p>In this scenario, the user space section of the configuration file would look like the following for the first Intel<sup>®</sup> QAT Endpoint.</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>SSL<span class="o">]</span> <span class="c1">#User space section name</span>
+<span class="nv">NumProcesses</span><span class="o">=</span><span class="m">4</span> <span class="c1"># There are 4 user space process with section name SSL with access to this device</span>
+<span class="nv">LimitDevAccess</span><span class="o">=</span><span class="m">1</span> <span class="c1"># These 4 SSL user space processes only use this device</span>
+<span class="nv">NumCyInstances</span><span class="o">=</span><span class="m">1</span> <span class="c1"># Each process has access to 1 Cy instance on this device</span>
+<span class="nv">NumDcInstances</span><span class="o">=</span><span class="m">0</span> <span class="c1"># Each process has access to 0 Dc instances on this device</span>
+
+<span class="c1"># Crypto - User instance #0</span>
+<span class="nv">Cy0Name</span> <span class="o">=</span> <span class="s2">&quot;SSL0&quot;</span>
+<span class="nv">Cy0IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy0CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+
+<span class="o">[</span>IPsec<span class="o">]</span> <span class="c1">#User space section name</span>
+<span class="nv">NumProcesses</span><span class="o">=</span><span class="m">1</span> <span class="c1"># There is 1 user space process with section name IPSec with access to this device</span>
+<span class="nv">LimitDevAccess</span><span class="o">=</span><span class="m">0</span> <span class="c1"># This IPSec user space process may have access to other devices</span>
+<span class="nv">NumCyInstances</span><span class="o">=</span><span class="m">4</span> <span class="c1"># The IPSec process has access to 4 Cy instances on this device</span>
+<span class="nv">NumDcInstances</span><span class="o">=</span><span class="m">0</span> <span class="c1"># The IPSec process has access to 0 Dc instances on this device</span>
+
+<span class="c1"># Crypto - User instance #0</span>
+<span class="nv">Cy0Name</span> <span class="o">=</span> <span class="s2">&quot;IPSec0&quot;</span>
+<span class="nv">Cy0IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy0CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+<span class="c1"># Crypto - User instance #1</span>
+
+<span class="nv">Cy1Name</span> <span class="o">=</span> <span class="s2">&quot;IPSec1&quot;</span>
+<span class="nv">Cy1IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy1CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+
+<span class="c1"># Crypto - User instance #2</span>
+<span class="nv">Cy2Name</span> <span class="o">=</span> <span class="s2">&quot;IPSec2&quot;</span>
+<span class="nv">Cy2IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy2CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+
+<span class="c1"># Crypto - User instance #3</span>
+<span class="nv">Cy3Name</span> <span class="o">=</span> <span class="s2">&quot;IPSec3&quot;</span>
+<span class="nv">Cy3IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy3CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The second Intel<sup>®</sup> QAT Endpoint configuration looks like:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>SSL<span class="o">]</span> <span class="c1">#User space section name</span>
+<span class="nv">NumProcesses</span><span class="o">=</span><span class="m">4</span> <span class="c1"># There are 4 user space process with section name SSL with access to this device</span>
+<span class="nv">LimitDevAccess</span><span class="o">=</span><span class="m">1</span> <span class="c1"># These 4 SSL user space processes only use this device</span>
+<span class="nv">NumCyInstances</span><span class="o">=</span><span class="m">1</span> <span class="c1"># Each process has access to 1 Cy instance on this device</span>
+<span class="nv">NumDcInstances</span><span class="o">=</span><span class="m">0</span> <span class="c1"># Each process has access to 0 Dc instances on this device</span>
+
+<span class="c1"># Crypto - User instance #0</span>
+<span class="nv">Cy0Name</span> <span class="o">=</span> <span class="s2">&quot;SSL0&quot;</span>
+<span class="nv">Cy0IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy0CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+
+<span class="o">[</span>IPsec<span class="o">]</span> <span class="c1">#User space section name</span>
+<span class="nv">NumProcesses</span><span class="o">=</span><span class="m">1</span> <span class="c1"># There is 1 user space process with section name IPSec with access to this device</span>
+<span class="nv">LimitDevAccess</span><span class="o">=</span><span class="m">0</span> <span class="c1"># This IPSec user space process may have access to other devices</span>
+<span class="nv">NumCyInstances</span><span class="o">=</span><span class="m">4</span> <span class="c1"># The IPSec process has access to 4 Cy instances on this device</span>
+<span class="nv">NumDcInstances</span><span class="o">=</span><span class="m">0</span> <span class="c1"># The IPSec process has access to 0 Dc instances on this device</span>
+
+<span class="c1"># Crypto - User instance #0</span>
+<span class="nv">Cy0Name</span> <span class="o">=</span> <span class="s2">&quot;IPSec0&quot;</span>
+<span class="nv">Cy0IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy0CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+
+<span class="c1"># Crypto - User instance #1</span>
+<span class="nv">Cy1Name</span> <span class="o">=</span> <span class="s2">&quot;IPSec1&quot;</span>
+<span class="nv">Cy1IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy1CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+
+<span class="c1"># Crypto - User instance #2</span>
+<span class="nv">Cy2Name</span> <span class="o">=</span> <span class="s2">&quot;IPSec2&quot;</span>
+<span class="nv">Cy2IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy2CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+
+<span class="c1"># Crypto - User instance #3</span>
+<span class="nv">Cy3Name</span> <span class="o">=</span> <span class="s2">&quot;IPSec3&quot;</span>
+<span class="nv">Cy3IsPolled</span> <span class="o">=</span> <span class="m">1</span>
+<span class="nv">Cy3CoreAffinity</span> <span class="o">=</span> <span class="m">0</span> <span class="c1"># Core affinity not used for polled instance</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Eight processes (with section name SSL) can call the <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart(&quot;SSL&quot;)</span></code> function to get access to one crypto instance each. One process (with section name IPSec) can call the <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart(&quot;IPSec&quot;)</span></code> function to get access to eight crypto instances.</p>
+<p>Internally in the driver, this works as follows:</p>
+<ol class="arabic">
+<li><p>When the driver is configured (that is, the <code class="docutils literal notranslate"><span class="pre">service</span> <span class="pre">qat_service</span></code> is called), the driver reads the configuration file for the device and populates an internal configuration table.</p></li>
+<li><p>Reading the configuration file for <code class="docutils literal notranslate"><span class="pre">dev0</span></code>:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>For the section named <code class="docutils literal notranslate"><span class="pre">[SSL]</span></code>, the driver determines that four processes are required and that these processes limit access to this device only. In this case, the driver creates four internal sections that it labels <code class="docutils literal notranslate"><span class="pre">SSL_DEV0_INT_0</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV0_INT_1</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV0_INT_2</span></code> and <code class="docutils literal notranslate"><span class="pre">SSL_DEV0_INT_3</span></code>. Each section is given access to one crypto instance as described.</p></li>
+<li><p>For section name <code class="docutils literal notranslate"><span class="pre">[IPSec]</span></code>, the driver determines that one process is required and that this process does not limit access to this device only (that is, it may access instances on other devices). In this case, the driver creates one internal section that it labels <code class="docutils literal notranslate"><span class="pre">IPSec_INT_0</span></code> and gives this access to four crypto instances on this device.</p></li>
+</ol>
+</div></blockquote>
+</li>
+<li><p>Reading the configuration file for <code class="docutils literal notranslate"><span class="pre">dev1</span></code>:</p>
+<blockquote>
+<div><ol class="loweralpha simple">
+<li><p>For the section named <code class="docutils literal notranslate"><span class="pre">[SSL]</span></code>, the driver determines that four processes are required and that these processes are limited to access this device only. In this case, the driver creates four internal sections that it labels <code class="docutils literal notranslate"><span class="pre">SSL_DEV1_INT_0</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV1_INT_1</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV1_INT_2</span></code> and <code class="docutils literal notranslate"><span class="pre">SSL_DEV1_INT_3</span></code>. Each section is given access to one crypto instance as described.</p></li>
+<li><p>For the section named <code class="docutils literal notranslate"><span class="pre">[IPSec]</span></code>, the driver determines that one process is required and that this process may have access to instances on other devices. In this case, the driver creates one internal section that it labels <code class="docutils literal notranslate"><span class="pre">IPSec_INT_0</span></code> and gives this access to four crypto instances on this device.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section name now appears in both devices’ internal configuration and, therefore, the process that gets assigned this section name will have access to instances on both devices.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p>In total, there are nine separate sections (<code class="docutils literal notranslate"><span class="pre">SSL_DEV0_INT_0</span></code>, <code class="docutils literal notranslate"><span class="pre">SL_DEV0_INT_1</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV0_INT_2</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV0_INT_3</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV1_INT_0</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV1_INT_1</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV1_INT_2</span></code>, <code class="docutils literal notranslate"><span class="pre">SSL_DEV1_INT_3</span></code> and <code class="docutils literal notranslate"><span class="pre">IPSec_INT_0</span></code>) with access to crypto instances.</p></li>
+</ol>
+<p>When a process calls the <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart</span> <span class="pre">(&quot;SSL&quot;)</span></code> function, the driver locates the next available section of the form <code class="docutils literal notranslate"><span class="pre">SSL_DEV&lt;m&gt;_INT&lt;....&gt;</span></code> (of which there are eight in total in this example) and assigns this section to the process. This gives the process access to corresponding crypto instances.</p>
+<p>When a process calls the <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart</span> <span class="pre">(&quot;IPSec&quot;)</span></code> function, the driver locates the next available section of the form <code class="docutils literal notranslate"><span class="pre">IPSec_INT_&lt;....&gt;</span></code> (of which there is only one in total for this example) and assigns this section to the process. This gives the process access to the corresponding crypto instances.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userStartMultiProcess()</span></code> function has been deprecated. The API still exists, but it simply calls <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart()</span></code>.</p>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration_files_multipleendpoints.html" class="btn btn-neutral float-left" title="Configuring Multiple Intel® QuickAssist Technology Endpoints in a System" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration_files_samplefiles.html" class="btn btn-neutral float-right" title="Sample Configuration Files" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

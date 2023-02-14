@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Logical Instances Section &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Maximum Number of Process Calculations" href="configuration_files_maxprocesscalculations.html" />
+    <link rel="prev" title="General Section" href="configuration_files_generalsection.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_overview.html">Configuration File Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_generalsection.html">General Section</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Logical Instances Section</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#kernel-section">[KERNEL] Section</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#user-process-xxxxx-sections">User Process [xxxxx] Sections</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cryptographic-logical-instance-parameters">Cryptographic Logical Instance Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-compression-logical-instance-parameters">Data Compression Logical Instance Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-the-core-affinity-parameter-for-a-logical-instance">Setting the Core Affinity Parameter for a Logical Instance</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_maxprocesscalculations.html">Maximum Number of Process Calculations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_multipleendpoints.html">Configuring Multiple Intel<sup>®</sup> QuickAssist Technology Endpoints in a System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_multipleprocesses.html">Configuring Multiple Processes on a System with Multiple Intel<sup>®</sup> QAT Endpoints</a></li>
+<li class="toctree-l3"><a class="reference internal" href="configuration_files_samplefiles.html">Sample Configuration Files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
+      <li>Logical Instances Section</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="logical-instances-section">
+<span id="qat-2-0-pg-configuration-files-logical-instances-section"></span><h1>Logical Instances Section<a class="headerlink" href="#logical-instances-section" title="Permalink to this headline"></a></h1>
+<p>This section allows the configuration of logical instances in each address domain (kernel space and individual user space processes).</p>
+<p>The address domains are in the following format:</p>
+<ul class="simple">
+<li><p>For the kernel address domain: <code class="docutils literal notranslate"><span class="pre">[KERNEL]</span></code> targeted to Linux* Kernel Crypto Framework (LKCF).</p></li>
+<li><p>For user process address domains: <code class="docutils literal notranslate"><span class="pre">[xxxxx]</span></code>, where <code class="docutils literal notranslate"><span class="pre">xxxxx</span></code> may be any ASCII value that uniquely identifies the user mode process.</p></li>
+</ul>
+<p>In user space, to allow the driver to configure the logical instances associated with a user process correctly, the process must call the function
+<code class="docutils literal notranslate"><span class="pre">icp_sal_userStart</span></code> passing the <code class="docutils literal notranslate"><span class="pre">xxxxx</span></code> string during process initialization. When the user space process is finished, it must call the function
+<code class="docutils literal notranslate"><span class="pre">icp_sal_userStop</span></code> to free resources. Refer to <a class="reference internal" href="apis_additional_userspacefunctions.html#qat-2-0-pg-supported-apis-additional-apis-userspacefunctions"><span class="std std-ref">User Space Access Configuration Functions</span></a> for more information.</p>
+<p>A single VF configured for the SR-IOV use case cannot have both user space instances and kernel space instances. Separate VFs must be created for user space and kernel space.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">NumProcesses</span></code> parameter (in the User Process section) indicates the max number of user space processes within that section name with access to instances on this device. Refer to <a class="reference internal" href="apis_additional_userspacefunctions.html#icp-sal-userstart"><span class="std std-ref">icp_sal_userStart</span></a> for more information.</p>
+<p>The items that can be configured for a logical instance are:</p>
+<ul class="simple">
+<li><p>The name of the logical instance.</p></li>
+<li><p>The polling mode.</p></li>
+<li><p>The core to which the instance is affinitized (optional).</p></li>
+</ul>
+<section id="kernel-section">
+<h2>[KERNEL] Section<a class="headerlink" href="#kernel-section" title="Permalink to this headline"></a></h2>
+<p>In the <code class="docutils literal notranslate"><span class="pre">[KERNEL]</span></code> section of the configuration file, information about the number and type of kernel instances can be defined. This table describes the parameters that determine the number of kernel instances for each service.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The maximum number of cryptographic and data compression instances supported per Intel<sup>®</sup> QAT Endpoint is 32.
+For exceptions refer to <a class="reference internal" href="configuration_files_maxprocesscalculations.html#increasing-max-numofprocesses"><span class="std std-ref">Increasing the Maximum Number of Processes/Instances.</span></a></p>
+</div>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">[KERNEL] Section Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 55%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Default</strong></p></th>
+<th class="head"><p><strong>Range</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NumberCyInstances</span></code></p></td>
+<td><p>Specifies the number of cryptographic instances.</p>
+<p>Note: Depends on the number of allocations to other services.</p>
+</td>
+<td><p>0</p></td>
+<td><p>0 to 32</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NumberDcInstances</span></code></p></td>
+<td><p>Specifies the number of data compression instances.</p>
+<p>Note: Depends on the number of allocations to other services.</p>
+</td>
+<td><p>0</p></td>
+<td><p>0 to 32</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="user-process-xxxxx-sections">
+<h2>User Process [xxxxx] Sections<a class="headerlink" href="#user-process-xxxxx-sections" title="Permalink to this headline"></a></h2>
+<p>There is one [xxxxx] section of the configuration file for each Intel<sup>®</sup> QAT Endpoint to be configured. In each [xxxxx] section of the
+configuration file, user space access to the Intel<sup>®</sup> QAT Endpoint can be configured. Parameters for each user process instance can also
+be defined. Common names for this section are <code class="docutils literal notranslate"><span class="pre">[SSL]</span></code> or <code class="docutils literal notranslate"><span class="pre">[SHIM]</span></code></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Check the SKU information for your specific device to determine how  many Intel<sup>®</sup> QAT Endpoints the device contains.</p>
+</div>
+<p>This table shows the parameters in the configuration file that can be set for user process [xxxxx] sections.</p>
+<table class="longtable colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">[User Process] Section Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 35%" />
+<col style="width: 10%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Default</strong></p></th>
+<th class="head"><p><strong>Range</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NumProcesses</span></code></p></td>
+<td><p>The number of user space processes with section name [xxxxx] that have access to this device.</p>
+<p>The maximum number of processes that can call <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart</span></code> and be active at any one time. See <a class="reference internal" href="apis_additional_userspacefunctions.html#icp-sal-userstart"><span class="std std-ref">icp_sal_userStart</span></a>
+for additional information.</p>
+<p><em>Caution</em>: Resources are pre-allocated. If this parameter value is set too high, the driver fails to load.</p>
+</td>
+<td><p>1</p></td>
+<td><p>For constraints, see <a class="reference internal" href="configuration_files_maxprocesscalculations.html#qat-2-0-pg-configuration-files-max-numofprocesses-calculation"><span class="std std-ref">Maximum Number of Process Calculations</span></a>.</p>
+<p>For exceptions, see <a class="reference internal" href="configuration_files_maxprocesscalculations.html#increasing-max-numofprocesses"><span class="std std-ref">Increasing the Maximum Number of Processes/Instances</span></a>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LimitDevAccess</span></code></p></td>
+<td><p>Indicates if the user space processes in this section are limited to only access instances on this Intel® QAT Endpoint.</p></td>
+<td><p>0</p></td>
+<td><p>0 (disabled, processes in this section can access multiple Intel® QAT Endpoints), or</p>
+<p>1 (enabled, processes in this section can only access this Intel® QAT Endpoint).</p>
+<p>For additional information, see <a class="reference internal" href="configuration_files_multipleprocesses.html#qat-2-0-pg-configuration-files-multiple-processes-multiple-endpoints"><span class="std std-ref">Configuring Multiple Processes on a System with Multiple Intel® QAT Endpoints</span></a>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NumberCyInstances</span></code></p></td>
+<td><p>Specifies the number of cryptographic instances.</p>
+<p>Note: Depends on the number of allocations to other services.</p>
+</td>
+<td><p>6</p></td>
+<td><p>0 to 32. For exceptions, see <a class="reference internal" href="configuration_files_maxprocesscalculations.html#increasing-max-numofprocesses"><span class="std std-ref">Increasing the Maximum Number of Processes/Instances</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NumberDcInstances</span></code></p></td>
+<td><p>Specifies the number of data compression instances.</p>
+<p>Note: Depends on the number of allocations to other services.</p>
+</td>
+<td><p>2</p></td>
+<td><p>0 to 32. For exceptions, see <a class="reference internal" href="configuration_files_maxprocesscalculations.html#increasing-max-numofprocesses"><span class="std std-ref">Increasing the Maximum Number of Processes/Instances</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="cryptographic-logical-instance-parameters">
+<h2>Cryptographic Logical Instance Parameters<a class="headerlink" href="#cryptographic-logical-instance-parameters" title="Permalink to this headline"></a></h2>
+<p>The following table shows the parameters that can be set for cryptographic logical instances.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><em>Default</em> denotes the value in the configuration file when shipped.</p>
+</div>
+<table class="longtable colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Cryptographic Logical Instance Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 35%" />
+<col style="width: 20%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Default</strong></p></th>
+<th class="head"><p><strong>Range</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CyXName</span></code></p></td>
+<td><p>Specifies the name of cryptographic instance number X.</p></td>
+<td><p>IPSec0 for <code class="docutils literal notranslate"><span class="pre">KERNEL</span></code> section.
+SSL0 for user section</p></td>
+<td><p>String (max. 64 characters)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CyXIsPolled</span></code></p></td>
+<td><p>Specifies if cryptographic instance number x works in poll mode, interrupt mode or epoll mode.</p></td>
+<td><p>0 for kernel space instances
+1 for user space instance</p></td>
+<td><p>0 (interrupt mode) for instances in the <code class="docutils literal notranslate"><span class="pre">KERNEL</span></code> section.
+1 (poll mode) for instances in user space sections.
+2 (epoll mode eventbased polling mode) for instances in user space section.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CyXCoreAffinity</span></code></p></td>
+<td><p>Specifies the core to which the instance should be affinitized.</p></td>
+<td><p>Varies depending on the value of X.</p></td>
+<td><p>0 to max. number of cores in the system.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="data-compression-logical-instance-parameters">
+<h2>Data Compression Logical Instance Parameters<a class="headerlink" href="#data-compression-logical-instance-parameters" title="Permalink to this headline"></a></h2>
+<p>This table shows the parameters in the configuration file that can be set for data compression logical instances.</p>
+<table class="longtable colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">Data Compression Logical Instance Parameters</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 35%" />
+<col style="width: 20%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Default</strong></p></th>
+<th class="head"><p><strong>Range</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DcXName</span></code></p></td>
+<td><p>Specifies the name of data compression instance number X.</p></td>
+<td><p>IPComp0</p></td>
+<td><p>String (max. 64 characters)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DcXIsPolled</span></code></p></td>
+<td><p>Specifies if data compression instance number x works in poll mode, interrupt mode or epoll mode.</p></td>
+<td><p>0 for kernel space instances
+1 for user space instances</p></td>
+<td><p>0 (interrupt mode) for instances in the KERNEL.
+1 (poll mode) for instances in the KERNEL_QAT and user space sections.
+2 (epoll mode eventbased polling mode) for instances in user space section.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DcXCoreAffinity</span></code></p></td>
+<td><p>Specifies the core to which the data compression instance should be affinitized.</p></td>
+<td><p>Varies depending on the value of X.</p></td>
+<td><p>0 to max. number of cores in the system.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The maximum number of data compression instances supported is 64.</p></li>
+<li><p><em>Default</em> denotes the value in the configuration file when shipped.</p></li>
+</ul>
+</div>
+</section>
+<section id="setting-the-core-affinity-parameter-for-a-logical-instance">
+<h2>Setting the Core Affinity Parameter for a Logical Instance<a class="headerlink" href="#setting-the-core-affinity-parameter-for-a-logical-instance" title="Permalink to this headline"></a></h2>
+<p>When instances are configured with <code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">1</span></code> (Polling mode), the parameter <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> does not have any impact.</p>
+<p>Although not used, it is a valid parameter and applications can query the value using <code class="docutils literal notranslate"><span class="pre">cpaCyInstanceGetInfo2</span></code> (see <code class="docutils literal notranslate"><span class="pre">coreAffinity</span></code> bitmask in <code class="docutils literal notranslate"><span class="pre">CpaInstanceInfo2</span></code>). For example, the sample code affinitizes the thread that uses an instance to the core indicated in <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> the config file for that instance.</p>
+<p>For instances configured in Interrupt Mode (<code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">2</span></code> in user space (epoll) and <code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">1</span></code> in kernel space), the value of <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> is used to affinitize the interrupt handler to that core.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration_files_generalsection.html" class="btn btn-neutral float-left" title="General Section" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="configuration_files_maxprocesscalculations.html" class="btn btn-neutral float-right" title="Maximum Number of Process Calculations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
