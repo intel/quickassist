@@ -57,7 +57,9 @@
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_queue_pairs.html">Queues and Queue Pairs</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_service_instances.html">Service Instances</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Memory Management</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#shared-virtual-memory">Shared Virtual Memory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#dma-able-memory">DMA-able Memory</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memory-type-determination">Memory Type Determination</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#buffer-formats">Buffer Formats</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#huge-pages">Huge Pages</a></li>
 </ul>
@@ -110,11 +112,46 @@
              
   <section id="memory-management">
 <span id="qat-2-0-pg-infrastructure-memory-management"></span><h1>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline"></a></h1>
+<p>This section describes memory management requirements for submitting buffers to the QAT hardware.</p>
+<section id="shared-virtual-memory">
+<h2>Shared Virtual Memory<a class="headerlink" href="#shared-virtual-memory" title="Permalink to this headline"></a></h2>
+<p>Shared Virtual Memory (SVM) is a new feature in QAT 2.0 hardware. In QAT 1.x hardware, memory needs to be
+submitted to the hardware as pinned and physically contiguous memory. In QAT 2.0, SVM allows direct submission
+of an applications buffer, thus removing the memcpy cycle cost, cache thrashing, and memory bandwidth.
+The SVM feature enables passing virtual addresses to the QAT hardware for processing acceleration requests.</p>
+<p>With SVM:</p>
+<ul class="simple">
+<li><p>Virtually contiguous (can also deal with Scatter Gather Lists of virtually addressed buffers).</p></li>
+<li><p>Virtually addressed.</p></li>
+<li><p>Can tolerate page faults but Pinning (i.e. locked, guaranteed resident in physical memory) is recommended for performance.</p></li>
+</ul>
+<section id="svm-kernel-requirements">
+<span id="qat-2-0-pg-svm-kernel-requirements"></span><h3>SVM Kernel Requirements<a class="headerlink" href="#svm-kernel-requirements" title="Permalink to this headline"></a></h3>
+<p>In order to use SVM, ensure that kernel version v6.1 or higher is used. Alternatively verify the following kernel patches are applied.</p>
+<ul class="simple">
+<li><p>81c95fbaebfa5990c3c786c8c3e87426a33106fe</p></li>
+<li><p>e65a6897be5e4939d477c4969a05e12d90b08409</p></li>
+</ul>
+<p>Verification can be done with the following steps:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag --contains 81c95fbaebfa5990c3c786c8c3e87426a33106fe
+git tag --contains e65a6897be5e4939d477c4969a05e12d90b08409
+</pre></div>
+</div>
+</div></blockquote>
+<p>This requirement provides mitigation for the issue <a class="reference internal" href="../ReleaseNotes/Linux/2.X/RN/updates.html#qat-2-0-rn-svm-issue"><span class="std std-ref">QAT20-23616</span></a> described in the Release Notes.</p>
+<p>The following kernel boot parameters need to be defined in order to utilize SVM.</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">intel_iommu=on,sm_on</span></code></p>
+</div></blockquote>
+<p>Refer to <a class="reference internal" href="configuration_files_generalsection.html#qat-2-0-pg-svm-configuration-parameters"><span class="std std-ref">Shared Virtual Memory Parameters</span></a> for details on QAT configuration files updates required to support SVM.</p>
+</section>
+</section>
 <section id="dma-able-memory">
 <h2>DMA-able Memory<a class="headerlink" href="#dma-able-memory" title="Permalink to this headline"></a></h2>
-<p>Memory passed to Intel<sup>®</sup> QuickAssist Technology hardware must be DMA’able.</p>
+<p>If SVM is not enabled, Memory passed to Intel<sup>®</sup> QuickAssist Technology hardware must be DMA’able.</p>
 <ul class="simple">
-<li><p>Physically contiguous (can also deal with SGLs).</p></li>
+<li><p>Physically contiguous (can also deal with Scatter Gather Lists).</p></li>
 <li><p>Physically addressed.</p>
 <ul>
 <li><p>If VT-d is enabled (e.g. in virtualized system), then Intel IOMMU will translate to host physical addresses as needed.</p></li>
@@ -125,6 +162,43 @@
 <p>Intel provides a User Space DMA-able Memory (USDM) component (kernel driver and corresponding user space library) which
 allocates/frees DMA-able memory, mapped to user space, performs virtual to physical address translation on memory allocated by this library</p>
 <p>This component is used by the sample code supplied with the user space library.</p>
+</section>
+<section id="memory-type-determination">
+<h2>Memory Type Determination<a class="headerlink" href="#memory-type-determination" title="Permalink to this headline"></a></h2>
+<p>QAT 2.0 hardware offers the application to use virtual memory directly to sending the acceleration requests and saving
+the memory copy overhead.
+However, different SVM configurations will result in different memory types. The QAT package offers memory management library called User Space DMAable
+Memory(USDM) to help user space applications using the pinned memory.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 50%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>SVMEnabled</strong></p></td>
+<td><p><strong>ATEnabled</strong></p></td>
+<td><p><strong>Memory Type</strong></p></td>
+</tr>
+<tr class="row-even"><td><p>FALSE(0)</p></td>
+<td><p>FALSE(0)</p></td>
+<td><p>Pinned Memory (USDM)</p></td>
+</tr>
+<tr class="row-odd"><td><p>TRUE(1)</p></td>
+<td><p>FALSE(0)</p></td>
+<td><p>Pinned Memory (USDM)</p></td>
+</tr>
+<tr class="row-even"><td><p>FALSE(0)</p></td>
+<td><p>TRUE(1)</p></td>
+<td><p>Invalid configuration</p></td>
+</tr>
+<tr class="row-odd"><td><p>TRUE(1)</p></td>
+<td><p>TRUE(1)</p></td>
+<td><p>Pinned Memory (USDM) or Dynamic Memory (malloc/
+zalloc/mmap…)</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="buffer-formats">
 <h2>Buffer Formats<a class="headerlink" href="#buffer-formats" title="Permalink to this headline"></a></h2>

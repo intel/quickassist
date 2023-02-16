@@ -206,7 +206,7 @@ qat_dev7 - type: 4xxx,  inst_id: 7,  node_id: 1,  bsf: 0000:f7:00.0,  #accel: 1 
 <section id="sample-code-parameters">
 <span id="qat-2-0-gsg-sample-code-parameters"></span><h3>Sample Code Parameters<a class="headerlink" href="#sample-code-parameters" title="Permalink to this headline"></a></h3>
 <p>The application allows the run-time parameters listed below:</p>
-<table class="colwidths-given docutils align-default" id="id1">
+<table class="longtable colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Sample Code Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
@@ -262,7 +262,11 @@ This parameter executes a subset of sample tests. Details are included in
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">getLatency=1</span></code></p></td>
 <td><p>Measures the processing time for the request being processed. Requires
 <code class="docutils literal notranslate"><span class="pre">NumberCyInstances=1</span></code> and <code class="docutils literal notranslate"><span class="pre">NumberDcInstances=1</span></code> to be configured in
-<code class="docutils literal notranslate"><span class="pre">[SSL]</span></code> section of the driver configuration file.</p></td>
+<code class="docutils literal notranslate"><span class="pre">[SSL]</span></code> section of the driver configuration file.</p>
+<p>Performance sample code needs to be compiled with flag to enable latency
+measurements.</p>
+<p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">samples-install</span> <span class="pre">LATENCY_CODE=1</span></code></p>
+</td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">getOffloadCost=1</span></code></p></td>
 <td><p>Measures the average number of cycles spent for single request offloading.

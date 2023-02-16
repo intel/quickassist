@@ -62,6 +62,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#servicesprofile">ServicesProfile</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#concurrent-requests">Concurrent Requests</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#power-management-parameters">Power Management Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#shared-virtual-memory-svm-parameters">Shared Virtual Memory (SVM) Parameters</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="configuration_files_logicalsection.html">Logical Instances Section</a></li>
@@ -113,8 +114,8 @@
 <p><em>Default</em> denotes the value in the configuration file when shipped or the value used if not specified in the configuration file.</p>
 </div>
 <p>This table describes the other parameters that can be included in the General section.</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">General Section Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">General Section Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 35%" />
 <col style="width: 40%" />
@@ -132,7 +133,7 @@
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code></p></td>
 <td><p>Defines the service(s) available (cryptographic [cy], symmetric [sym], asymmetric [asym],
 data compression [dc]).</p>
-<p>Please refer to <a class="reference external" href="#servicesenabled">ServicesEnabled</a> for additional details.</p>
+<p>Refer to <a class="reference external" href="#servicesenabled">ServicesEnabled</a> for additional details.</p>
 </td>
 <td><p>&lt;varies&gt;</p></td>
 <td><p>sym, asym, cy, dc</p>
@@ -146,21 +147,21 @@ data compression [dc]).</p>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CyNumConcurrentSymRequests</span></code></p></td>
 <td><p>Specifies the number of cryptographic concurrent symmetric requests for cryptographic instances in general.</p>
-<p>Please refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
+<p>Refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
 </td>
 <td><p>512</p></td>
 <td><p>64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CyNumConcurrentAsymRequests</span></code></p></td>
 <td><p>Specifies the number of cryptographic concurrent asymmetric requests for cryptographic instances in general.</p>
-<p>Please refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
+<p>Refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
 </td>
 <td><p>64</p></td>
 <td><p>64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DcNumConcurrentRequests</span></code></p></td>
 <td><p>Specifies the number of data compression concurrent requests for data compression instances in general.</p>
-<p>Please refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
+<p>Refer to <a class="reference external" href="#concurrent-requests">Concurrent Requests</a> for additional details.</p>
 </td>
 <td><p>512</p></td>
 <td><p>64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, or 65536</p></td>
@@ -182,21 +183,28 @@ data compression [dc]).</p>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleInterruptDelay</span></code></p></td>
 <td><p>Default value for power management idle interrupt delay.</p>
-<p>Please refer to <a class="reference external" href="#power-management-parameters">Power Management Parameters</a> for additional details.</p>
+<p>Refer to <a class="reference external" href="#power-management-parameters">Power Management Parameters</a> for additional details.</p>
 </td>
 <td><p>512</p></td>
 <td></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code></p></td>
 <td><p>This flag is to enable power management idle support.</p>
-<p>Please refer to <cite>Power Management Parameters &lt;#power-management-parameters&gt;</cite> for additional details.</p>
+<p>Refer to <a class="reference external" href="#power-management-parameters">Power Management Parameters</a> for additional details.</p>
 </td>
 <td><p>1</p></td>
 <td><p>0 or 1</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SVMEnabled</span></code></p></td>
-<td><p>This flag is to enable SMV support.</p>
-<p>Please refer to <span class="xref std std-ref">Shared Virtual Memory</span> for additional details.</p>
+<td><p>This flag is to enable SVM support.</p>
+<p>Refer to <a class="reference external" href="#shared-virtual-memory-svm-parameters">Shared Virtual Memory Parameters</a> for additional details.</p>
+</td>
+<td><p>0</p></td>
+<td><p>0 or 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ATEnabled</span></code></p></td>
+<td><p>This flag is to enable Address Translation Service(ATS).</p>
+<p>Refer to <a class="reference external" href="#shared-virtual-memory-svm-parameters">Shared Virtual Memory Parameters</a> for additional details.</p>
 </td>
 <td><p>0</p></td>
 <td><p>0 or 1</p></td>
@@ -214,11 +222,21 @@ data compression [dc]).</p>
 </ul>
 <section id="performance-considerations">
 <h3>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The following is applicable to QAT2.0 devices only.</p>
+</div>
 <p>In order to maximize QAT throughput performance for a given service type, one should specify ONLY that service type parameter for ServicesEnabled.</p>
-<p>For example, in a system with 8 AEs:</p>
-<p>While using VFs on a system configured for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym;dc</span></code> , 4 acceleration engines will be dedicated to SYM and 4 acceleration engines will be dedicated to DC, so only 2 resource providers per child VF can be used for SYM. Here, we should expect some performance degradation for SYM (even if DC is not used).</p>
-<p>While using VFs on a system configured for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym</span></code> , all 8 acceleration engines will be dedicated to SYM, so all 4 resource providers of a child VF can be used for SYM only. Here, we will see the best SYM performance.</p>
-<p>Packet size will also mitigate the impact of the above configuration settings.  One may also be able to achieve full performance using a lower number of ring pairs.</p>
+<p>By design, two Acceleration Engine clusters are available, each containing four Acceleration Engines.  Each of these two clusters are limited to using a single service.  Therefore, the possible split options are 4|4 or 8 for a given service type.</p>
+<p>Configuration examples:</p>
+<ul class="simple">
+<li><p>While using VFs on a system configured for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym;dc</span></code> , 4 acceleration engines will be dedicated to SYM and 4 acceleration engines will be dedicated to DC, so only 2 resource providers per child VF can be used for SYM. Here, we should expect some performance degradation for SYM (even if DC is not used).</p></li>
+<li><p>While using VFs on a system configured for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym</span></code> , all 8 acceleration engines will be dedicated to SYM, so all 4 resource providers of a child VF can be used for SYM only. Here, we will see the best SYM performance.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Packet size will also modulate the impact of the above configuration settings.</p>
+</div>
 </section>
 </section>
 <section id="servicesprofile">
@@ -235,8 +253,8 @@ the compression and decompression are available, along with service chaining, bu
 </div>
 <section id="general-default-configuration-parameters">
 <h3>General Default Configuration Parameters<a class="headerlink" href="#general-default-configuration-parameters" title="Permalink to this headline"></a></h3>
-<table class="longtable docutils align-default" id="id2">
-<caption><span class="caption-text">General Default Configuration Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<table class="longtable docutils align-default" id="id3">
+<caption><span class="caption-text">General Default Configuration Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 35%" />
 <col style="width: 15%" />
@@ -364,6 +382,44 @@ the device.)</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code> - Configure the device to enable/disable power management idle supporting. Power management idle support is enabled by default.</p></li>
 </ul>
 <p>Refer to the <a class="reference internal" href="infrastructure_power_management.html#qat-2-0-pg-infrastructure-power-management"><span class="std std-ref">Power Management</span></a> section for additional details.</p>
+</section>
+<section id="shared-virtual-memory-svm-parameters">
+<span id="qat-2-0-pg-svm-configuration-parameters"></span><h2>Shared Virtual Memory (SVM) Parameters<a class="headerlink" href="#shared-virtual-memory-svm-parameters" title="Permalink to this headline"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>This parameter is valid for QAT2.0 devices.</p>
+</div>
+<p>SVM configuration parameters are included in the device configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">/etc/4xxx_devX.conf</span></code> where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the 0-based index of
+the device.)</p>
+<section id="svmenabled">
+<h3>SVMEnabled<a class="headerlink" href="#svmenabled" title="Permalink to this headline"></a></h3>
+<p>When this flag is set in the driver configuration, it indicates that the guest virtual address (GVA) to host physical address (HPA)
+translation will use IOMMU hardware based translation table instead of using the software based address translation. With SVMEnabled
+set, it is not required to submit buffers that are physically contiguous.</p>
+<section id="details">
+<h4>Details<a class="headerlink" href="#details" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-2-0-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
+<li><p>The parameter is valid for both PF and VF configuration files.</p></li>
+<li><p>It <strong>is</strong> possible for the VF to enable this parameter even if the parameter is disabled in the corresponding PF configuration file.</p></li>
+</ul>
+</section>
+</section>
+<section id="atenabled">
+<h3>ATEnabled<a class="headerlink" href="#atenabled" title="Permalink to this headline"></a></h3>
+<p>When this flag is set in the driver configuration, the Address Translation Service (ATS) is enabled. IOMMU and QAT
+have the ability to handle page faults using Page Request Service (PRS) when using dynamic
+virtual memory allocated by systemcall such as <code class="docutils literal notranslate"><span class="pre">malloc</span></code>.</p>
+<section id="id1">
+<h4>Details<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-2-0-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
+<li><p>SVMEnabled <strong>must</strong> be enabled in order to enable ATEnabled.</p></li>
+<li><p>The parameter is valid for both PF and VF configuration files.</p></li>
+<li><p>It is <strong>not</strong> possible for the VF to enable the service if the parameter is disabled in the corresponding PF configuration file.</p></li>
+</ul>
+</section>
+</section>
 </section>
 </section>
 

@@ -215,7 +215,17 @@ Type make followed by make install to build QAT with the following options
 </ol>
 <section id="dependencies">
 <span id="qat-2-0-gsg-dependencies"></span><h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
-<p>Dependencies are required, see configure output. <code class="docutils literal notranslate"><span class="pre">yasm</span></code>, for example, may need to be manually downloaded and installed via <a class="reference external" href="https://yasm.tortall.net/Download.html">https://yasm.tortall.net/Download.html</a> . (<code class="docutils literal notranslate"><span class="pre">wget</span></code> latest URL or <a class="reference external" href="http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz">http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz</a> ; <code class="docutils literal notranslate"><span class="pre">tar</span> <span class="pre">-zxvf</span> <span class="pre">yasm-1.3.0.tar.gz</span></code> , <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">yasm-1.3.0/</span></code> , <code class="docutils literal notranslate"><span class="pre">./configure</span></code>, <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">install</span></code> . Then return to QAT configure/install commands.</p>
+<p>Various dependencies are required, see the ouput from <cite>.configure</cite>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">yasm</span></code>, for example, may need to be manually downloaded and installed via <a class="reference external" href="https://yasm.tortall.net/Download.html">https://yasm.tortall.net/Download.html</a> .</p>
+<p>On Linux:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">wget</span> <span class="pre">&lt;latest</span> <span class="pre">URL&gt;</span></code> (latest URL is <code class="docutils literal notranslate"><span class="pre">http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz</span></code> )</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">tar</span> <span class="pre">-zxvf</span> <span class="pre">yasm-1.3.0.tar.gz</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">yasm-1.3.0/</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">./configure</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">&amp;&amp;</span> <span class="pre">make</span> <span class="pre">install</span></code></p></li>
+</ul>
+<p>Then return to the QAT directory to perform the <code class="docutils literal notranslate"><span class="pre">.configure</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> commands.</p>
 </section>
 <section id="configuration-options">
 <span id="qat-2-0-gsg-configuration-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
@@ -227,7 +237,7 @@ Type make followed by make install to build QAT with the following options
 <p class="admonition-title">Note</p>
 <p>Compiler flags to produce safer binaries are enabled by default.</p>
 </div>
-<table class="colwidths-given docutils align-default" id="id1">
+<table class="longtable colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Compile Flag Options</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 50%" />
