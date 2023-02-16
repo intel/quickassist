@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debugability &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Heartbeat" href="infrastructure_heartbeat.html" />
+    <link rel="prev" title="Load Balancing" href="infrastructure_load_balancing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_queue_pairs.html">Queues and Queue Pairs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_service_instances.html">Service Instances</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_memory_management.html">Memory Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_modes_of_operation.html">Modes of Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_load_balancing.html">Load Balancing</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Debugability</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#overview-of-intel-qat-debugfs-entries">Overview of Intel<sup>®</sup> QAT debugfs entries</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_heartbeat.html">Heartbeat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_device_telemetry.html">Telemetry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_ratelimiting.html">Rate Limiting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_power_management.html">Power Management</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_ras.html">Reliability, Availability, and Stability (RAS)</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
+      <li>Debugability</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="debugability">
+<span id="qat-2-0-pg-infrastructure-debugability"></span><h1>Debugability<a class="headerlink" href="#debugability" title="Permalink to this headline"></a></h1>
+<section id="overview-of-intel-qat-debugfs-entries">
+<h2>Overview of Intel<sup>®</sup> QAT debugfs entries<a class="headerlink" href="#overview-of-intel-qat-debugfs-entries" title="Permalink to this headline"></a></h2>
+<p>Some useful debugging information for the driver and configuration is available via the Linux debugfs file system, with the entries <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_*</span></code> and  <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span></code> .</p>
+<section id="entries-in-sys-kernel-debug-qat">
+<h3>Entries in /sys/kernel/debug/qat_*<a class="headerlink" href="#entries-in-sys-kernel-debug-qat" title="Permalink to this headline"></a></h3>
+<p>This includes:</p>
+<table class="longtable colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Intel® QuickAssist Technology /sys/kernel/debug Entries</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 50%" />
+<col style="width: 20%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Entry</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Supported Platforms</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cnv_errors</span></code></p></td>
+<td><p>Indicates number of <em>compressAndVerify</em> errors. Refer to <a class="reference internal" href="services_compression_api.html#compress-verify-error-sysfs"><span class="std std-ref">Compress and Verify Error log in Sysfs</span></a>.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dev_cfg</span></code></p></td>
+<td><p>Displays internal device configuration information.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">frequency</span></code></p></td>
+<td><p>Displays frequency of Acceleration Engines.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fw_counters</span></code></p></td>
+<td><p>Displays Acceleration Engine firmware requests/responses.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">heartbeat</span></code>, <code class="docutils literal notranslate"><span class="pre">heartbeat_failed</span></code>, <code class="docutils literal notranslate"><span class="pre">heartbeat_sent</span></code></p></td>
+<td><p>Refer to <a class="reference internal" href="infrastructure_heartbeat.html#system-virtual-files"><span class="std std-ref">System Virtual Files</span></a>.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">pm_status</span></code></p></td>
+<td><p>Displays power management status.  Refer to <a class="reference internal" href="infrastructure_power_management.html#pm-status"><span class="std std-ref">Power Management</span></a> for additional information.</p></td>
+<td><p>QAT 2.0</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">transport</span></code></p></td>
+<td><p>Contains firmware request/response data. Available only for kernel space instances.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">version</span></code></p></td>
+<td><p>Includes package version information.</p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">vqat</span></code></p></td>
+<td><p>Contains sIOV Virtual QAT device details. Refer to <a class="reference internal" href="virtualization.html#scalable-iov"><span class="std std-ref">Scalable IOV</span></a> for additional information.</p></td>
+<td><p>QAT 2.0</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="memory-driver-queries-qae-mem-slabs">
+<h3>Memory driver queries ( qae_mem_slabs )<a class="headerlink" href="#memory-driver-queries-qae-mem-slabs" title="Permalink to this headline"></a></h3>
+<p>Debug features are also available by reading and writing the file <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span></code> . When <em>reading</em> the virtual/physical <code class="docutils literal notranslate"><span class="pre">address</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">slab</span> <span class="pre">id</span></code> together with the <code class="docutils literal notranslate"><span class="pre">pid</span></code> of the allocating process are shown. <em>Writing</em> a string to the file will start executing debug commands.</p>
+<p>For example:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># cat /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span>
+Pid <span class="m">78854</span>, Slab Id <span class="m">10550771712</span>
+Virtual address 000000000b39412d, Physical Address 274e00000, Size <span class="m">2097152</span>
+Pid <span class="m">78854</span>, Slab Id <span class="m">10309599232</span>
+Virtual address 000000003670dd45, Physical Address <span class="m">266800000</span>, Size <span class="m">2097152</span>
+...
+</pre></div>
+</div>
+<p>There are three commands supported, and the below table shows their output:</p>
+<table class="longtable colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Read/Write to /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Writing these strings…</strong></p></th>
+<th class="head"><p><strong>…will output this when the file is read</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>d &lt;pid&gt; &lt;virtual or physical address&gt;</p></td>
+<td><p>The 256 byte in hex and ascii from the start address</p></td>
+</tr>
+<tr class="row-odd"><td><p>“c &lt;pid&gt; &lt;slab id&gt;” (pid should be the process id that
+can be obtained by a previous read)</p></td>
+<td><p>The allocation bit map for the given slab identifier</p></td>
+</tr>
+<tr class="row-even"><td><p>“t”</p></td>
+<td><p>Total size of NUMA memory allocated in kernel space</p></td>
+</tr>
+</tbody>
+</table>
+<p>For example, by combining a write to the file and a subsequent read, you can see the total allocated NUMA memory, e.g.:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># echo &quot;t&quot; &gt; /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs ; cat /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span>
+Total allocated NUMA memory: <span class="m">142606336</span> bytes
+</pre></div>
+</div>
+<p>As above, the “d” and “c” commands will output their respective information.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="infrastructure_load_balancing.html" class="btn btn-neutral float-left" title="Load Balancing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="infrastructure_heartbeat.html" class="btn btn-neutral float-right" title="Heartbeat" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtualization &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Secure Architecture Considerations" href="security.html" />
+    <link rel="prev" title="Check Device Availability APIs" href="apis_additional_availabilityapis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../ReleaseNotes/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/GSG2/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Virtualization</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#virtualization-deployment-model-for-intel-qat-2-0">Virtualization Deployment Model for Intel<sup>®</sup> QAT 2.0</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#physcial-device-direct-assignment">Physcial Device Direct Assignment</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sr-iov">SR-IOV</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scalable-iov-s-iov">Scalable IOV (S-IOV)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#reducing-number-of-vfs-per-endpoint">Reducing Number of VFs per Endpoint</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+      <li>Virtualization</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="virtualization">
+<span id="qat-2-0-pg-virtualization"></span><h1>Virtualization<a class="headerlink" href="#virtualization" title="Permalink to this headline"></a></h1>
+<section id="virtualization-deployment-model-for-intel-qat-2-0">
+<h2>Virtualization Deployment Model for Intel<sup>®</sup> QAT 2.0<a class="headerlink" href="#virtualization-deployment-model-for-intel-qat-2-0" title="Permalink to this headline"></a></h2>
+<p>Three different methods of virtualization are supported as shown in the below image.</p>
+<figure class="align-default">
+<img alt="../_images/virtualization_models.png" src="../_images/virtualization_models.png" />
+</figure>
+</section>
+<section id="physcial-device-direct-assignment">
+<span id="direct-assignment"></span><h2>Physcial Device Direct Assignment<a class="headerlink" href="#physcial-device-direct-assignment" title="Permalink to this headline"></a></h2>
+<p>The hardware exposes one Physical Function (PF) per QAT Endpoint to the host.  Number of QAT Endpoints per platform is included in the <a class="reference internal" href="infrastructure_load_balancing.html#qat2-0-dimensions"><span class="std std-ref">Dimensions</span></a>.</p>
+<p>One or more PFs may be passed to a single Virtual machine.</p>
+<p>There is no sharing of the PF.</p>
+</section>
+<section id="sr-iov">
+<span id="sriov"></span><h2>SR-IOV<a class="headerlink" href="#sr-iov" title="Permalink to this headline"></a></h2>
+<p>When SR-IOV is enabled, the hardware exposes one Physical Function (PF) and <strong>n</strong> Virtual Functions(VFs) per QAT Endpoint to the host, where <strong>n</strong> is
+defined in <a class="reference internal" href="infrastructure_load_balancing.html#qat2-0-dimensions"><span class="std std-ref">Dimensions</span></a>.  Number of QAT Endpoints per platform is also included in the <a class="reference internal" href="infrastructure_load_balancing.html#qat2-0-dimensions"><span class="std std-ref">Dimensions</span></a>.</p>
+<p>One or more VFs can be passed through to different guests/VMs</p>
+<p>For details on enabling SR-IOV please refer to the <span class="xref std std-ref">Virtualization Deployment Guide</span>.</p>
+</section>
+<section id="scalable-iov-s-iov">
+<span id="scalable-iov"></span><h2>Scalable IOV (S-IOV)<a class="headerlink" href="#scalable-iov-s-iov" title="Permalink to this headline"></a></h2>
+<p>Scalable I/O Virtualization enables flexible composition of Virtual Functions by software from native hardware interfaces.
+Rather than implementing a complete SR-IOV virtual function (VF) interface, an S-IOV device exposes light-weight Assignable Device
+Interfaces (ADIs) that are optimized for fast-path (data-path) operations from the guest.</p>
+<p>S-IOV uses <em>PASID</em> rather than BDF to identify unique address spaces which allow greater scalability. Number of supported ADIs is defined in <a class="reference internal" href="infrastructure_load_balancing.html#qat2-0-dimensions"><span class="std std-ref">Dimensions</span></a>.</p>
+<p>The public specification is available at <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/technical/introducing-intel-scalable-io-virtualization.html">Introducing Intel® Scalable I/O Virtualization</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>S-IOV is disabled in Linux Kernel after v5.16. Effort is underway to reenable in future kernel version.</p>
+</div>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/siov_updated.png"><img alt="../_images/siov_updated.png" src="../_images/siov_updated.png" style="width: 860px; height: 409px;" /></a>
+</figure>
+<p>For details on enabling S-IOV please refer to the <span class="xref std std-ref">Virtualization Deployment Guide</span>.</p>
+</section>
+<section id="reducing-number-of-vfs-per-endpoint">
+<h2>Reducing Number of VFs per Endpoint<a class="headerlink" href="#reducing-number-of-vfs-per-endpoint" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Reducing number of VFs per endpoint is supported starting with QAT Gen 4.</p>
+</div>
+<p>When the acceleration software is installed for SR-IOV use case, all VFs are enabled.
+In some instances, it is not desirable to enable all VFs.</p>
+<p>The following commands can be used to limit VFs exposed per PF.</p>
+<ol class="arabic">
+<li><p><strong>Disable</strong> all VFs on a specific device (6b:00.0 in this example):</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 0 &gt; /sys/bus/pci/devices/0000\:6b:00.0/sriov_numvfs</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Enable</strong> number of desired VFs for specific device (4 VFs on 6b:00.0 in this example):</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 4 &gt; /sys/bus/pci/devices/0000\:6b:00.0/sriov_numvfs</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p>Restart the acceleration software for this change to take place.</p></li>
+<li><p>This change is not persistent. After a reboot, all VFs are exposed per PF.</p></li>
+</ul>
+</div>
+<p>After reducing the number of VFs per PF, it is possible that the mapping of QAT VF to configuration file has changed.  This mapping is very
+important especially when there are different services enabled with each PF/VF configuration, remembering that to enable a service
+in a VF requires the same service to be enabled in the PF.  The configuration file for the VF can be determined by examining the qat_service output.</p>
+<p>For example, in the following output:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">Checking status of all devices.</span>
+<span class="go">There is 100 QAT acceleration device(s) in the system:</span>
+<span class="go">qat_dev0 - type: 4xxx,  inst_id: 0,  node_id: 0,  bsf: 0000:6b:00.0,  #accel: 1 #engines: 9 state: up</span>
+<span class="go">qat_dev1 - type: 4xxx,  inst_id: 1,  node_id: 0,  bsf: 0000:70:00.0,  #accel: 1 #engines: 9 state: up</span>
+<span class="go">qat_dev2 - type: 4xxx,  inst_id: 2,  node_id: 0,  bsf: 0000:75:00.0,  #accel: 1 #engines: 9 state: up</span>
+<span class="go">qat_dev3 - type: 4xxx,  inst_id: 3,  node_id: 0,  bsf: 0000:7a:00.0,  #accel: 1 #engines: 9 state: up</span>
+<span class="go">qat_dev4 - type: 4xxx,  inst_id: 4,  node_id: 1,  bsf: 0000:e8:00.0,  #accel: 1 #engines: 9 state: up</span>
+<span class="go">qat_dev5 - type: 4xxx,  inst_id: 5,  node_id: 1,  bsf: 0000:ed:00.0,  #accel: 1 #engines: 9 state: up</span>
+<span class="go">qat_dev6 - type: 4xxx,  inst_id: 6,  node_id: 1,  bsf: 0000:f2:00.0,  #accel: 1 #engines: 9 state: up</span>
+<span class="go">qat_dev7 - type: 4xxx,  inst_id: 7,  node_id: 1,  bsf: 0000:f7:00.0,  #accel: 1 #engines: 9 state: up</span>
+<span class="go">qat_dev8 - type: 4xxxvf,  inst_id: 80,  node_id: 0,  bsf: 0000:6b:00.1,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev9 - type: 4xxxvf,  inst_id: 81,  node_id: 0,  bsf: 0000:6b:00.2,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev10 - type: 4xxxvf,  inst_id: 82,  node_id: 0,  bsf: 0000:6b:00.3,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev11 - type: 4xxxvf,  inst_id: 83,  node_id: 0,  bsf: 0000:6b:00.4,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev12 - type: 4xxxvf,  inst_id: 84,  node_id: 0,  bsf: 0000:70:00.1,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev13 - type: 4xxxvf,  inst_id: 85,  node_id: 0,  bsf: 0000:70:00.2,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev14 - type: 4xxxvf,  inst_id: 86,  node_id: 0,  bsf: 0000:70:00.3,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev15 - type: 4xxxvf,  inst_id: 87,  node_id: 0,  bsf: 0000:70:00.4,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev16 - type: 4xxxvf,  inst_id: 88,  node_id: 0,  bsf: 0000:75:00.1,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev17 - type: 4xxxvf,  inst_id: 89,  node_id: 0,  bsf: 0000:75:00.2,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev18 - type: 4xxxvf,  inst_id: 90,  node_id: 0,  bsf: 0000:75:00.3,  #accel: 1 #engines: 1 state: up</span>
+<span class="go">qat_dev19 - type: 4xxxvf,  inst_id: 91,  node_id: 0,  bsf: 0000:75:00.4,  #accel: 1 #engines: 1 state: up</span>
+</pre></div>
+</div>
+<p>The configuration file name will be <code class="docutils literal notranslate"><span class="pre">/etc/4xxxvf_dev&lt;x&gt;.conf</span></code> where <em>x</em> is <code class="docutils literal notranslate"><span class="pre">inst_id</span></code>.</p>
+<p>For <em>qat_dev9</em>, the configuration file is <code class="docutils literal notranslate"><span class="pre">/etc/4xxxvf_dev81.conf</span></code></p>
+</div></blockquote>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="apis_additional_availabilityapis.html" class="btn btn-neutral float-left" title="Check Device Availability APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="security.html" class="btn btn-neutral float-right" title="Secure Architecture Considerations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
