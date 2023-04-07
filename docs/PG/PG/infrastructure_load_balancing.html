@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Load Balancing &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Load Balancing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="load-balancing">
+<span id="qat-2-0-pg-infrastructure-load-balancing"></span><h1>Load Balancing<a class="headerlink" href="#load-balancing" title="Permalink to this headline"></a></h1>
+<section id="per-endpoint">
+<h2>Per Endpoint<a class="headerlink" href="#per-endpoint" title="Permalink to this headline"></a></h2>
+<p>There are four arbiters, which by default are used for the different services (with one spare/unused).</p>
+<p>Each partition:</p>
+<ul class="simple">
+<li><p>Arbitrates across two request queues per bundle/VF, to pick a request.</p></li>
+<li><p>Load balances all of these requests across all available “engines”.</p></li>
+</ul>
+<p>Within a partition, arbitration uses round robin.</p>
+<ul class="simple">
+<li><p>Ensures fairness (in terms of number of requests) across queue pairs and guests</p></li>
+</ul>
+<figure class="align-default">
+<img alt="img/load_balancing_one_device.png" src="img/load_balancing_one_device.png" />
+</figure>
+</section>
+<section id="across-endpoints">
+<h2>Across Endpoints<a class="headerlink" href="#across-endpoints" title="Permalink to this headline"></a></h2>
+<p>In a platform or CPU with multiple Intel® QAT devices, software is responsible for load sharing across
+devices/endpoints.
+Sapphire Rapids has up to four Intel® QAT devices/endpoints in a single CPU package (depending on SKU)
+PCIe card may have multiple (QAT 1.x) devices across one or more chipsets.</p>
+<p>Software-based Load Sharing can be implemented at various layers:</p>
+<ul class="simple">
+<li><p>For applications using the Intel® QuickAssist Technology API, the application must implement load balancing.</p></li>
+<li><p>For applications using a framework (e.g. OpenSSL), the framework implements load balancing.</p></li>
+</ul>
+<section id="load-sharing-criteria">
+<h3>Load Sharing Criteria<a class="headerlink" href="#load-sharing-criteria" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>Simple round-robin scheme recommended.</p></li>
+<li><p>May want to consider “locality” in a multi-socket (NUMA) platform.</p></li>
+</ul>
+<figure class="align-default">
+<img alt="img/load_balancing_multiple_devices.png" src="img/load_balancing_multiple_devices.png" />
+</figure>
+</section>
+</section>
+<section id="dimensions">
+<span id="qat2-0-dimensions"></span><h2>Dimensions<a class="headerlink" href="#dimensions" title="Permalink to this headline"></a></h2>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Dimmensions Gen 1 &amp; Gen 2</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>Gen 1</strong></p></th>
+<th class="head" colspan="2"><p><strong>Gen 2</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>Intel® Communication Chipset 8925
+to 8955 Series</p></td>
+<td><p>Intel® C62x Chipset</p></td>
+<td><p>Intel Atom® Processor C3000</p></td>
+</tr>
+<tr class="row-odd"><td><p>Number PCIe
+Endpoints</p></td>
+<td><p>1</p></td>
+<td><p>3</p></td>
+<td><p>1</p></td>
+</tr>
+<tr class="row-even"><td><p>Number of Bundles
+/VFs per Endpoint</p></td>
+<td><p>32</p></td>
+<td><p>16</p></td>
+<td><p>16</p></td>
+</tr>
+<tr class="row-odd"><td><p>Number of Queue
+Pairs per Bundle</p></td>
+<td colspan="3"><p>8</p></td>
+</tr>
+</tbody>
+</table>
+<table class="longtable colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Dimmensions Gen 3 &amp; Gen 4</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 37%" />
+<col style="width: 37%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>Gen 3</strong></p></th>
+<th class="head"><p><strong>Gen 4</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td></td>
+<td><p>Intel® Atom P5000 Processor/
+Ice Lake D</p></td>
+<td><p>Intel®  4th Gen Intel® Xeon® Scalable Processor
+(per socket)</p></td>
+</tr>
+<tr class="row-odd"><td><p>Number PCIe
+Endpoints</p></td>
+<td><p>1</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>Number of
+VFs per Endpoint</p></td>
+<td><p>128</p></td>
+<td><p>16</p></td>
+</tr>
+<tr class="row-odd"><td><p>Number of Queue
+Pairs per Bundle</p></td>
+<td><p>8</p></td>
+<td><p>4</p></td>
+</tr>
+<tr class="row-even"><td><p>Number of s-IOV
+ADIs per Endpoint</p></td>
+<td><p>N/A</p></td>
+<td><p>64</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
