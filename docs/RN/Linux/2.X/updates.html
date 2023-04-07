@@ -1,0 +1,1351 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Release Updates &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
+    <link rel="prev" title="Description of Release" href="description.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Release Notes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Release Notes - Linux*</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="description.html">Description of Release</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Release Updates</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#known-issues">Known Issues</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resolved-issues">Resolved Issues</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../VMware/2.X/index.html">Release Notes - VMware*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../FreeBSD/2.X/index.html">FreeBSD Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Release Notes</a> &raquo;</li>
+          <li><a href="index.html">Release Notes - Linux*</a> &raquo;</li>
+      <li>Release Updates</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="release-updates">
+<span id="qat-2-0-rn-linux-updates"></span><h1>Release Updates<a class="headerlink" href="#release-updates" title="Permalink to this headline"></a></h1>
+<section id="known-issues">
+<span id="qat-2-0-rn-linux-knownissues"></span><h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline"></a></h2>
+<section id="qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail">
+<h3>QATE20-8981 [Sample Code] sym_dp_update_sample Functional Sample Code application execution will fail<a class="headerlink" href="#qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Sample Code] sym_dp_update_sample Functional Sample
+Code application execution will fail</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-8981</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>CPM2.0 hardware does not support the wireless Kasumi
+F8 algorithm and the associated sample code
+application will fail.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The sym_dp_update_sample functional applications will
+fail with the following output:</p>
+<p>main(): Starting Sym Dp Update Sample Code App …</p>
+<p>symDpUpdateSample(): cpaCyStartInstance</p>
+<p>initSession(): cpaCySymDpSessionCtxGetSize</p>
+<p>initSession(): cpaCySymDpInitSession</p>
+<p>[error] LacSymSession_ParamCheck() - : Invalid API
+Param - cipherAlgorithm</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This will not be resolved as the CPM2.0 hardware does
+not support this algorithm.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Symmetric</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9131-dc-incorrect-xxhash32-can-be-generated-when-using-error-injection-and-buffer-overflow-occurs-when-using-accumulated-xxhash32">
+<h3>QATE20-9131 [DC] - Incorrect XXHASH32 can be generated when using error injection and buffer overflow occurs when using accumulated XXHASH32<a class="headerlink" href="#qate20-9131-dc-incorrect-xxhash32-can-be-generated-when-using-error-injection-and-buffer-overflow-occurs-when-using-accumulated-xxhash32" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Incorrect XXHASH32 can be generated when using
+error injection and buffer overflow occurs when using
+accumulated XXHASH32</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9131</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When using Data Compression service with LZ4
+accumulated XXHASH32 sessions in conjunction with
+Error Injection the service will not trigger Recovery
+mode but shall return a CPA_DC_VERIFY_ERROR error
+instead.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Recovery mode will not trigger for LZ4 with Error
+Injection and instead return a Verify error:
+-18 CPA_DC_VERIFY_ERROR.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Future Fix</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9671-dc-accumulated-xxhash32-is-not-supported-for-lz4-decompress-operations">
+<h3>QATE20-9671 [DC] - Accumulated XXHash32 is not supported for LZ4 decompress operations<a class="headerlink" href="#qate20-9671-dc-accumulated-xxhash32-is-not-supported-for-lz4-decompress-operations" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Accumulated XXHash32 is not supported for LZ4
+decompress operations</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9671</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Accumulated XXHash32 enables the calculation of a
+final XXHash32 that is accumulated across all
+previous requests in a stream. This feature is
+available for the Compress direction only. The
+decompression flow is not finalized and not currently
+functional.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Accumulated XXHash32 is functional for the
+Compression direction only.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Future Fix</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance">
+<h3>QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance<a class="headerlink" href="#qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Additional configuration required to enable 8K
+data decompression performance</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-19310</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>To utilize compression HW slices to full potential
+while symmetric service enabled a modified policy
+needs to be applied for this mode of operation.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Decompression performance is not fully realized and
+limited to ~83% for 8K compressed payloads.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This issue can be resolved by modifying
+./quickassist/
+qat/drivers/crypto/qat/qat_4xxx/adf_4xxx_hw_data.c:50
+and changing dc_me_active_thd_mask = 0x03; to
+dc_me_active_thd_mask = 0x01; and then recompile.
+This modification is for the singular use case where
+decompression performance at 8K is payloads is
+required. This will be addressed in a future release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-21905-svm-at-cannot-be-enabled-when-prs-is-disabled">
+<h3>QAT20-21905 SVM/AT cannot be enabled when PRS is disabled<a class="headerlink" href="#qat20-21905-svm-at-cannot-be-enabled-when-prs-is-disabled" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>SVM/AT cannot be enabled when PRS is disabled.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-21905</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Shared Virtual Memory(SVM) with Address translation
+(AT) requires Page Request Support (PRS) to be
+enabled in BIOS.  PRS is disabled by default.</p></td>
+</tr>
+<tr class="row-even"><td rowspan="4"><p><strong>Implication</strong></p></td>
+<td><p>The following error signatures maybe observed if
+application attempts to use SVM with AT when PRS is
+disabled:</p></td>
+</tr>
+<tr class="row-odd"><td><p>Following error code is returned an calls to the QAT APIs:</p>
+<p>Unable to get the physical address of the client buffer</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Following message displayed in dmesg when running
+applications using the QAT APIs:</p>
+<p>DMAR: [DMA Read] Request device [75:00.1] PASID ffffffff
+fault addr 7fb0c81c0000 [fault reason 113] SM: Present bit
+in first-level paging entry is clear</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Some Telemetry data is not updated in this configuration.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Resolution</strong></p></td>
+<td><p>PRS should be enabled. For this release, user can enable
+PRS in BIOS by updating the following setting to <em>Enabled</em>:</p>
+<p>Socket Configuration-&gt;IIO Configuration-&gt;Intel VT for Directed
+I/O (VT-d)-&gt;Opt-Out Illegal MSI Mitigation</p>
+<p>This will be addressed in a future release.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-21751-virt-missing-vfs-on-host-when-attaching-to-vms">
+<h3>QATE20-21751 [VIRT] -  Missing VFs on host when attaching to VMs<a class="headerlink" href="#qate20-21751-virt-missing-vfs-on-host-when-attaching-to-vms" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[VIRT] - Missing VFs on host when attaching to VMs</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-21751</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When listing VFs on the host with any amount of VFs
+attached to a virtual machine, you may see missing VFs
+reported on the host.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>For every virtual machine with an attached VF you may
+observe two less VFs reported on the host.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>When assigning a VF to a virtual machine always start
+with the ones with the highest BDF and work back.
+This workaround ensures no missing VFs on the host.</p>
+<p>This will be addressed in a future release.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>4xxx Kernel module</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-22999-sample-code-functional-sample-applications-will-fail-if-service-is-not-enabled-on-first-qat-endpoint">
+<h3>QATE20-22999 [Sample Code] Functional sample applications will fail if service is not enabled on first QAT Endpoint<a class="headerlink" href="#qate20-22999-sample-code-functional-sample-applications-will-fail-if-service-is-not-enabled-on-first-qat-endpoint" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Sample Code] Functional sample applications will
+fail if service is not enabled on first QAT Endpoint</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-22999</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When sample application is executed which requests
+service that is not enabled on the first endpoint,
+the application will fail.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>If first endpoint is configured with asym, running
+application that uses symmetric such as ccm_sample will
+fail with following error signatures even if other
+endpoints enable symmetric crypto.</p>
+<p># ./ccm_sample</p>
+<p>main(): Starting CCM Sample Code App …</p>
+<p>algChainSample(): cpaCyStartInstance</p>
+<p>algChainSample(): Generation-Encryption Process</p>
+<p>algChainSample(): cpaCySymSessionCtxGetSize CCM encrypt</p>
+<p>[error] cpaCySymSessionCtxGetSize() - : The instance
+handle is the wrong type</p>
+<p>algChainSample(): cpaCyStopInstance</p>
+<p>algChainSample(): Sample code failed with status of -1</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Workaround is to enable necessary service on the first
+endpoint.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Symmetric</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected">
+<h3>QAT20-18924 [MCC] MCC SKUs may consume more power than expected<a class="headerlink" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[MCC] MCC SKUs may consume more power than expected</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-18924</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Due to Power Management changes in MCC platforms one
+QAT device in every socket is permanently clock gated
+when not processing requests which leads to inevitable
+heartbeat failures and device resets. Current FW
+workaround increases power consumption by keeping QAT
+in active state. Intel is working on workaround that
+does not have impact on power consumption.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Higher power consumption is possible</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is no workaround currently available.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">
+<h3>QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs<a class="headerlink" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[XCC/MCC] Spurious heartbeat failures may be observed
+on some SKUs</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-20272</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Time tracking in FW is inaccurate due to power
+management causing that frequency of HW counter that is
+used as reference for time measurements appears lower
+than expected. This may lead to delayed heartbeat
+and telemetry updates when devices become idle.
+Intel is working on workaround that removes dependency
+on the HW counter.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>No functional impact, these messages can be ignored.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is no workaround currently available.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-24970-firmware-potential-false-positive-heartbeat-failures">
+<h3>QAT20-24970 [Firmware] Potential false positive heartbeat failures<a class="headerlink" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Firmware] Potential false positive heartbeat failures</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-24970</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When a QAT device is fully utilized and is processing
+requests with large payloads (e.g. &gt;512MB), false
+positive heartbeat failures may be reported if the
+heartbeat check interval is set too low.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Processing multiple requests with big payload sizes may
+cause false positive heartbeat failure and trigger PF
+restart.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This issue can be resolved by ensuring that heartbeat
+interval is large enough to allow big payload request be
+correctly processed.</p>
+<p>Recommended minimal heartbeat interval value to be used
+is 1500 ms. This issue will be addressed in future
+release.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">
+<h3>QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response<a class="headerlink" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[SVM/IOMMU] Request issue doesn’t appear in response</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-23946</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Without Address Translation (AT) enabled, QAT hardware
+can’t reliably handle page faults on write operations
+to invalid memory addresses.</p>
+<p>This may lead to situations where the operation does
+not complete properly and error is not reported to user.
+Only IOMMU pagefault is reported to the user in this
+case.</p>
+<p>This does not result in system memory corruption.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>User is responsible for making sure that all
+destination addresses submitted to HW are valid. Also
+verify that SW doesn’t generate IOMMU pagefaults.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Enable AT for SVM/IOMMU use cases.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="resolved-issues">
+<span id="qat-2-0-rn-linux-resolvedissues"></span><h2>Resolved Issues<a class="headerlink" href="#resolved-issues" title="Permalink to this headline"></a></h2>
+<section id="qate20-3331-sample-code-functional-sample-code-compression-applications-execution-will-fail">
+<h3>QATE20-3331 [Sample Code] Functional Sample Code Compression applications execution will fail<a class="headerlink" href="#qate20-3331-sample-code-functional-sample-code-compression-applications-execution-will-fail" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Sample Code] Functional Sample Code Compression
+applications execution will fail</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-3331</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Due to internal implementation details of QAT2.0 Data
+Compression, there are additional constraints on the
+expected output buffer sizes for compression operation.</p>
+<p>The current output buffer sizes are not sufficiently
+large enough to accommodate the compression operations
+involved. This will be addressed in later software
+releases where an API will be made available to
+determine at runtime the correct output buffer size to
+be allocated.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>These functional applications will fail with the
+following output:</p>
+<p>./dc_dp_sample: [error] dcCompression_ProcessCallback()
+- : Unrecoverable error: stateless overflow. You may
+need to increase the size of your destination buffer</p>
+<p>./dc_stateless_multi_op_sample: [error]
+dcCheckDestinationData() - : Invalid API Param -
+Destination buffer size should be greater or equal to
+512 bytes</p>
+<p>./dc_stateless_sample: compPerformOp(): Results status
+not as expected (status = -11)</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.5.5 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9755-sriov-rlt-errlog-may-be-reported-under-high-concurrent-loads">
+<h3>QATE20-9755 [SRIOV] RLT_ERRLOG may be reported under high concurrent loads<a class="headerlink" href="#qate20-9755-sriov-rlt-errlog-may-be-reported-under-high-concurrent-loads" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[SRIOV] RLT_ERRLOG may be reported under high
+concurrent loads</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9755</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The following error may be reported when running high
+concurrency loads on Virtual Machines:</p>
+<p>4xxx 0000:6b:00.0:
+AT_GLOBA
+L0_PAR_STS[0], 00000000, AT_GLOBAL1_PAR_STS[0],</p>
+<p>00000000, AT_PAR_STS[0], 00000000</p>
+<p>…</p>
+<p>4xxx 0000:6b:00.0:
+RLT_ERRLOG[0],00000001, UERRSSMSHAD[0],00000000,xxxvf
+0000:6b:00.7: Fatal error received from PF 0x1</p>
+<p>This relates a counter flow and does not have a
+functional impact to the operation of SR-IOV Virtual
+Functions.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Additional debug prints in dmesg may be observed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.5.5 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Virtualization</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9669-dc-deflate-dynamic-decompression-not-optimized-for-payloads-of-source-length-4k-destination-length-16k">
+<h3>QATE20-9669 [DC] - Deflate Dynamic Decompression not optimized for payloads of source length &lt; 4K, destination length &lt;= 16K<a class="headerlink" href="#qate20-9669-dc-deflate-dynamic-decompression-not-optimized-for-payloads-of-source-length-4k-destination-length-16k" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Deflate Dynamic Decompression not optimized
+for payloads of source length &lt; 4K, destination
+length &lt;= 16K</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9669</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Current data path operations are not optimized for
+all traffic profiles.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Expected performance profile for this release does
+not meet expectations. This can be observed with
+performance sample code when using 8K payloads that
+are compressed in HW and where throughput metrics are
+then reported for the decompress direction.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.5.5 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9394-sriov-virtual-functions-vfs-are-not-automatically-detached-by-hypervisor-after-physical-function-pf-restart">
+<h3>QATE20-9394 [SRIOV] Virtual Functions (VFs) are not automatically detached by hypervisor after Physical Function (PF) restart<a class="headerlink" href="#qate20-9394-sriov-virtual-functions-vfs-are-not-automatically-detached-by-hypervisor-after-physical-function-pf-restart" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[SRIOV] Virtual Functions (VFs) are not automatically
+detached by hypervisor after Physical Function (PF)
+restart</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9394</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The following error may be encountered when attempting
+to detach SR-IOV VFs:</p>
+<p>error: Failed to detach device pci_0000_6b_00_1</p>
+<p>error: Requested operation is not valid: PCI device
+0000:6b:00.1 is in use by driver QEMU, domain &lt;name&gt;</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>VFs are not automatically detached by hypervisor after
+PF restart, requiring a VM shutdown.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.5.5 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Virtualization</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-3860-sr-iov-virtual-functions-vfs-require-restart-after-changing-physical-function-pf-service-configuration">
+<h3>QATE20-3860 [SR-IOV] Virtual Functions (VFs) require restart after changing Physical Function (PF) Service configuration<a class="headerlink" href="#qate20-3860-sr-iov-virtual-functions-vfs-require-restart-after-changing-physical-function-pf-service-configuration" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[SR-IOV] Virtual Functions(VFs) require restart after
+changing Physical Function(PF) Service configuration</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-3860</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Each QAT PF is configurated with at most 2 services
+(Symmetric Crypto, PKE, Data Compression), this is
+shared with all VFs on the same PCIe endpoint whereby
+default each PF is configurated to use Symmetric +
+Data Compression services.</p>
+<p>If a change in enabled services is required then the
+normal operating procedure is to reconfigure PF and
+re-create the VFs.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Following PF and associated VF reconfiguration
+./adf_ctl status may report all VFs being operational,
+however applications can report:</p>
+<p>ADF_UIO_PROXY err: icp_adf_userProcessToStart: Error
+reading /dev/qat_dev_processes file.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.5.5 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - SRIOV - PF/VF comms</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-10981-dc-eolb-incorrectly-set-during-stateful-decompression">
+<h3>QATE20-10981 [DC] EOLB incorrectly set during stateful decompression<a class="headerlink" href="#qate20-10981-dc-eolb-incorrectly-set-during-stateful-decompression" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] EOLB incorrectly set during stateful
+decompression</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-10981</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The application that performs the decompression may
+stop decompressing the remaing deflate blocks if it is
+testing the endOfLastBlock field in CpaDcRqResults
+structure.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The application that performs the decompression may
+stop decompressing the remaing deflate blocks if it is
+testing the endOfLastBlock field in CpaDcRqResults
+structure.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.8.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT FW - Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-10966-dc-invalid-checksum-value-returned-with-multi-gzip-payload">
+<h3>QAT20-10966 DC - Invalid checksum value returned with multi-Gzip payload<a class="headerlink" href="#qat20-10966-dc-invalid-checksum-value-returned-with-multi-gzip-payload" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>DC - Invalid checksum value returned with multi-Gzip
+payload</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-10966</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The issue happens with stateless decompression when
+submitting a payload with multiple GZip frames. During
+the decompression of the second GZip frame, the
+checksum returned by QAT device is incorrect. It does
+not match the CRC32 checksum reported in the Gzip
+footer.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The application will fail to validate the checksum of
+the decompressed data against the checksum in the GZip
+footer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.8.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9756-dc-autoselectbesthuffmantree-flag-parameter-is-not-honored-by-acceleration-library">
+<h3>QATE20-9756 [DC] - autoSelectBestHuffmanTree flag parameter is not honored by acceleration library<a class="headerlink" href="#qate20-9756-dc-autoselectbesthuffmantree-flag-parameter-is-not-honored-by-acceleration-library" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - autoSelectBestHuffmanTree flag parameter is
+not honored by acceleration library</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9756</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The autoSelectBestHuffmanTree parameter in
+CpaDcSessionSetupData is treated as FALSE by
+acceleration library.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Applications cannot currently set
+autoSelectBestHuffmanTree. This could result in lower
+compressibility.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.8.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-11081-dc-api-cpadcresetsession-does-not-reset-e2e-internal-structure">
+<h3>QATE20-11081 [DC] - API cpaDcResetSession() does not reset E2E internal structure<a class="headerlink" href="#qate20-11081-dc-api-cpadcresetsession-does-not-reset-e2e-internal-structure" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - API cpaDcResetSession() does not reset E2E
+internal structure</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-11081</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The issue happens with stateless decompression when
+submitting a payload with multiple GZip frames. If
+the application calls cpaDcResetSession() API after
+the first Gzip frame has been processed. It will not
+reset the various checksums defined in
+dc_integrity_crc_fw_t.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Application will see unexpected checksums after
+calling cpaDcResetSession() API.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.8.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9501-dc-overflow-can-occur-when-using-output-buffer-sizes-defined-by-the-cpadccompressbound-api-with-dynamic-deflate-compression-operations-under-concurrent-execution">
+<h3>QATE20-9501 [DC] - Overflow can occur when using output buffer sizes defined by the cpaDcCompressBound API with Dynamic Deflate compression operations under concurrent execution<a class="headerlink" href="#qate20-9501-dc-overflow-can-occur-when-using-output-buffer-sizes-defined-by-the-cpadccompressbound-api-with-dynamic-deflate-compression-operations-under-concurrent-execution" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Overflow can occur when using output buffer
+sizes defined by the cpaDcCompressBound API with
+Dynamic Deflate compression operations under
+concurrent execution</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9501</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The internal calculation for optimal output buffer
+size for a given input and session configuration when
+using the cpaDcCompressBound API can yield overflow
+conditions. This has been observed under concurrent
+SW thread execution in particular with LZ4s and
+Dynamic Deflate requests being concurrently
+processed.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>An application using the cpaDcCompressBound API may
+require overflow handling until the refinement of the
+algorithm completes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.9.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9764-dc-xxhash32-checksum-is-not-correct-on-overflow-when-flush-final-is-set">
+<h3>QATE20-9764 [DC] - XXHash32 Checksum is not correct on Overflow when Flush Final is set<a class="headerlink" href="#qate20-9764-dc-xxhash32-checksum-is-not-correct-on-overflow-when-flush-final-is-set" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - XXHash32 Checksum is not correct on Overflow
+when Flush Final is set</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9764</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When the Accumulated XXHash is used, for the last
+request if the CPA_DC_OVERFLOW (-11) occurs, this
+ceases checksum accumulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The user application will observe a CPA_DC_OVERFLOW
+(-11).</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.9.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9078-cy-concurrent-sym-asym-services-not-supported-by-performance-sample-code-cpa-sample-code">
+<h3>QATE20-9078 [CY] Concurrent sym;asym services not supported by Performance Sample Code (cpa_sample_code)<a class="headerlink" href="#qate20-9078-cy-concurrent-sym-asym-services-not-supported-by-performance-sample-code-cpa-sample-code" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[CY] Concurrent sym;asym services not supported by
+Performance Sample Code (cpa_sample_code)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9078</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>If symmetric and asymmetric crypto is enabled in QAT
+configuration files, the driver will report error
+when running performance sample code
+(cpa_sample_code).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>It is not possible to currently test symmetric crypto
+and asymmetric crypto with performance sample code
+(cpa_sample_code) on one test run.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.9.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-10480-dc-lz4-compression-request-may-result-in-a-timeout-event-16-cpa-dc-wdog-timer-err">
+<h3>QATE20-10480 [DC] - LZ4 compression request may result in a timeout event (-16 CPA_DC_WDOG_TIMER_ERR)<a class="headerlink" href="#qate20-10480-dc-lz4-compression-request-may-result-in-a-timeout-event-16-cpa-dc-wdog-timer-err" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - LZ4 compression request may result in a
+timeout event (-16 CPA_DC_WDOG_TIMER_ERR)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-10480</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When executing LZ4 compression requests, a watchdog
+timer timeout error (error code -16) may be returned
+to the application.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>No data will be produced by QAT HW and error code -16
+will be reported to the application.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.9.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT FW - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-10606-configuration-device-configurations-files-are-not-copied-to-etc-for-physical-devices-on-systems-with-2-sockets">
+<h3>QAT20-10606 [Configuration] - Device configurations files are not copied to /etc/ for physical devices on systems with &gt; 2 sockets<a class="headerlink" href="#qat20-10606-configuration-device-configurations-files-are-not-copied-to-etc-for-physical-devices-on-systems-with-2-sockets" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Configuration] - Device configurations files are not
+copied to /etc/ for physical devices on systems with &gt;
+2 sockets</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-10606</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The installation scripts will not create configuration
+files in /etc/</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Devices on sockets &gt;2 will not be brought up and will
+be reported as being in the “down” state.</p>
+<p>The following status will be observed:
+qat_dev0 - type: 4xxx, inst_id: 0, node_id: 0, bsf:
+0000:6b:00.0, #accel: 1 #engines: 9 state: up
+…
+qat_dev7 - type: 4xxx, inst_id: 7, node_id: 1, bsf:
+0000:f8:00.0, #accel: 1 #engines: 9 state: up
+qat_dev8 - type: 4xxx, inst_id: 8, node_id: 2, bsf:
+0001:6b:00.0, #accel: 1 #engines: 9 state: down
+qat_dev9 - type: 4xxx, inst_id: 9, node_id: 2, bsf:
+0001:70:00.0, #accel: 1 #engines: 9 state: down
+…
+qat_dev15 - type: 4xxx, inst_id: 15, node_id: 3, bsf:
+0001:f8:00.0, #accel: 1 #engines: 9 state: down</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.9.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Configuration</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-12942-dc-overflow-can-occur-when-using-output-buffer-sizes-defined-by-the-cpadccompressbound-api-with-dynamic-deflate-compression-operations-under-concurrent-execution">
+<h3>QAT20-12942 [DC] - Overflow can occur when using output buffer sizes defined by the cpaDcCompressBound API with Dynamic Deflate compression operations under concurrent execution<a class="headerlink" href="#qat20-12942-dc-overflow-can-occur-when-using-output-buffer-sizes-defined-by-the-cpadccompressbound-api-with-dynamic-deflate-compression-operations-under-concurrent-execution" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Overflow can occur when using output buffer
+sizes defined by the cpaDcCompressBound API with
+Dynamic Deflate compression operations under
+concurrent execution</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-12942</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The internal calculation for optimal output buffer
+size for a given input and session configuration when
+using the cpaDcCompressBound API can yield overflow
+conditions. This has been observed under concurrent SW
+thread execution in particular with LZ4s and Dynamic
+Deflate requests being concurrently processed.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>An application using the cpaDcCompressBound API may
+require overflow handling until the refinement of the
+algorithm completes.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.9.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-11092-sriov-default-number-of-vf-devices-is-not-available-for-4s-platform">
+<h3>QAT20-11092 [SRIOV] Default number of VF devices is not available for 4S+ platform<a class="headerlink" href="#qat20-11092-sriov-default-number-of-vf-devices-is-not-available-for-4s-platform" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[SRIOV] Default number of VF devices is not available
+for 4S+ platform</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-11092</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When installing VFs in default configuration on 4S+
+platform, some of the VFs are not usable.</p>
+<p>e.g. Sample application execution fails with error
+message:</p>
+<p>[error] SalCtrl_AdfServicesStartedCheck() - : Sal Ctrl
+failed to start in given time</p>
+<p>[error] do_userStart() - : Failed to start services</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Sample code application is not usable, some of the
+devices are down.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 0.9.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>N/A</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-9754-dc-deflate-decompression-overflow-may-result-in-a-timeout-event-16-cpa-dc-wdog-timer-err">
+<h3>QATE20-9754 [DC] - Deflate Decompression Overflow may result in a timeout event (-16 CPA_DC_WDOG_TIMER_ERR)<a class="headerlink" href="#qate20-9754-dc-deflate-decompression-overflow-may-result-in-a-timeout-event-16-cpa-dc-wdog-timer-err" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Deflate Decompression Overflow may result in a
+timeout event (-16 CPA_DC_WDOG_TIMER_ERR)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-9754</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When utilizing either stateless/stateful Deflate
+Decompression sessions, under certain conditions an
+overflow event may cause watchdog timer timeout error
+and the driver will report a timeout event (-16
+CPA_DC_WDOG_TIMER_ERR).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The user application will observe a
+CPA_DC_WDOG_TIMER_ER (-16) error rather than
+CPA_DC_OVERFLOW (-11 ).</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Issue is resolved with updated silicon.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled">
+<span id="qat-2-0-rn-svm-issue"></span><h3>QAT20-23616 [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT) disabled<a class="headerlink" href="#qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Firmware] Shared Virtual Memory (SVM) and Address
+Translation (AT) disabled</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-23616</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When running QAT workloads with AT enabled under loaded
+traffic conditions, memory page corruption may occur.</p>
+<p>Intel is looking at a possible workaround for the
+problem, and until then the QAT firmware/Driver will
+not make use of or enable SVM with AT.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>It is not currently possible to run with SVM and AT.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>SVM and AT are available starting with the 1.0.10
+release.  Refer to the
+<a class="reference internal" href="../../../PG/infrastructure_memory_management.html#qat-2-0-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a>
+section of the Programmer’s Guide for details on enabling.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="description.html" class="btn btn-neutral float-left" title="Description of Release" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

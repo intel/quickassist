@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intel QuickAssist Technology APIs &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Intel QuickAssist Technology APIs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-quickassist-technology-apis">
+<span id="qat-2-0-pg-supported-apis-qat-apis"></span><h1>Intel QuickAssist Technology APIs<a class="headerlink" href="#intel-quickassist-technology-apis" title="Permalink to this headline"></a></h1>
+<p>The platforms described in this manual support the following Intel<sup>®</sup> QAT API libraries:</p>
+<ul class="simple">
+<li><p><strong>Cryptographic</strong>: API definitions are located in: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/lac</span></code>, where <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT</span></code> is the directory where the Acceleration software is unpacked. See the <a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/709199?explicitVersion=true">Intel QuickAssist Technology Cryptographic API Reference Manual</a>  for details.</p></li>
+<li><p><strong>Data Compression</strong>: API definitions are located in: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/dc</span></code>. See the <a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/709201?explicitVersion=true">Intel QuickAssist Technology Data Compression API Reference Manual</a> for details.</p></li>
+</ul>
+<section id="cryptographic-and-data-compression-api-descriptions">
+<h2>Cryptographic and Data Compression API Descriptions<a class="headerlink" href="#cryptographic-and-data-compression-api-descriptions" title="Permalink to this headline"></a></h2>
+<p>Full descriptions of the Intel<sup>®</sup> QAT APIs are contained in the <a class="reference internal" href="../apis_qat_apis.html#qat-2-0-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="../apis_qat_apis.html#qat-2-0-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a>.</p>
+<p>In addition to the Intel<sup>®</sup> QAT Data Plane APIs, there are a number of Data Plane Polling APIs that are
+described in the <a class="reference internal" href="../apis_additional_pollingfunctions.html#qat-2-0-pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling Functions</span></a> section.</p>
+<section id="data-plane-apis-overview">
+<h3>Data Plane APIs Overview<a class="headerlink" href="#data-plane-apis-overview" title="Permalink to this headline"></a></h3>
+<p>The <a class="reference internal" href="../apis_qat_apis.html#qat-2-0-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="../apis_qat_apis.html#qat-2-0-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a> contain information on the APIs that are specific to data plane applications.</p>
+<p>The APIs are recommended for applications that are executing in a data plane environment where the cost of offload (that is, the cycles consumed by the driver sending requests to the hardware) needs to be minimized. To minimize the cost of offload, several constraints have been placed on the APIs. If these constraints are too restrictive for your application, the traditional APIs can be used instead (at a cost of additional IA cycles).</p>
+<p>The definition of the Cryptographic Data Plane APIs are contained in:
+<code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/lac/cpa_cy_sym_dp.h</span></code></p>
+<p>The definition of the Data Compression Data Plane APIs are contained in:
+<code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/dc/cpa_dc_dp.h</span></code></p>
+</section>
+<section id="ia-cycle-count-reduction-when-using-data-plane-apis">
+<h3>IA Cycle Count Reduction When Using Data Plane APIs<a class="headerlink" href="#ia-cycle-count-reduction-when-using-data-plane-apis" title="Permalink to this headline"></a></h3>
+<p>From an IA cycle count perspective, the Data Plane APIs are more performant than the traditional APIs. The majority of the cycle count reduction is realized by the
+reduction of supported functionality in the Data Plane APIs and the application of constraints on the calling application.</p>
+<p>In addition, to further improve performance, the Data Plane APIs attempt to amortize the cost of an MMIO access when sending requests to, and receiving responses from, the hardware.</p>
+<p>A typical usage is to call the <code class="docutils literal notranslate"><span class="pre">cpaCySymDpEnqueueOp()</span></code> or the <code class="docutils literal notranslate"><span class="pre">cpaDcDpEnqueueOp()</span></code> function multiple times with requests to process and the <code class="docutils literal notranslate"><span class="pre">performOpNow</span></code> flag set to <code class="docutils literal notranslate"><span class="pre">CPA_FALSE</span></code>.
+Once multiple requests have been enqueued, <code class="docutils literal notranslate"><span class="pre">cpaCySymDpEnqueueOp()</span></code> or <code class="docutils literal notranslate"><span class="pre">cpaDcDpEnqueueOp()</span></code> may be called with the <code class="docutils literal notranslate"><span class="pre">performOpNow</span></code> flag set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code>. This sends the requests to
+the Intel<sup>®</sup> QAT Endpoint for processing.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="img/dataplane_amortizing_updated.png"><img alt="img/dataplane_amortizing_updated.png" src="img/dataplane_amortizing_updated.png" style="width: 938px; height: 479px;" /></a>
+</figure>
+<p>The Intel<sup>®</sup> QAT API returns a <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code> when the ring becomes full.</p>
+<p>The number of requests to place on the ring is application dependent and it is recommended that performance testing be conducted with tunable parameter values.</p>
+<p>Two functions, <code class="docutils literal notranslate"><span class="pre">cpaCySymDpPerformOpNow()</span></code> and <code class="docutils literal notranslate"><span class="pre">cpaDCDpPerformOpNow()</span></code>, are also provided that allow queued requests to be sent to the hardware without the need for queuing an additional request. This is typically used in the scenario where a request has not been received for some time and the application would like the enqueued requests to be sent to the hardware for processing.</p>
+</section>
+<section id="usage-constraints-on-the-data-plane-apis">
+<span id="data-plane-constraints"></span><h3>Usage Constraints on the Data Plane APIs<a class="headerlink" href="#usage-constraints-on-the-data-plane-apis" title="Permalink to this headline"></a></h3>
+<p>The following constraints apply to the use of the Data Plane APIs. If the application can handle these constraints, the Data Plane APIs can be used:</p>
+<ul class="simple">
+<li><p>Thread safety is not supported. Each software thread should have access to its own unique instance (<code class="docutils literal notranslate"><span class="pre">CpaInstanceHandle</span></code>) to avoid contention on the hardware rings.</p></li>
+<li><p>For performance, polling is supported, as opposed to interrupts (which are comparatively more expensive).</p></li>
+<li><p><a class="reference internal" href="../apis_additional_pollingfunctions.html#qat-2-0-pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling functions</span></a> are provided to read responses from the hardware response queue and dispatch callback functions.</p></li>
+<li><p>Buffers and buffer lists are passed using physical addresses to avoid virtual-to- physical address translation costs.</p></li>
+<li><p>Alignment restrictions are placed on the operation data (that is, the <code class="docutils literal notranslate"><span class="pre">CpaCySymDpOpData</span></code> structure) passed to the Data Plane API. The operation data must be at least 8-byte aligned, contiguous, resident, DMA-accessible memory.</p></li>
+<li><p>Only asynchronous invocation is supported, that is, synchronous invocation is not supported.</p></li>
+<li><p>There is no support for cryptographic partial packets. If support for partial packets is required, the traditional Intel<sup>®</sup> QAT APIs should be used.</p></li>
+<li><p>Since thread safety is not supported, statistic counters on the Data Plane APIs are not atomic.</p></li>
+<li><p>The default instance (<code class="docutils literal notranslate"><span class="pre">CPA_INSTANCE_HANDLE_SINGLE</span></code>) is not supported by the Data Plane APIs. The specific handle should be obtained using the instance discovery functions (<code class="docutils literal notranslate"><span class="pre">cpaCyGetNumInstances()</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaCyGetInstances()</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumInstances()</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaDcGetInstances()</span></code>).</p></li>
+<li><p>The submitted requests are always placed on the high-priority ring.</p></li>
+<li><p>The data plane APIs are supported in both user space and polling mode in kernel space, but not supported in interrupt mode in kernel space.</p></li>
+</ul>
+</section>
+</section>
+<section id="intel-qat-api-limitations">
+<h2>Intel<sup>®</sup> QAT API Limitations<a class="headerlink" href="#intel-qat-api-limitations" title="Permalink to this headline"></a></h2>
+<p>The following limitations apply when using the Intel® QAT APIs on the platforms described in
+this manual:</p>
+<ul>
+<li><p>For all services, the maximum size of a single perform request is 4 GB.</p></li>
+<li><p>For all services, data structures that contain data required by the Intel<sup>®</sup> QAT Endpoint should be on a 64-byte-aligned address to maximize performance. This alignment helps minimize latency when transferring data from DRAM to an Intel<sup>®</sup> QAT Endpoint integrated in the PCH device.</p></li>
+<li><p>For the key generation cryptographic API, the following limitations apply:</p>
+<blockquote>
+<div><table class="longtable docutils align-default" id="id1">
+<caption><span class="caption-text">Key Generation Cryptographic API Limitations</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td rowspan="3"><p>Secure Sockets Layer (SSL) key generation op-data:</p></td>
+<td><p>Maximum secret length is 512 bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>Maximum <code class="docutils literal notranslate"><span class="pre">userLabel</span></code> length is 136 bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximum <code class="docutils literal notranslate"><span class="pre">generatedKeyLenInBytes</span></code> is 248</p></td>
+</tr>
+<tr class="row-even"><td rowspan="6"><p>Transport Layer Security (TLS) key generation op-data:</p></td>
+<td><p>Secret length must be &lt;128 bytes for TLS
+v1.0/1.1;</p></td>
+</tr>
+<tr class="row-odd"><td><p>Secret length must be &lt;512 bytes for TLS v1.2</p></td>
+</tr>
+<tr class="row-even"><td><p>Secret length must be &lt;512 bytes for TLS v1.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">userLabel</span></code> length must be &lt;256 bytes</p></td>
+</tr>
+<tr class="row-even"><td><p>Maximum seed size is 64 bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximum <code class="docutils literal notranslate"><span class="pre">generatedKeyLenInBytes</span></code> is 248 bytes</p></td>
+</tr>
+<tr class="row-even"><td rowspan="2"><p>Mask Generation Function (MGF) op-data:</p></td>
+<td><p>Maximum seed length is 255 bytes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximum <code class="docutils literal notranslate"><span class="pre">maskLenInBytes</span></code> is 65528</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</li>
+<li><p>For the cryptographic service, SNOW 3G and KASUMI* operations are not supported when <code class="docutils literal notranslate"><span class="pre">CpaCySymPacketType</span></code> is set to <code class="docutils literal notranslate"><span class="pre">CPA_CY_SYM_PACKET_TYPE_PARTIAL</span></code>. The error returned in this case is <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_INVALID_PARAM</span></code>.</p></li>
+<li><p>For the cryptographic service, when using the asymmetric crypto APIs, the buffer size passed to the API should be rounded to the next power of 2, or the next 3- times a power of 2, for optimum performance.</p></li>
+<li><p>For the data compression service, the size of all stateful decompression requests have to be a multiple of two with the exception of the last request.</p></li>
+<li><p>For the data compression service, the <code class="docutils literal notranslate"><span class="pre">CpaDcFileType</span></code> field in the <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code> data structure is ignored (previously this was considered for semi-dynamic compression/decompression).</p></li>
+<li><p>For static compression, the maximum expansion during compression is ceiling <em>(9xTotal_Input_Byte/8)+7</em> bytes. If <code class="docutils literal notranslate"><span class="pre">CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_STORED_HDRS</span></code> or <code class="docutils literal notranslate"><span class="pre">CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_NO_HDRS</span></code> is selected, the maximum expansion during compression is the input buffer size plus up to ceiling <em>(Total_Input_Byte/65535)x5</em> bytes, depending on whether the stored headers are selected.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Due to the need for a skid pad and the way the checksum is calculated in the stored block case to prevent compression overflow, an output buffer size of ceiling (9*Total_Input_Byte/8) + 55 bytes needs to be supplied (even though the stored block output size might be less).</p>
+</div>
+</div></blockquote>
+</li>
+<li><p>The decompression service can report various error conditions, most of which arise from processing dynamic Huffman code trees that are ill-formed. These soft error conditions are reported at the Intel<sup>®</sup> QuickAssist Technology API using the <code class="docutils literal notranslate"><span class="pre">CpaDcReqStatus</span></code> enumeration. At the point of soft error, the hardware state will not be accurate to allow recovery. Therefore, in this case, the Intel<sup>®</sup> QuickAssist Technology software rolls back to the previous known good state and reports that no input has been processed and no output produced. This allows an application to correct the source of the error and resubmit the request.</p>
+<p>For example, if the following source and destination buffers were submitted to the Intel<sup>®</sup> QuickAssist Technology:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="img/api_limitation1_updated.png"><img alt="img/api_limitation1_updated.png" src="img/api_limitation1_updated.png" style="width: 839px; height: 193px;" /></a>
+</figure>
+<p>The result would be:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="img/api_limitation2_updated.png"><img alt="img/api_limitation2_updated.png" src="img/api_limitation2_updated.png" style="width: 839px; height: 193px;" /></a>
+</figure>
+</li>
+<li><p>Behavior when build flag <code class="docutils literal notranslate"><span class="pre">ICP_DC_RETURN_COUNTERS_ON_ERROR</span></code> is defined. In some specialized applications, when a decompression soft error occurs, the application has no way of correcting the source of the error and resubmitting the request. The session will need to be invalidated and terminated. In this case it is more useful to the application to output the uncompressed data up to the point of soft error before terminating the session. There is a compile time build flag (<code class="docutils literal notranslate"><span class="pre">ICP_DC_RETURN_COUNTERS_ON_ERROR</span></code>) to select this mode of operation. This is the behavior of decompression in case of soft error when this build flag is used.</p>
+<p>If the following source and destination buffers were submitted to the Intel<sup>®</sup> QuickAssist Technology API:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="img/api_limitation3_updated.png"><img alt="img/api_limitation3_updated.png" src="img/api_limitation3_updated.png" style="width: 839px; height: 193px;" /></a>
+</figure>
+<p>The result would be:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="img/api_limitation4_updated.png"><img alt="img/api_limitation4_updated.png" src="img/api_limitation4_updated.png" style="width: 839px; height: 193px;" /></a>
+</figure>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It is important to note in this case:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The consumed value returned in the <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure is not reliable.</p></li>
+<li><p>No further requests can be submitted on this session.</p></li>
+</ul>
+</div></blockquote>
+</div>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

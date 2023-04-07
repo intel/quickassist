@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Description of Release &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Release Updates" href="updates.html" />
+    <link rel="prev" title="Release Notes - VMware*" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Release Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Release Notes - VMware*</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Description of Release</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#limitations">Limitations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#package-information">Package Information</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#list-of-files-in-release">List of Files in Release</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#supported-guest-drivers">Supported Guest Drivers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#technical-support">Technical Support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#environmental-assumptions">Environmental Assumptions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#related-documentation">Related Documentation</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="updates.html">Release Updates</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../FreeBSD/2.X/index.html">FreeBSD Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Release Notes</a> &raquo;</li>
+          <li><a href="index.html">Release Notes - VMware*</a> &raquo;</li>
+      <li>Description of Release</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="description-of-release">
+<h1>Description of Release<a class="headerlink" href="#description-of-release" title="Permalink to this headline"></a></h1>
+<p>This document contains information on the accompanying Intel<sup>®</sup>
+QuickAssist Technology (Intel<sup>®</sup> QAT) Hardware Version 2.0 Driver for VMware ESXi*.</p>
+<p>This software enables single root I/O virtualization (SR-IOV) for the Intel QAT driver on VMware ESXi*.
+SR-IOV enables the creation of Virtual Functions (VF) from a single
+Intel QAT device to support acceleration for multiple virtual machines.</p>
+<p>For instructions on loading and running the release software, refer to the
+<code class="docutils literal notranslate"><span class="pre">README.txt</span></code> file in the released software package. For instructions on
+how to install the driver in the Guest Operating System (OS) refer to corresponding guest
+driver’s collaterals listed in the <a class="reference internal" href="../VMware/2.X/description.html#qat2-0-rn-vmware-related-documentation"><span class="std std-ref">Related Documentation</span></a> section.</p>
+<p>Refer to the <a class="reference internal" href="../VMware/2.X/revision_history.html#qat2-0-rn-vmware-revision-history"><span class="std std-ref">Revision History</span></a> to check the changes of this document.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These release notes may include known issues with third-party or reference platform components that affect the operation of the software.</p>
+</div>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Sym/Asym Crypto.</p></li>
+<li><p>TLS1.3 elliptical curves Montgomery encryption (curve 25519 and curve 448).</p></li>
+<li><p>Data Compression with CnV for Deflate and LZ4/LZ4s algorithms and CnVnR for
+Deflate and LZ4s.</p></li>
+<li><p>Telemetry.</p></li>
+<li><p>Power Management.</p></li>
+<li><p>SM3/SM4.</p></li>
+<li><p>Asynchronous E2E support for compression.</p></li>
+<li><p>Extended RAS (uncorrectable and fatal error support).</p></li>
+<li><p>Ratelimiting for Sym/Asym crypto services.</p></li>
+</ul>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>Symmetric services are not configured by default, refer to the <em>Device configuration</em> section in <code class="docutils literal notranslate"><span class="pre">README.txt</span></code> for additional information.</p></li>
+<li><p>Stateful decompression is not supported.</p></li>
+<li><p>Intel<sup>®</sup> Key Protection Technology (KPT) is not currently supported.</p></li>
+<li><p>Auto-select best (ASB) is not supported with rolling <em>XXHash32</em>.</p></li>
+<li><p>Dynamic Power Management (DPM) is not currently supported.</p></li>
+<li><p>Scalable IOV is not currently supported.</p></li>
+<li><p>Ratelimiting for compression service is not currently supported.</p></li>
+<li><p>Shared Virtual Memory (SVM) and Address Translation is not currently supported.</p></li>
+<li><p>ESXi limitation: number of PCI passthrough devices per VM is limited, check this <a class="reference external" href="https://kb.vmware.com/s/article/1003497">KB article</a> for exact limits. ESXi will not allow to power on
+VM if such limit is exceeded.</p></li>
+</ul>
+</section>
+<section id="package-information">
+<h2>Package Information<a class="headerlink" href="#package-information" title="Permalink to this headline"></a></h2>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Package Name</strong></p></td>
+<td><p>qat-2.0_ext_rel_bin_2.4.0.72-7.0.0-15843807.tar.gz</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Release Date</strong></p></td>
+<td><p>01/23/2023</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Supported</strong></p>
+<p><strong>Hardware</strong></p>
+</td>
+<td><p>4th Generation Intel® Xeon® Scalable Processor (4xxx QAT)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Supported</strong></p>
+<p><strong>ESXi Version</strong></p>
+</td>
+<td><p>VMware ESXi 7.0 Update 3i and 8.0</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver Version</strong></p></td>
+<td><p>2.4.0.72</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Package</strong></p>
+<p><strong>Checksum</strong></p>
+</td>
+<td><p>SHA256: 95AC6B63A7BC6FBEB556C29FD25EA32AD210AC684408B3B080DB1E94CE07A96D</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="list-of-files-in-release">
+<h2>List of Files in Release<a class="headerlink" href="#list-of-files-in-release" title="Permalink to this headline"></a></h2>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>File</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">Intel-qat_2.4.0.72-1OEM.700.1.0.15843807_20962237.zip</span></code></p></td>
+<td><p>Driver component</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LICENSE.txt</span></code></p></td>
+<td><p>License information</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">README.txt</span></code></p></td>
+<td><p>Basic driver installation and configuration information</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="supported-guest-drivers">
+<h2>Supported Guest Drivers<a class="headerlink" href="#supported-guest-drivers" title="Permalink to this headline"></a></h2>
+<p>The software in this release has been validated against the following guest
+drivers:</p>
+<ul class="simple">
+<li><p><strong>Linux*:</strong> Intel QAT driver <code class="docutils literal notranslate"><span class="pre">QAT20.L.1.0.0-*</span></code></p></li>
+<li><p><strong>Windows*:</strong> Intel QAT driver <code class="docutils literal notranslate"><span class="pre">QAT2.0.W.2.0.1-*</span></code></p></li>
+</ul>
+<p>Actual list of supported guest OS depends on the guest driver compatibility.
+Refer to the corresponding documentation for more information.</p>
+</section>
+<section id="technical-support">
+<h2>Technical Support<a class="headerlink" href="#technical-support" title="Permalink to this headline"></a></h2>
+<p>Intel offers support for this software at the API level only,
+defined in the Programmer’s Guide and API reference manuals listed in the <a class="reference internal" href="../VMware/2.X/description.html#qat2-0-rn-vmware-related-documentation"><span class="std std-ref">Related Documentation</span></a> section.</p>
+<p>For technical support, including answers to questions not addressed in this
+document, visit the technical support forum, FAQs, and other support
+information at <a class="reference external" href="https://www.intel.com/content/www/us/en/support.html">Intel Support</a>.</p>
+<p>VMware forwards all issues they suspect to be related to Intel QAT
+to Intel to help triage and resolve with the customer directly.</p>
+</section>
+<section id="environmental-assumptions">
+<h2>Environmental Assumptions<a class="headerlink" href="#environmental-assumptions" title="Permalink to this headline"></a></h2>
+<p>The following assumptions are made about the deployment environment:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The driver object/executable file on disk should be protected using
+the normal file protection mechanisms, so it is writable by only
+trusted users, for example, a privileged user or an administrator.</p></li>
+<li><p>The public key firmware image on the disk should be protected using
+normal file protection mechanisms, so it is writable only by trusted
+users, for example, a privileged user or an administrator.</p></li>
+<li><p>The Intel QAT device should not be exposed (through the
+<em>user space direct</em> deployment model) to untrusted users.</p></li>
+<li><p>The Dynamic Random-Access Memory (DRAM) is considered to be inside
+the trust boundary. The traditional memory-protection schemes
+provided by the Intel architecture processor and memory
+controller, and by the OS, is to prevent unauthorized access to these
+memory regions.</p></li>
+<li><p>Persistent keys were not considered, but the storage media are also
+considered inside the cryptographic boundary.</p></li>
+<li><p>The driver exposed device file should be protected using the normal
+file protection mechanisms so that it could be opened and
+read/written only by trusted users.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="related-documentation">
+<span id="qat2-0-rn-vmware-related-documentation"></span><h2>Related Documentation<a class="headerlink" href="#related-documentation" title="Permalink to this headline"></a></h2>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 85%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p><strong>Number</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Intel QuickAssist Technology for Linux* - Getting Started Guide (HW 2.0)</p></td>
+<td><p>632506</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intel QuickAssist Technology for Linux* - Release Notes (HW 2.0)</p></td>
+<td><p>632507</p></td>
+</tr>
+<tr class="row-even"><td><p>Intel QuickAssist Technology for VMware* - Release Notes (HW 2.0)</p></td>
+<td><p>766469</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intel QuickAssist Technology - Programmer’s Guide (HW 2.0)</p></td>
+<td><p>743912</p></td>
+</tr>
+<tr class="row-even"><td><p>Intel QuickAssist Technology API Programmer’s Guide</p></td>
+<td><p>330684</p></td>
+</tr>
+<tr class="row-odd"><td><p>Intel QuickAssist Technology Cryptographic API Reference Manual</p></td>
+<td><p>330685</p></td>
+</tr>
+<tr class="row-even"><td><p>Intel QuickAssist Technology Data Compression API Reference Manual</p></td>
+<td><p>330686</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/tool/device-manager-vc.html">Intel Device Manager for VMware vCenter Server</a></p></td>
+<td><p>-</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Release Notes - VMware*" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="updates.html" class="btn btn-neutral float-right" title="Release Updates" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Software Design Guidelines &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Software Design Guidelines</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="software-design-guidelines">
+<span id="qat-perf-opt-guide-design-guidelines"></span><h1>Software Design Guidelines<a class="headerlink" href="#software-design-guidelines" title="Permalink to this headline"></a></h1>
+<p>This chapter focuses on key design decisions that should be considered,
+to achieve optimal performance, when integrating with the Intel
+QuickAssist Technology software. In many cases the best Intel
+QuickAssist Technology configuration is dependent on the design of the
+application stack that is being used and so it is not possible to have a
+<em>one configuration fits all</em> approach. The trade-offs between differing
+approaches will be discussed in this section to help the designer to
+make an informed decision.</p>
+<p>The guidelines presented here focus on the following performance
+aspects:</p>
+<ul class="simple">
+<li><p>Maximizing throughput through the accelerator.</p></li>
+<li><p>Minimizing the offload cost incurred when using the accelerator.</p></li>
+<li><p>Minimizing latency.</p></li>
+</ul>
+<p>Each guideline will highlight its impact on performance. Specific
+performance numbers are not given in this document since exact
+performance numbers depend on a variety of factors and tend to be
+specific to a given workload, software, and platform configuration.</p>
+<section id="polling-vs-interrupts">
+<span id="qat-perf-opt-guide-polling-vs-interrupts"></span><h2>Polling vs Interrupts<a class="headerlink" href="#polling-vs-interrupts" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Not all use cases support interrupt mode, and not all software packages support interrupt mode.</p>
+</div>
+<p>Software can either periodically query the hardware accelerator for
+responses or it can enable the generation of an interrupt when responses
+are available. Interrupts or polling mode can be configured per instance
+via the device configuration settings. Configuration parameter details
+are available in the <a class="reference internal" href="../../PG/index.html"><span class="doc">Programmer’s Guide</span></a>.</p>
+<p>The properties and performance characteristics of each mode are
+explained below followed by recommendations on selecting a
+configuration.</p>
+<section id="interrupt-mode">
+<h3>Interrupt Mode<a class="headerlink" href="#interrupt-mode" title="Permalink to this headline"></a></h3>
+<p>When operating in interrupt mode, the accelerator will generate an MSI-X
+interrupt when a response is placed on a response ring. Each ring bank
+has a separate MSI-X interrupt which may be steered to a particular CPU
+core via the <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> settings in the configuration file.</p>
+<p>To reduce the number of interrupts generated, and hence the number of
+CPU cycles spent processing interrupts, multiple responses can be
+coalesced together. The presence of the multiple responses can be
+indicated via a single coalesced interrupt rather than having an
+interrupt per response. The number of responses that are associated with
+a coalesced interrupt is determined by an interrupt coalescing timer.
+When the accelerator places a response in a response ring, it starts an
+interrupt coalescing timer. While the timer is running, additional
+responses may be placed in the response ring. When the timer expires, an
+interrupt is generated to indicate that responses are available. Details
+on how to configure interrupt coalescing are available in the
+<a class="reference internal" href="../../PG/index.html"><span class="doc">Programmer’s Guide</span></a>.</p>
+<p>Since interrupt coalescing is based on a timer, there is some
+variability in the number of responses that are associated with an
+interrupt. The arrival rate of responses is a function of the arrival
+rate of the associated requests and of the request size. Hence, the
+timer configuration needed to coalesce <em>X</em> large requests is different
+from the timer configuration needed to coalesce <em>X</em> small requests. It is
+recommended that the timer is tuned based on the average expected
+request size.</p>
+<p>The choice of timer configuration impacts throughput, latency, and
+offload cost:</p>
+<ul class="simple">
+<li><p>Configuring a very short timer period minimizes latency, but will
+increase the offload cost since there will be a higher number of
+interrupts and hence more CPU cycles spent processing the interrupts.
+If this interrupt processing becomes a performance bottleneck for the
+CPU, the overall system throughput will be impacted.</p></li>
+<li><p>Configuring a very long timer period leads to reduced offload cost
+(due to the reduction in the number of interrupts) but increased
+latency. If the timer period is very long and causes the response
+rings to fill, the accelerator will stall and throughput will be
+impacted.</p></li>
+</ul>
+<p>The appropriate coalescing timer configuration will depend on the
+characteristics of the application. It is recommended that the value
+chosen is tuned to achieve optimal performance.</p>
+<p>Using interrupts to notify user space applications is achieved using
+<em>epoll mode</em> which utilizes the kernel device drivers poll function to
+allow an application to get notified of interrupt events.</p>
+<p>Because epoll mode has two parts, of which the kernel space part
+utilizes the interrupts, if there is a delay in the kernel interrupt
+(such as, by changing the coalescing fields), there will be a
+corresponding increase in latency in the delivery of the event to user
+space.</p>
+<p>The thread waiting for an event in epoll mode does not consume CPU time,
+but the latency could have an impact on the performance. For higher
+packet load where the wait time for the next packet is insignificant,
+polling mode is recommended.</p>
+<p>When using interrupts with the user space Intel QuickAssist Technology
+driver, there is significant overhead in propagating the interrupt to
+the user space process that the driver is running in. This leads to an
+increased offload cost. Hence it is recommended that interrupts should
+not be used with the user space Intel QuickAssist Technology driver.</p>
+</section>
+<section id="polling-mode">
+<span id="qat-perf-opt-guide-polling-mode"></span><h3>Polling Mode<a class="headerlink" href="#polling-mode" title="Permalink to this headline"></a></h3>
+<p>In polled mode, interrupts are fully disabled, and the software
+application must periodically invoke the polling API, provided by the
+Intel QuickAssist Technology driver, to check for and process responses
+from the hardware. Details of the polling API are available in the
+<a class="reference internal" href="../../PG/index.html"><span class="doc">Programmer’s Guide</span></a>.</p>
+<p>The frequency of polling is a key performance parameter that should be
+fine-tuned based on the application. This parameter has an impact on
+throughput, latency and on offload cost:</p>
+<ul class="simple">
+<li><p>If the polling frequency is too high, CPU cycles are wasted if there
+are no responses available when the polling routine is called. This
+leads to an increased offload cost.</p></li>
+<li><p>If the polling frequency is too low, latency is increased, and
+throughput may be impacted if the response rings fill causing the
+accelerator to stall.</p></li>
+</ul>
+<p>The choice of threading model has an impact on performance when using a
+polling approach. There are two main threading approaches when polling:</p>
+<ul class="simple">
+<li><p>Creating a polling thread that periodically calls the polling API.
+This model is often the simplest to implement, allows for maximum
+throughput, but can lead to increased offload cost due to the
+overhead associated with context switching to/from the polling
+thread.</p></li>
+<li><p>Invoking the polling API and submitting new requests from within the
+same thread. This model is characterized by having a <em>dispatch loop</em>
+that alternates between submitting new requests and polling for
+responses. Additional steps are often included in the loop such as
+checking for received network packets or transmitting network
+packets. This approach often leads to the best performance since the
+polling rate can be easily tuned to match the submission rate so
+throughput is maximized and offload cost is minimized.</p></li>
+</ul>
+</section>
+<section id="recommendations">
+<h3>Recommendations<a class="headerlink" href="#recommendations" title="Permalink to this headline"></a></h3>
+<p>Polling mode tends to be preferred in cases where traffic is steady
+(such as packet processing applications) and can result in a minimal
+offload cost. Epoll mode is preferred for cases where traffic is bursty,
+as the application can sleep until there is a response to process.</p>
+<p>Considerations when using polling mode:</p>
+<ul class="simple">
+<li><p>Fine-tuning the polling interval is critical to achieving optimal
+performance.</p></li>
+<li><p>The preference is for invoking the polling API and submitting new
+requests from within the same thread rather than having a separate
+polling thread.</p></li>
+</ul>
+<p>Considerations when using epoll mode:</p>
+<ul class="simple">
+<li><p>CPU usage will be at 0% in idle state in epoll mode versus a non-zero
+value in standard poll mode. However, with a high load state,
+standard poll mode should out-perform epoll mode.</p></li>
+</ul>
+</section>
+</section>
+<section id="data-plane-api-vs-traditional-api">
+<h2>Data Plane API vs Traditional API<a class="headerlink" href="#data-plane-api-vs-traditional-api" title="Permalink to this headline"></a></h2>
+<p>The cryptographic and compression services provide two flavors of API,
+known as the <em>Traditional API</em> and the <em>Data Plane API</em>. The traditional API
+provides a full set of functionality including thread safety that allows
+many application threads to submit operations to the same service
+instance. The Data Plane API is aimed at reducing offload cost by
+providing a <em>bare bones</em> API, with a set of constraints, which may suit
+many applications.</p>
+<p>Refer to the <a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/709199?explicitVersion=true">Intel QuickAssist Technology Cryptographic API Reference Manual</a> for more details on the differences
+between the Data Plane and traditional APIs for the crypto service.</p>
+<p>From a throughput and latency perspective, there is no difference in
+performance between the Data Plane API and the traditional API.</p>
+<p>From an offload cost perspective, the Data Plane API uses significantly
+fewer CPU cycles per request compared to the traditional API. For
+example, the cryptographic Data Plane API has an offload cost that is
+lower than the cryptographic traditional API.</p>
+<section id="batch-submission-of-requests-using-the-data-plane-api">
+<h3>Batch Submission of Requests Using the Data Plane API<a class="headerlink" href="#batch-submission-of-requests-using-the-data-plane-api" title="Permalink to this headline"></a></h3>
+<p>The Data Plane API provides the capability to submit batches of requests
+to the accelerator. The use of the batch mode of operation leads to a
+reduction in the offload cost compared to submitting the requests one at
+a time to the accelerator. This is due to CPU cycle savings arising from
+fewer writes to the hardware ring registers in PCIe* memory space.</p>
+<p>Using the Data Plane API, batches of requests can be submitted to the
+accelerator using either the <code class="docutils literal notranslate"><span class="pre">cpaCySymDpEnqueueOp()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">cpaCySymDpEnqueueOpBatch()</span></code> API calls for the symmetric cryptographic
+data plane API and using either the <code class="docutils literal notranslate"><span class="pre">cpaDcDpEnqueueOp()</span></code> or <code class="docutils literal notranslate"><span class="pre">cpaDcDpEnqueueOpBatch()</span></code>
+API calls for the compression data plane API. In
+all cases, requests are only submitted to the accelerator when the
+<code class="docutils literal notranslate"><span class="pre">performOpNow</span></code> parameter is set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code>.</p>
+<p>It is recommended to use the batch submission mode of operation where
+possible to reduce offload cost.</p>
+</section>
+</section>
+<section id="synchronous-sync-vs-asynchronous-async">
+<h2>Synchronous (sync) vs Asynchronous (async)<a class="headerlink" href="#synchronous-sync-vs-asynchronous-async" title="Permalink to this headline"></a></h2>
+<p>The Intel QuickAssist Technology traditional API supports both
+synchronous and asynchronous modes of operation. The Intel QuickAssist
+Technology Data Plane API only supports the asynchronous mode of
+operation.</p>
+<p>With synchronous mode, the traditional API
+will block and not return to the calling code until the acceleration
+operation has completed.</p>
+<p>With asynchronous mode, the traditional or Data Plane API will return to the calling code once the request has been
+submitted to the accelerator. When the accelerator has completed the
+operation, the completion is signaled via the invocation of a callback
+function.</p>
+<p>From a performance perspective, the accelerator requires multiple
+inflight requests per acceleration engine to achieve maximum throughput.
+With synchronous mode of operation, multiple threads must be used to
+ensure that multiple requests are inflight. The use of multiple threads
+introduces an overhead of context switching between the threads which
+leads to an increase in offload cost.</p>
+<p>Hence, the use of asynchronous mode is the recommended approach for
+optimal performance.</p>
+</section>
+<section id="buffer-lists">
+<h2>Buffer Lists<a class="headerlink" href="#buffer-lists" title="Permalink to this headline"></a></h2>
+<p>The symmetric cryptographic and compression Intel QuickAssist
+Technology APIs use buffer lists for passing data to/from the hardware
+accelerator. The number and size of elements in a buffer list has an
+impact on throughput; performance degrades as the number of elements in
+a buffer list increases. To minimize this degradation in throughput
+performance, it is recommended to keep the number of buffers in a buffer
+list to a minimum. Using a single buffer in a buffer list leads to
+optimal performance. See also the section <a class="reference internal" href="../application_tunning.html#qat-perf-opt-guide-payload-alignment"><span class="std std-ref">Payload Alignment</span></a> for additional considerations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Specific performance numbers are not given in this document since
+exact performance numbers depend on a variety of factors and tend to
+be specific to a given workload, software and platform configuration.</p>
+</div>
+<p>When using the Data Plane API, it is possible to pass a flat buffer to
+the API instead of a buffer list. This is the most efficient usage of
+system resources (mainly PCIe* bandwidth) and can lead to lower
+latencies compared to using buffer lists.</p>
+<p>In summary, the recommendations for using buffer lists are:</p>
+<ul class="simple">
+<li><p>If using the Data Plane API, use a flat buffer instead of a buffer
+list.</p></li>
+<li><p>If using a buffer list, a single buffer per buffer list leads to
+highest throughput performance.</p></li>
+<li><p>If using a buffer list, keep the number of buffers in the list to a
+minimum.</p></li>
+</ul>
+</section>
+<section id="maximum-number-of-concurrent-requests">
+<h2>Maximum Number of Concurrent Requests<a class="headerlink" href="#maximum-number-of-concurrent-requests" title="Permalink to this headline"></a></h2>
+<p>The depth of the hardware rings used by the Intel QuickAssist
+Technology driver for submitting requests to, and retrieving responses
+from, the accelerator hardware can be controlled via the configuration
+file using the <code class="docutils literal notranslate"><span class="pre">CyXNumConcurrentSymRequests</span></code>, <code class="docutils literal notranslate"><span class="pre">CyXNumConcurrentAsymRequests</span></code>
+and <code class="docutils literal notranslate"><span class="pre">DcXNumConcurrentRequests</span></code> parameters. These settings can have an
+impact on performance:</p>
+<ul class="simple">
+<li><p>As the maximum number of concurrent requests is increased in the
+configuration file, the memory requirements required to support this
+also increases.</p></li>
+<li><p>If the number of concurrent requests is set too low, there may not be
+enough outstanding requests to keep the accelerator busy and so
+throughput will degrade. The minimum number of concurrent requests
+required to keep the accelerator busy is a function of the size of
+the requests and of the rate at which responses are processed via
+either polling or interrupts (refer to the section <a class="reference internal" href="../design_guidelines.html#qat-perf-opt-guide-polling-vs-interrupts"><span class="std std-ref">Polling vs Interrupts</span></a>
+for more details).</p></li>
+<li><p>If the number of concurrent requests is set too high, the maximum
+latency will increase.</p></li>
+</ul>
+<p>It is recommended that the maximum number of concurrent requests is
+tuned to achieve the correct balance between memory usage, throughput
+and latency for a given application. As a guide the maximum number
+configured should reflect the peak request rate that the accelerator
+must handle.</p>
+</section>
+<section id="symmetric-crypto-partial-operations">
+<h2>Symmetric Crypto Partial Operations<a class="headerlink" href="#symmetric-crypto-partial-operations" title="Permalink to this headline"></a></h2>
+<p>The symmetric cryptographic Intel QuickAssist Technology API supports
+partial operations for some cryptographic algorithms. This allows a
+single payload to be processed in multiple fragments with each fragment
+corresponding to a partial operation. The Intel QuickAssist Technology
+API implementation will maintain sufficient state between each partial
+operation to allow a subsequent partial operation for the same session
+to continue from where the previous operation finished.</p>
+<p>From a performance perspective, the cost of maintaining the state and
+the serialization between the partial requests in a session has a
+negative impact on offload cost and throughput. To maximize performance
+when using partial operations, multiple symmetric cryptographic sessions
+must be used to ensure that sufficient requests are provided to the
+hardware to keep it busy.</p>
+<p>For optimal performance, it is recommended to avoid the use of partial
+requests if possible.</p>
+<p>There are some situations where the use of partials cannot be avoided
+since the use of partials and the need to maintain state is inherent in
+the higher level protocol (such as, the use of the RC4 cipher with an
+SSL/TLS protocol stack).</p>
+</section>
+<section id="reusing-sessions">
+<h2>Reusing Sessions<a class="headerlink" href="#reusing-sessions" title="Permalink to this headline"></a></h2>
+<p>The session is the entry point to perform symmetric cryptography with
+the Intel QAT device. Every session has assigned algorithm, state, instance,
+but also allocated memory space.</p>
+<p>If you are limited with the number of instances and want to run several
+different algorithms or change keys for another session, de-initialize
+the session and create a new one. However, such an approach impacts
+performance because it involves buffer disposal, deinitialization of the
+instance, and so on.</p>
+<p>Instead, the session can be reused with updating only a direction
+(encryption/decryption), key or symmetric algorithm to be used. This
+method will not dispose buffers and can reduce the CPU cycles
+significantly.</p>
+</section>
+<section id="maximizing-intel-qat-device-utilization">
+<h2>Maximizing Intel QAT Device Utilization<a class="headerlink" href="#maximizing-intel-qat-device-utilization" title="Permalink to this headline"></a></h2>
+<p>The Intel QAT device utilization and throughput are maximized
+when there are sufficient requests outstanding to occupy the multiple
+internal acceleration engines with the device.</p>
+<p>It also recommended to assign each Intel QAT service instance
+to a separate CPU core to balance the load across the CPU and to ensure
+that there are sufficient CPU cycles to drive the accelerators at
+maximum performance.</p>
+<p>When using interrupts, the core affinity settings within the
+configuration file should be used to steer the interrupts for a service
+instance to the appropriate core.</p>
+<p>Detailed guidelines on load balancing and how to ensure maximum use of
+the available hardware capacity are available in the <a class="reference internal" href="../../PG/index.html"><span class="doc">Programmer’s Guide</span></a>.</p>
+</section>
+<section id="best-known-method-bkm-for-avoiding-performance-bottlenecks">
+<h2>Best Known Method (BKM) for Avoiding Performance Bottlenecks<a class="headerlink" href="#best-known-method-bkm-for-avoiding-performance-bottlenecks" title="Permalink to this headline"></a></h2>
+<p>For optimal performance, ensure the following:</p>
+<ul class="simple">
+<li><p>All data buffers should be aligned on a 64-byte boundary.</p></li>
+<li><p>Transfer sizes that are multiples of 64 bytes are optimal.</p></li>
+<li><p>Small data transfers (less than 64 bytes) should be avoided. If a
+small data transfer is needed, consider embedding this within a
+larger buffer so that the transfer size is a multiple of 64 bytes.
+Offsets can then be used to identify the region of interest within
+the larger buffer.</p></li>
+<li><p>Each buffer entry within a Scatter-Gather-List (SGL) should be a
+multiple of 64bytes and should be aligned on a 64-byte boundary.</p></li>
+</ul>
+</section>
+<section id="avoid-data-copies-by-using-svm-ats">
+<h2>Avoid Data Copies By Using SVM &amp; ATS<a class="headerlink" href="#avoid-data-copies-by-using-svm-ats" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This applies only to platforms starting with Intel QAT Gen 4.</p>
+</div>
+<p>On CPUs and Intel QAT devices that support Shared Virtual
+Memory (SVM), virtual addresses to virtually contiguous buffers can be
+supplied to the Intel QAT hardware. Without this support, physical
+addresses to physically contiguous and DMAable memory buffers must be
+used. Using virtual addressed memory avoids the need to copy payload
+data from user space memory allocated with <code class="docutils literal notranslate"><span class="pre">malloc()</span></code> to physically
+contiguous memory.</p>
+<p>When SVM is enabled, the Intel QAT device interacts with the
+IOMMU to fetch the virtual to physical address translations when
+accessing memory and this can result in increased latency and lower
+throughput.</p>
+<section id="avoid-page-faults-when-using-svm">
+<h3>Avoid Page Faults When Using SVM<a class="headerlink" href="#avoid-page-faults-when-using-svm" title="Permalink to this headline"></a></h3>
+<p>When using SVM to avoid data copies, there is a chance that after a
+request, that refers to a virtually addressed buffer, has been submitted
+to the Intel QAT device, the operating system may swap out the
+memory pages associated with that buffer. This will result in a page
+fault when the Intel QAT device tries to access the memory. The Intel
+QAT device will stall the processing of that request until the page
+fault is resolved or times out. This can lead to an underutilization of
+the Intel QAT device. To avoid page faults, the memory submitted to Intel QAT
+should be pinned.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
