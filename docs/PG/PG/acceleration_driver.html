@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Acceleration Driver &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Acceleration Driver</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="acceleration-driver">
+<span id="qat-2-0-pg-acceleration-driver"></span><h1>Acceleration Driver<a class="headerlink" href="#acceleration-driver" title="Permalink to this headline"></a></h1>
+<p>Intel<sup>®</sup> QAT can accelerate the following services:</p>
+<ul class="simple">
+<li><p>Symmetric cryptography</p></li>
+<li><p>Public key cryptography</p></li>
+<li><p>Data compression/decompression</p></li>
+</ul>
+<p>The Intel<sup>®</sup> QAT Endpoints are exposed as PCI devices. Applications running in user space typically access
+these services via the Intel<sup>®</sup> QAT APIs. Applications that run in the Linux* kernel can also access some
+services via the Linux* Kernel Cryptographic Framework (LKCF) API.</p>
+<section id="controlling-the-driver">
+<h2>Controlling the Driver<a class="headerlink" href="#controlling-the-driver" title="Permalink to this headline"></a></h2>
+<p>Two methods are provided to manage the acceleration driver.  They include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">qat_service</span></code>: script to manage the Intel<sup>®</sup> QAT Endpoints.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">adf-ctl</span></code>: Utility for loading configuration files and sending events to the driver.</p></li>
+</ul>
+</div></blockquote>
+<section id="qat-service">
+<h3>qat_service<a class="headerlink" href="#qat-service" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">qat_service</span></code> script is installed with the software package in the <code class="docutils literal notranslate"><span class="pre">/etc/init.d/</span></code> directory. The script allows a user to start, stop, or
+query the status (up or down) of a single Intel<sup>®</sup> QAT Endpoint or all Intel<sup>®</sup> QAT Endpoints in the system.</p>
+<section id="qat-service-usage">
+<h4>qat_service Usage<a class="headerlink" href="#qat-service-usage" title="Permalink to this headline"></a></h4>
+<p>To view all Intel<sup>®</sup> QAT Endpoints in the system, use:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service status</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If for example, there are two Intel<sup>®</sup> QAT Endpoints in the system, the output will be similar to the following:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>qat_dev0 - type: c6xx, inst_id: 0, bsf: 06:00:0, #accel: 5 #engines: 10 state: up
+qat_dev1 - type: c6xx, inst_id: 1, bsf: 83:00:0, #accel: 5 #engines: 10 state: up
+</pre></div>
+</div>
+</div></blockquote>
+<p>Other options are also available:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service start||stop||status||restart||shutdown</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>For a system with multiple Intel<sup>®</sup> QAT Endpoints, you can start, stop or restart each individual device by passing the Intel<sup>®</sup> QAT Endpoint
+to be restarted or stopped as a parameter <code class="docutils literal notranslate"><span class="pre">qat_dev&lt;N&gt;</span></code>, for example:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service stop qat_dev0</span>
+<span class="go">service qat_service stop qat_dev1</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>The shutdown qualifier enables the user to bring down all Intel<sup>®</sup> QAT Endpoints and unload driver modules from the kernel. This contrasts with the stop qualifier,
+which brings down one or more Intel<sup>®</sup> QAT Endpoints, but does not unload kernel modules, so other Intel<sup>®</sup> QAT Endpoints can still run.</p>
+</section>
+</section>
+<section id="adf-ctl">
+<h3>adf_ctl<a class="headerlink" href="#adf-ctl" title="Permalink to this headline"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">adf_ctl</span></code> user space utility is separate to the driver and provides a mechanism for:</p>
+<ul class="simple">
+<li><p>Loading configuration file data to the kernel driver. The kernel space driver uses the data and also provides the data to the user space driver.</p></li>
+<li><p>Sending events to the driver to bring devices up and down.</p></li>
+</ul>
+<p>The <code class="docutils literal notranslate"><span class="pre">adf_ctl</span></code> provided with the Intel<sup>®</sup> QAT 2.0 driver can also be used to interface with Intel<sup>®</sup> QAT 1.6 and 1.7 devices.</p>
+<section id="adf-ctl-usage">
+<h4>adf_ctl Usage<a class="headerlink" href="#adf-ctl-usage" title="Permalink to this headline"></a></h4>
+<p>To bring up, down, restart or reset device(s):</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl [-c|--config] [qat_dev] [up|down|restart|reset]</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To print device(s) status:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl [qat_dev] status</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To use the specified configuration file:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">-c (--config) [config/file/path]</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If no device (physical or virtual) is selected, this file is used against all existing devices.</p>
+</div>
+</div></blockquote>
+</section>
+<section id="examples">
+<h4>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h4>
+<p>To bring device 0 down:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl qat_dev0 down</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To load device configuration from default path (e.g. <code class="docutils literal notranslate"><span class="pre">/etc/4xxx_dev1.conf</span></code>), then bring device 1 up:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl qat_dev1 up</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To load device configuration from specified path <code class="docutils literal notranslate"><span class="pre">/etc/4xxx_dev1.conf</span></code> and bring device 1 up:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl -c /etc/user_4xxx_dev1.conf qat_dev1 up</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To restart all devices with default configuration files:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl restart</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To restart all devices with specified configuration file <code class="docutils literal notranslate"><span class="pre">/etc/user_c4xxx_dev1.conf</span></code>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl -c /etc/user_4xxx_dev1.conf restart</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To restart device 0 with specified configuration file <code class="docutils literal notranslate"><span class="pre">~/user_4xxx_dev1.conf</span></code>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl -c ~/user_c4xxx_dev1.conf qat_dev0 restart</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To restart device 0:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl qat_dev0 reset</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+<section id="application-payload-memory-allocation">
+<h2>Application Payload Memory Allocation<a class="headerlink" href="#application-payload-memory-allocation" title="Permalink to this headline"></a></h2>
+<p>When performing offload operations through the Intel<sup>®</sup> QAT API, it is required that the payload data be placed in a buffer that is
+resident, physically contiguous, and DMA accessible from the acceleration hardware. It is the application’s responsibility to provide buffers with these constraints.</p>
+<p>Buffers are passed to the API with virtual addresses. The API translates these addresses to the address information required by the hardware.</p>
+<section id="services">
+<h3>Services<a class="headerlink" href="#services" title="Permalink to this headline"></a></h3>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Acceleration Driver Services</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 35%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Service</strong></p></th>
+<th class="head"><p><strong>API</strong></p></th>
+<th class="head"><p><strong>Reference</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Cryptographic
+service</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cpaCySetAddressTranslation()</span></code></p></td>
+<td><p>See the Intel® QuickAssist Technology
+Cryptographic API Reference Manual (refer to
+Table 2) for details.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Data
+Compression
+service</p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">cpaDcSetAddressTranslation()</span></code></p></td>
+<td><p>See the Intel® QuickAssist Technology Data
+Compression API Reference Manual (refer to
+Table 2) for details.</p></td>
+</tr>
+</tbody>
+</table>
+<p>When the software requires the physical address, it calls the registered function.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This address translation function is called at least once per request. Consequently, for optimal performance, the implementation of this  function should be optimized.</p>
+</div>
+<p>If using the Intel<sup>®</sup> QAT Data Plane API, buffers are passed to the Intel<sup>®</sup> QAT API as physical addresses. The library passes this directly to the hardware, without the need for translation.</p>
+</section>
+</section>
+<section id="return-codes">
+<span id="managing-endpoints-using-qat-service"></span><h2>Return Codes<a class="headerlink" href="#return-codes" title="Permalink to this headline"></a></h2>
+<p>This table shows the return codes used by various components of the acceleration driver, defined in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/cpa.h</span></code>.</p>
+<table class="longtable colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Return Codes</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 20%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Return Type</strong></p></th>
+<th class="head"><p><strong>Return Code</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>0</p></td>
+<td><p>Requested operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>-1</p></td>
+<td><p>General or unspecified error occurred. Refer to the console log user space application or to <code class="docutils literal notranslate"><span class="pre">/var/log/messages</span></code> in kernel space for more details of the failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code></p></td>
+<td><p>-2</p></td>
+<td><p>Recoverable error occurred. Refer to relevant sections of the API for specifics on what the suggested course of action.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RESOURCE</span></code></p></td>
+<td><p>-3</p></td>
+<td><p>Required resource is unavailable. The resource that has been requested is unavailable. Refer to relevant sections of the API for specifics on what the suggested course of action.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_INVALID_PARAM</span></code></p></td>
+<td><p>-4</p></td>
+<td><p>Invalid parameter has been passed in.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FATAL</span></code></p></td>
+<td><p>-5</p></td>
+<td><p>Fatal error has occurred. A serious error has occurred. Recommended course of action is to shut down and restart the component.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code></p></td>
+<td><p>-6</p></td>
+<td><p>The function is not supported, at least not with the specific parameters supplied. This may be because a particular capability is   not supported by the current implementation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RESTARTING</span></code></p></td>
+<td><p>-7</p></td>
+<td><p>The API implementation is restarting. This may be reported if, for example, a hardware implementation is undergoing a reset.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="linux-device-driver-operations-return-codes">
+<h2>Linux* Device Driver Operations Return Codes<a class="headerlink" href="#linux-device-driver-operations-return-codes" title="Permalink to this headline"></a></h2>
+<p>This table shows the return codes used by the driver to handle Linux* device driver operations.</p>
+<table class="longtable colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Linux* Device Driver Operations Return Codes</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 20%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Return Type</strong></p></th>
+<th class="head"><p><strong>Return Code</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code></p></td>
+<td><p>0</p></td>
+<td><p>Operation was successful.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">FAIL</span></code></p></td>
+<td><p>1</p></td>
+<td><p>General error occurred. Refer to the console log user space application or to <code class="docutils literal notranslate"><span class="pre">/var/log/messages</span></code> in kernel space for more details of the failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-EPERM</span></code></p></td>
+<td><p>-1</p></td>
+<td><p>Operation is not permitted. Used during ioctl   operations.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-ENOENT</span></code></p></td>
+<td><p>-2</p></td>
+<td><p>No such file or directory.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-EINTR</span></code></p></td>
+<td><p>-4</p></td>
+<td><p>Interrupted system call.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-EIO</span></code></p></td>
+<td><p>-5</p></td>
+<td><p>Input/Output error occurred. Used when copying   configuration data to and from user space.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-EBADF</span></code></p></td>
+<td><p>-9</p></td>
+<td><p>Bad File Number. Used when an invalid file descriptor   is detected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-EAGAIN</span></code></p></td>
+<td><p>-11</p></td>
+<td><p>Try Again. Used when a recoverable operation occurred.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-ENOMEM</span></code></p></td>
+<td><p>-12</p></td>
+<td><p>Out of Memory. Memory resource that has been requested   is not available.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-EACCES</span></code></p></td>
+<td><p>-13</p></td>
+<td><p>Permission Denied. Used when the operation failed to connect   to a process or open a device.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-EFAULT</span></code></p></td>
+<td><p>-14</p></td>
+<td><p>Bad Address. Used when an operation detects invalid   parameter data.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-EBUSY</span></code></p></td>
+<td><p>-16</p></td>
+<td><p>Device or resource is busy.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-EEXIST</span></code></p></td>
+<td><p>-17</p></td>
+<td><p>File exists.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-ENODEV</span></code></p></td>
+<td><p>-19</p></td>
+<td><p>No Such Device. Used when an operation detects invalid   device id.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-EINVAL</span></code></p></td>
+<td><p>-22</p></td>
+<td><p>Invalid argument.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-ENOTTY</span></code></p></td>
+<td><p>-25</p></td>
+<td><p>Invalid Command Type. Used when an ioctl operation   detects an invalid command type.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-ENOSPC</span></code></p></td>
+<td><p>-28</p></td>
+<td><p>No space left on device.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-ERANGE</span></code></p></td>
+<td><p>-34</p></td>
+<td><p>Math result not representable.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-ENOSYS</span></code></p></td>
+<td><p>-38</p></td>
+<td><p>Function not implemented.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-EL3HLT</span></code></p></td>
+<td><p>-46</p></td>
+<td><p>Level 3 Halted.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-ETIME</span></code></p></td>
+<td><p>-62</p></td>
+<td><p>Timer expired.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-EBADMSG</span></code></p></td>
+<td><p>-74</p></td>
+<td><p>Not a data message.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-EOVERFLOW</span></code></p></td>
+<td><p>-75</p></td>
+<td><p>Value too large for defined data type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-EOPNOTSUPP</span></code></p></td>
+<td><p>-95</p></td>
+<td><p>Operation not supported on transport endpoint.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-EINPROGRESS</span></code></p></td>
+<td><p>-115</p></td>
+<td><p>Operation now in progress.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Modes of Operation &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Modes of Operation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="modes-of-operation">
+<span id="qat-2-0-pg-infrastructure-modes-operation"></span><h1>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this headline"></a></h1>
+<section id="calling-semantics">
+<h2>Calling Semantics<a class="headerlink" href="#calling-semantics" title="Permalink to this headline"></a></h2>
+<section id="asynchronous-polled">
+<h3>Asynchronous (Polled)<a class="headerlink" href="#asynchronous-polled" title="Permalink to this headline"></a></h3>
+<p>Hardware “request/response” interface is inherently asynchronous (non-blocking).</p>
+<ul class="simple">
+<li><p>Calling function returns once request submitted.</p></li>
+<li><p>Callback invoked when response available (polled).</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="img/polled_async.png"><img alt="img/polled_async.png" src="img/polled_async.png" style="width: 895px; height: 632px;" /></a>
+</figure>
+</section>
+<section id="asynchronous-interrupts">
+<h3>Asynchronous (Interrupts)<a class="headerlink" href="#asynchronous-interrupts" title="Permalink to this headline"></a></h3>
+<p>Hardware “request/response” interface is inherently asynchronous (non-blocking).</p>
+<ul class="simple">
+<li><p>Calling function returns once request submitted.</p></li>
+<li><p>Callback invoked when response available (interrupt-driven).</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="img/async_interrupts.png"><img alt="img/async_interrupts.png" src="img/async_interrupts.png" style="width: 895px; height: 632px;" /></a>
+</figure>
+</section>
+<section id="synchronous">
+<h3>Synchronous<a class="headerlink" href="#synchronous" title="Permalink to this headline"></a></h3>
+<p>Software interface is traditionally synchronous (blocking).</p>
+<ul class="simple">
+<li><p>Calling function blocks until response available.</p></li>
+<li><p>Can be implemented “on top of” asynchronous hardware semantics.</p></li>
+</ul>
+<figure class="align-default">
+<a class="reference internal image-reference" href="img/synch.png"><img alt="img/synch.png" src="img/synch.png" style="width: 897px; height: 633px;" /></a>
+</figure>
+</section>
+<section id="pros-and-cons">
+<h3>Pros And Cons<a class="headerlink" href="#pros-and-cons" title="Permalink to this headline"></a></h3>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Pros and cons of modes of operation</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>Asynchronous</strong></p></th>
+<th class="head"><p><strong>Synchronous</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">CPU Utilization</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">Software thread can do other things
+while hardware processes job,
+without need for expensive context
+switch.</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">Software thread blocked or idle awaiting response.
+Can use multi-threading, but context switching can be expensive.</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><div class="line-block">
+<div class="line">Acceleration
+Utilization</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">A single software thread can have
+multiple requests outstanding,
+keeping multiple accelerator engines.</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">Hardware has at most one request outstanding per CPU/software
+thread, remaining threads are idle.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><div class="line-block">
+<div class="line">Ease of Use</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">Can be difficult if application is
+designed to use synchronous APIs.</div>
+</div>
+</td>
+<td><div class="line-block">
+<div class="line">Easier to integrate if application is designed to use
+synchronous APIs.</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Asynchronous API tends to be optimal for performance, but harder to integrate.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

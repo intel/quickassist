@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Software Design Guidelines" href="design_guidelines.html" />
+    <link rel="prev" title="Performance Optimization Guide" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Performance Optimization Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#conventions-and-terminology">Conventions and Terminology</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#intel-quickassist-technology-software-overview">Intel QuickAssist Technology Software Overview</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="design_guidelines.html">Software Design Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="application_tunning.html">Application Tuning</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Performance Optimization Guide</a> &raquo;</li>
+      <li>Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<span id="qat-perf-opt-guide-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+<p>This performance optimization guide for Intel<sup>®</sup> QuickAssist Technology (Intel<sup>®</sup> QAT)
+can be used both during the architecture/design phases and the
+implementation/integration phases of a project that involves the
+integration of the Intel QAT software with an application stack.</p>
+<p>Accordingly, the guide is divided into two main sections:</p>
+<ul class="simple">
+<li><p><strong>Software Design Guidelines:</strong> Architecture and design guidelines
+on how best to integrate the Intel QAT software into the application
+software stack. Trade-offs between various design choices are described together with recommended approaches.</p></li>
+<li><p><strong>Application Tuning:</strong> Guidelines to further increase the performance of Intel QAT in the context of a full application.</p></li>
+</ul>
+<p>The intended audience for this document includes software architects,
+developers and performance engineers.</p>
+<p>In this document, for convenience <em>acceleration drivers</em> is used as a generic term for the software that
+allows the Intel QAT Software Library APIs to access the Intel QAT accelerator(s) integrated in the following devices:</p>
+<ul class="simple">
+<li><p>Intel<sup>®</sup> Atom<sup>®</sup> processor C3000 product family</p></li>
+<li><p>Intel<sup>®</sup> C620 Series Chipsets</p></li>
+<li><p>Intel<sup>®</sup> Xeon<sup>®</sup> D-1500 processor</p></li>
+<li><p>Intel<sup>®</sup> Xeon<sup>®</sup> D-2100 processor</p></li>
+<li><p>Intel<sup>®</sup> Xeon<sup>®</sup> 4th Gen Scalable Processors</p></li>
+</ul>
+<section id="conventions-and-terminology">
+<h2>Conventions and Terminology<a class="headerlink" href="#conventions-and-terminology" title="Permalink to this headline"></a></h2>
+<p>The following conventions are used in this manual:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Code</span> <span class="pre">text</span></code> - code examples, command line entries, Application Porgramming Interface (API) names, parameters, filenames, directory paths, and executables.</p></li>
+<li><p><strong>Bold text</strong> - graphical user interface entries, buttons, and actions in instructions.</p></li>
+<li><p><em>Italic text</em> - key terms and publication titles.</p></li>
+</ul>
+<p>The following terms and acronyms are used in this manual.</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Terminology</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 21%" />
+<col style="width: 79%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Term</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>ATS</p></td>
+<td><p>Address Translation Service</p></td>
+</tr>
+<tr class="row-odd"><td><p>C-States</p></td>
+<td><p>C-States are advanced CPU current lowering technologies</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDH</p></td>
+<td><p>Elliptic Curve Diffie-Hellman</p></td>
+</tr>
+<tr class="row-odd"><td><p>IA</p></td>
+<td><p>Intel<sup>®</sup> architecture CPU</p></td>
+</tr>
+<tr class="row-even"><td><p>Intel<sup>®</sup>
+SpeedStep<sup>®</sup>
+Technology</p></td>
+<td><p>Advanced means of enabling very high performance while also
+meeting the power-conservation needs of mobile systems.</p></td>
+</tr>
+<tr class="row-odd"><td><p>LAC</p></td>
+<td><p>LookAside Crypto</p></td>
+</tr>
+<tr class="row-even"><td><p>Latency</p></td>
+<td><p>The time between the submission of an operation via the
+QuickAssist API and the completion of that operation.</p></td>
+</tr>
+<tr class="row-odd"><td><p>MSI</p></td>
+<td><p>Message Signaled Interrupts</p></td>
+</tr>
+<tr class="row-even"><td><p>NUMA</p></td>
+<td><p>Non Uniform Memory Access</p></td>
+</tr>
+<tr class="row-odd"><td><p>Offload Cost</p></td>
+<td><p>This refers to the cost, in CPU cycles, of driving the hardware
+accelerator. This cost includes the cost of submitting an
+operation via the Intel<sup>®</sup> QuickAssist API and the cost of
+processing responses from the hardware.</p></td>
+</tr>
+<tr class="row-even"><td><p>PCH</p></td>
+<td><p>Platform Controller Hub</p></td>
+</tr>
+<tr class="row-odd"><td><p>PKE</p></td>
+<td><p>Public Key Encryption</p></td>
+</tr>
+<tr class="row-even"><td><p>SVM</p></td>
+<td><p>Shared Virtual Memory</p></td>
+</tr>
+<tr class="row-odd"><td><p>Throughput</p></td>
+<td><p>The accelerator throughput usually expressed in terms of
+either requests per second or bytes per second.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="intel-quickassist-technology-software-overview">
+<h2>Intel QuickAssist Technology Software Overview<a class="headerlink" href="#intel-quickassist-technology-software-overview" title="Permalink to this headline"></a></h2>
+<p>This section provides a very brief overview of the Intel QuickAssist
+Technology software. It is included here to set the context for
+terminology used in later sections of this document. More details are
+available in the <a class="reference internal" href="../PG/index.html"><span class="doc">Programmer’s Guide</span></a>.</p>
+<p>The Intel QuickAssist Technology API supports two acceleration
+services:</p>
+<ul class="simple">
+<li><p>Cryptographic (asymmetric, symmetric)</p></li>
+<li><p>Data Compression</p></li>
+</ul>
+<p>The acceleration driver interfaces to the hardware via hardware-assisted
+rings. These rings are used as request and response rings. Request rings
+are used by the driver to submit requests to the accelerator and
+response rings are used to retrieve responses back from the accelerator.
+The availability of responses can be indicated to the driver using
+either interrupts or by having software poll the response rings.</p>
+<p>At the Intel QuickAssist Technology API level, services are accessed via
+<em>instances</em>. A set of rings is assigned to an instance and so any
+operations performed on a service instance will involve communication
+over the rings assigned to that instance.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Performance Optimization Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="design_guidelines.html" class="btn btn-neutral float-right" title="Software Design Guidelines" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

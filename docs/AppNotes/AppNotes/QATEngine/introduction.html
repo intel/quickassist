@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Intel® QAT OpenSSL* Engine &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>The Intel® QAT OpenSSL* Engine</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="the-intel-qat-openssl-engine">
+<span id="qat-2-0-qatengine-introduction"></span><h1>The Intel® QAT OpenSSL* Engine<a class="headerlink" href="#the-intel-qat-openssl-engine" title="Permalink to this headline"></a></h1>
+<p>Intel® QuickAssist Technology OpenSSL* Engine (QAT_Engine) supports acceleration for both hardware as well as optimized software
+based on vectorized instructions. This change starting with the <a class="reference external" href="https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html">3rd Generation Intel® Xeon® Scalable Processors family</a>
+provides users more options to accelerate their workloads. The Intel® QAT OpenSSL* Engine now supports the ability to accelerate from the
+stand OpenSSL* to basic Intel instruction set, to either hardware acceleration path <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code>, or via the
+optimized software path <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code>. This document details the capabilities and interfaces for both internal libraries
+which maintaining the cohesiveness of being all packaged up with the Intel® QAT OpenSSL* Engine.</p>
+<p>The image below illustrates the high-level software architecture of the Intel® QAT OpenSSL* Engine. Applications such as <em>NGINX</em> and <em>HAProxy</em>
+are common applications which interfaces to OpenSSL*. OpenSSL* is a toolkit for TLS/SSL protocols and has developed a modular
+system to plugin device-specific engines starting with version 1.1.0. As mentioned above, within the Intel® QAT OpenSSL* Engine are two
+separate internal entities by which acceleration can be performed. Depending on your particular use case, the Intel® QAT OpenSSL* Engine
+can be configured to meet your specific acceleration needs. This document details the capabilities of the Intel® QAT OpenSSL* Engine as well
+as the limitations. Both the hardware and software requirements are explained followed by detailed instructions on how to
+install Intel® QAT OpenSSL* Engine. If you have any issues integrating the Intel® QAT OpenSSL* Engine, we have added a troubleshooting section too.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../../../_images/qat_engine.png"><img alt="../../../_images/qat_engine.png" src="../../../_images/qat_engine.png" style="width: 508px; height: 452px;" /></a>
+</figure>
+<section id="features">
+<h2>Features<a class="headerlink" href="#features" title="Permalink to this headline"></a></h2>
+<section id="hardware-acceleration-qat-hw">
+<h3>Hardware Acceleration (QAT_HW)<a class="headerlink" href="#hardware-acceleration-qat-hw" title="Permalink to this headline"></a></h3>
+<ul>
+<li><p>Synchronous and <a class="reference internal" href="../../QATEngine/specialfeatures.html#qat-2-0-qatengine-features-asynchronous-mode"><span class="std std-ref">Asynchronous</span></a> operation.</p></li>
+<li><p>Asymmetric PKE acceleration:</p>
+<blockquote>
+<div><ul>
+<li><p>RSA support for Key Sizes 1024/2048/4096.</p></li>
+<li><p>DH support for Key Sizes 768/1024/1536/2048/3072/4096.</p></li>
+<li><p>DSA support for Key Sizes 160/1024, 224/2048, 256/2048, 256/3072.</p></li>
+<li><p>ECDH support for the following curves:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>NIST Prime Curves: P-192/P-224/P-256/P-384/P-521.</p></li>
+<li><p>NIST Binary Curves: B-163/B-233/B-283/B-409/B-571.</p></li>
+<li><p>NIST Koblitz Curves: K-163/K-233/K-283/K-409/K-571.</p></li>
+<li><p>Montgomery EC Curves: X25519/X448 (ECX).</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>ECDSA support for the following curves:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>NIST Prime Curves: P-192/P-224/P-256/P-384/P-521.</p></li>
+<li><p>NIST Binary Curves: B-163/B-233/B-283/B-409/B-571.</p></li>
+<li><p>NIST Koblitz Curves: K-163/K-233/K-283/K-409/K-571.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Symmetric Chained Cipher acceleration with pipelining capability:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>AES128-CBC-HMAC-SHA1/AES256-CBC-HMAC-SHA1.</p></li>
+<li><p>AES128-CBC-HMAC-SHA256/AES256-CBC-HMAC-SHA256.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Pseudo Random Function (PRF) acceleration.</p></li>
+<li><p><a class="reference internal" href="../../QATEngine/specialfeatures.html#qat-2-0-qatengine-features-hkdf-support"><span class="std std-ref">HMAC Key Derivation Function (HKDF) acceleration</span></a>.</p></li>
+<li><p><a class="reference internal" href="../../QATEngine/specialfeatures.html#qat-2-0-qatengine-features-pipelining-capability"><span class="std std-ref">Pipelined operations</span></a>.</p></li>
+<li><p><a class="reference internal" href="../../QATEngine/specialfeatures.html#qat-2-0-qatengine-features-software-fallback-feature"><span class="std std-ref">Intel® QAT OpenSSL* Engine Software Fallback</span></a>.</p></li>
+<li><p>RSA8K, SHA3-224/256/384/512 and ChaCha20-Poly1305 using 4xxx (Intel QAT gen4 devices) only.</p></li>
+</ul>
+</section>
+<section id="software-acceleration-qat-sw">
+<span id="qat-2-0-qatengine-qat-sw-features"></span><h3>Software Acceleration (QAT_SW)<a class="headerlink" href="#software-acceleration-qat-sw" title="Permalink to this headline"></a></h3>
+<ul>
+<li><p><a class="reference internal" href="../../QATEngine/specialfeatures.html#qat-2-0-qatengine-features-asymmetric-pke-aes-gcm"><span class="std std-ref">Intel® QAT Software Acceleration for Asymmetric PKE and AES-GCM</span></a>:</p>
+<blockquote>
+<div><ul>
+<li><p>RSA support for key size 2048, 3072, 4096</p></li>
+<li><p>ECDH support for the following curves:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Montgomery EC Curve: X25519</p></li>
+<li><p>NIST Prime Curves: P-256/P-384</p></li>
+<li><p>SM2</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>ECDSA support for the following curves:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>NIST Prime Curves: P-256/P-384</p></li>
+<li><p>SM2</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>SM3 hash support using 16 multibuffer requests (experimental).</p></li>
+<li><p>AES128-GCM, AES192-GCM and AES256-GCM</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="additional-features">
+<h3>Additional Features<a class="headerlink" href="#additional-features" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><a class="reference internal" href="../../QATEngine/specialfeatures.html#qat-2-0-qatengine-features-co-existene-feature"><span class="std std-ref">Hardware Acceleration and Software Acceleration Co-existence Feature</span></a></p></li>
+<li><p><a class="reference internal" href="../../QATEngine/specialfeatures.html#qat-2-0-qatengine-features-openssl-3-0-support"><span class="std std-ref">OpenSSL 3.0 Provider Support</span></a></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>RSA padding schemes are handled by OpenSSL* rather than accelerated, so the engine supports the same padding schemes as OpenSSL does natively.</p>
+</div>
+</section>
+</section>
+<section id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>When forking within an application it is not valid for a cryptographic operation to be started in the parent process, and completed in the child process.</p></li>
+<li><p>Only one level of forking is permitted, if a child process forks again then the Intel® QAT OpenSSL* Engine will not be available in that forked process.</p></li>
+<li><p>Event driven mode of polling operation is not supported in the FreeBSD Operating System or in the qatlib RPM.</p></li>
+<li><p><em>qat_contig_mem</em> memory driver is not supported when running under FreeBSD Operating System or in the qatlib RPM. The default is to use the USDM memory driver supplied as part of the Intel® QAT driver.</p></li>
+<li><p>Support for cipher AES-128-CBC-HMAC-SHA1 and its related ciphers was broken in release OpenSSL* 1.1.1d. This was later fixed in OpenSSL* 1.1.1e release.</p></li>
+<li><p>X25519/X448 support is available only from version 4.9 of the Intel® QAT driver for Linux. Use <code class="docutils literal notranslate"><span class="pre">--disable-qat_hw_ecx</span></code> in the Intel® QAT OpenSSL* Engine configure when building against earlier versions of the Linux driver.</p></li>
+<li><p>Support for <code class="docutils literal notranslate"><span class="pre">qaeMemFreeNonZeroNUMA()</span></code> USDM API is available only from version 4.10 of the Intel® QAT driver for Linux. Use <code class="docutils literal notranslate"><span class="pre">--with-cc-opt=&quot;-DQAT_HW_DISABLE_NONZERO_MEMFREE&quot;</span></code> in the Intel® QAT OpenSSL* Engine configuration when building against earlier versions of the Linux driver.</p></li>
+<li><p>Support for <em>QAT_HW ECX</em>, <em>QAT_SW ECX</em>, <em>QAT_HW PRF</em> and <em>QAT_HW HKDF</em> is disabled when built against OpenSSL 3.0 engine interface due to known issues, instead it uses non-accelerated implementation from OpenSSL.</p></li>
+<li><p>There is known performance scaling issue (performance drop with threads &gt;32) with ECDSA Ciphers in the QAT Software Acceleration using multithread mode in the HAProxy application. This issue is not observed when using RSA ciphers or in multi-process mode.</p></li>
+<li><p>There is an issue in <em>sshd daemon</em> application when using Intel QAT for default OpenSSL. Sshd looks to be closing the file descriptors associated with Intel® QAT OpenSSL* Engine and Intel® QAT driver after initialising OpenSSL. Work around in sshd which comments out the <code class="docutils literal notranslate"><span class="pre">closefrom()</span></code> calls is needed to unblock the issue.</p></li>
+<li><p>SM2 ECDH and ECDSA application testing is done using <em>BabaSSL</em> only since OpenSSL doesn’t support SMx cipher suites.</p></li>
+<li><p>SM3 is disabled by default due to known issue from <em>cryto_mb</em>. When SM3 enabled, performance drop observed in mulithread scenario for all ciphers suites due to the locks at <code class="docutils literal notranslate"><span class="pre">engine_table_select</span></code> in OpenSSL.</p></li>
+<li><p>OpenSSL 1.1.1n introduced misleading error message: <code class="docutils literal notranslate"><span class="pre">undefined</span> <span class="pre">symbol:</span> <span class="pre">EVP_PKEY_get_base_id</span></code>, during engine load which can be ignored as it is not a real failure. This is later fixed in OpenSSL* 1.1.1o release.</p></li>
+<li><p>AES-CBC-HMAC-SHA chained ciphers does not support pipeline feature when built with OpenSSL 3.0 as the corresponding support is not available in OpenSSL 3.0.</p></li>
+<li><p>There is a known issue with <em>OpenSSL s_server</em> application using <em>qatprovider</em> on OpenSSL 3.0.</p></li>
+</ul>
+</section>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h2>
+<section id="hardware-requirements">
+<h3>Hardware Requirements<a class="headerlink" href="#hardware-requirements" title="Permalink to this headline"></a></h3>
+<section id="id1">
+<h4>Hardware Acceleration (QAT_HW)<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<p>This Intel® QAT OpenSSL* Engine supports crypto hardware acceleration to the following acceleration devices:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.intel.com/content/www/us/en/design/products-and-solutions/processors-and-chipsets/purley/intel-xeon-scalable-processors.html">Intel® Xeon® with Intel® C62X Series Chipset</a></p></li>
+<li><p><a class="reference external" href="https://www.intel.com/content/www/us/en/design/products-and-solutions/processors-and-chipsets/denverton/ns/atom-processor-c3000-series.html">Intel® Atom™ Processor C3000</a></p></li>
+<li><p><a class="reference external" href="https://www.intel.com/content/www/us/en/ethernet-products/gigabit-server-adapters/quickassist-adapter-8950-brief.html">Intel® Communications Chipset 8925 to 8955 Series</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="id2">
+<h4>Software Acceleration (QAT_SW)<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h4>
+<p>The <a class="reference internal" href="../../QATEngine/introduction.html#qat-2-0-qatengine-qat-sw-features"><span class="std std-ref">Software Acceleration (QAT_SW) features</span></a> are only supported in the platforms starting with <a class="reference external" href="https://www.intel.com/content/www/us/en/products/docs/processors/xeon/3rd-gen-xeon-scalable-processors-brief.html">3rd Generation Intel® Xeon® Scalable Processors family</a>.</p>
+</section>
+</section>
+<section id="software-requirements">
+<span id="qat-2-0-qatengine-sw-requirements"></span><h3>Software Requirements<a class="headerlink" href="#software-requirements" title="Permalink to this headline"></a></h3>
+<section id="id4">
+<h4>Hardware Acceleration (QAT_HW)<a class="headerlink" href="#id4" title="Permalink to this headline"></a></h4>
+<p>Successful operation of Hardware Acceleration (QAT_HW) requires a software tool chain that supports OpenSSL* 1.1.1 or OpenSSL* 3.0 and
+Intel® QAT driver for Linux or Intel® QAT driver for FreeBSD. This release was validated on the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Operating system: CentOS* 7.4 64-bit version &amp; FreeBSD* 11.4 64-bit version.</p></li>
+<li><p>Kernel: GNU*/Linux* 3.10.0-693.</p></li>
+<li><p>Intel® Communications Chipset C62X Series Software for Linux*, version 4.18.</p></li>
+<li><p>Intel® Communications Chipset C62X Series Software for FreeBSD*, version 3.12.</p></li>
+<li><p>OpenSSL* 1.1.1o &amp; 3.0.3.</p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="qat-2-0-qatengine-qat-sw-requirements">
+<span id="id5"></span><h4>Software Acceleration (QAT_SW)<a class="headerlink" href="#qat-2-0-qatengine-qat-sw-requirements" title="Permalink to this headline"></a></h4>
+<p>Successful operation of the Software Acceleration (QAT_SW) requires a software tool chain that supports OpenSSL* 1.1.1 or OpenSSL* 3.0 and
+Intel® Crypto Multi-buffer library (for Asymmetric PKE) cloned from the <a class="reference external" href="https://github.com/intel/ipp-crypto">ipp-crypto</a> repo. The <em>crypto_mb</em> library needs to be installed using
+the instructions from the <a class="reference external" href="https://github.com/intel/ipp-crypto/tree/develop/sources/ippcp/crypto_mb">Crypto Multi-buffer Library</a> Readme.</p>
+<p>For QAT_SW AES-GCM, prequisite is to have Intel® Multi-Buffer crypto for IPsec Library cloned from the <a class="reference external" href="https://github.com/intel/intel-ipsec-mb">intel-ipsec-mb</a>  repo
+and installed using the instructions from the <em>intel-ipsec-mb</em> README. Intel® QAT OpenSSL* Engine supports QAT_SW AES-GCM from OpenSSL* 1.1.1d.</p>
+<p>This release was validated on the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Operating system: Ubuntu 20.04.2 LTS.</p></li>
+<li><p>Kernel: 5.4.0-62-generic.</p></li>
+<li><p>Intel® Crypto Multi-buffer library from the <a class="reference external" href="https://github.com/intel/ipp-crypto">ipp-crypto</a> release version IPP Crypto 2021.5.</p></li>
+<li><p>Intel® Multi-Buffer crypto for IPsec Library release version v1.2.</p></li>
+<li><p>OpenSSL* 1.1.1o &amp; 3.0.3.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

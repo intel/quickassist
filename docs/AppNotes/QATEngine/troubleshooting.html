@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intel® QAT OpenSSL* Engine Troubleshooting &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Intel® QAT OpenSSL* Engine Specific Messages" href="specificmessages.html" />
+    <link rel="prev" title="Intel® QAT OpenSSL* Engine Testing" href="testing.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../QATzip/index.html">Intel<sup>®</sup> QATzip</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">The Intel® QAT OpenSSL* Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Intel® QAT OpenSSL* Engine Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html">Intel® QAT OpenSSL* Engine Testing</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Intel® QAT OpenSSL* Engine Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specificmessages.html">Intel® QAT OpenSSL* Engine Specific Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buildoptions.html">Intel® QAT OpenSSL* Engine Build Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specialfeatures.html">Intel® QAT OpenSSL* Engine Special Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="loadengines.html">Load/Initialize Engines with OpenSSL* Configuration File</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Application Notes</a> &raquo;</li>
+          <li><a href="index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a> &raquo;</li>
+      <li>Intel® QAT OpenSSL* Engine Troubleshooting</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-qat-openssl-engine-troubleshooting">
+<span id="qat-2-0-qatengine-troubleshooting"></span><h1>Intel® QAT OpenSSL* Engine Troubleshooting<a class="headerlink" href="#intel-qat-openssl-engine-troubleshooting" title="Permalink to this headline"></a></h1>
+<p>The most likely failure point is that the Intel® QAT OpenSSL* Engine is not loading successfully. If this occurs some of the things to check are:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Were the paths set correctly so that the <code class="docutils literal notranslate"><span class="pre">qatengine.so</span></code> engine file was copied to the correct location? Check they really are there.</p></li>
+<li><p>Has the environment variable <code class="docutils literal notranslate"><span class="pre">OPENSSL_ENGINES</span></code> been correctly defined and exported to the shell? Also check it is really pointing to the correct location.</p></li>
+<li><p>If building for OpenSSL 1.1.0, was the configure option <code class="docutils literal notranslate"><span class="pre">--with-openssl_dir</span></code> specified? (Linux specific)</p></li>
+<li><p>If building from OpenSSL prebuilt RPM package, has the OpenSSL developement packages (<em>openssl-devel</em> for Redhat* based distribution and <em>libssl-devel</em> for Debian* based distribution) been installed?</p></li>
+</ol>
+</div></blockquote>
+<p><strong>Hardware Acceleration (QAT_HW) Specific</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Has the USDM memory driver been loaded successfully? If not the engine will fail to initialise. Check by running <code class="docutils literal notranslate"><span class="pre">lsmod</span></code> for Linux and <code class="docutils literal notranslate"><span class="pre">kldstat</span></code> for FreeBSD, <code class="docutils literal notranslate"><span class="pre">usdm_drv</span></code> should be in the list. If using the alternative <em>qat_contig_mem</em> driver, look for <code class="docutils literal notranslate"><span class="pre">qat_contig_mem</span></code>.</p></li>
+<li><p>Has the correct Intel® QAT Driver config file been copied to <code class="docutils literal notranslate"><span class="pre">/etc</span></code>? Check it has a <code class="docutils literal notranslate"><span class="pre">[SHIM]</span></code> section and that the Intel® QAT driver software was restarted so that it picked up the new config file.</p></li>
+<li><p>Is the Intel® QAT Driver up and running? Check by running <code class="docutils literal notranslate"><span class="pre">adf_ctl</span></code>, device details along with the state should be <code class="docutils literal notranslate"><span class="pre">state:</span> <span class="pre">up</span></code>. Also check the Intel® QAT Driver software has been started.</p></li>
+</ol>
+</div></blockquote>
+<p><strong>Software Acceleration (QAT_SW) Specific</strong></p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>Has the dependant libraries are installed in the default path or provide the path via <code class="docutils literal notranslate"><span class="pre">--with-qat_sw_install_dir</span></code> if installed in the path other than default?</p></li>
+</ol>
+</div></blockquote>
+<p>If running on a Debian* based OS (Ubuntu* for example) it is possible that the Intel® QAT driver userspace shared library needed by the Intel® QAT OpenSSL* Engine
+may not be located even though it has been installed. To resolve this it is recommended to add the <code class="docutils literal notranslate"><span class="pre">/lib64</span></code> folder to the <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> environment variable as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64</span>
+</pre></div>
+</div>
+<p>If building against OpenSSL* 1.1.1 or master branch, it is possible that the OpenSSL* Engine will fail to build with an error message
+<code class="docutils literal notranslate"><span class="pre">configdata.pm</span> <span class="pre">not</span> <span class="pre">present</span> <span class="pre">in</span> <span class="pre">the</span> <span class="pre">&#64;INC</span> <span class="pre">path</span></code>. To resolve this, it is recommended to add the OpenSSL source path to the <code class="docutils literal notranslate"><span class="pre">PERL5LIB</span></code> environment variable as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export PERL5LIB=$PERL5LIB:/path/to/openssl</span>
+</pre></div>
+</div>
+<p>If seeing failures with USDM memory allocation, either with non-root or root user check memlock limit with <code class="docutils literal notranslate"><span class="pre">ulimit</span> <span class="pre">-l</span></code> and increase the memlock limit to desired value if it is low.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="testing.html" class="btn btn-neutral float-left" title="Intel® QAT OpenSSL* Engine Testing" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="specificmessages.html" class="btn btn-neutral float-right" title="Intel® QAT OpenSSL* Engine Specific Messages" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

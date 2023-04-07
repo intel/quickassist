@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intel® QAT in Linux Containers &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Intel<sup>®</sup> QAT in Linux Containers</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-qat-in-linux-containers">
+<span id="qat-2-0-containers"></span><h1>Intel<sup>®</sup> QAT in Linux Containers<a class="headerlink" href="#intel-qat-in-linux-containers" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html#software-requirements">Software Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="setup.html">Setting Up Host Platform</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#updating-the-bios-settings">Updating the BIOS Settings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#configuring-the-host-operating-system-with-sr-iov-iommu">Configuring the Host Operating System with SR-IOV/IOMMU</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#enable-intel-qat-virtual-function-vf-devices">Enable Intel® QAT Virtual Function (VF) Devices</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#installing-container-runtime">Installing Container Runtime</a></li>
+<li class="toctree-l2"><a class="reference internal" href="setup.html#container-target-setup">Container Target Setup</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="build.html">Build Containers with Intel® QAT Software</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run Containers using Intel® QAT Acceleration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="run.html#intel-qat-openssl-container">Intel® QAT + OpenSSL* Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run.html#intel-qat-nginx-container">Intel® QAT + NGINX* Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="run.html#tuning-parameters">Tuning Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">Testing Performance of Intel® QAT + OpenSSL* Container with Docker</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#rsa-test-2048-bit-keys">RSA Test (2048-bit keys)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#ecdh-test-montgomery-ec-curve-x25519">ECDH Test (Montgomery EC Curve X25519)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="testing.html#aes-gcm-encryption-test-128-bit-keys">AES GCM Encryption Test (128-bit keys)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

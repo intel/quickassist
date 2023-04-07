@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polling Functions &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Polling Functions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="polling-functions">
+<span id="qat-2-0-pg-supported-apis-additional-apis-pollingfunctions"></span><h1>Polling Functions<a class="headerlink" href="#polling-functions" title="Permalink to this headline"></a></h1>
+<p>These functions are intended for retrieving response messages that are on the rings and dispatching the associated callbacks.</p>
+<p>All polling function definitions are located in: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_poll.h</span></code></p>
+<section id="icp-sal-pollbank">
+<h2>icp_sal_pollBank<a class="headerlink" href="#icp-sal-pollbank" title="Permalink to this headline"></a></h2>
+<p>Poll all rings on the given Intel<sup>®</sup> QAT Endpoint on a given bank number to determine if any of the rings contain response
+messages from the Intel<sup>®</sup> QAT Endpoint. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter is per ring.</p>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_pollBank(Cpa32U</span> <span class="pre">accelId,</span> <span class="pre">Cpa32U</span> <span class="pre">bank_number,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">accelId</span></code></p></td>
+<td><p>The device number associated with the Intel<sup>®</sup> QAT Endpoint.
+valid range is 0 to number of Intel<sup>®</sup> QAT Endpoints in the system.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bank_number</span></code></p></td>
+<td><p>The number of the memory bank on the Intel<sup>®</sup> QAT Endpoint that will be polled for
+response messages.  The valid range is 0 to 31.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">response_quota</span></code></p></td>
+<td><p>The maximum number of responses to take from the ring in one call.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_pollBank</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Successfully polled a ring with data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code></p></td>
+<td><p>There is no data on any ring on any bank or the banks are already being polled.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-pollallbanks">
+<h2>icp_sal_pollAllBanks<a class="headerlink" href="#icp-sal-pollallbanks" title="Permalink to this headline"></a></h2>
+<p>Poll all banks on the given Intel<sup>®</sup> QAT Endpoint to determine if any of the rings contain response messages from the
+Intel<sup>®</sup> QAT Endpoint. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter is per ring.</p>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_pollAllBanks(Cpa32U</span> <span class="pre">accelId,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">accelId</span></code></p></td>
+<td><p>The device number associated with the Intel<sup>®</sup> QAT Endpoint.
+valid range is 0 to number of Intel<sup>®</sup> QAT Endpoints in the system.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">response_quota</span></code></p></td>
+<td><p>The maximum number of responses to take from the ring in one call.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_pollAllBanks</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Successfully polled a ring with data.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code></p></td>
+<td><p>There is no data on any ring on any bank or the banks are already being polled.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-cypollinstance">
+<h2>icp_sal_CyPollInstance<a class="headerlink" href="#icp-sal-cypollinstance" title="Permalink to this headline"></a></h2>
+<p>Poll the Cryptographic (CY) logical instance associated with the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to retrieve requests that are on
+response rings associated with that instance and dispatch the associated callbacks. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter
+is the maximum number of responses to process in one call.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPollInstance()</span></code> function is used in conjunction with the <code class="docutils literal notranslate"><span class="pre">CyXIsPolled</span></code> parameter in the acceleration configuration file.</p>
+</div>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_CyPollInstance(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>The logical instance to poll for responses on the response ring.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">response_quota</span></code></p></td>
+<td><p>The maximum number of responses to take from the ring in one call.
+When set to 0, all responses are retrieved.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPollInstance</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>The function was successful.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code></p></td>
+<td><p>There are no responses on the rings associated with the specified logical instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A ring is only polled if it contains data.</p>
+</div>
+</section>
+<section id="icp-sal-dcpollinstance">
+<h2>icp_sal_DcPollInstance<a class="headerlink" href="#icp-sal-dcpollinstance" title="Permalink to this headline"></a></h2>
+<p>Poll the Data Compression (DC) logical instance associated with the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to retrieve requests that are on
+response rings associated with that instance and dispatch the associated callbacks. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter
+is the maximum number of responses to process in one call.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_DcPollInstance()</span></code> function is used in conjunction with the <code class="docutils literal notranslate"><span class="pre">DcXIsPolled</span></code> parameter in the acceleration configuration file.</p>
+</div>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_DcPollInstance(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>The logical instance to poll for responses on the response ring.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">response_quota</span></code></p></td>
+<td><p>The maximum number of responses to take from the ring in one call.
+When set to 0, all responses are retrieved.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_DcPollInstance</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>The function was successful.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code></p></td>
+<td><p>There are no responses on the rings associated with the specified logical instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A ring is only polled if it contains data.</p>
+</div>
+</section>
+<section id="icp-sal-cypolldpinstance">
+<h2>icp_sal_CyPollDpInstance<a class="headerlink" href="#icp-sal-cypolldpinstance" title="Permalink to this headline"></a></h2>
+<p>Poll a particular Cryptographic (CY) data path logical instance associated with the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to retrieve requests
+that are on the high-priority symmetric ring associated with that instance and dispatch the associated callbacks.
+The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter is the maximum number of responses to process in one call.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is a Data Plane API function and consequently the restrictions in <a class="reference internal" href="../apis_qat_apis.html#data-plane-constraints"><span class="std std-ref">Usage Constraints on the Data Plane APIs</span></a> apply.</p>
+</div>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_CyPollDpInstance(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>The logical instance to poll for responses on the response ring.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">response_quota</span></code></p></td>
+<td><p>The maximum number of responses to take from the ring in one call.
+When set to 0, all responses are retrieved.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPollDpInstance</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>The function was successful.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code></p></td>
+<td><p>There are no responses on the rings associated with the specified logical instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-dcpolldpinstance">
+<h2>icp_sal_DcPollDpInstance<a class="headerlink" href="#icp-sal-dcpolldpinstance" title="Permalink to this headline"></a></h2>
+<p>Poll a particular Data Compression (DC) data path logical instance associated with the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to retrieve
+requests that are on the response ring associated with that instance. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter is the
+maximum number of responses to process in one call.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function is a Data Plane API function and consequently the restrictions in <a class="reference internal" href="../apis_qat_apis.html#data-plane-constraints"><span class="std std-ref">Usage Constraints on the Data Plane APIs</span></a> apply.</p>
+</div>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_DcPollDpInstance(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>The logical instance to poll for responses on the response ring.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">response_quota</span></code></p></td>
+<td><p>The maximum number of responses to take from the ring in one call.
+When set to 0, all responses are retrieved.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_DcPollDpInstance</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>The function was successful.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code></p></td>
+<td><p>There are no responses on the rings associated with the specified logical instance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

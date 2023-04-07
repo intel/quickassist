@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resolved Issues &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Getting Started Guide" href="../../../GSG/2.X/index.html" />
+    <link rel="prev" title="Known Issues" href="known_issues.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Release Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../VMware/2.X/index.html">Release Notes - VMware*</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">FreeBSD Release Notes</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="description.html">Description of Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="wheretofind.html">Where to Find Current Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="install.html">Driver Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="known_issues.html">Known Issues</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Resolved Issues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#qate-74868-qat-freebsd-driver-allows-driver-to-be-restarted-with-active-qat-processes">QATE-74868 - QAT FreeBSD driver allows driver to be restarted with active QAT processes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support">QATE-39335 - Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-41486-misleading-message-observed-in-dmesg-on-lbg-device-with-limitdevaccess-1-set-in-the-configuration-file">QATE-41486 - Misleading message observed in dmesg on LBG device with LimitDevAccess = 1 set in the configuration file.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-33751-gen-library-and-driver-do-not-support-devices-enumerated-in-a-pci-domain-different-than-0">QATE-33751 - GEN - Library, and driver do not support devices enumerated in a PCI domain different than 0</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-59671-point-multiplication-for-curve25519-and-curve448-not-available-on-freebsd-guest-machine">QATE-59671 - Point Multiplication for Curve25519 and Curve448 not available on FreeBSD* guest machine</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-52976-algchain-and-hkdf-threads-cannot-use-the-same-cy-instance">QATE-52976 - AlgChain and HKDF threads cannot use the same cy instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-31888-possible-performance-degradation">QATE-31888 - Possible performance degradation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-5092-aes-xts-does-not-support-buffers-sizes-that-are-not-a-multiple-of-16b">QATE-5092 - AES-XTS does not support buffers sizes that are not a multiple of 16B</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-7325-aes-gcm-operation-with-zero-length-plain-text-results-in-an-incorrect-tag-result">QATE-7325 - AES-GCM operation with zero-length plain text results in an incorrect tag result</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-41846-gen-intel-qat-api-submissions-with-bad-addresses-that-trigger-dma-to-invalid-or-unmapped-addresses-can-cause-a-platform-to-hang">QATE-41846 - GEN - Intel<sup>®</sup> QAT API submissions with bad addresses that trigger DMA to invalid or unmapped addresses can cause a platform to hang</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-41745-segmentation-fault-when-using-inputs-on-quad-word-boundaries">QATE-41745 - Segmentation fault when using inputs on QUAD word boundaries</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-40630-hang-of-asymmetric-crypto-engines-might-not-be-detected-by-heartbeat">QATE-40630 - Hang of asymmetric crypto engines might not be detected by heartbeat</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-40628-access-to-dev-qat-adf-ctl-allows-a-limited-trust-user-to-reconfigure-or-reset-the-intel-qat-endpoint">QATE-40628 - Access to /dev/qat_adf_ctl allows a limited-trust user to reconfigure or reset the Intel<sup>®</sup> QAT endpoint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-40627-destination-buffer-is-overrun-in-a-digest-verify-decrypt-that-does-not-reserve-output-space-for-the-digest">QATE-40627 - Destination buffer is overrun in a Digest Verify + Decrypt that does not reserve output space for the digest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-63079-cpadcresetsession-may-not-wait-until-all-flights-are-processed-prior-to-clearing-the-inflight-counters">QATE-63079 - cpaDcResetSession may not wait until all flights are processed prior to clearing the inflight counters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-40359-multiprocess-32-with-limitdevaccess-0-fails-with-openssl-speed-tests">QATE-40359 - Multiprocess 32 with LimitDevAccess = 0 fails with OpenSSL* Speed tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-77659-cy-unexpected-behaviour-may-be-triggered-by-certain-scatter-gather-list-sgl-sub-buffer-layouts-on-intel-communications-chipset-8925-to-8955-series-devices">QATE-77659 - CY - Unexpected behaviour may be triggered by certain Scatter-Gather-List (SGL) sub-buffer layouts on Intel® Communications Chipset 8925 to 8955 Series devices</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate-74788-cipher-aes-gcm-hash-aes-gcm-not-able-to-support-different-iv-length">QATE-74788 - Cipher:AES-GCM, HASH:AES-GCM not able to support different IV Length</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Release Notes</a> &raquo;</li>
+          <li><a href="index.html">FreeBSD Release Notes</a> &raquo;</li>
+      <li>Resolved Issues</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="resolved-issues">
+<h1>Resolved Issues<a class="headerlink" href="#resolved-issues" title="Permalink to this headline"></a></h1>
+<p>The following are resolved issues for Intel<sup>®</sup> QAT FreeBSD* release.</p>
+<section id="qate-74868-qat-freebsd-driver-allows-driver-to-be-restarted-with-active-qat-processes">
+<h2>QATE-74868 - QAT FreeBSD driver allows driver to be restarted with active QAT processes<a class="headerlink" href="#qate-74868-qat-freebsd-driver-allows-driver-to-be-restarted-with-active-qat-processes" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>QAT FreeBSD driver allows driver to be restarted with
+active QAT processes</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-74868</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>QAT FreeBSD driver allows driver to be restarted with
+active QAT processes</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Restarting driver while traffic may break current
+inflight operations.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in 3.11.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support">
+<h2>QATE-39335 - Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support<a class="headerlink" href="#qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Compression instances do not work on Virtual Machine
+with Linux Host QAT driver without CnVnR support</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-39335</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>FreeBSD* QAT VF driver does not obtain host capabilities
+- the CnVnR support is enabled by default.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>The driver may fail to start compression instances on
+Virtual Machine with VF driver if no CnVnR support on
+Host QAT driver firmware.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in 3.7.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-41486-misleading-message-observed-in-dmesg-on-lbg-device-with-limitdevaccess-1-set-in-the-configuration-file">
+<h2>QATE-41486 - Misleading message observed in dmesg on LBG device with LimitDevAccess = 1 set in the configuration file.<a class="headerlink" href="#qate-41486-misleading-message-observed-in-dmesg-on-lbg-device-with-limitdevaccess-1-set-in-the-configuration-file" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Misleading message observed in dmesg on LBG device with
+LimitDevAccess = 1 set in the configuration file.</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-41486</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>When using LimitDevAccess = 1 with more than one device
+in upstate, the “qatX: failed to get NumberCyInstaces
+value from config!” message could be</p>
+<p>observed in dmesg for other devices than configured one.
+This message indicates only that for the other devices,
+the configuration was not found, which is expected.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>The driver may fail to start compression instances on
+Virtual Machine with VF driver if no CnVnR support on
+Host QAT driver firmware.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in 3.7.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-33751-gen-library-and-driver-do-not-support-devices-enumerated-in-a-pci-domain-different-than-0">
+<h2>QATE-33751 - GEN - Library, and driver do not support devices enumerated in a PCI domain different than 0<a class="headerlink" href="#qate-33751-gen-library-and-driver-do-not-support-devices-enumerated-in-a-pci-domain-different-than-0" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>GEN - Library, and driver do not support devices
+enumerated in a PCI domain different than 0</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-33751</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>The userspace driver and the Intel<sup>®</sup> QAT library
+cannot handle devices enumerated in a domain different
+than 0.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>It is not possible to use the software in systems where
+the device is enumerated with a PCI domain different
+than 0.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in 3.7.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-59671-point-multiplication-for-curve25519-and-curve448-not-available-on-freebsd-guest-machine">
+<h2>QATE-59671 - Point Multiplication for Curve25519 and Curve448 not available on FreeBSD* guest machine<a class="headerlink" href="#qate-59671-point-multiplication-for-curve25519-and-curve448-not-available-on-freebsd-guest-machine" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Point Multiplication for Curve25519 and Curve448 not
+available on FreeBSD guest machine</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-59671</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>The SR-IOV environment uses a Linux driver on the host
+machine. At the time of the v3.6.0 FreeBSD release,
+the EC Mont Edwards API is not yet supported on Linux
+(in v4.8.0 release), which limits these elliptic curves
+operations to the FreeBSD host.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Timeout observed on EcEd asymmetric crypto requests.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The latest release of the Linux Driver (4.9.0) includes
+support for these algorithms. Ensure Linux driver
+version 4.9.0 or later is used to support these
+algorithms in a FreeBSD Guest OS.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-52976-algchain-and-hkdf-threads-cannot-use-the-same-cy-instance">
+<h2>QATE-52976 - AlgChain and HKDF threads cannot use the same cy instance<a class="headerlink" href="#qate-52976-algchain-and-hkdf-threads-cannot-use-the-same-cy-instance" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>AlgChain and HKDF threads cannot use the same cy
+instance</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-52976</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>Possible bus error when symmetric and HKDF operation
+shares the same instance due to the request being
+overwritten.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>It is impossible to share the same instance for
+symmetric and HKDF operations.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.6.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-31888-possible-performance-degradation">
+<h2>QATE-31888 - Possible performance degradation<a class="headerlink" href="#qate-31888-possible-performance-degradation" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Possible performance degradation</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-31888</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>The integrated configuration for the FreeBSD kernel is
+not optimized for all relevant Intel<sup>®</sup> QAT
+driver scenarios (issue with threading and scheduling).</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Degradation of Intel<sup>®</sup> QAT data throughput can
+be observed in the deployment with FreeBSD*. The use
+cases:</p>
+<p>sharing the same core for the threads using request ring
+(submission/working thread) and response ring (polling
+thread)</p>
+<p>sharing the same core for among more working threads</p>
+<p>an extensive number of threads waiting on mutex queue
+for responses</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.6.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-5092-aes-xts-does-not-support-buffers-sizes-that-are-not-a-multiple-of-16b">
+<h2>QATE-5092 - AES-XTS does not support buffers sizes that are not a multiple of 16B<a class="headerlink" href="#qate-5092-aes-xts-does-not-support-buffers-sizes-that-are-not-a-multiple-of-16b" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>AES-XTS does not support buffers sizes that are not
+a multiple of 16B</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-5092</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>A single request with a data size that is not a
+multiple of 16B for AESXTS will fail with an invalid
+param check.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>The user cannot submit AES-XTS Crypto requests with
+buffers that are not multiples of 16B</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.6.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-7325-aes-gcm-operation-with-zero-length-plain-text-results-in-an-incorrect-tag-result">
+<h2>QATE-7325 - AES-GCM operation with zero-length plain text results in an incorrect tag result<a class="headerlink" href="#qate-7325-aes-gcm-operation-with-zero-length-plain-text-results-in-an-incorrect-tag-result" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>AES-GCM operation with zero-length plain text results
+in an incorrect tag result</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-7325</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>Sending an AES-GCM operation with zero-length plain text
+may generate an incorrect tag result</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Potentially harmful record errors and failing
+connections</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.6.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-41846-gen-intel-qat-api-submissions-with-bad-addresses-that-trigger-dma-to-invalid-or-unmapped-addresses-can-cause-a-platform-to-hang">
+<h2>QATE-41846 - GEN - Intel<sup>®</sup> QAT API submissions with bad addresses that trigger DMA to invalid or unmapped addresses can cause a platform to hang<a class="headerlink" href="#qate-41846-gen-intel-qat-api-submissions-with-bad-addresses-that-trigger-dma-to-invalid-or-unmapped-addresses-can-cause-a-platform-to-hang" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>GEN - Intel<sup>®</sup> QAT API submissions with bad
+addresses that trigger DMA to invalid or unmapped
+addresses can cause a platform to hang</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-41846</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>This version of the Intel<sup>®</sup> QAT hardware does
+not perform request checking. It follows that a
+malicious application can submit requests that can bring
+down an entire Intel<sup>®</sup> QAT endpoint, which can
+impact other Intel<sup>®</sup> QAT jobs associated with
+the hardware.</p>
+<p>Furthermore, if any Intel<sup>®</sup> QAT API submission
+have bad addresses that would trigger DMA to invalid or
+unmapped addresses, these can induce a platform hang.
+This presents a risk to be managed by the host and guest
+operating systems and other system policies. The
+exposure can extend to other guest operating systems or
+applications outside of the typical access boundary of
+the malicious guest or application.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Potentially harmful record errors and failing
+connections</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.6.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-41745-segmentation-fault-when-using-inputs-on-quad-word-boundaries">
+<h2>QATE-41745 - Segmentation fault when using inputs on QUAD word boundaries<a class="headerlink" href="#qate-41745-segmentation-fault-when-using-inputs-on-quad-word-boundaries" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Segmentation fault when using inputs on QUAD word
+boundaries</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-41745</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>When using EC’s cpaCyEcPointMultiply or
+cpaCyEcPointVerify with an aligned size of input
+parameters to four, eight, or nine quadwords (4 * 8B ,
+8 * 8B or 9 * 8B), a segmentation fault occurs.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Application crashes caused by a segfault.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.5.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-40630-hang-of-asymmetric-crypto-engines-might-not-be-detected-by-heartbeat">
+<h2>QATE-40630 - Hang of asymmetric crypto engines might not be detected by heartbeat<a class="headerlink" href="#qate-40630-hang-of-asymmetric-crypto-engines-might-not-be-detected-by-heartbeat" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Hang of asymmetric crypto engines might not be detected
+by heartbeat</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-40630</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>Heartbeat might not detect a hang of an asymmetric
+crypto engine.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>The device might be reported as responsive even if one
+of the engines is hung.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.4.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-40628-access-to-dev-qat-adf-ctl-allows-a-limited-trust-user-to-reconfigure-or-reset-the-intel-qat-endpoint">
+<h2>QATE-40628 - Access to /dev/qat_adf_ctl allows a limited-trust user to reconfigure or reset the Intel<sup>®</sup> QAT endpoint<a class="headerlink" href="#qate-40628-access-to-dev-qat-adf-ctl-allows-a-limited-trust-user-to-reconfigure-or-reset-the-intel-qat-endpoint" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Access to /dev/qat_adf_ctl allows a limited-trust user
+to reconfigure or reset the Intel<sup>®</sup> QAT endpoint</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-40628</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>The device /dev/qat_adf_ctl provides a number of ioctls.</p>
+<p>Some ioctls are used by regular users of Intel<sup>®</sup>
+QAT for ring reservation and querying the configuration
+values. Others are used to reconfigure or reset the
+device.</p>
+<p>With the current implementation, any user that can use
+Intel<sup>®</sup> QAT for crypto or compression service
+can also reconfigure, bring down, or reset the device.</p>
+<p>These admin capabilities should be limited to admin
+users.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>A user with access to /dev/qat_adf_ctl can reconfigure,
+bring down, or reset the device.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.4.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-40627-destination-buffer-is-overrun-in-a-digest-verify-decrypt-that-does-not-reserve-output-space-for-the-digest">
+<h2>QATE-40627 - Destination buffer is overrun in a Digest Verify + Decrypt that does not reserve output space for the digest<a class="headerlink" href="#qate-40627-destination-buffer-is-overrun-in-a-digest-verify-decrypt-that-does-not-reserve-output-space-for-the-digest" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Destination buffer is overrun in a Digest Verify +
+Decrypt that does not reserve output space for the
+digest</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-40627</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>When the field verifyDigest in CpaCySymSessionSetupData
+is set to</p>
+<p>CPA_TRUE, the digest is written back to the destination
+buffer even if there is not allocated space in the
+destination buffer for it.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Unallocated memory can be overwritten</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.4.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-63079-cpadcresetsession-may-not-wait-until-all-flights-are-processed-prior-to-clearing-the-inflight-counters">
+<h2>QATE-63079 - cpaDcResetSession may not wait until all flights are processed prior to clearing the inflight counters<a class="headerlink" href="#qate-63079-cpadcresetsession-may-not-wait-until-all-flights-are-processed-prior-to-clearing-the-inflight-counters" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>cpaDcResetSession may not wait until all flights are
+processed prior to clearing the inflight counters</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-63079</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>Excluding the compression session using the Data Plane
+API, cpaDcResetSession does not wait until all flights
+are processed prior to clearing the inflight counters.
+This is not correct behaviour since callback counters
+are reset before all the in-flight requests are
+processed.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>If the session is reset while there are in-flight
+requests, segmentation faults and other unexpected
+application behaviour may be encountered.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.8.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-40359-multiprocess-32-with-limitdevaccess-0-fails-with-openssl-speed-tests">
+<h2>QATE-40359 - Multiprocess 32 with LimitDevAccess = 0 fails with OpenSSL* Speed tests<a class="headerlink" href="#qate-40359-multiprocess-32-with-limitdevaccess-0-fails-with-openssl-speed-tests" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Multiprocess 32 with LimitDevAccess = 0 fails with
+OpenSSL* Speed tests</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-40359</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>The multiprocess application that uses more than 16
+processes for LBG/DNV and 32 processes for CLC fails
+during bundle allocation.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>It is impossible to successfully run the multiprocess
+application with more processes than 16 for LBG/DNV and
+32 for CLC.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.8.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Multiprocess</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-77659-cy-unexpected-behaviour-may-be-triggered-by-certain-scatter-gather-list-sgl-sub-buffer-layouts-on-intel-communications-chipset-8925-to-8955-series-devices">
+<h2>QATE-77659 - CY - Unexpected behaviour may be triggered by certain Scatter-Gather-List (SGL) sub-buffer layouts on Intel® Communications Chipset 8925 to 8955 Series devices<a class="headerlink" href="#qate-77659-cy-unexpected-behaviour-may-be-triggered-by-certain-scatter-gather-list-sgl-sub-buffer-layouts-on-intel-communications-chipset-8925-to-8955-series-devices" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>CY - Unexpected behaviour may be triggered by certain
+Scatter-Gather-List (SGL) sub-buffer layouts on
+Intel<sup>®</sup> Communications Chipset 8925 to
+8955 Series devices</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-77659</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>The DMA alignment optimization code in firmware does not
+correctly handle an edge case where certain combinations
+of unaligned buffer lengths are used.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>Cipher operations may begin to fail requiring device
+restart.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.11.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-74788-cipher-aes-gcm-hash-aes-gcm-not-able-to-support-different-iv-length">
+<h2>QATE-74788 - Cipher:AES-GCM, HASH:AES-GCM not able to support different IV Length<a class="headerlink" href="#qate-74788-cipher-aes-gcm-hash-aes-gcm-not-able-to-support-different-iv-length" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>Title</p></td>
+<td><p>Cipher:AES-GCM, HASH:AES-GCM not able to support
+different IV Length</p></td>
+</tr>
+<tr class="row-even"><td><p>Reference</p></td>
+<td><p>QATE-74788</p></td>
+</tr>
+<tr class="row-odd"><td><p>Description</p></td>
+<td><p>Concurrent request handling in a single session context
+of AES-GCM algchain request with different IV length
+results in improper encryption/decryption/hash
+generation.</p></td>
+</tr>
+<tr class="row-even"><td><p>Implication</p></td>
+<td><p>IV length change is not handled.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resolution</p></td>
+<td><p>The issue is resolved in a v3.12.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p>Affected OS</p></td>
+<td><p>FreeBSD*</p></td>
+</tr>
+<tr class="row-odd"><td><p>Driver/Module</p></td>
+<td><p>CPM IA - Crypto</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="known_issues.html" class="btn btn-neutral float-left" title="Known Issues" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../GSG/2.X/index.html" class="btn btn-neutral float-right" title="Getting Started Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

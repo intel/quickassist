@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intel® QAT OpenSSL* Engine Testing &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/clipboard.min.js"></script>
+        <script src="../../../_static/copybutton.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Intel® QAT OpenSSL* Engine Testing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-qat-openssl-engine-testing">
+<span id="qat-2-0-qatengine-testing"></span><h1>Intel® QAT OpenSSL* Engine Testing<a class="headerlink" href="#intel-qat-openssl-engine-testing" title="Permalink to this headline"></a></h1>
+<section id="test-the-intel-qat-openssl-engine">
+<h2>Test the Intel® QAT OpenSSL* Engine<a class="headerlink" href="#test-the-intel-qat-openssl-engine" title="Permalink to this headline"></a></h2>
+<p>Run this command to verify the Intel® QAT OpenSSL* Engine is loaded correctly:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /path/to/openssl_install/bin</span>
+<span class="go">./openssl engine -t -c -v qatengine</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> target output will be:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(qatengine) Reference implementation of QAT crypto engine(qat_hw) &lt;qatengine version&gt;
+[RSA, DSA, DH, AES-128-CBC-HMAC-SHA1, AES-128-CBC-HMAC-SHA256,
+AES-256-CBC-HMAC-SHA1, AES-256-CBC-HMAC-SHA256, TLS1-PRF, HKDF, X25519, X448]
+    [ available ]
+    ENABLE_EXTERNAL_POLLING, POLL, SET_INSTANCE_FOR_THREAD,
+    GET_NUM_OP_RETRIES, SET_MAX_RETRY_COUNT, SET_INTERNAL_POLL_INTERVAL,
+    GET_EXTERNAL_POLLING_FD, ENABLE_EVENT_DRIVEN_POLLING_MODE,
+    GET_NUM_CRYPTO_INSTANCES, DISABLE_EVENT_DRIVEN_POLLING_MODE,
+    SET_EPOLL_TIMEOUT, SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
+    ENABLE_INLINE_POLLING, ENABLE_HEURISTIC_POLLING,
+    GET_NUM_REQUESTS_IN_FLIGHT, INIT_ENGINE, SET_CONFIGURATION_SECTION_NAME,
+    ENABLE_SW_FALLBACK, HEARTBEAT_POLL, DISABLE_QAT_OFFLOAD
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code> target output will be:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>(qatengine) Reference implementation of QAT crypto engine(qat_sw) &lt;qatengine version&gt;
+[RSA, id-aes128-GCM, id-aes192-GCM, id-aes256-GCM, X25519]
+    [ available ]
+    ENABLE_EXTERNAL_POLLING, POLL, ENABLE_HEURISTIC_POLLING,
+    GET_NUM_REQUESTS_IN_FLIGHT, INIT_ENGINE
+</pre></div>
+</div>
+<p>Detailed information about the engine specific messages is available in the <a class="reference internal" href="../../QATEngine/specificmessages.html#qat-2-0-qatengine-specific-messages"><span class="std std-ref">Intel® QAT OpenSSL* Engine Specific Messages</span></a> section.
+Also <code class="docutils literal notranslate"><span class="pre">./openssl</span> <span class="pre">engine</span> <span class="pre">-t</span> <span class="pre">-c</span> <span class="pre">-vvvv</span> <span class="pre">qatengine</span></code> gives brief decription about each control command.</p>
+</section>
+<section id="test-the-intel-qat-openssl-engine-using-openssl-speed-utility">
+<h2>Test the Intel® QAT OpenSSL* Engine using OpenSSL* speed utility<a class="headerlink" href="#test-the-intel-qat-openssl-engine-using-openssl-speed-utility" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd /path/to/openssl_install/bin
+
+qat_hw
+
+* RSA 2K
+* Asynchronous
+./openssl speed -engine qatengine -elapsed -async_jobs 72 rsa2048
+* Synchronous
+./openssl speed -engine qatengine -elapsed rsa2048
+* OpenSSL Software
+./openssl speed -elapsed rsa2048
+* ECDH Compute Key
+* Asynchronous
+./openssl speed -engine qatengine -elapsed -async_jobs 36 ecdh
+* Synchronous
+./openssl speed -engine qatengine -elapsed ecdh
+* OpenSSL Software
+./openssl speed -elapsed ecdh
+* Chained Cipher: aes-128-cbc-hmac-sha1
+* Asynchronous
+./openssl speed -engine qatengine -elapsed -async_jobs 128 -multi 2 -evp aes-128-cbc-hmac-sha1
+* Synchronous
+./openssl speed -engine qatengine -elapsed -multi 2 -evp aes-128-cbc-hmac-sha1
+* OpenSSL Software
+./openssl speed -elapsed -multi 2 -evp aes-128-cbc-hmac-sha1
+
+qat_sw (Intel(R) Crypto Multi-buffer library)
+
+* RSA 2K
+./openssl speed -engine qatengine -elapsed -async_jobs 8 rsa2048
+* ECDH X25519
+./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhx25519
+* ECDH P-256
+./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhp256
+* ECDSA P-256
+./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdsap256
+* ECDH P-384
+./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhp384
+* ECDSA P-384
+./openssl speed -engine qatengine -elapsed -async_jobs 8 ecdsap384
+
+qat_sw (Intel(R) Multi-Buffer Crypto for IPsec)
+
+* AES-128-GCM
+./openssl speed -engine qatengine -elapsed -evp aes-128-gcm
+* AES-192-GCM
+./openssl speed -engine qatengine -elapsed -evp aes-192-gcm
+* AES-256-GCM
+./openssl speed -engine qatengine -elapsed -evp aes-256-gcm
+</pre></div>
+</div>
+</section>
+<section id="test-the-intel-qat-openssl-engine-using-testapp-utility">
+<h2>Test the Intel® QAT OpenSSL* Engine using testapp utility<a class="headerlink" href="#test-the-intel-qat-openssl-engine-using-testapp-utility" title="Permalink to this headline"></a></h2>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>cd /path/to/qat_engine
+make test
+./testapp.sh QAT_HW (For testing algorithms supported by QAT_HW)
+./testapp.sh QAT_SW (For testing algorithms supported by QAT_SW)
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">testapp.sh</span></code> script will run the corresponding functional tests supported by Hardware Acceleration (QAT_HW) and Software Acceleration (QAT_SW). Please note that the Intel® QAT OpenSSL* Engine should be built with that support for the tests.</p>
+<p>Additional information for testapp tests is available with the help option <code class="docutils literal notranslate"><span class="pre">./testapp</span> <span class="pre">-help</span></code>.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
