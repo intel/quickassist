@@ -78,11 +78,13 @@
 <li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
 
         </div>
@@ -98,10 +100,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
-      <li>Telemetry</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
+      <li class="breadcrumb-item active">Telemetry</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -431,178 +433,214 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 <span class="kn">import</span> <span class="nn">subprocess</span>
 <span class="kn">import</span> <span class="nn">re</span>
 
+
 <span class="n">devices</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">paths</span><span class="o">=</span><span class="p">[]</span>
+<span class="n">set_paths</span><span class="o">=</span><span class="p">[]</span>
 
 <span class="k">def</span> <span class="nf">EnableTelemetry</span><span class="p">():</span>
 
-    <span class="n">devices</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-    <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;adf_ctl status&quot;</span>
-    <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">devices</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;sudo adf_ctl status&quot;</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="c1"># Store the return code in rc variable</span>
-    <span class="n">rc</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+        <span class="c1"># Store the return code in rc variable</span>
+        <span class="n">rc</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
-    <span class="c1"># Separate the output and error.</span>
-    <span class="c1"># This is similar to Tuple where we store two values to two different variables</span>
-    <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+        <span class="c1"># Separate the output and error</span>
+        <span class="c1"># This is similar to Tuple where we store two values to two different variables</span>
+        <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
 
-    <span class="c1"># Split string into list of strings</span>
-    <span class="n">output</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="c1"># Split string into list of strings</span>
+        <span class="n">output_adf</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
-    <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
-    <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">bus</span> <span class="o">=</span> <span class="kc">None</span>
-    <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">paths</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;find /sys/devices/ -name &quot;telemetry&quot;&#39;</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
-    <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+        <span class="c1"># Store the return code in rc variable</span>
+        <span class="n">rc</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
 
-        <span class="k">if</span> <span class="s2">&quot;qat_dev&quot;</span> <span class="ow">in</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="s2">&quot;type:&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="s2">&quot;4xxx,&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">True</span>
-        <span class="k">elif</span> <span class="s2">&quot;bsf:&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-            <span class="n">bus</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
-        <span class="k">elif</span> <span class="s2">&quot;state:&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-            <span class="k">if</span> <span class="s2">&quot;up&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
-                <span class="k">if</span> <span class="n">telemetry_supported</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-                    <span class="n">devices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">bus</span><span class="p">))</span>
-            <span class="c1"># Reset variables to ensure we only attempt to enable telemetery on devices that support telemetry and are in up state</span>
-            <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
-            <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">bus</span> <span class="o">=</span> <span class="kc">None</span>
-            <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="c1"># Separate the output and error.</span>
+        <span class="c1"># This is similar to Tuple where we store two values to two different variables</span>
+        <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
 
-        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># Split string into list of strings</span>
+        <span class="n">output_telem</span><span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
 
-    <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
-        <span class="n">control_file_name</span><span class="o">=</span><span class="s2">&quot;/sys/devices/pci0000:&quot;</span> <span class="o">+</span> <span class="n">device</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/0000:&quot;</span> <span class="o">+</span> <span class="n">device</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:00.0/telemetry/control&quot;</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">bus</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">False</span>
 
-        <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;echo 1 &gt; &quot;</span> <span class="o">+</span> <span class="n">control_file_name</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="nb">str</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">break</span>
+        <span class="c1"># Build device list from adf_status output</span>
+        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">output_adf</span><span class="p">):</span>
+                <span class="k">if</span> <span class="s2">&quot;qat_dev&quot;</span> <span class="ow">in</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="n">name</span> <span class="o">=</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="s2">&quot;type:&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="s2">&quot;4xxx,&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                                <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">elif</span> <span class="s2">&quot;bsf:&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="n">bus</span> <span class="o">=</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
+                <span class="k">elif</span> <span class="s2">&quot;state:&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                        <span class="k">if</span> <span class="s2">&quot;up&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
+                                <span class="k">if</span> <span class="n">telemetry_supported</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                                        <span class="n">devices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">bus</span><span class="p">))</span>
 
-<span class="k">def</span> <span class="nf">pbar</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
-    <span class="n">refresh_counter</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="c1"># Reset variables to ensure we only attempt to enable telemetery on devices that support telemetry and are in up state</span>
+                        <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
+                        <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
+                        <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
 
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+        <span class="c1"># Build path list from Telemetry search</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">output_telem</span><span class="p">)):</span>
+                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output_telem</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 
-        <span class="k">try</span><span class="p">:</span>
-            <span class="n">refresh_counter</span> <span class="o">+=</span> <span class="mi">1</span>
-
-            <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;Intel(R) QuickAssist Device Utilization&quot;</span><span class="p">)</span>
-            <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;Device</span><span class="se">\t</span><span class="s2">%Comp</span><span class="se">\t</span><span class="s2">%Decomp</span><span class="se">\t</span><span class="s2">%PKE</span><span class="se">\t</span><span class="s2">%Cipher</span><span class="se">\t</span><span class="s2">%Auth</span><span class="se">\t</span><span class="s2">%UCS</span><span class="se">\t</span><span class="s2">Latency(ns)&quot;</span><span class="p">)</span>
-            <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;=========================================================================&quot;</span><span class="p">)</span>
-
-            <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
-                <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;cat /sys/devices/pci0000:&quot;</span> <span class="o">+</span> <span class="n">device</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/0000:&quot;</span> <span class="o">+</span> <span class="n">device</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;:00.0/telemetry/device_data&quot;</span>
-
-                <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-                <span class="c1"># Store the return code in rc variable</span>
-                <span class="n">rc</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-
-                <span class="c1"># Separate the output and error.</span>
-                <span class="c1"># This is similar to Tuple where we store two values to two different variables</span>
-                <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
-
-                <span class="c1"># Split string into list of strings</span>
-                <span class="n">output</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-
+        <span class="c1"># Verify Telemetry paths are part of enabled QAT endpoints</span>
+        <span class="n">set_paths</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
+                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">devices</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
+                                <span class="n">set_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
                 <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
 
-                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">set_paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+           <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No telemetry supported QAT endpoints found... exiting.&quot;</span><span class="p">)</span>
+           <span class="n">quit</span><span class="p">()</span>
 
-                    <span class="k">if</span> <span class="s2">&quot;lat_acc_avg&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">latency</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_cpr0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">compression</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_dcpr0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">decompression0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_dcpr1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">decompression1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_dcpr2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">decompression2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_pke0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">pke0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_pke1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">pke1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_pke2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">pke2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_pke3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">pke3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_pke4&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">pke4</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_pke5&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">pke5</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_cph0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">cph0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_cph1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">cph1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_cph2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">cph2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_cph3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">cph3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_ath0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">ath0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_ath1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">ath1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_ath2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">ath2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_ath3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">ath3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_ucs0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">ucs0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="k">elif</span> <span class="s2">&quot;util_ucs1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">ucs1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                    <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="c1"># Enable Telemetry for QAT endpoints</span>
+        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">set_paths</span><span class="p">:</span>
+                <span class="n">control_file_name</span><span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/control&quot;</span>
+                <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;echo 1 &gt; &quot;</span> <span class="o">+</span> <span class="n">control_file_name</span>
 
-                <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression2</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">decompress_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="n">decompress_utilization</span> <span class="o">/</span> <span class="mi">3</span>
-                    <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">decompress_utilization</span><span class="p">)</span>
-                <span class="n">pke_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke3</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke4</span><span class="p">)</span><span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke5</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">pke_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">pke_utilization</span> <span class="o">=</span> <span class="n">pke_utilization</span> <span class="o">/</span> <span class="mi">6</span>
-                    <span class="n">pke_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">pke_utilization</span><span class="p">)</span>
-                <span class="n">cph_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph3</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">cph_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">cph_utilization</span> <span class="o">=</span> <span class="n">cph_utilization</span> <span class="o">/</span> <span class="mi">4</span>
-                    <span class="n">cph_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">cph_utilization</span><span class="p">)</span>
-                <span class="n">ath_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath3</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">ath_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">ath_utilization</span> <span class="o">=</span> <span class="n">ath_utilization</span> <span class="o">/</span> <span class="mi">4</span>
-                    <span class="n">ath_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">ath_utilization</span><span class="p">)</span>
-                <span class="n">usc_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ucs0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ucs1</span><span class="p">)</span>
-                <span class="k">if</span> <span class="n">usc_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">usc_utilization</span> <span class="o">=</span> <span class="n">usc_utilization</span> <span class="o">/</span> <span class="mi">2</span>
-                    <span class="n">usc_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">usc_utilization</span><span class="p">)</span>
-                <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">latency</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                    <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">device</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">00                 &#39;</span><span class="p">)</span>
+                <span class="k">try</span><span class="p">:</span>
+                        <span class="nb">str</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+                <span class="k">except</span><span class="p">:</span>
+                        <span class="k">break</span>
 
-                <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">device</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">compression</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">decompress_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pke_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cph_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ath_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">usc_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">+</span> <span class="n">latency</span><span class="p">)</span>
-                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+<span class="k">def</span> <span class="nf">pbar</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
+        <span class="n">refresh_counter</span> <span class="o">=</span> <span class="mi">0</span>
 
-            <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;=========================================================================&quot;</span><span class="p">)</span>
-            <span class="n">window</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-            <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">refresh_counter</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                <span class="n">window</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-                <span class="n">EnableTelemetry</span><span class="p">()</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
 
-        <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-            <span class="k">break</span>
-        <span class="k">except</span><span class="p">:</span>
-            <span class="k">break</span>
+                <span class="k">try</span><span class="p">:</span>
+                        <span class="n">refresh_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;Intel(R) QuickAssist Device Utilization&quot;</span><span class="p">)</span>
+                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;Device</span><span class="se">\t</span><span class="s2">%Comp</span><span class="se">\t</span><span class="s2">%Decomp</span><span class="se">\t</span><span class="s2">%PKE</span><span class="se">\t</span><span class="s2">%Cipher</span><span class="se">\t</span><span class="s2">%Auth</span><span class="se">\t</span><span class="s2">%UCS</span><span class="se">\t</span><span class="s2">Latency(ns)&quot;</span><span class="p">)</span>
+                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;=========================================================================&quot;</span><span class="p">)</span>
+
+                        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
+                        <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
+
+                                <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;cat &quot;</span> <span class="o">+</span> <span class="n">set_paths</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/device_data&quot;</span>
+                                <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                                <span class="c1"># Store the return code in rc variable</span>
+                                <span class="n">rc</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
+
+                                <span class="c1"># Separate the output and error</span>
+                                <span class="c1"># This is similar to Tuple where we store two values to two different variables</span>
+                                <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
+
+                                <span class="c1"># Split string into list of strings</span>
+                                <span class="n">output</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+
+                                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+                                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
+
+                                        <span class="k">if</span> <span class="s2">&quot;lat_acc_avg&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">latency</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_cpr0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">compression</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_dcpr0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">decompression0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_dcpr1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">decompression1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_dcpr2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">decompression2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_pke0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">pke0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_pke1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">pke1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_pke2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">pke2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_pke3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">pke3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_pke4&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">pke4</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_pke5&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">pke5</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_cph0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">cph0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_cph1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">cph1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_cph2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">cph2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_cph3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">cph3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_ath0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">ath0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_ath1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">ath1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_ath2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">ath2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_ath3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">ath3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_ucs0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">ucs0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="k">elif</span> <span class="s2">&quot;util_ucs1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                                                <span class="n">ucs1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
+                                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
+
+                                <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression2</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">decompress_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="n">decompress_utilization</span> <span class="o">/</span> <span class="mi">3</span>
+                                        <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">decompress_utilization</span><span class="p">)</span>
+                                <span class="n">pke_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke3</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke4</span><span class="p">)</span><span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke5</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">pke_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="n">pke_utilization</span> <span class="o">=</span> <span class="n">pke_utilization</span> <span class="o">/</span> <span class="mi">6</span>
+                                        <span class="n">pke_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">pke_utilization</span><span class="p">)</span>
+                                <span class="n">cph_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph3</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">cph_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="n">cph_utilization</span> <span class="o">=</span> <span class="n">cph_utilization</span> <span class="o">/</span> <span class="mi">4</span>
+                                        <span class="n">cph_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">cph_utilization</span><span class="p">)</span>
+                                <span class="n">ath_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath3</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">ath_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="n">ath_utilization</span> <span class="o">=</span> <span class="n">ath_utilization</span> <span class="o">/</span> <span class="mi">4</span>
+                                        <span class="n">ath_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">ath_utilization</span><span class="p">)</span>
+                                <span class="n">usc_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ucs0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ucs1</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="n">usc_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="n">usc_utilization</span> <span class="o">=</span> <span class="n">usc_utilization</span> <span class="o">/</span> <span class="mi">2</span>
+                                        <span class="n">usc_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">usc_utilization</span><span class="p">)</span>
+                                <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">latency</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">device</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">00                 &#39;</span><span class="p">)</span>
+
+                                <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">device</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">compression</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">decompress_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pke_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cph_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ath_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">usc_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">+</span> <span class="n">latency</span><span class="p">)</span>
+                                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
+
+
+                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;=========================================================================&quot;</span><span class="p">)</span>
+                        <span class="n">window</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
+                        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">refresh_counter</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                                <span class="n">window</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+                                <span class="n">EnableTelemetry</span><span class="p">()</span>
+
+                <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
+                        <span class="k">break</span>
+                <span class="k">except</span><span class="p">:</span>
+                        <span class="k">break</span>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="n">EnableTelemetry</span><span class="p">()</span>
-    <span class="n">curses</span><span class="o">.</span><span class="n">wrapper</span><span class="p">(</span><span class="n">pbar</span><span class="p">)</span>
+        <span class="n">EnableTelemetry</span><span class="p">()</span>
+        <span class="n">curses</span><span class="o">.</span><span class="n">wrapper</span><span class="p">(</span><span class="n">pbar</span><span class="p">)</span>
 </pre></div>
 </div>
 <section id="monitoring-telemetry-demo">

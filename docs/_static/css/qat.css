@@ -196,6 +196,7 @@ a {
 /* Center headers */
 .wy-table-responsive tr th {
     text-align: center;
+    vertical-align: middle;
 }
 .wy-table-responsive table td,
 .wy-table-responsive table th {

@@ -63,6 +63,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures">QAT20-24970 [Firmware] Potential false positive heartbeat failures</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-28723-svm-iommu-incorrect-reporting-slice-timeout-due-to-page-request-latency">QAT20-28723 [SVM/IOMMU] Incorrect reporting slice timeout due to page request latency</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#resolved-issues">Resolved Issues</a><ul>
@@ -96,6 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
 
         </div>
@@ -111,9 +113,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Release Notes - Linux*</a> &raquo;</li>
-      <li>Release Updates</li>
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Release Notes - Linux*</a></li>
+      <li class="breadcrumb-item active">Release Updates</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -589,6 +591,49 @@ verify that SW doesn’t generate IOMMU pagefaults.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
 <td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-28723-svm-iommu-incorrect-reporting-slice-timeout-due-to-page-request-latency">
+<h3>QAT20-28723 [SVM/IOMMU] Incorrect reporting slice timeout due to page request latency<a class="headerlink" href="#qat20-28723-svm-iommu-incorrect-reporting-slice-timeout-due-to-page-request-latency" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[SVM/IOMMU] Incorrect reporting slice timeout due to
+page request latency</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-28723</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When using Shared Virtual Memory and Address Tranlsation
+and system is overloaded or is running out of free
+memory it may take longer time to process Page Requests.</p>
+<p>As side effect DRAM transaction originating from QAT
+that will require Page Request also will take longer to
+complete.</p>
+<p>In this case it may happen that slice watchdog will
+timeout, due to firmware waiting for new data to be
+read and then passed to the slice.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Request processing interuppted due to slice
+watchdog timeout.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>There is no workaround available.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
 <td><p>QAT Firmware</p></td>
