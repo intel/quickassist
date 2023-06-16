@@ -76,11 +76,13 @@
 <li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
 
         </div>
@@ -96,10 +98,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
-      <li>General Section</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="configuration_files_index.html">Configuration Files</a></li>
+      <li class="breadcrumb-item active">General Section</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -116,8 +118,8 @@
 <p><em>Default</em> denotes the value in the configuration file when shipped or the value used if not specified in the configuration file.</p>
 </div>
 <p>This table describes the other parameters that can be included in the General section.</p>
-<table class="longtable colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">General Section Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">General Section Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 35%" />
 <col style="width: 40%" />
@@ -255,8 +257,8 @@ the compression and decompression are available, along with service chaining, bu
 </div>
 <section id="general-default-configuration-parameters">
 <h3>General Default Configuration Parameters<a class="headerlink" href="#general-default-configuration-parameters" title="Permalink to this headline"></a></h3>
-<table class="longtable docutils align-default" id="id3">
-<caption><span class="caption-text">General Default Configuration Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<table class="longtable docutils align-default" id="id2">
+<caption><span class="caption-text">General Default Configuration Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 35%" />
 <col style="width: 15%" />
@@ -398,29 +400,25 @@ the device.)</p>
 <p>When this flag is set in the driver configuration, it indicates that the guest virtual address (GVA) to host physical address (HPA)
 translation will use IOMMU hardware based translation table instead of using the software based address translation. With SVMEnabled
 set, it is not required to submit buffers that are physically contiguous.</p>
-<section id="details">
-<h4>Details<a class="headerlink" href="#details" title="Permalink to this headline"></a></h4>
+<p><strong>Details</strong></p>
 <ul class="simple">
 <li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-2-0-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
 <li><p>The parameter is valid for both PF and VF configuration files.</p></li>
 <li><p>It <strong>is</strong> possible for the VF to enable this parameter even if the parameter is disabled in the corresponding PF configuration file.</p></li>
 </ul>
 </section>
-</section>
 <section id="atenabled">
 <h3>ATEnabled<a class="headerlink" href="#atenabled" title="Permalink to this headline"></a></h3>
 <p>When this flag is set in the driver configuration, the Address Translation Service (ATS) is enabled. IOMMU and QAT
 have the ability to handle page faults using Page Request Service (PRS) when using dynamic
 virtual memory allocated by systemcall such as <code class="docutils literal notranslate"><span class="pre">malloc</span></code>.</p>
-<section id="id1">
-<h4>Details<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h4>
+<p><strong>Details</strong></p>
 <ul class="simple">
 <li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-2-0-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
 <li><p>SVMEnabled <strong>must</strong> be enabled in order to enable ATEnabled.</p></li>
 <li><p>The parameter is valid for both PF and VF configuration files.</p></li>
 <li><p>It is <strong>not</strong> possible for the VF to enable the service if the parameter is disabled in the corresponding PF configuration file.</p></li>
 </ul>
-</section>
 </section>
 </section>
 </section>

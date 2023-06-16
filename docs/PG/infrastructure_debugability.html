@@ -76,11 +76,13 @@
 <li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
 
         </div>
@@ -96,10 +98,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
-      <li>Debugability</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
+      <li class="breadcrumb-item active">Debugability</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -174,10 +176,10 @@
 <p>Debug features are also available by reading and writing the file <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span></code> . When <em>reading</em> the virtual/physical <code class="docutils literal notranslate"><span class="pre">address</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">slab</span> <span class="pre">id</span></code> together with the <code class="docutils literal notranslate"><span class="pre">pid</span></code> of the allocating process are shown. <em>Writing</em> a string to the file will start executing debug commands.</p>
 <p>For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># cat /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span>
-Pid <span class="m">78854</span>, Slab Id <span class="m">10550771712</span>
-Virtual address 000000000b39412d, Physical Address 274e00000, Size <span class="m">2097152</span>
-Pid <span class="m">78854</span>, Slab Id <span class="m">10309599232</span>
-Virtual address 000000003670dd45, Physical Address <span class="m">266800000</span>, Size <span class="m">2097152</span>
+Pid<span class="w"> </span><span class="m">78854</span>,<span class="w"> </span>Slab<span class="w"> </span>Id<span class="w"> </span><span class="m">10550771712</span>
+Virtual<span class="w"> </span>address<span class="w"> </span>000000000b39412d,<span class="w"> </span>Physical<span class="w"> </span>Address<span class="w"> </span>274e00000,<span class="w"> </span>Size<span class="w"> </span><span class="m">2097152</span>
+Pid<span class="w"> </span><span class="m">78854</span>,<span class="w"> </span>Slab<span class="w"> </span>Id<span class="w"> </span><span class="m">10309599232</span>
+Virtual<span class="w"> </span>address<span class="w"> </span>000000003670dd45,<span class="w"> </span>Physical<span class="w"> </span>Address<span class="w"> </span><span class="m">266800000</span>,<span class="w"> </span>Size<span class="w"> </span><span class="m">2097152</span>
 ...
 </pre></div>
 </div>
@@ -208,7 +210,7 @@ can be obtained by a previous read)</p></td>
 </table>
 <p>For example, by combining a write to the file and a subsequent read, you can see the total allocated NUMA memory, e.g.:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># echo &quot;t&quot; &gt; /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs ; cat /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span>
-Total allocated NUMA memory: <span class="m">142606336</span> bytes
+Total<span class="w"> </span>allocated<span class="w"> </span>NUMA<span class="w"> </span>memory:<span class="w"> </span><span class="m">142606336</span><span class="w"> </span>bytes
 </pre></div>
 </div>
 <p>As above, the “d” and “c” commands will output their respective information.</p>

@@ -22,7 +22,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Performance Optimization Guide" href="../PERF/index.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
     <link rel="prev" title="System Environment Preparation" href="system_preparation.html" /> 
 </head>
 
@@ -71,10 +71,12 @@
 <li class="toctree-l3"><a class="reference internal" href="#installing-intel-qat-on-the-guest">Installing Intel QAT on the Guest</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
 
         </div>
@@ -90,9 +92,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Virtualization Deployment Guide</a> &raquo;</li>
-      <li>System Configuration</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Virtualization Deployment Guide</a></li>
+      <li class="breadcrumb-item active">System Configuration</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -271,10 +273,10 @@ the addressing scheme of both differ because VQATs are identified using UUIDs, w
 <p>Contents of the file should look like the following. The BDF on the <code class="docutils literal notranslate"><span class="pre">&lt;address</span> <span class="pre">bus=...&gt;</span></code> line will need to be updated for each VF to be mapped:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="nt">&lt;hostdev</span> <span class="na">managed=</span><span class="s">&quot;yes&quot;</span> <span class="na">mode=</span><span class="s">&quot;subsystem&quot;</span> <span class="na">type=</span><span class="s">&quot;pci&quot;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;source&gt;</span>
-    <span class="nt">&lt;address</span> <span class="na">bus=</span><span class="s">&quot;0xe9&quot;</span> <span class="na">domain=</span><span class="s">&quot;0x0000&quot;</span> <span class="na">function=</span><span class="s">&quot;0x1&quot;</span> <span class="na">slot=</span><span class="s">&quot;0x00&quot;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/source&gt;</span>
+<span class="nt">&lt;hostdev</span><span class="w"> </span><span class="na">managed=</span><span class="s">&quot;yes&quot;</span><span class="w"> </span><span class="na">mode=</span><span class="s">&quot;subsystem&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&quot;pci&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;source&gt;</span>
+<span class="w">    </span><span class="nt">&lt;address</span><span class="w"> </span><span class="na">bus=</span><span class="s">&quot;0xe9&quot;</span><span class="w"> </span><span class="na">domain=</span><span class="s">&quot;0x0000&quot;</span><span class="w"> </span><span class="na">function=</span><span class="s">&quot;0x1&quot;</span><span class="w"> </span><span class="na">slot=</span><span class="s">&quot;0x00&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/source&gt;</span>
 <span class="nt">&lt;/hostdev&gt;</span>
 </pre></div>
 </div>
@@ -321,10 +323,10 @@ the addressing scheme of both differ because VQATs are identified using UUIDs, w
 should look like the following:</p>
 <blockquote>
 <div><div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
-<span class="nt">&lt;hostdev</span> <span class="na">mode=</span><span class="s">&#39;subsystem&#39;</span> <span class="na">type=</span><span class="s">&#39;mdev&#39;</span> <span class="na">model=</span><span class="s">&#39;vfio-pci&#39;</span><span class="nt">&gt;</span>
-    <span class="nt">&lt;source&gt;</span>
-    <span class="nt">&lt;address</span> <span class="na">uuid=</span><span class="s">&#39;679fdae3-1930-4815-8896-220bfc5354b5&#39;</span><span class="nt">/&gt;</span>
-    <span class="nt">&lt;/source&gt;</span>
+<span class="nt">&lt;hostdev</span><span class="w"> </span><span class="na">mode=</span><span class="s">&#39;subsystem&#39;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;mdev&#39;</span><span class="w"> </span><span class="na">model=</span><span class="s">&#39;vfio-pci&#39;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;source&gt;</span>
+<span class="w">    </span><span class="nt">&lt;address</span><span class="w"> </span><span class="na">uuid=</span><span class="s">&#39;679fdae3-1930-4815-8896-220bfc5354b5&#39;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/source&gt;</span>
 <span class="nt">&lt;/hostdev&gt;</span>
 </pre></div>
 </div>
@@ -452,7 +454,7 @@ should look like the following:</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="system_preparation.html" class="btn btn-neutral float-left" title="System Environment Preparation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../PERF/index.html" class="btn btn-neutral float-right" title="Performance Optimization Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

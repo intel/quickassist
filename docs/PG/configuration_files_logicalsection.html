@@ -76,11 +76,13 @@
 <li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
 
         </div>
@@ -96,10 +98,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
-      <li>Logical Instances Section</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="configuration_files_index.html">Configuration Files</a></li>
+      <li class="breadcrumb-item active">Logical Instances Section</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -261,11 +263,13 @@ SSL0 for user section</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CyXIsPolled</span></code></p></td>
 <td><p>Specifies if cryptographic instance number x works in poll mode, interrupt mode or epoll mode.</p></td>
-<td><p>0 for kernel space instances
-1 for user space instance</p></td>
-<td><p>0 (interrupt mode) for instances in the <code class="docutils literal notranslate"><span class="pre">KERNEL</span></code> section.
-1 (poll mode) for instances in user space sections.
-2 (epoll mode eventbased polling mode) for instances in user space section.</p></td>
+<td><p>0 for kernel space instances</p>
+<p>1 for user space instance</p>
+</td>
+<td><p>0 (interrupt mode) for instances in the <code class="docutils literal notranslate"><span class="pre">KERNEL</span></code> section.</p>
+<p>1 (poll mode) for instances in user space sections.</p>
+<p>2 (epoll mode event based polling mode) for instances in user space section.</p>
+</td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CyXCoreAffinity</span></code></p></td>
 <td><p>Specifies the core to which the instance should be affinitized.</p></td>
@@ -301,11 +305,13 @@ SSL0 for user section</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">DcXIsPolled</span></code></p></td>
 <td><p>Specifies if data compression instance number x works in poll mode, interrupt mode or epoll mode.</p></td>
-<td><p>0 for kernel space instances
-1 for user space instances</p></td>
-<td><p>0 (interrupt mode) for instances in the KERNEL.
-1 (poll mode) for instances in the KERNEL_QAT and user space sections.
-2 (epoll mode eventbased polling mode) for instances in user space section.</p></td>
+<td><p>0 for kernel space instances</p>
+<p>1 for user space instances</p>
+</td>
+<td><p>0 (interrupt mode) for instances in the <code class="docutils literal notranslate"><span class="pre">KERNEL</span></code> section.</p>
+<p>1 (poll mode) for instances in the <code class="docutils literal notranslate"><span class="pre">KERNEL_QAT</span></code> and user space sections.</p>
+<p>2 (epoll mode event based polling mode) for instances in user space section.</p>
+</td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">DcXCoreAffinity</span></code></p></td>
 <td><p>Specifies the core to which the data compression instance should be affinitized.</p></td>
@@ -326,7 +332,7 @@ SSL0 for user section</p></td>
 <h2>Setting the Core Affinity Parameter for a Logical Instance<a class="headerlink" href="#setting-the-core-affinity-parameter-for-a-logical-instance" title="Permalink to this headline"></a></h2>
 <p>When instances are configured with <code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">1</span></code> (Polling mode), the parameter <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> does not have any impact.</p>
 <p>Although not used, it is a valid parameter and applications can query the value using <code class="docutils literal notranslate"><span class="pre">cpaCyInstanceGetInfo2</span></code> (see <code class="docutils literal notranslate"><span class="pre">coreAffinity</span></code> bitmask in <code class="docutils literal notranslate"><span class="pre">CpaInstanceInfo2</span></code>). For example, the sample code affinitizes the thread that uses an instance to the core indicated in <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> the config file for that instance.</p>
-<p>For instances configured in Interrupt Mode (<code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">2</span></code> in user space (epoll) and <code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">1</span></code> in kernel space), the value of <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> is used to affinitize the interrupt handler to that core.</p>
+<p>For instances configured in Interrupt Mode (<code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">2</span></code> in user space (epoll) and <code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">0</span></code> in kernel space), the value of <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> is used to affinitize the interrupt handler to that core.</p>
 </section>
 </section>
 

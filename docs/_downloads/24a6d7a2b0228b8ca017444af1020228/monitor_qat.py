@@ -7,13 +7,27 @@ import re
 
 
 devices=[]
-
-
+paths=[]
+set_paths=[]
     
 def EnableTelemetry():
     
     devices.clear()
-    command = "adf_ctl status"
+    command = "sudo adf_ctl status"
+    sp = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=True)
+
+    # Store the return code in rc variable
+    rc=sp.wait()
+
+    # Separate the output and error
+    # This is similar to Tuple where we store two values to two different variables
+    out,err=sp.communicate()
+    
+    # Split string into list of strings
+    output_adf = out.split()
+
+    paths.clear()
+    command = 'find /sys/devices/ -name "telemetry"'
     sp = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=True)
 
     # Store the return code in rc variable
@@ -22,51 +36,71 @@ def EnableTelemetry():
     # Separate the output and error.
     # This is similar to Tuple where we store two values to two different variables
     out,err=sp.communicate()
-    
+
     # Split string into list of strings
-    output = out.split()
-    
+    output_telem= out.split()
+ 
     i = 0
     state = "down"
     name = None
     bus = None
     telemetry_supported = False
 
-    while i < len(output):
-
-        if "qat_dev" in output[i]:
-            name = output[i]
-        elif "type:" == output[i]:
-            if "4xxx," == output[i+1]:
+    # Build device list from adf_status output
+    while i < len(output_adf):
+        if "qat_dev" in output_adf[i]:
+            name = output_adf[i]
+        elif "type:" == output_adf[i]:
+            if "4xxx," == output_adf[i+1]:
                 telemetry_supported = True 
-        elif "bsf:" == output[i]:
-            bus = output[i+1][5:7]
-        elif "state:" == output[i]:
-            if "up" == output[i+1]:
+        elif "bsf:" == output_adf[i]:
+            bus = output_adf[i+1][5:7]
+        elif "state:" == output_adf[i]:
+            if "up" == output_adf[i+1]:
                 if telemetry_supported == True:
                     devices.append((name, bus))            
+
             # Reset variables to ensure we only attempt to enable telemetery on devices that support telemetry and are in up state
             state = "down"
             name = None
             bus = None
             telemetry_supported = False
-
         i += 1
     
-    for device in devices:
-        control_file_name="/sys/devices/pci0000:" + device[1] + "/0000:" + device[1] + ":00.0/telemetry/control"
+    # Build path list from Telemetry search
+    i = 0
+    for i in range(len(output_telem)):
+        paths.append(output_telem[i])
 
+    # Verify Telemetry paths are part of enabled QAT endpoints
+    set_paths.clear()
+    i = 0
+    for path in paths:
+        while i < len(devices):
+            if devices[i][1] in path:
+                set_paths.append(path)
+            i += 1
+        i = 0
+
+    if len(set_paths) == 0:
+       print("No telemetry supported QAT endpoints found... exiting.")
+       quit() 
+
+    # Enable Telemetry for QAT endpoints
+    for path in set_paths:
+        control_file_name= path + "/control"
         command = "echo 1 > " + control_file_name
+
         try:
             str(subprocess.check_output(command, shell=True))
         except:
             break
- 
+
 def pbar(window):
     refresh_counter = 0
 
     while True:
-        
+
         try:
             refresh_counter += 1
 
@@ -76,22 +110,21 @@ def pbar(window):
 
             count = 0
             for device in devices:
-                command = "cat /sys/devices/pci0000:" + device[1] + "/0000:" + device[1] + ":00.0/telemetry/device_data"
-                
+                    
+                command = "cat " + set_paths[count] + "/device_data"
                 sp = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=True)
 
                 # Store the return code in rc variable
                 rc=sp.wait()
 
-                # Separate the output and error.
+                # Separate the output and error
                 # This is similar to Tuple where we store two values to two different variables
                 out,err=sp.communicate()
                 
                 # Split string into list of strings
-                output = out.split()
-
+                output = out.split()              
+	    
                 i = 0
-                
                 while i < len(output):
             
                     if "lat_acc_avg" == output[i]:
@@ -181,7 +214,4 @@ def pbar(window):
 if __name__ == "__main__":
     EnableTelemetry()
     curses.wrapper(pbar)
-    
-
-
 

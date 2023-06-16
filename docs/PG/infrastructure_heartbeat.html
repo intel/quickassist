@@ -83,11 +83,13 @@
 <li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
 <li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
 
         </div>
@@ -103,10 +105,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
-      <li>Heartbeat</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
+      <li class="breadcrumb-item active">Heartbeat</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -309,8 +311,8 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </table>
 <p>A developer could simulate the Heartbeat management process by running the following script in the background:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="k">while</span> : <span class="k">do</span>
-   cat /sys/kernel/debug/&lt;device&gt;/heartbeat &gt; /dev/null sleep <span class="m">1</span>
+<span class="k">while</span><span class="w"> </span>:<span class="w"> </span><span class="k">do</span>
+<span class="w">   </span>cat<span class="w"> </span>/sys/kernel/debug/&lt;device&gt;/heartbeat<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span>
 <span class="k">done</span>
 </pre></div>
 </div>
