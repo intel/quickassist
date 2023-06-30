@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intel® QuickAssist Technology (QAT) QATzip Library &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Intel® QuickAssist Technology(QAT) OpenSSL* Engine" href="qatengine.html" />
+    <link rel="prev" title="Configuration and Tuning" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QATlib User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="description.html">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Intel® QuickAssist Technology (QAT) QATzip Library</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installing-from-packages">Installing from Packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installing-from-sources">Installing from Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#benchmarking">Benchmarking</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#example-test">Example test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-details">Test Details</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
+      <li class="breadcrumb-item active">Intel® QuickAssist Technology (QAT) QATzip Library</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-quickassist-technology-qat-qatzip-library">
+<span id="qat-2-0-qatzip-install"></span><h1>Intel® QuickAssist Technology (QAT) QATzip Library<a class="headerlink" href="#intel-quickassist-technology-qat-qatzip-library" title="Permalink to this headline"></a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<p>The <em>QATzip</em> library can be installed by either:</p>
+<ul class="simple">
+<li><p>Installing from pre-built packages</p></li>
+<li><p>Installing from source code</p></li>
+</ul>
+<p>Distributions such as <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, <em>CentOS 9 Stream</em> include <em>qatzip</em> packages within their repositories.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The instructions here are to be used when using <em>QATzip</em> with <em>qatlib</em>.</p>
+<p>If using <em>qatzip</em> with the out-of-tree QAT package, refer to the latest installation instructions available at:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/intel/QATzip#installation-instructions">QATzip GitHub repository</a>.</p>
+</div></blockquote>
+</div>
+<section id="installing-from-packages">
+<h3>Installing from Packages<a class="headerlink" href="#installing-from-packages" title="Permalink to this headline"></a></h3>
+<ol class="arabic">
+<li><p><strong>Install</strong> the <em>QATzip</em> library by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf -y install qatzip</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install</strong> the <em>QATzip</em> development package by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf -y install qatzip-devel</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If this package is not available we can build all <em>QATzip</em> packages from source files.</p>
+<p>Prior to building the library, uninstall <em>QATzip</em> package using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf remove qatzip</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="#qat-2-0-qatlib-qatzip-install-source"><span class="std std-ref">Installing from Sources</span></a> section for instructions on compiling from source.</p>
+</div>
+</li>
+<li><p><strong>Install</strong> the <em>QATzip</em> test application(s) by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf -y install qatzip-test</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If this package is not available we can build all <em>QATzip</em> packages from source files.</p>
+<p>Prior to building the library, uninstall <em>QATzip</em> package using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf remove qatzip</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="#qat-2-0-qatlib-qatzip-install-source"><span class="std std-ref">Installing from Sources</span></a> section for instructions on compiling from source.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="installing-from-sources">
+<span id="qat-2-0-qatlib-qatzip-install-source"></span><h3>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h3>
+<ol class="arabic">
+<li><p><strong>Install</strong> the package dependencies by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y autoconf automake libtool zlib-devel lz4-devel</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Obtain</strong> the <em>QATzip</em> source package by running the below commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
+<span class="go">git clone https://github.com/intel/QATzip.git</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Configure</strong> the <em>QATzip</em> library by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd QATzip/</span>
+<span class="go">export QZ_ROOT=`pwd`</span>
+<span class="go">./autogen.sh</span>
+<span class="go">./configure</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Build</strong> and <strong>install</strong> the <em>QATzip</em> library by running the below commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make clean</span>
+<span class="go">make</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
+<p>At least one QAT endpoint needs to have data compression (<strong>dc</strong>) services enabled to utilize <em>QATzip</em>.</p>
+<p>Refer to the following sections for details on configuring qatlib.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="configuration.html#qat-2-0-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a> (when qat service is enabled)</p></li>
+<li><p><a class="reference internal" href="configuration.html#qat-2-0-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a> (without service)</p></li>
+</ul>
+</section>
+<section id="benchmarking">
+<h2>Benchmarking<a class="headerlink" href="#benchmarking" title="Permalink to this headline"></a></h2>
+<p>The <em>QATzip</em> package, when installed from source includes a test application that can be used for benchmarking.</p>
+<p>The application is placed in <code class="docutils literal notranslate"><span class="pre">~/QATzip/test/test</span></code> directory.</p>
+<section id="example-test">
+<h3>Example test<a class="headerlink" href="#example-test" title="Permalink to this headline"></a></h3>
+<blockquote>
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>taskset<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>~/QATzip/test/test<span class="w"> </span>-m<span class="w"> </span><span class="m">4</span><span class="w"> </span>-l<span class="w"> </span><span class="m">100</span><span class="w"> </span>-t<span class="w"> </span><span class="m">1</span><span class="w"> </span>-D<span class="w"> </span>comp<span class="w"> </span>-L<span class="w"> </span><span class="m">1</span><span class="w"> </span>-B<span class="w"> </span><span class="m">0</span><span class="w"> </span>-i<span class="w"> </span>./silesia
+</pre></div>
+</div>
+<p>This test performs compression test at level 1 utilizing QAT to compress file silesia.  Software fallback
+is disabled in this test case.</p>
+</div></blockquote>
+</section>
+<section id="test-details">
+<h3>Test Details<a class="headerlink" href="#test-details" title="Permalink to this headline"></a></h3>
+<p>Usage:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>./test<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+</pre></div>
+</div>
+<p>Required options:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>-m<span class="w"> </span>testMode<span class="w">           </span><span class="m">1</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>memcpy<span class="w"> </span>feature
+<span class="w">                      </span><span class="m">2</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>Memory
+<span class="w">                      </span><span class="m">3</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>comp/decomp<span class="w"> </span>by<span class="w"> </span>default<span class="w"> </span>parameters
+<span class="w">                      </span><span class="m">4</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>comp/decomp<span class="w"> </span>by<span class="w"> </span>configurable<span class="w"> </span>parameters
+<span class="w">                      </span><span class="m">5</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span>comp/decomp<span class="w"> </span>by<span class="w"> </span>format<span class="w"> </span>parameters
+<span class="w">                      </span><span class="m">6</span><span class="w"> </span><span class="nb">test</span><span class="w"> </span><span class="nb">set</span><span class="w"> </span>default<span class="w"> </span>configurable<span class="w"> </span>parameters
+</pre></div>
+</div>
+<p>Optional options:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>-i inputfile          input source file
+                       default by random generate data
+ -t thread_count       maximum forks permitted in the current thread
+                       0 means no forking permitted.
+ -l loop count         default is 2
+ -v                    verify, disabled by default
+ -e init engine        enable | disable. enabled by default
+ -s init session       enable | disable. enabled by default
+ -A comp_algorithm     deflate | lz4 | lz4s
+ -B swBack             0 means disable sw
+                       1 means enable sw
+ -C hw_buff_sz         default 64K
+ -b block_size         If set this option, the test will split test
+                       data into pieces. qzCompress/qzDecompress will
+                       de/compress block_size bytes every time.
+                       It must be the power of 2. The minimum is 4k,
+                       and maximum is 1M. Default is -1, don&#39;t split
+                       the test data.
+ -D direction          comp | decomp | both
+ -F format             [comp format]:[orig data size]/...
+ -L comp_lvl           1 - (12)
+ -O data_fmt           deflate | gzip | gzipext | deflate_4B | lz4 | lz4s
+ -T huffmanType        static | dynamic
+ -r req_cnt_thrshold   max inflight request num, default is 16
+ -S thread_sleep       the unit is milliseconds, default is a random time
+ -P polling            set polling mode, default is periodical polling
+ -M svm                set perf mode with file input, default is non
+                       svm mode. When set to svm, all memory will
+                       be allocated with malloc instead of qzMalloc
+                       This option is only applied to test case 4
+ -p compress_buf_type  pinned | common, default is common
+                       This option is only applied to file compression test in case 4
+                       If set common, memory of compress buffer will be allocated through malloc
+                       If set pinned, memory of compress buffer will be allocated in huge page, the
+                       allocation limit is 2M
+ -h                    Print this help message
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration and Tuning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qatengine.html" class="btn btn-neutral float-right" title="Intel® QuickAssist Technology(QAT) OpenSSL* Engine" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intel® QuickAssist Technology(QAT) OpenSSL* Engine &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
+    <link rel="prev" title="Intel® QuickAssist Technology (QAT) QATzip Library" href="qatzip.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QATlib User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="description.html">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#installing-from-packages">Installing from Packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installing-from-sources">Installing from Sources</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#verify-qat-engine-is-enabled">Verify QAT_Engine is enabled</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#testing-with-openssl-speed">Testing with OpenSSL Speed</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#qat-hw-tests">qat_hw tests</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat-sw-tests-intel-r-crypto-multi-buffer-library">qat_sw tests (Intel(R) Crypto Multi-buffer library)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat-sw-tests-intel-r-multi-buffer-crypto-for-ipsec">qat_sw tests (Intel(R) Multi-Buffer Crypto for IPsec)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
+      <li class="breadcrumb-item active">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-quickassist-technology-qat-openssl-engine">
+<span id="qat-2-0-qatlib-qatengine"></span><h1>Intel® QuickAssist Technology(QAT) OpenSSL* Engine<a class="headerlink" href="#intel-quickassist-technology-qat-openssl-engine" title="Permalink to this headline"></a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<p>The <em>QAT_Engine</em> can be installed by either:</p>
+<ul class="simple">
+<li><p>Installing from pre-built packages</p></li>
+<li><p>Installing from source code</p></li>
+</ul>
+<p>Distributions such as <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, <em>CentOS 9 Stream</em> include <em>qatengine</em> packages within their repositories.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The instructions here are to be used when using <em>QAT_Engine</em> with <em>qatlib</em>.</p>
+<p>If using the out-of-tree QAT package, refer to the latest installation instructions available at:</p>
+<blockquote>
+<div><p><a class="reference external" href="https://github.com/intel/QAT_Engine#installation-instructions">QAT_Engine GitHub repository</a>.</p>
+</div></blockquote>
+</div>
+<section id="installing-from-packages">
+<h3>Installing from Packages<a class="headerlink" href="#installing-from-packages" title="Permalink to this headline"></a></h3>
+<ol class="arabic">
+<li><p><strong>Install</strong> the QAT_Engine library by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf -y install qatengine</span>
+</pre></div>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>It is not currently possible to install QAT_Engine with support for <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code> when installing from packages.</p>
+<p>Only <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> is currently supported.</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code> support is needed, proceed to
+the <a class="reference internal" href="#qat-2-0-qatlib-qatengine-install-source"><span class="std std-ref">Installing from Sources</span></a> instructions.</p>
+</div>
+</li>
+</ol>
+</section>
+<section id="installing-from-sources">
+<span id="qat-2-0-qatlib-qatengine-install-source"></span><h3>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h3>
+<ol class="arabic">
+<li><p><strong>Install</strong> the package dependencies by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y autoconf automake libtool cmake openssl-devel pkg-config nasm</span>
+</pre></div>
+</div>
+</li>
+<li><p>Optional: <strong>Install</strong> <em>IPP-crypto</em> from the downloaded source.</p>
+<p>This is <strong>required</strong> for <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
+<span class="go">git clone https://github.com/intel/ipp-crypto.git</span>
+<span class="go">cd ipp-crypto</span>
+<span class="go">git checkout ippcp_2021.7.1</span>
+<span class="go">cd sources/ippcp/crypto_mb</span>
+<span class="go">cmake . -Bbuild -DCMAKE_INSTALL_PREFIX=/usr</span>
+<span class="go">cd build</span>
+<span class="go">make -j</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</li>
+<li><p>Optional: <strong>Install</strong> <em>IPSec MB</em> from the downloaded source.</p>
+<p>This is <strong>required</strong> for <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone https://github.com/intel/intel-ipsec-mb.git</span>
+<span class="go">cd intel-ipsec-mb</span>
+<span class="go">git checkout v1.3</span>
+<span class="go">make -j</span>
+<span class="go">sudo make install NOLDCONFIG=y</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Obtain</strong> the source package for <em>QAT_Engine</em> by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
+<span class="go">git clone https://github.com/intel/QAT_Engine.git</span>
+<span class="go">cd QAT_Engine/</span>
+<span class="go">git checkout v1.2.0</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Configure</strong> the <em>QAT_Engine</em> library by running the below commands:</p>
+<p>To include support for <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code> and <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./autogen.sh</span>
+<span class="go">./configure --enable-qat_sw</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To include support for just <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./autogen.sh</span>
+<span class="go">./configure</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Build</strong> and <strong>install</strong> the <em>QAT_Engine</em> library by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make clean</span>
+<span class="go">make -j</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
+<p>At least one QAT endpoint needs to have asymmetric/symmetric (<strong>asym;sym</strong>) services enabled to utilize <em>QAT_Engine</em>.</p>
+<p>Refer to the following sections for details on configuring <em>qatlib</em>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="configuration.html#qat-2-0-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a> (when qat service is enabled)</p></li>
+<li><p><a class="reference internal" href="configuration.html#qat-2-0-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a> (without service)</p></li>
+</ul>
+</section>
+<section id="verify-qat-engine-is-enabled">
+<h2>Verify QAT_Engine is enabled<a class="headerlink" href="#verify-qat-engine-is-enabled" title="Permalink to this headline"></a></h2>
+<p>The following command can be used to verify <em>QAT_Engine</em> is functional and provide details on the configuration.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>engine<span class="w"> </span>-t<span class="w"> </span>-c<span class="w"> </span>-v<span class="w"> </span>qatengine
+</pre></div>
+</div>
+<p>If <em>QAT_Engine</em> was setup with default configuration and just <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> path enabled, the output will look like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="o">(</span>qatengine<span class="o">)</span><span class="w"> </span>Reference<span class="w"> </span>implementation<span class="w"> </span>of<span class="w"> </span>QAT<span class="w"> </span>crypto<span class="w"> </span>engine<span class="o">(</span>qat_hw<span class="o">)</span><span class="w"> </span>v1.0.0
+<span class="o">[</span>RSA,<span class="w"> </span>AES-128-CBC-HMAC-SHA256,<span class="w"> </span>AES-256-CBC-HMAC-SHA256,<span class="w"> </span>ChaCha20-Poly1305,<span class="w"> </span>SHA3-256,<span class="w"> </span>SHA3-384,<span class="w"> </span>SHA3-512<span class="o">]</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span>available<span class="w"> </span><span class="o">]</span>
+<span class="w">    </span>ENABLE_EXTERNAL_POLLING,<span class="w"> </span>POLL,<span class="w"> </span>SET_INSTANCE_FOR_THREAD,
+<span class="w">    </span>GET_NUM_OP_RETRIES,<span class="w"> </span>SET_MAX_RETRY_COUNT,<span class="w"> </span>SET_INTERNAL_POLL_INTERVAL,
+<span class="w">    </span>GET_EXTERNAL_POLLING_FD,<span class="w"> </span>ENABLE_EVENT_DRIVEN_POLLING_MODE,
+<span class="w">    </span>GET_NUM_CRYPTO_INSTANCES,<span class="w"> </span>DISABLE_EVENT_DRIVEN_POLLING_MODE,
+<span class="w">    </span>SET_EPOLL_TIMEOUT,<span class="w"> </span>SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
+<span class="w">    </span>ENABLE_INLINE_POLLING,<span class="w"> </span>ENABLE_HEURISTIC_POLLING,
+<span class="w">    </span>GET_NUM_REQUESTS_IN_FLIGHT,<span class="w"> </span>INIT_ENGINE,<span class="w"> </span>SET_CONFIGURATION_SECTION_NAME,
+<span class="w">    </span>ENABLE_SW_FALLBACK,<span class="w"> </span>HEARTBEAT_POLL,<span class="w"> </span>DISABLE_QAT_OFFLOAD,<span class="w"> </span>HW_ALGO_BITMAP
+</pre></div>
+</div>
+<p>If both <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> and <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code> are enabled, the output will look like:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="o">(</span>qatengine<span class="o">)</span><span class="w"> </span>Reference<span class="w"> </span>implementation<span class="w"> </span>of<span class="w"> </span>QAT<span class="w"> </span>crypto<span class="w"> </span>engine<span class="o">(</span>qat_hw<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>qat_sw<span class="o">)</span><span class="w"> </span>v1.0.0
+<span class="o">[</span>RSA,<span class="w"> </span>AES-128-CBC-HMAC-SHA256,<span class="w"> </span>AES-256-CBC-HMAC-SHA256,<span class="w"> </span>ChaCha20-Poly1305,<span class="w"> </span>SHA3-256,<span class="w"> </span>SHA3-384,<span class="w"> </span>SHA3-512<span class="o">]</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span>available<span class="w"> </span><span class="o">]</span>
+<span class="w">    </span>ENABLE_EXTERNAL_POLLING,<span class="w"> </span>POLL,<span class="w"> </span>SET_INSTANCE_FOR_THREAD,
+<span class="w">    </span>GET_NUM_OP_RETRIES,<span class="w"> </span>SET_MAX_RETRY_COUNT,<span class="w"> </span>SET_INTERNAL_POLL_INTERVAL,
+<span class="w">    </span>GET_EXTERNAL_POLLING_FD,<span class="w"> </span>ENABLE_EVENT_DRIVEN_POLLING_MODE,
+<span class="w">    </span>GET_NUM_CRYPTO_INSTANCES,<span class="w"> </span>DISABLE_EVENT_DRIVEN_POLLING_MODE,
+<span class="w">    </span>SET_EPOLL_TIMEOUT,<span class="w"> </span>SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
+<span class="w">    </span>ENABLE_INLINE_POLLING,<span class="w"> </span>ENABLE_HEURISTIC_POLLING,
+<span class="w">    </span>GET_NUM_REQUESTS_IN_FLIGHT,<span class="w"> </span>INIT_ENGINE,<span class="w"> </span>SET_CONFIGURATION_SECTION_NAME,
+<span class="w">    </span>ENABLE_SW_FALLBACK,<span class="w"> </span>HEARTBEAT_POLL,<span class="w"> </span>DISABLE_QAT_OFFLOAD,<span class="w"> </span>HW_ALGO_BITMAP,
+<span class="w">    </span>SW_ALGO_BITMAP
+</pre></div>
+</div>
+</section>
+<section id="testing-with-openssl-speed">
+<h2>Testing with OpenSSL Speed<a class="headerlink" href="#testing-with-openssl-speed" title="Permalink to this headline"></a></h2>
+<p>The following OpenSSL Speed commands can be used to verify stack is functional.</p>
+<section id="qat-hw-tests">
+<h3>qat_hw tests<a class="headerlink" href="#qat-hw-tests" title="Permalink to this headline"></a></h3>
+<p>In the tests below, OpenSSL speed is invoked three times.</p>
+<ul class="simple">
+<li><p>Asynchronous using <em>QAT_Engine</em></p></li>
+<li><p>Synchronous using <em>QAT_Engine</em></p></li>
+<li><p>Default OpenSSL software</p></li>
+</ul>
+<section id="rsa-2k">
+<h4>RSA 2K<a class="headerlink" href="#rsa-2k" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 72 rsa2048</span>
+<span class="go">openssl speed -engine qatengine -elapsed rsa2048</span>
+<span class="go">openssl speed -elapsed rsa2048</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="ecdh-compute-key">
+<h4>ECDH Compute Key<a class="headerlink" href="#ecdh-compute-key" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 36 ecdh</span>
+<span class="go">openssl speed -engine qatengine -elapsed ecdh</span>
+<span class="go">openssl speed -elapsed ecdh</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="chained-cipher-aes-128-cbc-hmac-sha1">
+<h4>Chained Cipher: aes-128-cbc-hmac-sha1<a class="headerlink" href="#chained-cipher-aes-128-cbc-hmac-sha1" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 128 -multi 2 -evp aes-128-cbc-hmac-sha1</span>
+<span class="go">openssl speed -engine qatengine -elapsed -multi 2 -evp aes-128-cbc-hmac-sha1</span>
+<span class="go">openssl speed -elapsed -multi 2 -evp aes-128-cbc-hmac-sha1</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="qat-sw-tests-intel-r-crypto-multi-buffer-library">
+<h3>qat_sw tests (Intel(R) Crypto Multi-buffer library)<a class="headerlink" href="#qat-sw-tests-intel-r-crypto-multi-buffer-library" title="Permalink to this headline"></a></h3>
+<p>In the tests below, OpenSSL speed is invoked two times.</p>
+<ul class="simple">
+<li><p><em>QAT_Engine</em> using Crypto Multi-buffer library</p></li>
+<li><p>Default OpenSSL software</p></li>
+</ul>
+<section id="rsa2k">
+<h4>RSA2K<a class="headerlink" href="#rsa2k" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 8 rsa2048</span>
+<span class="go">openssl speed -elapsed rsa2048</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="ecdh-x25519">
+<h4>ECDH X25519<a class="headerlink" href="#ecdh-x25519" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhx25519</span>
+<span class="go">openssl speed -elapsed ecdhx25519</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="ecdh-p-256">
+<h4>ECDH P-256<a class="headerlink" href="#ecdh-p-256" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhp256</span>
+<span class="go">openssl speed -elapsed ecdhp256</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="ecdsa-p-256">
+<h4>ECDSA P-256<a class="headerlink" href="#ecdsa-p-256" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 8 ecdsap256</span>
+<span class="go">openssl speed -elapsed  ecdsap256</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="ecdh-p-384">
+<h4>ECDH P-384<a class="headerlink" href="#ecdh-p-384" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhp384</span>
+<span class="go">openssl speed -elapsed ecdhp384</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="ecdsa-p-384">
+<h4>ECDSA P-384<a class="headerlink" href="#ecdsa-p-384" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -async_jobs 8 ecdsap384</span>
+<span class="go">openssl speed -elapsed ecdsap384</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="qat-sw-tests-intel-r-multi-buffer-crypto-for-ipsec">
+<h3>qat_sw tests (Intel(R) Multi-Buffer Crypto for IPsec)<a class="headerlink" href="#qat-sw-tests-intel-r-multi-buffer-crypto-for-ipsec" title="Permalink to this headline"></a></h3>
+<p>In the tests below, OpenSSL speed is invoked two times.</p>
+<ul class="simple">
+<li><p><em>QAT_Engine</em> using Multi-Buffer Crypto for IPsec</p></li>
+<li><p>Default OpenSSL software</p></li>
+</ul>
+<section id="aes-128-gcm">
+<h4>AES-128-GCM<a class="headerlink" href="#aes-128-gcm" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -evp aes-128-gcm</span>
+<span class="go">openssl speed -elapsed -evp aes-128-gcm</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="aes-192-gcm">
+<h4>AES-192-GCM<a class="headerlink" href="#aes-192-gcm" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -evp aes-192-gcm</span>
+<span class="go">openssl speed -elapsed -evp aes-192-gcm</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="aes-256-gcm">
+<h4>AES-256-GCM<a class="headerlink" href="#aes-256-gcm" title="Permalink to this headline"></a></h4>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl speed -engine qatengine -elapsed -evp aes-256-gcm</span>
+<span class="go">openssl speed -elapsed -evp aes-256-gcm</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="qatzip.html" class="btn btn-neutral float-left" title="Intel® QuickAssist Technology (QAT) QATzip Library" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
