@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Installation &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Sample Code" href="sample_code.html" />
+    <link rel="prev" title="System Requirements" href="requirements.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QATlib User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="description.html">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html">System Requirements</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installing-from-rpm-packages">Installing from RPM Packages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-from-sources">Installing from Sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-options">Configuration Options</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
+      <li class="breadcrumb-item active">Installation</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="installation">
+<span id="qat-2-0-qatlib-install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<p>The <em>qatlib</em> library can be installed by either:</p>
+<ul class="simple">
+<li><p>Installing from pre-built packages</p></li>
+<li><p>Installing from source code</p></li>
+</ul>
+<p>Distributions such as <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, <em>CentOS 9 Stream</em> include <em>qatlib</em> packages within their repositories.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>At the time of writing this user’s guide, the steps in this section were accurate.</p>
+<p>If any issues are encountered, refer to latest installation instructions available at the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/INSTALL">qatlib GitHub repository</a>.</p>
+</div>
+<section id="installing-from-rpm-packages">
+<h2>Installing from RPM Packages<a class="headerlink" href="#installing-from-rpm-packages" title="Permalink to this headline"></a></h2>
+<p>The following steps can be used to install <em>qatlib</em> packages on Linux distributions such as
+<em>Fedora 34+</em>, <em>RHEL 9.1+</em>, or <em>CentOS 9 Stream</em>.</p>
+<ol class="arabic">
+<li><p><strong>Install</strong> the <em>qatlib</em> library by running the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf -y install qatlib</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install</strong> the <code class="docutils literal notranslate"><span class="pre">qatlib-devel</span></code> package by running the following command. This package is <strong>required</strong> for custom applications that call the Intel<sup>®</sup> QAT APIs directly.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf -y install qatlib-devel</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<blockquote>
+<div><div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If this package is not available we can build all <em>qatlib</em> packages from source files.</p>
+<p>Prior to building the library, uninstall <em>qatlib</em> package using the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf remove qatlib</span>
+</pre></div>
+</div>
+<p>See the <a class="reference internal" href="#qat-2-0-qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a> section for instructions on compiling from source.</p>
+</div>
+</div></blockquote>
+<ol class="arabic" start="3">
+<li><p><strong>Add</strong> your user to the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group by running the below command, and <strong>re-login</strong> to make the change effective.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo usermod -a -G qat `whoami`</span>
+<span class="go">sudo su -l $USER</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Enable</strong> the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service and <strong>make</strong> it persistent after reboot by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl enable qat</span>
+<span class="go">sudo systemctl start qat</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Increase</strong> the amount of locked memory for your user by running the below command:</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The amount of memory deponds upon the needs of your application. For example, the <code class="docutils literal notranslate"><span class="pre">cpa_sample_code</span></code> requires a minimum of 500MB.
+The following commands set the amount of locked memory to 500MB.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo cp /etc/security/limits.conf /etc/security/limits.conf.qatlib_bak</span>
+<span class="go">echo `whoami` - memlock 500000  | sudo tee -a /etc/security/limits.conf &gt; /dev/null</span>
+<span class="go">sudo su -l $USER</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="installing-from-sources">
+<span id="qat-2-0-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h2>
+<p>The following steps can be used to install the <em>qatlib</em> package from source.</p>
+<ol class="arabic">
+<li><p><strong>Install</strong> the dependencies by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y gcc systemd-devel automake autoconf libtool</span>
+<span class="go">sudo dnf install -y openssl-devel zlib-devel</span>
+<span class="go">sudo dnf install -y nasm</span>
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<ul>
+<li><p>If using CentOS Stream, you may need to run the following command to install <code class="docutils literal notranslate"><span class="pre">nasm</span></code>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf --enablerepo=crb install -y nasm</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>If using RHEL, you may need to run the following commands to install <code class="docutils literal notranslate"><span class="pre">nasm</span></code>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms</span>
+<span class="go">sudo dnf install -y nasm</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">nasm</span></code> compiler is unavailable see the <code class="docutils literal notranslate"><span class="pre">--disable-fast-crc-in-assembler</span></code> option in the <a class="reference internal" href="#qat-2-0-qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> section.</p></li>
+</ul>
+</div>
+</li>
+<li><p><strong>Uninstall</strong> existing libraries and <strong>clean-up</strong> (if upgrading from a previous version of <em>qatlib</em>) the environment.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>These <code class="docutils literal notranslate"><span class="pre">make</span></code> commands should be run using the Makefiles that were generated by the original call to the configure script.</p></li>
+<li><p>There is no need to call the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script before uninstall and clean-up. If it is ever called again it must
+be called with exactly the same options as were originally used so whatever was installed can be correctly cleaned up.</p></li>
+</ul>
+</div>
+<p>To uninstall:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~/qatlib</span>
+<span class="go">sudo make samples-uninstall</span>
+<span class="go">sudo systemctl stop qat</span>
+<span class="go">sudo make uninstall</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To clean-up:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo make clean</span>
+<span class="go">sudo make distclean</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Clone</strong> the qatlib repository into <code class="docutils literal notranslate"><span class="pre">~/qatlib</span></code> (i.e. current home directory) by running the below commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
+<span class="go">git clone https://github.com/intel/qatlib.git</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Configure</strong> the <em>qatlib</em> driver by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd qatlib</span>
+<span class="go">./autogen.sh</span>
+</pre></div>
+</div>
+<p>A complete list of configuration options are listed <a class="reference internal" href="#qat-2-0-qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> section
+or can be obtained by running the following command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --help</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To run in <a class="reference internal" href="configuration.html#qat-2-0-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a>, enable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service. This can be done
+automatically with the following command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-service</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To run in <a class="reference internal" href="configuration.html#qat-2-0-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a>, disable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service. This is
+often preferable when running in containers to avoid dependency on <code class="docutils literal notranslate"><span class="pre">systemd</span></code>. This can be done with
+the following command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-systemd=no</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Build</strong> and <strong>install</strong> the <em>qatlib</em> library by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make -j</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+<p>If the service was not configured to start automatically using the <code class="docutils literal notranslate"><span class="pre">--enable-service</span></code> configuration option,
+then the service will need to be started. To start the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service and make it persistent after reboot, use the following commands:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl enable qat</span>
+<span class="go">sudo systemctl start qat</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Verify</strong> the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service was started by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">systemctl status qat</span>
+</pre></div>
+</div>
+<p>The output should look like the following:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>qat.service - QAT service
+Loaded: loaded (/usr/lib/systemd/system/qat.service; enabled; preset: disabled)
+Active: active (running) since Sat 2023-05-13 12:08:26 PDT; 8s ago
+Main PID: 1266135 (qatmgr)
+   Tasks: 1 (limit: 1643873)
+Memory: 7.0M
+   CPU: 1.832s
+CGroup: /system.slice/qat.service
+         └─1266135 /usr/local/sbin/qatmgr --policy=0
+
+May 13 12:08:17 SPR-QUANTA-Server-01 qat_init.sh[1264066]: /usr/local/sbin/qat_init.sh, device 0000:e8:00.0 configured with services: dc
+May 13 12:08:17 SPR-QUANTA-Server-01 qat_init.sh[1264066]: /usr/local/sbin/qat_init.sh, device 0000:ed:00.0 configured with services: dc
+May 13 12:08:17 SPR-QUANTA-Server-01 qat_init.sh[1264066]: /usr/local/sbin/qat_init.sh, device 0000:f2:00.0 configured with services: dc
+May 13 12:08:17 SPR-QUANTA-Server-01 qat_init.sh[1264066]: /usr/local/sbin/qat_init.sh, device 0000:f7:00.0 configured with services: dc
+May 13 12:08:26 SPR-QUANTA-Server-01 systemd[1]: Started QAT service.
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Add</strong> your user to the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group by running the below command, and <strong>re-login</strong> to make the change effective.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo usermod -a -G qat `whoami`</span>
+<span class="go">sudo su -l $USER</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Increase</strong> the amount of locked memory for your user by running the below command:</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The amount of memory deponds upon the needs of your application. For example, the <code class="docutils literal notranslate"><span class="pre">cpa_sample_code</span></code> requires a minimum of 500MB.
+The following commands set the amount of locked memory to 500MB.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo cp /etc/security/limits.conf /etc/security/limits.conf.qatlib_bak</span>
+<span class="go">echo `whoami` - memlock 500000  | sudo tee -a /etc/security/limits.conf &gt; /dev/null</span>
+<span class="go">sudo su -l $USER</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<section id="configuration-options">
+<span id="qat-2-0-qatlib-configure-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
+<p>Typical examples of how to update the configuration options are as follows:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure ICP_ANY_FLAG=value</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-something</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If it is required to use more than one flag at once use the following example:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure ICP_ANY_PATH=path ICP_ANY_NAME=name --enable-something</span>
+</pre></div>
+</div>
+</div></blockquote>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Available Configuration Options</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-option-checking</span></code></p></td>
+<td><p>Ignores unrecognized configure options when
+run along with it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-FEATURE</span></code></p></td>
+<td><p>Does not include <code class="docutils literal notranslate"><span class="pre">FEATURE</span></code> (same as
+<code class="docutils literal notranslate"><span class="pre">--enable-FEATURE=no</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-FEATURE[=ARG]</span></code></p></td>
+<td><p>Includes <code class="docutils literal notranslate"><span class="pre">FEATURE</span> <span class="pre">[ARG=yes]</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-silent-rules</span></code></p></td>
+<td><p>Less verbose build output (undo: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">V=1</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-silent-rules</span></code></p></td>
+<td><p>Verbose build output (undo: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">V=0</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-maintainer-mode</span></code></p></td>
+<td><p>Enables <code class="docutils literal notranslate"><span class="pre">make</span></code> rules and dependencies not
+useful (and sometimes confusing) to the
+casual installer.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dependency-tracking</span></code></p></td>
+<td><p>Does not reject slow dependency extractors.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dependency-tracking</span></code></p></td>
+<td><p>Speeds up one-time build.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-debug</span></code></p></td>
+<td><p>Enables debugging.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code></p></td>
+<td><p>Disables parameters checking in the top-level
+APIs (used for performance optimization).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-stats</span></code></p></td>
+<td><p>Disables statistic collection (used for
+performance optimization).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-fast-crc-in-assembler</span></code></p></td>
+<td><p>Force use of C code instead of faster
+assembler implementation of CRC for <em>DC</em>
+<em>integrityCrc</em> feature. Not recommended unless
+<code class="docutils literal notranslate"><span class="pre">nasm</span></code> assembler compiler is unavailable.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-log-syslog</span></code></p></td>
+<td><p>Enables debugging messages to be outputted
+to the system log instead of standard output.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-trace</span></code></p></td>
+<td><p>Enables tracing for the Cryptography API.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
+<td><p>Enables Data Compression Error Simulation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-lib-names</span></code></p></td>
+<td><p>Enables legacy names for libraries.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-systemd</span></code></p></td>
+<td><p>Enable <code class="docutils literal notranslate"><span class="pre">systemd</span></code> support. Set it to <code class="docutils literal notranslate"><span class="pre">No</span></code> to remove
+dependency on systemd (default = <code class="docutils literal notranslate"><span class="pre">yes</span></code>).</p>
+<p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">--enable-service</span></code> should not be used
+in this case.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-service</span></code></p></td>
+<td><p>Automatically creates the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group and
+enables <code class="docutils literal notranslate"><span class="pre">systemd</span></code> service during installation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-algorithms</span></code></p></td>
+<td><p>Enables deprecated legacy crypto algorithms.</p>
+<p>See the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/README.md#insecure-algorithms">README</a>  for
+the list of algorithms which are deprecated by default.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAX_MR</span></code></p></td>
+<td><p>Number of Miller Rabin rounds for prime
+operations. Setting this to a smaller value
+reduces the memory usage required by the
+driver.</p>
+<div class="line-block">
+<div class="line">Type: value</div>
+<div class="line">Default value: <code class="docutils literal notranslate"><span class="pre">50</span></code></div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="requirements.html" class="btn btn-neutral float-left" title="System Requirements" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sample_code.html" class="btn btn-neutral float-right" title="Sample Code" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
