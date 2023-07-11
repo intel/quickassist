@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
+    <link rel="prev" title="Release Notes - In-Tree" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Release Notes - In-Tree</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#detecting-current-firmware">Detecting Current Firmware</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qat-firmware-available">QAT Firmware Available</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#download">Download</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#known-errata-in-tree-linux-firmware">Known Errata (in-tree Linux Firmware)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures">QAT20-24970 [Firmware] Potential false positive heartbeat failures</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected">QAT20-18924 [MCC] MCC SKUs may consume more power than expected</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected">QATE-45537 [Firmware] - Firmware authentication may fail if PCIe* errors occur or are injected</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#resolved-errata">Resolved Errata</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#qate-8109-firmware-driver-and-firmware-versions-are-not-reported-to-user-space">QATE-8109 [Firmware] - Driver and firmware versions are not reported to user space</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qate-4051-unable-to-activate-driver-using-qat1-7-devices-in-full-passthrough-mode">QATE-4051 - Unable to activate driver using QAT1.7 devices in full passthrough mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qate-77659-unexpected-behaviour-may-be-triggered-by-certain-sgl-sub-buffer-layouts-on-clc-devices">QATE-77659 Unexpected behaviour may be triggered by certain SGL sub-buffer layouts on CLC devices</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support">QATE-39335 Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Release Notes - In-Tree</a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <span class="target" id="qat-2-0-in-tree-firmware-release-notes"></span><section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+<p>The term <em>in-tree</em> refers to the Intel® QAT kernel modules and firmware included in the Linux kernel <em>tree</em>, as opposed to our more common
+<em>out-of-tree</em> (OOT) driver and firmware, provided directly by Intel at
+<a class="reference external" href="https://www.intel.com/content/www/us/en/download/765501">Intel® QuickAssist Technology Driver for Linux* – HW Version 2.0</a>.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Firmware information on this page refers to the <em>in-tree firmware</em>.
+If you’re using the Intel OOT package, your firmware version may not match what’s on this page.</p>
+</div>
+<section id="detecting-current-firmware">
+<h2>Detecting Current Firmware<a class="headerlink" href="#detecting-current-firmware" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Your firmware may be in a compressed <code class="docutils literal notranslate"><span class="pre">.xz</span></code> filetype. Decompress first using the <code class="docutils literal notranslate"><span class="pre">zx</span> <span class="pre">--decompress</span> <span class="pre">compressed_file.zx</span></code> command.</p>
+</div>
+<p>To detect which firmware version is on a platform or running in a device, see the below commands. Change to the directory <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">to</span> <span class="pre">/quickassist/qat/fw/</span></code> and use the appropriate command for your hardware:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_4xxx*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+<span class="go">strings qat_895xcc* | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+<span class="go">strings qat_c3xxx*  | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+<span class="go">strings qat_c62x*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On some Linux distros, the above commands may not produce output. If that is the case, run a more basic command like <code class="docutils literal notranslate"><span class="pre">strings</span> <span class="pre">qat_4xxx*</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">version</span></code> or <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">&quot;version&quot;</span> <span class="pre">qat_4xxx.bin</span></code>. In this example output – <code class="docutils literal notranslate"><span class="pre">tools</span> <span class="pre">version</span> <span class="pre">5.0.1993</span> <span class="pre">.</span> <span class="pre">Firmware</span> <span class="pre">version:</span> <span class="pre">1.0.40</span></code> – the first “tools version” is not relevant, the latter “Firmware version: <em>.</em>.**” is the firmware present in that file/system.</p>
+</div>
+</section>
+<section id="qat-firmware-available">
+<h2>QAT Firmware Available<a class="headerlink" href="#qat-firmware-available" title="Permalink to this headline"></a></h2>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 8%" />
+<col style="width: 20%" />
+<col style="width: 12%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Version</p></th>
+<th class="head"><p>SHA256 Checksum</p></th>
+<th class="head"><p>Release Date</p></th>
+<th class="head"><p>Supported Platforms</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>LICENCE.qat_firmware</p></td>
+<td><p>2023</p></td>
+<td><p>0BD9F7CAE3CF72B12A63359A725CCBB76DDBD6831372695A9162144329800DD0</p></td>
+<td><p>2023-03-10</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat_4xxx.bin</p></td>
+<td><p>1.0.10</p></td>
+<td><p>43B1028941C0F5E44CD6C220F74D2BECC6B3113D023C190E9A9012A56E8778F9</p></td>
+<td><p>2023-03-07</p></td>
+<td><p>4th Gen Intel® Xeon® Scalable Processor</p></td>
+</tr>
+<tr class="row-even"><td><p>qat_4xxx_mmp.bin</p></td>
+<td><p>N/A</p></td>
+<td><p>DF9D88B8B453A228076DDD2EB1332045ECA654854B3E1BF6CCE0EDAC24854C7C</p></td>
+<td><p>2023-03-07</p></td>
+<td><p>4th Gen Intel® Xeon® Scalable Processor</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat_895xcc.bin</p></td>
+<td><p>4.18.0</p></td>
+<td><p>3bd7958f092eed553f3ae7a4543409d4ac34c0057e8fe609b6dabedd4f5a0077</p></td>
+<td><p>2023-04-18</p></td>
+<td><p>Intel® Communication Chipset 8925 to 8955 Series</p></td>
+</tr>
+<tr class="row-even"><td><p>qat_895xcc_mmp.bin</p></td>
+<td><p>N/A</p></td>
+<td><p>4b7bd5930690accaf9dac6301ab7d91ea24bc1398c943ad7aa14c7a8118b63db</p></td>
+<td><p>2023-04-18</p></td>
+<td><p>Intel® Communication Chipset 8925 to 8955 Series</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat_c3xxx.bin</p></td>
+<td><p>4.19.0</p></td>
+<td><p>99a1e70b24facc6e7834d7a72cbc82d113796af0d70af94f66f224fbc27c5340</p></td>
+<td><p>2023-04-18</p></td>
+<td><p>Intel Atom® Processor C3000</p></td>
+</tr>
+<tr class="row-even"><td><p>qat_c3xxx_mmp.bin</p></td>
+<td><p>N/A</p></td>
+<td><p>2869d2306c60dff528bb68c4b55c3c5aab96e43c6fcd858540235eb283118de9</p></td>
+<td><p>2023-04-18</p></td>
+<td><p>Intel Atom® Processor C3000</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat_c62x.bin</p></td>
+<td><p>4.19.0</p></td>
+<td><p>89bd32da6761afb28f8d801289c6ada2d02d3ddfd0de6626111e710b8276871a</p></td>
+<td><p>2023-04-18</p></td>
+<td><p>Intel® C62x Chipset</p></td>
+</tr>
+<tr class="row-even"><td><p>qat_c62x_mmp.bin</p></td>
+<td><p>N/A</p></td>
+<td><p>52bfda93819413807c7be56baf69f0b5f07a4be067ce9c69e61bf78bb395d1da</p></td>
+<td><p>2023-04-18</p></td>
+<td><p>Intel® C62x Chipset</p></td>
+</tr>
+</tbody>
+</table>
+<section id="download">
+<h3>Download<a class="headerlink" href="#download" title="Permalink to this headline"></a></h3>
+<p>QAT in-tree firmware can be downloaded from <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/">https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/</a>.</p>
+</section>
+</section>
+</section>
+<section id="known-errata-in-tree-linux-firmware">
+<h1>Known Errata (in-tree Linux Firmware)<a class="headerlink" href="#known-errata-in-tree-linux-firmware" title="Permalink to this headline"></a></h1>
+<section id="qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">
+<h2>QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response<a class="headerlink" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>[SVM/IOMMU] Request issue doesn’t appear in response</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-23946</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Without Address Translation (AT) enabled, QAT hardware
+can’t reliably handle page faults on write operations
+to invalid memory addresses.</p>
+<p>This may lead to situations where the operation does
+not complete properly and error is not reported to user.
+Only IOMMU pagefault is reported to the user in this
+case.</p>
+<p>This does not result in system memory corruption.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>User is responsible for making sure that all
+destination addresses submitted to HW are valid. Also
+verify that SW doesn’t generate IOMMU pagefaults.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Enable AT for SVM/IOMMU use cases.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 2.0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-24970-firmware-potential-false-positive-heartbeat-failures">
+<h2>QAT20-24970 [Firmware] Potential false positive heartbeat failures<a class="headerlink" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>[Firmware] Potential false positive heartbeat failures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-24970</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When a QAT device is fully utilized and is processing
+requests with large payloads (e.g. &gt;512MB), false
+positive heartbeat failures may be reported if the
+heartbeat check interval is set too low.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Processing multiple requests with big payload sizes may
+cause false positive heartbeat failure and trigger PF
+restart.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This issue can be resolved by ensuring that heartbeat
+interval is large enough to allow big payload request be
+correctly processed.</p>
+<p>Recommended minimal heartbeat interval value to be used
+is 1500 ms. This issue will be addressed in future
+release.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 2.0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">
+<h2>QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs<a class="headerlink" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>[Firmware] Potential false positive heartbeat failures</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-24970</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When a QAT device is fully utilized and is processing
+requests with large payloads (e.g. &gt;512MB), false
+positive heartbeat failures may be reported if the
+heartbeat check interval is set too low.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Processing multiple requests with big payload sizes may
+cause false positive heartbeat failure and trigger PF
+restart.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This issue can be resolved by ensuring that heartbeat
+interval is large enough to allow big payload request be
+correctly processed.</p>
+<p>Recommended minimal heartbeat interval value to be used
+is 1500 ms. This issue will be addressed in future
+release.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 2.0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected">
+<h2>QAT20-18924 [MCC] MCC SKUs may consume more power than expected<a class="headerlink" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>[MCC] MCC SKUs may consume more power than expected</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-18924</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Due to Power Management changes in MCC platforms one
+QAT device in every socket is permanently clock gated
+when not processing requests which leads to inevitable
+heartbeat failures and device resets. Current FW
+workaround increases power consumption by keeping QAT
+in active state. Intel is working on workaround that
+does not have impact on power consumption.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Higher power consumption is possible</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is no workaround currently available.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 2.0</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected">
+<h2>QATE-45537 [Firmware] - Firmware authentication may fail if PCIe* errors occur or are injected<a class="headerlink" href="#qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>[Firmware] - Firmware authentication may fail if PCIe*
+errors occur or are injected.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE-45537</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>If PCIe* errors occur or are injected on a platform, the
+QAT firmware authentication may fail.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The system may need to be rebooted in order to load QAT
+firmware successfully.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>None</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux*</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 1.6, QAT 1.7</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="resolved-errata">
+<h1>Resolved Errata<a class="headerlink" href="#resolved-errata" title="Permalink to this headline"></a></h1>
+<p>This section lists those errata related to firmware which were previously resolved.</p>
+<section id="qate-8109-firmware-driver-and-firmware-versions-are-not-reported-to-user-space">
+<h2>QATE-8109 [Firmware] - Driver and firmware versions are not reported to user space<a class="headerlink" href="#qate-8109-firmware-driver-and-firmware-versions-are-not-reported-to-user-space" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>Driver and firmware versions are not reported to user space.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE-8109</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Driver and firmware versions are not reported through the sysfs and
+cannot be queried using the icp api.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>User applications are not able to query the software package versions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 4.0.1 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 1.6, QAT 1.7</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-4051-unable-to-activate-driver-using-qat1-7-devices-in-full-passthrough-mode">
+<h2>QATE-4051 - Unable to activate driver using QAT1.7 devices in full passthrough mode<a class="headerlink" href="#qate-4051-unable-to-activate-driver-using-qat1-7-devices-in-full-passthrough-mode" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>Unable to activate driver using QAT1.7 devices in full passthrough mode</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE-4051</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The new firmware authentication feature requires PF devices to be reset via
+function level reset (FLR) before firmware download. In KVM guests, all
+pass-through devices attached to a VM are reset at boot time. Any further
+device reset is trapped by the hypervisor and not issued. This causes firmware
+authentication to fail after the first firmware download. Full device
+pass-through might work in some conditions when using vfio and if the host
+kernel and the platform support it.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Direct mode feature not available on KVM guests for devices on full pass-through mode.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Refer to appendix A of Using Intel® Virtualization Technology (Intel® VT) with Intel®
+QuickAssist Technology (document number 330689) for instructions on how to pass
+through a QAT PF to a VM. Talk to your Intel® representative for more information.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 1.6, QAT 1.7, QAT 1.8</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>CPM IA - Common</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-77659-unexpected-behaviour-may-be-triggered-by-certain-sgl-sub-buffer-layouts-on-clc-devices">
+<h2>QATE-77659 Unexpected behaviour may be triggered by certain SGL sub-buffer layouts on CLC devices<a class="headerlink" href="#qate-77659-unexpected-behaviour-may-be-triggered-by-certain-sgl-sub-buffer-layouts-on-clc-devices" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>Unexpected behaviour may be triggered by certain SGL sub-buffer layouts on CLC devices.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE-77659</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The DMA alignment optimization code in FW does not correctly handle an edge case where
+certain combinations of unaligned buffer lengths are used.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Cipher operations may begin to fail requiring device restart.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>There is no workaround available. Bufferlists composed of sub-buffers which are multiples
+of 8 bytes in length are not affected.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>FreeBSD</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 1.7</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support">
+<h2>QATE-39335 Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support<a class="headerlink" href="#qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE-39335</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>FreeBSD QAT VF driver does not get host capabilities - the CnVnR support is enabled by default.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The driver may fail to start compression instances on Virtual Machine with VF driver if no CnVnR
+support on Host QAT driver firmware.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Use Linux QAT driver CnVnR support (4.3.0 or above) on Linux Host system.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>FreeBSD 11.3</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT 1.7</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>CPM IA - Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="license">
+<h1>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h1>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Copyright (c) Intel Corporation.
+
+Redistribution.  Redistribution and use in binary form, without modification, are permitted provided that the following conditions are met:
+
+* Redistributions must reproduce the above copyright notice and the following disclaimer in the documentation and/or other materials provided with the distribution.
+* Neither the name of Intel Corporation nor the names of its suppliers may be used to endorse or promote products derived from this software without specific prior written permission.
+* No reverse engineering, decompilation, or disassembly of this software is permitted.
+
+Limited patent license.  Intel Corporation grants a world-wide, royalty-free, non-exclusive license under patents it now or hereafter owns or controls to make, have made, use, import, offer to sell and sell (&quot;Utilize&quot;) this software, but solely to the extent that any such patent is necessary to Utilize the software alone, or in combination with an operating system licensed under an approved Open Source license as listed by the Open Source Initiative at http://opensource.org/licenses.  The patent license shall not apply to any other combinations which include this software.  No hardware per se is licensed hereunder.
+
+DISCLAIMER.  THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS &quot;AS IS&quot; AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Release Notes - In-Tree" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
