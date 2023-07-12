@@ -126,16 +126,22 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <p class="admonition-title">Note</p>
 <p>Your firmware may be in a compressed <code class="docutils literal notranslate"><span class="pre">.xz</span></code> filetype. Decompress first using the <code class="docutils literal notranslate"><span class="pre">zx</span> <span class="pre">--decompress</span> <span class="pre">compressed_file.zx</span></code> command.</p>
 </div>
-<p>To detect which firmware version is on a platform or running in a device, see the below commands. Change to the directory <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">to</span> <span class="pre">/quickassist/qat/fw/</span></code> and use the appropriate command for your hardware:</p>
+<p>To detect which firmware version is on a platform or running in a device, see the below commands. Change to the appropriate directory (i.e. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">usr/lib/firmware/</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">to</span> <span class="pre">[QAT_DIR]/quickassist/qat/fw/</span></code> ) and use the appropriate command for your hardware:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_4xxx*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
-<span class="go">strings qat_895xcc* | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
-<span class="go">strings qat_c3xxx*  | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
-<span class="go">strings qat_c62x*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_895xcc* | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_c3xxx*  | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_c62x*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>On some Linux distros, the above commands may not produce output. If that is the case, run a more basic command like <code class="docutils literal notranslate"><span class="pre">strings</span> <span class="pre">qat_4xxx*</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">version</span></code> or <code class="docutils literal notranslate"><span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">&quot;version&quot;</span> <span class="pre">qat_4xxx.bin</span></code>. In this example output – <code class="docutils literal notranslate"><span class="pre">tools</span> <span class="pre">version</span> <span class="pre">5.0.1993</span> <span class="pre">.</span> <span class="pre">Firmware</span> <span class="pre">version:</span> <span class="pre">1.0.40</span></code> – the first “tools version” is not relevant, the latter “Firmware version: <em>.</em>.**” is the firmware present in that file/system.</p>
+<p>On some Linux distros, the above commands may not produce output. If that is the case, run a more basic command like <code class="docutils literal notranslate"><span class="pre">strings</span> <span class="pre">qat_4xxx*</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">version</span></code> . In this example output – <code class="docutils literal notranslate"><span class="pre">tools</span> <span class="pre">version</span> <span class="pre">5.0.1993</span> <span class="pre">.</span> <span class="pre">Firmware</span> <span class="pre">version:</span> <span class="pre">1.0.10</span></code> – the first “tools version” is not relevant, the latter “Firmware version: <em>.</em>.**” is the firmware present in that file/system.</p>
 </div>
 </section>
 <section id="qat-firmware-available">
