@@ -2,10 +2,11 @@
 
 This repository contains the public HTML and other static documentation files for Intel's QuickAssist Technology (Intel® QAT) Driver. 
 
-For more information on Intel® QAT, visit:
-- https://www.intel.com/quickassist (Marketing and onerview)
-- https://developer.intel.com/quickassist (Drivers, documentation, and other files)
-- https://intel.github.io/quickassist/ (This documentation site.)
+For more information on Intel® QuickAssist (QAT), visit:
+- https://www.intel.com/quickassist (Public QAT Overview)
+- https://intel.github.io/quickassist/ (Deployed QAT2 documentation)
+- https://developer.intel.com/quickassist (QAT Drivers, documentation, and other files)
+- https://github.com/intel/quickassist/ (This page, GitHub repository for built HTML files)
 
 # Legal Notices & Disclaimers
 
