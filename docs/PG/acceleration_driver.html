@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Acceleration Driver &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -80,6 +80,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -97,9 +98,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-      <li class="breadcrumb-item active">Acceleration Driver</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+      <li>Acceleration Driver</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -252,7 +253,7 @@ resident, physically contiguous, and DMA accessible from the acceleration hardwa
 <p>Buffers are passed to the API with virtual addresses. The API translates these addresses to the address information required by the hardware.</p>
 <section id="services">
 <h3>Services<a class="headerlink" href="#services" title="Permalink to this headline"></a></h3>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Acceleration Driver Services</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -294,7 +295,7 @@ Table 2) for details.</p></td>
 <section id="return-codes">
 <span id="managing-endpoints-using-qat-service"></span><h2>Return Codes<a class="headerlink" href="#return-codes" title="Permalink to this headline"></a></h2>
 <p>This table shows the return codes used by various components of the acceleration driver, defined in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/cpa.h</span></code>.</p>
-<table class="longtable colwidths-given docutils align-default" id="id2">
+<table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Return Codes</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -346,7 +347,7 @@ Table 2) for details.</p></td>
 <section id="linux-device-driver-operations-return-codes">
 <h2>Linux* Device Driver Operations Return Codes<a class="headerlink" href="#linux-device-driver-operations-return-codes" title="Permalink to this headline"></a></h2>
 <p>This table shows the return codes used by the driver to handle Linux* device driver operations.</p>
-<table class="longtable colwidths-given docutils align-default" id="id3">
+<table class="longtable docutils align-default" id="id3">
 <caption><span class="caption-text">Linux* Device Driver Operations Return Codes</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />

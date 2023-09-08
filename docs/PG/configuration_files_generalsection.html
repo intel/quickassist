@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>General Section &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -83,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -100,10 +101,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="configuration_files_index.html">Configuration Files</a></li>
-      <li class="breadcrumb-item active">General Section</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
+      <li>General Section</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,7 +121,7 @@
 <p><em>Default</em> denotes the value in the configuration file when shipped or the value used if not specified in the configuration file.</p>
 </div>
 <p>This table describes the other parameters that can be included in the General section.</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">General Section Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 35%" />
@@ -232,7 +233,7 @@ data compression [dc]).</p>
 <p class="admonition-title">Important</p>
 <p>The following is applicable to QAT2.0 devices only.</p>
 </div>
-<p>In order to maximize QAT throughput performance for a given service type, one should specify ONLY that service type parameter for ServicesEnabled.</p>
+<p>In order to maximize QAT throughput performance for a given service type, one should specify ONLY that service type parameter for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code>.</p>
 <p>By design, two Acceleration Engine clusters are available, each containing four Acceleration Engines.  Each of these two clusters are limited to using a single service.  Therefore, the possible split options are 4|4 or 8 for a given service type.</p>
 <p>Configuration examples:</p>
 <ul class="simple">
@@ -261,13 +262,6 @@ the compression and decompression are available, along with service chaining, bu
 <h3>General Default Configuration Parameters<a class="headerlink" href="#general-default-configuration-parameters" title="Permalink to this headline"></a></h3>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">General Default Configuration Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 35%" />
-<col style="width: 15%" />
-<col style="width: 14%" />
-<col style="width: 21%" />
-<col style="width: 15%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Service</strong></p></th>
 <th class="head"><p><strong>DEFAULT</strong></p></th>

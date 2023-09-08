@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Configuration and Tuning &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -76,6 +76,7 @@
 <li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -93,9 +94,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
-      <li class="breadcrumb-item active">Configuration and Tuning</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">QATlib User’s Guide</a> &raquo;</li>
+      <li>Configuration and Tuning</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,7 +121,7 @@ each process on process startup.</p>
 <section id="policy">
 <h3>Policy<a class="headerlink" href="#policy" title="Permalink to this headline"></a></h3>
 <p>Indicates how many VFs will be assigned to each process.</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Policy Settings</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -148,7 +149,7 @@ each process.</p></td>
 <h3>Services Enabled<a class="headerlink" href="#services-enabled" title="Permalink to this headline"></a></h3>
 <p>Tells the kernel driver which services to enable on each Physical Function (PF). All VFs on
 a PF enable the same services.</p>
-<table class="longtable colwidths-given docutils align-default" id="id2">
+<table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Services Enabled Settings</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -175,8 +176,41 @@ a PF enable the same services.</p>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">sym;asym</span></code></p></td>
 <td><p>All PFs, and so all VFs, have <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> only.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dc</span></code></p></td>
-<td><p>All PFs, and so all VFs, have <code class="docutils literal notranslate"><span class="pre">dc</span></code> only.</p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">asym;sym</span></code></p></td>
+<td><p>Identical to <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dc</span></code></p></td>
+<td><p>The device is configured for running compression
+services only.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sym</span></code></p></td>
+<td><p>The device is configured for running symmetric
+crypto services only.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">asym</span></code></p></td>
+<td><p>The device is configured for running asymmetric
+crypto services only.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">asym;dc</span></code></p></td>
+<td><p>The device is configured for running asymmetric
+crypto services and compression services.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dc;asym</span></code></p></td>
+<td><p>Identical to <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code> above.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sym;dc</span></code></p></td>
+<td><p>The device is configured for running symmetric
+crypto services and compression services.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dc;sym</span></code></p></td>
+<td><p>Identical to <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code> above.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dcc</span></code></p></td>
+<td><p>The device is configured for running chaining
+operations (hash then compress) only.</p>
+<p>Note:  Throughput is lower than dc. Only use
+setting when chaining is needed.</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -184,6 +218,24 @@ a PF enable the same services.</p>
 <p class="admonition-title">Note</p>
 <p>All other combinations of services are currently not supported.</p>
 </div>
+<section id="performance-considerations">
+<h4>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h4>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The following is applicable to QAT2.0 devices only.</p>
+</div>
+<p>In order to maximize QAT throughput performance for a given service type, only one Services type is enabled per physical function (PF).</p>
+<p>By design, two Acceleration Engine clusters are available, each containing four Acceleration Engines.  Each of these two clusters are limited to using a single service.  Therefore, the possible split options are 4|4 or 8 for a given service type.</p>
+<p>Configuration examples:</p>
+<ul class="simple">
+<li><p>While using VFs on a system with a PF configured for SYM and DC, 4 acceleration engines will be dedicated to SYM and 4 acceleration engines will be dedicated to DC, so only 2 resource providers per child VF can be used for SYM. Here, we should expect some performance degradation for SYM (even if DC is not used).</p></li>
+<li><p>While using VFs on a system with a PF configured for SYM, all 8 acceleration engines will be dedicated to SYM, so all 4 resource providers of a child VF can be used for SYM only. <em>Here, we will see the best SYM performance.</em></p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Packet size will also modulate the impact of the above configuration settings.</p>
+</div>
+</section>
 </section>
 <section id="example-configurations">
 <h3>Example Configurations<a class="headerlink" href="#example-configurations" title="Permalink to this headline"></a></h3>
@@ -201,7 +253,7 @@ In a multi-threaded process, typically at least one <em>instance</em> is needed 
 <section id="flexibility">
 <h4>Flexibility<a class="headerlink" href="#flexibility" title="Permalink to this headline"></a></h4>
 <p>With the default configuration, neither the <em>Policy</em> or the <em>Services Enabled</em> parameter is set.</p>
-<p>Each process will allocate <em>one</em> VF from each PF, providing a total of <em>four</em> VFs.</p>
+<p>Each process will allocate <em>one</em> VF, from each PF, providing a total of <em>four</em> VFs.</p>
 <p>This enables <em>two</em> <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> VFs, which provides four sym instances and four asym instances
 and <em>two</em> <code class="docutils literal notranslate"><span class="pre">dc</span></code> VFs, which provides eight dc instances.</p>
 <p>There is a maximum of <em>8</em> processes on one-socket system.</p>
@@ -231,8 +283,36 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 </div></blockquote>
-<p>Each process will allocate <em>one</em> VF so will have two sym instances
+<p>Each process will allocate <em>one</em> VF, so will have two sym instances
 and two asym instances.</p>
+<p>There is a maximum of <em>64</em> processes on one-socket system.</p>
+<p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
+</section>
+<section id="symmetric-only-scalability">
+<h4>Symmetric-Only Scalability<a class="headerlink" href="#symmetric-only-scalability" title="Permalink to this headline"></a></h4>
+<p>To enable the <code class="docutils literal notranslate"><span class="pre">sym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
+The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
+<span class="go">ServicesEnabled=sym</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Each process will allocate <em>one</em> VF, so will have four sym instances.</p>
+<p>There is a maximum of <em>64</em> processes on one-socket system.</p>
+<p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
+</section>
+<section id="asymmetric-only-scalability">
+<h4>Asymmetric-Only Scalability<a class="headerlink" href="#asymmetric-only-scalability" title="Permalink to this headline"></a></h4>
+<p>To enable the <code class="docutils literal notranslate"><span class="pre">asym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
+The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
+<span class="go">ServicesEnabled=asym</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Each process will allocate <em>one</em> VF, so will have four asym instances.</p>
 <p>There is a maximum of <em>64</em> processes on one-socket system.</p>
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
@@ -247,7 +327,22 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 </div>
 </div></blockquote>
 <p>All VFs have the <code class="docutils literal notranslate"><span class="pre">dc</span></code> service enabled.</p>
-<p>Each process will allocate <em>one</em> VF so will have four dc instances.</p>
+<p>Each process will allocate <em>one</em> VF, so will have four dc instances.</p>
+<p>There is a maximum of <em>64</em> processes on one-socket system.</p>
+<p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
+</section>
+<section id="compression-chaining-scalability">
+<h4>Compression chaining scalability<a class="headerlink" href="#compression-chaining-scalability" title="Permalink to this headline"></a></h4>
+<p>To enable the <code class="docutils literal notranslate"><span class="pre">dcc</span></code> service both the <em>Policy</em> and the <em>Services Enabled</em> parameter are set.
+The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
+<span class="go">ServicesEnabled=dcc</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>All VFs have <code class="docutils literal notranslate"><span class="pre">dc</span></code> with <code class="docutils literal notranslate"><span class="pre">sym</span></code> capabilities but only for chaining operations.</p>
+<p>Each process will be allocated <em>one</em> VF so will have 4 dc instances.</p>
 <p>There is a maximum of <em>64</em> processes on one-socket system.</p>
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
@@ -279,39 +374,39 @@ or later and applies to all PFs on the platform.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
-<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%-13s | %-5s | %-12s | %-12s | %-10s\n&quot;</span><span class="w">  </span><span class="s2">&quot;VFIO GROUP&quot;</span><span class="w"> </span><span class="s2">&quot;NODE&quot;</span><span class="w">   </span><span class="se">\</span>
-<span class="s2">&quot;PF BDF&quot;</span><span class="w"> </span><span class="s2">&quot;VF BDF&quot;</span><span class="w"> </span><span class="s2">&quot;SERVICES&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;--------------------------------------------------------------&quot;</span>
+<span class="nb">printf</span> <span class="s2">&quot;%-13s | %-5s | %-12s | %-12s | %-10s\n&quot;</span>  <span class="s2">&quot;VFIO GROUP&quot;</span> <span class="s2">&quot;NODE&quot;</span>   <span class="se">\</span>
+<span class="s2">&quot;PF BDF&quot;</span> <span class="s2">&quot;VF BDF&quot;</span> <span class="s2">&quot;SERVICES&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;--------------------------------------------------------------&quot;</span>
 
-<span class="k">for</span><span class="w"> </span>vfio_group<span class="w"> </span><span class="k">in</span><span class="w"> </span>/dev/vfio/*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$vfio_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/dev/vfio/vfio&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="k">continue</span>
-<span class="w">    </span><span class="k">fi</span>
+<span class="k">for</span> vfio_group <span class="k">in</span> /dev/vfio/*<span class="p">;</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$vfio_group</span> <span class="o">=</span> <span class="s2">&quot;/dev/vfio/vfio&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">continue</span>
+    <span class="k">fi</span>
 
-<span class="w">    </span><span class="nv">group</span><span class="o">=</span><span class="si">${</span><span class="nv">vfio_group</span><span class="p">##*/</span><span class="si">}</span>
-<span class="w">    </span><span class="c1"># assume one bdf per iommu group</span>
-<span class="w">    </span><span class="nv">bdf</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span>/sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="k">)</span>
-<span class="w">    </span><span class="nv">vendor</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/vendor<span class="k">)</span>
-<span class="w">    </span><span class="nv">node</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/numa_node<span class="k">)</span>
-<span class="w">    </span><span class="nv">did</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/device<span class="k">)</span>
+    <span class="nv">group</span><span class="o">=</span><span class="si">${</span><span class="nv">vfio_group</span><span class="p">##*/</span><span class="si">}</span>
+    <span class="c1"># assume one bdf per iommu group</span>
+    <span class="nv">bdf</span><span class="o">=</span><span class="k">$(</span>ls /sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="k">)</span>
+    <span class="nv">vendor</span><span class="o">=</span><span class="k">$(</span>cat /sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/vendor<span class="k">)</span>
+    <span class="nv">node</span><span class="o">=</span><span class="k">$(</span>cat /sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/numa_node<span class="k">)</span>
+    <span class="nv">did</span><span class="o">=</span><span class="k">$(</span>cat /sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/device<span class="k">)</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$vendor</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x8086&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="k">continue</span>
-<span class="w">    </span><span class="k">fi</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$vendor</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;0x8086&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">continue</span>
+    <span class="k">fi</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4941&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4943&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="k">continue</span>
-<span class="w">    </span><span class="k">fi</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;0x4941&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;0x4943&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">continue</span>
+    <span class="k">fi</span>
 
-<span class="w">    </span><span class="nv">regex</span><span class="o">=</span><span class="s1">&#39;([a-z0-9]+):([a-z0-9]+):.*&#39;</span>
-<span class="w">    </span><span class="o">[[</span><span class="w"> </span><span class="nv">$bdf</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span><span class="nv">$regex</span><span class="w"> </span><span class="o">]]</span>
-<span class="w">    </span><span class="nv">pf_domain</span><span class="o">=</span><span class="si">${</span><span class="nv">BASH_REMATCH</span><span class="p">[1]</span><span class="si">}</span>
-<span class="w">    </span><span class="nv">pf_bus</span><span class="o">=</span><span class="si">${</span><span class="nv">BASH_REMATCH</span><span class="p">[2]</span><span class="si">}</span>
-<span class="w">    </span><span class="nv">pf_bdf</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$pf_domain</span><span class="s2">:</span><span class="nv">$pf_bus</span><span class="s2">:00.0&quot;</span>
+    <span class="nv">regex</span><span class="o">=</span><span class="s1">&#39;([a-z0-9]+):([a-z0-9]+):.*&#39;</span>
+    <span class="o">[[</span> <span class="nv">$bdf</span> <span class="o">=</span>~ <span class="nv">$regex</span> <span class="o">]]</span>
+    <span class="nv">pf_domain</span><span class="o">=</span><span class="si">${</span><span class="nv">BASH_REMATCH</span><span class="p">[1]</span><span class="si">}</span>
+    <span class="nv">pf_bus</span><span class="o">=</span><span class="si">${</span><span class="nv">BASH_REMATCH</span><span class="p">[2]</span><span class="si">}</span>
+    <span class="nv">pf_bdf</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$pf_domain</span><span class="s2">:</span><span class="nv">$pf_bus</span><span class="s2">:00.0&quot;</span>
 
-<span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%-15s %-7s %-14s %-14s %-10s\n&quot;</span><span class="w">  </span><span class="s2">&quot;</span><span class="nv">$vfio_group</span><span class="s2">&quot;</span><span class="w">  </span><span class="s2">&quot;</span><span class="nv">$node</span><span class="s2">&quot;</span><span class="w">    </span><span class="se">\</span>
-<span class="w">    </span><span class="s2">&quot;</span><span class="nv">$pf_bdf</span><span class="s2">&quot;</span><span class="w">   </span><span class="s2">&quot;</span><span class="nv">$bdf</span><span class="s2">&quot;</span><span class="w">                                                 </span><span class="se">\</span>
-<span class="w">    </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span>/sys/bus/pci/devices/<span class="nv">$pf_bdf</span>/qat/cfg_services<span class="k">)</span><span class="s2">&quot;</span>
+    <span class="nb">printf</span> <span class="s2">&quot;%-15s %-7s %-14s %-14s %-10s\n&quot;</span>  <span class="s2">&quot;</span><span class="nv">$vfio_group</span><span class="s2">&quot;</span>  <span class="s2">&quot;</span><span class="nv">$node</span><span class="s2">&quot;</span>    <span class="se">\</span>
+    <span class="s2">&quot;</span><span class="nv">$pf_bdf</span><span class="s2">&quot;</span>   <span class="s2">&quot;</span><span class="nv">$bdf</span><span class="s2">&quot;</span>                                                 <span class="se">\</span>
+    <span class="s2">&quot;</span><span class="k">$(</span>cat /sys/bus/pci/devices/<span class="nv">$pf_bdf</span>/qat/cfg_services<span class="k">)</span><span class="s2">&quot;</span>
 
 <span class="k">done</span>
 </pre></div>

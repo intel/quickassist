@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Telemetry &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -85,6 +85,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -102,10 +103,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
-      <li class="breadcrumb-item active">Telemetry</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
+      <li>Telemetry</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -148,10 +149,6 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 <h3>Telemetry Commands<a class="headerlink" href="#telemetry-commands" title="Permalink to this headline"></a></h3>
 <table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Telemetry Commands</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 71%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Operation</strong></p></th>
 <th class="head"><p><strong>Command</strong></p></th>
@@ -181,13 +178,6 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following:</p>
 <table class="docutils align-default" id="id2">
 <caption><span class="caption-text">Ring Pairs</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 31%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>VF</strong></p></th>
 <th class="head" colspan="4"><p><strong>Ring Pairs</strong></p></th>
@@ -304,10 +294,6 @@ There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following
 <h3>Device Level Telemetry Values<a class="headerlink" href="#device-level-telemetry-values" title="Permalink to this headline"></a></h3>
 <table class="longtable docutils align-default" id="id3">
 <caption><span class="caption-text">Device Level Telemetry Values</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 71%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Value</strong></p></th>
 <th class="head"><p><strong>Meaning</strong></p></th>
@@ -375,10 +361,6 @@ There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following
 <h3>Ring Pair Level Telemetry Values<a class="headerlink" href="#ring-pair-level-telemetry-values" title="Permalink to this headline"></a></h3>
 <table class="longtable docutils align-default" id="id4">
 <caption><span class="caption-text">Ring Pair Level Telemetry Values</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 29%" />
-<col style="width: 71%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Value</strong></p></th>
 <th class="head"><p><strong>Meaning</strong></p></th>
@@ -443,7 +425,7 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 <span class="k">def</span> <span class="nf">EnableTelemetry</span><span class="p">():</span>
 
         <span class="n">devices</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;sudo adf_ctl status&quot;</span>
+        <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;adf_ctl status&quot;</span>
         <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 
         <span class="c1"># Store the return code in rc variable</span>
@@ -468,7 +450,7 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
         <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
 
         <span class="c1"># Split string into list of strings</span>
-        <span class="n">output_telem</span><span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">original_array</span><span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span><span class="n">output_telem</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">original_array</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">))</span>
 
         <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
