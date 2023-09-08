@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dynamic Instance Allocation Functions &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -86,6 +86,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -103,11 +104,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
-          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
-      <li class="breadcrumb-item active">Dynamic Instance Allocation Functions</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
+          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
+      <li>Dynamic Instance Allocation Functions</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -142,7 +143,7 @@ when the work has been completed. Thereafter, other processes can use these inst
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyGetAvailableNumDynInstances</span> <span class="pre">(Cpa32U</span> <span class="pre">*pNumCyInstances);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -155,7 +156,7 @@ when the work has been completed. Thereafter, other processes can use these inst
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyGetAvailableNumDynInstances</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -176,7 +177,7 @@ when the work has been completed. Thereafter, other processes can use these inst
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userDcGetAvailableNumDynInstances</span> <span class="pre">(Cpa32U</span> <span class="pre">*pNuDcInstances);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -189,7 +190,7 @@ when the work has been completed. Thereafter, other processes can use these inst
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userDcGetAvailableNumDynInstances</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -212,7 +213,7 @@ The <code class="docutils literal notranslate"><span class="pre">numCyInstances<
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyInstancesAlloc(Cpa32U</span> <span class="pre">numCyInstances,</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">*pCyInstances);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -228,7 +229,7 @@ The <code class="docutils literal notranslate"><span class="pre">numCyInstances<
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyInstancesAlloc</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -251,7 +252,7 @@ or equal to the value of the <code class="docutils literal notranslate"><span cl
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userDcInstancesAlloc(Cpa32U</span> <span class="pre">numDcInstances,</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">*pDcInstances);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -267,7 +268,7 @@ or equal to the value of the <code class="docutils literal notranslate"><span cl
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userDcInstancesAlloc</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -289,7 +290,7 @@ The <code class="docutils literal notranslate"><span class="pre">numCyInstances<
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyFreeInstances(Cpa32U</span> <span class="pre">numCyInstances,</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">*pCyInstances);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -305,7 +306,7 @@ The <code class="docutils literal notranslate"><span class="pre">numCyInstances<
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyFreeInstances</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -327,7 +328,7 @@ The <code class="docutils literal notranslate"><span class="pre">numDcInstances<
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userDcFreeInstances(Cpa32U</span> <span class="pre">numDcInstances,</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">*pDcInstances);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -343,7 +344,7 @@ The <code class="docutils literal notranslate"><span class="pre">numDcInstances<
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userDcFreeInstances</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -364,7 +365,7 @@ The <code class="docutils literal notranslate"><span class="pre">numDcInstances<
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyGetAvailableNumDynInstancesByDevPkg(Cpa32U</span> <span class="pre">*pNumCyInstances,</span> <span class="pre">Cpa32U</span> <span class="pre">devPkgID);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -381,7 +382,7 @@ from all devices.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyGetAvailableNumDynInstancesByDevPkg</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -402,7 +403,7 @@ from all devices.</p></td>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userDcGetAvailableNumDynInstancesByDevPkg(Cpa32U</span> <span class="pre">*pNumDcInstances,</span> <span class="pre">Cpa32U</span> <span class="pre">devPkgID);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -419,7 +420,7 @@ from all devices.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userDcGetAvailableNumDynInstancesByDevPkg</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -442,7 +443,7 @@ less than or equal to the value of the <code class="docutils literal notranslate
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyInstancesAllocByDevPkg(Cpa32U</span> <span class="pre">numCyInstances,</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">*pCyInstances,</span> <span class="pre">devPkgID);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -462,7 +463,7 @@ from all devices.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyInstancesAllocByDevPkg</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -485,7 +486,7 @@ than or equal to the value of the <code class="docutils literal notranslate"><sp
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userDcInstancesAllocByDevPkg(Cpa32U</span> <span class="pre">numDcInstances,</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">*pDcInstances,</span> <span class="pre">Cpa32U</span> <span class="pre">devPkgID;</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -505,7 +506,7 @@ from all devices.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userDcInstancesAllocByDevPkg</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -526,7 +527,7 @@ from all devices.</p></td>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyGetAvailableNumDynInstancesByPkgAccel(Cpa32U</span> <span class="pre">*pNumCyInstances,</span> <span class="pre">Cpa32U</span> <span class="pre">devPkgID,</span> <span class="pre">Cpa32U</span> <span class="pre">accelerator_number);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -547,7 +548,7 @@ as <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyIn
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyGetAvailableNumDynInstancesByPkgAccel</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -571,7 +572,7 @@ than or equal to the value of the <code class="docutils literal notranslate"><sp
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyInstancesAllocByPkgAccel(Cpa32U</span> <span class="pre">numCyInstances,</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">*pCyInstances,</span> <span class="pre">Cpa32U</span> <span class="pre">devPkgID,</span> <span class="pre">Cpa32U</span> <span class="pre">accelerator_number);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -595,7 +596,7 @@ as <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyIn
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyInstancesAllocByPkgAccel</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />

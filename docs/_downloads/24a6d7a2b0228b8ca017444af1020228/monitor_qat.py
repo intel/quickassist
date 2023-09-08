@@ -13,7 +13,7 @@ set_paths=[]
 def EnableTelemetry():
     
     devices.clear()
-    command = "sudo adf_ctl status"
+    command = "adf_ctl status"
     sp = subprocess.Popen(command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=True)
 
     # Store the return code in rc variable
@@ -38,8 +38,9 @@ def EnableTelemetry():
     out,err=sp.communicate()
 
     # Split string into list of strings
-    output_telem= out.split()
- 
+    original_array= out.split()     
+    output_telem = sorted(original_array, key=lambda x: (x.split(':')[1], 16))
+
     i = 0
     state = "down"
     name = None

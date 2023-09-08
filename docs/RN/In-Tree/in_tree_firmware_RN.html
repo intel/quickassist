@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Introduction &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -51,13 +51,12 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Release Notes - In-Tree</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#detecting-current-firmware">Detecting Current Firmware</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#qat-firmware-available">QAT Firmware Available</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#download">Download</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qat-firmware-available">QAT Firmware Available</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#download">Download</a></li>
 </ul>
 </li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#known-errata-in-tree-linux-firmware">Known Errata (in-tree Linux Firmware)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#qat-kernel-driver-releases-features">QAT Kernel Driver Releases &amp; Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-errata-linux-firmware-kernel-modules">Known Errata (Linux Firmware/Kernel Modules)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures">QAT20-24970 [Firmware] Potential false positive heartbeat failures</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs</a></li>
@@ -82,6 +81,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -99,9 +99,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Release Notes - In-Tree</a></li>
-      <li class="breadcrumb-item active">Introduction</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Release Notes - In-Tree</a> &raquo;</li>
+      <li>Introduction</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -114,7 +114,7 @@
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
 <p>The term <em>in-tree</em> refers to the Intel® QAT kernel modules and firmware included in the Linux kernel <em>tree</em>, as opposed to our more common
 <em>out-of-tree</em> (OOT) driver and firmware, provided directly by Intel at
-<a class="reference external" href="https://www.intel.com/content/www/us/en/download/765501">Intel® QuickAssist Technology Driver for Linux* – HW Version 2.0</a>.</p>
+<a class="reference external" href="https://www.intel.com/content/www/us/en/download/765501">Intel® QuickAssist Technology Driver for Linux* - HW Version 2.0</a>.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Firmware information on this page refers to the <em>in-tree firmware</em>.
@@ -124,7 +124,7 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <h2>Detecting Current Firmware<a class="headerlink" href="#detecting-current-firmware" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Your firmware may be in a compressed <code class="docutils literal notranslate"><span class="pre">.xz</span></code> filetype. Decompress first using the <code class="docutils literal notranslate"><span class="pre">zx</span> <span class="pre">--decompress</span> <span class="pre">compressed_file.zx</span></code> command.</p>
+<p>Your firmware may be in a compressed <code class="docutils literal notranslate"><span class="pre">.xz</span></code> filetype. Decompress first using the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">xz</span> <span class="pre">--decompress</span> <span class="pre">compressed_file_filename.xz</span></code> command.</p>
 </div>
 <p>To detect which firmware version is on a platform or running in a device, see the below commands. Change to the appropriate directory (i.e. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">usr/lib/firmware/</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">to</span> <span class="pre">[QAT_DIR]/quickassist/qat/fw/</span></code> ) and use the appropriate command for your hardware:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_4xxx*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
@@ -141,26 +141,30 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>On some Linux distros, the above commands may not produce output. In that case, run a more basic command like <code class="docutils literal notranslate"><span class="pre">strings</span> <span class="pre">qat_4xxx*</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">version</span></code> . In our example output, <code class="docutils literal notranslate"><span class="pre">tools</span> <span class="pre">version</span> <span class="pre">5.0.1993</span> <span class="pre">.</span> <span class="pre">Firmware</span> <span class="pre">version:</span> <span class="pre">1.0.10</span></code> , the first “tools version” is not relevant, the latter “Firmware version: 1.0.10” represents the actual version of the current firmware.</p>
+<p>On some Linux distros, the above commands may not produce output. In that case, run a more basic command like <code class="docutils literal notranslate"><span class="pre">strings</span> <span class="pre">qat_4xxx*</span> <span class="pre">|</span> <span class="pre">grep</span> <span class="pre">-i</span> <span class="pre">version</span></code> . In our example output, <code class="docutils literal notranslate"><span class="pre">tools</span> <span class="pre">version</span> <span class="pre">5.0.1993</span> <span class="pre">.</span> <span class="pre">Firmware</span> <span class="pre">version:</span> <span class="pre">1.0.10</span></code>, the <code class="docutils literal notranslate"><span class="pre">tools</span> <span class="pre">version</span></code> is not relevant; the latter <code class="docutils literal notranslate"><span class="pre">Firmware</span> <span class="pre">version:</span> <span class="pre">1.0.10</span></code> represents the actual version of the current firmware.</p>
 </div>
 </section>
 <section id="qat-firmware-available">
 <h2>QAT Firmware Available<a class="headerlink" href="#qat-firmware-available" title="Permalink to this headline"></a></h2>
-<table class="longtable colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="longtable docutils align-default" id="id3">
+<caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
+<col style="width: 30%" />
+<col style="width: 15%" />
 <col style="width: 20%" />
-<col style="width: 8%" />
+<col style="width: 15%" />
 <col style="width: 20%" />
-<col style="width: 12%" />
-<col style="width: 40%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p>Name</p></th>
-<th class="head"><p>Version</p></th>
-<th class="head"><p>SHA256 Checksum</p></th>
-<th class="head"><p>Release Date</p></th>
-<th class="head"><p>Supported Platforms</p></th>
+<tr class="row-odd"><th class="head"><p><strong>File Name</strong></p></th>
+<th class="head"><p><strong>Version</strong></p></th>
+<th class="head"><p><strong>SHA256</strong></p>
+<p><strong>Checksum</strong></p>
+</th>
+<th class="head"><p><strong>Release Date</strong></p></th>
+<th class="head"><p><strong>Supported</strong></p>
+<p><strong>Platforms</strong></p>
+</th>
 </tr>
 </thead>
 <tbody>
@@ -220,17 +224,67 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 </tr>
 </tbody>
 </table>
+</section>
 <section id="download">
-<h3>Download<a class="headerlink" href="#download" title="Permalink to this headline"></a></h3>
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline"></a></h2>
 <p>QAT in-tree firmware can be downloaded from <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/">https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/</a>.</p>
 </section>
 </section>
+<section id="qat-kernel-driver-releases-features">
+<span id="qat-2-0-in-tree-kernel-requirements"></span><h1>QAT Kernel Driver Releases &amp; Features<a class="headerlink" href="#qat-kernel-driver-releases-features" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Some qatlib features require a recent kernel driver or firmware version.</p>
+</div>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">QAT Kernel Driver Releases &amp; Features</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature</strong></p></th>
+<th class="head"><p><strong>Required Kernel Driver Version</strong></p></th>
+<th class="head"><p><strong>Required Firmware Version</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Symmetric and asymmetric crypto</p></td>
+<td><p>v5.11+</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="row-odd"><td><p>Data Compression</p></td>
+<td><p>v5.17+</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="row-even"><td><p>Enable device 401xx/CPM2.0b</p></td>
+<td><p>v5.19+</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="row-odd"><td><p>Configure dc and sym;asym</p></td>
+<td><p>v6.0+</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="row-even"><td><p>Configure sym asym sym;dc asym;dc</p></td>
+<td><p>v6.5+</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="row-odd"><td><p>DC Chaining (dcc)</p></td>
+<td><p>v6.7+</p></td>
+<td><p>Pending*</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Also, if running on a distro like RHEL or SUSE, the kernel version reported should be ignored. This is because the kernel version <em>reported</em> is only the <em>base</em> kernel version, however, the distro generally contains a more recent qat kernel driver. Consult your distro support for details.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a href="#id1"><span class="problematic" id="id2">*</span></a>For pending firmware, contact your Intel Representative or <a class="reference external" href="mailto:qat-linux&#37;&#52;&#48;intel&#46;com">qat-linux<span>&#64;</span>intel<span>&#46;</span>com</a>.</p>
+</div>
 </section>
-<section id="known-errata-in-tree-linux-firmware">
-<h1>Known Errata (in-tree Linux Firmware)<a class="headerlink" href="#known-errata-in-tree-linux-firmware" title="Permalink to this headline"></a></h1>
+<section id="known-errata-linux-firmware-kernel-modules">
+<h1>Known Errata (Linux Firmware/Kernel Modules)<a class="headerlink" href="#known-errata-linux-firmware-kernel-modules" title="Permalink to this headline"></a></h1>
 <section id="qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">
 <h2>QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response<a class="headerlink" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -279,7 +333,7 @@ verify that SW doesn’t generate IOMMU pagefaults.</p></td>
 </section>
 <section id="qat20-24970-firmware-potential-false-positive-heartbeat-failures">
 <h2>QAT20-24970 [Firmware] Potential false positive heartbeat failures<a class="headerlink" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -329,7 +383,7 @@ release.</p>
 </section>
 <section id="qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">
 <h2>QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs<a class="headerlink" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -379,7 +433,7 @@ release.</p>
 </section>
 <section id="qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected">
 <h2>QAT20-18924 [MCC] MCC SKUs may consume more power than expected<a class="headerlink" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -424,7 +478,7 @@ does not have impact on power consumption.</p></td>
 </section>
 <section id="qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected">
 <h2>QATE-45537 [Firmware] - Firmware authentication may fail if PCIe* errors occur or are injected<a class="headerlink" href="#qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -470,15 +524,17 @@ firmware successfully.</p></td>
 <p>This section lists those errata related to firmware which were previously resolved.</p>
 <section id="qate-8109-firmware-driver-and-firmware-versions-are-not-reported-to-user-space">
 <h2>QATE-8109 [Firmware] - Driver and firmware versions are not reported to user space<a class="headerlink" href="#qate-8109-firmware-driver-and-firmware-versions-are-not-reported-to-user-space" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Title</strong></p></td>
-<td><p>Driver and firmware versions are not reported to user space.</p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>Driver and firmware versions are not reported to user space.</p></th>
 </tr>
+</thead>
+<tbody>
 <tr class="row-even"><td><p><strong>Reference</strong></p></td>
 <td><p>QATE-8109</p></td>
 </tr>
@@ -508,15 +564,17 @@ cannot be queried using the icp api.</p></td>
 </section>
 <section id="qate-4051-unable-to-activate-driver-using-qat1-7-devices-in-full-passthrough-mode">
 <h2>QATE-4051 - Unable to activate driver using QAT1.7 devices in full passthrough mode<a class="headerlink" href="#qate-4051-unable-to-activate-driver-using-qat1-7-devices-in-full-passthrough-mode" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Title</strong></p></td>
-<td><p>Unable to activate driver using QAT1.7 devices in full passthrough mode</p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>Unable to activate driver using QAT1.7 devices in full passthrough mode</p></th>
 </tr>
+</thead>
+<tbody>
 <tr class="row-even"><td><p><strong>Reference</strong></p></td>
 <td><p>QATE-4051</p></td>
 </tr>
@@ -553,15 +611,17 @@ through a QAT PF to a VM. Talk to your Intel® representative for more informati
 </section>
 <section id="qate-77659-unexpected-behaviour-may-be-triggered-by-certain-sgl-sub-buffer-layouts-on-clc-devices">
 <h2>QATE-77659 Unexpected behaviour may be triggered by certain SGL sub-buffer layouts on CLC devices<a class="headerlink" href="#qate-77659-unexpected-behaviour-may-be-triggered-by-certain-sgl-sub-buffer-layouts-on-clc-devices" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Title</strong></p></td>
-<td><p>Unexpected behaviour may be triggered by certain SGL sub-buffer layouts on CLC devices.</p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>Unexpected behaviour may be triggered by certain SGL sub-buffer layouts on CLC devices.</p></th>
 </tr>
+</thead>
+<tbody>
 <tr class="row-even"><td><p><strong>Reference</strong></p></td>
 <td><p>QATE-77659</p></td>
 </tr>
@@ -592,15 +652,17 @@ of 8 bytes in length are not affected.</p></td>
 </section>
 <section id="qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support">
 <h2>QATE-39335 Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support<a class="headerlink" href="#qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
+<table class="rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
 </colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Title</strong></p></td>
-<td><p>Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support.</p></td>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support.</p></th>
 </tr>
+</thead>
+<tbody>
 <tr class="row-even"><td><p><strong>Reference</strong></p></td>
 <td><p>QATE-39335</p></td>
 </tr>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>System Requirements &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -58,6 +58,7 @@
 <li class="toctree-l2"><a class="reference internal" href="description.html">Description</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">System Requirements</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#bios-configuration">BIOS Configuration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#kernel-firmware-requirements">Kernel/Firmware Requirements</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#supported-devices">Supported Devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#firmware">Firmware</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#kernel-drivers">Kernel Drivers</a><ul>
@@ -80,6 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -97,9 +99,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
-      <li class="breadcrumb-item active">System Requirements</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">QATlib User’s Guide</a> &raquo;</li>
+      <li>System Requirements</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -128,7 +130,7 @@ Consult your platform guide for details on enabling these parameters. If using a
 (BKC) these parameters are usually enabled by default.</p>
 <p>The status of both parameters can be verified in the BIOS settings. Although the specific location depends on the
 BIOS vendor navigation menu, these parameters are usually found in the following locations:</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Intel VT-d and SR-IOV parameters location in BIOS</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 50%" />
@@ -168,6 +170,10 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </tr>
 </tbody>
 </table>
+</section>
+<section id="kernel-firmware-requirements">
+<h2>Kernel/Firmware Requirements<a class="headerlink" href="#kernel-firmware-requirements" title="Permalink to this headline"></a></h2>
+<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">Kernel/Firmware Requirements</span></a> for details on required kernel/firmware version.</p>
 </section>
 <section id="supported-devices">
 <h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline"></a></h2>

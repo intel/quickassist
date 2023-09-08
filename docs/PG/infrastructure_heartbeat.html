@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Heartbeat &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -90,6 +90,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -107,10 +108,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
-      <li class="breadcrumb-item active">Heartbeat</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
+      <li>Heartbeat</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -154,10 +155,6 @@
 configuration file <code class="docutils literal notranslate"><span class="pre">/etc/&lt;device&gt;.conf</span></code>, as shown below.</p>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">AutoResetOnError Values</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 46%" />
-<col style="width: 54%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>AutoResetOnError Value</strong></p></th>
 <th class="head"><p><strong>Action on Heartbeat Failure</strong></p></th>
@@ -290,10 +287,6 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <p>The Heartbeat feature implements the following system virtual files under the <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_&lt;device&gt;_&lt;your_device_BDF&gt;/</span></code> directory.</p>
 <table class="longtable docutils align-default" id="id3">
 <caption><span class="caption-text">Heartbeat System Virtual Files</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 24%" />
-<col style="width: 76%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>File</strong></p></th>
 <th class="head"><p><strong>Content</strong></p></th>
@@ -313,8 +306,8 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </table>
 <p>A developer could simulate the Heartbeat management process by running the following script in the background:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="k">while</span><span class="w"> </span>:<span class="w"> </span><span class="k">do</span>
-<span class="w">   </span>cat<span class="w"> </span>/sys/kernel/debug/&lt;device&gt;/heartbeat<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span>
+<span class="k">while</span> : <span class="k">do</span>
+   cat /sys/kernel/debug/&lt;device&gt;/heartbeat &gt; /dev/null sleep <span class="m">1</span>
 <span class="k">done</span>
 </pre></div>
 </div>

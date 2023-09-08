@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base API and API Conventions &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Intel® QAT Cryptographic API" href="QAT_cryptoAPI.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">API Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Base API and API Conventions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#intel-qat-base-api">Intel® QAT Base API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#data-buffer-models">Data Buffer Models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#intel-qat-api-conventions">Intel® QAT API Conventions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#instance-discovery">Instance Discovery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#modes-of-operation">Modes of Operation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#memory-allocation-and-ownership">Memory Allocation and Ownership</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#data-plane-apis">Data Plane APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="QAT_cryptoAPI.html">Intel® QAT Cryptographic API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="QAT_compressionAPI.html">Intel® QAT Data Compression API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">API Programmer’s Guide</a> &raquo;</li>
+      <li>Base API and API Conventions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="base-api-and-api-conventions">
+<span id="qat-api-programmers-guide-baseapi"></span><h1>Base API and API Conventions<a class="headerlink" href="#base-api-and-api-conventions" title="Permalink to this headline"></a></h1>
+<p>This section describes aspects common to all Intel® QuickAssist Technology APIs,
+starting with the base API and followed by conventions.</p>
+<section id="intel-qat-base-api">
+<h2>Intel® QAT Base API<a class="headerlink" href="#intel-qat-base-api" title="Permalink to this headline"></a></h2>
+<p>The base API is a top-level API definition for Intel® QuickAssist Technology.
+It contains structures, data types, and definitions that are common across the interface.</p>
+<section id="data-buffer-models">
+<h3>Data Buffer Models<a class="headerlink" href="#data-buffer-models" title="Permalink to this headline"></a></h3>
+<p>Data buffers are passed across the API interface in one of the following formats:</p>
+<ul class="simple">
+<li><p><em>Flat Buffers</em> represent a single region of physically contiguous memory and are
+described in detail in the <a class="reference internal" href="#qat-api-programmers-guide-baseapi-flatbuffers"><span class="std std-ref">Flat Buffers</span></a> section.</p></li>
+<li><p><em>Scatter-Gather Lists</em> are essentially an array of flat buffers, for cases where the
+memory is not all physically contiguous. These are described in detail in the
+<a class="reference internal" href="#qat-api-programmers-guide-baseapi-scattergatherlists"><span class="std std-ref">Scatter-Gather Lists</span></a> section.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The source and destination buffer types must match. For example, if the source
+buffer type is set to flat buffer, the destination buffer type must also be a
+flat buffer.</p>
+</div>
+<section id="flat-buffers">
+<span id="qat-api-programmers-guide-baseapi-flatbuffers"></span><h4>Flat Buffers<a class="headerlink" href="#flat-buffers" title="Permalink to this headline"></a></h4>
+<p>Flat buffers are represented by the type <code class="docutils literal notranslate"><span class="pre">CpaFlatBuffer</span></code>, defined in the file <code class="docutils literal notranslate"><span class="pre">cpa.h</span></code>.
+It consists of two fields:</p>
+<ul class="simple">
+<li><p>Data pointer <code class="docutils literal notranslate"><span class="pre">pData</span></code>: points to the start address of the data or payload. The data
+pointer is a virtual address; however, the actual data pointed to is required to be in
+contiguous and DMAable physical memory. This buffer type is typically used when simple,
+unchained buffers are needed.</p></li>
+<li><p>Length of this buffer: <code class="docutils literal notranslate"><span class="pre">dataLenInBytes</span></code> specified in bytes.</p></li>
+</ul>
+<p>For data plane APIs (<code class="docutils literal notranslate"><span class="pre">cpa_sym_dp.h</span></code> and <code class="docutils literal notranslate"><span class="pre">cpa_dc_dp.h</span></code>), a flat buffer is represented by the type
+<code class="docutils literal notranslate"><span class="pre">CpaPhysFlatBuffer</span></code>, also defined in <code class="docutils literal notranslate"><span class="pre">cpa.h</span></code>. This is similar to the <code class="docutils literal notranslate"><span class="pre">CpaFlatBuffer</span></code> structure;
+the difference is that, in this case, the data pointer, <code class="docutils literal notranslate"><span class="pre">bufferPhysAddr</span></code>, is a physical address
+rather than a virtual address.</p>
+<p>The figure below shows the layout of a flat buffer.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/flat_buffer_updated.png"><img alt="../_images/flat_buffer_updated.png" src="../_images/flat_buffer_updated.png" style="width: 452px; height: 160px;" /></a>
+</figure>
+</section>
+<section id="scatter-gather-lists">
+<span id="qat-api-programmers-guide-baseapi-scattergatherlists"></span><h4>Scatter-Gather Lists<a class="headerlink" href="#scatter-gather-lists" title="Permalink to this headline"></a></h4>
+<p>A scatter-gather list is defined by the type <code class="docutils literal notranslate"><span class="pre">CpaBufferList</span></code>,
+also defined in the file <code class="docutils literal notranslate"><span class="pre">cpa.h</span></code>. This buffer structure is typically used
+where more than one flat buffer can be provided to a particular API.
+The buffer list contains four fields, as follows:</p>
+<ul>
+<li><p>The number of buffers in the list.</p></li>
+<li><p>Pointer to an unbounded array of flat buffers.</p></li>
+<li><p>User Data: an opaque field; it is not read or modified internally by the API.
+This field could be used to provide a pointer back into an application
+data structure, providing the context of the call.</p></li>
+<li><p>Pointer to metadata required by the API:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>The metadata is required for internal use by the API.
+The memory for this buffer needs to be allocated by the
+client as contiguous data. The size of this metadata buffer
+is obtained by calling <code class="docutils literal notranslate"><span class="pre">cpaCyBufferListGetMetaSize</span></code> for crypto,
+<code class="docutils literal notranslate"><span class="pre">cpaBufferLists</span></code>, and <code class="docutils literal notranslate"><span class="pre">cpaDcBufferListGetMetaSize</span></code> for data compression.</p></li>
+<li><p>The memory required to hold the <code class="docutils literal notranslate"><span class="pre">CpaBufferList</span></code> structure and the
+array of flat buffers is not required to be physically contiguous.
+However, the flat buffer data pointers and the metadata pointer are
+required to reference physically contiguous DMAable memory.</p></li>
+<li><p>There is a performance impact when using scatter-gather lists instead
+of flat buffers. Refer to the Intel® QAT Performance Optimization Guide
+for additional information.</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+<p>The figure below shows a graphical representation of a scatter-gather buffer list.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/scatter_gather_updated.png"><img alt="../_images/scatter_gather_updated.png" src="../_images/scatter_gather_updated.png" style="width: 566px; height: 300px;" /></a>
+</figure>
+<p>For data plane APIs (<code class="docutils literal notranslate"><span class="pre">cpa_sym_dp.h</span></code> and <code class="docutils literal notranslate"><span class="pre">cpa_dc_dp.h</span></code>) a region
+of memory that is not physically contiguous is described using the
+<code class="docutils literal notranslate"><span class="pre">CpaPhysBufferList</span></code> structure. This is similar to the <code class="docutils literal notranslate"><span class="pre">CpaBufferList</span></code>
+structure; the difference, in this case, the individual flat buffers
+are represented using physical rather than virtual addresses.</p>
+</section>
+</section>
+</section>
+<section id="intel-qat-api-conventions">
+<h2>Intel® QAT API Conventions<a class="headerlink" href="#intel-qat-api-conventions" title="Permalink to this headline"></a></h2>
+<section id="instance-discovery">
+<span id="qat-api-programmers-guide-baseapi-instancediscovery"></span><h3>Instance Discovery<a class="headerlink" href="#instance-discovery" title="Permalink to this headline"></a></h3>
+<p>The Intel® QAT API supports multiple instances. An instance represents
+a “channel” to a specific hardware accelerator. Multiple instances can
+access the same hardware accelerator (that is, the relationship between
+instances and a hardware accelerator is N:1). The instance is identified
+using the <code class="docutils literal notranslate"><span class="pre">CpaInstanceHandle</span></code> handle type. This handle type represents
+a specific instance within the system and is passed as a parameter to all
+API functions that operate on instances.</p>
+<p>Instance discovery is achieved through service-specific API invocations.
+This section describes the instance discovery for data compression (<code class="docutils literal notranslate"><span class="pre">dc</span></code>);
+however, the flow of the calls is similar for the cryptographic service.</p>
+<p>In the below example, the number of <code class="docutils literal notranslate"><span class="pre">dc</span></code> instances available to the application is
+queried via the <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumInstances</span></code> call. The application obtains the
+instance handle of the first instance.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sampleDcGetInstance</span><span class="w"> </span><span class="p">(</span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="o">*</span><span class="n">pDcInstHandle</span><span class="p">)</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstHandles</span><span class="p">[</span><span class="n">MAX_INSTANCES</span><span class="p">];</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa16U</span><span class="w"> </span><span class="n">numInstances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaStatus</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CPA_STATUS_SUCCESS</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="o">*</span><span class="n">pDcInstHandle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span><span class="w"></span>
+
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpaDcGetNumInstances</span><span class="p">(</span><span class="o">&amp;</span><span class="n">numInstances</span><span class="p">);</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CPA_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">numInstances</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpaDcGetInstances</span><span class="p">(</span><span class="n">MAX_INSTANCES</span><span class="p">,</span><span class="w"> </span><span class="n">dcInstHandles</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CPA_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">            </span><span class="o">*</span><span class="n">pDcInstHandle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">dcInstHandles</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">numInstances</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;No instances found for &#39;SSL&#39;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;Please check your section names in the config file.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;Also make sure to use config file version 2.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>The next example shows the application querying the capabilities of the data
+compression implementation, and veryfing the required functionality is present.
+Each service implementation exposes the capabilities that have been implemented
+and are available. Capabilities include algorithms, common features, and limits
+to variables. Each service has a unique capability matrix, and each implementation
+identifies and describes its particular implementation through its capability’s API.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpaDcQueryCapabilities</span><span class="p">(</span><span class="n">dcInstHandle</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">cap</span><span class="p">);</span><span class="w"></span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">!=</span><span class="w"> </span><span class="n">CPA_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">cap</span><span class="p">.</span><span class="n">statelessDeflateCompression</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">cap</span><span class="p">.</span><span class="n">statefulDeflateDecompression</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">cap</span><span class="p">.</span><span class="n">checksumCRC32</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="o">!</span><span class="n">cap</span><span class="p">.</span><span class="n">dynamicHuffman</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;Error: Unsupported functionality</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">CPA_STATUS_FAIL</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+
+<span class="cm">/*</span>
+<span class="cm">* Set the address translation function for the instance</span>
+<span class="cm">*/</span><span class="w"></span>
+<span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpaDcSetAddressTranslation</span><span class="p">(</span><span class="n">dcInstHandle</span><span class="p">,</span><span class="w"> </span><span class="n">sampleVirtToPhys</span><span class="p">);</span><span class="w"></span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CPA_STATUS_SUCCESS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">status</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="cm">/* Start DataCompression component</span>
+<span class="cm">    * In this example we are performing static compression so</span>
+<span class="cm">    * an intermediate buffer is not required */</span><span class="w"></span>
+<span class="w">    </span><span class="n">PRINT_DBG</span><span class="p">(</span><span class="s">&quot;cpaDcStartInstance</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpaDcStartInstance</span><span class="p">(</span><span class="n">dcInstHandle</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nb">NULL</span><span class="p">);</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>In the example, the application requires stateless deflate compression with dynamic
+Huffman encoding and stateful decompression with support for CRC32 checksums. The
+example also sets the address translation function for the instance. The specified
+function is used by the API to perform any required translation of a virtual address to
+a physical address. Finally, the instance is started.</p>
+</section>
+<section id="modes-of-operation">
+<h3>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this headline"></a></h3>
+<p>The Intel® QAT API supports both synchronous and asynchronous modes of operation.
+For optimal performance, the application should be capable of submitting multiple
+outstanding requests to the acceleration engines. Submitting multiple outstanding
+requests minimizes the processing latency on the acceleration engines. This can be
+done by submitting requests asynchronously or by submitting requests in synchronous
+mode using multi-threading in the application.</p>
+<p>Developers can select the mode of operation that best aligns with their application and
+system architecture.</p>
+<section id="asynchonous-operation">
+<h4>Asynchonous Operation<a class="headerlink" href="#asynchonous-operation" title="Permalink to this headline"></a></h4>
+<p>To invoke the API asynchronously, the user supplies a callback function to the API, as
+shown in the below figure. Control returns to the client once the request has been sent to the
+hardware accelerator, and the callback is invoked when the engine completes the
+operation. The mechanism used to invoke the callback is implementation-dependent.
+For some implementations, the callback is invoked as part of an interrupt handler
+bottom half. For other implementations, the callback is invoked in the context of a
+polling thread. In this case, the user application is responsible for creating and
+scheduling this polling thread. Refer to <a class="reference internal" href="introduction.html#qat-api-programmers-guide-introduction-related-documentation-references"><span class="std std-ref">Related Documents and References</span></a>
+for the implementation of specific documentation for more details.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/asynchronous_operation.png"><img alt="../_images/asynchronous_operation.png" src="../_images/asynchronous_operation.png" style="width: 550px; height: 424px;" /></a>
+</figure>
+</section>
+<section id="synchronous-operation">
+<h4>Synchronous Operation<a class="headerlink" href="#synchronous-operation" title="Permalink to this headline"></a></h4>
+<p>Synchronous operation is specified by supplying a NULL function pointer in the
+callback parameter of the perform API, as shown in the below figure. In this case, the function
+does not return until the operation is complete. The calling thread may spend on a
+semaphore or other synchronization primitive after sending the request to the
+execution engine.</p>
+<p>Upon the completion of the operation, the synchronization primitive unblocks, and
+execution resumes. Synchronous mode is therefore blocking and should not be used
+when invoking the function from a context in which sleeping is not allowed (for
+example, an interrupt context on Linux*).</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../_images/synchronous_operation.png"><img alt="../_images/synchronous_operation.png" src="../_images/synchronous_operation.png" style="width: 550px; height: 477px;" /></a>
+</figure>
+</section>
+</section>
+<section id="memory-allocation-and-ownership">
+<h3>Memory Allocation and Ownership<a class="headerlink" href="#memory-allocation-and-ownership" title="Permalink to this headline"></a></h3>
+<p>The convention is that all memory needed by an API implementation is allocated
+outside of that implementation. In other words, the APIs are defined such that the
+memory needed to execute operations is supplied by a client or platform control entity
+rather than having memory allocated internally.</p>
+<p>Memory used for parameters is owned by the side (caller or callee) that allocated the
+memory. An owner is responsible for de-allocating the memory when it is no longer
+needed.</p>
+<p>Generally, memory ownership does not change. For example, if a program allocates
+memory and then passes a pointer to the memory as a parameter to a function call,
+the caller retains ownership and is still responsible for the de-allocation of the
+memory. Default behavior and any function which deviates from this behavior clearly
+state so in the function definition.</p>
+<p>For optimal performance, data pointers should be 8-byte aligned. In some cases, this
+is a requirement, while in most other cases, it is a recommendation for performance.
+Refer to <a class="reference internal" href="introduction.html#qat-api-programmers-guide-introduction-related-documentation-references"><span class="std std-ref">Related Documents and References</span></a>
+for the service-specific API manual for optimal usage of the particular API.</p>
+</section>
+<section id="data-plane-apis">
+<span id="qat-api-programmers-guide-baseapi-dataplaneapis"></span><h3>Data Plane APIs<a class="headerlink" href="#data-plane-apis" title="Permalink to this headline"></a></h3>
+<p>The Intel® QAT APIs for symmetric cryptography and for data compression supports
+both <em>traditional</em> (<code class="docutils literal notranslate"><span class="pre">cpa_cy_sym.h</span></code> and <code class="docutils literal notranslate"><span class="pre">cpa_dc.h</span></code>) and <em>data plane</em> APIs
+(<code class="docutils literal notranslate"><span class="pre">cpa_cy_sym_dp.h</span></code> and <code class="docutils literal notranslate"><span class="pre">cpa_dc_dp.h</span></code>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is no <em>data plane</em> support for asymmetric cryptography services.</p>
+</div>
+<p>The data plane APIs are recommended for
+applications running in a data plane environment where the cost of offload (that is,
+the cycles consumed by the driver sending requests to the accelerator) needs to be
+minimized. Several constraints have been placed on these APIs to minimize the cost of
+offload. If these constraints are too restrictive for a given application, the more
+general-purpose <em>traditional</em> APIs can be used (at an increased cost of offload).</p>
+<p>The data plane APIs can be used if the following constraints are acceptable:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>There is no support for partial packets or stateful requests.</p></li>
+<li><p>Thread safety is not supported. Each software thread should have access to its
+unique instance (<code class="docutils literal notranslate"><span class="pre">CpaInstanceHandle</span></code>).</p></li>
+<li><p>Only asynchronous invocation is supported.</p></li>
+<li><p>Polling is used, rather than interrupts, to dispatch callback functions. Callbacks are
+invoked in the context of a polling thread.</p>
+<ul>
+<li><p>The user application is responsible for creating and scheduling this polling thread.</p></li>
+<li><p>Polling functions are not defined by the Intel® QAT API. Implementations
+provide their polling functions.</p></li>
+<li><p>Refer to <a class="reference internal" href="introduction.html#qat-api-programmers-guide-introduction-related-documentation-references"><span class="std std-ref">Related Documents and References</span></a>
+for implementation specific documentation containing further information on polling functions.</p></li>
+</ul>
+</li>
+<li><p>Buffers and buffer lists are passed using physical addresses to avoid virtual-to-physical-address translation costs.</p></li>
+<li><p>Alignment restrictions may be placed on the operation data (that is,
+<code class="docutils literal notranslate"><span class="pre">CpaCySymDpOpData</span></code> and <code class="docutils literal notranslate"><span class="pre">CpaDcDpOpData</span></code>) and buffer list (that is,
+<code class="docutils literal notranslate"><span class="pre">CpaPhysBufferList</span></code>) structures passed to the data plane APIs. For example, the
+operation data may need to be at least 8-byte aligned, contiguous, resident, DMAaccessible memory.
+Refer to <a class="reference internal" href="introduction.html#qat-api-programmers-guide-introduction-related-documentation-references"><span class="std std-ref">Related Documents and References</span></a>
+for implementation specific documentation for more details.</p></li>
+<li><p>For CCM and GCM modes of the AES, when performing decryption and verification,
+if the verification fails, then the message buffer is not zeroed.
+The data plane APIs distinguish between enqueuing a request and submitting that
+request to the accelerator to be performed. This allows the cost of submitting a
+request (which can be expensive, in terms of cycles, for some hardware-based
+implementations) to be amortized over all enqueued requests on that instance
+(<code class="docutils literal notranslate"><span class="pre">CpaInstanceHandle</span></code>).</p></li>
+<li><p>To enqueue one request and to optionally submit all previously enqueued
+requests, the function <code class="docutils literal notranslate"><span class="pre">cpaCySymDpEnqueueOp</span></code> (or <code class="docutils literal notranslate"><span class="pre">cpaDcDpEnqueueOp</span></code> for data
+compression service) can be used.</p></li>
+<li><p>To enqueue multiple requests and to optionally submit all previously enqueued
+requests, the function <code class="docutils literal notranslate"><span class="pre">cpaCySymDpEnqueueOpBatch</span></code> (or <code class="docutils literal notranslate"><span class="pre">cpaDcDpEnqueueOpBatch</span></code>
+for data compression service) can be used.</p></li>
+<li><p>Use the function <code class="docutils literal notranslate"><span class="pre">cpaCySymDpPerformOpNow</span></code> (or <code class="docutils literal notranslate"><span class="pre">cpaDcDpPerformOpNow</span></code> for data
+compression service) that can be used to submit all previously enqueued requests.</p></li>
+<li><p>Different implementations of this API may have different performance trade-offs.
+Refer to <a class="reference internal" href="introduction.html#qat-api-programmers-guide-introduction-related-documentation-references"><span class="std std-ref">Related Documents and References</span></a>
+for documentation for implementation details.</p></li>
+</ul>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="QAT_cryptoAPI.html" class="btn btn-neutral float-right" title="Intel® QAT Cryptographic API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
