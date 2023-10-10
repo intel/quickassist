@@ -13,12 +13,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=16ad857a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=d10d0bba"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -50,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -104,11 +104,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
-          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
-      <li>IOMMU Remapping Functions</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
+          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
+      <li class="breadcrumb-item active">IOMMU Remapping Functions</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -118,11 +118,11 @@
            <div itemprop="articleBody">
              
   <section id="iommu-remapping-functions">
-<span id="qat-2-0-pg-supported-apis-additional-apis-iommufunctions"></span><h1>IOMMU Remapping Functions<a class="headerlink" href="#iommu-remapping-functions" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-iommufunctions"></span><h1>IOMMU Remapping Functions<a class="headerlink" href="#iommu-remapping-functions" title="Permalink to this heading"></a></h1>
 <p>These functions are intended for IOMMU remapping operations.</p>
 <p>All IOMMU remapping function definitions are located in: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_iommu.h</span></code></p>
 <section id="icp-sal-iommu-get-remap-size">
-<h2>icp_sal_iommu_get_remap_size<a class="headerlink" href="#icp-sal-iommu-get-remap-size" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_iommu_get_remap_size<a class="headerlink" href="#icp-sal-iommu-get-remap-size" title="Permalink to this heading"></a></h2>
 <p>Returns the <code class="docutils literal notranslate"><span class="pre">page_size</span></code> rounded for IOMMU remapping.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">size_t</span> <span class="pre">icp_sal_iommu_get_remap_size(size_t</span> <span class="pre">size);</span></code></p>
@@ -142,7 +142,7 @@
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_iommu_get_remap_size</span></code> function returns the <code class="docutils literal notranslate"><span class="pre">page_size</span></code> rounded for IOMMU remapping.</p>
 </section>
 <section id="icp-sal-iommu-map">
-<h2>icp_sal_iommu_map<a class="headerlink" href="#icp-sal-iommu-map" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_iommu_map<a class="headerlink" href="#icp-sal-iommu-map" title="Permalink to this heading"></a></h2>
 <p>Adds an entry to the IOMMU remapping table.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_iommu_map(Cpa64U</span> <span class="pre">phaddr,</span> <span class="pre">Cpa64U</span> <span class="pre">iova,</span> <span class="pre">size_t</span> <span class="pre">size);</span></code></p>
@@ -182,7 +182,7 @@
 </table>
 </section>
 <section id="icp-sal-iommu-unmap">
-<h2>icp_sal_iommu_unmap<a class="headerlink" href="#icp-sal-iommu-unmap" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_iommu_unmap<a class="headerlink" href="#icp-sal-iommu-unmap" title="Permalink to this heading"></a></h2>
 <p>Removes an entry from the IOMMU remapping table.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_iommu_unmap(Cpa64U</span> <span class="pre">iova,</span> <span class="pre">size_t</span> <span class="pre">size);</span></code></p>
@@ -219,7 +219,7 @@
 </table>
 </section>
 <section id="iommu-remapping-function-usage">
-<h2>IOMMU Remapping Function Usage<a class="headerlink" href="#iommu-remapping-function-usage" title="Permalink to this headline"></a></h2>
+<h2>IOMMU Remapping Function Usage<a class="headerlink" href="#iommu-remapping-function-usage" title="Permalink to this heading"></a></h2>
 <p>These functions are required when the user wants to access an acceleration service from the Physical Function (PF) when
 SR-IOV is enabled in the driver. In this case, all I/O transactions from the device go through DMA remapping hardware.</p>
 <p>This hardware checks:</p>
