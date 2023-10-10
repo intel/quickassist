@@ -203,7 +203,7 @@ a {
   white-space: normal !important;
 }
 /* Specific for tables in Release Notes (Issues) */
-.wy-table-responsive table.rn-table {
+.wy-table-responsive table.rn-table, .rn-table {
     width: 100% !important;
 }
 /* Code Blocks */

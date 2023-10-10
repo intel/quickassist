@@ -13,12 +13,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=16ad857a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=d10d0bba"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -50,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -104,11 +104,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
-          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
-      <li>Dynamic Instance Allocation Functions</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
+          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
+      <li class="breadcrumb-item active">Dynamic Instance Allocation Functions</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -118,7 +118,7 @@
            <div itemprop="articleBody">
              
   <section id="dynamic-instance-allocation-functions">
-<span id="qat-2-0-pg-supported-apis-additional-apis-dynamicfunctions"></span><h1>Dynamic Instance Allocation Functions<a class="headerlink" href="#dynamic-instance-allocation-functions" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-dynamicfunctions"></span><h1>Dynamic Instance Allocation Functions<a class="headerlink" href="#dynamic-instance-allocation-functions" title="Permalink to this heading"></a></h1>
 <p>These functions are intended for the dynamic allocation of instances in user space. The user can use these functions to allocate/free instances defined in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.</p>
 <p>These functions are useful if the user needs to dynamically allocate/free cryptographic (CY) or Data Compression (DC) instances at runtime. This is in contrast to statically specifying the number of CY or DC instances at configuration time, where the number of instances cannot be changed unless the user modifies the <code class="docutils literal notranslate"><span class="pre">.conf</span></code> file and restarts the acceleration service.</p>
 <p>The advantage of using these functions is that the number of CY/DC instances can be changed on-demand at runtime. The disadvantage is that runtime performance is impacted if the number of CY/DC instances is changed frequently.</p>
@@ -138,7 +138,7 @@ when the work has been completed. Thereafter, other processes can use these inst
 <p><em>Dynamic Instance Allocation Functions</em> are not currently supported with the QAT2.0 driver.</p>
 </div>
 <section id="icp-sal-usercygetavailablenumdyninstances">
-<h2>icp_sal_userCyGetAvailableNumDynInstances<a class="headerlink" href="#icp-sal-usercygetavailablenumdyninstances" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userCyGetAvailableNumDynInstances<a class="headerlink" href="#icp-sal-usercygetavailablenumdyninstances" title="Permalink to this heading"></a></h2>
 <p>Get the number of cryptographic instances that can be dynamically allocated using the <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyInstancesAlloc</span></code> function.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyGetAvailableNumDynInstances</span> <span class="pre">(Cpa32U</span> <span class="pre">*pNumCyInstances);</span></code></p>
@@ -172,7 +172,7 @@ when the work has been completed. Thereafter, other processes can use these inst
 </table>
 </section>
 <section id="icp-sal-userdcgetavailablenumdyninstances">
-<h2>icp_sal_userDcGetAvailableNumDynInstances<a class="headerlink" href="#icp-sal-userdcgetavailablenumdyninstances" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userDcGetAvailableNumDynInstances<a class="headerlink" href="#icp-sal-userdcgetavailablenumdyninstances" title="Permalink to this heading"></a></h2>
 <p>Get the number of data compression instances that can be dynamically allocated using the <code class="docutils literal notranslate"><span class="pre">icp_sal_userDcInstancesAlloc</span></code> function.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userDcGetAvailableNumDynInstances</span> <span class="pre">(Cpa32U</span> <span class="pre">*pNuDcInstances);</span></code></p>
@@ -206,7 +206,7 @@ when the work has been completed. Thereafter, other processes can use these inst
 </table>
 </section>
 <section id="icp-sal-usercyinstancesalloc">
-<h2>icp_sal_userCyInstancesAlloc<a class="headerlink" href="#icp-sal-usercyinstancesalloc" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userCyInstancesAlloc<a class="headerlink" href="#icp-sal-usercyinstancesalloc" title="Permalink to this heading"></a></h2>
 <p>Allocate the specified number of Cryptographic (CY) instances from the amount specified in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.
 The <code class="docutils literal notranslate"><span class="pre">numCyInstances</span></code> parameter specifies the number of CY instances to allocate and must be less than or equal to the value of the
 <code class="docutils literal notranslate"><span class="pre">NumberCyInstances</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.</p>
@@ -245,7 +245,7 @@ The <code class="docutils literal notranslate"><span class="pre">numCyInstances<
 </table>
 </section>
 <section id="icp-sal-userdcinstancesalloc">
-<h2>icp_sal_userDcInstancesAlloc<a class="headerlink" href="#icp-sal-userdcinstancesalloc" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userDcInstancesAlloc<a class="headerlink" href="#icp-sal-userdcinstancesalloc" title="Permalink to this heading"></a></h2>
 <p>Allocate the specified number of Data Compression (DC) instances from the amount specified in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the
 configuration file. The <code class="docutils literal notranslate"><span class="pre">numDcInstances</span></code> parameter specifies the number of dc instances to allocate and must be less than
 or equal to the value of the <code class="docutils literal notranslate"><span class="pre">NumberDcInstances</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.</p>
@@ -284,7 +284,7 @@ or equal to the value of the <code class="docutils literal notranslate"><span cl
 </table>
 </section>
 <section id="icp-sal-usercyfreeinstances">
-<h2>icp_sal_userCyFreeInstances<a class="headerlink" href="#icp-sal-usercyfreeinstances" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userCyFreeInstances<a class="headerlink" href="#icp-sal-usercyfreeinstances" title="Permalink to this heading"></a></h2>
 <p>Free the specified number of Cryptographic (CY) instances from the amount specified in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.
 The <code class="docutils literal notranslate"><span class="pre">numCyInstances</span></code> parameter specifies the number of CY instances to free.</p>
 <p><strong>Syntax</strong></p>
@@ -322,7 +322,7 @@ The <code class="docutils literal notranslate"><span class="pre">numCyInstances<
 </table>
 </section>
 <section id="icp-sal-userdcfreeinstances">
-<h2>icp_sal_userDcFreeInstances<a class="headerlink" href="#icp-sal-userdcfreeinstances" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userDcFreeInstances<a class="headerlink" href="#icp-sal-userdcfreeinstances" title="Permalink to this heading"></a></h2>
 <p>Free the specified number of Data Compression (DC) instances from the amount specified in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.
 The <code class="docutils literal notranslate"><span class="pre">numDcInstances</span></code> parameter specifies the number of DC instances to free.</p>
 <p><strong>Syntax</strong></p>
@@ -360,7 +360,7 @@ The <code class="docutils literal notranslate"><span class="pre">numDcInstances<
 </table>
 </section>
 <section id="icp-sal-usercygetavailablenumdyninstancesbydevpkg">
-<h2>icp_sal_userCyGetAvailableNumDynInstancesByDevPkg<a class="headerlink" href="#icp-sal-usercygetavailablenumdyninstancesbydevpkg" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userCyGetAvailableNumDynInstancesByDevPkg<a class="headerlink" href="#icp-sal-usercygetavailablenumdyninstancesbydevpkg" title="Permalink to this heading"></a></h2>
 <p>Get the number of cryptographic instances that can be dynamically allocated.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyGetAvailableNumDynInstancesByDevPkg(Cpa32U</span> <span class="pre">*pNumCyInstances,</span> <span class="pre">Cpa32U</span> <span class="pre">devPkgID);</span></code></p>
@@ -398,7 +398,7 @@ from all devices.</p></td>
 </table>
 </section>
 <section id="icp-sal-userdcgetavailablenumdyninstancesbydevpkg">
-<h2>icp_sal_userDcGetAvailableNumDynInstancesByDevPkg<a class="headerlink" href="#icp-sal-userdcgetavailablenumdyninstancesbydevpkg" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userDcGetAvailableNumDynInstancesByDevPkg<a class="headerlink" href="#icp-sal-userdcgetavailablenumdyninstancesbydevpkg" title="Permalink to this heading"></a></h2>
 <p>Get the number of data compression instances that can be dynamically allocated.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userDcGetAvailableNumDynInstancesByDevPkg(Cpa32U</span> <span class="pre">*pNumDcInstances,</span> <span class="pre">Cpa32U</span> <span class="pre">devPkgID);</span></code></p>
@@ -436,7 +436,7 @@ from all devices.</p></td>
 </table>
 </section>
 <section id="icp-sal-usercyinstancesallocbydevpkg">
-<h2>icp_sal_userCyInstancesAllocByDevPkg<a class="headerlink" href="#icp-sal-usercyinstancesallocbydevpkg" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userCyInstancesAllocByDevPkg<a class="headerlink" href="#icp-sal-usercyinstancesallocbydevpkg" title="Permalink to this heading"></a></h2>
 <p>Allocate the specified number of Cryptographic (CY) instances from the amount specified in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the
 configuration file. The <code class="docutils literal notranslate"><span class="pre">numCyInstances</span></code> parameter specifies the number of CY instances to allocate and must be
 less than or equal to the value of the <code class="docutils literal notranslate"><span class="pre">NumberCyInstances</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.</p>
@@ -479,7 +479,7 @@ from all devices.</p></td>
 </table>
 </section>
 <section id="icp-sal-userdcinstancesallocbydevpkg">
-<h2>icp_sal_userDcInstancesAllocByDevPkg<a class="headerlink" href="#icp-sal-userdcinstancesallocbydevpkg" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userDcInstancesAllocByDevPkg<a class="headerlink" href="#icp-sal-userdcinstancesallocbydevpkg" title="Permalink to this heading"></a></h2>
 <p>Allocate the specified number of Data Compression (DC) instances from the amount specified in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the
 configuration file. The <code class="docutils literal notranslate"><span class="pre">numDcInstances</span></code> parameter specifies the number of DC instances to allocate and must be less
 than or equal to the value of the <code class="docutils literal notranslate"><span class="pre">NumberDcInstances</span></code> parameter in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.</p>
@@ -522,7 +522,7 @@ from all devices.</p></td>
 </table>
 </section>
 <section id="icp-sal-usercygetavailablenumdyninstancesbypkgaccel">
-<h2>icp_sal_userCyGetAvailableNumDynInstancesByPkgAccel<a class="headerlink" href="#icp-sal-usercygetavailablenumdyninstancesbypkgaccel" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userCyGetAvailableNumDynInstancesByPkgAccel<a class="headerlink" href="#icp-sal-usercygetavailablenumdyninstancesbypkgaccel" title="Permalink to this heading"></a></h2>
 <p>Get the number of cryptographic instances that can be dynamically allocated.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userCyGetAvailableNumDynInstancesByPkgAccel(Cpa32U</span> <span class="pre">*pNumCyInstances,</span> <span class="pre">Cpa32U</span> <span class="pre">devPkgID,</span> <span class="pre">Cpa32U</span> <span class="pre">accelerator_number);</span></code></p>
@@ -564,7 +564,7 @@ as <code class="docutils literal notranslate"><span class="pre">icp_sal_userCyIn
 </table>
 </section>
 <section id="icp-sal-usercyinstancesallocbypkgaccel">
-<h2>icp_sal_userCyInstancesAllocByPkgAccel<a class="headerlink" href="#icp-sal-usercyinstancesallocbypkgaccel" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_userCyInstancesAllocByPkgAccel<a class="headerlink" href="#icp-sal-usercyinstancesallocbypkgaccel" title="Permalink to this heading"></a></h2>
 <p>Allocates the specified number of Cryptographic (CY) instances from the amount specified in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the
 configuration file. The <code class="docutils literal notranslate"><span class="pre">numCyInstances</span></code> parameter specifies the number of CY instances to allocate and must be less
 than or equal to the value of the <code class="docutils literal notranslate"><span class="pre">NumberCyInstances</span></code> parameter returned by a call to the

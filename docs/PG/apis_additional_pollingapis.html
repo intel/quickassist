@@ -13,12 +13,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=16ad857a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=d10d0bba"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -50,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -104,11 +104,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
-          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
-      <li>Device Polling APIs</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
+          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
+      <li class="breadcrumb-item active">Device Polling APIs</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -118,10 +118,10 @@
            <div itemprop="articleBody">
              
   <section id="device-polling-apis">
-<span id="qat-2-0-pg-supported-apis-additional-apis-pollingapis"></span><h1>Device Polling APIs<a class="headerlink" href="#device-polling-apis" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-pollingapis"></span><h1>Device Polling APIs<a class="headerlink" href="#device-polling-apis" title="Permalink to this heading"></a></h1>
 <p>APIs documented in this section are used for polling devices.</p>
 <section id="icp-sal-poll-device-events">
-<h2>icp_sal_poll_device_events<a class="headerlink" href="#icp-sal-poll-device-events" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_poll_device_events<a class="headerlink" href="#icp-sal-poll-device-events" title="Permalink to this heading"></a></h2>
 <p>This function polls for device reset events.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_poll_device_events(void);</span></code></p>
@@ -149,7 +149,7 @@
 </div>
 </section>
 <section id="cpacyinstancesetnotificationcb">
-<h2>cpaCyInstanceSetNotificationCb<a class="headerlink" href="#cpacyinstancesetnotificationcb" title="Permalink to this headline"></a></h2>
+<h2>cpaCyInstanceSetNotificationCb<a class="headerlink" href="#cpacyinstancesetnotificationcb" title="Permalink to this heading"></a></h2>
 <p>Cryptographic instances use this function to register for device event notifications.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">cpaCyInstanceSetNotificationCb(const</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">const</span> <span class="pre">CpaCyInstanceNotificationCbFunc</span> <span class="pre">pinstanceNotificationCb,</span> <span class="pre">void</span> <span class="pre">*pCallbackTag);</span></code></p>
@@ -195,27 +195,27 @@
 </table>
 <p>The signature for the callback function is:</p>
 <blockquote>
-<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaCyInstanceNotificationCbFunc</span><span class="p">)(</span><span class="w"></span>
-<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="w"> </span><span class="n">instanceEvent</span><span class="p">);</span><span class="w"></span>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaCyInstanceNotificationCbFunc</span><span class="p">)(</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span>
+<span class="w">      </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pCallbackTag</span><span class="p">,</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="w"> </span><span class="n">instanceEvent</span><span class="p">);</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>Parameter:</p>
 <blockquote>
-<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="n">_CpaInstanceEvent</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_RESTARTING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_RESTARTED</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_FATAL_ERROR</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="p">;</span><span class="w"></span>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="n">_CpaInstanceEvent</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_RESTARTING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_RESTARTED</span><span class="p">,</span>
+<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_FATAL_ERROR</span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="p">;</span>
 </pre></div>
 </div>
 </div></blockquote>
 </section>
 <section id="cpadcinstancesetnotificationcb">
-<h2>cpaDcInstanceSetNotificationCb<a class="headerlink" href="#cpadcinstancesetnotificationcb" title="Permalink to this headline"></a></h2>
+<h2>cpaDcInstanceSetNotificationCb<a class="headerlink" href="#cpadcinstancesetnotificationcb" title="Permalink to this heading"></a></h2>
 <p>Data compression instances use this function to register for device event notifications.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">cpaDcInstanceSetNotificationCb(const</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">const</span> <span class="pre">CpaDcInstanceNotificationCbFunc</span> <span class="pre">pinstanceNotificationCb,</span> <span class="pre">void</span> <span class="pre">*pCallbackTag);</span></code></p>
@@ -261,21 +261,21 @@
 </table>
 <p>The signature for the callback function is:</p>
 <blockquote>
-<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaDcInstanceNotificationCbFunc</span><span class="p">)(</span><span class="w"></span>
-<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
-<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="w"> </span><span class="n">instanceEvent</span><span class="p">);</span><span class="w"></span>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaDcInstanceNotificationCbFunc</span><span class="p">)(</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span>
+<span class="w">      </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pCallbackTag</span><span class="p">,</span>
+<span class="w">      </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="w"> </span><span class="n">instanceEvent</span><span class="p">);</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>Parameter:</p>
 <blockquote>
-<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="n">_CpaInstanceEvent</span><span class="w"></span>
-<span class="p">{</span><span class="w"></span>
-<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_RESTARTING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_RESTARTED</span><span class="p">,</span><span class="w"></span>
-<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_FATAL_ERROR</span><span class="w"></span>
-<span class="p">}</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="p">;</span><span class="w"></span>
+<div><div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="n">_CpaInstanceEvent</span>
+<span class="p">{</span>
+<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_RESTARTING</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_RESTARTED</span><span class="p">,</span>
+<span class="w">   </span><span class="n">CPA_INSTANCE_EVENT_FATAL_ERROR</span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="p">;</span>
 </pre></div>
 </div>
 </div></blockquote>

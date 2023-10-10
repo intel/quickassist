@@ -13,12 +13,11 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-        <script src="../_static/jquery.js"></script>
-        <script src="../_static/underscore.js"></script>
-        <script src="../_static/doctools.js"></script>
-        <script src="../_static/clipboard.min.js"></script>
-        <script src="../_static/copybutton.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=16ad857a"></script>
+        <script src="../_static/doctools.js?v=888ff710"></script>
+        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
+        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+        <script src="../_static/copybutton.js?v=d10d0bba"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -50,6 +49,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -97,10 +97,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
-      <li>Maximum Number of Process Calculations</li>
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="configuration_files_index.html">Configuration Files</a></li>
+      <li class="breadcrumb-item active">Maximum Number of Process Calculations</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -110,7 +110,7 @@
            <div itemprop="articleBody">
              
   <section id="maximum-number-of-process-calculations">
-<span id="qat-2-0-pg-configuration-files-max-numofprocesses-calculation"></span><h1>Maximum Number of Process Calculations<a class="headerlink" href="#maximum-number-of-process-calculations" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-configuration-files-max-numofprocesses-calculation"></span><h1>Maximum Number of Process Calculations<a class="headerlink" href="#maximum-number-of-process-calculations" title="Permalink to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">NumProcesses</span></code> parameter is the number of user space processes per service within the [xxxx] section domain with access to this Intel<sup>®</sup> QAT Endpoint.</p>
 <p>The value to which this parameter can be set is determined by a number of factors including the number of cryptography instances and/or data
 compression instances in the process section along with <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> and potentially <code class="docutils literal notranslate"><span class="pre">ServicesProfile</span></code>. The total number of processes, per service,
@@ -120,7 +120,7 @@ created by the driver is given by the expression (e.g., for cryptography):</p>
 </div></blockquote>
 <p>The maximum number of processes that can be supported is dependant upon the underlying hardware.</p>
 <section id="increasing-the-maximum-number-of-processes-instances">
-<span id="increasing-max-numofprocesses"></span><h2>Increasing the Maximum Number of Processes/Instances<a class="headerlink" href="#increasing-the-maximum-number-of-processes-instances" title="Permalink to this headline"></a></h2>
+<span id="increasing-max-numofprocesses"></span><h2>Increasing the Maximum Number of Processes/Instances<a class="headerlink" href="#increasing-the-maximum-number-of-processes-instances" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -184,7 +184,7 @@ the services needed, the number of instances can be increased.</p>
 </tbody>
 </table>
 <section id="invalid-configurations">
-<h3>Invalid Configurations<a class="headerlink" href="#invalid-configurations" title="Permalink to this headline"></a></h3>
+<h3>Invalid Configurations<a class="headerlink" href="#invalid-configurations" title="Permalink to this heading"></a></h3>
 <p>If maximum number of processes is exceeded, the acceleration software will fail to load. The error message will be similiar to:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service restart qat_dev0</span>
 </pre></div>
@@ -205,7 +205,7 @@ QAT Error: Failed to load config data to device
 </div>
 </section>
 <section id="configuring-instances-for-virtual-functions">
-<h3>Configuring Instances for Virtual Functions<a class="headerlink" href="#configuring-instances-for-virtual-functions" title="Permalink to this headline"></a></h3>
+<h3>Configuring Instances for Virtual Functions<a class="headerlink" href="#configuring-instances-for-virtual-functions" title="Permalink to this heading"></a></h3>
 <p>To configure the number of instances for a virtual function:</p>
 <ol class="arabic simple">
 <li><p><strong>Install</strong> the driver package on the host with SR-IOV enabled.</p></li>
