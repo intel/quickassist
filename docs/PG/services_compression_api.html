@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Compression &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -13,11 +13,14 @@
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js?v=16ad857a"></script>
-        <script src="../_static/doctools.js?v=888ff710"></script>
-        <script src="../_static/sphinx_highlight.js?v=4825356b"></script>
-        <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
-        <script src="../_static/copybutton.js?v=d10d0bba"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -148,6 +151,10 @@
 <p>The following table lists the properties that should be configured in the <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code> structure depending on the compression algorithm requested.</p>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Compression CpaDcSessionSetupData Properties</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 39%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Property</strong></p></th>
 <th class="head"><p><strong>Details</strong></p></th>
@@ -200,6 +207,11 @@ all algorithms</p></td>
 <p>The following table lists the properties that should be configured in the <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code> structure depending on the format of the payload to decompression.</p>
 <table class="longtable docutils align-default" id="id3">
 <caption><span class="caption-text">Decompression CpaDcSessionSetupData Properties</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 61%" />
+<col style="width: 22%" />
+<col style="width: 17%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Property</strong></p></th>
 <th class="head"><p><strong>Deflate</strong></p></th>
@@ -268,7 +280,7 @@ With an application handling multi-gzip data, the both the Gzip footer and Gzip 
 <section id="flush-flags">
 <h2>Flush Flags<a class="headerlink" href="#flush-flags" title="Permalink to this heading"></a></h2>
 <p>The table below shows the flush flags that should be used depending on the application’s use case. The application programming model should follow this table.</p>
-<table class="longtable docutils align-default" id="id4">
+<table class="longtable colwidths-given docutils align-default" id="id4">
 <caption><span class="caption-text">Flush Flags</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
@@ -328,6 +340,10 @@ to set BFinal</p></td>
 <p>With the addition of LZ4 algorithm support on QAT2.0, the compression hardware accelerators are now capable to generate XXash32 checksums. QAT2.0 device is now supporting the following checksums:</p>
 <table class="longtable docutils align-default" id="id5">
 <caption><span class="caption-text">Checksums</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 41%" />
+<col style="width: 59%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Checksum Type</strong></p></th>
 <th class="head"><p><strong>Usage</strong></p></th>
@@ -355,7 +371,7 @@ to set BFinal</p></td>
 <p>LZ4s is a variant of LZ4 block format. LZ4s should be considered as an intermediate compressed block format. The LZ4s format is selected when the application sets the <code class="docutils literal notranslate"><span class="pre">compType</span></code> to <code class="docutils literal notranslate"><span class="pre">CPA_DC_LZ4S</span></code> in <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code>.
 The LZ4s block returned by the Intel<sup>®</sup> QAT hardware can be used by an external software post-processing to generate other compressed data formats.</p>
 <p>The following table lists the differences between LZ4 and LZ4s block format. LZ4s block format uses the same high-level formatting as LZ4 block format with the following encoding changes:</p>
-<table class="longtable docutils align-default" id="id6">
+<table class="longtable colwidths-given docutils align-default" id="id6">
 <caption><span class="caption-text">Differences between LZ4 and LZ4s block format</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
@@ -465,7 +481,7 @@ correction without returning a CnV error to the application.</p>
 <p>When a recovery occurs, <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults.status</span></code> will return <code class="docutils literal notranslate"><span class="pre">CPA_DC_OK</span></code> or <code class="docutils literal notranslate"><span class="pre">CPA_DC_OVERFLOW</span></code> and the destination buffer will hold valid deflate data.</p>
 <p>The application can find out if CnVnR is supported by querying the instance capabilities via the <code class="docutils literal notranslate"><span class="pre">cpaDcQueryCapabilities</span></code> API. On completion, the
 <code class="docutils literal notranslate"><span class="pre">compressAndVerifyAndRecover</span></code> property of the <code class="docutils literal notranslate"><span class="pre">CpaDcInstanceCapabilitie:</span> <span class="pre">..\image::</span> <span class="pre">./s</span></code> structure will be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code> if the feature is supported.</p>
-<table class="longtable docutils align-default" id="id7">
+<table class="longtable colwidths-given docutils align-default" id="id7">
 <caption><span class="caption-text">Compress and Verify and Recover (CnVnR) Behaviors</span><a class="headerlink" href="#id7" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -548,6 +564,10 @@ the acceleration unit provides an auto select best (ASB) feature.</p>
 <p>Regardless of the ASB setting selected, dynamic compression will only be attempted if the session is configured for dynamic compression.</p>
 <table class="longtable docutils align-default" id="id8">
 <caption><span class="caption-text">ASB Settings</span><a class="headerlink" href="#id8" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 52%" />
+<col style="width: 48%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Setting</strong></p></th>
 <th class="head"><p><strong>Description</strong></p></th>
@@ -617,6 +637,12 @@ The no session API is especially useful to simplify existing applications as ses
 <h2>Compression Levels<a class="headerlink" href="#compression-levels" title="Permalink to this heading"></a></h2>
 <table class="longtable docutils align-default" id="id9">
 <caption><span class="caption-text">Compression Levels</span><a class="headerlink" href="#id9" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 9%" />
+<col style="width: 13%" />
+<col style="width: 42%" />
+<col style="width: 36%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Level</strong></p></th>
 <th class="head"><p><strong>lvl_enum</strong></p></th>
@@ -709,7 +735,7 @@ the block uncompressed or to compress the block with software.</p>
 </div>
 <section id="compression-api-errors">
 <span id="error-codes"></span><h3>Compression API Errors<a class="headerlink" href="#compression-api-errors" title="Permalink to this heading"></a></h3>
-<table class="longtable docutils align-default" id="id10">
+<table class="longtable colwidths-given docutils align-default" id="id10">
 <caption><span class="caption-text">Compression API Errors</span><a class="headerlink" href="#id10" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
@@ -1134,7 +1160,7 @@ distance pair.</p></td>
 <span id="overflowerrors"></span><h2>Overflows Errors<a class="headerlink" href="#overflows-errors" title="Permalink to this heading"></a></h2>
 <p>This table describes the behavior of the Intel<sup>®</sup> QAT compression service when an overflow occurs during a compression or decompression operation.
 It also describes the expected behavior of an application when an overflow occurs.</p>
-<table class="longtable docutils align-default" id="id11">
+<table class="longtable colwidths-given docutils align-default" id="id11">
 <caption><span class="caption-text">Overflows Errors</span><a class="headerlink" href="#id11" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 14%" />
@@ -1242,7 +1268,7 @@ A detailed explanation of <em>compressBound</em> APIs is provided in the <a clas
 <p>Integrity checksums are an additional method for payload verification throughout the compression/decompression lifecycle. They may be used to verify corruption has not happened when sending data to and from the Intel<sup>®</sup> QuickAssist HW, or for example the integrity checksums may be stored by an application along with the compressed data and used to detect corruption in the future without needing to decompress the data.</p>
 <p>They should not be confused with the Gzip/Zlib/LZ4 footer checksums of CRC32, Adler32 and Xxhash32 that are calculated over the uncompressed input data only.</p>
 <p>Integrity checksums use an additional structure that is the application’s responsibility to allocate, maintain, and free. The structure is <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> and contains the following fields:</p>
-<table class="longtable docutils align-default" id="id12">
+<table class="longtable colwidths-given docutils align-default" id="id12">
 <caption><span class="caption-text">Integrity Checksums</span><a class="headerlink" href="#id12" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 25%" />
