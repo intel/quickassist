@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Running in a Virtual Machine (VM) &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Intel® QuickAssist Technology (QAT) QATzip Library" href="qatzip.html" />
+    <link rel="prev" title="Configuration and Tuning" href="configuration.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QATlib User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="description.html">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running in a Virtual Machine (VM)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#virtual-machine-configuration">Virtual Machine Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cpu-pinning-optional">CPU Pinning (Optional)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#machine-type">Machine Type</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#i-o-apic-driver">I/O APIC Driver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat-virtual-function">QAT Virtual Function</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#guest-os-linux-boot-parameters">Guest OS Linux Boot Parameters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#instructions-for-debian-based-distros">Instructions for Debian Based Distros</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instructions-for-rhel-centos-fedora">Instructions for RHEL/CentOS/Fedora</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#guest-system-kernel-drivers">Guest System Kernel Drivers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#error-observed-when-vm-is-started">Error observed when VM is started</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#error-with-cpa-sample-code">Error with cpa_sample_code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">QATlib User’s Guide</a> &raquo;</li>
+      <li>Running in a Virtual Machine (VM)</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="running-in-a-virtual-machine-vm">
+<span id="qat-2-0-qatlib-usersguide-running-in-vm"></span><h1>Running in a Virtual Machine (VM)<a class="headerlink" href="#running-in-a-virtual-machine-vm" title="Permalink to this headline"></a></h1>
+<p>This document provides instructions for attaching QAT Virtual Function(s) to the guest VM. This allows us to run applications using qatlib on the Guest VM utilizing the QAT Hardware.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>These instructions assume the QAT in-tree driver is currently installed on the host system.</p>
+</div>
+<section id="virtual-machine-configuration">
+<h2>Virtual Machine Configuration<a class="headerlink" href="#virtual-machine-configuration" title="Permalink to this headline"></a></h2>
+<p>This section describes the configuration options for the virtual machine.</p>
+<section id="cpu-pinning-optional">
+<h3>CPU Pinning (Optional)<a class="headerlink" href="#cpu-pinning-optional" title="Permalink to this headline"></a></h3>
+<p>This step is <strong>optional</strong> and is only needed when we wish to pin the cores used by a VM.  In the example below we are pinning 8 cores used in the VM to cores 17-24.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;vcpu placement=&#39;static&#39; cpuset=&#39;17-24&#39;&gt;8&lt;/vcpu&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="machine-type">
+<h3>Machine Type<a class="headerlink" href="#machine-type" title="Permalink to this headline"></a></h3>
+<p>The machine type needs to be set <code class="docutils literal notranslate"><span class="pre">q35</span></code>.  In the example below, the machine type for RHEL 9.2 is <cite>pc-q35-rhel9</cite>.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;os&gt;</span>
+<span class="go">    &lt;type arch=&#39;x86_64&#39; machine=&#39;pc-q35-rhel9.2.0&#39;&gt;hvm&lt;/type&gt;</span>
+<span class="go">    &lt;boot dev=&#39;hd&#39;/&gt;</span>
+<span class="go">&lt;/os&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="i-o-apic-driver">
+<h3>I/O APIC Driver<a class="headerlink" href="#i-o-apic-driver" title="Permalink to this headline"></a></h3>
+<p>The I/O APIC driver needs to be set to <cite>qemu</cite>.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;features&gt;</span>
+<span class="go">    &lt;acpi/&gt;</span>
+<span class="go">    &lt;apic/&gt;</span>
+<span class="go">        &lt;ioapic driver=&#39;qemu&#39;/&gt;</span>
+<span class="go">&lt;/features&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="qat-virtual-function">
+<h3>QAT Virtual Function<a class="headerlink" href="#qat-virtual-function" title="Permalink to this headline"></a></h3>
+<p>When passing VFs to a guest, the BDFs on the guest should facilitate qatlib
+recognizing whether VFs are from the same PF or not.</p>
+<p>So the libvirt XML file should specify that VFs from the same host
+(same domain + bus) are assigned to a common (domain + bus) on the guest,
+which is different to the (domain + bus) used for VFs from other PFs.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Sufficient VFs should be passed from the host to the guest to satisfy the
+type of services and number of processes needed by the guest. See <a class="reference internal" href="configuration.html#qat-2-0-qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning section of QATlib User’s Guide</span></a> for
+more information on host configuration.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If using the default kernel configuration, at least 2 VFs are needed per
+process so that the process has both CY and DC instances.
+Set either POLICY=0 or POLICY=2 (or 4, 6, …) in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> on
+the guest and restart qatmgr.</p>
+</div>
+<p>To list the BSF info from the host, use the <code class="docutils literal notranslate"><span class="pre">lspci</span></code> command with a <code class="docutils literal notranslate"><span class="pre">grep</span></code> for the device ID of your VFs. Some SKUs may use <code class="docutils literal notranslate"><span class="pre">4941</span></code> as their device ID. For example, the <code class="docutils literal notranslate"><span class="pre">4943</span></code> device ID should give output similar to the below:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>lspci <span class="p">|</span> grep -i <span class="m">4943</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Example output:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">6b:00.1 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">6b:00.2 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">6b:00.3 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">. . .</span>
+<span class="go">70:00.1 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">70:00.2 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">70:00.3 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">. . .</span>
+<span class="go">f3:00.1 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">f3:00.2 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">f3:00.3 Co-processor: Intel Corporation Device 4943 (rev 40)</span>
+<span class="go">. . .</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In the following example we are passing two VFs from <code class="docutils literal notranslate"><span class="pre">0000:6b.0</span></code> and two VFs from <code class="docutils literal notranslate"><span class="pre">0000:70.0</span></code>
+to the VM.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;hostdev mode=&#39;subsystem&#39; type=&#39;pci&#39; managed=&#39;yes&#39;&gt;</span>
+<span class="go">    &lt;source&gt;</span>
+<span class="go">        &lt;address domain=&#39;0x0000&#39; bus=&#39;0x6b&#39; slot=&#39;0x00&#39; function=&#39;0x1&#39;/&gt;</span>
+<span class="go">    &lt;/source&gt;</span>
+<span class="go">    &lt;address type=&#39;pci&#39; domain=&#39;0x0000&#39; bus=&#39;0x07&#39; slot=&#39;0x00&#39; function=&#39;0x0&#39; multifunction=&#39;on&#39;/&gt;</span>
+<span class="go">&lt;/hostdev&gt;</span>
+<span class="go">&lt;hostdev mode=&#39;subsystem&#39; type=&#39;pci&#39; managed=&#39;yes&#39;&gt;</span>
+<span class="go">    &lt;source&gt;</span>
+<span class="go">        &lt;address domain=&#39;0x0000&#39; bus=&#39;0x6b&#39; slot=&#39;0x00&#39; function=&#39;0x2&#39;/&gt;</span>
+<span class="go">    &lt;/source&gt;</span>
+<span class="go">    &lt;address type=&#39;pci&#39; domain=&#39;0x0000&#39; bus=&#39;0x07&#39; slot=&#39;0x00&#39; function=&#39;0x1&#39;/&gt;</span>
+<span class="go">&lt;/hostdev&gt;</span>
+<span class="go">&lt;hostdev mode=&#39;subsystem&#39; type=&#39;pci&#39; managed=&#39;yes&#39;&gt;</span>
+<span class="go">    &lt;source&gt;</span>
+<span class="go">        &lt;address domain=&#39;0x0000&#39; bus=&#39;0x70&#39; slot=&#39;0x00&#39; function=&#39;0x3&#39;/&gt;</span>
+<span class="go">    &lt;/source&gt;</span>
+<span class="go">    &lt;address type=&#39;pci&#39; domain=&#39;0x0000&#39; bus=&#39;0x08&#39; slot=&#39;0x00&#39; function=&#39;0x0&#39; multifunction=&#39;on&#39;/&gt;</span>
+<span class="go">&lt;/hostdev&gt;</span>
+<span class="go">&lt;hostdev mode=&#39;subsystem&#39; type=&#39;pci&#39; managed=&#39;yes&#39;&gt;</span>
+<span class="go">    &lt;source&gt;</span>
+<span class="go">        &lt;address domain=&#39;0x0000&#39; bus=&#39;0x70&#39; slot=&#39;0x00&#39; function=&#39;0x3&#39;/&gt;</span>
+<span class="go">    &lt;/source&gt;</span>
+<span class="go">    &lt;address type=&#39;pci&#39; domain=&#39;0x0000&#39; bus=&#39;0x08&#39; slot=&#39;0x00&#39; function=&#39;0x1&#39;/&gt;</span>
+<span class="go">&lt;/hostdev&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Within the VM, the VFs would appear like the following:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci -d &#39;8086:4941&#39; | lspci -d &#39;8086:4943&#39;</span>
+
+<span class="go">07:00.0 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
+<span class="go">07:00.1 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
+<span class="go">08:00.0 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
+<span class="go">08:00.1 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="guest-os-linux-boot-parameters">
+<h2>Guest OS Linux Boot Parameters<a class="headerlink" href="#guest-os-linux-boot-parameters" title="Permalink to this headline"></a></h2>
+<p>The following kernel boot parameters must be included in the Guest OS.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aw-bits=48</span></code></p></li>
+</ul>
+<p>Confirm these parameters are set with the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/cmdline | grep -E &#39;intel_iommu=on|aw-bits=48&#39;</span>
+</pre></div>
+</div>
+<p>If these parameters are <strong>not</strong> enabled, the following steps can be used to turn them on.</p>
+<section id="instructions-for-debian-based-distros">
+<h3>Instructions for Debian Based Distros<a class="headerlink" href="#instructions-for-debian-based-distros" title="Permalink to this headline"></a></h3>
+<p>If using a Debian based distribution, run the following commands:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p><strong>Open</strong> the grub file.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo vi /etc/default/grub</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Update</strong> the <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> line by adding <code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code> and <code class="docutils literal notranslate"><span class="pre">aw-bits=48</span></code>.</p></li>
+<li><p><strong>Load</strong> the changes done.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo grub2-mkconfig -o /etc/grub2-efi.cfg</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>For Ubuntu, you may need to use the “update-grub” command instead.</p>
+<ol class="arabic">
+<li><p><strong>Reboot</strong> the system.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">shutdown -r now</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</section>
+<section id="instructions-for-rhel-centos-fedora">
+<h3>Instructions for RHEL/CentOS/Fedora<a class="headerlink" href="#instructions-for-rhel-centos-fedora" title="Permalink to this headline"></a></h3>
+<p>If using RHEL, CentOS or Fedora, run the following commands:</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p><strong>Update</strong> the kernel boot parameters.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo grubby --update-kernel=ALL --args=&quot;intel_iommu=on&quot;</span>
+<span class="go">sudo grubby --update-kernel=ALL --args=&quot;aw-bits=48&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Reboot</strong> the system.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo shutdown -r now</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</div></blockquote>
+</section>
+</section>
+<section id="guest-system-kernel-drivers">
+<h2>Guest System Kernel Drivers<a class="headerlink" href="#guest-system-kernel-drivers" title="Permalink to this headline"></a></h2>
+<p>When running on the <em>guest</em> system, use the following command to verify the kernel drivers are present:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lsmod | grep vfio_pci</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If the kernel module is <strong>not</strong> found, install it using the following command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo modprobe vfio_pci</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In some situations, you may also need to modprobe the <code class="docutils literal notranslate"><span class="pre">qat_4xxx</span></code> module via <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">modprobe</span> <span class="pre">qat_4xxx</span></code>.</p>
+<p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">vfio_pci</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Virtual Function (VF) by running the following command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4941 || lspci -vvv -d 8086:4943) | grep &quot;Kernel driver&quot;`</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>You should see an output similar to the following:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="common-issues">
+<h2>Common Issues<a class="headerlink" href="#common-issues" title="Permalink to this headline"></a></h2>
+<section id="error-observed-when-vm-is-started">
+<h3>Error observed when VM is started<a class="headerlink" href="#error-observed-when-vm-is-started" title="Permalink to this headline"></a></h3>
+<p>If error similar to the following is reported when VM is started:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo virsh start &lt;Guest_VM_NAME&gt;</span>
+
+<span class="go">error: Failed to start domain &#39;&lt;Guest_VM_NAME&gt;&#39;</span>
+<span class="go">error: internal error: qemu unexpectedly closed the monitor: 2022-02-10T17:00:01.178436Z qemu-system-x86_64:</span>
+<span class="go">-device vfio-pci,host=0000:75:00.1,id=hostdev4,bus=pci.15,addr=0x0: VFIO_MAP_DMA failed: Cannot allocate memory</span>
+<span class="go">2022-02-10T17:00:01.210062Z qemu-system-x86_64: -device vfio-pci,host=0000:75:00.1,id=hostdev4,bus=pci.15,addr=0x0:</span>
+<span class="go">vfio 0000:75:00.1: failed to setup container for group 488: memory listener initialization failed: Region pc.ram:</span>
+<span class="go">vfio_dma_map(0x562127eb3bc0, 0x100000000, 0x80000000, 0x7ff60be00000) = -12 (Cannot allocate memory)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>We can use dmesg to display additional error details.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dmesg | tail -50 will display the below error</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>If the output looks like the following:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[1210160.116507] vfio_pin_pages_remote: RLIMIT_MEMLOCK (20819607552) exceeded</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="simple">
+<dt><strong>Likely cause</strong>:</dt><dd><p>The hard and soft memory limit  has exceeded the limit of 20331648 KB memory</p>
+</dd>
+</dl>
+<p><strong>Solution</strong>: Increase the memory hard_limit and soft_limit to a higher value</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>shutdown the VM
+<span class="go">sudo virsh shutdown &lt;Guest_VM_Name&gt;</span>
+<span class="gp"># </span>edit the guest VM xml file
+<span class="go">sudo virsh edit &lt;Guest_VM_Name&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="error-with-cpa-sample-code">
+<h3>Error with cpa_sample_code<a class="headerlink" href="#error-with-cpa-sample-code" title="Permalink to this headline"></a></h3>
+<p>Error when running cpa sample application on the guest VM</p>
+<p>If errors like the following are observed:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[56400.152502] DMAR: DRHD: handling fault status reg 3</span>
+<span class="go">[56400.152513] DMAR: [DMA Read NO_PASID] Request device [70:00.1] fault addr 0x2995c000 [fault reason 0x79] SM: Read/Write permission error in second-level paging entry</span>
+<span class="go">[56400.153297] DMAR: DRHD: handling fault status reg 3</span>
+<span class="go">[56400.153308] DMAR: [DMA Read NO_PASID] Request device [70:00.1] fault addr 0x28987000 [fault reason 0x79] SM: Read/Write permission error in second-level paging entry</span>
+<span class="go">[56400.212172] DMAR: DRHD: handling fault status reg 3</span>
+<span class="go">[56400.212176] DMAR: [DMA Write NO_PASID] Request device [70:00.2] fault addr 0x28465000 [fault reason 0x79] SM: Read/Write permission error in second-level paging entry</span>
+<span class="go">[56400.212228] DMAR: DRHD: handling fault status reg 2</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Likely cause</strong>: Limit to maximum number of concurrent DMA mapping that a user is allowed to create has been reached</p>
+<p><strong>Solution</strong>: Increase/edit the <code class="docutils literal notranslate"><span class="pre">dma_entry</span></code> limit value in <code class="docutils literal notranslate"><span class="pre">/etc/modprobe.d/vfio-iommu-type1.config</span></code></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo vi /etc/modprobe.d/vfio-iommu-type1.config</span>
+</pre></div>
+</div>
+<p>Update the maximum value.</p>
+</div></blockquote>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="configuration.html" class="btn btn-neutral float-left" title="Configuration and Tuning" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qatzip.html" class="btn btn-neutral float-right" title="Intel® QuickAssist Technology (QAT) QATzip Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Acceleration Driver &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -101,9 +99,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-      <li class="breadcrumb-item active">Acceleration Driver</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+      <li>Acceleration Driver</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -113,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="acceleration-driver">
-<span id="qat-2-0-pg-acceleration-driver"></span><h1>Acceleration Driver<a class="headerlink" href="#acceleration-driver" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-acceleration-driver"></span><h1>Acceleration Driver<a class="headerlink" href="#acceleration-driver" title="Permalink to this headline"></a></h1>
 <p>Intel<sup>®</sup> QAT can accelerate the following services:</p>
 <ul class="simple">
 <li><p>Symmetric cryptography</p></li>
@@ -124,7 +122,7 @@
 these services via the Intel<sup>®</sup> QAT APIs. Applications that run in the Linux* kernel can also access some
 services via the Linux* Kernel Cryptographic Framework (LKCF) API.</p>
 <section id="controlling-the-driver">
-<h2>Controlling the Driver<a class="headerlink" href="#controlling-the-driver" title="Permalink to this heading"></a></h2>
+<h2>Controlling the Driver<a class="headerlink" href="#controlling-the-driver" title="Permalink to this headline"></a></h2>
 <p>Two methods are provided to manage the acceleration driver.  They include:</p>
 <blockquote>
 <div><ul class="simple">
@@ -133,11 +131,11 @@ services via the Linux* Kernel Cryptographic Framework (LKCF) API.</p>
 </ul>
 </div></blockquote>
 <section id="qat-service">
-<h3>qat_service<a class="headerlink" href="#qat-service" title="Permalink to this heading"></a></h3>
+<h3>qat_service<a class="headerlink" href="#qat-service" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">qat_service</span></code> script is installed with the software package in the <code class="docutils literal notranslate"><span class="pre">/etc/init.d/</span></code> directory. The script allows a user to start, stop, or
 query the status (up or down) of a single Intel<sup>®</sup> QAT Endpoint or all Intel<sup>®</sup> QAT Endpoints in the system.</p>
 <section id="qat-service-usage">
-<h4>qat_service Usage<a class="headerlink" href="#qat-service-usage" title="Permalink to this heading"></a></h4>
+<h4>qat_service Usage<a class="headerlink" href="#qat-service-usage" title="Permalink to this headline"></a></h4>
 <p>To view all Intel<sup>®</sup> QAT Endpoints in the system, use:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service status</span>
@@ -170,7 +168,7 @@ which brings down one or more Intel<sup>®</sup> QAT Endpoints, but does not unl
 </section>
 </section>
 <section id="adf-ctl">
-<h3>adf_ctl<a class="headerlink" href="#adf-ctl" title="Permalink to this heading"></a></h3>
+<h3>adf_ctl<a class="headerlink" href="#adf-ctl" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">adf_ctl</span></code> user space utility is separate to the driver and provides a mechanism for:</p>
 <ul class="simple">
 <li><p>Loading configuration file data to the kernel driver. The kernel space driver uses the data and also provides the data to the user space driver.</p></li>
@@ -178,7 +176,7 @@ which brings down one or more Intel<sup>®</sup> QAT Endpoints, but does not unl
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">adf_ctl</span></code> provided with the Intel<sup>®</sup> QAT 2.0 driver can also be used to interface with Intel<sup>®</sup> QAT 1.6 and 1.7 devices.</p>
 <section id="adf-ctl-usage">
-<h4>adf_ctl Usage<a class="headerlink" href="#adf-ctl-usage" title="Permalink to this heading"></a></h4>
+<h4>adf_ctl Usage<a class="headerlink" href="#adf-ctl-usage" title="Permalink to this headline"></a></h4>
 <p>To bring up, down, restart or reset device(s):</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl [-c|--config] [qat_dev] [up|down|restart|reset]</span>
@@ -203,7 +201,7 @@ which brings down one or more Intel<sup>®</sup> QAT Endpoints, but does not unl
 </div></blockquote>
 </section>
 <section id="examples">
-<h4>Examples<a class="headerlink" href="#examples" title="Permalink to this heading"></a></h4>
+<h4>Examples<a class="headerlink" href="#examples" title="Permalink to this headline"></a></h4>
 <p>To bring device 0 down:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">adf_ctl qat_dev0 down</span>
@@ -250,13 +248,13 @@ which brings down one or more Intel<sup>®</sup> QAT Endpoints, but does not unl
 </section>
 </section>
 <section id="application-payload-memory-allocation">
-<h2>Application Payload Memory Allocation<a class="headerlink" href="#application-payload-memory-allocation" title="Permalink to this heading"></a></h2>
+<h2>Application Payload Memory Allocation<a class="headerlink" href="#application-payload-memory-allocation" title="Permalink to this headline"></a></h2>
 <p>When performing offload operations through the Intel<sup>®</sup> QAT API, it is required that the payload data be placed in a buffer that is
 resident, physically contiguous, and DMA accessible from the acceleration hardware. It is the application’s responsibility to provide buffers with these constraints.</p>
 <p>Buffers are passed to the API with virtual addresses. The API translates these addresses to the address information required by the hardware.</p>
 <section id="services">
-<h3>Services<a class="headerlink" href="#services" title="Permalink to this heading"></a></h3>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<h3>Services<a class="headerlink" href="#services" title="Permalink to this headline"></a></h3>
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Acceleration Driver Services</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -296,9 +294,9 @@ Table 2) for details.</p></td>
 </section>
 </section>
 <section id="return-codes">
-<span id="managing-endpoints-using-qat-service"></span><h2>Return Codes<a class="headerlink" href="#return-codes" title="Permalink to this heading"></a></h2>
+<span id="managing-endpoints-using-qat-service"></span><h2>Return Codes<a class="headerlink" href="#return-codes" title="Permalink to this headline"></a></h2>
 <p>This table shows the return codes used by various components of the acceleration driver, defined in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/cpa.h</span></code>.</p>
-<table class="longtable colwidths-given docutils align-default" id="id2">
+<table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Return Codes</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -348,9 +346,9 @@ Table 2) for details.</p></td>
 </table>
 </section>
 <section id="linux-device-driver-operations-return-codes">
-<h2>Linux* Device Driver Operations Return Codes<a class="headerlink" href="#linux-device-driver-operations-return-codes" title="Permalink to this heading"></a></h2>
+<h2>Linux* Device Driver Operations Return Codes<a class="headerlink" href="#linux-device-driver-operations-return-codes" title="Permalink to this headline"></a></h2>
 <p>This table shows the return codes used by the driver to handle Linux* device driver operations.</p>
-<table class="longtable colwidths-given docutils align-default" id="id3">
+<table class="longtable docutils align-default" id="id3">
 <caption><span class="caption-text">Linux* Device Driver Operations Return Codes</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />

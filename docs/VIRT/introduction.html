@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Introduction &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,15 +16,13 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="System Environment Preparation" href="system_preparation.html" />
+    <link rel="next" title="Host System Environment Preparation" href="system_preparation.html" />
     <link rel="prev" title="Virtualization Deployment Guide" href="index.html" /> 
 </head>
 
@@ -57,8 +55,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Virtualization Deployment Guide</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_preparation.html">System Environment Preparation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="system_configuration.html">System Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#installation-overview">Installation Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="system_preparation.html">Host System Environment Preparation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="oot_installation.html">Virtualization with OOT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
@@ -82,9 +81,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Virtualization Deployment Guide</a></li>
-      <li class="breadcrumb-item active">Introduction</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Virtualization Deployment Guide</a> &raquo;</li>
+      <li>Introduction</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -94,11 +93,18 @@
            <div itemprop="articleBody">
              
   <section id="introduction">
-<span id="qat-2-0-virtualization-deployment-guide-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
-<p>This document provides the details on using Intel<sup>®</sup> Virtualization Technology
-(Intel<sup>®</sup> VT) with the Intel<sup>®</sup> QuickAssist Technology (Intel<sup>®</sup> QAT) Software
-This includes <em>SR-IOV</em> and <em>Intel Scalable IOV (sIOV)</em>.</p>
-<p>Below are the basic steps to deploy virtualization with Intel QAT. The following sections describe the step-by-step instructions to perform all these actions.</p>
+<span id="qat-2-0-virtualization-deployment-guide-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+<p>This document provides details on using Intel<sup>®</sup> Virtualization Technology
+(Intel<sup>®</sup> VT) with the Intel<sup>®</sup> QuickAssist Technology (Intel<sup>®</sup> QAT).</p>
+<p>This document also includes instructions for both <em>SR-IOV</em> and <em>Intel Scalable IOV (sIOV)</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At this time <em>sIOV</em> is only supported with OOT QAT2.0 driver</p>
+</div>
+</section>
+<section id="installation-overview">
+<h1>Installation Overview<a class="headerlink" href="#installation-overview" title="Permalink to this headline"></a></h1>
+<p>Below are the basic steps to deploy Intel QAT in a virtualized environment. The following sections describe the step-by-step instructions to perform all these actions.</p>
 <ol class="arabic simple">
 <li><p><strong>Update</strong> the system BIOS.</p></li>
 <li><p><strong>Configure</strong> the Host Operating System (OS).</p></li>
@@ -108,7 +114,8 @@ This includes <em>SR-IOV</em> and <em>Intel Scalable IOV (sIOV)</em>.</p>
 </ol>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>These instructions are intended to be used with the out-of-tree acceleration driver.</p>
+<p>These instructions are intended to be used with the out-of-tree acceleration driver.  For details on setting up
+virtualization with the in-tree driver (qatlib) please refer to <a class="reference internal" href="../qatlib/running_in_vm.html#qat-2-0-qatlib-usersguide-running-in-vm"><span class="std std-ref">Running in a Virtual Machine</span></a> section of QATlib User’s Guide.</p>
 </div>
 </section>
 
@@ -117,7 +124,7 @@ This includes <em>SR-IOV</em> and <em>Intel Scalable IOV (sIOV)</em>.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="Virtualization Deployment Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="system_preparation.html" class="btn btn-neutral float-right" title="System Environment Preparation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="system_preparation.html" class="btn btn-neutral float-right" title="Host System Environment Preparation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

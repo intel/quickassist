@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Data Compression &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -113,10 +111,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="services_index.html">Services</a></li>
-      <li class="breadcrumb-item active">Data Compression</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="services_index.html">Services</a> &raquo;</li>
+      <li>Data Compression</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -126,9 +124,9 @@
            <div itemprop="articleBody">
              
   <section id="data-compression">
-<span id="qat-2-0-pg-services-compression"></span><h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-services-compression"></span><h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this headline"></a></h1>
 <section id="compresion-features">
-<h2>Compresion Features<a class="headerlink" href="#compresion-features" title="Permalink to this heading"></a></h2>
+<h2>Compresion Features<a class="headerlink" href="#compresion-features" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Deflate Compression Algorithm.</p></li>
 <li><p>LZ77 and Huffman Encoding.</p></li>
@@ -139,7 +137,7 @@
 </ul>
 </section>
 <section id="compression-limitations">
-<h2>Compression Limitations<a class="headerlink" href="#compression-limitations" title="Permalink to this heading"></a></h2>
+<h2>Compression Limitations<a class="headerlink" href="#compression-limitations" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Stateful compression is not supported.</p></li>
 <li><p>Stateful decompression is not supported on QAT2.0 hardware devices.</p></li>
@@ -147,14 +145,10 @@
 </ul>
 </section>
 <section id="compression-session-setup">
-<h2>Compression Session Setup<a class="headerlink" href="#compression-session-setup" title="Permalink to this heading"></a></h2>
+<h2>Compression Session Setup<a class="headerlink" href="#compression-session-setup" title="Permalink to this headline"></a></h2>
 <p>The following table lists the properties that should be configured in the <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code> structure depending on the compression algorithm requested.</p>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Compression CpaDcSessionSetupData Properties</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 61%" />
-<col style="width: 39%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Property</strong></p></th>
 <th class="head"><p><strong>Details</strong></p></th>
@@ -203,15 +197,10 @@ all algorithms</p></td>
 </div>
 </section>
 <section id="decompression-session-setup">
-<h2>Decompression Session Setup<a class="headerlink" href="#decompression-session-setup" title="Permalink to this heading"></a></h2>
+<h2>Decompression Session Setup<a class="headerlink" href="#decompression-session-setup" title="Permalink to this headline"></a></h2>
 <p>The following table lists the properties that should be configured in the <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code> structure depending on the format of the payload to decompression.</p>
 <table class="longtable docutils align-default" id="id3">
 <caption><span class="caption-text">Decompression CpaDcSessionSetupData Properties</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 61%" />
-<col style="width: 22%" />
-<col style="width: 17%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Property</strong></p></th>
 <th class="head"><p><strong>Deflate</strong></p></th>
@@ -242,7 +231,7 @@ all algorithms</p></td>
 </tbody>
 </table>
 <section id="deflate-decompression">
-<h3>Deflate Decompression<a class="headerlink" href="#deflate-decompression" title="Permalink to this heading"></a></h3>
+<h3>Deflate Decompression<a class="headerlink" href="#deflate-decompression" title="Permalink to this headline"></a></h3>
 <p>With deflate based format such as Gzip the application is required to skip the GZip header and present to Intel<sup>®</sup> QAT the first byte of the deflate block.</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="../_images/deflate_decompression.png"><img alt="../_images/deflate_decompression.png" src="../_images/deflate_decompression.png" style="width: 600px;" /></a>
@@ -251,7 +240,7 @@ all algorithms</p></td>
 With an application handling multi-gzip data, the both the Gzip footer and Gzip header must be skipped.</p>
 </section>
 <section id="lz4-decompresion">
-<h3>LZ4 Decompresion<a class="headerlink" href="#lz4-decompresion" title="Permalink to this heading"></a></h3>
+<h3>LZ4 Decompresion<a class="headerlink" href="#lz4-decompresion" title="Permalink to this headline"></a></h3>
 <p>When decompressing LZ4 frames, the application is required to parse the frame header to extract <code class="docutils literal notranslate"><span class="pre">B.Checksum</span></code> flag. This flag is used to set the configuration parameter <code class="docutils literal notranslate"><span class="pre">lz4BlockChecksum</span></code> in <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code>. When decompressing LZ4 frames, the application should not include the frame header nor the frame footer in the source buffer to be processed by Intel<sup>®</sup> QAT hardware.</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="../_images/lz4_decompression.png"><img alt="../_images/lz4_decompression.png" src="../_images/lz4_decompression.png" style="width: 600px;" /></a>
@@ -262,11 +251,11 @@ With an application handling multi-gzip data, the both the Gzip footer and Gzip 
 </div>
 </section>
 <section id="lz4-decompression-limitations">
-<h3>LZ4 Decompression Limitations<a class="headerlink" href="#lz4-decompression-limitations" title="Permalink to this heading"></a></h3>
+<h3>LZ4 Decompression Limitations<a class="headerlink" href="#lz4-decompression-limitations" title="Permalink to this headline"></a></h3>
 <p>When decompressing LZ4 data compressed without Intel<sup>®</sup> QAT  hardware, it is important to ensure that the compressor limits the history buffer to 32KB. Data compressed using a history buffer larger than 32KB will result with a <code class="docutils literal notranslate"><span class="pre">CPA_DC_INVALID_DIST</span> <span class="pre">(-10)</span></code> error code.</p>
 </section>
 <section id="multi-frame-decompression-support">
-<h3>Multi-frame decompression support<a class="headerlink" href="#multi-frame-decompression-support" title="Permalink to this heading"></a></h3>
+<h3>Multi-frame decompression support<a class="headerlink" href="#multi-frame-decompression-support" title="Permalink to this headline"></a></h3>
 <p>Intel<sup>®</sup> QAT hardware can decompress a payload that includes multiple frames. This applies to both Gzip and LZ4 formats. The figure below shows how the application must behave to decompress LZ4 multi frame payloads.</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="../_images/multi-frame_decompression.png"><img alt="../_images/multi-frame_decompression.png" src="../_images/multi-frame_decompression.png" style="width: 800px;" /></a>
@@ -274,13 +263,13 @@ With an application handling multi-gzip data, the both the Gzip footer and Gzip 
 </section>
 </section>
 <section id="performance-considerations">
-<h2>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this heading"></a></h2>
+<h2>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h2>
 <p>To enable the application benefiting from the QAT2.0 HW maximal performance, it is recommended to populate all the DIMMs around the CPU sockets in use.</p>
 </section>
 <section id="flush-flags">
-<h2>Flush Flags<a class="headerlink" href="#flush-flags" title="Permalink to this heading"></a></h2>
+<h2>Flush Flags<a class="headerlink" href="#flush-flags" title="Permalink to this headline"></a></h2>
 <p>The table below shows the flush flags that should be used depending on the application’s use case. The application programming model should follow this table.</p>
-<table class="longtable colwidths-given docutils align-default" id="id4">
+<table class="longtable docutils align-default" id="id4">
 <caption><span class="caption-text">Flush Flags</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
@@ -336,14 +325,10 @@ to set BFinal</p></td>
 </div>
 </section>
 <section id="checksums">
-<h2>Checksums<a class="headerlink" href="#checksums" title="Permalink to this heading"></a></h2>
+<h2>Checksums<a class="headerlink" href="#checksums" title="Permalink to this headline"></a></h2>
 <p>With the addition of LZ4 algorithm support on QAT2.0, the compression hardware accelerators are now capable to generate XXash32 checksums. QAT2.0 device is now supporting the following checksums:</p>
 <table class="longtable docutils align-default" id="id5">
 <caption><span class="caption-text">Checksums</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 41%" />
-<col style="width: 59%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Checksum Type</strong></p></th>
 <th class="head"><p><strong>Usage</strong></p></th>
@@ -367,11 +352,11 @@ to set BFinal</p></td>
 </div>
 </section>
 <section id="lz4s-compressed-data-block-format">
-<h2>LZ4s Compressed Data Block format<a class="headerlink" href="#lz4s-compressed-data-block-format" title="Permalink to this heading"></a></h2>
+<h2>LZ4s Compressed Data Block format<a class="headerlink" href="#lz4s-compressed-data-block-format" title="Permalink to this headline"></a></h2>
 <p>LZ4s is a variant of LZ4 block format. LZ4s should be considered as an intermediate compressed block format. The LZ4s format is selected when the application sets the <code class="docutils literal notranslate"><span class="pre">compType</span></code> to <code class="docutils literal notranslate"><span class="pre">CPA_DC_LZ4S</span></code> in <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code>.
 The LZ4s block returned by the Intel<sup>®</sup> QAT hardware can be used by an external software post-processing to generate other compressed data formats.</p>
 <p>The following table lists the differences between LZ4 and LZ4s block format. LZ4s block format uses the same high-level formatting as LZ4 block format with the following encoding changes:</p>
-<table class="longtable colwidths-given docutils align-default" id="id6">
+<table class="longtable docutils align-default" id="id6">
 <caption><span class="caption-text">Differences between LZ4 and LZ4s block format</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
@@ -427,7 +412,7 @@ extra byte with value 0x00.</p>
 </ul>
 <p>Any of the sequence types can exist anywhere in the LZ4s block. The last LZ4s sequence in the LZ4s block shall satisfy the end-of-block restrictions outlined in the LZ4 specification.</p>
 <section id="lz4-compression-support">
-<h3>LZ4 Compression Support<a class="headerlink" href="#lz4-compression-support" title="Permalink to this heading"></a></h3>
+<h3>LZ4 Compression Support<a class="headerlink" href="#lz4-compression-support" title="Permalink to this headline"></a></h3>
 <p>With the QAT 2.0 API, the application can create LZ4 frames. This is achieved using APIs <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateHeader()</span></code> and <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateFooter()</span></code>. These APIs are also able to generate GZip and Zlib formats. More information is available in the API reference manual.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateHeader()</span></code> creates a 7 byte LZ4 frame header which includes:</p>
 <ul>
@@ -453,7 +438,7 @@ extra byte with value 0x00.</p>
 </section>
 </section>
 <section id="compress-and-verify">
-<h2>Compress-and-Verify<a class="headerlink" href="#compress-and-verify" title="Permalink to this heading"></a></h2>
+<h2>Compress-and-Verify<a class="headerlink" href="#compress-and-verify" title="Permalink to this headline"></a></h2>
 <p>The Compress and Verify (CnV) feature checks and ensures data integrity in the compression
 operation of the Data Compression API. This feature introduces an independent capability to
 verify the compression transformation.</p>
@@ -467,21 +452,21 @@ verify the compression transformation.</p>
 </ul>
 </div>
 <section id="compress-and-verify-error-log-in-sysfs">
-<span id="compress-verify-error-sysfs"></span><h3>Compress and Verify Error log in Sysfs<a class="headerlink" href="#compress-and-verify-error-log-in-sysfs" title="Permalink to this heading"></a></h3>
+<span id="compress-verify-error-sysfs"></span><h3>Compress and Verify Error log in Sysfs<a class="headerlink" href="#compress-and-verify-error-log-in-sysfs" title="Permalink to this headline"></a></h3>
 <p>The implementation of the Compress and Verify solution keeps a record of the CnV errors that have occurred since the driver was loaded.
 The error count is provided on a per Acceleration Engine basis.</p>
 <p>The path to the CnV error log is: <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_&lt;qat_device&gt;_&lt;Bus&gt;\:&lt;device&gt;.&lt;function&gt;/cnv_errors</span></code></p>
 <p>Each Acceleration Engine keeps a count of the CnV errors. The CnV error counter is reset when the driver is loaded. The tool also reports the last error type that caused a CnV error.</p>
 </section>
 <section id="compress-and-verify-and-recover-cnvnr">
-<h3>Compress and Verify and Recover (CnVnR)<a class="headerlink" href="#compress-and-verify-and-recover-cnvnr" title="Permalink to this heading"></a></h3>
+<h3>Compress and Verify and Recover (CnVnR)<a class="headerlink" href="#compress-and-verify-and-recover-cnvnr" title="Permalink to this headline"></a></h3>
 <p>The Compress and Verify and Recover (CnVnR) feature allows a compression error to be recovered in a seamless manner. It is supported in both the Traditional and in the Data Plane APIs.</p>
 <p>The CnVnR feature is an enhancement of the Compress and Verify (CnV) solution. When a compress and verify error is detected, the Intel<sup>®</sup> QAT software will do a
 correction without returning a CnV error to the application.</p>
 <p>When a recovery occurs, <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults.status</span></code> will return <code class="docutils literal notranslate"><span class="pre">CPA_DC_OK</span></code> or <code class="docutils literal notranslate"><span class="pre">CPA_DC_OVERFLOW</span></code> and the destination buffer will hold valid deflate data.</p>
 <p>The application can find out if CnVnR is supported by querying the instance capabilities via the <code class="docutils literal notranslate"><span class="pre">cpaDcQueryCapabilities</span></code> API. On completion, the
 <code class="docutils literal notranslate"><span class="pre">compressAndVerifyAndRecover</span></code> property of the <code class="docutils literal notranslate"><span class="pre">CpaDcInstanceCapabilitie:</span> <span class="pre">..\image::</span> <span class="pre">./s</span></code> structure will be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code> if the feature is supported.</p>
-<table class="longtable colwidths-given docutils align-default" id="id7">
+<table class="longtable docutils align-default" id="id7">
 <caption><span class="caption-text">Compress and Verify and Recover (CnVnR) Behaviors</span><a class="headerlink" href="#id7" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -546,7 +531,7 @@ that is incremented every time a compression recovery happens.</p>
 </section>
 </section>
 <section id="dynamic-compression">
-<h2>Dynamic Compression<a class="headerlink" href="#dynamic-compression" title="Permalink to this heading"></a></h2>
+<h2>Dynamic Compression<a class="headerlink" href="#dynamic-compression" title="Permalink to this headline"></a></h2>
 <p>Dynamic compression involves feeding the data produced by the compression hardware block to the translator hardware block.</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="../_images/dynamic_compression_updated.png"><img alt="../_images/dynamic_compression_updated.png" src="../_images/dynamic_compression_updated.png" style="width: 979px; height: 160px;" /></a>
@@ -556,7 +541,7 @@ a deflate stream with dynamic Huffman trees.</p>
 <p>When using QAT2.0 device, it is no longer required to allocate intermediate buffers. The API <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumIntermediateBuffers()</span></code> returns 0. As a good programming practise, the application should still call <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumIntermediateBuffers()</span></code> and ensure that the number of intermediate buffers returned is 0.</p>
 </section>
 <section id="maximum-expansion-with-auto-select-best-feature-asb">
-<h2>Maximum Expansion with Auto Select Best Feature (ASB)<a class="headerlink" href="#maximum-expansion-with-auto-select-best-feature-asb" title="Permalink to this heading"></a></h2>
+<h2>Maximum Expansion with Auto Select Best Feature (ASB)<a class="headerlink" href="#maximum-expansion-with-auto-select-best-feature-asb" title="Permalink to this headline"></a></h2>
 <p>Compressing some input data may lead to a lower-than-expected compression ratio. This is because the input data may not be very compressible. To achieve a maximum compression ratio,
 the acceleration unit provides an auto select best (ASB) feature.</p>
 <p>With QAT1.X devices, the Intel<sup>®</sup> QuickAssist Technology hardware will first execute static compression followed by dynamic compression and then select the output that yields the best compression ratio.</p>
@@ -564,10 +549,6 @@ the acceleration unit provides an auto select best (ASB) feature.</p>
 <p>Regardless of the ASB setting selected, dynamic compression will only be attempted if the session is configured for dynamic compression.</p>
 <table class="longtable docutils align-default" id="id8">
 <caption><span class="caption-text">ASB Settings</span><a class="headerlink" href="#id8" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 52%" />
-<col style="width: 48%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Setting</strong></p></th>
 <th class="head"><p><strong>Description</strong></p></th>
@@ -600,7 +581,7 @@ the acceleration unit provides an auto select best (ASB) feature.</p>
 </div>
 </section>
 <section id="maximum-compression-expansion">
-<span id="id1"></span><h2>Maximum Compression Expansion<a class="headerlink" href="#maximum-compression-expansion" title="Permalink to this heading"></a></h2>
+<span id="id1"></span><h2>Maximum Compression Expansion<a class="headerlink" href="#maximum-compression-expansion" title="Permalink to this headline"></a></h2>
 <p>To facilitate the programming model of the application, Intel<sup>®</sup> added a new set of APIs that return the size of the destination according to the algorithm used.</p>
 <p>These APIs are:</p>
 <ul class="simple">
@@ -616,7 +597,7 @@ The returned <code class="docutils literal notranslate"><span class="pre">output
 </div>
 </section>
 <section id="no-session-api">
-<h2>No Session API<a class="headerlink" href="#no-session-api" title="Permalink to this heading"></a></h2>
+<h2>No Session API<a class="headerlink" href="#no-session-api" title="Permalink to this headline"></a></h2>
 <p>The no session API is a simplification of the existing compression and decompression APIs that does not require the application to create/remove a session. Instead the parameters that would normally be set when creating a session are passed into the compress/decompress APIs via a <code class="docutils literal notranslate"><span class="pre">CpaDcNsSetupData</span></code> structure.
 The no session API is especially useful to simplify existing applications as sessions no longer need to be created/tracked/removed. The no session API can be thought of as a “one shot” API and is intended for use cases where all the data to be compressed or decompressed for the current job is being submitted as one request. In addition to the simpler protocol, the API has a smaller memory footprint.</p>
 <p>The no session API consists of the following API calls:</p>
@@ -634,15 +615,9 @@ The no session API is especially useful to simplify existing applications as ses
 <p>The <code class="docutils literal notranslate"><span class="pre">cpaDcNsGenerateHeader()</span></code> and <code class="docutils literal notranslate"><span class="pre">cpaDcNsGenerateFooter()</span></code> functions are also very similar to the session based equivalents but take a <code class="docutils literal notranslate"><span class="pre">CpaDcNsSetupData</span></code> instead of a <code class="docutils literal notranslate"><span class="pre">CpaDcSessionHandle</span></code>. For <code class="docutils literal notranslate"><span class="pre">cpaDcNsGenerateFooter()</span></code> an additional parameter is required called <code class="docutils literal notranslate"><span class="pre">count</span></code> that contains the overall length of the uncompressed input data. For most cases this will be the <code class="docutils literal notranslate"><span class="pre">consumed</span></code> value from the single submission contained in the <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure but in cases where multiple submissions represent the overall file then it is the application’s responsibility to maintain the overall count of consumed bytes.</p>
 </section>
 <section id="compression-levels">
-<h2>Compression Levels<a class="headerlink" href="#compression-levels" title="Permalink to this heading"></a></h2>
+<h2>Compression Levels<a class="headerlink" href="#compression-levels" title="Permalink to this headline"></a></h2>
 <table class="longtable docutils align-default" id="id9">
 <caption><span class="caption-text">Compression Levels</span><a class="headerlink" href="#id9" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 9%" />
-<col style="width: 13%" />
-<col style="width: 42%" />
-<col style="width: 36%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Level</strong></p></th>
 <th class="head"><p><strong>lvl_enum</strong></p></th>
@@ -703,13 +678,13 @@ The no session API is especially useful to simplify existing applications as ses
 </table>
 </section>
 <section id="compression-status-codes">
-<h2>Compression Status Codes<a class="headerlink" href="#compression-status-codes" title="Permalink to this heading"></a></h2>
+<h2>Compression Status Codes<a class="headerlink" href="#compression-status-codes" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure should be checked for compression status
 codes in the <code class="docutils literal notranslate"><span class="pre">CpaDcReqStatus</span></code> data field. The mapping of the error codes
 to the enums is included in the <code class="docutils literal notranslate"><span class="pre">quickassist/include/dc/cpa_dc.h</span></code> file.</p>
 </section>
 <section id="intel-quickassist-technology-compression-api-errors">
-<h2>Intel<sup>®</sup> QuickAssist Technology Compression API Errors<a class="headerlink" href="#intel-quickassist-technology-compression-api-errors" title="Permalink to this heading"></a></h2>
+<h2>Intel<sup>®</sup> QuickAssist Technology Compression API Errors<a class="headerlink" href="#intel-quickassist-technology-compression-api-errors" title="Permalink to this headline"></a></h2>
 <p>The Intel<sup>®</sup> QuickAssist Technology Compression APIs that send
 requests to the compression hardware can return the error codes shown in
 <a class="reference internal" href="#error-codes"><span class="std std-ref">Compression API Errors</span></a>.</p>
@@ -734,8 +709,8 @@ some cases, the suggested corrective action may need to be to store
 the block uncompressed or to compress the block with software.</p>
 </div>
 <section id="compression-api-errors">
-<span id="error-codes"></span><h3>Compression API Errors<a class="headerlink" href="#compression-api-errors" title="Permalink to this heading"></a></h3>
-<table class="longtable colwidths-given docutils align-default" id="id10">
+<span id="error-codes"></span><h3>Compression API Errors<a class="headerlink" href="#compression-api-errors" title="Permalink to this headline"></a></h3>
+<table class="longtable docutils align-default" id="id10">
 <caption><span class="caption-text">Compression API Errors</span><a class="headerlink" href="#id10" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
@@ -1157,10 +1132,10 @@ distance pair.</p></td>
 </section>
 </section>
 <section id="overflows-errors">
-<span id="overflowerrors"></span><h2>Overflows Errors<a class="headerlink" href="#overflows-errors" title="Permalink to this heading"></a></h2>
+<span id="overflowerrors"></span><h2>Overflows Errors<a class="headerlink" href="#overflows-errors" title="Permalink to this headline"></a></h2>
 <p>This table describes the behavior of the Intel<sup>®</sup> QAT compression service when an overflow occurs during a compression or decompression operation.
 It also describes the expected behavior of an application when an overflow occurs.</p>
-<table class="longtable colwidths-given docutils align-default" id="id11">
+<table class="longtable docutils align-default" id="id11">
 <caption><span class="caption-text">Overflows Errors</span><a class="headerlink" href="#id11" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 14%" />
@@ -1225,12 +1200,12 @@ stateful decompression.</p></td>
 </tbody>
 </table>
 <section id="traditional-api-overflow-exception">
-<h3>Traditional API Overflow Exception<a class="headerlink" href="#traditional-api-overflow-exception" title="Permalink to this heading"></a></h3>
+<h3>Traditional API Overflow Exception<a class="headerlink" href="#traditional-api-overflow-exception" title="Permalink to this headline"></a></h3>
 <p>Stateless sessions support overflow as an exception for traditional API in the compression direction only. This means that the application can rely on the <code class="docutils literal notranslate"><span class="pre">cpaDcRqResults.consumed</span></code> to resubmit from where the overflow occurred. An overflow in the decompression direction must be treated as an error.</p>
 <p>In this case, the application must resubmit the request with a larger buffer as described in the procedure for handling overflow errors. For stateful sessions, overflow is supported only in the decompression direction.</p>
 </section>
 <section id="data-plane-api-overflow-error">
-<h3>Data Plane API Overflow Error<a class="headerlink" href="#data-plane-api-overflow-error" title="Permalink to this heading"></a></h3>
+<h3>Data Plane API Overflow Error<a class="headerlink" href="#data-plane-api-overflow-error" title="Permalink to this headline"></a></h3>
 <p>The Data Plane API considers overflow status as an error. If an overflow occurs with the data plane API, the driver will output the following error message to the user:</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">Unrecoverable</span> <span class="pre">error:</span> <span class="pre">stateless</span> <span class="pre">overflow.</span> <span class="pre">You</span> <span class="pre">may</span> <span class="pre">need</span> <span class="pre">to</span> <span class="pre">increase</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">your</span> <span class="pre">destination</span> <span class="pre">buffer</span></code></p>
@@ -1238,7 +1213,7 @@ stateful decompression.</p></td>
 <p>In this case, <code class="docutils literal notranslate"><span class="pre">cpaDcRqResults.consumed</span></code>, <code class="docutils literal notranslate"><span class="pre">.produced</span></code> and <code class="docutils literal notranslate"><span class="pre">.checksum</span></code> should be ignored. If length and checksum are required, they must be tracked in the application, because they are not maintained in the session.</p>
 </section>
 <section id="handling-overflow-errors">
-<h3>Handling Overflow Errors<a class="headerlink" href="#handling-overflow-errors" title="Permalink to this heading"></a></h3>
+<h3>Handling Overflow Errors<a class="headerlink" href="#handling-overflow-errors" title="Permalink to this headline"></a></h3>
 <p>Resubmit the request with the following data:</p>
 <ul class="simple">
 <li><p>Use the same source buffer.</p></li>
@@ -1247,13 +1222,13 @@ stateful decompression.</p></td>
 </ul>
 </section>
 <section id="compression-overflows-in-a-virtual-environment">
-<h3>Compression Overflows in a Virtual Environment<a class="headerlink" href="#compression-overflows-in-a-virtual-environment" title="Permalink to this heading"></a></h3>
+<h3>Compression Overflows in a Virtual Environment<a class="headerlink" href="#compression-overflows-in-a-virtual-environment" title="Permalink to this headline"></a></h3>
 <p>In a virtual environment, the guest does not download the firmware. Only the host downloads the firmware.
 As a consequence, if the guest runs a newer Intel<sup>®</sup> QAT driver than the host, the guest application might experience false CNV errors.
 The correct course of action would be to update the host with the latest Intel<sup>®</sup> QAT driver.</p>
 </section>
 <section id="avoiding-compression-overflow-exceptions">
-<h3>Avoiding Compression Overflow Exceptions<a class="headerlink" href="#avoiding-compression-overflow-exceptions" title="Permalink to this heading"></a></h3>
+<h3>Avoiding Compression Overflow Exceptions<a class="headerlink" href="#avoiding-compression-overflow-exceptions" title="Permalink to this headline"></a></h3>
 <p>Overflow exceptions happen for 2 reasons:</p>
 <ol class="arabic simple">
 <li><p>The application allocated a destination buffer that was too small to receive the compressed data.</p></li>
@@ -1264,11 +1239,11 @@ A detailed explanation of <em>compressBound</em> APIs is provided in the <a clas
 </section>
 </section>
 <section id="integrity-checksums">
-<h2>Integrity Checksums<a class="headerlink" href="#integrity-checksums" title="Permalink to this heading"></a></h2>
+<h2>Integrity Checksums<a class="headerlink" href="#integrity-checksums" title="Permalink to this headline"></a></h2>
 <p>Integrity checksums are an additional method for payload verification throughout the compression/decompression lifecycle. They may be used to verify corruption has not happened when sending data to and from the Intel<sup>®</sup> QuickAssist HW, or for example the integrity checksums may be stored by an application along with the compressed data and used to detect corruption in the future without needing to decompress the data.</p>
 <p>They should not be confused with the Gzip/Zlib/LZ4 footer checksums of CRC32, Adler32 and Xxhash32 that are calculated over the uncompressed input data only.</p>
 <p>Integrity checksums use an additional structure that is the application’s responsibility to allocate, maintain, and free. The structure is <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> and contains the following fields:</p>
-<table class="longtable colwidths-given docutils align-default" id="id12">
+<table class="longtable docutils align-default" id="id12">
 <caption><span class="caption-text">Integrity Checksums</span><a class="headerlink" href="#id12" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -1329,16 +1304,16 @@ The <code class="docutils literal notranslate"><span class="pre">cpaCrcData</spa
 Integrity checksums are available on the Traditional API including No Session requests, but are not available on the Data Plane API.
 Integrity checksums are calculated across only the current request in QAT 2.0. With QAT 1.8 it is possible to seed the integrity checksums on stateful decompression requests by reusing the same <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> structure on the subsequent request without resetting the contents. For QAT 1.8 stateful decompression requests it is the application’s responsibility to allocate the <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> structure and keep it allocated for the lifetime of the session. Integrity checksums are not available on devices prior to QAT 1.8.</p>
 <section id="verify-hw-integrity-crc-s">
-<h3>Verify HW Integrity CRC’s<a class="headerlink" href="#verify-hw-integrity-crc-s" title="Permalink to this heading"></a></h3>
+<h3>Verify HW Integrity CRC’s<a class="headerlink" href="#verify-hw-integrity-crc-s" title="Permalink to this headline"></a></h3>
 <p>There is an additional feature to integrity checksums that can be enabled to automatically check that no corruption to data buffers has occured during transport to and from the Intel<sup>®</sup> QAT HW. This works by calculating integrity checksums across the source and destination buffers within the Intel<sup>®</sup> QAT API, and comparing the checksums with those generated within the Intel<sup>®</sup> QAT HW. Any discrepencies will result in a status of <code class="docutils literal notranslate"><span class="pre">CPA_DC_INTEG_ERR</span></code> being returned within the <code class="docutils literal notranslate"><span class="pre">cpaDcRqResults</span></code> structure. These additional checksums are calculated in SW using the CPU and have a cost in terms of performance.
 In order to enable the <em>Verify HW Integrity CRC</em> feature on a per request basis the <code class="docutils literal notranslate"><span class="pre">verifyHwIntegrityCrcs</span></code> field contained in the <code class="docutils literal notranslate"><span class="pre">cpaDcOpdata</span></code> structure needs to be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code>. Additionally the <code class="docutils literal notranslate"><span class="pre">integrityCrcCheck</span></code> field must be enabled and a <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> structure allocated and a pointer to it must be assigned to the <code class="docutils literal notranslate"><span class="pre">pCrcData</span></code> field.</p>
 </section>
 </section>
 <section id="data-compression-applications">
-<h2>Data Compression Applications<a class="headerlink" href="#data-compression-applications" title="Permalink to this heading"></a></h2>
+<h2>Data Compression Applications<a class="headerlink" href="#data-compression-applications" title="Permalink to this headline"></a></h2>
 <p>Data compression can be used as part of application delivery networks, data de-duplication, as well as in a number of crypto applications, for example, VPNs, IDS/IPS and so on.</p>
 <section id="compression-for-storage">
-<h3>Compression for Storage<a class="headerlink" href="#compression-for-storage" title="Permalink to this heading"></a></h3>
+<h3>Compression for Storage<a class="headerlink" href="#compression-for-storage" title="Permalink to this headline"></a></h3>
 <p>In a time when the amount of online information is increasing dramatically, but budgets for storing that information remain static,
 compression technology is a powerful tool for improved information management, protection and access.</p>
 <p>Compression appliances can transparently compress data such that clients can keep between two- and five-times more data online and
@@ -1357,7 +1332,7 @@ that allow the CPU to offload the compute-intensive DEFLATE algorithm operations
 encryption, or other value-add operations.</p>
 </section>
 <section id="data-deduplication-and-wan-acceleration">
-<h3>Data Deduplication and WAN Acceleration<a class="headerlink" href="#data-deduplication-and-wan-acceleration" title="Permalink to this heading"></a></h3>
+<h3>Data Deduplication and WAN Acceleration<a class="headerlink" href="#data-deduplication-and-wan-acceleration" title="Permalink to this headline"></a></h3>
 <p>Data Deduplication and WAN Acceleration are coarse-grain data compression techniques centered around the concept of single-instance storage.
 Identical blocks of data (either to be stored on disk or to be transferred across a WAN link) are only stored/moved once, and any further
 occurrences are replaced by a reference to the first instance.</p>

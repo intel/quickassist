@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Congestion Management APIs &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -107,11 +105,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
-          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
-      <li class="breadcrumb-item active">Congestion Management APIs</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
+          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
+      <li>Congestion Management APIs</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -121,7 +119,7 @@
            <div itemprop="articleBody">
              
   <section id="congestion-management-apis">
-<span id="qat-2-0-pg-supported-apis-additional-apis-congestionapis"></span><h1>Congestion Management APIs<a class="headerlink" href="#congestion-management-apis" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-congestionapis"></span><h1>Congestion Management APIs<a class="headerlink" href="#congestion-management-apis" title="Permalink to this headline"></a></h1>
 <p>Congestion Management or Back-pressure mechanism APIs are intended to handle the cases when the device is busy.
 These APIs ensures there is enough space on the ring before submitting a request.</p>
 <p>Applications can query the appropriate ring on each instance and select any instance with enough space without
@@ -132,12 +130,12 @@ creating any <code class="docutils literal notranslate"><span class="pre">OpData
 <p><em>Congestion Management APIs</em> are not currently supported with the QAT2.0 driver.</p>
 </div>
 <section id="icp-sal-symgetinflightrequests">
-<h2>icp_sal_SymGetInflightRequests<a class="headerlink" href="#icp-sal-symgetinflightrequests" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_SymGetInflightRequests<a class="headerlink" href="#icp-sal-symgetinflightrequests" title="Permalink to this headline"></a></h2>
 <p>This function is used to fetch in-flight and max in-flight request counts for the given symmetric instance handle.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_SymGetInflightRequests(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">*maxInflightRequests,</span> <span class="pre">Cpa32U</span> <span class="pre">*numInflightRequests);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -156,7 +154,7 @@ creating any <code class="docutils literal notranslate"><span class="pre">OpData
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_SymGetInflightRequests</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 70%" />
@@ -175,12 +173,12 @@ creating any <code class="docutils literal notranslate"><span class="pre">OpData
 </table>
 </section>
 <section id="icp-sal-asymgetinflightrequests">
-<h2>icp_sal_AsymGetInflightRequests<a class="headerlink" href="#icp-sal-asymgetinflightrequests" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_AsymGetInflightRequests<a class="headerlink" href="#icp-sal-asymgetinflightrequests" title="Permalink to this headline"></a></h2>
 <p>This function is used to fetch in-flight and max in-flight request counts for the given asymmetric instance handle.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_AsymGetInflightRequests(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">*maxInflightRequests,</span> <span class="pre">Cpa32U</span> <span class="pre">*numInflightRequests);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -199,7 +197,7 @@ creating any <code class="docutils literal notranslate"><span class="pre">OpData
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_AsymGetInflightRequests</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 70%" />
@@ -218,12 +216,12 @@ creating any <code class="docutils literal notranslate"><span class="pre">OpData
 </table>
 </section>
 <section id="icp-sal-dp-symgetinflightrequests">
-<h2>icp_sal_dp_SymGetInflightRequests<a class="headerlink" href="#icp-sal-dp-symgetinflightrequests" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_dp_SymGetInflightRequests<a class="headerlink" href="#icp-sal-dp-symgetinflightrequests" title="Permalink to this headline"></a></h2>
 <p>This data plane function is used to fetch in-flight and max in-flight request counts for the given symmetric instance handle.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_dp_SymGetInflightRequests(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">*maxInflightRequests,</span> <span class="pre">Cpa32U</span> <span class="pre">*numInflightRequests);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -242,7 +240,7 @@ creating any <code class="docutils literal notranslate"><span class="pre">OpData
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_dp_SymGetInflightRequests</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 70%" />

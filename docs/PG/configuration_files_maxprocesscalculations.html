@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maximum Number of Process Calculations &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -100,10 +98,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="configuration_files_index.html">Configuration Files</a></li>
-      <li class="breadcrumb-item active">Maximum Number of Process Calculations</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
+      <li>Maximum Number of Process Calculations</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -113,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="maximum-number-of-process-calculations">
-<span id="qat-2-0-pg-configuration-files-max-numofprocesses-calculation"></span><h1>Maximum Number of Process Calculations<a class="headerlink" href="#maximum-number-of-process-calculations" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-configuration-files-max-numofprocesses-calculation"></span><h1>Maximum Number of Process Calculations<a class="headerlink" href="#maximum-number-of-process-calculations" title="Permalink to this headline"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">NumProcesses</span></code> parameter is the number of user space processes per service within the [xxxx] section domain with access to this Intel<sup>®</sup> QAT Endpoint.</p>
 <p>The value to which this parameter can be set is determined by a number of factors including the number of cryptography instances and/or data
 compression instances in the process section along with <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> and potentially <code class="docutils literal notranslate"><span class="pre">ServicesProfile</span></code>. The total number of processes, per service,
@@ -123,7 +121,7 @@ created by the driver is given by the expression (e.g., for cryptography):</p>
 </div></blockquote>
 <p>The maximum number of processes that can be supported is dependant upon the underlying hardware.</p>
 <section id="increasing-the-maximum-number-of-processes-instances">
-<span id="increasing-max-numofprocesses"></span><h2>Increasing the Maximum Number of Processes/Instances<a class="headerlink" href="#increasing-the-maximum-number-of-processes-instances" title="Permalink to this heading"></a></h2>
+<span id="increasing-max-numofprocesses"></span><h2>Increasing the Maximum Number of Processes/Instances<a class="headerlink" href="#increasing-the-maximum-number-of-processes-instances" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -141,12 +139,6 @@ the services needed, the number of instances can be increased.</p>
 </div>
 <span id="services-enabled-definitions"></span><table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Configuration Variations</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 18%" />
-<col style="width: 12%" />
-<col style="width: 11%" />
-<col style="width: 58%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>ServicesEnabled</strong></p></th>
 <th class="head"><p><strong>QAT 1.7x</strong></p></th>
@@ -193,7 +185,7 @@ the services needed, the number of instances can be increased.</p>
 </tbody>
 </table>
 <section id="invalid-configurations">
-<h3>Invalid Configurations<a class="headerlink" href="#invalid-configurations" title="Permalink to this heading"></a></h3>
+<h3>Invalid Configurations<a class="headerlink" href="#invalid-configurations" title="Permalink to this headline"></a></h3>
 <p>If maximum number of processes is exceeded, the acceleration software will fail to load. The error message will be similiar to:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service restart qat_dev0</span>
 </pre></div>
@@ -214,7 +206,7 @@ QAT Error: Failed to load config data to device
 </div>
 </section>
 <section id="configuring-instances-for-virtual-functions">
-<h3>Configuring Instances for Virtual Functions<a class="headerlink" href="#configuring-instances-for-virtual-functions" title="Permalink to this heading"></a></h3>
+<h3>Configuring Instances for Virtual Functions<a class="headerlink" href="#configuring-instances-for-virtual-functions" title="Permalink to this headline"></a></h3>
 <p>To configure the number of instances for a virtual function:</p>
 <ol class="arabic simple">
 <li><p><strong>Install</strong> the driver package on the host with SR-IOV enabled.</p></li>
@@ -235,10 +227,6 @@ in <a class="reference internal" href="#increasing-max-numofprocesses"><span cla
 </div>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Configuring Physical Functions and Virtual Functions</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Configured PF Service</strong></p></th>
 <th class="head"><p><strong>Available VF Services</strong></p></th>

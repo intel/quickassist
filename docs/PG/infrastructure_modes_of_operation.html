@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Modes of Operation &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -104,10 +102,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
-      <li class="breadcrumb-item active">Modes of Operation</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
+      <li>Modes of Operation</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -117,11 +115,11 @@
            <div itemprop="articleBody">
              
   <section id="modes-of-operation">
-<span id="qat-2-0-pg-infrastructure-modes-operation"></span><h1>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-infrastructure-modes-operation"></span><h1>Modes of Operation<a class="headerlink" href="#modes-of-operation" title="Permalink to this headline"></a></h1>
 <section id="calling-semantics">
-<h2>Calling Semantics<a class="headerlink" href="#calling-semantics" title="Permalink to this heading"></a></h2>
+<h2>Calling Semantics<a class="headerlink" href="#calling-semantics" title="Permalink to this headline"></a></h2>
 <section id="asynchronous-polled">
-<h3>Asynchronous (Polled)<a class="headerlink" href="#asynchronous-polled" title="Permalink to this heading"></a></h3>
+<h3>Asynchronous (Polled)<a class="headerlink" href="#asynchronous-polled" title="Permalink to this headline"></a></h3>
 <p>Hardware “request/response” interface is inherently asynchronous (non-blocking).</p>
 <ul class="simple">
 <li><p>Calling function returns once request submitted.</p></li>
@@ -132,7 +130,7 @@
 </figure>
 </section>
 <section id="asynchronous-interrupts">
-<h3>Asynchronous (Interrupts)<a class="headerlink" href="#asynchronous-interrupts" title="Permalink to this heading"></a></h3>
+<h3>Asynchronous (Interrupts)<a class="headerlink" href="#asynchronous-interrupts" title="Permalink to this headline"></a></h3>
 <p>Hardware “request/response” interface is inherently asynchronous (non-blocking).</p>
 <ul class="simple">
 <li><p>Calling function returns once request submitted.</p></li>
@@ -143,7 +141,7 @@
 </figure>
 </section>
 <section id="synchronous">
-<h3>Synchronous<a class="headerlink" href="#synchronous" title="Permalink to this heading"></a></h3>
+<h3>Synchronous<a class="headerlink" href="#synchronous" title="Permalink to this headline"></a></h3>
 <p>Software interface is traditionally synchronous (blocking).</p>
 <ul class="simple">
 <li><p>Calling function blocks until response available.</p></li>
@@ -154,8 +152,8 @@
 </figure>
 </section>
 <section id="pros-and-cons">
-<h3>Pros And Cons<a class="headerlink" href="#pros-and-cons" title="Permalink to this heading"></a></h3>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<h3>Pros And Cons<a class="headerlink" href="#pros-and-cons" title="Permalink to this headline"></a></h3>
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Pros and cons of modes of operation</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
