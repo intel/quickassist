@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Configuration and Tuning &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,15 +16,13 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Intel® QuickAssist Technology (QAT) QATzip Library" href="qatzip.html" />
+    <link rel="next" title="Running in a Virtual Machine (VM)" href="running_in_vm.html" />
     <link rel="prev" title="Sample Code" href="sample_code.html" /> 
 </head>
 
@@ -74,6 +72,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#custom-configuration">Custom Configuration</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
@@ -97,9 +96,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
-      <li class="breadcrumb-item active">Configuration and Tuning</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">QATlib User’s Guide</a> &raquo;</li>
+      <li>Configuration and Tuning</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -109,7 +108,7 @@
            <div itemprop="articleBody">
              
   <section id="configuration-and-tuning">
-<span id="qat-2-0-qatlib-userguide-configuration"></span><h1>Configuration and Tuning<a class="headerlink" href="#configuration-and-tuning" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-qatlib-userguide-configuration"></span><h1>Configuration and Tuning<a class="headerlink" href="#configuration-and-tuning" title="Permalink to this headline"></a></h1>
 <p>There are parameters which can be tweaked to optimize for an
 application’s workload which might work in two modes:</p>
 <ul class="simple">
@@ -117,14 +116,15 @@ application’s workload which might work in two modes:</p>
 <li><p><a class="reference internal" href="#qat-2-0-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a> (without the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service).</p></li>
 </ul>
 <section id="managed-mode">
-<span id="qat-2-0-qatlib-managed-mode"></span><h2>Managed Mode<a class="headerlink" href="#managed-mode" title="Permalink to this heading"></a></h2>
+<span id="qat-2-0-qatlib-managed-mode"></span><h2>Managed Mode<a class="headerlink" href="#managed-mode" title="Permalink to this headline"></a></h2>
 <p>In <em>Managed Mode</em>, <em>qatmgr</em> manages the allocation of the Virtual Function (VF) resources to
 each process on process startup.</p>
 <p>The following parameters can be set in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code>.</p>
 <section id="policy">
-<h3>Policy<a class="headerlink" href="#policy" title="Permalink to this heading"></a></h3>
-<p>Indicates how many VFs will be assigned to each process.</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<h3>Policy<a class="headerlink" href="#policy" title="Permalink to this headline"></a></h3>
+<p>Indicates how many VFs will be assigned to each process. The maximum value allowed for POLICY is 256.
+In practice this value must not exceed number of QAT PFs * 16.</p>
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Policy Settings</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -149,10 +149,11 @@ each process.</p></td>
 </table>
 </section>
 <section id="services-enabled">
-<h3>Services Enabled<a class="headerlink" href="#services-enabled" title="Permalink to this heading"></a></h3>
+<h3>Services Enabled<a class="headerlink" href="#services-enabled" title="Permalink to this headline"></a></h3>
 <p>Tells the kernel driver which services to enable on each Physical Function (PF). All VFs on
-a PF enable the same services.</p>
-<table class="longtable colwidths-given docutils align-default" id="id2">
+a PF enable the same services. There is a maximum of two services that can be enabled
+on each PF.</p>
+<table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Services Enabled Settings</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -222,7 +223,7 @@ setting when chaining is needed.</p>
 <p>All other combinations of services are currently not supported.</p>
 </div>
 <section id="performance-considerations">
-<h4>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this heading"></a></h4>
+<h4>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h4>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The following is applicable to QAT2.0 devices only.</p>
@@ -241,7 +242,7 @@ setting when chaining is needed.</p>
 </section>
 </section>
 <section id="example-configurations">
-<h3>Example Configurations<a class="headerlink" href="#example-configurations" title="Permalink to this heading"></a></h3>
+<h3>Example Configurations<a class="headerlink" href="#example-configurations" title="Permalink to this headline"></a></h3>
 <p>The following examples are based on a one-socket Intel<sup>®</sup> QAT 4xxx platform
 with 4 PFs, each PF having 16 VFs.</p>
 <ul class="simple">
@@ -254,7 +255,7 @@ with 4 PFs, each PF having 16 VFs.</p>
 In a multi-threaded process, typically at least one <em>instance</em> is needed per thread.</p>
 </div>
 <section id="flexibility">
-<h4>Flexibility<a class="headerlink" href="#flexibility" title="Permalink to this heading"></a></h4>
+<h4>Flexibility<a class="headerlink" href="#flexibility" title="Permalink to this headline"></a></h4>
 <p>With the default configuration, neither the <em>Policy</em> or the <em>Services Enabled</em> parameter is set.</p>
 <p>Each process will allocate <em>one</em> VF, from each PF, providing a total of <em>four</em> VFs.</p>
 <p>This enables <em>two</em> <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> VFs, which provides four sym instances and four asym instances
@@ -263,7 +264,7 @@ and <em>two</em> <code class="docutils literal notranslate"><span class="pre">dc
 <p>A system with <em>N</em> sockets will have 8 x N processes in total.</p>
 </section>
 <section id="scalability-and-flexibility">
-<h4>Scalability and Flexibility<a class="headerlink" href="#scalability-and-flexibility" title="Permalink to this heading"></a></h4>
+<h4>Scalability and Flexibility<a class="headerlink" href="#scalability-and-flexibility" title="Permalink to this headline"></a></h4>
 <p>To support a process that requires access to both <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> and <code class="docutils literal notranslate"><span class="pre">dc</span></code> services, the <em>Policy</em> parameter is set.
 The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
 <blockquote>
@@ -277,7 +278,7 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 <p>A system with <em>N</em> sockets will have 32 x N processes in total.</p>
 </section>
 <section id="crypto-only-scalability">
-<h4>Crypto-Only Scalability<a class="headerlink" href="#crypto-only-scalability" title="Permalink to this heading"></a></h4>
+<h4>Crypto-Only Scalability<a class="headerlink" href="#crypto-only-scalability" title="Permalink to this headline"></a></h4>
 <p>To enable the <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
 The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
 <blockquote>
@@ -292,7 +293,7 @@ and two asym instances.</p>
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
 <section id="symmetric-only-scalability">
-<h4>Symmetric-Only Scalability<a class="headerlink" href="#symmetric-only-scalability" title="Permalink to this heading"></a></h4>
+<h4>Symmetric-Only Scalability<a class="headerlink" href="#symmetric-only-scalability" title="Permalink to this headline"></a></h4>
 <p>To enable the <code class="docutils literal notranslate"><span class="pre">sym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
 The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
 <blockquote>
@@ -306,7 +307,7 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
 <section id="asymmetric-only-scalability">
-<h4>Asymmetric-Only Scalability<a class="headerlink" href="#asymmetric-only-scalability" title="Permalink to this heading"></a></h4>
+<h4>Asymmetric-Only Scalability<a class="headerlink" href="#asymmetric-only-scalability" title="Permalink to this headline"></a></h4>
 <p>To enable the <code class="docutils literal notranslate"><span class="pre">asym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
 The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
 <blockquote>
@@ -320,7 +321,7 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
 <section id="compression-only-scalability">
-<h4>Compression-Only Scalability<a class="headerlink" href="#compression-only-scalability" title="Permalink to this heading"></a></h4>
+<h4>Compression-Only Scalability<a class="headerlink" href="#compression-only-scalability" title="Permalink to this headline"></a></h4>
 <p>To enable the <code class="docutils literal notranslate"><span class="pre">dc</span></code> service both the <em>Policy</em> and the <em>Services Enabled</em> parameter are set.
 The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
 <blockquote>
@@ -335,7 +336,7 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
 <section id="compression-chaining-scalability">
-<h4>Compression chaining scalability<a class="headerlink" href="#compression-chaining-scalability" title="Permalink to this heading"></a></h4>
+<h4>Compression chaining scalability<a class="headerlink" href="#compression-chaining-scalability" title="Permalink to this headline"></a></h4>
 <p>To enable the <code class="docutils literal notranslate"><span class="pre">dcc</span></code> service both the <em>Policy</em> and the <em>Services Enabled</em> parameter are set.
 The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
 <blockquote>
@@ -352,7 +353,7 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 </section>
 </section>
 <section id="standalone-mode">
-<span id="qat-2-0-qatlib-standalone-mode"></span><h2>Standalone Mode<a class="headerlink" href="#standalone-mode" title="Permalink to this heading"></a></h2>
+<span id="qat-2-0-qatlib-standalone-mode"></span><h2>Standalone Mode<a class="headerlink" href="#standalone-mode" title="Permalink to this headline"></a></h2>
 <p>In <em>Standalone Mode</em>, there is no <code class="docutils literal notranslate"><span class="pre">qat</span></code> service running.</p>
 <p>This is the preferred way to run on containers where a subset of VFs
 are explicitly passed through and no <em>qatmgr</em> managed resource manager is needed.</p>
@@ -372,44 +373,44 @@ or later and applies to all PFs on the platform.</p>
 </div>
 </section>
 <section id="display-current-configuration">
-<h2>Display Current Configuration<a class="headerlink" href="#display-current-configuration" title="Permalink to this heading"></a></h2>
+<h2>Display Current Configuration<a class="headerlink" href="#display-current-configuration" title="Permalink to this headline"></a></h2>
 <p>The <a class="reference download internal" download="" href="../_downloads/182f441aa51fb5d6fd149e3718a6afb9/qatlistconfig.sh"><code class="xref download docutils literal notranslate"><span class="pre">script</span></code></a> below can be used to view the PF/VF service configuration.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 
-<span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%-13s | %-5s | %-12s | %-12s | %-10s\n&quot;</span><span class="w">  </span><span class="s2">&quot;VFIO GROUP&quot;</span><span class="w"> </span><span class="s2">&quot;NODE&quot;</span><span class="w">   </span><span class="se">\</span>
-<span class="s2">&quot;PF BDF&quot;</span><span class="w"> </span><span class="s2">&quot;VF BDF&quot;</span><span class="w"> </span><span class="s2">&quot;SERVICES&quot;</span>
-<span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;--------------------------------------------------------------&quot;</span>
+<span class="nb">printf</span> <span class="s2">&quot;%-13s | %-5s | %-12s | %-12s | %-10s\n&quot;</span>  <span class="s2">&quot;VFIO GROUP&quot;</span> <span class="s2">&quot;NODE&quot;</span>   <span class="se">\</span>
+<span class="s2">&quot;PF BDF&quot;</span> <span class="s2">&quot;VF BDF&quot;</span> <span class="s2">&quot;SERVICES&quot;</span>
+<span class="nb">echo</span> <span class="s2">&quot;--------------------------------------------------------------&quot;</span>
 
-<span class="k">for</span><span class="w"> </span>vfio_group<span class="w"> </span><span class="k">in</span><span class="w"> </span>/dev/vfio/*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$vfio_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/dev/vfio/vfio&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="k">continue</span>
-<span class="w">    </span><span class="k">fi</span>
+<span class="k">for</span> vfio_group <span class="k">in</span> /dev/vfio/*<span class="p">;</span> <span class="k">do</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="nv">$vfio_group</span> <span class="o">=</span> <span class="s2">&quot;/dev/vfio/vfio&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">continue</span>
+    <span class="k">fi</span>
 
-<span class="w">    </span><span class="nv">group</span><span class="o">=</span><span class="si">${</span><span class="nv">vfio_group</span><span class="p">##*/</span><span class="si">}</span>
-<span class="w">    </span><span class="c1"># assume one bdf per iommu group</span>
-<span class="w">    </span><span class="nv">bdf</span><span class="o">=</span><span class="k">$(</span>ls<span class="w"> </span>/sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="k">)</span>
-<span class="w">    </span><span class="nv">vendor</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/vendor<span class="k">)</span>
-<span class="w">    </span><span class="nv">node</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/numa_node<span class="k">)</span>
-<span class="w">    </span><span class="nv">did</span><span class="o">=</span><span class="k">$(</span>cat<span class="w"> </span>/sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/device<span class="k">)</span>
+    <span class="nv">group</span><span class="o">=</span><span class="si">${</span><span class="nv">vfio_group</span><span class="p">##*/</span><span class="si">}</span>
+    <span class="c1"># assume one bdf per iommu group</span>
+    <span class="nv">bdf</span><span class="o">=</span><span class="k">$(</span>ls /sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="k">)</span>
+    <span class="nv">vendor</span><span class="o">=</span><span class="k">$(</span>cat /sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/vendor<span class="k">)</span>
+    <span class="nv">node</span><span class="o">=</span><span class="k">$(</span>cat /sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/numa_node<span class="k">)</span>
+    <span class="nv">did</span><span class="o">=</span><span class="k">$(</span>cat /sys/kernel/iommu_groups/<span class="nv">$group</span>/devices/<span class="nv">$bdf</span>/device<span class="k">)</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$vendor</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x8086&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="k">continue</span>
-<span class="w">    </span><span class="k">fi</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$vendor</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;0x8086&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">continue</span>
+    <span class="k">fi</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4941&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4943&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
-<span class="w">        </span><span class="k">continue</span>
-<span class="w">    </span><span class="k">fi</span>
+    <span class="k">if</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;0x4941&quot;</span> <span class="o">]</span> <span class="o">&amp;&amp;</span> <span class="o">[</span> <span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span> !<span class="o">=</span> <span class="s2">&quot;0x4943&quot;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+        <span class="k">continue</span>
+    <span class="k">fi</span>
 
-<span class="w">    </span><span class="nv">regex</span><span class="o">=</span><span class="s1">&#39;([a-z0-9]+):([a-z0-9]+):.*&#39;</span>
-<span class="w">    </span><span class="o">[[</span><span class="w"> </span><span class="nv">$bdf</span><span class="w"> </span><span class="o">=</span>~<span class="w"> </span><span class="nv">$regex</span><span class="w"> </span><span class="o">]]</span>
-<span class="w">    </span><span class="nv">pf_domain</span><span class="o">=</span><span class="si">${</span><span class="nv">BASH_REMATCH</span><span class="p">[1]</span><span class="si">}</span>
-<span class="w">    </span><span class="nv">pf_bus</span><span class="o">=</span><span class="si">${</span><span class="nv">BASH_REMATCH</span><span class="p">[2]</span><span class="si">}</span>
-<span class="w">    </span><span class="nv">pf_bdf</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$pf_domain</span><span class="s2">:</span><span class="nv">$pf_bus</span><span class="s2">:00.0&quot;</span>
+    <span class="nv">regex</span><span class="o">=</span><span class="s1">&#39;([a-z0-9]+):([a-z0-9]+):.*&#39;</span>
+    <span class="o">[[</span> <span class="nv">$bdf</span> <span class="o">=</span>~ <span class="nv">$regex</span> <span class="o">]]</span>
+    <span class="nv">pf_domain</span><span class="o">=</span><span class="si">${</span><span class="nv">BASH_REMATCH</span><span class="p">[1]</span><span class="si">}</span>
+    <span class="nv">pf_bus</span><span class="o">=</span><span class="si">${</span><span class="nv">BASH_REMATCH</span><span class="p">[2]</span><span class="si">}</span>
+    <span class="nv">pf_bdf</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$pf_domain</span><span class="s2">:</span><span class="nv">$pf_bus</span><span class="s2">:00.0&quot;</span>
 
-<span class="w">    </span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;%-15s %-7s %-14s %-14s %-10s\n&quot;</span><span class="w">  </span><span class="s2">&quot;</span><span class="nv">$vfio_group</span><span class="s2">&quot;</span><span class="w">  </span><span class="s2">&quot;</span><span class="nv">$node</span><span class="s2">&quot;</span><span class="w">    </span><span class="se">\</span>
-<span class="w">    </span><span class="s2">&quot;</span><span class="nv">$pf_bdf</span><span class="s2">&quot;</span><span class="w">   </span><span class="s2">&quot;</span><span class="nv">$bdf</span><span class="s2">&quot;</span><span class="w">                                                 </span><span class="se">\</span>
-<span class="w">    </span><span class="s2">&quot;</span><span class="k">$(</span>cat<span class="w"> </span>/sys/bus/pci/devices/<span class="nv">$pf_bdf</span>/qat/cfg_services<span class="k">)</span><span class="s2">&quot;</span>
+    <span class="nb">printf</span> <span class="s2">&quot;%-15s %-7s %-14s %-14s %-10s\n&quot;</span>  <span class="s2">&quot;</span><span class="nv">$vfio_group</span><span class="s2">&quot;</span>  <span class="s2">&quot;</span><span class="nv">$node</span><span class="s2">&quot;</span>    <span class="se">\</span>
+    <span class="s2">&quot;</span><span class="nv">$pf_bdf</span><span class="s2">&quot;</span>   <span class="s2">&quot;</span><span class="nv">$bdf</span><span class="s2">&quot;</span>                                                 <span class="se">\</span>
+    <span class="s2">&quot;</span><span class="k">$(</span>cat /sys/bus/pci/devices/<span class="nv">$pf_bdf</span>/qat/cfg_services<span class="k">)</span><span class="s2">&quot;</span>
 
 <span class="k">done</span>
 </pre></div>
@@ -417,7 +418,7 @@ or later and applies to all PFs on the platform.</p>
 </div></blockquote>
 </section>
 <section id="custom-configuration">
-<h2>Custom Configuration<a class="headerlink" href="#custom-configuration" title="Permalink to this heading"></a></h2>
+<h2>Custom Configuration<a class="headerlink" href="#custom-configuration" title="Permalink to this headline"></a></h2>
 <p>The configuration of services can also be set per PF.</p>
 <p>Instructions are provided in the following link: <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-qat">https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-qat</a>.</p>
 <div class="admonition warning">
@@ -435,7 +436,7 @@ or later and applies to all PFs on the platform.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="sample_code.html" class="btn btn-neutral float-left" title="Sample Code" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="qatzip.html" class="btn btn-neutral float-right" title="Intel® QuickAssist Technology (QAT) QATzip Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="running_in_vm.html" class="btn btn-neutral float-right" title="Running in a Virtual Machine (VM)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

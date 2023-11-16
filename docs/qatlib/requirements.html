@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>System Requirements &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -79,6 +77,7 @@
 <li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
@@ -102,9 +101,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
-      <li class="breadcrumb-item active">System Requirements</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">QATlib User’s Guide</a> &raquo;</li>
+      <li>System Requirements</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -114,7 +113,7 @@
            <div itemprop="articleBody">
              
   <section id="system-requirements">
-<span id="qat2-0-qatlib-userguide-requirements"></span><h1>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this heading"></a></h1>
+<span id="qat2-0-qatlib-userguide-requirements"></span><h1>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline"></a></h1>
 <p>There are some prerequisites when using QATlib. When running on newer Linux distributions many of these are taken care of.</p>
 <blockquote>
 <div><ul class="simple">
@@ -127,13 +126,13 @@
 </div></blockquote>
 <p>The following sections provide the details to verify all prerequisites listed above.</p>
 <section id="bios-configuration">
-<h2>BIOS Configuration<a class="headerlink" href="#bios-configuration" title="Permalink to this heading"></a></h2>
+<h2>BIOS Configuration<a class="headerlink" href="#bios-configuration" title="Permalink to this headline"></a></h2>
 <p>To properly use the QATlib library, the <em>Intel VT-d</em> and <em>SR-IOV</em> parameters must be enabled in the platform BIOS.
 Consult your platform guide for details on enabling these parameters. If using an Intel Best Known Configuration
 (BKC) these parameters are usually enabled by default.</p>
 <p>The status of both parameters can be verified in the BIOS settings. Although the specific location depends on the
 BIOS vendor navigation menu, these parameters are usually found in the following locations:</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Intel VT-d and SR-IOV parameters location in BIOS</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 50%" />
@@ -175,11 +174,11 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </table>
 </section>
 <section id="kernel-firmware-requirements">
-<h2>Kernel/Firmware Requirements<a class="headerlink" href="#kernel-firmware-requirements" title="Permalink to this heading"></a></h2>
+<h2>Kernel/Firmware Requirements<a class="headerlink" href="#kernel-firmware-requirements" title="Permalink to this headline"></a></h2>
 <p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">Kernel/Firmware Requirements</span></a> for details on required kernel/firmware version.</p>
 </section>
 <section id="supported-devices">
-<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this heading"></a></h2>
+<h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline"></a></h2>
 <p>Verify the platform contains a supported 4xxx Intel<sup>®</sup> Communications device by running the below command:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -d 8086:4940 &amp;&amp; lspci -d 8086:4941 &amp;&amp; lspci -d 8086:4942 &amp;&amp; lspci -d 8086:4943) | wc -l` supported devices found.</span>
@@ -194,21 +193,30 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </div></blockquote>
 </section>
 <section id="firmware">
-<h2>Firmware<a class="headerlink" href="#firmware" title="Permalink to this heading"></a></h2>
+<h2>Firmware<a class="headerlink" href="#firmware" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This step is required when running on host system. It does not apply when running in a virtual machine as the firmware is loaded on the host.</p>
 </div>
 <p>Verify the supported firmware is available in the <code class="docutils literal notranslate"><span class="pre">/lib/firmware</span></code> directory by running the below commands:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ls /lib/firmware/qat_4xxx.bin</span>
-<span class="go">ls /lib/firmware/qat_4xxx_mmp.bin</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ls /lib/firmware/qat_4xxx.bin*</span>
+<span class="go">ls /lib/firmware/qat_4xxx_mmp.bin*</span>
+</pre></div>
+</div>
+<p>The output will look like one of the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/lib/firmware/qat_4xxx.bin</span>
+<span class="go">/lib/firmware/qat_4xxx_mmp.bin</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/lib/firmware/qat_4xxx.bin.xz</span>
+<span class="go">/lib/firmware/qat_4xxx_mmp.bin.xz</span>
 </pre></div>
 </div>
 </div></blockquote>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>If these files are <strong>not</strong> present, perform the following steps:</p>
+<p>If the firmware images are <strong>not</strong> present, perform the following steps:</p>
 <ol class="arabic">
 <li><p><strong>Download</strong> the firmware files.</p>
 <blockquote>
@@ -232,10 +240,10 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </div>
 </section>
 <section id="kernel-drivers">
-<h2>Kernel Drivers<a class="headerlink" href="#kernel-drivers" title="Permalink to this heading"></a></h2>
+<h2>Kernel Drivers<a class="headerlink" href="#kernel-drivers" title="Permalink to this headline"></a></h2>
 <p>Verify the appropriate kernel drivers are loaded in the host and/or the guest system(s).</p>
 <section id="host-system-kernel-drivers">
-<h3>Host System Kernel Drivers<a class="headerlink" href="#host-system-kernel-drivers" title="Permalink to this heading"></a></h3>
+<h3>Host System Kernel Drivers<a class="headerlink" href="#host-system-kernel-drivers" title="Permalink to this headline"></a></h3>
 <p>When running on the <em>host</em> system, use the following command to verify the kernel drivers are present:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lsmod | grep qat</span>
@@ -278,22 +286,15 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </div></blockquote>
 </div>
 </div></blockquote>
-<p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">4xxx</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Physical Function (PF) by running the following command:</p>
+<p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">4xxx</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Physical Function (PF) by running one of the following commands, depending on your device id:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(lspci -vvv  -d 8086:4940 || lspci -vvv -d 8086:4942)</span> <span class="go">| grep &quot;Kernel driver&quot;</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4940 || lspci -vvv -d 8086:4942) | grep &quot;Kernel driver&quot;`</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>You should see an output similar to the following:</p>
 <blockquote>
-<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Kernel driver in use: 4xxx
-Kernel driver in use: 4xxx
-Kernel driver in use: 4xxx
-Kernel driver in use: 4xxx
-Kernel driver in use: 4xxx
-Kernel driver in use: 4xxx
-Kernel driver in use: 4xxx
-Kernel driver in use: 4xxx
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx
 </pre></div>
 </div>
 <div class="admonition important">
@@ -305,7 +306,7 @@ Try upgrading the kernel version to 5.19+.</p>
 </div></blockquote>
 </section>
 <section id="guest-system-kernel-drivers">
-<h3>Guest System Kernel Drivers<a class="headerlink" href="#guest-system-kernel-drivers" title="Permalink to this heading"></a></h3>
+<h3>Guest System Kernel Drivers<a class="headerlink" href="#guest-system-kernel-drivers" title="Permalink to this headline"></a></h3>
 <p>When running on the <em>guest</em> system, use the following command to verify the kernel drivers are present:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lsmod | grep vfio_pci</span>
@@ -320,7 +321,7 @@ Try upgrading the kernel version to 5.19+.</p>
 </div></blockquote>
 <p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">vfio_pci</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Virtual Function (VF) by running the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(lspci -vvv  -d 8086:4941 || lspci -vvv -d 8086:4943)</span> <span class="go">| grep &quot;Kernel driver&quot;</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4941 || lspci -vvv -d 8086:4943) | grep &quot;Kernel driver&quot;</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -336,7 +337,7 @@ Kernel driver in use: vfio_pci
 </section>
 </section>
 <section id="linux-boot-parameters">
-<h2>Linux Boot Parameters<a class="headerlink" href="#linux-boot-parameters" title="Permalink to this heading"></a></h2>
+<h2>Linux Boot Parameters<a class="headerlink" href="#linux-boot-parameters" title="Permalink to this headline"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">intel_iommu</span></code> parameter <strong>must</strong> be enabled. Verify this setting is enabled by running the following command:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/cmdline | grep intel_iommu=on</span>
@@ -345,7 +346,7 @@ Kernel driver in use: vfio_pci
 </div></blockquote>
 <p>If <code class="docutils literal notranslate"><span class="pre">intel_iommu</span></code> is <strong>not</strong> enabled, the following steps can be used to turn it on.</p>
 <section id="instructions-for-debian-based-distros">
-<h3>Instructions for Debian Based Distros<a class="headerlink" href="#instructions-for-debian-based-distros" title="Permalink to this heading"></a></h3>
+<h3>Instructions for Debian Based Distros<a class="headerlink" href="#instructions-for-debian-based-distros" title="Permalink to this headline"></a></h3>
 <p>If using a Debian based distribution, run the following commands:</p>
 <blockquote>
 <div><ol class="arabic">
@@ -375,7 +376,7 @@ Kernel driver in use: vfio_pci
 </div></blockquote>
 </section>
 <section id="instructions-for-rhel-centos-fedora">
-<h3>Instructions for RHEL/CentOS/Fedora<a class="headerlink" href="#instructions-for-rhel-centos-fedora" title="Permalink to this heading"></a></h3>
+<h3>Instructions for RHEL/CentOS/Fedora<a class="headerlink" href="#instructions-for-rhel-centos-fedora" title="Permalink to this headline"></a></h3>
 <p>If using RHEL, CentOS or Fedora, run the following commands:</p>
 <blockquote>
 <div><ol class="arabic">

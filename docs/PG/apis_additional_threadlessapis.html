@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Thread-Less APIs &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -107,11 +105,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
-          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
-      <li class="breadcrumb-item active">Thread-Less APIs</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
+          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
+      <li>Thread-Less APIs</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -121,11 +119,11 @@
            <div itemprop="articleBody">
              
   <section id="thread-less-apis">
-<span id="qat-2-0-pg-supported-apis-additional-apis-threadlessapis"></span><h1>Thread-Less APIs<a class="headerlink" href="#thread-less-apis" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-threadlessapis"></span><h1>Thread-Less APIs<a class="headerlink" href="#thread-less-apis" title="Permalink to this headline"></a></h1>
 <p>These APIs can be used when the QAT acceleration driver has been configured not to spawn threads.</p>
 <p>These APIs can be used in the user space application.</p>
 <section id="icp-sal-poll-device-events">
-<h2>icp_sal_poll_device_events<a class="headerlink" href="#icp-sal-poll-device-events" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_poll_device_events<a class="headerlink" href="#icp-sal-poll-device-events" title="Permalink to this headline"></a></h2>
 <p>This reads any pending device events from <code class="docutils literal notranslate"><span class="pre">icp_dev%d_csr</span></code> and forwards to interested subsystems.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_poll_device_events(void);</span></code></p>
@@ -133,7 +131,7 @@
 <p>None</p>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_poll_device_events</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -149,7 +147,7 @@
 </table>
 </section>
 <section id="icp-sal-find-new-devices">
-<h2>icp_sal_find_new_devices<a class="headerlink" href="#icp-sal-find-new-devices" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_find_new_devices<a class="headerlink" href="#icp-sal-find-new-devices" title="Permalink to this headline"></a></h2>
 <p>This tries to connect to any available devices that the kernel driver has brought up and initialized for use in user space process.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_find_new_devices(void);</span></code></p>
@@ -157,7 +155,7 @@
 <p>None</p>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_find_new_devices</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />

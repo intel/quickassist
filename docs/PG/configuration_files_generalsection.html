@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>General Section &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -104,10 +102,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="configuration_files_index.html">Configuration Files</a></li>
-      <li class="breadcrumb-item active">General Section</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="configuration_files_index.html">Configuration Files</a> &raquo;</li>
+      <li>General Section</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -117,14 +115,14 @@
            <div itemprop="articleBody">
              
   <section id="general-section">
-<span id="qat-2-0-pg-configuration-files-general-section"></span><h1>General Section<a class="headerlink" href="#general-section" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-configuration-files-general-section"></span><h1>General Section<a class="headerlink" href="#general-section" title="Permalink to this headline"></a></h1>
 <p>The general section of the configuration file contains general parameters and statistics parameters.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><em>Default</em> denotes the value in the configuration file when shipped or the value used if not specified in the configuration file.</p>
 </div>
 <p>This table describes the other parameters that can be included in the General section.</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">General Section Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 35%" />
@@ -222,7 +220,7 @@ data compression [dc]).</p>
 </tbody>
 </table>
 <section id="servicesenabled">
-<h2>ServicesEnabled<a class="headerlink" href="#servicesenabled" title="Permalink to this heading"></a></h2>
+<h2>ServicesEnabled<a class="headerlink" href="#servicesenabled" title="Permalink to this headline"></a></h2>
 <p>Additional details on the <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> parameter:</p>
 <ul class="simple">
 <li><p>This parameter is valid for all QAT devices.</p></li>
@@ -231,7 +229,7 @@ data compression [dc]).</p>
 <li><p>Only two of the three services (<code class="docutils literal notranslate"><span class="pre">asym</span></code>, <code class="docutils literal notranslate"><span class="pre">sym</span></code>, and <code class="docutils literal notranslate"><span class="pre">dc</span></code>) may be enabled on an individual QAT2.0 Endpoints.</p></li>
 </ul>
 <section id="performance-considerations">
-<h3>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this heading"></a></h3>
+<h3>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The following is applicable to QAT2.0 devices only.</p>
@@ -250,7 +248,7 @@ data compression [dc]).</p>
 </section>
 </section>
 <section id="servicesprofile">
-<span id="services-profile"></span><h2>ServicesProfile<a class="headerlink" href="#servicesprofile" title="Permalink to this heading"></a></h2>
+<span id="services-profile"></span><h2>ServicesProfile<a class="headerlink" href="#servicesprofile" title="Permalink to this headline"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This parameter is valid for QAT1.7x devices.</p>
@@ -262,16 +260,9 @@ the compression and decompression are available, along with service chaining, bu
 <p>When a <code class="docutils literal notranslate"><span class="pre">ServicesProfiles</span></code> parameter value is used that supports rate limiting is defined, internal resources are reallocated to administrating Rate Limiting/Device Utilization. This reduces performance by roughly 5%.</p>
 </div>
 <section id="general-default-configuration-parameters">
-<h3>General Default Configuration Parameters<a class="headerlink" href="#general-default-configuration-parameters" title="Permalink to this heading"></a></h3>
+<h3>General Default Configuration Parameters<a class="headerlink" href="#general-default-configuration-parameters" title="Permalink to this headline"></a></h3>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">General Default Configuration Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 35%" />
-<col style="width: 15%" />
-<col style="width: 14%" />
-<col style="width: 21%" />
-<col style="width: 15%" />
-</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Service</strong></p></th>
 <th class="head"><p><strong>DEFAULT</strong></p></th>
@@ -368,7 +359,7 @@ the compression and decompression are available, along with service chaining, bu
 </section>
 </section>
 <section id="concurrent-requests">
-<h2>Concurrent Requests<a class="headerlink" href="#concurrent-requests" title="Permalink to this heading"></a></h2>
+<h2>Concurrent Requests<a class="headerlink" href="#concurrent-requests" title="Permalink to this headline"></a></h2>
 <p>Additional details on the concurrent request parameters:</p>
 <ul class="simple">
 <li><p>This parameter is valid for all QAT devices.</p></li>
@@ -379,7 +370,7 @@ the compression and decompression are available, along with service chaining, bu
 <p>This implementation guarantees that the request ring will never be full and avoids the need for a Memory Mapped IO (MMIO) read. This implementation maximizes throughput performance.</p>
 </section>
 <section id="power-management-parameters">
-<h2>Power Management Parameters<a class="headerlink" href="#power-management-parameters" title="Permalink to this heading"></a></h2>
+<h2>Power Management Parameters<a class="headerlink" href="#power-management-parameters" title="Permalink to this headline"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This parameter is valid for QAT2.0 devices.</p>
@@ -394,7 +385,7 @@ the device.)</p>
 <p>Refer to the <a class="reference internal" href="infrastructure_power_management.html#qat-2-0-pg-infrastructure-power-management"><span class="std std-ref">Power Management</span></a> section for additional details.</p>
 </section>
 <section id="shared-virtual-memory-svm-parameters">
-<span id="qat-2-0-pg-svm-configuration-parameters"></span><h2>Shared Virtual Memory (SVM) Parameters<a class="headerlink" href="#shared-virtual-memory-svm-parameters" title="Permalink to this heading"></a></h2>
+<span id="qat-2-0-pg-svm-configuration-parameters"></span><h2>Shared Virtual Memory (SVM) Parameters<a class="headerlink" href="#shared-virtual-memory-svm-parameters" title="Permalink to this headline"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This parameter is valid for QAT2.0 devices.</p>
@@ -402,7 +393,7 @@ the device.)</p>
 <p>SVM configuration parameters are included in the device configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">/etc/4xxx_devX.conf</span></code> where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the 0-based index of
 the device.)</p>
 <section id="svmenabled">
-<h3>SVMEnabled<a class="headerlink" href="#svmenabled" title="Permalink to this heading"></a></h3>
+<h3>SVMEnabled<a class="headerlink" href="#svmenabled" title="Permalink to this headline"></a></h3>
 <p>When this flag is set in the driver configuration, it indicates that the guest virtual address (GVA) to host physical address (HPA)
 translation will use IOMMU hardware based translation table instead of using the software based address translation. With SVMEnabled
 set, it is not required to submit buffers that are physically contiguous.</p>
@@ -414,7 +405,7 @@ set, it is not required to submit buffers that are physically contiguous.</p>
 </ul>
 </section>
 <section id="atenabled">
-<h3>ATEnabled<a class="headerlink" href="#atenabled" title="Permalink to this heading"></a></h3>
+<h3>ATEnabled<a class="headerlink" href="#atenabled" title="Permalink to this headline"></a></h3>
 <p>When this flag is set in the driver configuration, the Address Translation Service (ATS) is enabled. IOMMU and QAT
 have the ability to handle page faults using Page Request Service (PRS) when using dynamic
 virtual memory allocated by systemcall such as <code class="docutils literal notranslate"><span class="pre">malloc</span></code>.</p>

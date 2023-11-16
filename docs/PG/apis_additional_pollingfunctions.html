@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Polling Functions &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -107,11 +105,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
-          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
-      <li class="breadcrumb-item active">Polling Functions</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
+          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
+      <li>Polling Functions</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -121,17 +119,17 @@
            <div itemprop="articleBody">
              
   <section id="polling-functions">
-<span id="qat-2-0-pg-supported-apis-additional-apis-pollingfunctions"></span><h1>Polling Functions<a class="headerlink" href="#polling-functions" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-pollingfunctions"></span><h1>Polling Functions<a class="headerlink" href="#polling-functions" title="Permalink to this headline"></a></h1>
 <p>These functions are intended for retrieving response messages that are on the rings and dispatching the associated callbacks.</p>
 <p>All polling function definitions are located in: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_poll.h</span></code></p>
 <section id="icp-sal-pollbank">
-<h2>icp_sal_pollBank<a class="headerlink" href="#icp-sal-pollbank" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_pollBank<a class="headerlink" href="#icp-sal-pollbank" title="Permalink to this headline"></a></h2>
 <p>Poll all rings on the given Intel<sup>®</sup> QAT Endpoint on a given bank number to determine if any of the rings contain response
 messages from the Intel<sup>®</sup> QAT Endpoint. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter is per ring.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_pollBank(Cpa32U</span> <span class="pre">accelId,</span> <span class="pre">Cpa32U</span> <span class="pre">bank_number,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -152,7 +150,7 @@ response messages.  The valid range is 0 to 31.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_pollBank</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -171,13 +169,13 @@ response messages.  The valid range is 0 to 31.</p></td>
 </table>
 </section>
 <section id="icp-sal-pollallbanks">
-<h2>icp_sal_pollAllBanks<a class="headerlink" href="#icp-sal-pollallbanks" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_pollAllBanks<a class="headerlink" href="#icp-sal-pollallbanks" title="Permalink to this headline"></a></h2>
 <p>Poll all banks on the given Intel<sup>®</sup> QAT Endpoint to determine if any of the rings contain response messages from the
 Intel<sup>®</sup> QAT Endpoint. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter is per ring.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_pollAllBanks(Cpa32U</span> <span class="pre">accelId,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -194,7 +192,7 @@ valid range is 0 to number of Intel<sup>®</sup> QAT Endpoints in the system.</p
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_pollAllBanks</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -213,7 +211,7 @@ valid range is 0 to number of Intel<sup>®</sup> QAT Endpoints in the system.</p
 </table>
 </section>
 <section id="icp-sal-cypollinstance">
-<h2>icp_sal_CyPollInstance<a class="headerlink" href="#icp-sal-cypollinstance" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_CyPollInstance<a class="headerlink" href="#icp-sal-cypollinstance" title="Permalink to this headline"></a></h2>
 <p>Poll the Cryptographic (CY) logical instance associated with the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to retrieve requests that are on
 response rings associated with that instance and dispatch the associated callbacks. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter
 is the maximum number of responses to process in one call.</p>
@@ -224,7 +222,7 @@ is the maximum number of responses to process in one call.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_CyPollInstance(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -241,7 +239,7 @@ When set to 0, all responses are retrieved.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPollInstance</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -264,7 +262,7 @@ When set to 0, all responses are retrieved.</p></td>
 </div>
 </section>
 <section id="icp-sal-dcpollinstance">
-<h2>icp_sal_DcPollInstance<a class="headerlink" href="#icp-sal-dcpollinstance" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_DcPollInstance<a class="headerlink" href="#icp-sal-dcpollinstance" title="Permalink to this headline"></a></h2>
 <p>Poll the Data Compression (DC) logical instance associated with the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to retrieve requests that are on
 response rings associated with that instance and dispatch the associated callbacks. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter
 is the maximum number of responses to process in one call.</p>
@@ -275,7 +273,7 @@ is the maximum number of responses to process in one call.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_DcPollInstance(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -292,7 +290,7 @@ When set to 0, all responses are retrieved.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_DcPollInstance</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -315,7 +313,7 @@ When set to 0, all responses are retrieved.</p></td>
 </div>
 </section>
 <section id="icp-sal-cypolldpinstance">
-<h2>icp_sal_CyPollDpInstance<a class="headerlink" href="#icp-sal-cypolldpinstance" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_CyPollDpInstance<a class="headerlink" href="#icp-sal-cypolldpinstance" title="Permalink to this headline"></a></h2>
 <p>Poll a particular Cryptographic (CY) data path logical instance associated with the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to retrieve requests
 that are on the high-priority symmetric ring associated with that instance and dispatch the associated callbacks.
 The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter is the maximum number of responses to process in one call.</p>
@@ -326,7 +324,7 @@ The <code class="docutils literal notranslate"><span class="pre">response_quota<
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_CyPollDpInstance(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -343,7 +341,7 @@ When set to 0, all responses are retrieved.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPollDpInstance</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -362,7 +360,7 @@ When set to 0, all responses are retrieved.</p></td>
 </table>
 </section>
 <section id="icp-sal-dcpolldpinstance">
-<h2>icp_sal_DcPollDpInstance<a class="headerlink" href="#icp-sal-dcpolldpinstance" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_DcPollDpInstance<a class="headerlink" href="#icp-sal-dcpolldpinstance" title="Permalink to this headline"></a></h2>
 <p>Poll a particular Data Compression (DC) data path logical instance associated with the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to retrieve
 requests that are on the response ring associated with that instance. The <code class="docutils literal notranslate"><span class="pre">response_quota</span></code> input parameter is the
 maximum number of responses to process in one call.</p>
@@ -373,7 +371,7 @@ maximum number of responses to process in one call.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_DcPollDpInstance(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">Cpa32U</span> <span class="pre">response_quota);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -390,7 +388,7 @@ When set to 0, all responses are retrieved.</p></td>
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_DcPollDpInstance</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />

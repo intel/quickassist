@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Power Management &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -106,10 +104,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
-      <li class="breadcrumb-item active">Power Management</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
+      <li>Power Management</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -119,7 +117,7 @@
            <div itemprop="articleBody">
              
   <section id="power-management">
-<span id="qat-2-0-pg-infrastructure-power-management"></span><h1>Power Management<a class="headerlink" href="#power-management" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-infrastructure-power-management"></span><h1>Power Management<a class="headerlink" href="#power-management" title="Permalink to this headline"></a></h1>
 <p>The goal of power management is to manage and save power consumed by the device in the following states:</p>
 <ul class="simple">
 <li><p>idle =&gt; whenever no request is sent, power state is minimum.</p></li>
@@ -127,11 +125,11 @@
 <li><p>active =&gt; whenever there are requests to be handled, power state is max.</p></li>
 </ul>
 <section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h2>
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
 <p>Power management configuration is included in the device configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">/etc/4xxx_devX.conf</span></code> where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the 0-based index of
 the device.)</p>
 <p>Power management configurations parameters include:</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Power Management Configuration</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
@@ -159,7 +157,7 @@ supporting.</p>
 </table>
 </section>
 <section id="usage">
-<span id="pm-status"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
+<span id="pm-status"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline"></a></h2>
 <p>The information of power management status are exposed in debug sysfs file <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_4xxx_AAAA:BB:CC.D/pm_status</span></code> where:</p>
 <blockquote>
 <div><ul class="simple">
@@ -175,7 +173,7 @@ supporting.</p>
 <p>The QAT device is statically configured, so any change in device configuration file will only be effective after the device is rebooted.</p>
 </section>
 <section id="considerations">
-<h2>Considerations<a class="headerlink" href="#considerations" title="Permalink to this heading"></a></h2>
+<h2>Considerations<a class="headerlink" href="#considerations" title="Permalink to this headline"></a></h2>
 <p>While power management is an important feature in reducing power consumed, it can affect the internal components’ clocks of QAT devices,
 and that can affect example telemetry work. It also can impact latency numbers.</p>
 <div class="admonition important">

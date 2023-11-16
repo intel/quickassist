@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sample Applications &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
-        <script src="../../_static/sphinx_highlight.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -99,9 +97,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Getting Started Guide</a></li>
-      <li class="breadcrumb-item active">Sample Applications</li>
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Getting Started Guide</a> &raquo;</li>
+      <li>Sample Applications</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -111,14 +109,14 @@
            <div itemprop="articleBody">
              
   <section id="sample-applications">
-<span id="qat-2-0-gsg-sampleapplications"></span><h1>Sample Applications<a class="headerlink" href="#sample-applications" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-gsg-sampleapplications"></span><h1>Sample Applications<a class="headerlink" href="#sample-applications" title="Permalink to this headline"></a></h1>
 <p>The software package contains a performance sample as well as functional sample applications. This section describes the steps
 required to build and execute these applications.</p>
 <section id="performance-sample-code">
-<h2>Performance Sample Code<a class="headerlink" href="#performance-sample-code" title="Permalink to this heading"></a></h2>
+<h2>Performance Sample Code<a class="headerlink" href="#performance-sample-code" title="Permalink to this headline"></a></h2>
 <p>The sample application is provided for the user space.</p>
 <section id="compiling-the-performance-sample-code">
-<h3>Compiling the Performance Sample Code<a class="headerlink" href="#compiling-the-performance-sample-code" title="Permalink to this heading"></a></h3>
+<h3>Compiling the Performance Sample Code<a class="headerlink" href="#compiling-the-performance-sample-code" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -147,7 +145,7 @@ required to build and execute these applications.</p>
 user space application.</p>
 </section>
 <section id="default-configuration-files">
-<span id="default-configuration"></span><h3>Default Configuration Files<a class="headerlink" href="#default-configuration-files" title="Permalink to this heading"></a></h3>
+<span id="default-configuration"></span><h3>Default Configuration Files<a class="headerlink" href="#default-configuration-files" title="Permalink to this headline"></a></h3>
 <p>By default, the QAT configuration files enable asymmetric crypto and data compression services. If symmetric crypto is
 desired, the service must be enabled in the QAT configuration file. The QAT configuration files are included in <code class="docutils literal notranslate"><span class="pre">/etc</span></code> folder and are
 named <code class="docutils literal notranslate"><span class="pre">4xxx_dev&lt;x&gt;.conf</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span></code> is the device number.</p>
@@ -160,7 +158,7 @@ named <code class="docutils literal notranslate"><span class="pre">4xxx_dev&lt;x
 </pre></div>
 </div>
 <section id="default-configuration-demo">
-<h4>Default Configuration Demo<a class="headerlink" href="#default-configuration-demo" title="Permalink to this heading"></a></h4>
+<h4>Default Configuration Demo<a class="headerlink" href="#default-configuration-demo" title="Permalink to this headline"></a></h4>
 <p>Here is a demonstration of how to enable the asymmetric crypto service in the default configuration files.</p>
 
     <video width="500" height="300" controls >
@@ -173,7 +171,7 @@ named <code class="docutils literal notranslate"><span class="pre">4xxx_dev&lt;x
 </section>
 </section>
 <section id="loading-the-sample-code-application">
-<h3>Loading the Sample Code Application<a class="headerlink" href="#loading-the-sample-code-application" title="Permalink to this heading"></a></h3>
+<h3>Loading the Sample Code Application<a class="headerlink" href="#loading-the-sample-code-application" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>In <em>user space</em>, before launching the <code class="docutils literal notranslate"><span class="pre">cpa_sample_code</span></code> application, the environmental variable <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> may need to be set to the path where <code class="docutils literal notranslate"><span class="pre">libqat_s.so</span></code> is located. This may be <code class="docutils literal notranslate"><span class="pre">/usr/local/lib</span></code> or <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build</span></code>.</p>
@@ -214,9 +212,9 @@ qat_dev7 - type: 4xxx,  inst_id: 7,  node_id: 1,  bsf: 0000:f7:00.0,  #accel: 1 
 </div>
 </section>
 <section id="sample-code-parameters">
-<span id="qat-2-0-gsg-sample-code-parameters"></span><h3>Sample Code Parameters<a class="headerlink" href="#sample-code-parameters" title="Permalink to this heading"></a></h3>
+<span id="qat-2-0-gsg-sample-code-parameters"></span><h3>Sample Code Parameters<a class="headerlink" href="#sample-code-parameters" title="Permalink to this headline"></a></h3>
 <p>The application allows the run-time parameters listed below:</p>
-<table class="longtable colwidths-given docutils align-default" id="id1">
+<table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Sample Code Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
@@ -289,7 +287,7 @@ Requires <code class="docutils literal notranslate"><span class="pre">NumberCyIn
 </tbody>
 </table>
 <section id="signoflife-test-parameter">
-<span id="qat-2-0-gsg-signoflife-test-parameter"></span><h4>signOfLife Test Parameter<a class="headerlink" href="#signoflife-test-parameter" title="Permalink to this heading"></a></h4>
+<span id="qat-2-0-gsg-signoflife-test-parameter"></span><h4>signOfLife Test Parameter<a class="headerlink" href="#signoflife-test-parameter" title="Permalink to this headline"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">signOfLife</span></code> parameter is used to specify that a subset of the sample tests are executed with smaller iteration counts.
 This provides a quick test to verify the acceleration software and hardware are set up correctly.</p>
 <div class="admonition note">
@@ -298,7 +296,7 @@ This provides a quick test to verify the acceleration software and hardware are 
 </div>
 </section>
 <section id="user-space">
-<h4>User Space<a class="headerlink" href="#user-space" title="Permalink to this heading"></a></h4>
+<h4>User Space<a class="headerlink" href="#user-space" title="Permalink to this headline"></a></h4>
 <p>After building the sample code with the installation script, the user space application is located at <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build</span></code>.</p>
 <p>Then run the following commands:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $ICP_ROOT/build/</span>
@@ -309,7 +307,7 @@ This provides a quick test to verify the acceleration software and hardware are 
 </section>
 </section>
 <section id="test-results">
-<h3>Test Results<a class="headerlink" href="#test-results" title="Permalink to this heading"></a></h3>
+<h3>Test Results<a class="headerlink" href="#test-results" title="Permalink to this headline"></a></h3>
 <p>When running the application, the results are printed to the terminal window in which the application is launched.</p>
 <p>Here is an example of the log messages created during the test:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Algorithm Chaining - AES256-CBC HMAC-SHA512 Number of threads 2
@@ -329,7 +327,7 @@ Packet Size 512
 </div>
 </section>
 <section id="performance-sample-code-demo">
-<h3>Performance Sample Code Demo<a class="headerlink" href="#performance-sample-code-demo" title="Permalink to this heading"></a></h3>
+<h3>Performance Sample Code Demo<a class="headerlink" href="#performance-sample-code-demo" title="Permalink to this headline"></a></h3>
 <p>Here is a demonstration of the performance sample code running.</p>
 
     <video width="500" height="300" controls >
@@ -342,11 +340,11 @@ Packet Size 512
 </section>
 </section>
 <section id="functional-sample-applications">
-<h2>Functional Sample Applications<a class="headerlink" href="#functional-sample-applications" title="Permalink to this heading"></a></h2>
+<h2>Functional Sample Applications<a class="headerlink" href="#functional-sample-applications" title="Permalink to this headline"></a></h2>
 <p>The software package contains sample code that demonstrates how to use the Intel<sup>®</sup> QuickAssist Technology APIs and build the structures required for various use cases.</p>
 <p>For more details, refer to the Intel<sup>®</sup> QuickAssist Technology API Programmer’s Guide.</p>
 <section id="compiling-the-acceleration-functional-sample-code">
-<h3>Compiling the Acceleration Functional Sample Code<a class="headerlink" href="#compiling-the-acceleration-functional-sample-code" title="Permalink to this heading"></a></h3>
+<h3>Compiling the Acceleration Functional Sample Code<a class="headerlink" href="#compiling-the-acceleration-functional-sample-code" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>These instructions assume the software package has been untarred to the <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT</span></code> directory.</p>
@@ -365,7 +363,7 @@ Packet Size 512
 <p>The generated sample applications are located at: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/lookaside/access_layer/src/sample_code/functional/build</span></code></p>
 </section>
 <section id="executing-the-acceleration-functional-sample-code-in-user-space">
-<h3>Executing the Acceleration Functional Sample Code in <em>User Space</em><a class="headerlink" href="#executing-the-acceleration-functional-sample-code-in-user-space" title="Permalink to this heading"></a></h3>
+<h3>Executing the Acceleration Functional Sample Code in <em>User Space</em><a class="headerlink" href="#executing-the-acceleration-functional-sample-code-in-user-space" title="Permalink to this headline"></a></h3>
 <ol class="arabic">
 <li><p>To execute the acceleration functional sample code in user space, <strong>use</strong> a command similar to the following:</p>
 <blockquote>

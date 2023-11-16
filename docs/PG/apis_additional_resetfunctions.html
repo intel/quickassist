@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Reset Device Function &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -107,11 +105,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
-          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
-      <li class="breadcrumb-item active">Reset Device Function</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
+          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
+      <li>Reset Device Function</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -121,17 +119,17 @@
            <div itemprop="articleBody">
              
   <section id="reset-device-function">
-<span id="qat-2-0-pg-supported-apis-additional-apis-resetfunctions"></span><h1>Reset Device Function<a class="headerlink" href="#reset-device-function" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-resetfunctions"></span><h1>Reset Device Function<a class="headerlink" href="#reset-device-function" title="Permalink to this headline"></a></h1>
 <p>This API can only be called in user-space.</p>
 <p>The device can be reset using this API call. This will schedule a reset of the device.
 The device can also be reset using the <code class="docutils literal notranslate"><span class="pre">adf_ctl</span></code> utility, e.g., by calling <code class="docutils literal notranslate"><span class="pre">adf_ctl</span> <span class="pre">qat_dev0</span> <span class="pre">reset</span></code>.</p>
 <section id="icp-sal-reset-device">
-<h2>icp_sal_reset_device<a class="headerlink" href="#icp-sal-reset-device" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_reset_device<a class="headerlink" href="#icp-sal-reset-device" title="Permalink to this headline"></a></h2>
 <p>Resets the device.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_reset_device(Cpa32U</span> <span class="pre">accelid);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -144,7 +142,7 @@ The device can also be reset using the <code class="docutils literal notranslate
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_reset_device</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />

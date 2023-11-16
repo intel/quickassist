@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Heartbeat APIs &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -107,11 +105,11 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
-          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
-          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
-      <li class="breadcrumb-item active">Heartbeat APIs</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
+          <li><a href="apis_index.html">Supported APIs</a> &raquo;</li>
+          <li><a href="apis_additional_apis_index.html">Additional APIs</a> &raquo;</li>
+      <li>Heartbeat APIs</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -121,15 +119,15 @@
            <div itemprop="articleBody">
              
   <section id="heartbeat-apis">
-<span id="qat-2-0-pg-supported-apis-additional-apis-heartbeatapis"></span><h1>Heartbeat APIs<a class="headerlink" href="#heartbeat-apis" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-heartbeatapis"></span><h1>Heartbeat APIs<a class="headerlink" href="#heartbeat-apis" title="Permalink to this headline"></a></h1>
 <p>These APIs check firmware/hardware status for a given device and are used as part of the Heartbeat functionality.</p>
 <section id="icp-sal-check-device">
-<h2>icp_sal_check_device<a class="headerlink" href="#icp-sal-check-device" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_check_device<a class="headerlink" href="#icp-sal-check-device" title="Permalink to this headline"></a></h2>
 <p>This function checks the status of the firmware/hardware for a given device and is used as part of the Heartbeat functionality.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_check_device(Cpa32U</span> <span class="pre">accelID);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -142,7 +140,7 @@
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_check_device</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -158,7 +156,7 @@
 </table>
 </section>
 <section id="icp-sal-check-all-devices">
-<h2>icp_sal_check_all_devices<a class="headerlink" href="#icp-sal-check-all-devices" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_check_all_devices<a class="headerlink" href="#icp-sal-check-all-devices" title="Permalink to this headline"></a></h2>
 <p>This function checks the status of the firmware/hardware for all devices and is used as part of the Heartbeat functionality.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_check_all_devices(void);</span></code></p>
@@ -166,7 +164,7 @@
 <p>None</p>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -182,12 +180,12 @@
 </table>
 </section>
 <section id="icp-sal-heartbeat-simulate-failure">
-<h2>icp_sal_heartbeat_simulate_failure<a class="headerlink" href="#icp-sal-heartbeat-simulate-failure" title="Permalink to this heading"></a></h2>
+<h2>icp_sal_heartbeat_simulate_failure<a class="headerlink" href="#icp-sal-heartbeat-simulate-failure" title="Permalink to this headline"></a></h2>
 <p>This function simulates heartbeat failure for a specific device.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_heartbeat_simulate_failure(Cpa32U</span> <span class="pre">accelID);</span></code></p>
 <p><strong>Parameters</strong></p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -200,7 +198,7 @@
 </table>
 <p><strong>Return Value</strong></p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_heartbeat_simulate_failure</span></code> function returns one of the following codes:</p>
-<table class="colwidths-given docutils align-default">
+<table class="docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />

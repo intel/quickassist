@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Software Design Guidelines &mdash; Intel® QuickAssist Technology  documentation</title>
@@ -16,9 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/sphinx_highlight.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
     <script src="../_static/js/theme.js"></script>
@@ -105,9 +103,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a></li>
-          <li class="breadcrumb-item"><a href="index.html">Performance Optimization Guide</a></li>
-      <li class="breadcrumb-item active">Software Design Guidelines</li>
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">Performance Optimization Guide</a> &raquo;</li>
+      <li>Software Design Guidelines</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -117,7 +115,7 @@
            <div itemprop="articleBody">
              
   <section id="software-design-guidelines">
-<span id="qat-perf-opt-guide-design-guidelines"></span><h1>Software Design Guidelines<a class="headerlink" href="#software-design-guidelines" title="Permalink to this heading"></a></h1>
+<span id="qat-perf-opt-guide-design-guidelines"></span><h1>Software Design Guidelines<a class="headerlink" href="#software-design-guidelines" title="Permalink to this headline"></a></h1>
 <p>This chapter focuses on key design decisions that should be considered,
 to achieve optimal performance, when integrating with the Intel
 QuickAssist Technology software. In many cases the best Intel
@@ -138,7 +136,7 @@ performance numbers are not given in this document since exact
 performance numbers depend on a variety of factors and tend to be
 specific to a given workload, software, and platform configuration.</p>
 <section id="polling-vs-interrupts">
-<span id="qat-perf-opt-guide-polling-vs-interrupts"></span><h2>Polling vs Interrupts<a class="headerlink" href="#polling-vs-interrupts" title="Permalink to this heading"></a></h2>
+<span id="qat-perf-opt-guide-polling-vs-interrupts"></span><h2>Polling vs Interrupts<a class="headerlink" href="#polling-vs-interrupts" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Not all use cases support interrupt mode, and not all software packages support interrupt mode.</p>
@@ -152,7 +150,7 @@ are available in the <a class="reference internal" href="../PG/index.html"><span
 explained below followed by recommendations on selecting a
 configuration.</p>
 <section id="interrupt-mode">
-<h3>Interrupt Mode<a class="headerlink" href="#interrupt-mode" title="Permalink to this heading"></a></h3>
+<h3>Interrupt Mode<a class="headerlink" href="#interrupt-mode" title="Permalink to this headline"></a></h3>
 <p>When operating in interrupt mode, the accelerator will generate an MSI-X
 interrupt when a response is placed on a response ring. Each ring bank
 has a separate MSI-X interrupt which may be steered to a particular CPU
@@ -213,7 +211,7 @@ increased offload cost. Hence it is recommended that interrupts should
 not be used with the user space Intel QuickAssist Technology driver.</p>
 </section>
 <section id="polling-mode">
-<span id="qat-perf-opt-guide-polling-mode"></span><h3>Polling Mode<a class="headerlink" href="#polling-mode" title="Permalink to this heading"></a></h3>
+<span id="qat-perf-opt-guide-polling-mode"></span><h3>Polling Mode<a class="headerlink" href="#polling-mode" title="Permalink to this headline"></a></h3>
 <p>In polled mode, interrupts are fully disabled, and the software
 application must periodically invoke the polling API, provided by the
 Intel QuickAssist Technology driver, to check for and process responses
@@ -249,7 +247,7 @@ throughput is maximized and offload cost is minimized.</p></li>
 </ul>
 </section>
 <section id="recommendations">
-<h3>Recommendations<a class="headerlink" href="#recommendations" title="Permalink to this heading"></a></h3>
+<h3>Recommendations<a class="headerlink" href="#recommendations" title="Permalink to this headline"></a></h3>
 <p>Polling mode tends to be preferred in cases where traffic is steady
 (such as packet processing applications) and can result in a minimal
 offload cost. Epoll mode is preferred for cases where traffic is bursty,
@@ -271,7 +269,7 @@ standard poll mode should out-perform epoll mode.</p></li>
 </section>
 </section>
 <section id="data-plane-api-vs-traditional-api">
-<h2>Data Plane API vs Traditional API<a class="headerlink" href="#data-plane-api-vs-traditional-api" title="Permalink to this heading"></a></h2>
+<h2>Data Plane API vs Traditional API<a class="headerlink" href="#data-plane-api-vs-traditional-api" title="Permalink to this headline"></a></h2>
 <p>The cryptographic and compression services provide two flavors of API,
 known as the <em>Traditional API</em> and the <em>Data Plane API</em>. The traditional API
 provides a full set of functionality including thread safety that allows
@@ -288,7 +286,7 @@ fewer CPU cycles per request compared to the traditional API. For
 example, the cryptographic Data Plane API has an offload cost that is
 lower than the cryptographic traditional API.</p>
 <section id="batch-submission-of-requests-using-the-data-plane-api">
-<h3>Batch Submission of Requests Using the Data Plane API<a class="headerlink" href="#batch-submission-of-requests-using-the-data-plane-api" title="Permalink to this heading"></a></h3>
+<h3>Batch Submission of Requests Using the Data Plane API<a class="headerlink" href="#batch-submission-of-requests-using-the-data-plane-api" title="Permalink to this headline"></a></h3>
 <p>The Data Plane API provides the capability to submit batches of requests
 to the accelerator. The use of the batch mode of operation leads to a
 reduction in the offload cost compared to submitting the requests one at
@@ -306,7 +304,7 @@ possible to reduce offload cost.</p>
 </section>
 </section>
 <section id="synchronous-sync-vs-asynchronous-async">
-<h2>Synchronous (sync) vs Asynchronous (async)<a class="headerlink" href="#synchronous-sync-vs-asynchronous-async" title="Permalink to this heading"></a></h2>
+<h2>Synchronous (sync) vs Asynchronous (async)<a class="headerlink" href="#synchronous-sync-vs-asynchronous-async" title="Permalink to this headline"></a></h2>
 <p>The Intel QuickAssist Technology traditional API supports both
 synchronous and asynchronous modes of operation. The Intel QuickAssist
 Technology Data Plane API only supports the asynchronous mode of
@@ -328,7 +326,7 @@ leads to an increase in offload cost.</p>
 optimal performance.</p>
 </section>
 <section id="buffer-lists">
-<h2>Buffer Lists<a class="headerlink" href="#buffer-lists" title="Permalink to this heading"></a></h2>
+<h2>Buffer Lists<a class="headerlink" href="#buffer-lists" title="Permalink to this headline"></a></h2>
 <p>The symmetric cryptographic and compression Intel QuickAssist
 Technology APIs use buffer lists for passing data to/from the hardware
 accelerator. The number and size of elements in a buffer list has an
@@ -358,7 +356,7 @@ minimum.</p></li>
 </ul>
 </section>
 <section id="maximum-number-of-concurrent-requests">
-<h2>Maximum Number of Concurrent Requests<a class="headerlink" href="#maximum-number-of-concurrent-requests" title="Permalink to this heading"></a></h2>
+<h2>Maximum Number of Concurrent Requests<a class="headerlink" href="#maximum-number-of-concurrent-requests" title="Permalink to this headline"></a></h2>
 <p>The depth of the hardware rings used by the Intel QuickAssist
 Technology driver for submitting requests to, and retrieving responses
 from, the accelerator hardware can be controlled via the configuration
@@ -386,7 +384,7 @@ configured should reflect the peak request rate that the accelerator
 must handle.</p>
 </section>
 <section id="symmetric-crypto-partial-operations">
-<h2>Symmetric Crypto Partial Operations<a class="headerlink" href="#symmetric-crypto-partial-operations" title="Permalink to this heading"></a></h2>
+<h2>Symmetric Crypto Partial Operations<a class="headerlink" href="#symmetric-crypto-partial-operations" title="Permalink to this headline"></a></h2>
 <p>The symmetric cryptographic Intel QuickAssist Technology API supports
 partial operations for some cryptographic algorithms. This allows a
 single payload to be processed in multiple fragments with each fragment
@@ -408,7 +406,7 @@ the higher level protocol (such as, the use of the RC4 cipher with an
 SSL/TLS protocol stack).</p>
 </section>
 <section id="reusing-sessions">
-<h2>Reusing Sessions<a class="headerlink" href="#reusing-sessions" title="Permalink to this heading"></a></h2>
+<h2>Reusing Sessions<a class="headerlink" href="#reusing-sessions" title="Permalink to this headline"></a></h2>
 <p>The session is the entry point to perform symmetric cryptography with
 the Intel QAT device. Every session has assigned algorithm, state, instance,
 but also allocated memory space.</p>
@@ -423,7 +421,7 @@ method will not dispose buffers and can reduce the CPU cycles
 significantly.</p>
 </section>
 <section id="maximizing-intel-qat-device-utilization">
-<h2>Maximizing Intel QAT Device Utilization<a class="headerlink" href="#maximizing-intel-qat-device-utilization" title="Permalink to this heading"></a></h2>
+<h2>Maximizing Intel QAT Device Utilization<a class="headerlink" href="#maximizing-intel-qat-device-utilization" title="Permalink to this headline"></a></h2>
 <p>The Intel QAT device utilization and throughput are maximized
 when there are sufficient requests outstanding to occupy the multiple
 internal acceleration engines with the device.</p>
@@ -438,7 +436,7 @@ instance to the appropriate core.</p>
 the available hardware capacity are available in the <a class="reference internal" href="../PG/index.html"><span class="doc">Programmer’s Guide</span></a>.</p>
 </section>
 <section id="best-known-method-bkm-for-avoiding-performance-bottlenecks">
-<h2>Best Known Method (BKM) for Avoiding Performance Bottlenecks<a class="headerlink" href="#best-known-method-bkm-for-avoiding-performance-bottlenecks" title="Permalink to this heading"></a></h2>
+<h2>Best Known Method (BKM) for Avoiding Performance Bottlenecks<a class="headerlink" href="#best-known-method-bkm-for-avoiding-performance-bottlenecks" title="Permalink to this headline"></a></h2>
 <p>For optimal performance, ensure the following:</p>
 <ul class="simple">
 <li><p>All data buffers should be aligned on a 64-byte boundary.</p></li>
@@ -453,7 +451,7 @@ multiple of 64bytes and should be aligned on a 64-byte boundary.</p></li>
 </ul>
 </section>
 <section id="avoid-data-copies-by-using-svm-ats">
-<h2>Avoid Data Copies By Using SVM &amp; ATS<a class="headerlink" href="#avoid-data-copies-by-using-svm-ats" title="Permalink to this heading"></a></h2>
+<h2>Avoid Data Copies By Using SVM &amp; ATS<a class="headerlink" href="#avoid-data-copies-by-using-svm-ats" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This applies only to platforms starting with Intel QAT Gen 4.</p>
@@ -470,7 +468,7 @@ IOMMU to fetch the virtual to physical address translations when
 accessing memory and this can result in increased latency and lower
 throughput.</p>
 <section id="avoid-page-faults-when-using-svm">
-<h3>Avoid Page Faults When Using SVM<a class="headerlink" href="#avoid-page-faults-when-using-svm" title="Permalink to this heading"></a></h3>
+<h3>Avoid Page Faults When Using SVM<a class="headerlink" href="#avoid-page-faults-when-using-svm" title="Permalink to this headline"></a></h3>
 <p>When using SVM to avoid data copies, there is a chance that after a
 request, that refers to a virtually addressed buffer, has been submitted
 to the Intel QAT device, the operating system may swap out the
