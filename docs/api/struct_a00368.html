@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct _CpaCyDsaStats64 &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct _CpaCyDsaVerifyOpData" href="struct_a00360.html" />
+    <link rel="prev" title="Struct _CpaCyDsaStats" href="struct_a00364.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api_reference.html">API Reference Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="unabridged_api.html">API Description</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="unabridged_api.html#classes-and-structs">Classes and Structs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="struct_a00084.html">Struct _CpaBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00096.html">Struct _CpaCrcControlData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00140.html">Struct _CpaCrcData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00196.html">Struct _CpaCyCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00320.html">Struct _CpaCyDhPhase1KeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00324.html">Struct _CpaCyDhPhase2SecretKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00328.html">Struct _CpaCyDhStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00332.html">Struct _CpaCyDhStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00340.html">Struct _CpaCyDsaGParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00336.html">Struct _CpaCyDsaPParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00348.html">Struct _CpaCyDsaRSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00356.html">Struct _CpaCyDsaRSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00352.html">Struct _CpaCyDsaSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00364.html">Struct _CpaCyDsaStats</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Struct _CpaCyDsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00360.html">Struct _CpaCyDsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00344.html">Struct _CpaCyDsaYParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00380.html">Struct _CpaCyEcCurve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00372.html">Struct _CpaCyEcCurveParametersWeierstrass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00408.html">Struct _CpaCyEcdsaSignROpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00416.html">Struct _CpaCyEcdsaSignRSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00412.html">Struct _CpaCyEcdsaSignSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00424.html">Struct _CpaCyEcdsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00420.html">Struct _CpaCyEcdsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00388.html">Struct _CpaCyEcGenericPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00392.html">Struct _CpaCyEcGenericPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00396.html">Struct _CpaCyEcMontEdwdsPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00384.html">Struct _CpaCyEcPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00400.html">Struct _CpaCyEcPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00404.html">Struct _CpaCyEcStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00256.html">Struct _CpaCyKeyGenHKDFExpandLabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00260.html">Struct _CpaCyKeyGenHKDFOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00268.html">Struct _CpaCyKeyGenMgfOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00272.html">Struct _CpaCyKeyGenMgfOpDataExt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00252.html">Struct _CpaCyKeyGenSslOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00276.html">Struct _CpaCyKeyGenStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00280.html">Struct _CpaCyKeyGenStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00264.html">Struct _CpaCyKeyGenTlsOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00428.html">Struct _CpaCyLnModExpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00432.html">Struct _CpaCyLnModInvOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00436.html">Struct _CpaCyLnStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00440.html">Struct _CpaCyLnStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00448.html">Struct _CpaCyPrimeStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00452.html">Struct _CpaCyPrimeStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00444.html">Struct _CpaCyPrimeTestOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00308.html">Struct _CpaCyRsaDecryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00304.html">Struct _CpaCyRsaEncryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00300.html">Struct _CpaCyRsaKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00296.html">Struct _CpaCyRsaPrivateKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00288.html">Struct _CpaCyRsaPrivateKeyRep1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00292.html">Struct _CpaCyRsaPrivateKeyRep2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00284.html">Struct _CpaCyRsaPublicKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00312.html">Struct _CpaCyRsaStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00316.html">Struct _CpaCyRsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00244.html">Struct _CpaCySymCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00204.html">Struct _CpaCySymCipherSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00200.html">Struct _CpaCySymDeriveOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00248.html">Struct _CpaCySymDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00212.html">Struct _CpaCySymHashAuthModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00208.html">Struct _CpaCySymHashNestedModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00216.html">Struct _CpaCySymHashSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00228.html">Struct _CpaCySymOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00232.html">Struct _CpaCySymOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00220.html">Struct _CpaCySymSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00224.html">Struct _CpaCySymSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00236.html">Struct _CpaCySymStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00240.html">Struct _CpaCySymStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00168.html">Struct _CpaDcChainOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00192.html">Struct _CpaDcChainOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00184.html">Struct _CpaDcChainRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00188.html">Struct _CpaDcChainRqVResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00160.html">Struct _CpaDcChainSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00176.html">Struct _CpaDcChainSubOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00156.html">Struct _CpaDcDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00112.html">Struct _CpaDcInstanceCapabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00148.html">Struct _CpaDcOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00152.html">Struct _CpaDcOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00128.html">Struct _CpaDcRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00116.html">Struct _CpaDcSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00120.html">Struct _CpaDcSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00144.html">Struct _CpaDcSkipData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00124.html">Struct _CpaDcStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00080.html">Struct _CpaFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00100.html">Struct _CpaInstanceInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00108.html">Struct _CpaInstanceInfo2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00132.html">Struct _CpaIntegrityCrc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00136.html">Struct _CpaIntegrityCrc64b</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00092.html">Struct _CpaPhysBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00088.html">Struct _CpaPhysFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00104.html">Struct _CpaPhysicalInstanceId</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00484.html">Struct CpaCyKptEcdsaSignRSOpData_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00460.html">Struct CpaCyKptLoadKey_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00480.html">Struct CpaCyKptRsaDecryptOpData_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00476.html">Struct CpaCyKptRsaPrivateKey_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00468.html">Struct CpaCyKptRsaPrivateKeyRep1_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00472.html">Struct CpaCyKptRsaPrivateKeyRep2_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00464.html">Struct CpaCyKptUnwrapContext_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00456.html">Struct CpaCyKptValidationKey_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#unions">Unions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#defines">Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api_reference.html">API Reference Manual</a> &raquo;</li>
+          <li><a href="unabridged_api.html">API Description</a> &raquo;</li>
+      <li>Struct _CpaCyDsaStats64</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-cpacydsastats64">
+<span id="exhale-struct-a00368"></span><h1>Struct _CpaCyDsaStats64<a class="headerlink" href="#struct-cpacydsastats64" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_api_lac_cpa_cy_dsa.h.html#file-api-lac-cpa-cy-dsa-h"><span class="std std-ref">File cpa_cy_dsa.h</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv416_CpaCyDsaStats64">
+<span id="_CPPv316_CpaCyDsaStats64"></span><span id="_CPPv216_CpaCyDsaStats64"></span><span id="_CpaCyDsaStats64"></span><span class="target" id="a00368"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_CpaCyDsaStats64</span></span></span><a class="headerlink" href="#_CPPv416_CpaCyDsaStats64" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Cryptographic DSA Statistics (64-bit version). <dl class="simple">
+<dt><strong>Description:</strong></dt><dd><p>This structure contains 64-bit version of the statistics on the Cryptographic DSA operations. Statistics are set to zero when the component is initialized, and are collected per instance. </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6423numDsaPParamGenRequestsE">
+<span id="_CPPv3N16_CpaCyDsaStats6423numDsaPParamGenRequestsE"></span><span id="_CPPv2N16_CpaCyDsaStats6423numDsaPParamGenRequestsE"></span><span id="_CpaCyDsaStats64::numDsaPParamGenRequests__Cpa64U"></span><span class="target" id="a00368_1af19f6770fcb182796da804d553fe76ac"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaPParamGenRequests</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6423numDsaPParamGenRequestsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of successful DSA P parameter generation requests. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6428numDsaPParamGenRequestErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6428numDsaPParamGenRequestErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6428numDsaPParamGenRequestErrorsE"></span><span id="_CpaCyDsaStats64::numDsaPParamGenRequestErrors__Cpa64U"></span><span class="target" id="a00368_1ad6cc1a7e0360321a5aed3c47dd644a2b"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaPParamGenRequestErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6428numDsaPParamGenRequestErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA P parameter generation requests that had an error and could not be processed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6424numDsaPParamGenCompletedE">
+<span id="_CPPv3N16_CpaCyDsaStats6424numDsaPParamGenCompletedE"></span><span id="_CPPv2N16_CpaCyDsaStats6424numDsaPParamGenCompletedE"></span><span id="_CpaCyDsaStats64::numDsaPParamGenCompleted__Cpa64U"></span><span class="target" id="a00368_1a96eb0207ec39dc21ee82f755be447440"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaPParamGenCompleted</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6424numDsaPParamGenCompletedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA P parameter generation operations that completed successfully. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6430numDsaPParamGenCompletedErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6430numDsaPParamGenCompletedErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6430numDsaPParamGenCompletedErrorsE"></span><span id="_CpaCyDsaStats64::numDsaPParamGenCompletedErrors__Cpa64U"></span><span class="target" id="a00368_1a298379ee96d156e9f26e0092b66b8fbc"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaPParamGenCompletedErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6430numDsaPParamGenCompletedErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA P parameter generation operations that could not be completed successfully due to errors. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6423numDsaGParamGenRequestsE">
+<span id="_CPPv3N16_CpaCyDsaStats6423numDsaGParamGenRequestsE"></span><span id="_CPPv2N16_CpaCyDsaStats6423numDsaGParamGenRequestsE"></span><span id="_CpaCyDsaStats64::numDsaGParamGenRequests__Cpa64U"></span><span class="target" id="a00368_1a60f3997fb85eb5df3b346dac6b87e722"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaGParamGenRequests</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6423numDsaGParamGenRequestsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of successful DSA G parameter generation requests. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6428numDsaGParamGenRequestErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6428numDsaGParamGenRequestErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6428numDsaGParamGenRequestErrorsE"></span><span id="_CpaCyDsaStats64::numDsaGParamGenRequestErrors__Cpa64U"></span><span class="target" id="a00368_1aaf5b27d88305e30e608bf86f3316bdcf"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaGParamGenRequestErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6428numDsaGParamGenRequestErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA G parameter generation requests that had an error and could not be processed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6424numDsaGParamGenCompletedE">
+<span id="_CPPv3N16_CpaCyDsaStats6424numDsaGParamGenCompletedE"></span><span id="_CPPv2N16_CpaCyDsaStats6424numDsaGParamGenCompletedE"></span><span id="_CpaCyDsaStats64::numDsaGParamGenCompleted__Cpa64U"></span><span class="target" id="a00368_1aa926815974c9f8b8b634bde28b47387c"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaGParamGenCompleted</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6424numDsaGParamGenCompletedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA G parameter generation operations that completed successfully. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6430numDsaGParamGenCompletedErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6430numDsaGParamGenCompletedErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6430numDsaGParamGenCompletedErrorsE"></span><span id="_CpaCyDsaStats64::numDsaGParamGenCompletedErrors__Cpa64U"></span><span class="target" id="a00368_1a026c682a6d371e9c4f50322e82cca393"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaGParamGenCompletedErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6430numDsaGParamGenCompletedErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA G parameter generation operations that could not be completed successfully due to errors. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6423numDsaYParamGenRequestsE">
+<span id="_CPPv3N16_CpaCyDsaStats6423numDsaYParamGenRequestsE"></span><span id="_CPPv2N16_CpaCyDsaStats6423numDsaYParamGenRequestsE"></span><span id="_CpaCyDsaStats64::numDsaYParamGenRequests__Cpa64U"></span><span class="target" id="a00368_1a0153514be5e51fa7274366c5377e6eef"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaYParamGenRequests</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6423numDsaYParamGenRequestsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of successful DSA Y parameter generation requests. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6428numDsaYParamGenRequestErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6428numDsaYParamGenRequestErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6428numDsaYParamGenRequestErrorsE"></span><span id="_CpaCyDsaStats64::numDsaYParamGenRequestErrors__Cpa64U"></span><span class="target" id="a00368_1a5ca0096e5f70eadf6ef90ed72605cb19"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaYParamGenRequestErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6428numDsaYParamGenRequestErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA Y parameter generation requests that had an error and could not be processed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6424numDsaYParamGenCompletedE">
+<span id="_CPPv3N16_CpaCyDsaStats6424numDsaYParamGenCompletedE"></span><span id="_CPPv2N16_CpaCyDsaStats6424numDsaYParamGenCompletedE"></span><span id="_CpaCyDsaStats64::numDsaYParamGenCompleted__Cpa64U"></span><span class="target" id="a00368_1a9826230751020974c72013938efe00f2"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaYParamGenCompleted</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6424numDsaYParamGenCompletedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA Y parameter generation operations that completed successfully. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6430numDsaYParamGenCompletedErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6430numDsaYParamGenCompletedErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6430numDsaYParamGenCompletedErrorsE"></span><span id="_CpaCyDsaStats64::numDsaYParamGenCompletedErrors__Cpa64U"></span><span class="target" id="a00368_1a2dee22ca848ea47be99fdd3e9d23f28a"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaYParamGenCompletedErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6430numDsaYParamGenCompletedErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA Y parameter generation operations that could not be completed successfully due to errors. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6419numDsaRSignRequestsE">
+<span id="_CPPv3N16_CpaCyDsaStats6419numDsaRSignRequestsE"></span><span id="_CPPv2N16_CpaCyDsaStats6419numDsaRSignRequestsE"></span><span id="_CpaCyDsaStats64::numDsaRSignRequests__Cpa64U"></span><span class="target" id="a00368_1ad742e5162a7a3b4886819f293fb73898"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaRSignRequests</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6419numDsaRSignRequestsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of successful DSA R sign generation requests. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6424numDsaRSignRequestErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6424numDsaRSignRequestErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6424numDsaRSignRequestErrorsE"></span><span id="_CpaCyDsaStats64::numDsaRSignRequestErrors__Cpa64U"></span><span class="target" id="a00368_1a277be3ae867e18db0951e3a89f6f34a4"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaRSignRequestErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6424numDsaRSignRequestErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA R sign requests that had an error and could not be processed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6420numDsaRSignCompletedE">
+<span id="_CPPv3N16_CpaCyDsaStats6420numDsaRSignCompletedE"></span><span id="_CPPv2N16_CpaCyDsaStats6420numDsaRSignCompletedE"></span><span id="_CpaCyDsaStats64::numDsaRSignCompleted__Cpa64U"></span><span class="target" id="a00368_1abba497a2f1d21b901347118d04d35f89"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaRSignCompleted</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6420numDsaRSignCompletedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA R sign operations that completed successfully. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6426numDsaRSignCompletedErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6426numDsaRSignCompletedErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6426numDsaRSignCompletedErrorsE"></span><span id="_CpaCyDsaStats64::numDsaRSignCompletedErrors__Cpa64U"></span><span class="target" id="a00368_1a9f15830dfd249beb06a350717fe84643"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaRSignCompletedErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6426numDsaRSignCompletedErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA R sign operations that could not be completed successfully due to errors. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6419numDsaSSignRequestsE">
+<span id="_CPPv3N16_CpaCyDsaStats6419numDsaSSignRequestsE"></span><span id="_CPPv2N16_CpaCyDsaStats6419numDsaSSignRequestsE"></span><span id="_CpaCyDsaStats64::numDsaSSignRequests__Cpa64U"></span><span class="target" id="a00368_1a934e9240e2372447c761829ae8552d6d"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaSSignRequests</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6419numDsaSSignRequestsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of successful DSA S sign generation requests. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6424numDsaSSignRequestErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6424numDsaSSignRequestErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6424numDsaSSignRequestErrorsE"></span><span id="_CpaCyDsaStats64::numDsaSSignRequestErrors__Cpa64U"></span><span class="target" id="a00368_1af9cd15c7c25e59555560e58a83b9f613"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaSSignRequestErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6424numDsaSSignRequestErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA S sign requests that had an error and could not be processed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6420numDsaSSignCompletedE">
+<span id="_CPPv3N16_CpaCyDsaStats6420numDsaSSignCompletedE"></span><span id="_CPPv2N16_CpaCyDsaStats6420numDsaSSignCompletedE"></span><span id="_CpaCyDsaStats64::numDsaSSignCompleted__Cpa64U"></span><span class="target" id="a00368_1a97a5e9b611a9629daf90c81dafa6753c"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaSSignCompleted</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6420numDsaSSignCompletedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA S sign operations that completed successfully. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6426numDsaSSignCompletedErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6426numDsaSSignCompletedErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6426numDsaSSignCompletedErrorsE"></span><span id="_CpaCyDsaStats64::numDsaSSignCompletedErrors__Cpa64U"></span><span class="target" id="a00368_1a3dc9f1d56252ba1115c26118e9c10f1f"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaSSignCompletedErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6426numDsaSSignCompletedErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA S sign operations that could not be completed successfully due to errors. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6420numDsaRSSignRequestsE">
+<span id="_CPPv3N16_CpaCyDsaStats6420numDsaRSSignRequestsE"></span><span id="_CPPv2N16_CpaCyDsaStats6420numDsaRSSignRequestsE"></span><span id="_CpaCyDsaStats64::numDsaRSSignRequests__Cpa64U"></span><span class="target" id="a00368_1a35bd683c5337456f3cda13a5b019b2e6"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaRSSignRequests</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6420numDsaRSSignRequestsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of successful DSA RS sign generation requests. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6425numDsaRSSignRequestErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6425numDsaRSSignRequestErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6425numDsaRSSignRequestErrorsE"></span><span id="_CpaCyDsaStats64::numDsaRSSignRequestErrors__Cpa64U"></span><span class="target" id="a00368_1aa4eceb251663510dab41c290f89f0909"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaRSSignRequestErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6425numDsaRSSignRequestErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA RS sign requests that had an error and could not be processed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6421numDsaRSSignCompletedE">
+<span id="_CPPv3N16_CpaCyDsaStats6421numDsaRSSignCompletedE"></span><span id="_CPPv2N16_CpaCyDsaStats6421numDsaRSSignCompletedE"></span><span id="_CpaCyDsaStats64::numDsaRSSignCompleted__Cpa64U"></span><span class="target" id="a00368_1a90a4b5a6a01f499f693950cb62135b15"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaRSSignCompleted</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6421numDsaRSSignCompletedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA RS sign operations that completed successfully. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6427numDsaRSSignCompletedErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6427numDsaRSSignCompletedErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6427numDsaRSSignCompletedErrorsE"></span><span id="_CpaCyDsaStats64::numDsaRSSignCompletedErrors__Cpa64U"></span><span class="target" id="a00368_1af10b0718f1f7c7405eab0aabcab2821a"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaRSSignCompletedErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6427numDsaRSSignCompletedErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA RS sign operations that could not be completed successfully due to errors. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6420numDsaVerifyRequestsE">
+<span id="_CPPv3N16_CpaCyDsaStats6420numDsaVerifyRequestsE"></span><span id="_CPPv2N16_CpaCyDsaStats6420numDsaVerifyRequestsE"></span><span id="_CpaCyDsaStats64::numDsaVerifyRequests__Cpa64U"></span><span class="target" id="a00368_1a408f2a54d829f342398ab7afa26d8c96"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaVerifyRequests</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6420numDsaVerifyRequestsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of successful DSA verify generation requests. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6425numDsaVerifyRequestErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6425numDsaVerifyRequestErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6425numDsaVerifyRequestErrorsE"></span><span id="_CpaCyDsaStats64::numDsaVerifyRequestErrors__Cpa64U"></span><span class="target" id="a00368_1adcda319b511f2f8d46d6b1d9c0a15aa5"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaVerifyRequestErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6425numDsaVerifyRequestErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA verify requests that had an error and could not be processed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6421numDsaVerifyCompletedE">
+<span id="_CPPv3N16_CpaCyDsaStats6421numDsaVerifyCompletedE"></span><span id="_CPPv2N16_CpaCyDsaStats6421numDsaVerifyCompletedE"></span><span id="_CpaCyDsaStats64::numDsaVerifyCompleted__Cpa64U"></span><span class="target" id="a00368_1a49c13bd42b2c7e0dbd286b28b9f770fd"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaVerifyCompleted</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6421numDsaVerifyCompletedE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA verify operations that completed successfully. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6427numDsaVerifyCompletedErrorsE">
+<span id="_CPPv3N16_CpaCyDsaStats6427numDsaVerifyCompletedErrorsE"></span><span id="_CPPv2N16_CpaCyDsaStats6427numDsaVerifyCompletedErrorsE"></span><span id="_CpaCyDsaStats64::numDsaVerifyCompletedErrors__Cpa64U"></span><span class="target" id="a00368_1a43b3e03171e721ab1c51ae0c4935457e"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaVerifyCompletedErrors</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6427numDsaVerifyCompletedErrorsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA verify operations that could not be completed successfully due to errors. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N16_CpaCyDsaStats6420numDsaVerifyFailuresE">
+<span id="_CPPv3N16_CpaCyDsaStats6420numDsaVerifyFailuresE"></span><span id="_CPPv2N16_CpaCyDsaStats6420numDsaVerifyFailuresE"></span><span id="_CpaCyDsaStats64::numDsaVerifyFailures__Cpa64U"></span><span class="target" id="a00368_1a19109f27cf158cd44ec434281d5f65a6"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">numDsaVerifyFailures</span></span></span><a class="headerlink" href="#_CPPv4N16_CpaCyDsaStats6420numDsaVerifyFailuresE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Total number of DSA verify operations that executed successfully but the outcome of the test was that the verification failed. Note that this does not indicate an error. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="struct_a00364.html" class="btn btn-neutral float-left" title="Struct _CpaCyDsaStats" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="struct_a00360.html" class="btn btn-neutral float-right" title="Struct _CpaCyDsaVerifyOpData" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

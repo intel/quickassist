@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File cpa_cy_sym.h &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>File cpa_cy_sym.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-cpa-cy-sym-h">
+<span id="file-api-lac-cpa-cy-sym-h"></span><h1>File cpa_cy_sym.h<a class="headerlink" href="#file-cpa-cy-sym-h" title="Permalink to this headline"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-api-lac-cpa-cy-sym-h" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">api/lac/cpa_cy_sym.h</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
+<li><p><a class="reference internal" href="#included-by" id="id3">Included By</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id4">Classes</a></p></li>
+<li><p><a class="reference internal" href="#enums" id="id5">Enums</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id6">Functions</a></p></li>
+<li><p><a class="reference internal" href="#defines" id="id7">Defines</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id8">Typedefs</a></p></li>
+</ul>
+</nav>
+<section id="definition-api-lac-cpa-cy-sym-h">
+<h2>Definition (<code class="docutils literal notranslate"><span class="pre">api/lac/cpa_cy_sym.h</span></code>)<a class="headerlink" href="#definition-api-lac-cpa-cy-sym-h" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="program_listing_file_api_lac_cpa_cy_sym.h.html">Program Listing for File cpa_cy_sym.h</a></li>
+</ul>
+</div>
+</section>
+<section id="includes">
+<h2>Includes<a class="headerlink" href="#includes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpa_cy_common.h</span></code> (<a class="reference internal" href="file_api_lac_cpa_cy_common.h.html#file-api-lac-cpa-cy-common-h"><span class="std std-ref">File cpa_cy_common.h</span></a>)</p></li>
+</ul>
+</section>
+<section id="included-by">
+<h2>Included By<a class="headerlink" href="#included-by" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="file_api_dc_cpa_dc_chain.h.html#file-api-dc-cpa-dc-chain-h"><span class="std std-ref">File cpa_dc_chain.h</span></a></p></li>
+<li><p><a class="reference internal" href="file_api_lac_cpa_cy_sym_dp.h.html#file-api-lac-cpa-cy-sym-dp-h"><span class="std std-ref">File cpa_cy_sym_dp.h</span></a></p></li>
+<li><p><a class="reference internal" href="file_api_lac_cpa_cy_key.h.html#file-api-lac-cpa-cy-key-h"><span class="std std-ref">File cpa_cy_key.h</span></a></p></li>
+</ul>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="struct_a00244.html#exhale-struct-a00244"><span class="std std-ref">Struct _CpaCySymCapabilitiesInfo</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00204.html#exhale-struct-a00204"><span class="std std-ref">Struct _CpaCySymCipherSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00200.html#exhale-struct-a00200"><span class="std std-ref">Struct _CpaCySymDeriveOpData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00212.html#exhale-struct-a00212"><span class="std std-ref">Struct _CpaCySymHashAuthModeSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00208.html#exhale-struct-a00208"><span class="std std-ref">Struct _CpaCySymHashNestedModeSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00216.html#exhale-struct-a00216"><span class="std std-ref">Struct _CpaCySymHashSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00228.html#exhale-struct-a00228"><span class="std std-ref">Struct _CpaCySymOpData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00232.html#exhale-struct-a00232"><span class="std std-ref">Struct _CpaCySymOpData2</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00220.html#exhale-struct-a00220"><span class="std std-ref">Struct _CpaCySymSessionSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00224.html#exhale-struct-a00224"><span class="std std-ref">Struct _CpaCySymSessionUpdateData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00236.html#exhale-struct-a00236"><span class="std std-ref">Struct _CpaCySymStats</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00240.html#exhale-struct-a00240"><span class="std std-ref">Struct _CpaCySymStats64</span></a></p></li>
+</ul>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="enum_a00066_1ga2a58b415afc895efc8b1ddfb70a119f6.html#exhale-enum-a00066-1ga2a58b415afc895efc8b1ddfb70a119f6"><span class="std std-ref">Enum _CpaCySymAlgChainOrder</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00066_1gaae574fa087dd292fc1aaa91fa58df2c7.html#exhale-enum-a00066-1gaae574fa087dd292fc1aaa91fa58df2c7"><span class="std std-ref">Enum _CpaCySymCipherAlgorithm</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00066_1gaa7184571f275419b95daaf0f91695e2c.html#exhale-enum-a00066-1gaa7184571f275419b95daaf0f91695e2c"><span class="std std-ref">Enum _CpaCySymCipherDirection</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#exhale-enum-a00066-1ga45166cbe508898f3a2ebfeacbc1b4c4c"><span class="std std-ref">Enum _CpaCySymHashAlgorithm</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00066_1gabc941abd03b2ab7847b1265fd259e72f.html#exhale-enum-a00066-1gabc941abd03b2ab7847b1265fd259e72f"><span class="std std-ref">Enum _CpaCySymHashMode</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00066_1ga4d238b8a5e6bc269e0877662c23530d7.html#exhale-enum-a00066-1ga4d238b8a5e6bc269e0877662c23530d7"><span class="std std-ref">Enum _CpaCySymOp</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00066_1ga8c2671f7694242c22c7a9f90776b408b.html#exhale-enum-a00066-1ga8c2671f7694242c22c7a9f90776b408b"><span class="std std-ref">Enum _CpaCySymPacketType</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_a00066_1ga72e7356f27a2f712ffdb8a1a96bab6d6.html#exhale-function-a00066-1ga72e7356f27a2f712ffdb8a1a96bab6d6"><span class="std std-ref">Function cpaCySymInitSession</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1ga6724e47dbfe0c8c37868c22dad4519e2.html#exhale-function-a00066-1ga6724e47dbfe0c8c37868c22dad4519e2"><span class="std std-ref">Function cpaCySymPerformOp</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1ga51523968f409eb8f8416bfc54bd0c735.html#exhale-function-a00066-1ga51523968f409eb8f8416bfc54bd0c735"><span class="std std-ref">Function cpaCySymQueryCapabilities</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1ga0d007be95e36f5c716465bb5f75c54fc.html#exhale-function-a00066-1ga0d007be95e36f5c716465bb5f75c54fc"><span class="std std-ref">Function cpaCySymQueryStats</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1ga1b54b752b194209763ae9c71f9b8cdda.html#exhale-function-a00066-1ga1b54b752b194209763ae9c71f9b8cdda"><span class="std std-ref">Function cpaCySymQueryStats64</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1ga0bb6c8deecf1d8be1274ac3c9862c495.html#exhale-function-a00066-1ga0bb6c8deecf1d8be1274ac3c9862c495"><span class="std std-ref">Function cpaCySymRemoveSession</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1ga0759b95b4177eaaf58ea9546f36735ac.html#exhale-function-a00066-1ga0759b95b4177eaaf58ea9546f36735ac"><span class="std std-ref">Function cpaCySymSessionCtxGetDynamicSize</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1gaa8953d8e34a410a8a4ece8c447752603.html#exhale-function-a00066-1gaa8953d8e34a410a8a4ece8c447752603"><span class="std std-ref">Function cpaCySymSessionCtxGetSize</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1gad9a74fd901a254b34e49c8280180fa8f.html#exhale-function-a00066-1gad9a74fd901a254b34e49c8280180fa8f"><span class="std std-ref">Function cpaCySymSessionInUse</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00066_1ga16b5149aacf64a7b8f82d20b04c62378.html#exhale-function-a00066-1ga16b5149aacf64a7b8f82d20b04c62378"><span class="std std-ref">Function cpaCySymUpdateSession</span></a></p></li>
+</ul>
+</section>
+<section id="defines">
+<h2>Defines<a class="headerlink" href="#defines" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="define_a00066_1gac2b8ed55b5004bc1cb9b5ccb2734cd63.html#exhale-define-a00066-1gac2b8ed55b5004bc1cb9b5ccb2734cd63"><span class="std std-ref">Define CPA_CY_SYM_CCM_SET_AAD</span></a></p></li>
+<li><p><a class="reference internal" href="define_a00066_1ga60128b0f646694b86827fb7de1fe09e2.html#exhale-define-a00066-1ga60128b0f646694b86827fb7de1fe09e2"><span class="std std-ref">Define CPA_CY_SYM_CCM_SET_NONCE</span></a></p></li>
+<li><p><a class="reference internal" href="define_a00066_1ga86b200b2d7b6833ecb8c074b96a45493.html#exhale-define-a00066-1ga86b200b2d7b6833ecb8c074b96a45493"><span class="std std-ref">Define CPA_CY_SYM_CIPHER_CAP_BITMAP_SIZE</span></a></p></li>
+<li><p><a class="reference internal" href="define_a00066_1ga9bf3125877d4e9829dd235a958150e7c.html#exhale-define-a00066-1ga9bf3125877d4e9829dd235a958150e7c"><span class="std std-ref">Define CPA_CY_SYM_HASH_CAP_BITMAP_SIZE</span></a></p></li>
+<li><p><a class="reference internal" href="define_a00023_1a9012ed481f090f3caa57c1b10b505c9d.html#exhale-define-a00023-1a9012ed481f090f3caa57c1b10b505c9d"><span class="std std-ref">Define CPA_CY_SYM_SESUPD_AUTH_KEY</span></a></p></li>
+<li><p><a class="reference internal" href="define_a00023_1a8a808a93d04fd97557fb8a3c6e5dd7b5.html#exhale-define-a00023-1a8a808a93d04fd97557fb8a3c6e5dd7b5"><span class="std std-ref">Define CPA_CY_SYM_SESUPD_CIPHER_DIR</span></a></p></li>
+<li><p><a class="reference internal" href="define_a00023_1a8e0c2d84a591806a3a6292e9563d480a.html#exhale-define-a00023-1a8e0c2d84a591806a3a6292e9563d480a"><span class="std std-ref">Define CPA_CY_SYM_SESUPD_CIPHER_KEY</span></a></p></li>
+</ul>
+</section>
+<section id="typedefs">
+<h2>Typedefs<a class="headerlink" href="#typedefs" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="typedef_a00066_1ga0ecbacb9aa82aeb8de38290c3583a06b.html#exhale-typedef-a00066-1ga0ecbacb9aa82aeb8de38290c3583a06b"><span class="std std-ref">Typedef CPA_DEPRECATED</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga57457c4a9bb58fa3c27fed9d507e093d.html#exhale-typedef-a00066-1ga57457c4a9bb58fa3c27fed9d507e093d"><span class="std std-ref">Typedef CpaCySymAlgChainOrder</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1gad7088725013b4649379151ff39a74b05.html#exhale-typedef-a00066-1gad7088725013b4649379151ff39a74b05"><span class="std std-ref">Typedef CpaCySymCapabilitiesInfo</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga073af5bf20a6a70cb777387dff082477.html#exhale-typedef-a00066-1ga073af5bf20a6a70cb777387dff082477"><span class="std std-ref">Typedef CpaCySymCbFunc</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1gaba4b70af215e5a6cd40d4576a7238fde.html#exhale-typedef-a00066-1gaba4b70af215e5a6cd40d4576a7238fde"><span class="std std-ref">Typedef CpaCySymCipherAlgorithm</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga96338d052bf084424f7ba96e7f75c28e.html#exhale-typedef-a00066-1ga96338d052bf084424f7ba96e7f75c28e"><span class="std std-ref">Typedef CpaCySymCipherDirection</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga4286dbf79e5644daa45a62f41f0a1341.html#exhale-typedef-a00066-1ga4286dbf79e5644daa45a62f41f0a1341"><span class="std std-ref">Typedef CpaCySymCipherSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1gae7c59feade5dd7232a2236d72f44c6d5.html#exhale-typedef-a00066-1gae7c59feade5dd7232a2236d72f44c6d5"><span class="std std-ref">Typedef CpaCySymDeriveOpData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1gaba978e17cb43a8fa73752cf39d166f51.html#exhale-typedef-a00066-1gaba978e17cb43a8fa73752cf39d166f51"><span class="std std-ref">Typedef CpaCySymHashAlgorithm</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga70d3e63becc809a72fb6c8ff692a7265.html#exhale-typedef-a00066-1ga70d3e63becc809a72fb6c8ff692a7265"><span class="std std-ref">Typedef CpaCySymHashAuthModeSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga607ebc8454782d518618d51b74dd82a2.html#exhale-typedef-a00066-1ga607ebc8454782d518618d51b74dd82a2"><span class="std std-ref">Typedef CpaCySymHashMode</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga47ffcf64d7f613aa3cd4fab3f308b97c.html#exhale-typedef-a00066-1ga47ffcf64d7f613aa3cd4fab3f308b97c"><span class="std std-ref">Typedef CpaCySymHashNestedModeSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga2082e2eec9ad6c04206fb7b8f7e3140b.html#exhale-typedef-a00066-1ga2082e2eec9ad6c04206fb7b8f7e3140b"><span class="std std-ref">Typedef CpaCySymHashSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1gae170d3eb302f39ace2c77114c6d7a058.html#exhale-typedef-a00066-1gae170d3eb302f39ace2c77114c6d7a058"><span class="std std-ref">Typedef CpaCySymOp</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1gae6f7414390b4249624a3cfc9c610d765.html#exhale-typedef-a00066-1gae6f7414390b4249624a3cfc9c610d765"><span class="std std-ref">Typedef CpaCySymOpData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga4648d2a2f10700aeb8a235e3e902e0a9.html#exhale-typedef-a00066-1ga4648d2a2f10700aeb8a235e3e902e0a9"><span class="std std-ref">Typedef CpaCySymOpData2</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga59ae2aaf71066d9dab28316ee461b31c.html#exhale-typedef-a00066-1ga59ae2aaf71066d9dab28316ee461b31c"><span class="std std-ref">Typedef CpaCySymPacketType</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga78aff6ab7c0fb9e8aa45c74b5c3f479f.html#exhale-typedef-a00066-1ga78aff6ab7c0fb9e8aa45c74b5c3f479f"><span class="std std-ref">Typedef CpaCySymSessionCtx</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga1d5d42d0597c1c0ab42ef54b49c1443f.html#exhale-typedef-a00066-1ga1d5d42d0597c1c0ab42ef54b49c1443f"><span class="std std-ref">Typedef CpaCySymSessionSetupData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1ga2ed130a2ee4d6b1d0043107c5fc7fe30.html#exhale-typedef-a00066-1ga2ed130a2ee4d6b1d0043107c5fc7fe30"><span class="std std-ref">Typedef CpaCySymSessionUpdateData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00066_1gabb1488b39969c4b02d3611a62da92fb7.html#exhale-typedef-a00066-1gabb1488b39969c4b02d3611a62da92fb7"><span class="std std-ref">Typedef CpaCySymStats64</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run Containers using Intel® QAT Acceleration &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Quick Test of Container" href="checkin.html" />
+    <link rel="prev" title="Build Containers with Intel® QAT Software" href="build.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../QATzip/index.html">Intel<sup>®</sup> QATzip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../QATEngine/index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel<sup>®</sup> QAT in Linux Containers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html">Setting Up Host Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build.html">Build Containers with Intel® QAT Software</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Run Containers using Intel® QAT Acceleration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#command-line-parameters">Command Line Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#providing-qat-resources-to-container">Providing QAT Resources to Container</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tuning-parameters">Tuning Parameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="checkin.html">Quick Test of Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nginx.html">Intel® QAT + NGINX* Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html">Testing Performance of Intel® QAT + OpenSSL* Container with Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="orchestration.html">Orchestration Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pre-built.html">Pre-Built Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Application Notes</a> &raquo;</li>
+          <li><a href="index.html">Intel<sup>®</sup> QAT in Linux Containers</a> &raquo;</li>
+      <li>Run Containers using Intel® QAT Acceleration</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="run-containers-using-intel-qat-acceleration">
+<span id="qat-2-0-containers-run"></span><h1>Run Containers using Intel® QAT Acceleration<a class="headerlink" href="#run-containers-using-intel-qat-acceleration" title="Permalink to this headline"></a></h1>
+<p>This section includes details on how to launch a container image with QAT support.</p>
+<p>Topics include:</p>
+<ul class="simple">
+<li><p>Command Line Parameters</p></li>
+<li><p>Assigning QAT Resources</p></li>
+<li><p>Tuning Parameters</p></li>
+</ul>
+<section id="command-line-parameters">
+<h2>Command Line Parameters<a class="headerlink" href="#command-line-parameters" title="Permalink to this headline"></a></h2>
+<p>Here are list of required and optional command line arguments when launching containers with QAT support.</p>
+<section id="memlock-required">
+<h3>memlock (REQUIRED)<a class="headerlink" href="#memlock-required" title="Permalink to this headline"></a></h3>
+<p>memlock <strong>must</strong> be enabled within the container.  This can be done with the following parameter:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--cap-add=IPC_LOCK</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Refer to <a class="reference external" href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">*docker* docs</a> for additional information.</p>
+</section>
+<section id="security-configuration-optional">
+<h3>Security Configuration (OPTIONAL)<a class="headerlink" href="#security-configuration-optional" title="Permalink to this headline"></a></h3>
+<p>Security options for the container is set using the <code class="docutils literal notranslate"><span class="pre">--security-opt</span></code> parameter.</p>
+<p>In examples below this parameter is set to:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--security-opt seccomp=unconfined</span>
+<span class="go">--security-opt apparmor=unconfined</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Including these parameters turns off seccomp confinement for the container and disables apparmor within the container.</p>
+<p>Refer to <a class="reference external" href="https://docs.docker.com/engine/reference/run/#security-configuration">*docker* docs</a> for additional information.</p>
+</section>
+<section id="cpu-pinning-optional">
+<h3>CPU Pinning (OPTIONAL)<a class="headerlink" href="#cpu-pinning-optional" title="Permalink to this headline"></a></h3>
+<p>This allows locking of CPUs the container will run.   The can be done with the following parameter:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--cpuset-cpus 10-20</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This would result in the the container images running on cores 10 through 20.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For optimal performance ensure the cores that the container is running on are on the same NUMA node as the QAT devices</p>
+</div>
+<p>Refer to <a class="reference external" href="https://docs.docker.com/engine/reference/run/#cpuset-constraint">*docker* docs</a> for additional information.</p>
+</section>
+<section id="memory-node-pinning">
+<h3>Memory Node Pinning<a class="headerlink" href="#memory-node-pinning" title="Permalink to this headline"></a></h3>
+<p>This parameter allows controlling which memory nodes to allow execution.  This can be done as follows:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--cpuset-mems=&quot;0&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This would mean processes in the container can only use memory from memory node 0.</p>
+<p>Refer to <a class="reference external" href="https://docs.docker.com/engine/reference/run/#cpuset-constraint">*docker* docs</a> for additional information.</p>
+</section>
+</section>
+<section id="providing-qat-resources-to-container">
+<h2>Providing QAT Resources to Container<a class="headerlink" href="#providing-qat-resources-to-container" title="Permalink to this headline"></a></h2>
+<p>This section describes how QAT resources are provided to the container images.</p>
+<p>The the examples below, the following command line parameter is used to provide QAT resources to the container image.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span><span class="o">(</span><span class="k">for</span> i <span class="k">in</span> <span class="sb">`</span>ls /dev/vfio/*<span class="sb">`</span><span class="p">;</span> <span class="k">do</span> <span class="nb">echo</span> --device <span class="nv">$i</span><span class="p">;</span> <span class="k">done</span><span class="o">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>This results in all QAT resources being allocated to the container image. In this case only one container image that uses QAT resources can run at a time as
+this container is consuming all available QAT resources.</p>
+<p>In order to support multiple containers that utilize QAT we need to provide a subset of VFIO IDs instead of IDs. This raises the question of which VFIO IDS to provide and how many.</p>
+<p>To answer the question of which VFIOs to provide, we can use this <a class="reference internal" href="../../qatlib/configuration.html#qat-2-0-qatlib-configuration-script"><span class="std std-ref">configuration script</span></a> to obtain the information.</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[sdp@fl6u41 ~]$ qatlistconfig.sh
+VFIO GROUP    | NODE  | PF BDF       | VF BDF       | SERVICES
+--------------------------------------------------------------
+/dev/vfio/449   0       0000:6b:00.0   0000:6b:00.1   sym;asym
+/dev/vfio/450   0       0000:6b:00.0   0000:6b:00.2   sym;asym
+/dev/vfio/451   0       0000:6b:00.0   0000:6b:00.3   sym;asym
+/dev/vfio/452   0       0000:6b:00.0   0000:6b:00.4   sym;asym
+/dev/vfio/453   0       0000:6b:00.0   0000:6b:00.5   sym;asym
+/dev/vfio/454   0       0000:6b:00.0   0000:6b:00.6   sym;asym
+/dev/vfio/455   0       0000:6b:00.0   0000:6b:00.7   sym;asym
+/dev/vfio/456   0       0000:6b:00.0   0000:6b:01.0   sym;asym
+/dev/vfio/457   0       0000:6b:00.0   0000:6b:01.1   sym;asym
+/dev/vfio/458   0       0000:6b:00.0   0000:6b:01.2   sym;asym
+/dev/vfio/459   0       0000:6b:00.0   0000:6b:01.3   sym;asym
+/dev/vfio/460   0       0000:6b:00.0   0000:6b:01.4   sym;asym
+/dev/vfio/461   0       0000:6b:00.0   0000:6b:01.5   sym;asym
+/dev/vfio/462   0       0000:6b:00.0   0000:6b:01.6   sym;asym
+/dev/vfio/463   0       0000:6b:00.0   0000:6b:01.7   sym;asym
+/dev/vfio/464   0       0000:6b:00.0   0000:6b:02.0   sym;asym
+/dev/vfio/465   0       0000:70:00.0   0000:70:00.1   dc
+/dev/vfio/466   0       0000:70:00.0   0000:70:00.2   dc
+/dev/vfio/467   0       0000:70:00.0   0000:70:00.3   dc
+/dev/vfio/468   0       0000:70:00.0   0000:70:00.4   dc
+/dev/vfio/469   0       0000:70:00.0   0000:70:00.5   dc
+/dev/vfio/470   0       0000:70:00.0   0000:70:00.6   dc
+/dev/vfio/471   0       0000:70:00.0   0000:70:00.7   dc
+</pre></div>
+</div>
+<p>In the output above we can see which VFIO IDs support <code class="docutils literal notranslate"><span class="pre">dc</span></code>. Next questions would include:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>how many VFIO device IDs should be provided</p></li>
+<li><p>should they come from the same QAT PF, or be spread across multiple end-points.</p></li>
+</ul>
+</div></blockquote>
+<p>The answer to these questions will depend on resources available and performance targets for individual container images.</p>
+<p>As we can see setting this up can be quite complex. This complexity can be mitigated by using orchestration software that hides the complexity of assigning QAT resources to the container image.</p>
+<p>Refer to <a class="reference internal" href="orchestration.html#qat-2-0-containers-orchestration"><span class="std std-ref">Orchestration Software</span></a> for additional information.</p>
+</section>
+<section id="tuning-parameters">
+<h2>Tuning Parameters<a class="headerlink" href="#tuning-parameters" title="Permalink to this headline"></a></h2>
+<section id="container-runtime-memory-lock-limit-required">
+<h3>Container Runtime Memory Lock Limit (REQUIRED)<a class="headerlink" href="#container-runtime-memory-lock-limit-required" title="Permalink to this headline"></a></h3>
+<p>This section assigns the memory lock limit for the container.  How much memory is required depends on the application as well as memory requirements for the QAT library (qatlib)
+qatlib requires 4MB per VF of locked memory.</p>
+<ol class="arabic">
+<li><p><strong>Create</strong> a systemd directory for the docker service.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo mkdir -p /etc/systemd/system/docker.service.d</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Navigate</strong> to the docker service directory.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd /etc/systemd/system/docker.service.d</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Create</strong> a file name <em>memlock.conf</em>.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo vi memlock.conf</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Add</strong> the following variable to the <em>memlock.conf</em> file:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[Service]
+LimitMEMLOCK=16777216
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Value defined here depends on your applications needs plus memory requirements for qatlib.</p>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Save</strong> the file.</p></li>
+<li><p><strong>Flush</strong> the changes.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl daemon-reload</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Restart</strong> Docker.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo systemctl restart docker</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="build.html" class="btn btn-neutral float-left" title="Build Containers with Intel® QAT Software" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="checkin.html" class="btn btn-neutral float-right" title="Quick Test of Container" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

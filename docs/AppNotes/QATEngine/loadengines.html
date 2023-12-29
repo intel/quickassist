@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Load/Initialize Engines with OpenSSL* Configuration File &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
+    <link rel="prev" title="Intel® QAT OpenSSL* Engine Special Features" href="specialfeatures.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../QATzip/index.html">Intel<sup>®</sup> QATzip</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">The Intel® QAT OpenSSL* Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Intel® QAT OpenSSL* Engine Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html">Intel® QAT OpenSSL* Engine Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html">Intel® QAT OpenSSL* Engine Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specificmessages.html">Intel® QAT OpenSSL* Engine Specific Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buildoptions.html">Intel® QAT OpenSSL* Engine Build Options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specialfeatures.html">Intel® QAT OpenSSL* Engine Special Features</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Load/Initialize Engines with OpenSSL* Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Application Notes</a> &raquo;</li>
+          <li><a href="index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a> &raquo;</li>
+      <li>Load/Initialize Engines with OpenSSL* Configuration File</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="load-initialize-engines-with-openssl-configuration-file">
+<span id="qat-2-0-qatengine-load-engines"></span><h1>Load/Initialize Engines with OpenSSL* Configuration File<a class="headerlink" href="#load-initialize-engines-with-openssl-configuration-file" title="Permalink to this headline"></a></h1>
+<p>OpenSSL* includes support for loading and initializing engines via the <em>openssl.cnf</em> file. The <em>openssl.cnf</em> file is contained in the ssl subdirectory of
+the path you install OpenSSL* to. By default OpenSSL* does not load the <em>openssl.cnf</em> file at initialization time. In order to load the file
+you need to make the following function call from your application as the first call to the OpenSSL* library: <code class="docutils literal notranslate"><span class="pre">OPENSSL_init_crypto(OPENSSL_INIT_LOAD_CONFIG,</span> <span class="pre">NULL);</span></code></p>
+<p>The second parameter determines the name of the section containing the application specific initialization settings. If you set the parameter
+to <code class="docutils literal notranslate"><span class="pre">NULL</span></code> as in the example above it will default to look for the <code class="docutils literal notranslate"><span class="pre">openssl_conf</span></code> section. If you want to use your own
+section you should declare a structure of type <code class="docutils literal notranslate"><span class="pre">OPENSSL_INIT_SETTINGS</span></code> and set the appname field to a string containing the section
+name you wish to use. The example config file sections below assume you are using the default <code class="docutils literal notranslate"><span class="pre">openssl_conf</span></code> section name.</p>
+<p>If converting an existing application to use the Intel® QAT OpenSSL* Engine you may find that the application instead makes the now deprecated call to: <code class="docutils literal notranslate"><span class="pre">OPENSSL_config(NULL);</span></code></p>
+<p>Where the parameter is a <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">char*</span></code> pointer to the appname section you want to use, or <code class="docutils literal notranslate"><span class="pre">NULL</span></code> to use the default <code class="docutils literal notranslate"><span class="pre">openssl_conf</span></code> section.</p>
+<p>Currently this will give the same behaviour as the <code class="docutils literal notranslate"><span class="pre">OPENSSL_init_crypto(OPENSSL_INIT_LOAD_CONFIG,</span> <span class="pre">NULL)</span></code> call but as it is deprecated it should not be relied upon for future use.</p>
+<p>For further details on using the <em>OPENSSL_init_crypto</em> function please see the <a class="reference external" href="https://www.openssl.org/docs/man1.1.0/crypto/OPENSSL_init_crypto.html">OpenSSL* online documentation</a>.</p>
+<p>In order to start using the <em>openssl.cnf</em> file it needs some additional lines adding. You should add the following statement in the
+global section (this is the section before the first bracketed section header):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">openssl_conf = openssl_init</span>
+</pre></div>
+</div>
+<p>The string <code class="docutils literal notranslate"><span class="pre">openssl_init</span></code> is the name of the section in the configuration file which describes the application specific settings.
+You do not need to stick to the naming convention here if you prefer to use a different name.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">openssl_init</span></code> section can be located at the end of the global section (as the first bracketed section), or further down the configuration file.
+It should have the following added:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[ openssl_init ]</span>
+<span class="go">engines = engine_section</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">engines</span></code> string is a keyword that OpenSSL* recognises as a configuration module. It should be set to a string which is
+the section name containing a list of the engines to be loaded. So for the Intel® QAT OpenSSL* Engine the section should contain:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[ engine_section ]</span>
+<span class="go">qat = qat_section</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">qat_section</span></code> contains all the settings relating to that particular engine. For instance it may contain:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[ qat_section ]</span>
+<span class="go">engine_id = qatengine</span>
+<span class="go">dynamic_path = /usr/local/ssl/lib/engines-1.1/qatengine.so</span>
+<span class="gp"># </span>Add engine specific messages here
+<span class="go">default_algorithms = ALL</span>
+</pre></div>
+</div>
+<p>Where:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">engine_id</span></code> specifies the name of engine to load (should be <code class="docutils literal notranslate"><span class="pre">qatengine</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">dynamic_path</span></code> is the location of the loadable shared library implementing the engine. There is no need to specify this line if the engine is located within the standard path that OpenSSL* was installed to.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">default_algorithms</span></code> specifies which algorithms supplied by the engine should be used by default. Specify <code class="docutils literal notranslate"><span class="pre">ALL</span></code> to make all algorithms supplied by the engine be used by default.</p></li>
+</ul>
+</div></blockquote>
+<p>In addition the <code class="docutils literal notranslate"><span class="pre">qat_section</span></code> may contain settings that call custom engine specific messages. For instance: <code class="docutils literal notranslate"><span class="pre">ENABLE_EVENT_DRIVEN_MODE</span> <span class="pre">=</span> <span class="pre">EMPTY</span></code>,
+which is functionally equivalent of making the following engine specific message function call: <code class="docutils literal notranslate"><span class="pre">ENGINE_ctrl_cmd(e,</span> <span class="pre">&quot;ENABLE_EVENT_DRIVEN_MODE&quot;,</span> <span class="pre">0,</span> <span class="pre">NULL,</span> <span class="pre">NULL,</span> <span class="pre">0);</span></code></p>
+<p>You should set the setting to <code class="docutils literal notranslate"><span class="pre">EMPTY</span></code> if there are no parameters to pass, or assign the value that would be passed as the 4th parameter of the
+equivalent <code class="docutils literal notranslate"><span class="pre">ENGINE_ctrl_cmd</span></code> call. It should be noted that this mechanism is only useful for passing simple values at engine
+initialization time. You cannot pass 3rd parameter values, pass complex structures or deal with return values via this mechanism.</p>
+<p>Engine specific messages should be specified before the <code class="docutils literal notranslate"><span class="pre">default_algorithms</span></code> setting or incorrect behaviour may result. The following <a class="reference internal" href="specificmessages.html#qat-2-0-qatengine-specific-messages"><span class="std std-ref">messages</span></a> are supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">ENABLE_EVENT_DRIVEN_POLLING_MODE</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ENABLE_EXTERNAL_POLLING</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ENABLE_INLINE_POLLING</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ENABLE_SW_FALLBACK</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SET_INTERNAL_POLL_INTERVAL</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SET_EPOLL_TIMEOUT</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SET_MAX_RETRY_COUNT</span></code></p></li>
+</ul>
+</div></blockquote>
+<p>In case of forking, the custom values are inherited by the child process.</p>
+<p>By default the engine will get initialized at the end of this section (after all the custom engine specific messages have been sent).
+This can be controlled via an additional <code class="docutils literal notranslate"><span class="pre">init</span></code> setting that is out of scope of the documentation here.</p>
+<p>For further details on using the OpenSSL* configuration file please see the <a class="reference external" href="https://www.openssl.org/docs/man1.1.0/apps/config.html">OpenSSL* online documentation</a>.</p>
+<p>By setting up the configuration file as above it is possible for instance to run the <em>OpenSSL</em> speed* application to use the Intel® QAT OpenSSL* Engine without
+needing to specify <code class="docutils literal notranslate"><span class="pre">-engine</span> <span class="pre">qatengine</span></code> as a command line option.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="specialfeatures.html" class="btn btn-neutral float-left" title="Intel® QAT OpenSSL* Engine Special Features" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Intel® QAT OpenSSL* Engine Special Features &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Load/Initialize Engines with OpenSSL* Configuration File" href="loadengines.html" />
+    <link rel="prev" title="Intel® QAT OpenSSL* Engine Build Options" href="buildoptions.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../QATzip/index.html">Intel<sup>®</sup> QATzip</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">The Intel® QAT OpenSSL* Engine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Intel® QAT OpenSSL* Engine Installation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html">Intel® QAT OpenSSL* Engine Testing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="troubleshooting.html">Intel® QAT OpenSSL* Engine Troubleshooting</a></li>
+<li class="toctree-l3"><a class="reference internal" href="specificmessages.html">Intel® QAT OpenSSL* Engine Specific Messages</a></li>
+<li class="toctree-l3"><a class="reference internal" href="buildoptions.html">Intel® QAT OpenSSL* Engine Build Options</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Intel® QAT OpenSSL* Engine Special Features</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#hardware-acceleration-qat-hw">Hardware Acceleration (QAT_HW)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#software-acceleration-qat-sw">Software Acceleration (QAT_SW)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#hardware-acceleration-and-software-acceleration-co-existence-feature">Hardware Acceleration and Software Acceleration Co-existence Feature</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#openssl-3-0-provider-support">OpenSSL 3.0 Provider Support</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="loadengines.html">Load/Initialize Engines with OpenSSL* Configuration File</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Application Notes</a> &raquo;</li>
+          <li><a href="index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a> &raquo;</li>
+      <li>Intel® QAT OpenSSL* Engine Special Features</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="intel-qat-openssl-engine-special-features">
+<span id="qat-2-0-qatengine-special-features"></span><h1>Intel® QAT OpenSSL* Engine Special Features<a class="headerlink" href="#intel-qat-openssl-engine-special-features" title="Permalink to this headline"></a></h1>
+<section id="hardware-acceleration-qat-hw">
+<h2>Hardware Acceleration (QAT_HW)<a class="headerlink" href="#hardware-acceleration-qat-hw" title="Permalink to this headline"></a></h2>
+<section id="using-the-openssl-asynchronous-mode-async-job-infrastructure">
+<span id="qat-2-0-qatengine-features-asynchronous-mode"></span><h3>Using the OpenSSL* asynchronous mode <em>ASYNC_JOB</em> infrastructure<a class="headerlink" href="#using-the-openssl-asynchronous-mode-async-job-infrastructure" title="Permalink to this headline"></a></h3>
+<p>Asynchronous operation utilizes the OpenSSL* asychronous mode (<em>ASYNC_JOB</em> infrastructure) introduced in OpenSSL* version 1.1.0.
+In the OpenSSL* master branch this infrastructure was augmented to provide an additional callback method by which the OpenSSL* Engine
+can be notified of crypto operation request completions by the hardware accelerator. This additional method can be used if you think
+that using the alternative file descriptor method descriptor is too costly in terms of CPU cycles or in some context where a file
+descriptor is not appropriate.</p>
+<p>The Intel® QAT OpenSSL* Engine build system will automatically detect whether the OpenSSL* version being built against supports this
+additional callback method. If so, the Intel® QAT OpenSSL* Engine code will use the callback mechanism for job completion rather than
+the file descriptor mechanism if a callback function has been set. If a callback has not been set then the file descriptor method will be used.</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../../_images/async.png"><img alt="../../_images/async.png" src="../../_images/async.png" style="width: 347px; height: 379px;" /></a>
+</figure>
+<p>For further details on using the OpenSSL* asynchronous mode infrastructure please see the OpenSSL* online documentation located at:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference external" href="https://www.openssl.org/docs/manmaster/man3/ASYNC_start_job.html">ASYNC_start_job</a></p></li>
+<li><p><a class="reference external" href="https://www.openssl.org/docs/manmaster/man3/ASYNC_WAIT_CTX_new.html">ASYNC_WAIT_CTX_new</a></p></li>
+</ul>
+</div></blockquote>
+</section>
+<section id="intel-qat-openssl-engine-hkdf-support">
+<span id="qat-2-0-qatengine-features-hkdf-support"></span><h3>Intel® QAT OpenSSL* Engine HKDF Support<a class="headerlink" href="#intel-qat-openssl-engine-hkdf-support" title="Permalink to this headline"></a></h3>
+<p>The HKDF support in the Intel® QAT OpenSSL* Engine is available only from version 4.8 of Intel® QAT driver for
+Linux - Hardware Version 1.7. By default this support is disabled as it is added as an experimental feature. It can be enabled using
+the flag <code class="docutils literal notranslate"><span class="pre">--enable-qat_hw_hkdf</span></code> in the configure command combined with modifying the Intel® QAT driver file’s
+config variable <code class="docutils literal notranslate"><span class="pre">ServicesProfile</span></code> from its default value of <code class="docutils literal notranslate"><span class="pre">DEFAULT</span></code> to <code class="docutils literal notranslate"><span class="pre">CRYPTO</span></code>.</p>
+</section>
+<section id="using-the-openssl-pipelining-capability">
+<span id="qat-2-0-qatengine-features-pipelining-capability"></span><h3>Using the OpenSSL* Pipelining Capability<a class="headerlink" href="#using-the-openssl-pipelining-capability" title="Permalink to this headline"></a></h3>
+<p>The OpenSSL* pipelining feature provides the capability to parallelise the processing for a single connection. For example a big
+buffer to be encrypted can be split into smaller chunks with each chunk encrypted simultaneously using pipelining.
+The Intel® QAT OpenSSL* Engine supports OpenSSL* pipelining capability for chained cipher encryption operations only.
+The engine provides a maximum of 32 pipelines (buffer chunks) with a maximum size of 16384 bytes for each pipeline.
+When pipelines are used, they are always accelerated to the hardware accelerator ignoring the small packet offload threshold.
+Please refer to the <a class="reference external" href="https://www.openssl.org/docs/man1.1.0/ssl/SSL_CTX_set_split_send_fragment.html">OpenSSL* manual</a> for more information about pipelining.</p>
+</section>
+<section id="intel-qat-openssl-engine-software-fallback-feature">
+<span id="qat-2-0-qatengine-features-software-fallback-feature"></span><h3>Intel® QAT OpenSSL* Engine Software Fallback Feature<a class="headerlink" href="#intel-qat-openssl-engine-software-fallback-feature" title="Permalink to this headline"></a></h3>
+<p>The <em>Intel® QAT Heartbeat</em> feature provides a mechanism for the Intel® QAT OpenSSL* Engine to detect unresponsive acceleration devices and to be
+notified of the start and end of any reset of the acceleration devices. The Heartbeat feature suspends all Intel QAT instances associated with that acceleration
+device between these two <em>reset-start</em> and <em>reset-end</em> events. An acceleration device can be configured for automatic reset by the Intel QAT framework upon
+heartbeat failure by using the <code class="docutils literal notranslate"><span class="pre">AutomaticResetOnError</span> <span class="pre">=</span> <span class="pre">1</span></code> field in the <code class="docutils literal notranslate"><span class="pre">[GENERAL]</span></code> section of device configuration file <code class="docutils literal notranslate"><span class="pre">/etc/&lt;device&gt;.conf</span></code>.
+The Intel® QAT OpenSSL* Engine’s software fallback feature requires this field to be set.</p>
+<p>The Intel® QAT OpenSSL* Engine’s software fallback feature, when enabled by the user, essentially provides continuity of crypto operations for the
+application between the two above-mentioned <em>reset-start</em> and <em>reset-end</em> events. It does this by exhibiting the following behaviour:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Any requests that have already been submitted to the acceleration device that goes down but have not completed will be handled as on core requests and will complete.</p></li>
+<li><p>Any new requests coming in while the acceleration device is offline will either be submitted to the other acceleration devices (if any are available) or if none are available then the request will be handled on core.</p></li>
+<li><p>Once the acceleration device has come back online new requests will be able to use instances from that acceleration device again.</p></li>
+</ul>
+</div></blockquote>
+<p>This should all happen in a transparent way with the only noticeable effects being a potential slow down in performance until the acceleration device comes back online.</p>
+<section id="requirements">
+<h4>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline"></a></h4>
+<ol class="arabic simple">
+<li><p>This Intel® QAT OpenSSL* Engine supports the Intel® QAT Heartbeat feature starting with Intel® QAT driver version 4.6 of the following device: <a class="reference external" href="https://www.intel.com/content/www/us/en/design/products-and-solutions/processors-and-chipsets/purley/intel-xeon-scalable-processors.html">Intel® Xeon® with Intel® C62X Series Chipset</a></p></li>
+<li><p>Intel® QAT OpenSSL* Engine needs to be configured to disable Symmetric Chained Ciphers, PRF, HKDF and X25519/X448 acceleration by adding the following four flags in the configure command of Intel® QAT OpenSSL* Engine build: <code class="docutils literal notranslate"><span class="pre">--disable-qat_hw_ciphers</span></code> <code class="docutils literal notranslate"><span class="pre">--disable-qat_hw_prf</span></code> <code class="docutils literal notranslate"><span class="pre">--disable-qat_hw_hkdf</span></code> <code class="docutils literal notranslate"><span class="pre">--disable-qat_hw_ecx</span></code></p></li>
+<li><p>The Intel® QAT Heartbeat feature is not supported in the FreeBSD operating system or in the qatlib RPM.</p></li>
+</ol>
+</section>
+<section id="additional-information">
+<h4>Additional Information<a class="headerlink" href="#additional-information" title="Permalink to this headline"></a></h4>
+<p>Additional information on this Intel® QAT Heartbeat feature can be found in the <a class="reference internal" href="../../PG/infrastructure_heartbeat.html#qat-2-0-pg-infrastructure-heartbeat"><span class="std std-ref">Heartbeat</span></a> section of the Programmer’s Guide.</p>
+</section>
+</section>
+</section>
+<section id="software-acceleration-qat-sw">
+<h2>Software Acceleration (QAT_SW)<a class="headerlink" href="#software-acceleration-qat-sw" title="Permalink to this headline"></a></h2>
+<section id="intel-qat-software-acceleration-for-asymmetric-pke-and-aes-gcm">
+<span id="qat-2-0-qatengine-features-asymmetric-pke-aes-gcm"></span><h3>Intel® QAT Software Acceleration for Asymmetric PKE and AES-GCM<a class="headerlink" href="#intel-qat-software-acceleration-for-asymmetric-pke-and-aes-gcm" title="Permalink to this headline"></a></h3>
+<p>This Intel® QAT OpenSSL* Engine supports multi-buffer based software acceleration for asymmetric PKE algorithms
+RSA, ECDH X25519, ECDH P-256/P-384 and ECDSA (sign) P-256/P-384 using the <em>Intel® Crypto Multi-buffer</em> library based
+on Intel® AVX-512 Integer Fused Multiply Add (IFMA) operations.</p>
+<p>This support, when enabled by the user using the <a class="reference internal" href="installation.html#qat-2-0-qatengine-build-qat-engine"><span class="std std-ref">build instructions</span></a> for <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code> target performs operation by
+batching up multiple requests maintained in queues and uses the OpenSSL asynchronous infrastructure to submit the
+batched requests up to 8 to Crypto Multi-buffer API which processes them in parallel using AVX-512 vector instructions.
+QAT_SW multi-buffer acceleration will be beneficial to use in asynchronous operations where there are many parallel connections.</p>
+<p>Software based acceleration for AES-GCM is supported via the <em>Intel® Multi-Buffer Crypto for IPsec</em> Library. The implementation at
+engine for AES-GCM follows synchronous mechanism to submit requests to the <em>IPSec_MB</em> library which processes requests in multiple
+blocks using vectorized AES and AVX-512 instructions from the processor.</p>
+</section>
+</section>
+<section id="hardware-acceleration-and-software-acceleration-co-existence-feature">
+<span id="qat-2-0-qatengine-features-co-existene-feature"></span><h2>Hardware Acceleration and Software Acceleration Co-existence Feature<a class="headerlink" href="#hardware-acceleration-and-software-acceleration-co-existence-feature" title="Permalink to this headline"></a></h2>
+<p>Intel® QAT OpenSSL* Engine supports Hardware Acceleration (QAT_HW) and Software Acceleration (QAT_SW) co-existence build with both <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> and <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code> dependant libraries
+(<em>Intel QAT driver</em>, <em>cryptom_mb</em> and <em>ipsec_mb</em>) linked in the <code class="docutils literal notranslate"><span class="pre">qatengine.so</span></code> library. This support can be enabled at build time when both
+Hardware Acceleration flag <code class="docutils literal notranslate"><span class="pre">--with-qat_hw_dir=/path/to/QAT_Driver</span></code> and Software Acceleration flag <code class="docutils literal notranslate"><span class="pre">--enable-qat_sw</span></code> configured together
+in the build configure option.</p>
+<p>If the platform has support for both <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> and <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code>, the default behaviour is to accelerate asymmetric algorithms
+and symmetric chained ciphers using QAT_HW and Symmetric GCM Ciphers using QAT_SW. If the platform doesn’t
+have <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> support then it will use QAT_SW for QAT_HW asymmetric algorithms that are supported in the
+Intel® QAT OpenSSL* Engine.</p>
+<p>The default behaviour can be changed using corresponding algorithm’s enable flags (eg: <code class="docutils literal notranslate"><span class="pre">--enable-qat_sw_rsa</span></code>) in which case the individual
+algorithms enabled (either <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> or <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code>) in the build configure will get accelerated.</p>
+</section>
+<section id="openssl-3-0-provider-support">
+<span id="qat-2-0-qatengine-features-openssl-3-0-support"></span><h2>OpenSSL 3.0 Provider Support<a class="headerlink" href="#openssl-3-0-provider-support" title="Permalink to this headline"></a></h2>
+<p>Intel® QAT OpenSSL* Engine supports <em>Provider</em> interface for OpenSSL 3.0. The <em>qatprovider</em> support can be enabled using configure flag
+<code class="docutils literal notranslate"><span class="pre">--enable-qat_provider</span></code> and the default if not specified will use engine interface.</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Supported Algorithms with OpenSSL 3.0 Provider Support</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Algorithms</strong></p></th>
+<th class="head"><p><strong>Supported by</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RSA</p></td>
+<td><p>QAT_HW &amp; QAT_SW</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDSA</p></td>
+<td><p>QAT_HW &amp; QAT_SW</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDH</p></td>
+<td><p>QAT_HW &amp; QAT_SW</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECX</p></td>
+<td><p>QAT_HW &amp; QAT_SW</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-GCM</p></td>
+<td><p>QAT_HW &amp; QAT_SW</p></td>
+</tr>
+<tr class="row-odd"><td><p>DSA</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-even"><td><p>DH</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-odd"><td><p>HKDF</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-even"><td><p>PRF</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES128_CBC_HMAC_SHA1</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-even"><td><p>AES256_CBC_HMAC_SHA1</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES128_CBC_HMAC_SHA256</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-even"><td><p>AES256_CBC_HMAC_SHA256</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA3-224</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-even"><td><p>SHA3-256</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA3-384</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+<tr class="row-even"><td><p>SHA3-512</p></td>
+<td><p>QAT_HW</p></td>
+</tr>
+</tbody>
+</table>
+<p>This support is added as an experimental feature and tested with <em>OpenSSL speed</em> and <em>testapp</em> only and not tested with any application.</p>
+<p>Example OpenSSL speed command to test using <em>qatprovider</em>:</p>
+<ul>
+<li><p>Hardware Acceleration (QAT_HW)</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./openssl speed -provider qatprovider -elapsed -async_jobs 72 rsa2048</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Software Acceleration (QAT_SW)</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./openssl speed -provider qatprovider -elapsed -async_jobs 8 rsa2048</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="buildoptions.html" class="btn btn-neutral float-left" title="Intel® QAT OpenSSL* Engine Build Options" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="loadengines.html" class="btn btn-neutral float-right" title="Load/Initialize Engines with OpenSSL* Configuration File" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File cpa_dc.h &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Program Listing for File cpa_dc.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-cpa-dc-h">
+<span id="program-listing-file-api-dc-cpa-dc-h"></span><h1>Program Listing for File cpa_dc.h<a class="headerlink" href="#program-listing-for-file-cpa-dc-h" title="Permalink to this headline"></a></h1>
+<p>↰ <a class="reference internal" href="file_api_dc_cpa_dc.h.html#file-api-dc-cpa-dc-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">api/dc/cpa_dc.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/****************************************************************************</span>
+<span class="cm"> *</span>
+<span class="cm"> * &lt;COPYRIGHT_TAG&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> ***************************************************************************/</span><span class="w"></span>
+
+<span class="cm">/*</span>
+<span class="cm"> *****************************************************************************</span>
+<span class="cm"> * Doxygen group definitions</span>
+<span class="cm"> ****************************************************************************/</span><span class="w"></span>
+
+<span class="cp">#ifndef CPA_DC_H</span>
+<span class="cp">#define CPA_DC_H</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="k">extern</span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cp">#endif</span>
+
+
+<span class="cp">#ifndef CPA_H</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cpa.h&quot;</span><span class="cp"></span>
+<span class="cp">#endif</span>
+
+<span class="cp">#define CPA_DC_API_VERSION_NUM_MAJOR (3)</span>
+
+<span class="cp">#define CPA_DC_API_VERSION_NUM_MINOR (2)</span>
+
+<span class="cp">#define CPA_DC_API_VERSION_AT_LEAST(major, minor)                              \</span>
+<span class="cp">    (CPA_DC_API_VERSION_NUM_MAJOR &gt; major ||                                   \</span>
+<span class="cp">     (CPA_DC_API_VERSION_NUM_MAJOR == major &amp;&amp;                                 \</span>
+<span class="cp">      CPA_DC_API_VERSION_NUM_MINOR &gt;= minor))</span>
+
+<span class="cp">#define CPA_DC_API_VERSION_LESS_THAN(major, minor)                             \</span>
+<span class="cp">    (CPA_DC_API_VERSION_NUM_MAJOR &lt; major ||                                   \</span>
+<span class="cp">     (CPA_DC_API_VERSION_NUM_MAJOR == major &amp;&amp;                                 \</span>
+<span class="cp">      CPA_DC_API_VERSION_NUM_MINOR &lt; minor))</span>
+
+
+<span class="cp">#define CPA_DC_CHAIN_CAP_BITMAP_SIZE (32)</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">CpaDcSessionHandle</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcFlush</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_FLUSH_NONE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_FLUSH_FINAL</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_FLUSH_SYNC</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_FLUSH_FULL</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcFlush</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcHuffType</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_HT_STATIC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_HT_PRECOMP</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_HT_FULL_DYNAMIC</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcHuffType</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcCompType</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_DEFLATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4S</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcCompType</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcCompWindowSize</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_WINSIZE_4K</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_WINSIZE_8K</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_WINSIZE_16K</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_WINSIZE_32K</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcCompWindowSize</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcCompMinMatch</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_MIN_3_BYTE_MATCH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_MIN_4_BYTE_MATCH</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcCompMinMatch</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcCompLZ4BlockMaxSize</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4_MAX_BLOCK_SIZE_64K</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4_MAX_BLOCK_SIZE_256K</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4_MAX_BLOCK_SIZE_1M</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4_MAX_BLOCK_SIZE_4M</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcCompLZ4BlockMaxSize</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcChecksum</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_NONE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_CRC32</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_ADLER32</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_CRC32_ADLER32</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_XXHASH32</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcChecksum</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcSessionDir</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_DIR_COMPRESS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_DIR_DECOMPRESS</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_DIR_COMBINED</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcSessionDir</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="n">CpaDcSessionDir</span><span class="w"> </span><span class="n">CpaDcDir</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcSessionState</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_STATEFUL</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_STATELESS</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcSessionState</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="n">CpaDcSessionState</span><span class="w"> </span><span class="n">CpaDcState</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcCompLvl</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L4</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L5</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L6</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L7</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L8</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L9</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L10</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L11</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_L12</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcCompLvl</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcReqStatus</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_OK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_INVALID_BLOCK_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_BAD_STORED_BLOCK_LEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_TOO_MANY_CODES</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">-3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_INCOMPLETE_CODE_LENS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-4</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_REPEATED_LENS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-5</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_MORE_REPEAT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-6</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_BAD_LITLEN_CODES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-7</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_BAD_DIST_CODES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-8</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_INVALID_CODE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-9</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_INVALID_DIST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-10</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_OVERFLOW</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-11</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_SOFTERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-12</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_FATALERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-13</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_MAX_RESUBITERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-14</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_INCOMPLETE_FILE_ERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-15</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_WDOG_TIMER_ERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-16</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_EP_HARDWARE_ERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-17</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_VERIFY_ERROR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-18</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_EMPTY_DYM_BLK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-19</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_CRC_INTEG_ERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-20</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4_MAX_BLOCK_SIZE_EXCEEDED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-93</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4_BLOCK_OVERFLOW_ERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-95</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4_TOKEN_IS_ZERO_ERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-98</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_LZ4_DISTANCE_OUT_OF_RANGE_ERR</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-100</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcReqStatus</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcAutoSelectBest</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_ASB_DISABLED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_ASB_STATIC_DYNAMIC</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_STORED_HDRS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_ASB_UNCOMP_STATIC_DYNAMIC_WITH_NO_HDRS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_ASB_ENABLED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcAutoSelectBest</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcSkipMode</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_SKIP_DISABLED</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_SKIP_AT_START</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_SKIP_AT_END</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_SKIP_STRIDE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcSkipMode</span><span class="p">;</span><span class="w"></span>
+
+<span class="cp">#define CPA_DC_BAD_DATA     (-100)</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaDcCallbackFn</span><span class="p">)(</span><span class="w"></span>
+<span class="w">    </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">callbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaStatus</span><span class="w"> </span><span class="n">status</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaDcInstanceCapabilities</span><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulLZSCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulLZSDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessLZSCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessLZSDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulLZSSCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulLZSSDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessLZSSCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessLZSSDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulELZSCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulELZSDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessELZSCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessELZSDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulDeflateCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulDeflateDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessDeflateCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessDeflateDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessLZ4Compression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessLZ4Decompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statefulLZ4Decompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">statelessLZ4SCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">checksumCRC32</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">checksumAdler32</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">checksumXXHash32</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">dynamicHuffman</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">dynamicHuffmanBufferReq</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">precompiledHuffman</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">autoSelectBestHuffmanTree</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa8U</span><span class="w">       </span><span class="n">validWindowSizeMaskCompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa8U</span><span class="w">       </span><span class="n">validWindowSizeMaskDecompression</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w">      </span><span class="n">internalHuffmanMem</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">endOfLastBlock</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">reportParityError</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">batchAndPack</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">compressAndVerify</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">compressAndVerifyStrict</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">  </span><span class="n">compressAndVerifyAndRecover</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">integrityCrcs</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CPA_BITMAP</span><span class="p">(</span><span class="n">dcChainCapInfo</span><span class="p">,</span><span class="w"> </span><span class="n">CPA_DC_CHAIN_CAP_BITMAP_SIZE</span><span class="p">);</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">integrityCrcs64b</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcInstanceCapabilities</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaDcSessionSetupData</span><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCompLvl</span><span class="w"> </span><span class="n">compLevel</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCompType</span><span class="w"> </span><span class="n">compType</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcHuffType</span><span class="w"> </span><span class="n">huffType</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcAutoSelectBest</span><span class="w"> </span><span class="n">autoSelectBestHuffmanTree</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionDir</span><span class="w"> </span><span class="n">sessDirection</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionState</span><span class="w"> </span><span class="n">sessState</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCompWindowSize</span><span class="w"> </span><span class="n">windowSize</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCompMinMatch</span><span class="w"> </span><span class="n">minMatch</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCompLZ4BlockMaxSize</span><span class="w"> </span><span class="n">lz4BlockMaxSize</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">lz4BlockChecksum</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">lz4BlockIndependence</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcChecksum</span><span class="w"> </span><span class="n">checksum</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">accumulateXXHash</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcSessionSetupData</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="n">CpaDcSessionSetupData</span><span class="w"> </span><span class="n">CpaDcNsSetupData</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaDcSessionUpdateData</span><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCompLvl</span><span class="w"> </span><span class="n">compLevel</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcHuffType</span><span class="w"> </span><span class="n">huffType</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w">   </span><span class="n">enableDmm</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcSessionUpdateData</span><span class="w"> </span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaDcStats</span><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numCompRequests</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numCompRequestsErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numCompCompleted</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numCompCompletedErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numCompCnvErrorsRecovered</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numDecompRequests</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numDecompRequestsErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numDecompCompleted</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numDecompCompletedErrors</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcStats</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaDcRqResults</span><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcReqStatus</span><span class="w"> </span><span class="n">status</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">produced</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">consumed</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">checksum</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">endOfLastBlock</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">dataUncompressed</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcRqResults</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaDcIntegrityCrcSize</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_INTEGRITY_CRC32</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_DC_INTEGRITY_CRC64</span><span class="p">,</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcIntegrityCrcSize</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaIntegrityCrc</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">iCrc</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">oCrc</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaIntegrityCrc</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaIntegrityCrc64b</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">iCrc</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">oCrc</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaIntegrityCrc64b</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaCrcData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">crc32</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">adler32</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaIntegrityCrc</span><span class="w"> </span><span class="n">integrityCrc</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaIntegrityCrc64b</span><span class="w"> </span><span class="n">integrityCrc64b</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaCrcData</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaDcSkipData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSkipMode</span><span class="w"> </span><span class="n">skipMode</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">skipLength</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">strideLength</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">firstSkipOffset</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcSkipData</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaDcOpData</span><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcFlush</span><span class="w"> </span><span class="n">flushFlag</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">compressAndVerify</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">compressAndVerifyAndRecover</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">integrityCrcCheck</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">verifyHwIntegrityCrcs</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcIntegrityCrcSize</span><span class="w"> </span><span class="n">integrityCrcSize</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSkipData</span><span class="w"> </span><span class="n">inputSkipData</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSkipData</span><span class="w"> </span><span class="n">outputSkipData</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaCrcData</span><span class="w"> </span><span class="o">*</span><span class="n">pCrcData</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcOpData</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaDcOpData2</span><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcOpData</span><span class="w"> </span><span class="n">dcOpData</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">appendCRC64</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="cm">/*&lt; If set to true, crc64 of the clear text will be appended to</span>
+<span class="cm">         * the compressed data, after the last block. */</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaDcOpData2</span><span class="p">;</span><span class="w"></span>
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcQueryCapabilities</span><span class="p">(</span><span class="w">  </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcInstanceCapabilities</span><span class="w"> </span><span class="o">*</span><span class="n">pInstanceCapabilities</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcInitSession</span><span class="p">(</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w">     </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w">              </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionSetupData</span><span class="w">           </span><span class="o">*</span><span class="n">pSessionData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">                   </span><span class="o">*</span><span class="n">pContextBuffer</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCallbackFn</span><span class="w">                 </span><span class="n">callbackFn</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcSetCrcControlData</span><span class="p">(</span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">                       </span><span class="n">CpaDcSessionHandle</span><span class="w"> </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                       </span><span class="n">CpaCrcControlData</span><span class="w"> </span><span class="o">*</span><span class="n">pCrcControlData</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcResetSession</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w"> </span><span class="n">pSessionHandle</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcResetXXHashState</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w"> </span><span class="n">pSessionHandle</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"> </span><span class="nf">cpaDcUpdateSession</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w"> </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionUpdateData</span><span class="w"> </span><span class="o">*</span><span class="n">pSessionUpdateData</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcRemoveSession</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w"> </span><span class="n">pSessionHandle</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcDeflateCompressBound</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcHuffType</span><span class="w"> </span><span class="n">huffType</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="o">*</span><span class="n">outputSize</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcLZ4CompressBound</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="o">*</span><span class="n">outputSize</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcLZ4SCompressBound</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">inputSize</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="o">*</span><span class="n">outputSize</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcCompressData</span><span class="p">(</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w">  </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pSrcBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcRqResults</span><span class="w">      </span><span class="o">*</span><span class="n">pResults</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcFlush</span><span class="w">          </span><span class="n">flushFlag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w">                 </span><span class="o">*</span><span class="n">callbackTag</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcCompressData2</span><span class="p">(</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w">  </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pSrcBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcOpData</span><span class="w">         </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcRqResults</span><span class="w">      </span><span class="o">*</span><span class="n">pResults</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w">                 </span><span class="o">*</span><span class="n">callbackTag</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcNsCompressData</span><span class="p">(</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcNsSetupData</span><span class="w">    </span><span class="o">*</span><span class="n">pSetupData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pSrcBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcOpData</span><span class="w">         </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcRqResults</span><span class="w">      </span><span class="o">*</span><span class="n">pResults</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCallbackFn</span><span class="w">     </span><span class="n">callbackFn</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w">                </span><span class="o">*</span><span class="n">callbackTag</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcDecompressData</span><span class="p">(</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w">  </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pSrcBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcRqResults</span><span class="w">      </span><span class="o">*</span><span class="n">pResults</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcFlush</span><span class="w">          </span><span class="n">flushFlag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w">                </span><span class="o">*</span><span class="n">callbackTag</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcDecompressData2</span><span class="p">(</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionHandle</span><span class="w">  </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pSrcBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcOpData</span><span class="w">         </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcRqResults</span><span class="w">      </span><span class="o">*</span><span class="n">pResults</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w">                </span><span class="o">*</span><span class="n">callbackTag</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcNsDecompressData</span><span class="p">(</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcNsSetupData</span><span class="w">    </span><span class="o">*</span><span class="n">pSetupData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pSrcBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w">       </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcOpData</span><span class="w">         </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcRqResults</span><span class="w">      </span><span class="o">*</span><span class="n">pResults</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcCallbackFn</span><span class="w">     </span><span class="n">callbackFn</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w">                </span><span class="o">*</span><span class="n">callbackTag</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcGenerateHeader</span><span class="p">(</span><span class="w"> </span><span class="n">CpaDcSessionHandle</span><span class="w"> </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"> </span><span class="n">Cpa32U</span><span class="w"> </span><span class="o">*</span><span class="n">count</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcGenerateFooter</span><span class="p">(</span><span class="w"> </span><span class="n">CpaDcSessionHandle</span><span class="w"> </span><span class="n">pSessionHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaDcRqResults</span><span class="w"> </span><span class="o">*</span><span class="n">pResults</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcNsGenerateHeader</span><span class="p">(</span><span class="w"> </span><span class="n">CpaDcNsSetupData</span><span class="w"> </span><span class="o">*</span><span class="n">pSetupData</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa32U</span><span class="w"> </span><span class="o">*</span><span class="n">count</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcNsGenerateFooter</span><span class="p">(</span><span class="w"> </span><span class="n">CpaDcNsSetupData</span><span class="w"> </span><span class="o">*</span><span class="n">pSetupData</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">totalLength</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pDestBuff</span><span class="p">,</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaDcRqResults</span><span class="w"> </span><span class="o">*</span><span class="n">pResults</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcGetStats</span><span class="p">(</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">      </span><span class="n">CpaDcStats</span><span class="w"> </span><span class="o">*</span><span class="n">pStatistics</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+<span class="cm">/*****************************************************************************/</span><span class="w"></span>
+<span class="cm">/* Instance Discovery Functions */</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcGetNumInstances</span><span class="p">(</span><span class="n">Cpa16U</span><span class="o">*</span><span class="w"> </span><span class="n">pNumInstances</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcGetInstances</span><span class="p">(</span><span class="n">Cpa16U</span><span class="w"> </span><span class="n">numInstances</span><span class="p">,</span><span class="w"></span>
+<span class="w">                        </span><span class="n">CpaInstanceHandle</span><span class="o">*</span><span class="w"> </span><span class="n">dcInstances</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcGetNumIntermediateBuffers</span><span class="p">(</span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa16U</span><span class="w"> </span><span class="o">*</span><span class="n">pNumBuffers</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcStartInstance</span><span class="p">(</span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa16U</span><span class="w"> </span><span class="n">numBuffers</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBufferList</span><span class="w"> </span><span class="o">**</span><span class="n">pIntermediateBuffers</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcStopInstance</span><span class="p">(</span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcInstanceGetInfo2</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaInstanceInfo2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pInstanceInfo2</span><span class="p">);</span><span class="w"></span>
+
+<span class="cm">/*****************************************************************************/</span><span class="w"></span>
+<span class="cm">/* Instance Notification Functions                                           */</span><span class="w"></span>
+<span class="cm">/*****************************************************************************/</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaDcInstanceNotificationCbFunc</span><span class="p">)(</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceEvent</span><span class="w"> </span><span class="n">instanceEvent</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcInstanceSetNotificationCb</span><span class="p">(</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaDcInstanceNotificationCbFunc</span><span class="w"> </span><span class="n">pInstanceNotificationCb</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pCallbackTag</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcGetSessionSize</span><span class="p">(</span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaDcSessionSetupData</span><span class="o">*</span><span class="w"> </span><span class="n">pSessionData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="o">*</span><span class="w"> </span><span class="n">pSessionSize</span><span class="p">,</span><span class="w"> </span><span class="n">Cpa32U</span><span class="o">*</span><span class="w"> </span><span class="n">pContextSize</span><span class="w"> </span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcBufferListGetMetaSize</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="n">numBuffers</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">Cpa32U</span><span class="w"> </span><span class="o">*</span><span class="n">pSizeInBytes</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcGetStatusText</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">dcInstance</span><span class="p">,</span><span class="w"></span>
+<span class="w">                   </span><span class="k">const</span><span class="w"> </span><span class="n">CpaStatus</span><span class="w"> </span><span class="n">errStatus</span><span class="p">,</span><span class="w"></span>
+<span class="w">                   </span><span class="n">Cpa8S</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pStatusText</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaDcSetAddressTranslation</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">                           </span><span class="n">CpaVirtualToPhysical</span><span class="w"> </span><span class="n">virtual2Physical</span><span class="p">);</span><span class="w"></span>
+<span class="cp">#ifdef __cplusplus</span>
+<span class="p">}</span><span class="w"> </span><span class="cm">/* close the extern &quot;C&quot; { */</span><span class="w"></span>
+<span class="cp">#endif</span>
+
+<span class="cp">#endif </span><span class="cm">/* CPA_DC_H */</span><span class="cp"></span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

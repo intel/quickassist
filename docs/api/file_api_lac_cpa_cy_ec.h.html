@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File cpa_cy_ec.h &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>File cpa_cy_ec.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-cpa-cy-ec-h">
+<span id="file-api-lac-cpa-cy-ec-h"></span><h1>File cpa_cy_ec.h<a class="headerlink" href="#file-cpa-cy-ec-h" title="Permalink to this headline"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-api-lac-cpa-cy-ec-h" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">api/lac/cpa_cy_ec.h</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
+<li><p><a class="reference internal" href="#included-by" id="id3">Included By</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id4">Classes</a></p></li>
+<li><p><a class="reference internal" href="#enums" id="id5">Enums</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id6">Functions</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id7">Typedefs</a></p></li>
+<li><p><a class="reference internal" href="#unions" id="id8">Unions</a></p></li>
+</ul>
+</nav>
+<section id="definition-api-lac-cpa-cy-ec-h">
+<h2>Definition (<code class="docutils literal notranslate"><span class="pre">api/lac/cpa_cy_ec.h</span></code>)<a class="headerlink" href="#definition-api-lac-cpa-cy-ec-h" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="program_listing_file_api_lac_cpa_cy_ec.h.html">Program Listing for File cpa_cy_ec.h</a></li>
+</ul>
+</div>
+</section>
+<section id="includes">
+<h2>Includes<a class="headerlink" href="#includes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpa_cy_common.h</span></code> (<a class="reference internal" href="file_api_lac_cpa_cy_common.h.html#file-api-lac-cpa-cy-common-h"><span class="std std-ref">File cpa_cy_common.h</span></a>)</p></li>
+</ul>
+</section>
+<section id="included-by">
+<h2>Included By<a class="headerlink" href="#included-by" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="file_api_lac_cpa_cy_ecdsa.h.html#file-api-lac-cpa-cy-ecdsa-h"><span class="std std-ref">File cpa_cy_ecdsa.h</span></a></p></li>
+<li><p><a class="reference internal" href="file_api_lac_cpa_cy_kpt.h.html#file-api-lac-cpa-cy-kpt-h"><span class="std std-ref">File cpa_cy_kpt.h</span></a></p></li>
+</ul>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="struct_a00380.html#exhale-struct-a00380"><span class="std std-ref">Struct _CpaCyEcCurve</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00372.html#exhale-struct-a00372"><span class="std std-ref">Struct _CpaCyEcCurveParametersWeierstrass</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00388.html#exhale-struct-a00388"><span class="std std-ref">Struct _CpaCyEcGenericPointMultiplyOpData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00392.html#exhale-struct-a00392"><span class="std std-ref">Struct _CpaCyEcGenericPointVerifyOpData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00396.html#exhale-struct-a00396"><span class="std std-ref">Struct _CpaCyEcMontEdwdsPointMultiplyOpData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00384.html#exhale-struct-a00384"><span class="std std-ref">Struct _CpaCyEcPointMultiplyOpData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00400.html#exhale-struct-a00400"><span class="std std-ref">Struct _CpaCyEcPointVerifyOpData</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00404.html#exhale-struct-a00404"><span class="std std-ref">Struct _CpaCyEcStats64</span></a></p></li>
+</ul>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="enum_a00072_1gaec25fbd7e87ba93ea253192d6cf7c19f.html#exhale-enum-a00072-1gaec25fbd7e87ba93ea253192d6cf7c19f"><span class="std std-ref">Enum _CpaCyEcCurveType</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00072_1ga7a17dc63146a7741a7b9d734f13686c5.html#exhale-enum-a00072-1ga7a17dc63146a7741a7b9d734f13686c5"><span class="std std-ref">Enum _CpaCyEcFieldType</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00072_1ga067a690255d1101657a77ab0aac80975.html#exhale-enum-a00072-1ga067a690255d1101657a77ab0aac80975"><span class="std std-ref">Enum _CpaCyEcMontEdwdsCurveType</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_a00072_1gadd4dd76dae949de5ac686c91091eeae2.html#exhale-function-a00072-1gadd4dd76dae949de5ac686c91091eeae2"><span class="std std-ref">Function cpaCyEcGenericPointMultiply</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00072_1ga59cc6fad90441bd5be5c5e0af08ca94b.html#exhale-function-a00072-1ga59cc6fad90441bd5be5c5e0af08ca94b"><span class="std std-ref">Function cpaCyEcGenericPointVerify</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00072_1ga7e38070cfee6548bf8d3ac10a3aea47b.html#exhale-function-a00072-1ga7e38070cfee6548bf8d3ac10a3aea47b"><span class="std std-ref">Function cpaCyEcMontEdwdsPointMultiply</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00072_1gae3e76ded37e0478532c20ffa160cd54f.html#exhale-function-a00072-1gae3e76ded37e0478532c20ffa160cd54f"><span class="std std-ref">Function cpaCyEcPointMultiply</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00072_1ga1757726b2fdbc9c95787faa34aec6ad0.html#exhale-function-a00072-1ga1757726b2fdbc9c95787faa34aec6ad0"><span class="std std-ref">Function cpaCyEcPointVerify</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00072_1ga4d4dceeeab754742c9d32a4ce819a09c.html#exhale-function-a00072-1ga4d4dceeeab754742c9d32a4ce819a09c"><span class="std std-ref">Function cpaCyEcQueryStats64</span></a></p></li>
+</ul>
+</section>
+<section id="typedefs">
+<h2>Typedefs<a class="headerlink" href="#typedefs" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="typedef_a00072_1gae98429a4e86bdde8f8a08b5906bfc911.html#exhale-typedef-a00072-1gae98429a4e86bdde8f8a08b5906bfc911"><span class="std std-ref">Typedef CPA_DEPRECATED</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1gaf5b90f2d1c92f17d87867443aa270bb0.html#exhale-typedef-a00072-1gaf5b90f2d1c92f17d87867443aa270bb0"><span class="std std-ref">Typedef CpaCyEcCurve</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1gae387ba396b5b42a61ae6b678a12fdfa4.html#exhale-typedef-a00072-1gae387ba396b5b42a61ae6b678a12fdfa4"><span class="std std-ref">Typedef CpaCyEcCurveParameters</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1gabe2e1a6a35a534062d6157d37ab933b8.html#exhale-typedef-a00072-1gabe2e1a6a35a534062d6157d37ab933b8"><span class="std std-ref">Typedef CpaCyEcCurveParametersWeierstrass</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1ga6c516f4843b773baa3b6c7df580af65e.html#exhale-typedef-a00072-1ga6c516f4843b773baa3b6c7df580af65e"><span class="std std-ref">Typedef CpaCyEcCurveType</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1gab1f2fb48c96f9cbc3926aaeef0f519e7.html#exhale-typedef-a00072-1gab1f2fb48c96f9cbc3926aaeef0f519e7"><span class="std std-ref">Typedef CpaCyEcFieldType</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1ga3585f205312327b8b4588d473260c7e3.html#exhale-typedef-a00072-1ga3585f205312327b8b4588d473260c7e3"><span class="std std-ref">Typedef CpaCyEcGenericPointMultiplyOpData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1ga90f89768b2d42f8a1508bffd5d36d462.html#exhale-typedef-a00072-1ga90f89768b2d42f8a1508bffd5d36d462"><span class="std std-ref">Typedef CpaCyEcGenericPointVerifyOpData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1ga2706ca33150459b70edb9221d872b8c4.html#exhale-typedef-a00072-1ga2706ca33150459b70edb9221d872b8c4"><span class="std std-ref">Typedef CpaCyEcMontEdwdsCurveType</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1ga371fe3799218ab0b7a5ecddeb3074983.html#exhale-typedef-a00072-1ga371fe3799218ab0b7a5ecddeb3074983"><span class="std std-ref">Typedef CpaCyEcMontEdwdsPointMultiplyOpData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1ga0d5686e74275d4efc0edfe0ab4188963.html#exhale-typedef-a00072-1ga0d5686e74275d4efc0edfe0ab4188963"><span class="std std-ref">Typedef CpaCyEcPointMultiplyCbFunc</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1ga17c42af56f3a91423b1842b5c991d6c1.html#exhale-typedef-a00072-1ga17c42af56f3a91423b1842b5c991d6c1"><span class="std std-ref">Typedef CpaCyEcPointVerifyCbFunc</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00072_1gaebfaf34e82f287ebf5479daf9f8b0f9c.html#exhale-typedef-a00072-1gaebfaf34e82f287ebf5479daf9f8b0f9c"><span class="std std-ref">Typedef CpaCyEcStats64</span></a></p></li>
+</ul>
+</section>
+<section id="unions">
+<h2>Unions<a class="headerlink" href="#unions" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="union_a00376.html#exhale-union-a00376"><span class="std std-ref">Union _CpaCyEcCurveParameters</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>File cpa_cy_kpt.h &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>File cpa_cy_kpt.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="file-cpa-cy-kpt-h">
+<span id="file-api-lac-cpa-cy-kpt-h"></span><h1>File cpa_cy_kpt.h<a class="headerlink" href="#file-cpa-cy-kpt-h" title="Permalink to this headline"></a></h1>
+<nav class="contents local" id="contents">
+<p class="topic-title">Contents</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#definition-api-lac-cpa-cy-kpt-h" id="id1">Definition (<code class="docutils literal notranslate"><span class="pre">api/lac/cpa_cy_kpt.h</span></code>)</a></p></li>
+<li><p><a class="reference internal" href="#includes" id="id2">Includes</a></p></li>
+<li><p><a class="reference internal" href="#classes" id="id3">Classes</a></p></li>
+<li><p><a class="reference internal" href="#enums" id="id4">Enums</a></p></li>
+<li><p><a class="reference internal" href="#functions" id="id5">Functions</a></p></li>
+<li><p><a class="reference internal" href="#defines" id="id6">Defines</a></p></li>
+<li><p><a class="reference internal" href="#typedefs" id="id7">Typedefs</a></p></li>
+</ul>
+</nav>
+<section id="definition-api-lac-cpa-cy-kpt-h">
+<h2>Definition (<code class="docutils literal notranslate"><span class="pre">api/lac/cpa_cy_kpt.h</span></code>)<a class="headerlink" href="#definition-api-lac-cpa-cy-kpt-h" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="program_listing_file_api_lac_cpa_cy_kpt.h.html">Program Listing for File cpa_cy_kpt.h</a></li>
+</ul>
+</div>
+</section>
+<section id="includes">
+<h2>Includes<a class="headerlink" href="#includes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpa_cy_common.h</span></code> (<a class="reference internal" href="file_api_lac_cpa_cy_common.h.html#file-api-lac-cpa-cy-common-h"><span class="std std-ref">File cpa_cy_common.h</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpa_cy_ec.h</span></code> (<a class="reference internal" href="file_api_lac_cpa_cy_ec.h.html#file-api-lac-cpa-cy-ec-h"><span class="std std-ref">File cpa_cy_ec.h</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpa_cy_ecdsa.h</span></code> (<a class="reference internal" href="file_api_lac_cpa_cy_ecdsa.h.html#file-api-lac-cpa-cy-ecdsa-h"><span class="std std-ref">File cpa_cy_ecdsa.h</span></a>)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpa_cy_rsa.h</span></code> (<a class="reference internal" href="file_api_lac_cpa_cy_rsa.h.html#file-api-lac-cpa-cy-rsa-h"><span class="std std-ref">File cpa_cy_rsa.h</span></a>)</p></li>
+</ul>
+</section>
+<section id="classes">
+<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="struct_a00484.html#exhale-struct-a00484"><span class="std std-ref">Struct CpaCyKptEcdsaSignRSOpData_t</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00460.html#exhale-struct-a00460"><span class="std std-ref">Struct CpaCyKptLoadKey_t</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00480.html#exhale-struct-a00480"><span class="std std-ref">Struct CpaCyKptRsaDecryptOpData_t</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00476.html#exhale-struct-a00476"><span class="std std-ref">Struct CpaCyKptRsaPrivateKey_t</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00468.html#exhale-struct-a00468"><span class="std std-ref">Struct CpaCyKptRsaPrivateKeyRep1_t</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00472.html#exhale-struct-a00472"><span class="std std-ref">Struct CpaCyKptRsaPrivateKeyRep2_t</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00464.html#exhale-struct-a00464"><span class="std std-ref">Struct CpaCyKptUnwrapContext_t</span></a></p></li>
+<li><p><a class="reference internal" href="struct_a00456.html#exhale-struct-a00456"><span class="std std-ref">Struct CpaCyKptValidationKey_t</span></a></p></li>
+</ul>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="enum_a00076_1gaa8b8fe9c6ff0a7c2d2444e4ae56e9651.html#exhale-enum-a00076-1gaa8b8fe9c6ff0a7c2d2444e4ae56e9651"><span class="std std-ref">Enum CpaCyKptKeyManagementStatus_t</span></a></p></li>
+<li><p><a class="reference internal" href="enum_a00076_1gac293156955a454abcba2de8ff291e553.html#exhale-enum-a00076-1gac293156955a454abcba2de8ff291e553"><span class="std std-ref">Enum CpaCyKptWrappingKeyType_t</span></a></p></li>
+</ul>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="function_a00076_1gad8a26bfe95bb591408f23dd675964531.html#exhale-function-a00076-1gad8a26bfe95bb591408f23dd675964531"><span class="std std-ref">Function cpaCyKptDeleteKey</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00076_1gaf31e62119a3e4a662900499928904632.html#exhale-function-a00076-1gaf31e62119a3e4a662900499928904632"><span class="std std-ref">Function cpaCyKptEcdsaSignRS</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00076_1gaeafc408840604b3c55d3504506d89e2c.html#exhale-function-a00076-1gaeafc408840604b3c55d3504506d89e2c"><span class="std std-ref">Function cpaCyKptLoadKey</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00076_1gab21944b9ade817c07bd33c1d97981569.html#exhale-function-a00076-1gab21944b9ade817c07bd33c1d97981569"><span class="std std-ref">Function cpaCyKptQueryDeviceCredentials</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00076_1gaab81b54623a78eac9039a934c3c72216.html#exhale-function-a00076-1gaab81b54623a78eac9039a934c3c72216"><span class="std std-ref">Function cpaCyKptQueryIssuingKeys</span></a></p></li>
+<li><p><a class="reference internal" href="function_a00076_1ga8a572c1436ce7c7d9fbe37be36be2212.html#exhale-function-a00076-1ga8a572c1436ce7c7d9fbe37be36be2212"><span class="std std-ref">Function cpaCyKptRsaDecrypt</span></a></p></li>
+</ul>
+</section>
+<section id="defines">
+<h2>Defines<a class="headerlink" href="#defines" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="define_a00076_1gad8275e89b54a90c4b5319b31fe97d0a4.html#exhale-define-a00076-1gad8275e89b54a90c4b5319b31fe97d0a4"><span class="std std-ref">Define CPA_CY_KPT_MAX_AAD_LENGTH</span></a></p></li>
+<li><p><a class="reference internal" href="define_a00076_1ga6ba738ed8ba47b1a84d8d2a44ca33683.html#exhale-define-a00076-1ga6ba738ed8ba47b1a84d8d2a44ca33683"><span class="std std-ref">Define CPA_CY_KPT_MAX_IV_LENGTH</span></a></p></li>
+<li><p><a class="reference internal" href="define_a00076_1gaa0cf377fdb72e4d572491c8574a14337.html#exhale-define-a00076-1gaa0cf377fdb72e4d572491c8574a14337"><span class="std std-ref">Define CPA_CY_RSA3K_SIG_SIZE_INBYTES</span></a></p></li>
+</ul>
+</section>
+<section id="typedefs">
+<h2>Typedefs<a class="headerlink" href="#typedefs" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><a class="reference internal" href="typedef_a00076_1ga9f193e6cd31d099451c0ede98ad8f4bb.html#exhale-typedef-a00076-1ga9f193e6cd31d099451c0ede98ad8f4bb"><span class="std std-ref">Typedef CpaCyKptEcdsaSignRSOpData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga3e2414c93d608871ee60d1f973c5c350.html#exhale-typedef-a00076-1ga3e2414c93d608871ee60d1f973c5c350"><span class="std std-ref">Typedef CpaCyKptHandle</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga43cd912f59a836829c67d522d2de73fc.html#exhale-typedef-a00076-1ga43cd912f59a836829c67d522d2de73fc"><span class="std std-ref">Typedef CpaCyKptKeyManagementStatus</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga61430f8cc74384ebaff32939396ed7cc.html#exhale-typedef-a00076-1ga61430f8cc74384ebaff32939396ed7cc"><span class="std std-ref">Typedef CpaCyKptLoadKey</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga80a0f08434f629e1d401f940fc3bfe94.html#exhale-typedef-a00076-1ga80a0f08434f629e1d401f940fc3bfe94"><span class="std std-ref">Typedef CpaCyKptRsaDecryptOpData</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga46ffb437b6d305e9ba7216a867ca5bd1.html#exhale-typedef-a00076-1ga46ffb437b6d305e9ba7216a867ca5bd1"><span class="std std-ref">Typedef CpaCyKptRsaPrivateKey</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga6ab0abe56b66a2178e3710ef7696cfeb.html#exhale-typedef-a00076-1ga6ab0abe56b66a2178e3710ef7696cfeb"><span class="std std-ref">Typedef CpaCyKptRsaPrivateKeyRep1</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga12123b2be9e3c5163dd1240f4d457b1f.html#exhale-typedef-a00076-1ga12123b2be9e3c5163dd1240f4d457b1f"><span class="std std-ref">Typedef CpaCyKptRsaPrivateKeyRep2</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga4d12c29d93de71042e7f492c83997408.html#exhale-typedef-a00076-1ga4d12c29d93de71042e7f492c83997408"><span class="std std-ref">Typedef CpaCyKptUnwrapContext</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga2f5e7f6ccd5a2a6450ed765d9979e3c5.html#exhale-typedef-a00076-1ga2f5e7f6ccd5a2a6450ed765d9979e3c5"><span class="std std-ref">Typedef CpaCyKptValidationKey</span></a></p></li>
+<li><p><a class="reference internal" href="typedef_a00076_1ga3f73e07920915c4344a5e222e2c1d3b3.html#exhale-typedef-a00076-1ga3f73e07920915c4344a5e222e2c1d3b3"><span class="std std-ref">Typedef CpaCyKptWrappingKeyType</span></a></p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

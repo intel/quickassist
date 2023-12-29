@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asynch Mode for NGINX* &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
+    <link rel="prev" title="Intel® QuickAssist Technology(QAT) OpenSSL* Engine" href="qatengine.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">QATlib User’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="description.html">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="requirements.html">System Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Asynch Mode for NGINX*</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#installation">Installation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#package-dependencies">Package Dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pre-requisites">Pre-Requisites</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#installation-instructions">Installation instructions</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#configuration">Configuration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#qat-configuration">QAT Configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nginx-configuration">NGINX Configuration</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#benchmarking-nginx-server">Benchmarking NGINX Server</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#cps-testing">CPS Testing</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#throughput-testing">Throughput Testing</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="index.html">QATlib User’s Guide</a> &raquo;</li>
+      <li>Asynch Mode for NGINX*</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="asynch-mode-for-nginx">
+<span id="qat-2-0-qatlib-asynch-nginx"></span><h1>Asynch Mode for NGINX*<a class="headerlink" href="#asynch-mode-for-nginx" title="Permalink to this headline"></a></h1>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<p>The Asynch Mode for NGINX (<strong>asynch_nginx</strong>) package can be installed using the instructions in this section.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The instructions here are to be used when using <em>asynch_nginx</em> with <em>qatlib</em>.</p>
+<p>If using the out-of-tree QAT package, refer to the latest installation instructions available at the <a class="reference external" href="https://github.com/intel/asynch_mode_nginx#installation-instructions">asynch_mode_nginx GitHub repository</a>.</p>
+</div>
+<section id="package-dependencies">
+<span id="qat-2-0-qatlib-asynch-mode-nginx-install-source"></span><h3>Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permalink to this headline"></a></h3>
+<p>This section includes instructions on installing the required packages dependencies.</p>
+<section id="rpm-based-package-dependencies">
+<h4>RPM-based package dependencies<a class="headerlink" href="#rpm-based-package-dependencies" title="Permalink to this headline"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is required for RPM-based Linux distributions such as RHEL*, CentOS*, and Fedora*.</p>
+</div>
+<ol class="arabic">
+<li><p><strong>Install</strong> the RPM-based package dependencies:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf groupinstall &quot;Development Tools&quot;</span>
+<span class="go">sudo dnf install -y gcc</span>
+<span class="go">sudo dnf install -y zlib</span>
+<span class="go">sudo dnf install -y openssl-devel</span>
+<span class="go">sudo dnf install -y zlib-devel</span>
+<span class="go">sudo dnf install -y make</span>
+<span class="go">sudo dnf install -y pcre</span>
+<span class="go">sudo dnf install -y pcre-devel</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+<section id="deb-based-package-dependencies">
+<h4>DEB-based package dependencies<a class="headerlink" href="#deb-based-package-dependencies" title="Permalink to this headline"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is required for DEB-based Linux distributions such as Ubuntu*.</p>
+</div>
+<ol class="arabic">
+<li><p><strong>Install</strong> the DEB-based package dependencies:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get update</span>
+<span class="go">sudo apt-get install -y zlib1g-dev</span>
+<span class="go">sudo apt-get install -y libssl-dev</span>
+<span class="go">sudo apt-get install -y libpcre3</span>
+<span class="go">sudo apt-get install -y libpcre3-dev</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
+<section id="pre-requisites">
+<h3>Pre-Requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline"></a></h3>
+<p>Prior to installing <em>async_nginx</em> ensure the following packages have been installed:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="install.html#qat-2-0-qatlib-install"><span class="std std-ref">QATlib</span></a></p></li>
+<li><p><a class="reference internal" href="qatengine.html#qat-2-0-qatlib-qatengine"><span class="std std-ref">QAT_Engine</span></a></p></li>
+</ul>
+<p>If using compression service, ensure the following package has been installed:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="qatzip.html#qat-2-0-qatzip-install"><span class="std std-ref">QATzip</span></a></p></li>
+</ul>
+</section>
+<section id="installation-instructions">
+<h3>Installation instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline"></a></h3>
+<ol class="arabic">
+<li><p><strong>Obtain</strong> the source package for <em>async_nginx</em> by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
+<span class="go">git clone https://github.com/intel/asynch_mode_nginx.git</span>
+<span class="go">cd asynch_mode_nginx/</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Configure</strong> the <em>async_nginx</em> application by running the below commands:</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Improve Website Performance Using Compression</strong></p>
+<ul class="simple">
+<li><p>Website performance is partially dependent on the size of the files that user browser must download.</p></li>
+<li><p>Reducing the size of these files can increase the speed of the website.</p></li>
+<li><p>Using QAT for compression provides <strong>lower latency</strong>, <strong>lower power utilization</strong>, and <strong>reduced CPU utilization</strong> when compared to using cores and the default gzip library.</p></li>
+</ul>
+</div>
+<p>To configure with support for both <strong>encryption</strong> and <strong>data compression</strong>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export NGINX_INSTALL_DIR=/usr/local/nginx_qat</span>
+<span class="go">sudo mkdir -p $NGINX_INSTALL_DIR</span>
+<span class="go">./configure \</span>
+<span class="go">   --prefix=$NGINX_INSTALL_DIR \</span>
+<span class="go">   --with-http_ssl_module \</span>
+<span class="go">   --add-dynamic-module=modules/nginx_qatzip_module \</span>
+<span class="go">   --add-dynamic-module=modules/nginx_qat_module/ \</span>
+<span class="go">   --with-cc-opt=&quot;-DNGX_SECURE_MEM  -Wno-error=deprecated-declarations&quot; \</span>
+<span class="go">   --with-ld-opt=&quot;-lqatzip -lz&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>To configure with support for just <strong>encryption</strong>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">export NGINX_INSTALL_DIR=/usr/local/nginx_qat</span>
+<span class="go">sudo mkdir -p $NGINX_INSTALL_DIR</span>
+<span class="go">./configure \</span>
+<span class="go">   --prefix=$NGINX_INSTALL_DIR \</span>
+<span class="go">   --with-http_ssl_module \</span>
+<span class="go">   --add-dynamic-module=modules/nginx_qat_module/ \</span>
+<span class="go">   --with-cc-opt=&quot;-DNGX_SECURE_MEM  -Wno-error=deprecated-declarations&quot;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Build</strong> and <strong>install</strong> the <em>async_nginx</em> application by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">make -j</span>
+<span class="go">sudo make install</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+</section>
+<section id="configuration">
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
+<section id="qat-configuration">
+<h3>QAT Configuration<a class="headerlink" href="#qat-configuration" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p>At least one QAT endpoint needs to have asymmetric/symmetric (<strong>asym;sym</strong>) services enabled to utilize cryptography.</p></li>
+<li><p>At least one QAT endpoint needs to have compression (<strong>dc</strong>) service enabled to utilize compression.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Newer versions of the QAT Kernel modules include support for additional service configuration options, including asymmetric/compression (<strong>asym;dc</strong>).
+This mode is ideal if both compression and asymmetric crypto support is required.</p>
+<p>Refer to  <a class="reference internal" href="configuration.html#qat-2-0-qatlib-services-enabled"><span class="std std-ref">Services Enabled</span></a> section of the QATlib User’s Guide for additional details.</p>
+</div>
+<p>Refer to the following sections for details on configuring <em>qatlib</em>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="configuration.html#qat-2-0-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a> (when qat service is enabled)</p></li>
+<li><p><a class="reference internal" href="configuration.html#qat-2-0-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a> (without service)</p></li>
+</ul>
+</section>
+<section id="nginx-configuration">
+<h3>NGINX Configuration<a class="headerlink" href="#nginx-configuration" title="Permalink to this headline"></a></h3>
+<p>This section includes details on configuring NGINX to utilize QAT.  Example configuration file is also available for <a class="reference download internal" download="" href="../_downloads/14a2f2c88d0836a5ccf37fcd135adda8/nginx_qat.conf"><code class="xref download docutils literal notranslate"><span class="pre">download</span></code></a>.</p>
+<section id="general-section">
+<h4>General Section<a class="headerlink" href="#general-section" title="Permalink to this headline"></a></h4>
+<p>Here is example of the general section of the NGINX configuration file:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">user  www www;</span>
+<span class="go">worker_processes  auto;</span>
+<span class="go">error_log  logs/error.log;</span>
+<span class="go">pid        logs/nginx.pid;</span>
+<span class="go">worker_rlimit_nofile 500000;</span>
+
+<span class="go">load_module modules/ngx_http_qatzip_filter_module.so;</span>
+<span class="go">load_module modules/ngx_ssl_engine_qat_module.so;</span>
+
+<span class="go">events {</span>
+<span class="go">   use epoll;</span>
+<span class="go">   worker_connections 102400;</span>
+<span class="go">   accept_mutex off;</span>
+<span class="go">}</span>
+
+<span class="gp"># </span>Enable QAT engine <span class="k">in</span> heuristic mode.
+<span class="go">ssl_engine {</span>
+<span class="go">   use_engine qatengine;</span>
+<span class="go">   default_algorithms ALL;</span>
+<span class="go">   qat_engine {</span>
+<span class="go">      qat_offload_mode async;</span>
+<span class="go">      qat_notify_mode poll;</span>
+<span class="go">      qat_poll_mode heuristic;</span>
+<span class="go">      qat_sw_fallback off;</span>
+<span class="go">   }</span>
+<span class="go">}</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Key parameters include:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">worker_processes</span>&#160; <span class="pre">auto;</span></code> : This sets the number of NGINX worker processes to the number of cores available in the system/virtual machine/container.</p>
+<blockquote>
+<div><div class="admonition important">
+<p class="admonition-title">Important</p>
+<dl class="simple">
+<dt><strong>For optimal performance:</strong></dt><dd><ul class="simple">
+<li><p>Ensure there are enough QAT VFs configured for each service  (<strong>asym</strong>, <strong>dc</strong>) being utilized.</p></li>
+<li><p>If both <strong>asym</strong> and <strong>dc</strong> are used, the suggested <code class="docutils literal notranslate"><span class="pre">POLICY</span></code> setting is <code class="docutils literal notranslate"><span class="pre">2</span></code>.</p></li>
+<li><p>If just one service is used, the suggested <code class="docutils literal notranslate"><span class="pre">POLICY</span></code> setting is <code class="docutils literal notranslate"><span class="pre">1</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Refer to <a class="reference internal" href="configuration.html#qat-2-0-qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> for details.</p>
+</div>
+</div></blockquote>
+<p><code class="docutils literal notranslate"><span class="pre">worker_rlimit_nofile</span> <span class="pre">500000;</span></code> : Sets numbers of open files that each worker process can have open at one time.</p>
+<p><code class="docutils literal notranslate"><span class="pre">load_module</span> <span class="pre">modules/ngx_http_qatzip_filter_module.so;</span></code> : Loads QATzip NGINX module.  This is required when compression is enabled.</p>
+<p><code class="docutils literal notranslate"><span class="pre">load_module</span> <span class="pre">modules/ngx_ssl_engine_qat_module.so;</span></code> : Loads QAT_Engine NGINX module.  This is required when encryption is enabled.</p>
+</div></blockquote>
+</section>
+<section id="compression-settings">
+<h4>Compression Settings<a class="headerlink" href="#compression-settings" title="Permalink to this headline"></a></h4>
+<p>Compression settings are included in the http block of the NGINX configuration file. Here is example compression configuration.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">http {</span>
+<span class="go"> include       mime.types;</span>
+<span class="go"> default_type  application/octet-stream;</span>
+<span class="go"> gzip on;</span>
+<span class="go"> gzip_min_length     128;</span>
+<span class="go"> gzip_comp_level     1;</span>
+<span class="go"> gzip_types  text/css text/javascript text/xml text/plain text/x-component application/javascript application/json application/xml application/rss+xml font/truetype font/opentype application/vnd.ms-fontobject image/svg+xml;</span>
+<span class="go"> gzip_vary            on;</span>
+<span class="go"> gzip_disable        &quot;msie6&quot;;</span>
+<span class="go"> gzip_http_version   1.0;</span>
+
+<span class="go"> qatzip_sw failover;</span>
+<span class="go"> qatzip_min_length 128;</span>
+<span class="go"> qatzip_comp_level 1;</span>
+<span class="go"> qatzip_buffers 16 8k;</span>
+<span class="go"> qatzip_types text/css text/javascript text/xml text/plain text/x-component application/javascript application/json application/xml application/rss+xml font/truetype font/opentype application/vnd.ms-fontobject image/svg+xml application/octet-stream image/jpeg;</span>
+<span class="go"> qatzip_chunk_size   64k;</span>
+<span class="go"> qatzip_stream_size  256k;</span>
+<span class="go"> qatzip_sw_threshold 256;</span>
+</pre></div>
+</div>
+<p>Key parameters include:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">gzip</span> <span class="pre">on;</span></code> : Enables compression</p>
+<p><code class="docutils literal notranslate"><span class="pre">qatzip_min_length</span></code> : Sets the minimum compression size that would be sent to QAT. Requests smaller than this threshold are compressed using gzip.</p>
+<p><code class="docutils literal notranslate"><span class="pre">qat_comp_level</span></code> : Sets the compression level that should be used.  This can be set from 1 to 9.  Higher compression levels allow for better compression ratios.</p>
+</div></blockquote>
+</section>
+<section id="https-settings">
+<h4>HTTPS Settings<a class="headerlink" href="#https-settings" title="Permalink to this headline"></a></h4>
+<p>We can configure NGINX to use QAT for encryption with updates to the HTTPS server section.   An example of this configuration is:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">server {</span>
+<span class="go">     listen       443 ssl asynch;</span>
+<span class="go">     server_name  localhost;</span>
+
+<span class="go">     ssl_protocols       TLSv1.2;</span>
+
+<span class="go">     ssl_certificate      /usr/local/nginx_qat_module/certs/server.crt;</span>
+<span class="go">     ssl_certificate_key  /usr/local/nginx_qat_module/certs/server.key;</span>
+<span class="go">     access_log off;</span>
+<span class="go"> }</span>
+</pre></div>
+</div>
+<p>Key items to call out here include:</p>
+<p><code class="docutils literal notranslate"><span class="pre">listen</span>&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">443</span> <span class="pre">ssl</span> <span class="pre">asynch;</span></code> : This listens on port 443 and enables asynchronous access to OpenSSL.  <code class="docutils literal notranslate"><span class="pre">asynch</span></code> is required for optimal performance.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ssl_certificate</span></code> : Specifies the certificate to be used for public key encryption.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ssl_certificate_key</span></code> : Specifies private key to be used for public key encryption.</p>
+</section>
+</section>
+</section>
+<section id="benchmarking-nginx-server">
+<h2>Benchmarking NGINX Server<a class="headerlink" href="#benchmarking-nginx-server" title="Permalink to this headline"></a></h2>
+<p>When benchmarking NGINX server we can focus on two main areas:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Connections Per Second(CPS)</p></li>
+<li><p>Throughput</p></li>
+</ul>
+</div></blockquote>
+<p>With CPS testing, we are interested in how many connections per second can the NGINX server process.  This test highlights
+the value QAT brings to Public Key Encryption.</p>
+<p>Throughput tests would focus on the data being encrypted and optionally compressed.  This test highlights the value qat_sw brings to the symmetric
+crypto operations and the value QAT brings to compression.</p>
+<section id="cps-testing">
+<h3>CPS Testing<a class="headerlink" href="#cps-testing" title="Permalink to this headline"></a></h3>
+<p>The following scripts can be used benchmark CPS:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><a class="reference download internal" download="" href="../_downloads/8e6e4ce2b4d8d109b12f5c24a23bae49/cps_test.py"><code class="xref download docutils literal notranslate"><span class="pre">cps_test.py</span></code></a></p></li>
+<li><p><a class="reference download internal" download="" href="../_downloads/1b1468c8d4b0d1c86f3d902b1d8a60c7/connection_test.sh"><code class="xref download docutils literal notranslate"><span class="pre">connection_test.sh</span></code></a>.</p></li>
+</ul>
+</div></blockquote>
+<section id="connection-test-sh">
+<h4>connection_test.sh<a class="headerlink" href="#connection-test-sh" title="Permalink to this headline"></a></h4>
+<p>Script invokes <strong>openssl s_time</strong> to create connection requests to the specified NGINX server.
+The script has has the following parameters that can be changed to meet user specific
+test requirements:</p>
+<ul class="simple">
+<li><p>ip_address:  IP address of NGINX server</p></li>
+<li><p>_time: How long to run test specified in seconds</p></li>
+<li><p>clients: Number of simultaneous connections</p></li>
+<li><p>port:  Port number of NGINX server</p></li>
+</ul>
+<p>After the _time expires, resulting number of connections per second is displayed to screen.</p>
+<p>Here is an example of the output from the script:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">[sdp@fl6u41 nginx]$ </span>./connection_test.sh localhost
+
+<span class="go">Location of OpenSSL:</span>
+<span class="go">IP Addresses:                  localhost</span>
+<span class="go">Time:                          10</span>
+<span class="go">Clients:                       300</span>
+<span class="go">Port:                          443</span>
+<span class="go">Cipher:                        AES128-SHA</span>
+<span class="go">Connections per second:      12424 CPS</span>
+<span class="go">Finished in 12 seconds (0 seconds waiting for procs to start)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="cps-test-py">
+<h4>cps_test.py<a class="headerlink" href="#cps-test-py" title="Permalink to this headline"></a></h4>
+<p>This is a wrapper python script around the <strong>connection_test.sh</strong>.  The test script is called
+in an endless loop capturing test results  (Connections per Second) to log file.  In the
+example script we are writing to a textfile_collector file for Prometheus.  This allows
+us to monitor results via Granfana dashboard. If this is not required, simple modifications
+to the script could be made to output to stdout or other log file.</p>
+</section>
+</section>
+<section id="throughput-testing">
+<h3>Throughput Testing<a class="headerlink" href="#throughput-testing" title="Permalink to this headline"></a></h3>
+<p>For throughput testing we are using the <strong>wrk</strong> application to generate client traffic
+requests to the specified NGINX server.  These requests include the downloading of a file
+from the NGINX server.</p>
+<p>The example test script is:</p>
+<ul class="simple">
+<li><p><a class="reference download internal" download="" href="../_downloads/d4d77fb879ad6b9b074e89a8f06395e3/wrk_test.py"><code class="xref download docutils literal notranslate"><span class="pre">wrk_test.py</span></code></a></p></li>
+</ul>
+<p>Prior to running the script, ensure the NGINX server includes the file to be used for testing.</p>
+<p>The following command line arguments are available:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3 wrk_test.py -h
+<span class="go">   usage: wrk_test.py [-h] [-f FILE] [-a ADDRESS] [-t THREADS] [-n CONNECTIONS] [-d DURATION] [-R RATE] [-c COMPRESS] [-i ITERATIONS]</span>
+
+<span class="go">   optional arguments:</span>
+<span class="go">   -h, --help            show this help message and exit</span>
+<span class="go">   -f FILE, --file FILE  File to download</span>
+<span class="go">   -a ADDRESS, --address ADDRESS</span>
+<span class="go">                           address of nginx server</span>
+<span class="go">   -t THREADS, --threads THREADS</span>
+<span class="go">                           Number of threads (default 50)</span>
+<span class="go">   -n CONNECTIONS, --connections CONNECTIONS</span>
+<span class="go">                           Number of connections per thread (default 400)</span>
+<span class="go">   -d DURATION, --duration DURATION</span>
+<span class="go">                           Duration of the test in seconds (default 10)</span>
+<span class="go">   -R RATE, --rate RATE  Rate (default 10000)</span>
+<span class="go">   -c COMPRESS, --compress COMPRESS</span>
+<span class="go">                           Allow compressed files (default = False)</span>
+<span class="go">   -i ITERATIONS, --iterations ITERATIONS</span>
+<span class="go">                           Number of times to loop (default = 35)</span>
+</pre></div>
+</div>
+<p>For each iteration, the following telemetry values are captured from the wrk output:</p>
+<ul class="simple">
+<li><p>requests</p></li>
+<li><p>requests per second</p></li>
+<li><p>size of data read</p></li>
+<li><p>transfers per second</p></li>
+<li><p>p50 latency</p></li>
+<li><p>p75 latency</p></li>
+<li><p>p99 latency</p></li>
+<li><p>average latency</p></li>
+</ul>
+<p>The results are logged to textfile_collector file for Prometheus.  This allows
+us to monitor results via Granfana dashboard. If this is not required, simple modifications
+to the script could be made to output to stdout or other log file.</p>
+<p>Here is example of the contents of the data collected:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">nginx_request_count 3462068</span>
+<span class="go">nginx_requests_per_second 9893.86</span>
+<span class="go">nginx_data_read 62.13000000000003</span>
+<span class="go">nginx_transfers_per_second 181.64</span>
+<span class="go">nginx_p50_latency 1.98</span>
+<span class="go">nginx_p75_latency 3.11</span>
+<span class="go">nginx_p99_latency 206.08</span>
+<span class="go">nginx_ave_latency 8.24</span>
+<span class="go">nginx_connect_errors 0</span>
+<span class="go">nginx_timeout_errors 0</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="qatengine.html" class="btn btn-neutral float-left" title="Intel® QuickAssist Technology(QAT) OpenSSL* Engine" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

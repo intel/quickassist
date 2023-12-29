@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File cpa_types.h &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Program Listing for File cpa_types.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-cpa-types-h">
+<span id="program-listing-file-api-cpa-types-h"></span><h1>Program Listing for File cpa_types.h<a class="headerlink" href="#program-listing-for-file-cpa-types-h" title="Permalink to this headline"></a></h1>
+<p>↰ <a class="reference internal" href="file_api_cpa_types.h.html#file-api-cpa-types-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">api/cpa_types.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/***************************************************************************</span>
+<span class="cm"> *</span>
+<span class="cm"> * &lt;COPYRIGHT_TAG&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> ***************************************************************************/</span><span class="w"></span>
+
+<span class="cm">/*</span>
+<span class="cm"> *****************************************************************************</span>
+<span class="cm"> * Doxygen group definitions</span>
+<span class="cm"> ****************************************************************************/</span><span class="w"></span>
+
+<span class="cp">#ifndef CPA_TYPES_H</span>
+<span class="cp">#define CPA_TYPES_H</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cp">#endif</span>
+
+<span class="cp">#if defined (__linux__) &amp;&amp; defined (__KERNEL__)</span>
+
+<span class="cm">/* Linux kernel mode */</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/kernel.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;linux/types.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#elif defined (__FreeBSD__) &amp;&amp; defined (_KERNEL)</span>
+
+<span class="cm">/* FreeBSD kernel mode */</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/types.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/param.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sys/kernel.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#elif defined (_WIN64) &amp;&amp; defined (KERNEL_SPACE)</span>
+
+<span class="cm">/* Windows kernel mode */</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;ntddk.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#elif defined (__linux__) || defined (__FreeBSD__) || defined (WIN32) || defined (_WIN64)</span>
+
+<span class="cm">/* Linux, FreeBSD, or Windows user mode */</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdio.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stddef.h&gt;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;stdint.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#elif defined (_WRS_KERNEL)</span>
+
+<span class="cm">/* Wind River VxWorks kernel mode */</span><span class="w"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;types/vxTypes.h&gt;</span><span class="cp"></span>
+
+<span class="cp">#else</span>
+<span class="cp">#error Unsupported operating system</span>
+<span class="cp">#endif </span><span class="cm">/* OS and mode */</span><span class="cp"></span>
+
+<span class="cp">#if defined (WIN32) || defined (_WIN64)</span>
+<span class="cm">/* nonstandard extension used : zero-sized array in struct/union */</span><span class="w"></span>
+<span class="cp">#pragma warning (disable: 4200)</span>
+<span class="cp">#endif</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint8_t</span><span class="w"> </span><span class="n">Cpa8U</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int8_t</span><span class="w"> </span><span class="n">Cpa8S</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint16_t</span><span class="w"> </span><span class="n">Cpa16U</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int16_t</span><span class="w"> </span><span class="n">Cpa16S</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">Cpa32U</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int32_t</span><span class="w"> </span><span class="n">Cpa32S</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">Cpa64U</span><span class="p">;</span><span class="w"></span>
+<span class="k">typedef</span><span class="w"> </span><span class="kt">int64_t</span><span class="w"> </span><span class="n">Cpa64S</span><span class="p">;</span><span class="w"></span>
+<span class="cm">/*****************************************************************************</span>
+<span class="cm"> *      Generic Base Data Type definitions</span>
+<span class="cm"> *****************************************************************************/</span><span class="w"></span>
+<span class="cp">#ifndef NULL</span>
+<span class="cp">#define NULL (0)</span>
+
+<span class="cp">#endif</span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="nc">_CpaBoolean</span><span class="w"></span>
+<span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_FALSE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="o">==</span><span class="mi">1</span><span class="p">),</span><span class="w"></span>
+<span class="w">    </span><span class="n">CPA_TRUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="o">==</span><span class="mi">1</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaBoolean</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="cp">#define CPA_BITMAP(name, sizeInBits) \</span>
+<span class="cp">        Cpa32U name[((sizeInBits)+31)/32]</span>
+
+<span class="cp">#define CPA_BITMAP_BIT_TEST(bitmask, bit) \</span>
+<span class="cp">        ((bitmask[(bit)/32]) &amp; (0x1 &lt;&lt; ((bit)%32)))</span>
+
+<span class="cp">#define CPA_BITMAP_BIT_SET(bitmask, bit) \</span>
+<span class="cp">        (bitmask[(bit)/32] |= (0x1 &lt;&lt; ((bit)%32)))</span>
+
+<span class="cp">#define CPA_BITMAP_BIT_CLEAR(bitmask, bit) \</span>
+<span class="cp">        (bitmask[(bit)/32] &amp;= ~(0x1 &lt;&lt; ((bit)%32)))</span>
+
+<span class="cp">#if defined(__GNUC__) || defined(__INTEL_COMPILER) || defined(_WIN64)</span>
+<span class="cm">/*</span>
+<span class="cm"> * gcc and icc support the __attribute__ ((deprecated)) syntax for marking</span>
+<span class="cm"> * functions and other constructs as deprecated.</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="cm">/*</span>
+<span class="cm"> * Uncomment the deprecated macro if you need to see which structs are deprecated</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="cp">#define CPA_DEPRECATED</span>
+<span class="cm">/*#define CPA_DEPRECATED __attribute__ ((deprecated)) */</span><span class="w"></span>
+<span class="cp">#else</span>
+<span class="cm">/*</span>
+<span class="cm"> * for all other compilers, define deprecated to do nothing</span>
+<span class="cm"> *</span>
+<span class="cm"> */</span><span class="w"></span>
+<span class="cm">/* #define CPA_DEPRECATED_FUNC(func) func; #pragma deprecated(func) */</span><span class="w"></span>
+<span class="cp">#pragma message(&quot;WARNING: You need to implement the CPA_DEPRECATED macro for this compiler&quot;)</span>
+<span class="cp">#define CPA_DEPRECATED</span>
+<span class="cp">#endif</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="p">}</span><span class="w"> </span><span class="cm">/* close the extern &quot;C&quot; { */</span><span class="w"></span>
+<span class="cp">#endif</span>
+
+<span class="cp">#endif </span><span class="cm">/* CPA_TYPES_H */</span><span class="cp"></span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
