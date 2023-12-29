@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Containers with Intel® QAT Software &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Run Containers using Intel® QAT Acceleration" href="run.html" />
+    <link rel="prev" title="Setting Up Host Platform" href="setup.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../QATzip/index.html">Intel<sup>®</sup> QATzip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../QATEngine/index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel<sup>®</sup> QAT in Linux Containers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html">Setting Up Host Platform</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Build Containers with Intel® QAT Software</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#container-image-definition">Container Image Definition</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="run.html">Run Containers using Intel® QAT Acceleration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checkin.html">Quick Test of Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nginx.html">Intel® QAT + NGINX* Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="testing.html">Testing Performance of Intel® QAT + OpenSSL* Container with Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="orchestration.html">Orchestration Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pre-built.html">Pre-Built Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Application Notes</a> &raquo;</li>
+          <li><a href="index.html">Intel<sup>®</sup> QAT in Linux Containers</a> &raquo;</li>
+      <li>Build Containers with Intel® QAT Software</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="build-containers-with-intel-qat-software">
+<span id="qat-2-0-containers-build"></span><h1>Build Containers with Intel® QAT Software<a class="headerlink" href="#build-containers-with-intel-qat-software" title="Permalink to this headline"></a></h1>
+<p>In this section we are building container image using the Intel<sup>®</sup> Device Plugin for Kubernetes.
+This image includes:</p>
+<ul class="simple">
+<li><p>Intel® QuickAssist Technology Library (QATlib)</p></li>
+<li><p>Intel® QuickAssist Technology(QAT) OpenSSL* Engine</p></li>
+<li><p>Intel® Crypto Multi-buffer library</p></li>
+<li><p>Intel® Multi-Buffer crypto for IPsec Library</p></li>
+<li><p>Asynch Mode for NGINX*</p></li>
+</ul>
+<p>The definition of image is available <a class="reference external" href="https://github.com/intel/intel-device-plugins-for-kubernetes/blob/main/demo/openssl-qat-engine/Dockerfile">here.</a></p>
+<ol class="arabic">
+<li><p><strong>Copy</strong> the repository.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
+<span class="go">git clone https://github.com/intel/intel-device-plugins-for-kubernetes</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Build</strong> the image.  This step may take several minutes to complete.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd intel-device-plugins-for-kubernetes</span>
+<span class="go">make openssl-qat-engine</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<section id="container-image-definition">
+<h2>Container Image Definition<a class="headerlink" href="#container-image-definition" title="Permalink to this headline"></a></h2>
+<p>In this section of the document, we’ll take a look at key sections of the image definition.</p>
+<section id="package-versions">
+<h3>Package Versions<a class="headerlink" href="#package-versions" title="Permalink to this headline"></a></h3>
+<p>Version strings for the individual components are included at the top of the file.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ARG QATLIB_VERSION=&quot;23.11.0&quot;</span>
+<span class="go">ARG QAT_ENGINE_VERSION=&quot;v1.4.0&quot;</span>
+<span class="go">ARG ASYNC_NGINX_VERSION=&quot;v0.5.1&quot;</span>
+<span class="go">ARG IPSEC_MB_VERSION=&quot;v1.5&quot;</span>
+<span class="go">ARG IPP_CRYPTO_VERSION=&quot;ippcp_2021.9.0&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="download-components">
+<h3>Download Components<a class="headerlink" href="#download-components" title="Permalink to this headline"></a></h3>
+<p>Source files for the individual components are downloaded.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">git clone --depth 1 -b $ASYNC_NGINX_VERSION https://github.com/intel/asynch_mode_nginx.git &amp;&amp; \</span>
+<span class="go">git clone --depth 1 -b $QAT_ENGINE_VERSION https://github.com/intel/QAT_Engine &amp;&amp; \</span>
+<span class="go">git clone --depth 1 -b $IPP_CRYPTO_VERSION https://github.com/intel/ipp-crypto &amp;&amp; \</span>
+<span class="go">git clone --depth 1 -b $IPSEC_MB_VERSION https://github.com/intel/intel-ipsec-mb &amp;&amp; \</span>
+<span class="go">git clone --depth 1 -b $QATLIB_VERSION https://github.com/intel/qatlib</span>
+</pre></div>
+</div>
+</section>
+<section id="build-components">
+<h3>Build Components<a class="headerlink" href="#build-components" title="Permalink to this headline"></a></h3>
+<p>Build instructions are included for each of the components listed above.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">RUN cd /qatlib &amp;&amp; \</span>
+<span class="go">    ./autogen.sh &amp;&amp; \</span>
+<span class="go">    ./configure \</span>
+<span class="go">    --prefix=/usr \</span>
+<span class="go">    --enable-systemd=no &amp;&amp; \</span>
+<span class="go">    make -j &amp;&amp; \</span>
+<span class="go">    make install samples-install</span>
+</pre></div>
+</div>
+</section>
+<section id="populating-contents">
+<h3>Populating Contents<a class="headerlink" href="#populating-contents" title="Permalink to this headline"></a></h3>
+<p>Individual components are installed to appropriate directories within the container.  This happens at the end of the Docker File.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">COPY --from=builder /usr/bin/*_sample* /usr/bin/</span>
+<span class="go">COPY --from=builder /usr/lib/libqat.so.4.1.0 /usr/lib/</span>
+<span class="go">COPY --from=builder /usr/lib/libusdm.so.0.1.0 /usr/lib/</span>
+<span class="go">COPY --from=builder /usr/lib64/libIPSec_MB.so.1 /usr/lib/x86_64-linux-gnu/</span>
+<span class="go">COPY --from=builder /usr/local/lib/libcrypto_mb.so.11.9 /usr/lib/x86_64-linux-gnu/</span>
+<span class="go">COPY --from=builder /usr/lib/x86_64-linux-gnu/engines-3/qatengine.so /usr/lib/x86_64-linux-gnu/engines-3/qatengine.so</span>
+<span class="go">COPY --from=builder /var/www/ /var/www/</span>
+<span class="go">COPY --from=builder /usr/lib64/nginx/* /usr/lib64/nginx/</span>
+<span class="go">COPY --from=builder /usr/bin/nginx /usr/bin</span>
+<span class="go">COPY --from=builder /usr/share/qat/calgary32 /usr/share/qat/</span>
+<span class="go">COPY --from=builder /usr/share/nginx/conf/* /usr/share/nginx/conf/</span>
+<span class="go">COPY --from=builder /qatlib/LICENSE /usr/share/package-licenses/qatlib/LICENSE</span>
+<span class="go">COPY --from=builder /QAT_Engine/LICENSE /usr/share/package-licenses/QAT_Engine/LICENSE</span>
+<span class="go">COPY --from=builder /ipp-crypto/LICENSE /usr/share/package-licenses/ipp-crypto/LICENSE</span>
+<span class="go">COPY --from=builder /asynch_mode_nginx/LICENSE /usr/share/package-licenses/asynch_mode_nginx/LICENSE</span>
+<span class="go">COPY --from=builder /intel-ipsec-mb/LICENSE /usr/share/package-licenses/intel-ipsec-mb/LICENSE</span>
+<span class="go">RUN ldconfig &amp;&amp; apt update &amp;&amp; env DEBIAN_FRONTEND=noninteractive apt install -y openssl haproxy</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="setup.html" class="btn btn-neutral float-left" title="Setting Up Host Platform" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="run.html" class="btn btn-neutral float-right" title="Run Containers using Intel® QAT Acceleration" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

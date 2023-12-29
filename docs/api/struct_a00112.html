@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct _CpaDcInstanceCapabilities &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct _CpaDcOpData" href="struct_a00148.html" />
+    <link rel="prev" title="Struct _CpaDcDpOpData" href="struct_a00156.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api_reference.html">API Reference Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="unabridged_api.html">API Description</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="unabridged_api.html#classes-and-structs">Classes and Structs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="struct_a00084.html">Struct _CpaBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00096.html">Struct _CpaCrcControlData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00140.html">Struct _CpaCrcData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00196.html">Struct _CpaCyCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00320.html">Struct _CpaCyDhPhase1KeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00324.html">Struct _CpaCyDhPhase2SecretKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00328.html">Struct _CpaCyDhStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00332.html">Struct _CpaCyDhStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00340.html">Struct _CpaCyDsaGParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00336.html">Struct _CpaCyDsaPParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00348.html">Struct _CpaCyDsaRSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00356.html">Struct _CpaCyDsaRSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00352.html">Struct _CpaCyDsaSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00364.html">Struct _CpaCyDsaStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00368.html">Struct _CpaCyDsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00360.html">Struct _CpaCyDsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00344.html">Struct _CpaCyDsaYParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00380.html">Struct _CpaCyEcCurve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00372.html">Struct _CpaCyEcCurveParametersWeierstrass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00408.html">Struct _CpaCyEcdsaSignROpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00416.html">Struct _CpaCyEcdsaSignRSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00412.html">Struct _CpaCyEcdsaSignSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00424.html">Struct _CpaCyEcdsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00420.html">Struct _CpaCyEcdsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00388.html">Struct _CpaCyEcGenericPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00392.html">Struct _CpaCyEcGenericPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00396.html">Struct _CpaCyEcMontEdwdsPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00384.html">Struct _CpaCyEcPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00400.html">Struct _CpaCyEcPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00404.html">Struct _CpaCyEcStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00256.html">Struct _CpaCyKeyGenHKDFExpandLabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00260.html">Struct _CpaCyKeyGenHKDFOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00268.html">Struct _CpaCyKeyGenMgfOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00272.html">Struct _CpaCyKeyGenMgfOpDataExt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00252.html">Struct _CpaCyKeyGenSslOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00276.html">Struct _CpaCyKeyGenStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00280.html">Struct _CpaCyKeyGenStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00264.html">Struct _CpaCyKeyGenTlsOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00428.html">Struct _CpaCyLnModExpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00432.html">Struct _CpaCyLnModInvOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00436.html">Struct _CpaCyLnStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00440.html">Struct _CpaCyLnStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00448.html">Struct _CpaCyPrimeStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00452.html">Struct _CpaCyPrimeStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00444.html">Struct _CpaCyPrimeTestOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00308.html">Struct _CpaCyRsaDecryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00304.html">Struct _CpaCyRsaEncryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00300.html">Struct _CpaCyRsaKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00296.html">Struct _CpaCyRsaPrivateKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00288.html">Struct _CpaCyRsaPrivateKeyRep1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00292.html">Struct _CpaCyRsaPrivateKeyRep2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00284.html">Struct _CpaCyRsaPublicKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00312.html">Struct _CpaCyRsaStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00316.html">Struct _CpaCyRsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00244.html">Struct _CpaCySymCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00204.html">Struct _CpaCySymCipherSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00200.html">Struct _CpaCySymDeriveOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00248.html">Struct _CpaCySymDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00212.html">Struct _CpaCySymHashAuthModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00208.html">Struct _CpaCySymHashNestedModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00216.html">Struct _CpaCySymHashSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00228.html">Struct _CpaCySymOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00232.html">Struct _CpaCySymOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00220.html">Struct _CpaCySymSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00224.html">Struct _CpaCySymSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00236.html">Struct _CpaCySymStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00240.html">Struct _CpaCySymStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00168.html">Struct _CpaDcChainOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00192.html">Struct _CpaDcChainOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00184.html">Struct _CpaDcChainRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00188.html">Struct _CpaDcChainRqVResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00160.html">Struct _CpaDcChainSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00176.html">Struct _CpaDcChainSubOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00156.html">Struct _CpaDcDpOpData</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Struct _CpaDcInstanceCapabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00148.html">Struct _CpaDcOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00152.html">Struct _CpaDcOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00128.html">Struct _CpaDcRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00116.html">Struct _CpaDcSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00120.html">Struct _CpaDcSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00144.html">Struct _CpaDcSkipData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00124.html">Struct _CpaDcStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00080.html">Struct _CpaFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00100.html">Struct _CpaInstanceInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00108.html">Struct _CpaInstanceInfo2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00132.html">Struct _CpaIntegrityCrc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00136.html">Struct _CpaIntegrityCrc64b</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00092.html">Struct _CpaPhysBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00088.html">Struct _CpaPhysFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00104.html">Struct _CpaPhysicalInstanceId</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00484.html">Struct CpaCyKptEcdsaSignRSOpData_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00460.html">Struct CpaCyKptLoadKey_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00480.html">Struct CpaCyKptRsaDecryptOpData_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00476.html">Struct CpaCyKptRsaPrivateKey_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00468.html">Struct CpaCyKptRsaPrivateKeyRep1_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00472.html">Struct CpaCyKptRsaPrivateKeyRep2_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00464.html">Struct CpaCyKptUnwrapContext_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00456.html">Struct CpaCyKptValidationKey_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#unions">Unions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#defines">Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api_reference.html">API Reference Manual</a> &raquo;</li>
+          <li><a href="unabridged_api.html">API Description</a> &raquo;</li>
+      <li>Struct _CpaDcInstanceCapabilities</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-cpadcinstancecapabilities">
+<span id="exhale-struct-a00112"></span><h1>Struct _CpaDcInstanceCapabilities<a class="headerlink" href="#struct-cpadcinstancecapabilities" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_api_dc_cpa_dc.h.html#file-api-dc-cpa-dc-h"><span class="std std-ref">File cpa_dc.h</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv426_CpaDcInstanceCapabilities">
+<span id="_CPPv326_CpaDcInstanceCapabilities"></span><span id="_CPPv226_CpaDcInstanceCapabilities"></span><span id="_CpaDcInstanceCapabilities"></span><span class="target" id="a00112"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_CpaDcInstanceCapabilities</span></span></span><a class="headerlink" href="#_CPPv426_CpaDcInstanceCapabilities" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Implementation Capabilities Structure <dl class="simple">
+<dt><strong>Description:</strong></dt><dd><p>This structure contains data relating to the capabilities of an implementation. The capabilities include supported compression algorithms, RFC 1951 options and whether the implementation supports both stateful and stateless compress and decompress sessions. </p>
+</dd>
+</dl>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities10CPA_BITMAPE14dcChainCapInfo28CPA_DC_CHAIN_CAP_BITMAP_SIZE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities10CPA_BITMAPE14dcChainCapInfo28CPA_DC_CHAIN_CAP_BITMAP_SIZE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities10CPA_BITMAPE14dcChainCapInfo28CPA_DC_CHAIN_CAP_BITMAP_SIZE"></span><span id="_CpaDcInstanceCapabilities::CPA_BITMAP__dcChainCapInfo.CPA_DC_CHAIN_CAP_BITMAP_SIZE"></span><span class="target" id="a00112_1aaefc0a54ad351b1403bad43c89b3b6c7"></span><span class="sig-name descname"><span class="n"><span class="pre">CPA_BITMAP</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">dcChainCapInfo</span></span>, <span class="n"><span class="pre">CPA_DC_CHAIN_CAP_BITMAP_SIZE</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities10CPA_BITMAPE14dcChainCapInfo28CPA_DC_CHAIN_CAP_BITMAP_SIZE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Bitmap representing which chaining capabilities are supported by the instance. Bits can be tested using the macro <a class="reference internal" href="define_a00059_1gadaad95e4f9dbcfe4113f1fcc92fadb8e.html#a00059_1gadaad95e4f9dbcfe4113f1fcc92fadb8e"><span class="std std-ref">CPA_BITMAP_BIT_TEST</span></a>. The bit positions are those specified in the enumerated type <a class="reference internal" href="typedef_a00062_1ga36baaf3313e7d1cbe20194edd6df29d3.html#a00062_1ga36baaf3313e7d1cbe20194edd6df29d3"><span class="std std-ref">CpaDcChainOperations</span></a> in cpa_dc_chain.h. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities22statefulLZSCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities22statefulLZSCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities22statefulLZSCompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulLZSCompression__CpaBoolean"></span><span class="target" id="a00112_1abe9ec86248729d7be93feef4bd7b3f37"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulLZSCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities22statefulLZSCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful LZS compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities24statefulLZSDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities24statefulLZSDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities24statefulLZSDecompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulLZSDecompression__CpaBoolean"></span><span class="target" id="a00112_1a33232e7b6503abb398974d7608fd5080"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulLZSDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities24statefulLZSDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful LZS decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities23statelessLZSCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities23statelessLZSCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities23statelessLZSCompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessLZSCompression__CpaBoolean"></span><span class="target" id="a00112_1a69f41935ae507735794f2262a29555c0"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessLZSCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities23statelessLZSCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless LZS compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities25statelessLZSDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities25statelessLZSDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities25statelessLZSDecompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessLZSDecompression__CpaBoolean"></span><span class="target" id="a00112_1ad9999d183efbde92e3a1964a708b511b"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessLZSDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities25statelessLZSDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless LZS decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities23statefulLZSSCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities23statefulLZSSCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities23statefulLZSSCompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulLZSSCompression__CpaBoolean"></span><span class="target" id="a00112_1ae43cef20eaa186fec2119def1e3e620a"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulLZSSCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities23statefulLZSSCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful LZSS compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities25statefulLZSSDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities25statefulLZSSDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities25statefulLZSSDecompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulLZSSDecompression__CpaBoolean"></span><span class="target" id="a00112_1a93ebf4aaf35bb982fe3ad41da3ddeb3d"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulLZSSDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities25statefulLZSSDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful LZSS decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities24statelessLZSSCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities24statelessLZSSCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities24statelessLZSSCompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessLZSSCompression__CpaBoolean"></span><span class="target" id="a00112_1af59ad8949fd66b30676e917dadaaa458"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessLZSSCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities24statelessLZSSCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless LZSS compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities26statelessLZSSDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities26statelessLZSSDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities26statelessLZSSDecompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessLZSSDecompression__CpaBoolean"></span><span class="target" id="a00112_1ae2ebde46cb6c970314e3282b28d464d2"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessLZSSDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities26statelessLZSSDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless LZSS decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities23statefulELZSCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities23statefulELZSCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities23statefulELZSCompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulELZSCompression__CpaBoolean"></span><span class="target" id="a00112_1ad33d38100218d08c3fc1bb9688c15e49"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulELZSCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities23statefulELZSCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful Extended LZS compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities25statefulELZSDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities25statefulELZSDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities25statefulELZSDecompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulELZSDecompression__CpaBoolean"></span><span class="target" id="a00112_1a678ea8a0b527988d64bd31714370ca78"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulELZSDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities25statefulELZSDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful Extended LZS decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities24statelessELZSCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities24statelessELZSCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities24statelessELZSCompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessELZSCompression__CpaBoolean"></span><span class="target" id="a00112_1aaccdbaca557a719ecb992812a382e05c"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessELZSCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities24statelessELZSCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless Extended LZS compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities26statelessELZSDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities26statelessELZSDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities26statelessELZSDecompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessELZSDecompression__CpaBoolean"></span><span class="target" id="a00112_1a6ff44f545bb79310871aed7155548655"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessELZSDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities26statelessELZSDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless Extended LZS decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities26statefulDeflateCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities26statefulDeflateCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities26statefulDeflateCompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulDeflateCompression__CpaBoolean"></span><span class="target" id="a00112_1ad1081ee82fe0b1f1a0b4aed4bda9d40e"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulDeflateCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities26statefulDeflateCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful Deflate compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities28statefulDeflateDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities28statefulDeflateDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities28statefulDeflateDecompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulDeflateDecompression__CpaBoolean"></span><span class="target" id="a00112_1a4bf7c6adaf85a05cb5aa2c2e9567d786"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulDeflateDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities28statefulDeflateDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful Deflate decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities27statelessDeflateCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities27statelessDeflateCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities27statelessDeflateCompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessDeflateCompression__CpaBoolean"></span><span class="target" id="a00112_1ad909b75ff8a1cf5f539f061072df2c6a"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessDeflateCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities27statelessDeflateCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless Deflate compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities29statelessDeflateDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities29statelessDeflateDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities29statelessDeflateDecompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessDeflateDecompression__CpaBoolean"></span><span class="target" id="a00112_1a0e3f239898bd4be2f6313830000d648e"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessDeflateDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities29statelessDeflateDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless Deflate decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities23statelessLZ4CompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities23statelessLZ4CompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities23statelessLZ4CompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessLZ4Compression__CpaBoolean"></span><span class="target" id="a00112_1a5afcb30b4afd69e70400f74f60e3a74e"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessLZ4Compression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities23statelessLZ4CompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless LZ4 compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities25statelessLZ4DecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities25statelessLZ4DecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities25statelessLZ4DecompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessLZ4Decompression__CpaBoolean"></span><span class="target" id="a00112_1a47324fd2af0d77adf522ebd62682733b"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessLZ4Decompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities25statelessLZ4DecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless LZ4 decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities24statefulLZ4DecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities24statefulLZ4DecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities24statefulLZ4DecompressionE"></span><span id="_CpaDcInstanceCapabilities::statefulLZ4Decompression__CpaBoolean"></span><span class="target" id="a00112_1a5bda30c6b8d2cd7bc2888d85d2fb9125"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statefulLZ4Decompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities24statefulLZ4DecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateful LZ4 decompression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities24statelessLZ4SCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities24statelessLZ4SCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities24statelessLZ4SCompressionE"></span><span id="_CpaDcInstanceCapabilities::statelessLZ4SCompression__CpaBoolean"></span><span class="target" id="a00112_1aac9af7b91bc00fd6ccf12c044272bb8d"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">statelessLZ4SCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities24statelessLZ4SCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports Stateless LZ4S compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities13checksumCRC32E">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities13checksumCRC32E"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities13checksumCRC32E"></span><span id="_CpaDcInstanceCapabilities::checksumCRC32__CpaBoolean"></span><span class="target" id="a00112_1a624b47e2659ca9c750e39d177c00d552"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">checksumCRC32</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities13checksumCRC32E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance can calculate a CRC32 checksum over the uncompressed data. This value is only calculated when CPA_DC_DEFLATE is configured as the algorithm for CpaDcCompType </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities15checksumAdler32E">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities15checksumAdler32E"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities15checksumAdler32E"></span><span id="_CpaDcInstanceCapabilities::checksumAdler32__CpaBoolean"></span><span class="target" id="a00112_1a7903b7d550fe8cf9557a68faa5df85e4"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">checksumAdler32</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities15checksumAdler32E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance can calculate an Adler-32 checksum over the uncompressed data. This value is only calculated when CPA_DC_DEFLATE is configured as the algorithm for CpaDcCompType </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities16checksumXXHash32E">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities16checksumXXHash32E"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities16checksumXXHash32E"></span><span id="_CpaDcInstanceCapabilities::checksumXXHash32__CpaBoolean"></span><span class="target" id="a00112_1a55c4fd3c780ad791f9b02e217fbda462"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">checksumXXHash32</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities16checksumXXHash32E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance can calculate an xxHash-32 hash over the uncompressed data. This value is only calculated when CPA_DC_LZ4 or CPA_DC_LZ4S is configured as the algorithm for CpaDcCompType </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities14dynamicHuffmanE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities14dynamicHuffmanE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities14dynamicHuffmanE"></span><span id="_CpaDcInstanceCapabilities::dynamicHuffman__CpaBoolean"></span><span class="target" id="a00112_1a1c820c8c1ea4139352d21b624c29a006"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dynamicHuffman</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities14dynamicHuffmanE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports dynamic Huffman trees in deflate blocks </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities23dynamicHuffmanBufferReqE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities23dynamicHuffmanBufferReqE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities23dynamicHuffmanBufferReqE"></span><span id="_CpaDcInstanceCapabilities::dynamicHuffmanBufferReq__CpaBoolean"></span><span class="target" id="a00112_1a239d7ee91565c666e7959947e654f837"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dynamicHuffmanBufferReq</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities23dynamicHuffmanBufferReqE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if an Instance specific buffer is required to perform a dynamic Huffman tree deflate request </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities18precompiledHuffmanE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities18precompiledHuffmanE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities18precompiledHuffmanE"></span><span id="_CpaDcInstanceCapabilities::precompiledHuffman__CpaBoolean"></span><span class="target" id="a00112_1af29ac1bcadf6cd5f6c047a3a6db572f5"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">precompiledHuffman</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities18precompiledHuffmanE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports precompiled Huffman trees in deflate blocks </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities25autoSelectBestHuffmanTreeE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities25autoSelectBestHuffmanTreeE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities25autoSelectBestHuffmanTreeE"></span><span id="_CpaDcInstanceCapabilities::autoSelectBestHuffmanTree__CpaBoolean"></span><span class="target" id="a00112_1a8ff6125d131b9f585c53c96dc3ac0a2a"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">autoSelectBestHuffmanTree</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities25autoSelectBestHuffmanTreeE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance has the ability to automatically select between different Huffman encoding schemes for better compression ratios </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities30validWindowSizeMaskCompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities30validWindowSizeMaskCompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities30validWindowSizeMaskCompressionE"></span><span id="_CpaDcInstanceCapabilities::validWindowSizeMaskCompression__Cpa8U"></span><span class="target" id="a00112_1a2b5270aa0a7fd60345780ecb369b935c"></span><a class="reference internal" href="typedef_a00059_1ga96cd4f35f3d1a8f9547ee73df01ede2e.html#_CPPv45Cpa8U" title="Cpa8U"><span class="n"><span class="pre">Cpa8U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">validWindowSizeMaskCompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities30validWindowSizeMaskCompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Bits set to ‘1’ for each valid window size supported by the compression implementation </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities32validWindowSizeMaskDecompressionE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities32validWindowSizeMaskDecompressionE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities32validWindowSizeMaskDecompressionE"></span><span id="_CpaDcInstanceCapabilities::validWindowSizeMaskDecompression__Cpa8U"></span><span class="target" id="a00112_1a83a91a1242635137fe9073f770ad0515"></span><a class="reference internal" href="typedef_a00059_1ga96cd4f35f3d1a8f9547ee73df01ede2e.html#_CPPv45Cpa8U" title="Cpa8U"><span class="n"><span class="pre">Cpa8U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">validWindowSizeMaskDecompression</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities32validWindowSizeMaskDecompressionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Bits set to ‘1’ for each valid window size supported by the decompression implementation </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities18internalHuffmanMemE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities18internalHuffmanMemE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities18internalHuffmanMemE"></span><span id="_CpaDcInstanceCapabilities::internalHuffmanMem__Cpa32U"></span><span class="target" id="a00112_1a26c1ae9d822608dfff30fe555d81ddd6"></span><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html#_CPPv46Cpa32U" title="Cpa32U"><span class="n"><span class="pre">Cpa32U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">internalHuffmanMem</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities18internalHuffmanMemE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of bytes internally available to be used when constructing dynamic Huffman trees. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities14endOfLastBlockE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities14endOfLastBlockE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities14endOfLastBlockE"></span><span id="_CpaDcInstanceCapabilities::endOfLastBlock__CpaBoolean"></span><span class="target" id="a00112_1af67af82507c2bef4bd272dd6f13e1e16"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">endOfLastBlock</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities14endOfLastBlockE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the Instance supports stopping at the end of the last block in a deflate stream during a decompression operation and reporting that the end of the last block has been reached as part of the CpaDcReqStatus data. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities17reportParityErrorE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities17reportParityErrorE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities17reportParityErrorE"></span><span id="_CpaDcInstanceCapabilities::reportParityError__CpaBoolean"></span><span class="target" id="a00112_1ace8ae92925d6e746393f5d3c95544f30"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reportParityError</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities17reportParityErrorE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the instance supports parity error reporting. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities12batchAndPackE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities12batchAndPackE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities12batchAndPackE"></span><span id="_CpaDcInstanceCapabilities::batchAndPack__CpaBoolean"></span><span class="target" id="a00112_1a84b21d0141c3728ffcdbb221e3f88489"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">batchAndPack</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities12batchAndPackE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the instance supports ‘batch and pack’ compression </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities17compressAndVerifyE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities17compressAndVerifyE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities17compressAndVerifyE"></span><span id="_CpaDcInstanceCapabilities::compressAndVerify__CpaBoolean"></span><span class="target" id="a00112_1a223c00a27851633632f7c934e46b2642"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">compressAndVerify</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities17compressAndVerifyE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the instance supports checking that compressed data, generated as part of a compression operation, can be successfully decompressed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities23compressAndVerifyStrictE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities23compressAndVerifyStrictE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities23compressAndVerifyStrictE"></span><span id="_CpaDcInstanceCapabilities::compressAndVerifyStrict__CpaBoolean"></span><span class="target" id="a00112_1a37a3c963392583d59d5930f2e876e477"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">compressAndVerifyStrict</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities23compressAndVerifyStrictE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if compressAndVerify is ‘strictly’ enabled for the instance. If strictly enabled, compressAndVerify will be enabled by default for compression operations and cannot be disabled by setting opData.compressAndVerify=0 with <a class="reference internal" href="function_a00060_1ga323f5960a8dcc4f085aa9911539d87cf.html#a00060_1ga323f5960a8dcc4f085aa9911539d87cf"><span class="std std-ref">cpaDcCompressData2()</span></a>. Compression operations with opData.compressAndVerify=0 will return a CPA_STATUS_INVALID_PARAM error status when in compressAndVerify strict mode. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities27compressAndVerifyAndRecoverE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities27compressAndVerifyAndRecoverE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities27compressAndVerifyAndRecoverE"></span><span id="_CpaDcInstanceCapabilities::compressAndVerifyAndRecover__CpaBoolean"></span><span class="target" id="a00112_1a0de5d72e8c68fe8cefd205005daf6899"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">compressAndVerifyAndRecover</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities27compressAndVerifyAndRecoverE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the instance supports recovering from errors detected by compressAndVerify by generating a stored block in the compressed output data buffer. This stored block replaces any compressed content that resulted in a compressAndVerify error. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities13integrityCrcsE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities13integrityCrcsE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities13integrityCrcsE"></span><span id="_CpaDcInstanceCapabilities::integrityCrcs__CpaBoolean"></span><span class="target" id="a00112_1aef98dd6bcbd0c6a12f97fa319fd38e57"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">integrityCrcs</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities13integrityCrcsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the instance supports 32 bit integrity CRC checking in the compression/decompression datapath. Refer to <a class="reference internal" href="typedef_a00060_1gaf699787d09deffe2b7a5029dff124a50.html#a00060_1gaf699787d09deffe2b7a5029dff124a50"><span class="std std-ref">CpaDcOpData</span></a> for more details on integrity checking. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N26_CpaDcInstanceCapabilities16integrityCrcs64bE">
+<span id="_CPPv3N26_CpaDcInstanceCapabilities16integrityCrcs64bE"></span><span id="_CPPv2N26_CpaDcInstanceCapabilities16integrityCrcs64bE"></span><span id="_CpaDcInstanceCapabilities::integrityCrcs64b__CpaBoolean"></span><span class="target" id="a00112_1afe191f5a5c5a3fb9c98ca3f6a06c2133"></span><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html#_CPPv410CpaBoolean" title="CpaBoolean"><span class="n"><span class="pre">CpaBoolean</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">integrityCrcs64b</span></span></span><a class="headerlink" href="#_CPPv4N26_CpaDcInstanceCapabilities16integrityCrcs64bE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>True if the instance supports 64 bit integrity CRC checking in the compression / decompression datapath. Refer to <a class="reference internal" href="typedef_a00060_1gaf699787d09deffe2b7a5029dff124a50.html#a00060_1gaf699787d09deffe2b7a5029dff124a50"><span class="std std-ref">CpaDcOpData</span></a> for more details on integrity checking. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="struct_a00156.html" class="btn btn-neutral float-left" title="Struct _CpaDcDpOpData" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="struct_a00148.html" class="btn btn-neutral float-right" title="Struct _CpaDcOpData" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

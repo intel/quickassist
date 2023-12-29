@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Library Testing &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
+    <link rel="prev" title="Library Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel<sup>®</sup> QATzip</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">The QATzip Library</a></li>
+<li class="toctree-l3"><a class="reference internal" href="installation.html">Library Installation</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Library Testing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#functionality-test-with-qatzip">Functionality Test with QATzip</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-test-with-qatzip">Performance Test with QATzip</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../QATEngine/index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Application Notes</a> &raquo;</li>
+          <li><a href="index.html">Intel<sup>®</sup> QATzip</a> &raquo;</li>
+      <li>Library Testing</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="library-testing">
+<span id="qat-2-0-qatzip-testing"></span><h1>Library Testing<a class="headerlink" href="#library-testing" title="Permalink to this headline"></a></h1>
+<section id="functionality-test-with-qatzip">
+<h2>Functionality Test with QATzip<a class="headerlink" href="#functionality-test-with-qatzip" title="Permalink to this headline"></a></h2>
+<p>Run the following command to check if QATzip is setup correctly for compressing or decompressing files.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Add <code class="docutils literal notranslate"><span class="pre">-h</span></code> for help.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qzip -k $your_input_file</span>
+</pre></div>
+</div>
+<p>Alternately, QATzip can also be run with the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat $your_input_file | qzip &gt; $yout_output_file</span>
+</pre></div>
+</div>
+<p>This compression and decompression utility could support below options:</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">QATzip Supported Options</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Option</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-A</span></code>, <code class="docutils literal notranslate"><span class="pre">--algorithm</span></code></p></td>
+<td><p>Set algorithm type, currently only support deflate.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-d</span></code>, <code class="docutils literal notranslate"><span class="pre">--decompress</span></code></p></td>
+<td><p>Decompress.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-f</span></code>, <code class="docutils literal notranslate"><span class="pre">--force</span></code></p></td>
+<td><p>Force overwrite of output file and compress links.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-h</span></code>, <code class="docutils literal notranslate"><span class="pre">--help</span></code></p></td>
+<td><p>Show help options.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-H</span></code>, <code class="docutils literal notranslate"><span class="pre">--huffmanhdr</span></code></p></td>
+<td><p>Set huffman header type.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-k</span></code>, <code class="docutils literal notranslate"><span class="pre">--keep</span></code></p></td>
+<td><p>Keep (don’t delete) input files.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-V</span></code>, <code class="docutils literal notranslate"><span class="pre">--version</span></code></p></td>
+<td><p>Display version number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-L</span></code>, <code class="docutils literal notranslate"><span class="pre">--level</span></code></p></td>
+<td><p>Set compression level.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-C</span></code>, <code class="docutils literal notranslate"><span class="pre">--chunksz</span></code></p></td>
+<td><p>Set chunk size.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-O</span></code>, <code class="docutils literal notranslate"><span class="pre">--output</span></code></p></td>
+<td><p>Set output header format (gzip/gzipext/7z).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-r</span></code></p></td>
+<td><p>Set max inflight request number.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-R</span></code></p></td>
+<td><p>Set Recursive mode for decompressing a directory. It only supports for gzip/gzipext format and decompression operation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">-o</span></code></p></td>
+<td><p>Set output file name.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">-P</span></code>, <code class="docutils literal notranslate"><span class="pre">--polling</span></code></p></td>
+<td><p>Set polling mode, only supports busy polling settings.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="compression">
+<h3>Compression<a class="headerlink" href="#compression" title="Permalink to this headline"></a></h3>
+<p><strong>File compression in 7z:</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qzip -O 7z FILE1 FILE2 FILE3... -o result.7z</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Directory compression in 7z:</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qzip -O 7z DIR1 DIR2 DIR3... -o result.7z</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="decompression">
+<h3>Decompression<a class="headerlink" href="#decompression" title="Permalink to this headline"></a></h3>
+<p><strong>File decompression in 7z:</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qzip -d result.7z</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Directory decompression with -R:</strong></p>
+<p>If the directory contains files that are compressed by <code class="docutils literal notranslate"><span class="pre">qzip</span></code> and using gzip/gzipext format, then it should be add <code class="docutils literal notranslate"><span class="pre">-R</span></code> option to decompress them:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qzip -d -R DIR</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+</section>
+<section id="performance-test-with-qatzip">
+<h2>Performance Test with QATzip<a class="headerlink" href="#performance-test-with-qatzip" title="Permalink to this headline"></a></h2>
+<p>Run the QATzip (de)compression performance test with the following command.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Update the drive configuration and process/thread argument in <code class="docutils literal notranslate"><span class="pre">run_perf_test.sh</span></code> before running the performance test. Note that when number for threads changes, the argument <code class="docutils literal notranslate"><span class="pre">max_huge_pages_per_process</span></code> in <code class="docutils literal notranslate"><span class="pre">run_perf_test.sh</span></code> should be changed accordingly, at least 6 times of threads number.</p>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $QZ_ROOT/test/performance_tests</span>
+<span class="go">./run_perf_test.sh</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Library Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

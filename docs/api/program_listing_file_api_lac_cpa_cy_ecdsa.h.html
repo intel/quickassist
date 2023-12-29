@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Program Listing for File cpa_cy_ecdsa.h &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Program Listing for File cpa_cy_ecdsa.h</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="program-listing-for-file-cpa-cy-ecdsa-h">
+<span id="program-listing-file-api-lac-cpa-cy-ecdsa-h"></span><h1>Program Listing for File cpa_cy_ecdsa.h<a class="headerlink" href="#program-listing-for-file-cpa-cy-ecdsa-h" title="Permalink to this headline"></a></h1>
+<p>↰ <a class="reference internal" href="file_api_lac_cpa_cy_ecdsa.h.html#file-api-lac-cpa-cy-ecdsa-h"><span class="std std-ref">Return to documentation for file</span></a> (<code class="docutils literal notranslate"><span class="pre">api/lac/cpa_cy_ecdsa.h</span></code>)</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="cm">/***************************************************************************</span>
+<span class="cm"> *</span>
+<span class="cm"> * &lt;COPYRIGHT_TAG&gt;</span>
+<span class="cm"> *</span>
+<span class="cm"> ***************************************************************************/</span><span class="w"></span>
+
+<span class="cm">/*</span>
+<span class="cm"> *****************************************************************************</span>
+<span class="cm"> * Doxygen group definitions</span>
+<span class="cm"> ****************************************************************************/</span><span class="w"></span>
+
+<span class="cp">#ifndef CPA_CY_ECDSA_H_</span>
+<span class="cp">#define CPA_CY_ECDSA_H_</span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="k">extern</span><span class="w"> </span><span class="s">&quot;C&quot;</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="cp">#endif</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cpa_cy_common.h&quot;</span><span class="cp"></span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;cpa_cy_ec.h&quot;</span><span class="cp"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaCyEcdsaSignROpData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">xg</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">yg</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaCyEcFieldType</span><span class="w"> </span><span class="n">fieldType</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaCyEcdsaSignROpData</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaCyEcdsaSignSOpData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaCyEcFieldType</span><span class="w"> </span><span class="n">fieldType</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaCyEcdsaSignSOpData</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaCyEcdsaSignRSOpData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">xg</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">yg</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">d</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaCyEcFieldType</span><span class="w"> </span><span class="n">fieldType</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaCyEcdsaSignRSOpData</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaCyEcdsaVerifyOpData</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">xg</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">yg</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">n</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">q</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">m</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">r</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">s</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">xp</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="n">yp</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">CpaCyEcFieldType</span><span class="w"> </span><span class="n">fieldType</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaCyEcdsaVerifyOpData</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">typedef</span><span class="w"> </span><span class="k">struct</span><span class="w"> </span><span class="nc">_CpaCyEcdsaStats64</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRRequests</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRRequestErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRCompleted</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRCompletedErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRCompletedOutputInvalid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignSRequests</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignSRequestErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignSCompleted</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignSCompletedErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignSCompletedOutputInvalid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRSRequests</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRSRequestErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRSCompleted</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRSCompletedErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaSignRSCompletedOutputInvalid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaVerifyRequests</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaVerifyRequestErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaVerifyCompleted</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaVerifyCompletedErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numEcdsaVerifyCompletedOutputInvalid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numKptEcdsaSignRSCompletedOutputInvalid</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numKptEcdsaSignRSCompleted</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numKptEcdsaSignRSRequests</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numKptEcdsaSignRSRequestErrors</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">Cpa64U</span><span class="w"> </span><span class="n">numKptEcdsaSignRSCompletedErrors</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"> </span><span class="n">CpaCyEcdsaStats64</span><span class="p">;</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaCyEcdsaGenSignCbFunc</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaStatus</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">multiplyStatus</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pOut</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaCyEcdsaSignRSCbFunc</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaStatus</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">multiplyStatus</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pR</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pS</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="k">typedef</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="p">(</span><span class="o">*</span><span class="n">CpaCyEcdsaVerifyCbFunc</span><span class="p">)(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaStatus</span><span class="w"> </span><span class="n">status</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="n">verifyStatus</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaCyEcdsaSignR</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaCyEcdsaGenSignCbFunc</span><span class="w"> </span><span class="n">pCb</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaCyEcdsaSignROpData</span><span class="w"> </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="o">*</span><span class="n">pSignStatus</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pR</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaCyEcdsaSignS</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaCyEcdsaGenSignCbFunc</span><span class="w"> </span><span class="n">pCb</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaCyEcdsaSignSOpData</span><span class="w"> </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="o">*</span><span class="n">pSignStatus</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pS</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaCyEcdsaSignRS</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaCyEcdsaSignRSCbFunc</span><span class="w"> </span><span class="n">pCb</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaCyEcdsaSignRSOpData</span><span class="w"> </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="o">*</span><span class="n">pSignStatus</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pR</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaFlatBuffer</span><span class="w"> </span><span class="o">*</span><span class="n">pS</span><span class="p">);</span><span class="w"></span>
+
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaCyEcdsaVerify</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaCyEcdsaVerifyCbFunc</span><span class="w"> </span><span class="n">pCb</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pCallbackTag</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="k">const</span><span class="w"> </span><span class="n">CpaCyEcdsaVerifyOpData</span><span class="w"> </span><span class="o">*</span><span class="n">pOpData</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaBoolean</span><span class="w"> </span><span class="o">*</span><span class="n">pVerifyStatus</span><span class="p">);</span><span class="w"></span>
+
+<span class="n">CpaStatus</span><span class="w"></span>
+<span class="nf">cpaCyEcdsaQueryStats64</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"></span>
+<span class="w">        </span><span class="n">CpaCyEcdsaStats64</span><span class="w"> </span><span class="o">*</span><span class="n">pEcdsaStats</span><span class="p">);</span><span class="w"></span>
+
+<span class="cp">#ifdef __cplusplus</span>
+<span class="p">}</span><span class="w"> </span><span class="cm">/* close the extern &quot;C&quot; { */</span><span class="w"></span>
+<span class="cp">#endif</span>
+
+<span class="cp">#endif </span><span class="cm">/*CPA_CY_ECDSA_H_*/</span><span class="cp"></span>
+</pre></div>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

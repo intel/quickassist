@@ -1,0 +1,3219 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>API Description &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct _CpaBufferList" href="struct_a00084.html" />
+    <link rel="prev" title="API Reference Manual" href="../api_reference.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api_reference.html">API Reference Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">API Description</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#classes-and-structs">Classes and Structs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00084.html">Struct _CpaBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00096.html">Struct _CpaCrcControlData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00140.html">Struct _CpaCrcData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00196.html">Struct _CpaCyCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00320.html">Struct _CpaCyDhPhase1KeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00324.html">Struct _CpaCyDhPhase2SecretKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00328.html">Struct _CpaCyDhStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00332.html">Struct _CpaCyDhStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00340.html">Struct _CpaCyDsaGParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00336.html">Struct _CpaCyDsaPParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00348.html">Struct _CpaCyDsaRSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00356.html">Struct _CpaCyDsaRSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00352.html">Struct _CpaCyDsaSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00364.html">Struct _CpaCyDsaStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00368.html">Struct _CpaCyDsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00360.html">Struct _CpaCyDsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00344.html">Struct _CpaCyDsaYParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00380.html">Struct _CpaCyEcCurve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00372.html">Struct _CpaCyEcCurveParametersWeierstrass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00408.html">Struct _CpaCyEcdsaSignROpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00416.html">Struct _CpaCyEcdsaSignRSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00412.html">Struct _CpaCyEcdsaSignSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00424.html">Struct _CpaCyEcdsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00420.html">Struct _CpaCyEcdsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00388.html">Struct _CpaCyEcGenericPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00392.html">Struct _CpaCyEcGenericPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00396.html">Struct _CpaCyEcMontEdwdsPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00384.html">Struct _CpaCyEcPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00400.html">Struct _CpaCyEcPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00404.html">Struct _CpaCyEcStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00256.html">Struct _CpaCyKeyGenHKDFExpandLabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00260.html">Struct _CpaCyKeyGenHKDFOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00268.html">Struct _CpaCyKeyGenMgfOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00272.html">Struct _CpaCyKeyGenMgfOpDataExt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00252.html">Struct _CpaCyKeyGenSslOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00276.html">Struct _CpaCyKeyGenStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00280.html">Struct _CpaCyKeyGenStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00264.html">Struct _CpaCyKeyGenTlsOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00428.html">Struct _CpaCyLnModExpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00432.html">Struct _CpaCyLnModInvOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00436.html">Struct _CpaCyLnStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00440.html">Struct _CpaCyLnStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00448.html">Struct _CpaCyPrimeStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00452.html">Struct _CpaCyPrimeStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00444.html">Struct _CpaCyPrimeTestOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00308.html">Struct _CpaCyRsaDecryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00304.html">Struct _CpaCyRsaEncryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00300.html">Struct _CpaCyRsaKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00296.html">Struct _CpaCyRsaPrivateKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00288.html">Struct _CpaCyRsaPrivateKeyRep1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00292.html">Struct _CpaCyRsaPrivateKeyRep2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00284.html">Struct _CpaCyRsaPublicKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00312.html">Struct _CpaCyRsaStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00316.html">Struct _CpaCyRsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00244.html">Struct _CpaCySymCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00204.html">Struct _CpaCySymCipherSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00200.html">Struct _CpaCySymDeriveOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00248.html">Struct _CpaCySymDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00212.html">Struct _CpaCySymHashAuthModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00208.html">Struct _CpaCySymHashNestedModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00216.html">Struct _CpaCySymHashSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00228.html">Struct _CpaCySymOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00232.html">Struct _CpaCySymOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00220.html">Struct _CpaCySymSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00224.html">Struct _CpaCySymSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00236.html">Struct _CpaCySymStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00240.html">Struct _CpaCySymStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00168.html">Struct _CpaDcChainOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00192.html">Struct _CpaDcChainOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00184.html">Struct _CpaDcChainRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00188.html">Struct _CpaDcChainRqVResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00160.html">Struct _CpaDcChainSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00176.html">Struct _CpaDcChainSubOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00156.html">Struct _CpaDcDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00112.html">Struct _CpaDcInstanceCapabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00148.html">Struct _CpaDcOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00152.html">Struct _CpaDcOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00128.html">Struct _CpaDcRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00116.html">Struct _CpaDcSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00120.html">Struct _CpaDcSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00144.html">Struct _CpaDcSkipData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00124.html">Struct _CpaDcStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00080.html">Struct _CpaFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00100.html">Struct _CpaInstanceInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00108.html">Struct _CpaInstanceInfo2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00132.html">Struct _CpaIntegrityCrc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00136.html">Struct _CpaIntegrityCrc64b</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00092.html">Struct _CpaPhysBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00088.html">Struct _CpaPhysFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00104.html">Struct _CpaPhysicalInstanceId</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00484.html">Struct CpaCyKptEcdsaSignRSOpData_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00460.html">Struct CpaCyKptLoadKey_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00480.html">Struct CpaCyKptRsaDecryptOpData_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00476.html">Struct CpaCyKptRsaPrivateKey_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00468.html">Struct CpaCyKptRsaPrivateKeyRep1_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00472.html">Struct CpaCyKptRsaPrivateKeyRep2_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00464.html">Struct CpaCyKptUnwrapContext_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00456.html">Struct CpaCyKptValidationKey_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#enums">Enums</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00058_1ga1277bf9f602cd61f3585ae14db3393cd.html">Enum _CpaAccelerationServiceType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00059_1gab0180fc119de97a136b361aa888df5a0.html">Enum _CpaBoolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00072_1gaec25fbd7e87ba93ea253192d6cf7c19f.html">Enum _CpaCyEcCurveType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00072_1ga7a17dc63146a7741a7b9d734f13686c5.html">Enum _CpaCyEcFieldType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00072_1ga067a690255d1101657a77ab0aac80975.html">Enum _CpaCyEcMontEdwdsCurveType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00068_1ga723600fb4f1d7337a88b35a736b0137b.html">Enum _CpaCyKeyHKDFCipherSuite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00068_1ga060588326e40d1c220591c4dfda1b745.html">Enum _CpaCyKeyHKDFOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00068_1ga033c737ff03919d2d700b6b775ceeb2b.html">Enum _CpaCyKeySslOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00068_1ga3b60afd7f09b42772718031729600012.html">Enum _CpaCyKeyTlsOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00064_1gaa3802f4865f29acb0475502f77b921e8.html">Enum _CpaCyPriority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00069_1ga23aadaacc0dcbfd6d482b4a590cb2dba.html">Enum _CpaCyRsaPrivateKeyRepType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00069_1ga3db830f1b9e1ac291af26f787dcb6b1b.html">Enum _CpaCyRsaVersion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00066_1ga2a58b415afc895efc8b1ddfb70a119f6.html">Enum _CpaCySymAlgChainOrder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00066_1gaae574fa087dd292fc1aaa91fa58df2c7.html">Enum _CpaCySymCipherAlgorithm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00066_1gaa7184571f275419b95daaf0f91695e2c.html">Enum _CpaCySymCipherDirection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html">Enum _CpaCySymHashAlgorithm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00066_1gabc941abd03b2ab7847b1265fd259e72f.html">Enum _CpaCySymHashMode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00066_1ga4d238b8a5e6bc269e0877662c23530d7.html">Enum _CpaCySymOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00066_1ga8c2671f7694242c22c7a9f90776b408b.html">Enum _CpaCySymPacketType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1gad3821983b218d620f0cc0a36b1f17556.html">Enum _CpaDcAutoSelectBest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00062_1ga6a27a18baf1bce1246c17aadc30bfe85.html">Enum _CpaDcChainOperations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00062_1ga9efff9e0e196ea898a6c7e9c45666671.html">Enum _CpaDcChainSessionType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1gaf764c3ea3f57bc84a9170d2db500d4e2.html">Enum _CpaDcChecksum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1ga484b3a54035e877b20e1e4c62de53e1d.html">Enum _CpaDcCompLvl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1ga6f7cdc5355c718556d7c1f1f904435ca.html">Enum _CpaDcCompLZ4BlockMaxSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1ga8150e1d68f7394ad8380dafce93ee4fc.html">Enum _CpaDcCompMinMatch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1ga07141f8f0ca9783b2c4d9a5782c3c2c0.html">Enum _CpaDcCompType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1gac5bdfab9968d694d6083d2541b8e9604.html">Enum _CpaDcCompWindowSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1ga94f8725f62c0673794ab3c243d84047a.html">Enum _CpaDcFlush</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1gae1e906992c620c9c0c11c19fd1788c5e.html">Enum _CpaDcHuffType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1ga0390d729aa9bfc6afb8ecb7a598ea785.html">Enum _CpaDcIntegrityCrcSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1gab3d2956ba3e9e3911ccc21b8e197451b.html">Enum _CpaDcReqStatus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1gaaf634a180ca240c8321b11508812da48.html">Enum _CpaDcSessionDir</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1ga492b03819bed2d167427cbe2dd25cb4d.html">Enum _CpaDcSessionState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00060_1gab3447a908bd2ee71af30c1bc211e8719.html">Enum _CpaDcSkipMode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00057_1ga129c2ed5ae7bc97f8b3ba1ee02c14a6e.html">Enum _CpaInstanceAllocPolicy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00058_1gad128f5ac4c0801e981bb76bbb19f359e.html">Enum _CpaInstanceEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00058_1gabaa5991201c9377450dce14b3d95064c.html">Enum _CpaInstanceState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00058_1ga2c847ebe4124d839feadc18975a4e4cb.html">Enum _CpaInstanceType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00058_1gad357bf8fd4f4bafe44c3461b7937dadd.html">Enum _CpaOperationalState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00076_1gaa8b8fe9c6ff0a7c2d2444e4ae56e9651.html">Enum CpaCyKptKeyManagementStatus_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="enum_a00076_1gac293156955a454abcba2de8ff291e553.html">Enum CpaCyKptWrappingKeyType_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#unions">Unions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="union_a00376.html">Union _CpaCyEcCurveParameters</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="function_a00057_1ga825d6437231ffc5b7fa5718679f80a24.html">Function cpaAllocInstance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00064_1gac545b10f0bafb4dab1e9684904679f36.html">Function cpaCyBufferListGetMetaSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00070_1ga9d24b10571d5b634cea53feb9632b852.html">Function cpaCyDhKeyGenPhase1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00070_1ga522fb6f35e66e8f5d20c59843e3b6088.html">Function cpaCyDhKeyGenPhase2Secret</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00070_1ga9bb3fe8f4572507856b69f4174a684f7.html">Function cpaCyDhQueryStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00070_1ga45e27c681f5b2c8080fb313c97584da7.html">Function cpaCyDhQueryStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1ga1744bf3ec79487012faa1377fab01dbd.html">Function cpaCyDsaGenGParam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1gaeecb03f0ec7805456b52dc22dfa06255.html">Function cpaCyDsaGenPParam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1ga1c5d105e769503d016c60a4f430cab43.html">Function cpaCyDsaGenYParam</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1gabdaf62ac7c0d220d0786807d3dcdbdfb.html">Function cpaCyDsaQueryStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1gac5d4413c49b15a0f735b1d0b368ec5d8.html">Function cpaCyDsaQueryStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1ga2de083ad4283bde0d5e5fd4d3035e166.html">Function cpaCyDsaSignR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1gabb3ecd36596742a26731948dd5198146.html">Function cpaCyDsaSignRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1ga37494504924d4a1c8ff62f5e9f3b416c.html">Function cpaCyDsaSignS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00071_1ga82cabc1c865584c0f4680af045590705.html">Function cpaCyDsaVerify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00073_1ga33760a5e604fb8c5758721892edf6d8e.html">Function cpaCyEcdsaQueryStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00073_1ga3027e2996bbb5f3e5a4978b43f21dccd.html">Function cpaCyEcdsaSignR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00073_1gaf02c1542324a665e9987976b738a0a94.html">Function cpaCyEcdsaSignRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00073_1gac166153974ca79c0941b8a5acc5064d2.html">Function cpaCyEcdsaSignS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00073_1ga514388636ee6be75c1eab21799b7c351.html">Function cpaCyEcdsaVerify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00072_1gadd4dd76dae949de5ac686c91091eeae2.html">Function cpaCyEcGenericPointMultiply</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00072_1ga59cc6fad90441bd5be5c5e0af08ca94b.html">Function cpaCyEcGenericPointVerify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00072_1ga7e38070cfee6548bf8d3ac10a3aea47b.html">Function cpaCyEcMontEdwdsPointMultiply</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00072_1gae3e76ded37e0478532c20ffa160cd54f.html">Function cpaCyEcPointMultiply</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00072_1ga1757726b2fdbc9c95787faa34aec6ad0.html">Function cpaCyEcPointVerify</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00072_1ga4d4dceeeab754742c9d32a4ce819a09c.html">Function cpaCyEcQueryStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00064_1ga18ace3e4d39a75dff5bafea5f8339bff.html">Function cpaCyGetInstances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00064_1ga610ea94470236f0e38d8d34948aa6318.html">Function cpaCyGetNumInstances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00064_1ga683cc4284348d56b6d6673e1d7574323.html">Function cpaCyGetStatusText</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00064_1ga421d3ef37eeffe14f998664b9fc72135.html">Function cpaCyInstanceGetInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00064_1gae4a1bb01aa6bb248454889652bf9f993.html">Function cpaCyInstanceGetInfo2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00064_1ga74e794bbe04e66cd34a47fd23b561d40.html">Function cpaCyInstanceSetNotificationCb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00068_1ga6e005fd3f64ad9ed12921198c614f46e.html">Function cpaCyKeyGenMgf</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00068_1ga196d6d7ba74ccba4c73fd97e61f816cc.html">Function cpaCyKeyGenMgfExt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00068_1gaeaf391ca6eca9cf8412d18e5d4bb6810.html">Function cpaCyKeyGenQueryStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00068_1ga6554686d172acff8d970b405e63e2fa3.html">Function cpaCyKeyGenQueryStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00068_1gabb42d3e4c2219f4d4ee4998b555d0452.html">Function cpaCyKeyGenSsl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00068_1gac0cab13a0dde5f6ed632df5b536ff647.html">Function cpaCyKeyGenTls</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00068_1ga11c8ffb8bf0d9752a370ce886535dc19.html">Function cpaCyKeyGenTls2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00068_1ga39133b10693a1fe9928de3a8311b012a.html">Function cpaCyKeyGenTls3</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00076_1gad8a26bfe95bb591408f23dd675964531.html">Function cpaCyKptDeleteKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00076_1gaf31e62119a3e4a662900499928904632.html">Function cpaCyKptEcdsaSignRS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00076_1gaeafc408840604b3c55d3504506d89e2c.html">Function cpaCyKptLoadKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00076_1gab21944b9ade817c07bd33c1d97981569.html">Function cpaCyKptQueryDeviceCredentials</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00076_1gaab81b54623a78eac9039a934c3c72216.html">Function cpaCyKptQueryIssuingKeys</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00076_1ga8a572c1436ce7c7d9fbe37be36be2212.html">Function cpaCyKptRsaDecrypt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00074_1ga45b35f683632f607e20f2fff7bc61405.html">Function cpaCyLnModExp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00074_1ga97590dd6c82a7fdd347847f4c6bad297.html">Function cpaCyLnModInv</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00074_1ga51aff69e30e94eee1cc72c03a4c5c3d8.html">Function cpaCyLnStatsQuery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00074_1gae872f5d1b332abb69b1d6b9905ebbba2.html">Function cpaCyLnStatsQuery64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00050_1a3246d8555ce7773f7b7f240fdf4cacb0.html">Function cpaCyPrimeQueryStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00050_1ab3120c7fb7bc2b49c80e025833bcbef1.html">Function cpaCyPrimeQueryStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00075_1gab73c8ad5d57688c605c7824237d558cf.html">Function cpaCyPrimeTest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00065_1ga88ec49a60ab728d14598163c15a40e78.html">Function cpaCyQueryCapabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00069_1ga22a50770fa4bb57a1c17fcee4f34354e.html">Function cpaCyRsaDecrypt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00069_1ga44b877a07a68a72378874ae4bfe6ed5c.html">Function cpaCyRsaEncrypt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00069_1ga930f9e9cbc697bc2d4532253d3b00a2c.html">Function cpaCyRsaGenKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00069_1gaf5a5fc0f0b303a5c28731575320c295e.html">Function cpaCyRsaQueryStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00069_1gac1402d9d08e60ac097d3f32d7c55b0cd.html">Function cpaCyRsaQueryStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00065_1ga7ce9fe1c2a08a0746fae181ea4513ea6.html">Function cpaCySetAddressTranslation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00065_1ga2f432fd730dceb74e61b3245e24e6673.html">Function cpaCyStartInstance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00065_1gaa2479d6412ba2da63be88414f92336c4.html">Function cpaCyStopInstance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00067_1ga41beb99c6b56541f97321f4f8308f4ca.html">Function cpaCySymDpEnqueueOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00067_1gacbcbc22acb52508c8bcda544dfcc6107.html">Function cpaCySymDpEnqueueOpBatch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00067_1ga21e417a70393d1c2291b97f529ccd26a.html">Function cpaCySymDpInitSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00067_1ga7bb159b13f3929d9c4a5d3e4493e95bb.html">Function cpaCySymDpPerformOpNow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00067_1ga07c452f4be229a9540d9f557a2ebc3c4.html">Function cpaCySymDpRegCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00067_1ga0d0b27eeaf97bf4b90efdf09f2ef7029.html">Function cpaCySymDpRemoveSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00067_1gadc7b9f55fa286d8763aa1184add2fae1.html">Function cpaCySymDpSessionCtxGetDynamicSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00067_1ga4ac93b5eb08d383c7360719a20013c95.html">Function cpaCySymDpSessionCtxGetSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1ga72e7356f27a2f712ffdb8a1a96bab6d6.html">Function cpaCySymInitSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1ga6724e47dbfe0c8c37868c22dad4519e2.html">Function cpaCySymPerformOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1ga51523968f409eb8f8416bfc54bd0c735.html">Function cpaCySymQueryCapabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1ga0d007be95e36f5c716465bb5f75c54fc.html">Function cpaCySymQueryStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1ga1b54b752b194209763ae9c71f9b8cdda.html">Function cpaCySymQueryStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1ga0bb6c8deecf1d8be1274ac3c9862c495.html">Function cpaCySymRemoveSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1ga0759b95b4177eaaf58ea9546f36735ac.html">Function cpaCySymSessionCtxGetDynamicSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1gaa8953d8e34a410a8a4ece8c447752603.html">Function cpaCySymSessionCtxGetSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1gad9a74fd901a254b34e49c8280180fa8f.html">Function cpaCySymSessionInUse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00066_1ga16b5149aacf64a7b8f82d20b04c62378.html">Function cpaCySymUpdateSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gab90c530c0e8a0c0f38bac9252eb3f693.html">Function cpaDcBufferListGetMetaSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00062_1ga24e61fa7a8d013443db7543c5cd01fe9.html">Function cpaDcChainGetSessionSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00062_1ga75c90cdb0d14ae22938df9b314ba4a5c.html">Function cpaDcChainInitSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00062_1gada562c1b079e4e42bd63589ff09edddc.html">Function cpaDcChainPerformOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00062_1ga751280f0a5ba1d9288e8ba58468a3c8f.html">Function cpaDcChainPerformOp2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00062_1gaabfc8fff39580123c189017463d56dc8.html">Function cpaDcChainRemoveSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00062_1ga6356c2bcc40432a316492fc89095f17c.html">Function cpaDcChainResetSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00062_1ga00744d5c8fb7ee7b53f125b945b4b56f.html">Function cpaDcChainSetCrcControlData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga83a479238a529885668fdd3f8b54795f.html">Function cpaDcCompressData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga323f5960a8dcc4f085aa9911539d87cf.html">Function cpaDcCompressData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gae79090af9ed3e4d577f4ea9ca490818b.html">Function cpaDcDecompressData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga865f0ec8013aabc0544c2de9de90d84e.html">Function cpaDcDecompressData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gab98412f2442fe5b3be0ad4b22d120061.html">Function cpaDcDeflateCompressBound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00061_1ga558835d1b4e202dabcc7d753a74e4559.html">Function cpaDcDpEnqueueOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00061_1gabac49dbc66a3aaa1f8a78750f2cc4c11.html">Function cpaDcDpEnqueueOpBatch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga2d0fb3e9e9d49e36e7d68b94e5815154.html">Function cpaDcDpGetSessionSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00061_1gad4206f93477bcc92b224e647e72507bf.html">Function cpaDcDpInitSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00061_1ga06723d0ce780a9ca8c25e5d14f7fa3c5.html">Function cpaDcDpPerformOpNow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00061_1gacfc50ab4a8cc70831beb8a418d3fb6d7.html">Function cpaDcDpRegCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gad590bd331b62fa3ea904739639d3ec1b.html">Function cpaDcDpRemoveSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gab47bb980129eafde8df9aad3b6b84e39.html">Function cpaDcDpUpdateSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga306af95505f9ac2286b4250852467b1a.html">Function cpaDcGenerateFooter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga1380008fb00dbbaf184a99d3ef52d9d9.html">Function cpaDcGenerateHeader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gaaa31615c287d1527e59718084770f6d0.html">Function cpaDcGetInstances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga6936258e044c3580451723078b222fbe.html">Function cpaDcGetNumInstances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga9b28914c9ed7888914ccab87336ecbd0.html">Function cpaDcGetNumIntermediateBuffers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gaca50e2fa71ce04979a63d8d674512e8a.html">Function cpaDcGetSessionSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga1a25cc05dcd33bd93d804a9c2f0d5039.html">Function cpaDcGetStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga2d235e9f05b28af70d0a80fdd26a52ef.html">Function cpaDcGetStatusText</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gaa9f330514d3e2d25d3c8ee540cc55fa8.html">Function cpaDcInitSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga6b98efefa990b80b42a1cfcad4865a1a.html">Function cpaDcInstanceGetInfo2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga6ce0c92a0345b640880a8aad656fee75.html">Function cpaDcInstanceSetNotificationCb</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga73e95f45fe5c41c01497de0793cf2942.html">Function cpaDcLZ4CompressBound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gab573e57b91a61c04c6af7c1f2932ad9e.html">Function cpaDcLZ4SCompressBound</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gaff8418b3761db32816deb972971b2fce.html">Function cpaDcNsCompressData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga75cc1dd091ccc1e3d173c63f2cfda53f.html">Function cpaDcNsDecompressData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gaff949b6b47cd33762e64c6c5e22acca7.html">Function cpaDcNsGenerateFooter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga2fc429ba7ec9b19ce37dc4898d720992.html">Function cpaDcNsGenerateHeader</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga13b28437499581aa32a744867269512b.html">Function cpaDcQueryCapabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga0b8052f56cf49b145857b4d5aef25cd9.html">Function cpaDcRemoveSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga16223804f8f789da852c47169d9152f9.html">Function cpaDcResetSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gaac4dfa00451116e28556f9e0f62f09c7.html">Function cpaDcResetXXHashState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga5e1e3b60598b2c253a07a3a9069a34b8.html">Function cpaDcSetAddressTranslation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga5d829486011cc0d11828da1a51d5f9cc.html">Function cpaDcSetCrcControlData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga808cffcf0954bd8faa9392c88e2966f5.html">Function cpaDcStartInstance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1ga30afc610385d7d7694c3a5fb092d61ac.html">Function cpaDcStopInstance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00060_1gaaf603236dbc0b4988e702117ee705e71.html">Function cpaDcUpdateSession</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00057_1gaf1b0ed695f1ff68407fe53836dca9d8d.html">Function cpaFreeInstance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00057_1gad4b7c0795faa2cd6c621813edfc01790.html">Function cpaGetInstances</a></li>
+<li class="toctree-l4"><a class="reference internal" href="function_a00057_1ga7f730f71a75435bde052cf2ffcd7bed8.html">Function cpaGetNumInstances</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#defines">Defines</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="define_a00059_1gaa16d6007799334b53150a840ffb97a8d.html">Define CPA_BITMAP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00059_1ga49d7f58168b5cd91b6b257289a05bf4e.html">Define CPA_BITMAP_BIT_CLEAR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00059_1ga1d113c3ae2c6d1f33760107a5a672031.html">Define CPA_BITMAP_BIT_SET</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00059_1gadaad95e4f9dbcfe4113f1fcc92fadb8e.html">Define CPA_BITMAP_BIT_TEST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00017_1a22ec97922bdb53f6312e83bab750d8c6.html">Define CPA_CY_API_VERSION_AT_LEAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00017_1ab95c89bba6d776d49b9f8a19bcd1f885.html">Define CPA_CY_API_VERSION_LESS_THAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00017_1aab435dbf586a6386c76c6a69d5408259.html">Define CPA_CY_API_VERSION_NUM_MAJOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00017_1a5ffdd6bc21aeca4ceef83bc554bfb56f.html">Define CPA_CY_API_VERSION_NUM_MINOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00029_1af88ee5d158ebdcb6e419023b18f07d96.html">Define CPA_CY_HKDF_KEY_MAX_HMAC_SZ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00029_1a8fee2681c43e5c9025ea9a26702e7889.html">Define CPA_CY_HKDF_KEY_MAX_INFO_SZ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00029_1a52e93d4bbd9a46783f69080497135278.html">Define CPA_CY_HKDF_KEY_MAX_LABEL_COUNT</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00029_1adb75cdf744b0266fd7995758ca534fe6.html">Define CPA_CY_HKDF_KEY_MAX_LABEL_SZ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00029_1a5e38ee292681533d43847c36bd4d3b8d.html">Define CPA_CY_HKDF_KEY_MAX_SECRET_SZ</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00029_1ac7f871aeb64f38010e3725196994dcdf.html">Define CPA_CY_HKDF_SUBLABEL_FINISHED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00029_1a030e141125402eafcb97f83761b51014.html">Define CPA_CY_HKDF_SUBLABEL_IV</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00068_1ga0d642a5e0fa1d31d7be96583bc7679a3.html">Define CPA_CY_HKDF_SUBLABEL_KEY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00029_1ae44db68151bcb89496f289f38167c5d5.html">Define CPA_CY_HKDF_SUBLABEL_RESUMPTION</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00068_1gaf3b03e000d28e12889b2c934fd81e62e.html">Define CPA_CY_KEY_GEN_SSL_TLS_RANDOM_LEN_IN_BYTES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00076_1gad8275e89b54a90c4b5319b31fe97d0a4.html">Define CPA_CY_KPT_MAX_AAD_LENGTH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00076_1ga6ba738ed8ba47b1a84d8d2a44ca33683.html">Define CPA_CY_KPT_MAX_IV_LENGTH</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00076_1gaa0cf377fdb72e4d572491c8574a14337.html">Define CPA_CY_RSA3K_SIG_SIZE_INBYTES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00066_1gac2b8ed55b5004bc1cb9b5ccb2734cd63.html">Define CPA_CY_SYM_CCM_SET_AAD</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00066_1ga60128b0f646694b86827fb7de1fe09e2.html">Define CPA_CY_SYM_CCM_SET_NONCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00066_1ga86b200b2d7b6833ecb8c074b96a45493.html">Define CPA_CY_SYM_CIPHER_CAP_BITMAP_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00066_1ga9bf3125877d4e9829dd235a958150e7c.html">Define CPA_CY_SYM_HASH_CAP_BITMAP_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00023_1a9012ed481f090f3caa57c1b10b505c9d.html">Define CPA_CY_SYM_SESUPD_AUTH_KEY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00023_1a8a808a93d04fd97557fb8a3c6e5dd7b5.html">Define CPA_CY_SYM_SESUPD_CIPHER_DIR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00023_1a8e0c2d84a591806a3a6292e9563d480a.html">Define CPA_CY_SYM_SESUPD_CIPHER_KEY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00060_1gafc6e4bebc457cec5352228d46fed1695.html">Define CPA_DC_API_VERSION_AT_LEAST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00060_1gacf507f8e07c74682e08ec619f78cdf95.html">Define CPA_DC_API_VERSION_LESS_THAN</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00060_1gaf1e89e68eff9bbc909a11bb4b1d00809.html">Define CPA_DC_API_VERSION_NUM_MAJOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00060_1gabca30ecba8abb757a9e6ee2c7df75da3.html">Define CPA_DC_API_VERSION_NUM_MINOR</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00060_1gac23cc76f4ac1bace009b1f3b458ee2e5.html">Define CPA_DC_BAD_DATA</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00060_1ga39b7a9baf75fac8ceac7cde68c3aaaab.html">Define CPA_DC_CHAIN_CAP_BITMAP_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00059_1gae98429a4e86bdde8f8a08b5906bfc911.html">Define CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1gafe6bb278d636eaf4a399256f8ed5b170.html">Define CPA_DP_BUFLIST</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00002_1aeba769a403b69fb33ad4a4b8146b855e.html">Define CPA_INST_ID_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00002_1a47017784c8fee121a766154f16fe0910.html">Define CPA_INST_NAME_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00002_1a54a3d2cebc6bdb14123eedd801d31a5c.html">Define CPA_INST_PART_NAME_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00002_1ac5f8776fdf8d760503d3c35066574459.html">Define CPA_INST_SW_VERSION_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00002_1a96de58377ae78fd96b69d952db0b9154.html">Define CPA_INST_VENDOR_NAME_SIZE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga8b78f22a517f96dfb7da7ce8dd4d53fc.html">Define CPA_INSTANCE_HANDLE_SINGLE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1gac946349a18f8dc6599c9b736657f727a.html">Define CPA_INSTANCE_MAX_ID_SIZE_IN_BYTES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga6fe0d34ce3002373ae24efa26dbf87df.html">Define CPA_INSTANCE_MAX_NAME_SIZE_IN_BYTES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga338c90dd53961ae4b80a521c78a5e8f9.html">Define CPA_INSTANCE_MAX_VERSION_SIZE_IN_BYTES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00002_1a80edf2b6a0c55c7bf2ce1c04b6a0115a.html">Define CPA_MAX_CORES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1gabe84e3373d5791cc915639895a0b8311.html">Define CPA_STATUS_FAIL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga513f7ea5670426a495539e9108daa1bf.html">Define CPA_STATUS_FATAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga42ff7f12a342f4012de11fb36588c3c3.html">Define CPA_STATUS_INVALID_PARAM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga555338930a7fa8f9bb0ef8fd233d1a7c.html">Define CPA_STATUS_MAX_STR_LENGTH_IN_BYTES</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1gae3a003c608c7cadf8fa79e93916e9624.html">Define CPA_STATUS_RESOURCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1gab43d7a5b771648e12a168103c7f9e579.html">Define CPA_STATUS_RESTARTING</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga1fc73e2330c17257d1a57aa4a1ce35a8.html">Define CPA_STATUS_RETRY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1gada9b9790c59121c6d37cc11b135e78c7.html">Define CPA_STATUS_STR_FAIL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga6468823f33f02302edcfa4367f2e5332.html">Define CPA_STATUS_STR_FATAL</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga8d70df3e1193416b1a13cd501d8d0c62.html">Define CPA_STATUS_STR_INVALID_PARAM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1gacf57c7044d78b80d97035287fc11892e.html">Define CPA_STATUS_STR_RESOURCE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga4126f7b26cd08d110596bcf8e4735321.html">Define CPA_STATUS_STR_RETRY</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga86852b8a33114eff89b8f171ca0a2abc.html">Define CPA_STATUS_STR_SUCCESS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga378066b5ba581caac8295ac3045a436c.html">Define CPA_STATUS_STR_UNSUPPORTED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga8ae28f676bbb3a3d7fc969fccf7adb32.html">Define CPA_STATUS_SUCCESS</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00058_1ga96a8d3b24a4c30776476a4172b274f24.html">Define CPA_STATUS_UNSUPPORTED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="define_a00059_1ga070d2ce7b6bb7e5c05602aa8c308d0c4.html">Define NULL</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#typedefs">Typedefs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1ga9183484912a72c78ed34b58bdb50483f.html">Typedef Cpa16S</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1gad03fe1a90bdf22509cb874b96dc2f45e.html">Typedef Cpa16U</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1gac72c7b2bb0189988b7f239b7212c0e4e.html">Typedef Cpa32S</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html">Typedef Cpa32U</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1ga0d5f889d11c0a531921cb8cf234c081f.html">Typedef Cpa64S</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html">Typedef Cpa64U</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1ga890e7695b29c3e6a999c141eb92b21b5.html">Typedef Cpa8S</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1ga96cd4f35f3d1a8f9547ee73df01ede2e.html">Typedef Cpa8U</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1ga89d60d4dbeed63c0f89feef4698fa3d2.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00070_1gac37f25e458b2160f831ae93ca4411c77.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1gab7966d9b66644f6be2151d0589c2fd32.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1gae98429a4e86bdde8f8a08b5906bfc911.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1gaaa96787289ada306791572b239cae8b0.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00074_1ga24c26d5394496fcd7f428845237985c9.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00075_1ga8132dc01185283efe97c63446a8a148b.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1ga876bca738d63ef01c8829142c168dad6.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga0ecbacb9aa82aeb8de38290c3583a06b.html">Typedef CPA_DEPRECATED</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1ga59892c26a9717fee364cceb3873c9943.html">Typedef CpaAccelerationServiceType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html">Typedef CpaBoolean</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1ga328cc520f3a230d29ea51e9650034538.html">Typedef CpaBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1ga52d9f54eb9652e3a821b41b0db95ecc3.html">Typedef CpaCrcControlData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga7c5b4462e1864c6cdfa27267cc45f936.html">Typedef CpaCrcData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00065_1gacfa2597455716f6d48b1934a0c2bb17e.html">Typedef CpaCyCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00070_1gaec02af4edfdcc6f53a8bd9fce6702e30.html">Typedef CpaCyDhPhase1KeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00070_1ga91b2ab3ceb90d706f16e820c3cdc2b9a.html">Typedef CpaCyDhPhase2SecretKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00070_1ga5be99610e2869e849835cfe2504c3370.html">Typedef CpaCyDhStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga270c790a14c2d01ef6b1414f0f463030.html">Typedef CpaCyDsaGenCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga45aa7ff8e2ce53ce2ba440877adcf197.html">Typedef CpaCyDsaGParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1gadd545f04eab81377e34c3448a211aa57.html">Typedef CpaCyDsaPParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga4637e65a10f79c71e7e775389d8bbee2.html">Typedef CpaCyDsaRSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga507d1a971aa9a51039e906e34058a196.html">Typedef CpaCyDsaRSSignCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga1fa81e5e9563db335fc96530f74b6a08.html">Typedef CpaCyDsaRSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1gad7afd4bb2afa8f2cdcca86c46880c53f.html">Typedef CpaCyDsaSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga043970e2d8824efb86689d5bfb08fe8b.html">Typedef CpaCyDsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga146e61e31cc740c23124f8f70f7e44e0.html">Typedef CpaCyDsaVerifyCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga10b2ec4dc7d40bc5107d7d89a0b77221.html">Typedef CpaCyDsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00071_1ga2f045d424c0518848012a91e3b3142bb.html">Typedef CpaCyDsaYParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1gaf5b90f2d1c92f17d87867443aa270bb0.html">Typedef CpaCyEcCurve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1gae387ba396b5b42a61ae6b678a12fdfa4.html">Typedef CpaCyEcCurveParameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1gabe2e1a6a35a534062d6157d37ab933b8.html">Typedef CpaCyEcCurveParametersWeierstrass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1ga6c516f4843b773baa3b6c7df580af65e.html">Typedef CpaCyEcCurveType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00073_1ga421199767775e19b991dd1fcbff514d8.html">Typedef CpaCyEcdsaGenSignCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00073_1ga76090af1e857e279144a2e8af0d0eea5.html">Typedef CpaCyEcdsaSignROpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00073_1ga6a0a60a6563cd6dc1c2b34c34522093c.html">Typedef CpaCyEcdsaSignRSCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00073_1ga0d0cc986d4903d743475031d07e1c05a.html">Typedef CpaCyEcdsaSignRSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00073_1gaf3bc86d3e954e13e8b114022aa74142a.html">Typedef CpaCyEcdsaSignSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00073_1ga3e9b716f00445e1a6f65b3033541c8b9.html">Typedef CpaCyEcdsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00073_1ga085aa196c694a8244155208f3f098cb6.html">Typedef CpaCyEcdsaVerifyCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00073_1ga7e6ec47b53538cd3b844b1fc788d7aff.html">Typedef CpaCyEcdsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1gab1f2fb48c96f9cbc3926aaeef0f519e7.html">Typedef CpaCyEcFieldType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1ga3585f205312327b8b4588d473260c7e3.html">Typedef CpaCyEcGenericPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1ga90f89768b2d42f8a1508bffd5d36d462.html">Typedef CpaCyEcGenericPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1ga2706ca33150459b70edb9221d872b8c4.html">Typedef CpaCyEcMontEdwdsCurveType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1ga371fe3799218ab0b7a5ecddeb3074983.html">Typedef CpaCyEcMontEdwdsPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1ga0d5686e74275d4efc0edfe0ab4188963.html">Typedef CpaCyEcPointMultiplyCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1ga17c42af56f3a91423b1842b5c991d6c1.html">Typedef CpaCyEcPointVerifyCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00072_1gaebfaf34e82f287ebf5479daf9f8b0f9c.html">Typedef CpaCyEcStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00064_1ga7e5fa54d29db6714629185fb013641f7.html">Typedef CpaCyGenericCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00064_1ga2a9c93347b12c3434d9b86dbea7615f3.html">Typedef CpaCyGenFlatBufCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00064_1ga111699f99f0ea6b83b1c4f60148db5dd.html">Typedef CpaCyInstanceNotificationCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1ga074852a57682a4da49f21aaf1faecbe5.html">Typedef CpaCyKeyGenHKDFExpandLabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1ga76d217630167374b55ef79d6ff19a9c9.html">Typedef CpaCyKeyGenHKDFOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1gab6de2e63c024cdfbc4640c797b707e1b.html">Typedef CpaCyKeyGenMgfOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1ga67f398faf49ca6e06405b725aed59d3b.html">Typedef CpaCyKeyGenMgfOpDataExt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1gab14d7d9c6f2589694a562094fda9b8a2.html">Typedef CpaCyKeyGenSslOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1gad8c0985e94fad24fca4114b8610dfe7c.html">Typedef CpaCyKeyGenStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1ga209992d4a608e5f93b51648c1dee89a2.html">Typedef CpaCyKeyGenTlsOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1ga1a5f3eca5a8d282ab14de61bf0c36ee6.html">Typedef CpaCyKeyHKDFCipherSuite</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1ga57b480092c6c09874f4e329e85f0df43.html">Typedef CpaCyKeyHKDFOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1ga1db4b719025409332bff845033d40ac4.html">Typedef CpaCyKeySslOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00068_1ga099a036cd5a0ae418bcd965ee278b60e.html">Typedef CpaCyKeyTlsOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga9f193e6cd31d099451c0ede98ad8f4bb.html">Typedef CpaCyKptEcdsaSignRSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga3e2414c93d608871ee60d1f973c5c350.html">Typedef CpaCyKptHandle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga43cd912f59a836829c67d522d2de73fc.html">Typedef CpaCyKptKeyManagementStatus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga61430f8cc74384ebaff32939396ed7cc.html">Typedef CpaCyKptLoadKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga80a0f08434f629e1d401f940fc3bfe94.html">Typedef CpaCyKptRsaDecryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga46ffb437b6d305e9ba7216a867ca5bd1.html">Typedef CpaCyKptRsaPrivateKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga6ab0abe56b66a2178e3710ef7696cfeb.html">Typedef CpaCyKptRsaPrivateKeyRep1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga12123b2be9e3c5163dd1240f4d457b1f.html">Typedef CpaCyKptRsaPrivateKeyRep2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga4d12c29d93de71042e7f492c83997408.html">Typedef CpaCyKptUnwrapContext</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga2f5e7f6ccd5a2a6450ed765d9979e3c5.html">Typedef CpaCyKptValidationKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00076_1ga3f73e07920915c4344a5e222e2c1d3b3.html">Typedef CpaCyKptWrappingKeyType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00074_1gaa7489a62ee8f5f36acdbfd0752d291ca.html">Typedef CpaCyLnModExpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00074_1ga638be208336ec1a679558463a2e188af.html">Typedef CpaCyLnModInvOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00074_1gadceb1c0c767f6334efacbfd1577c5e9f.html">Typedef CpaCyLnStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00075_1gad7f1c6f2d6e698ad4fe8c60e7db56bc0.html">Typedef CpaCyPrimeStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00075_1gaef1f03656db7655296632a58e9a56c44.html">Typedef CpaCyPrimeTestCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00075_1gaa90743395328c4d89d34dd9c56a825d7.html">Typedef CpaCyPrimeTestOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00064_1ga95a70ad213db80f28529eb9399ac9e90.html">Typedef CpaCyPriority</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1gaa33ac9941ac808a49a55e0d7b671bc23.html">Typedef CpaCyRsaDecryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1gac7698a4df68d9eaebfc2cecbb9d941f4.html">Typedef CpaCyRsaEncryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1ga49ec1c85babcab07cf2bc3dd94821cd3.html">Typedef CpaCyRsaKeyGenCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1gad0c888fa523fe55a692cecbbb818a650.html">Typedef CpaCyRsaKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1ga9f2a6ff1534078612e09ab8f0e0755ee.html">Typedef CpaCyRsaPrivateKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1ga9657e69208b230b27c27914723543c5b.html">Typedef CpaCyRsaPrivateKeyRep1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1ga9b1d07e6918002aa0c5c33af043fea1a.html">Typedef CpaCyRsaPrivateKeyRep2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1gab88aa36eecf260095c31962cf285a951.html">Typedef CpaCyRsaPrivateKeyRepType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1ga6c9170ca3f4f599698b958358fa1325b.html">Typedef CpaCyRsaPublicKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1gaeb9a5a3a87979bfbcb9e211bedfa97d3.html">Typedef CpaCyRsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00069_1gaa70f7520b037790411b1147838756427.html">Typedef CpaCyRsaVersion</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga57457c4a9bb58fa3c27fed9d507e093d.html">Typedef CpaCySymAlgChainOrder</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1gad7088725013b4649379151ff39a74b05.html">Typedef CpaCySymCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga073af5bf20a6a70cb777387dff082477.html">Typedef CpaCySymCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1gaba4b70af215e5a6cd40d4576a7238fde.html">Typedef CpaCySymCipherAlgorithm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga96338d052bf084424f7ba96e7f75c28e.html">Typedef CpaCySymCipherDirection</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga4286dbf79e5644daa45a62f41f0a1341.html">Typedef CpaCySymCipherSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1gae7c59feade5dd7232a2236d72f44c6d5.html">Typedef CpaCySymDeriveOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00067_1gab24cdb76cd16106c1ab2ce7980d52584.html">Typedef CpaCySymDpCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00067_1ga0bdace924661c81684151c1553afb2ea.html">Typedef CpaCySymDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00067_1ga1661ecfb30fca689ea804513828c812b.html">Typedef CpaCySymDpSessionCtx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1gaba978e17cb43a8fa73752cf39d166f51.html">Typedef CpaCySymHashAlgorithm</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga70d3e63becc809a72fb6c8ff692a7265.html">Typedef CpaCySymHashAuthModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga607ebc8454782d518618d51b74dd82a2.html">Typedef CpaCySymHashMode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga47ffcf64d7f613aa3cd4fab3f308b97c.html">Typedef CpaCySymHashNestedModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga2082e2eec9ad6c04206fb7b8f7e3140b.html">Typedef CpaCySymHashSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1gae170d3eb302f39ace2c77114c6d7a058.html">Typedef CpaCySymOp</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1gae6f7414390b4249624a3cfc9c610d765.html">Typedef CpaCySymOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga4648d2a2f10700aeb8a235e3e902e0a9.html">Typedef CpaCySymOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga59ae2aaf71066d9dab28316ee461b31c.html">Typedef CpaCySymPacketType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga78aff6ab7c0fb9e8aa45c74b5c3f479f.html">Typedef CpaCySymSessionCtx</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga1d5d42d0597c1c0ab42ef54b49c1443f.html">Typedef CpaCySymSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1ga2ed130a2ee4d6b1d0043107c5fc7fe30.html">Typedef CpaCySymSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00066_1gabb1488b39969c4b02d3611a62da92fb7.html">Typedef CpaCySymStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga837fe330f06dc5f924916e25f4146a46.html">Typedef CpaDcAutoSelectBest</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga8e99451073954662d1abc3f0c015bb4c.html">Typedef CpaDcCallbackFn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00062_1gab2a1b4f5bd9c4d240418bf59c2d9bdce.html">Typedef CpaDcChainOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00062_1gac4ddb0f58fd4f6f9894a8aa62fedc571.html">Typedef CpaDcChainOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00062_1ga36baaf3313e7d1cbe20194edd6df29d3.html">Typedef CpaDcChainOperations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00062_1gafb7ea8ee9aa6fd755948464604e42262.html">Typedef CpaDcChainRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00062_1ga688ff52346d0a92e6af8b5810bc6a707.html">Typedef CpaDcChainRqVResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00062_1ga9c6f3da8fff9804035f34a816d78390b.html">Typedef CpaDcChainSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00062_1gab7d9cc05d72722bc48e07f479d69a608.html">Typedef CpaDcChainSessionType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00062_1gac81e692ae569078ac78809dbb9523dfc.html">Typedef CpaDcChainSubOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gab3caa955c2a6edbae45ef5164ef274a1.html">Typedef CpaDcChecksum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gabc3f3f4d6666c3ec06fbf3d0ba23a940.html">Typedef CpaDcCompLvl</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gab2015043bd8d31934aee6e4a39131584.html">Typedef CpaDcCompLZ4BlockMaxSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga825389c9c7c32fb2591246c7c97f57d9.html">Typedef CpaDcCompMinMatch</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gae0d54c4c234328c29d5ad33e7ee508ef.html">Typedef CpaDcCompType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gaa105a60a2bb4ef40d585a6ca8dfb22cc.html">Typedef CpaDcCompWindowSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00008_1a34f5ae1f4d04fdd5ce221601690c6bc8.html">Typedef CpaDcDir</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00061_1ga5fb8e7a7c11fcde53070259209f7ef0d.html">Typedef CpaDcDpCallbackFn</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00061_1gac4e89a4f2f5951fec74d2dca99c4b533.html">Typedef CpaDcDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga1da9903021669d4173ea425d43cc978a.html">Typedef CpaDcFlush</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga141c542923b617667461e0d8711987e2.html">Typedef CpaDcHuffType</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gab1eee64ba2d99ccf6d65f5ef1630fc93.html">Typedef CpaDcInstanceCapabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gac8798e193444e5ea27f36cf03aef382e.html">Typedef CpaDcInstanceNotificationCbFunc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga01f832821f74dedd95bd168b9915f84f.html">Typedef CpaDcIntegrityCrcSize</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00008_1a7be24e61c68a82b023b3c34cb603c0bf.html">Typedef CpaDcNsSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gaf699787d09deffe2b7a5029dff124a50.html">Typedef CpaDcOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga17fd21ffb40e437767cced9837b23e44.html">Typedef CpaDcOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga80b196e3762fa7dbd3fd8745d808ccee.html">Typedef CpaDcReqStatus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga3ff746e52b8dd6bf3cd91ec4c2e307d2.html">Typedef CpaDcRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga1e91bfffc9897991bbc1fcc356ec8852.html">Typedef CpaDcSessionDir</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gab588f7ffbd4daad1c57e4a61a1913c24.html">Typedef CpaDcSessionHandle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gae4349fcc29ccd1abe86a6006f5872846.html">Typedef CpaDcSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga6cfad8b4332ed39099e9c78611d51627.html">Typedef CpaDcSessionState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga4b27098796f378c3315dc871911466fe.html">Typedef CpaDcSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gab84445f06d3b7eb31ba2ed29a070dfe3.html">Typedef CpaDcSkipData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga88ec292fad0354bb9694d0eca4e07635.html">Typedef CpaDcSkipMode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00008_1a088ba92ee452fa3dd781705b2b1f62c6.html">Typedef CpaDcState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga5010466b9413a8fb668d544fe1d87e23.html">Typedef CpaDcStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1gaea410acc66024ede3827909874a6d01d.html">Typedef CpaFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00057_1ga4d6d379d3107e61c8261e8a88a22f4af.html">Typedef CpaInstanceAllocPolicy</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1gacfb32f55ad5e2dbce3c47e20b663f6cc.html">Typedef CpaInstanceEvent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1gad2cea791a6c42b590f36b823136593e2.html">Typedef CpaInstanceHandle</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1gaced9213ac909f8b741071e2e15924282.html">Typedef CpaInstanceInfo2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1gae90e11adebf61aaf0c8095e2afae2811.html">Typedef CpaIntegrityCrc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00060_1ga7603272e3fb22b9be1f87176521bd10c.html">Typedef CpaIntegrityCrc64b</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1ga566a27afe35d793d4c46adcf1249265c.html">Typedef CpaOperationalState</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1gaa60e87cf28152d3bc87ea267afe57f13.html">Typedef CpaPhysBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1gadac9e683a287509e2502f16f0bb1c672.html">Typedef CpaPhysFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1ga3c29807e2e3c15a935d4683444210096.html">Typedef CpaPhysicalAddr</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1ga30b14b68ce2aff3edf5d840499ef6b52.html">Typedef CpaPhysicalInstanceId</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1gaa9e774deebcaa7eec0d62b12aae39ff6.html">Typedef CpaStatus</a></li>
+<li class="toctree-l4"><a class="reference internal" href="typedef_a00058_1ga5c5e18650a2b89feb1a1ca77923dfa62.html">Typedef CpaVirtualToPhysical</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api_reference.html">API Reference Manual</a> &raquo;</li>
+      <li>API Description</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="api-description">
+<h1>API Description<a class="headerlink" href="#api-description" title="Permalink to this headline"></a></h1>
+<section id="classes-and-structs">
+<h2>Classes and Structs<a class="headerlink" href="#classes-and-structs" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00084.html">Struct _CpaBufferList</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00096.html">Struct _CpaCrcControlData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00140.html">Struct _CpaCrcData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00196.html">Struct _CpaCyCapabilitiesInfo</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00320.html">Struct _CpaCyDhPhase1KeyGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00324.html">Struct _CpaCyDhPhase2SecretKeyGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00328.html">Struct _CpaCyDhStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00332.html">Struct _CpaCyDhStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00340.html">Struct _CpaCyDsaGParamGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00336.html">Struct _CpaCyDsaPParamGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00348.html">Struct _CpaCyDsaRSignOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00356.html">Struct _CpaCyDsaRSSignOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00352.html">Struct _CpaCyDsaSSignOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00364.html">Struct _CpaCyDsaStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00368.html">Struct _CpaCyDsaStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00360.html">Struct _CpaCyDsaVerifyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00344.html">Struct _CpaCyDsaYParamGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00380.html">Struct _CpaCyEcCurve</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00372.html">Struct _CpaCyEcCurveParametersWeierstrass</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00408.html">Struct _CpaCyEcdsaSignROpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00416.html">Struct _CpaCyEcdsaSignRSOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00412.html">Struct _CpaCyEcdsaSignSOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00424.html">Struct _CpaCyEcdsaStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00420.html">Struct _CpaCyEcdsaVerifyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00388.html">Struct _CpaCyEcGenericPointMultiplyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00392.html">Struct _CpaCyEcGenericPointVerifyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00396.html">Struct _CpaCyEcMontEdwdsPointMultiplyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00384.html">Struct _CpaCyEcPointMultiplyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00400.html">Struct _CpaCyEcPointVerifyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00404.html">Struct _CpaCyEcStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00256.html">Struct _CpaCyKeyGenHKDFExpandLabel</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00260.html">Struct _CpaCyKeyGenHKDFOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00268.html">Struct _CpaCyKeyGenMgfOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00272.html">Struct _CpaCyKeyGenMgfOpDataExt</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00252.html">Struct _CpaCyKeyGenSslOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00276.html">Struct _CpaCyKeyGenStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00280.html">Struct _CpaCyKeyGenStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00264.html">Struct _CpaCyKeyGenTlsOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00428.html">Struct _CpaCyLnModExpOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00432.html">Struct _CpaCyLnModInvOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00436.html">Struct _CpaCyLnStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00440.html">Struct _CpaCyLnStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00448.html">Struct _CpaCyPrimeStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00452.html">Struct _CpaCyPrimeStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00444.html">Struct _CpaCyPrimeTestOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00308.html">Struct _CpaCyRsaDecryptOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00304.html">Struct _CpaCyRsaEncryptOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00300.html">Struct _CpaCyRsaKeyGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00296.html">Struct _CpaCyRsaPrivateKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00288.html">Struct _CpaCyRsaPrivateKeyRep1</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00292.html">Struct _CpaCyRsaPrivateKeyRep2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00284.html">Struct _CpaCyRsaPublicKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00312.html">Struct _CpaCyRsaStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00316.html">Struct _CpaCyRsaStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00244.html">Struct _CpaCySymCapabilitiesInfo</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00204.html">Struct _CpaCySymCipherSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00200.html">Struct _CpaCySymDeriveOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00248.html">Struct _CpaCySymDpOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00212.html">Struct _CpaCySymHashAuthModeSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00208.html">Struct _CpaCySymHashNestedModeSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00216.html">Struct _CpaCySymHashSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00228.html">Struct _CpaCySymOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00232.html">Struct _CpaCySymOpData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00220.html">Struct _CpaCySymSessionSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00224.html">Struct _CpaCySymSessionUpdateData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00236.html">Struct _CpaCySymStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00240.html">Struct _CpaCySymStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00168.html">Struct _CpaDcChainOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00192.html">Struct _CpaDcChainOpData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00184.html">Struct _CpaDcChainRqResults</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00188.html">Struct _CpaDcChainRqVResults</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00160.html">Struct _CpaDcChainSessionSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00176.html">Struct _CpaDcChainSubOpData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00156.html">Struct _CpaDcDpOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00112.html">Struct _CpaDcInstanceCapabilities</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00148.html">Struct _CpaDcOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00152.html">Struct _CpaDcOpData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00128.html">Struct _CpaDcRqResults</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00116.html">Struct _CpaDcSessionSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00120.html">Struct _CpaDcSessionUpdateData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00144.html">Struct _CpaDcSkipData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00124.html">Struct _CpaDcStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00080.html">Struct _CpaFlatBuffer</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00100.html">Struct _CpaInstanceInfo</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00108.html">Struct _CpaInstanceInfo2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00132.html">Struct _CpaIntegrityCrc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00136.html">Struct _CpaIntegrityCrc64b</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00092.html">Struct _CpaPhysBufferList</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00088.html">Struct _CpaPhysFlatBuffer</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00104.html">Struct _CpaPhysicalInstanceId</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00484.html">Struct CpaCyKptEcdsaSignRSOpData_t</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00460.html">Struct CpaCyKptLoadKey_t</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00480.html">Struct CpaCyKptRsaDecryptOpData_t</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00476.html">Struct CpaCyKptRsaPrivateKey_t</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00468.html">Struct CpaCyKptRsaPrivateKeyRep1_t</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00472.html">Struct CpaCyKptRsaPrivateKeyRep2_t</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00464.html">Struct CpaCyKptUnwrapContext_t</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="struct_a00456.html">Struct CpaCyKptValidationKey_t</a></li>
+</ul>
+</div>
+</section>
+<section id="enums">
+<h2>Enums<a class="headerlink" href="#enums" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00058_1ga1277bf9f602cd61f3585ae14db3393cd.html">Enum _CpaAccelerationServiceType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00059_1gab0180fc119de97a136b361aa888df5a0.html">Enum _CpaBoolean</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00072_1gaec25fbd7e87ba93ea253192d6cf7c19f.html">Enum _CpaCyEcCurveType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00072_1ga7a17dc63146a7741a7b9d734f13686c5.html">Enum _CpaCyEcFieldType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00072_1ga067a690255d1101657a77ab0aac80975.html">Enum _CpaCyEcMontEdwdsCurveType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00068_1ga723600fb4f1d7337a88b35a736b0137b.html">Enum _CpaCyKeyHKDFCipherSuite</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00068_1ga060588326e40d1c220591c4dfda1b745.html">Enum _CpaCyKeyHKDFOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00068_1ga033c737ff03919d2d700b6b775ceeb2b.html">Enum _CpaCyKeySslOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00068_1ga3b60afd7f09b42772718031729600012.html">Enum _CpaCyKeyTlsOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00064_1gaa3802f4865f29acb0475502f77b921e8.html">Enum _CpaCyPriority</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00069_1ga23aadaacc0dcbfd6d482b4a590cb2dba.html">Enum _CpaCyRsaPrivateKeyRepType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00069_1ga3db830f1b9e1ac291af26f787dcb6b1b.html">Enum _CpaCyRsaVersion</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00066_1ga2a58b415afc895efc8b1ddfb70a119f6.html">Enum _CpaCySymAlgChainOrder</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00066_1gaae574fa087dd292fc1aaa91fa58df2c7.html">Enum _CpaCySymCipherAlgorithm</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00066_1gaa7184571f275419b95daaf0f91695e2c.html">Enum _CpaCySymCipherDirection</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html">Enum _CpaCySymHashAlgorithm</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00066_1gabc941abd03b2ab7847b1265fd259e72f.html">Enum _CpaCySymHashMode</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00066_1ga4d238b8a5e6bc269e0877662c23530d7.html">Enum _CpaCySymOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00066_1ga8c2671f7694242c22c7a9f90776b408b.html">Enum _CpaCySymPacketType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1gad3821983b218d620f0cc0a36b1f17556.html">Enum _CpaDcAutoSelectBest</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00062_1ga6a27a18baf1bce1246c17aadc30bfe85.html">Enum _CpaDcChainOperations</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00062_1ga9efff9e0e196ea898a6c7e9c45666671.html">Enum _CpaDcChainSessionType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1gaf764c3ea3f57bc84a9170d2db500d4e2.html">Enum _CpaDcChecksum</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1ga484b3a54035e877b20e1e4c62de53e1d.html">Enum _CpaDcCompLvl</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1ga6f7cdc5355c718556d7c1f1f904435ca.html">Enum _CpaDcCompLZ4BlockMaxSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1ga8150e1d68f7394ad8380dafce93ee4fc.html">Enum _CpaDcCompMinMatch</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1ga07141f8f0ca9783b2c4d9a5782c3c2c0.html">Enum _CpaDcCompType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1gac5bdfab9968d694d6083d2541b8e9604.html">Enum _CpaDcCompWindowSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1ga94f8725f62c0673794ab3c243d84047a.html">Enum _CpaDcFlush</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1gae1e906992c620c9c0c11c19fd1788c5e.html">Enum _CpaDcHuffType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1ga0390d729aa9bfc6afb8ecb7a598ea785.html">Enum _CpaDcIntegrityCrcSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1gab3d2956ba3e9e3911ccc21b8e197451b.html">Enum _CpaDcReqStatus</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1gaaf634a180ca240c8321b11508812da48.html">Enum _CpaDcSessionDir</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1ga492b03819bed2d167427cbe2dd25cb4d.html">Enum _CpaDcSessionState</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00060_1gab3447a908bd2ee71af30c1bc211e8719.html">Enum _CpaDcSkipMode</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00057_1ga129c2ed5ae7bc97f8b3ba1ee02c14a6e.html">Enum _CpaInstanceAllocPolicy</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00058_1gad128f5ac4c0801e981bb76bbb19f359e.html">Enum _CpaInstanceEvent</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00058_1gabaa5991201c9377450dce14b3d95064c.html">Enum _CpaInstanceState</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00058_1ga2c847ebe4124d839feadc18975a4e4cb.html">Enum _CpaInstanceType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00058_1gad357bf8fd4f4bafe44c3461b7937dadd.html">Enum _CpaOperationalState</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00076_1gaa8b8fe9c6ff0a7c2d2444e4ae56e9651.html">Enum CpaCyKptKeyManagementStatus_t</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="enum_a00076_1gac293156955a454abcba2de8ff291e553.html">Enum CpaCyKptWrappingKeyType_t</a></li>
+</ul>
+</div>
+</section>
+<section id="unions">
+<h2>Unions<a class="headerlink" href="#unions" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="union_a00376.html">Union _CpaCyEcCurveParameters</a></li>
+</ul>
+</div>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00057_1ga825d6437231ffc5b7fa5718679f80a24.html">Function cpaAllocInstance</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00064_1gac545b10f0bafb4dab1e9684904679f36.html">Function cpaCyBufferListGetMetaSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00070_1ga9d24b10571d5b634cea53feb9632b852.html">Function cpaCyDhKeyGenPhase1</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00070_1ga522fb6f35e66e8f5d20c59843e3b6088.html">Function cpaCyDhKeyGenPhase2Secret</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00070_1ga9bb3fe8f4572507856b69f4174a684f7.html">Function cpaCyDhQueryStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00070_1ga45e27c681f5b2c8080fb313c97584da7.html">Function cpaCyDhQueryStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1ga1744bf3ec79487012faa1377fab01dbd.html">Function cpaCyDsaGenGParam</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1gaeecb03f0ec7805456b52dc22dfa06255.html">Function cpaCyDsaGenPParam</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1ga1c5d105e769503d016c60a4f430cab43.html">Function cpaCyDsaGenYParam</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1gabdaf62ac7c0d220d0786807d3dcdbdfb.html">Function cpaCyDsaQueryStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1gac5d4413c49b15a0f735b1d0b368ec5d8.html">Function cpaCyDsaQueryStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1ga2de083ad4283bde0d5e5fd4d3035e166.html">Function cpaCyDsaSignR</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1gabb3ecd36596742a26731948dd5198146.html">Function cpaCyDsaSignRS</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1ga37494504924d4a1c8ff62f5e9f3b416c.html">Function cpaCyDsaSignS</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00071_1ga82cabc1c865584c0f4680af045590705.html">Function cpaCyDsaVerify</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00073_1ga33760a5e604fb8c5758721892edf6d8e.html">Function cpaCyEcdsaQueryStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00073_1ga3027e2996bbb5f3e5a4978b43f21dccd.html">Function cpaCyEcdsaSignR</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00073_1gaf02c1542324a665e9987976b738a0a94.html">Function cpaCyEcdsaSignRS</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00073_1gac166153974ca79c0941b8a5acc5064d2.html">Function cpaCyEcdsaSignS</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00073_1ga514388636ee6be75c1eab21799b7c351.html">Function cpaCyEcdsaVerify</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00072_1gadd4dd76dae949de5ac686c91091eeae2.html">Function cpaCyEcGenericPointMultiply</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00072_1ga59cc6fad90441bd5be5c5e0af08ca94b.html">Function cpaCyEcGenericPointVerify</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00072_1ga7e38070cfee6548bf8d3ac10a3aea47b.html">Function cpaCyEcMontEdwdsPointMultiply</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00072_1gae3e76ded37e0478532c20ffa160cd54f.html">Function cpaCyEcPointMultiply</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00072_1ga1757726b2fdbc9c95787faa34aec6ad0.html">Function cpaCyEcPointVerify</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00072_1ga4d4dceeeab754742c9d32a4ce819a09c.html">Function cpaCyEcQueryStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00064_1ga18ace3e4d39a75dff5bafea5f8339bff.html">Function cpaCyGetInstances</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00064_1ga610ea94470236f0e38d8d34948aa6318.html">Function cpaCyGetNumInstances</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00064_1ga683cc4284348d56b6d6673e1d7574323.html">Function cpaCyGetStatusText</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00064_1ga421d3ef37eeffe14f998664b9fc72135.html">Function cpaCyInstanceGetInfo</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00064_1gae4a1bb01aa6bb248454889652bf9f993.html">Function cpaCyInstanceGetInfo2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00064_1ga74e794bbe04e66cd34a47fd23b561d40.html">Function cpaCyInstanceSetNotificationCb</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00068_1ga6e005fd3f64ad9ed12921198c614f46e.html">Function cpaCyKeyGenMgf</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00068_1ga196d6d7ba74ccba4c73fd97e61f816cc.html">Function cpaCyKeyGenMgfExt</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00068_1gaeaf391ca6eca9cf8412d18e5d4bb6810.html">Function cpaCyKeyGenQueryStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00068_1ga6554686d172acff8d970b405e63e2fa3.html">Function cpaCyKeyGenQueryStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00068_1gabb42d3e4c2219f4d4ee4998b555d0452.html">Function cpaCyKeyGenSsl</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00068_1gac0cab13a0dde5f6ed632df5b536ff647.html">Function cpaCyKeyGenTls</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00068_1ga11c8ffb8bf0d9752a370ce886535dc19.html">Function cpaCyKeyGenTls2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00068_1ga39133b10693a1fe9928de3a8311b012a.html">Function cpaCyKeyGenTls3</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00076_1gad8a26bfe95bb591408f23dd675964531.html">Function cpaCyKptDeleteKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00076_1gaf31e62119a3e4a662900499928904632.html">Function cpaCyKptEcdsaSignRS</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00076_1gaeafc408840604b3c55d3504506d89e2c.html">Function cpaCyKptLoadKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00076_1gab21944b9ade817c07bd33c1d97981569.html">Function cpaCyKptQueryDeviceCredentials</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00076_1gaab81b54623a78eac9039a934c3c72216.html">Function cpaCyKptQueryIssuingKeys</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00076_1ga8a572c1436ce7c7d9fbe37be36be2212.html">Function cpaCyKptRsaDecrypt</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00074_1ga45b35f683632f607e20f2fff7bc61405.html">Function cpaCyLnModExp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00074_1ga97590dd6c82a7fdd347847f4c6bad297.html">Function cpaCyLnModInv</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00074_1ga51aff69e30e94eee1cc72c03a4c5c3d8.html">Function cpaCyLnStatsQuery</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00074_1gae872f5d1b332abb69b1d6b9905ebbba2.html">Function cpaCyLnStatsQuery64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00050_1a3246d8555ce7773f7b7f240fdf4cacb0.html">Function cpaCyPrimeQueryStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00050_1ab3120c7fb7bc2b49c80e025833bcbef1.html">Function cpaCyPrimeQueryStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00075_1gab73c8ad5d57688c605c7824237d558cf.html">Function cpaCyPrimeTest</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00065_1ga88ec49a60ab728d14598163c15a40e78.html">Function cpaCyQueryCapabilities</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00069_1ga22a50770fa4bb57a1c17fcee4f34354e.html">Function cpaCyRsaDecrypt</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00069_1ga44b877a07a68a72378874ae4bfe6ed5c.html">Function cpaCyRsaEncrypt</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00069_1ga930f9e9cbc697bc2d4532253d3b00a2c.html">Function cpaCyRsaGenKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00069_1gaf5a5fc0f0b303a5c28731575320c295e.html">Function cpaCyRsaQueryStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00069_1gac1402d9d08e60ac097d3f32d7c55b0cd.html">Function cpaCyRsaQueryStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00065_1ga7ce9fe1c2a08a0746fae181ea4513ea6.html">Function cpaCySetAddressTranslation</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00065_1ga2f432fd730dceb74e61b3245e24e6673.html">Function cpaCyStartInstance</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00065_1gaa2479d6412ba2da63be88414f92336c4.html">Function cpaCyStopInstance</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00067_1ga41beb99c6b56541f97321f4f8308f4ca.html">Function cpaCySymDpEnqueueOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00067_1gacbcbc22acb52508c8bcda544dfcc6107.html">Function cpaCySymDpEnqueueOpBatch</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00067_1ga21e417a70393d1c2291b97f529ccd26a.html">Function cpaCySymDpInitSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00067_1ga7bb159b13f3929d9c4a5d3e4493e95bb.html">Function cpaCySymDpPerformOpNow</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00067_1ga07c452f4be229a9540d9f557a2ebc3c4.html">Function cpaCySymDpRegCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00067_1ga0d0b27eeaf97bf4b90efdf09f2ef7029.html">Function cpaCySymDpRemoveSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00067_1gadc7b9f55fa286d8763aa1184add2fae1.html">Function cpaCySymDpSessionCtxGetDynamicSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00067_1ga4ac93b5eb08d383c7360719a20013c95.html">Function cpaCySymDpSessionCtxGetSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1ga72e7356f27a2f712ffdb8a1a96bab6d6.html">Function cpaCySymInitSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1ga6724e47dbfe0c8c37868c22dad4519e2.html">Function cpaCySymPerformOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1ga51523968f409eb8f8416bfc54bd0c735.html">Function cpaCySymQueryCapabilities</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1ga0d007be95e36f5c716465bb5f75c54fc.html">Function cpaCySymQueryStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1ga1b54b752b194209763ae9c71f9b8cdda.html">Function cpaCySymQueryStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1ga0bb6c8deecf1d8be1274ac3c9862c495.html">Function cpaCySymRemoveSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1ga0759b95b4177eaaf58ea9546f36735ac.html">Function cpaCySymSessionCtxGetDynamicSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1gaa8953d8e34a410a8a4ece8c447752603.html">Function cpaCySymSessionCtxGetSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1gad9a74fd901a254b34e49c8280180fa8f.html">Function cpaCySymSessionInUse</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00066_1ga16b5149aacf64a7b8f82d20b04c62378.html">Function cpaCySymUpdateSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gab90c530c0e8a0c0f38bac9252eb3f693.html">Function cpaDcBufferListGetMetaSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00062_1ga24e61fa7a8d013443db7543c5cd01fe9.html">Function cpaDcChainGetSessionSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00062_1ga75c90cdb0d14ae22938df9b314ba4a5c.html">Function cpaDcChainInitSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00062_1gada562c1b079e4e42bd63589ff09edddc.html">Function cpaDcChainPerformOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00062_1ga751280f0a5ba1d9288e8ba58468a3c8f.html">Function cpaDcChainPerformOp2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00062_1gaabfc8fff39580123c189017463d56dc8.html">Function cpaDcChainRemoveSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00062_1ga6356c2bcc40432a316492fc89095f17c.html">Function cpaDcChainResetSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00062_1ga00744d5c8fb7ee7b53f125b945b4b56f.html">Function cpaDcChainSetCrcControlData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga83a479238a529885668fdd3f8b54795f.html">Function cpaDcCompressData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga323f5960a8dcc4f085aa9911539d87cf.html">Function cpaDcCompressData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gae79090af9ed3e4d577f4ea9ca490818b.html">Function cpaDcDecompressData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga865f0ec8013aabc0544c2de9de90d84e.html">Function cpaDcDecompressData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gab98412f2442fe5b3be0ad4b22d120061.html">Function cpaDcDeflateCompressBound</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00061_1ga558835d1b4e202dabcc7d753a74e4559.html">Function cpaDcDpEnqueueOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00061_1gabac49dbc66a3aaa1f8a78750f2cc4c11.html">Function cpaDcDpEnqueueOpBatch</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga2d0fb3e9e9d49e36e7d68b94e5815154.html">Function cpaDcDpGetSessionSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00061_1gad4206f93477bcc92b224e647e72507bf.html">Function cpaDcDpInitSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00061_1ga06723d0ce780a9ca8c25e5d14f7fa3c5.html">Function cpaDcDpPerformOpNow</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00061_1gacfc50ab4a8cc70831beb8a418d3fb6d7.html">Function cpaDcDpRegCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gad590bd331b62fa3ea904739639d3ec1b.html">Function cpaDcDpRemoveSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gab47bb980129eafde8df9aad3b6b84e39.html">Function cpaDcDpUpdateSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga306af95505f9ac2286b4250852467b1a.html">Function cpaDcGenerateFooter</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga1380008fb00dbbaf184a99d3ef52d9d9.html">Function cpaDcGenerateHeader</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gaaa31615c287d1527e59718084770f6d0.html">Function cpaDcGetInstances</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga6936258e044c3580451723078b222fbe.html">Function cpaDcGetNumInstances</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga9b28914c9ed7888914ccab87336ecbd0.html">Function cpaDcGetNumIntermediateBuffers</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gaca50e2fa71ce04979a63d8d674512e8a.html">Function cpaDcGetSessionSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga1a25cc05dcd33bd93d804a9c2f0d5039.html">Function cpaDcGetStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga2d235e9f05b28af70d0a80fdd26a52ef.html">Function cpaDcGetStatusText</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gaa9f330514d3e2d25d3c8ee540cc55fa8.html">Function cpaDcInitSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga6b98efefa990b80b42a1cfcad4865a1a.html">Function cpaDcInstanceGetInfo2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga6ce0c92a0345b640880a8aad656fee75.html">Function cpaDcInstanceSetNotificationCb</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga73e95f45fe5c41c01497de0793cf2942.html">Function cpaDcLZ4CompressBound</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gab573e57b91a61c04c6af7c1f2932ad9e.html">Function cpaDcLZ4SCompressBound</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gaff8418b3761db32816deb972971b2fce.html">Function cpaDcNsCompressData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga75cc1dd091ccc1e3d173c63f2cfda53f.html">Function cpaDcNsDecompressData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gaff949b6b47cd33762e64c6c5e22acca7.html">Function cpaDcNsGenerateFooter</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga2fc429ba7ec9b19ce37dc4898d720992.html">Function cpaDcNsGenerateHeader</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga13b28437499581aa32a744867269512b.html">Function cpaDcQueryCapabilities</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga0b8052f56cf49b145857b4d5aef25cd9.html">Function cpaDcRemoveSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga16223804f8f789da852c47169d9152f9.html">Function cpaDcResetSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gaac4dfa00451116e28556f9e0f62f09c7.html">Function cpaDcResetXXHashState</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga5e1e3b60598b2c253a07a3a9069a34b8.html">Function cpaDcSetAddressTranslation</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga5d829486011cc0d11828da1a51d5f9cc.html">Function cpaDcSetCrcControlData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga808cffcf0954bd8faa9392c88e2966f5.html">Function cpaDcStartInstance</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1ga30afc610385d7d7694c3a5fb092d61ac.html">Function cpaDcStopInstance</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00060_1gaaf603236dbc0b4988e702117ee705e71.html">Function cpaDcUpdateSession</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00057_1gaf1b0ed695f1ff68407fe53836dca9d8d.html">Function cpaFreeInstance</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00057_1gad4b7c0795faa2cd6c621813edfc01790.html">Function cpaGetInstances</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="function_a00057_1ga7f730f71a75435bde052cf2ffcd7bed8.html">Function cpaGetNumInstances</a></li>
+</ul>
+</div>
+</section>
+<section id="defines">
+<h2>Defines<a class="headerlink" href="#defines" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00059_1gaa16d6007799334b53150a840ffb97a8d.html">Define CPA_BITMAP</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00059_1ga49d7f58168b5cd91b6b257289a05bf4e.html">Define CPA_BITMAP_BIT_CLEAR</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00059_1ga1d113c3ae2c6d1f33760107a5a672031.html">Define CPA_BITMAP_BIT_SET</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00059_1gadaad95e4f9dbcfe4113f1fcc92fadb8e.html">Define CPA_BITMAP_BIT_TEST</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00017_1a22ec97922bdb53f6312e83bab750d8c6.html">Define CPA_CY_API_VERSION_AT_LEAST</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00017_1ab95c89bba6d776d49b9f8a19bcd1f885.html">Define CPA_CY_API_VERSION_LESS_THAN</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00017_1aab435dbf586a6386c76c6a69d5408259.html">Define CPA_CY_API_VERSION_NUM_MAJOR</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00017_1a5ffdd6bc21aeca4ceef83bc554bfb56f.html">Define CPA_CY_API_VERSION_NUM_MINOR</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00029_1af88ee5d158ebdcb6e419023b18f07d96.html">Define CPA_CY_HKDF_KEY_MAX_HMAC_SZ</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00029_1a8fee2681c43e5c9025ea9a26702e7889.html">Define CPA_CY_HKDF_KEY_MAX_INFO_SZ</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00029_1a52e93d4bbd9a46783f69080497135278.html">Define CPA_CY_HKDF_KEY_MAX_LABEL_COUNT</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00029_1adb75cdf744b0266fd7995758ca534fe6.html">Define CPA_CY_HKDF_KEY_MAX_LABEL_SZ</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00029_1a5e38ee292681533d43847c36bd4d3b8d.html">Define CPA_CY_HKDF_KEY_MAX_SECRET_SZ</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00029_1ac7f871aeb64f38010e3725196994dcdf.html">Define CPA_CY_HKDF_SUBLABEL_FINISHED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00029_1a030e141125402eafcb97f83761b51014.html">Define CPA_CY_HKDF_SUBLABEL_IV</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00068_1ga0d642a5e0fa1d31d7be96583bc7679a3.html">Define CPA_CY_HKDF_SUBLABEL_KEY</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00029_1ae44db68151bcb89496f289f38167c5d5.html">Define CPA_CY_HKDF_SUBLABEL_RESUMPTION</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00068_1gaf3b03e000d28e12889b2c934fd81e62e.html">Define CPA_CY_KEY_GEN_SSL_TLS_RANDOM_LEN_IN_BYTES</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00076_1gad8275e89b54a90c4b5319b31fe97d0a4.html">Define CPA_CY_KPT_MAX_AAD_LENGTH</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00076_1ga6ba738ed8ba47b1a84d8d2a44ca33683.html">Define CPA_CY_KPT_MAX_IV_LENGTH</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00076_1gaa0cf377fdb72e4d572491c8574a14337.html">Define CPA_CY_RSA3K_SIG_SIZE_INBYTES</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00066_1gac2b8ed55b5004bc1cb9b5ccb2734cd63.html">Define CPA_CY_SYM_CCM_SET_AAD</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00066_1ga60128b0f646694b86827fb7de1fe09e2.html">Define CPA_CY_SYM_CCM_SET_NONCE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00066_1ga86b200b2d7b6833ecb8c074b96a45493.html">Define CPA_CY_SYM_CIPHER_CAP_BITMAP_SIZE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00066_1ga9bf3125877d4e9829dd235a958150e7c.html">Define CPA_CY_SYM_HASH_CAP_BITMAP_SIZE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00023_1a9012ed481f090f3caa57c1b10b505c9d.html">Define CPA_CY_SYM_SESUPD_AUTH_KEY</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00023_1a8a808a93d04fd97557fb8a3c6e5dd7b5.html">Define CPA_CY_SYM_SESUPD_CIPHER_DIR</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00023_1a8e0c2d84a591806a3a6292e9563d480a.html">Define CPA_CY_SYM_SESUPD_CIPHER_KEY</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00060_1gafc6e4bebc457cec5352228d46fed1695.html">Define CPA_DC_API_VERSION_AT_LEAST</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00060_1gacf507f8e07c74682e08ec619f78cdf95.html">Define CPA_DC_API_VERSION_LESS_THAN</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00060_1gaf1e89e68eff9bbc909a11bb4b1d00809.html">Define CPA_DC_API_VERSION_NUM_MAJOR</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00060_1gabca30ecba8abb757a9e6ee2c7df75da3.html">Define CPA_DC_API_VERSION_NUM_MINOR</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00060_1gac23cc76f4ac1bace009b1f3b458ee2e5.html">Define CPA_DC_BAD_DATA</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00060_1ga39b7a9baf75fac8ceac7cde68c3aaaab.html">Define CPA_DC_CHAIN_CAP_BITMAP_SIZE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00059_1gae98429a4e86bdde8f8a08b5906bfc911.html">Define CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1gafe6bb278d636eaf4a399256f8ed5b170.html">Define CPA_DP_BUFLIST</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00002_1aeba769a403b69fb33ad4a4b8146b855e.html">Define CPA_INST_ID_SIZE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00002_1a47017784c8fee121a766154f16fe0910.html">Define CPA_INST_NAME_SIZE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00002_1a54a3d2cebc6bdb14123eedd801d31a5c.html">Define CPA_INST_PART_NAME_SIZE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00002_1ac5f8776fdf8d760503d3c35066574459.html">Define CPA_INST_SW_VERSION_SIZE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00002_1a96de58377ae78fd96b69d952db0b9154.html">Define CPA_INST_VENDOR_NAME_SIZE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga8b78f22a517f96dfb7da7ce8dd4d53fc.html">Define CPA_INSTANCE_HANDLE_SINGLE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1gac946349a18f8dc6599c9b736657f727a.html">Define CPA_INSTANCE_MAX_ID_SIZE_IN_BYTES</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga6fe0d34ce3002373ae24efa26dbf87df.html">Define CPA_INSTANCE_MAX_NAME_SIZE_IN_BYTES</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga338c90dd53961ae4b80a521c78a5e8f9.html">Define CPA_INSTANCE_MAX_VERSION_SIZE_IN_BYTES</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00002_1a80edf2b6a0c55c7bf2ce1c04b6a0115a.html">Define CPA_MAX_CORES</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1gabe84e3373d5791cc915639895a0b8311.html">Define CPA_STATUS_FAIL</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga513f7ea5670426a495539e9108daa1bf.html">Define CPA_STATUS_FATAL</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga42ff7f12a342f4012de11fb36588c3c3.html">Define CPA_STATUS_INVALID_PARAM</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga555338930a7fa8f9bb0ef8fd233d1a7c.html">Define CPA_STATUS_MAX_STR_LENGTH_IN_BYTES</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1gae3a003c608c7cadf8fa79e93916e9624.html">Define CPA_STATUS_RESOURCE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1gab43d7a5b771648e12a168103c7f9e579.html">Define CPA_STATUS_RESTARTING</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga1fc73e2330c17257d1a57aa4a1ce35a8.html">Define CPA_STATUS_RETRY</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1gada9b9790c59121c6d37cc11b135e78c7.html">Define CPA_STATUS_STR_FAIL</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga6468823f33f02302edcfa4367f2e5332.html">Define CPA_STATUS_STR_FATAL</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga8d70df3e1193416b1a13cd501d8d0c62.html">Define CPA_STATUS_STR_INVALID_PARAM</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1gacf57c7044d78b80d97035287fc11892e.html">Define CPA_STATUS_STR_RESOURCE</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga4126f7b26cd08d110596bcf8e4735321.html">Define CPA_STATUS_STR_RETRY</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga86852b8a33114eff89b8f171ca0a2abc.html">Define CPA_STATUS_STR_SUCCESS</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga378066b5ba581caac8295ac3045a436c.html">Define CPA_STATUS_STR_UNSUPPORTED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga8ae28f676bbb3a3d7fc969fccf7adb32.html">Define CPA_STATUS_SUCCESS</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00058_1ga96a8d3b24a4c30776476a4172b274f24.html">Define CPA_STATUS_UNSUPPORTED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="define_a00059_1ga070d2ce7b6bb7e5c05602aa8c308d0c4.html">Define NULL</a></li>
+</ul>
+</div>
+</section>
+<section id="typedefs">
+<h2>Typedefs<a class="headerlink" href="#typedefs" title="Permalink to this headline"></a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1ga9183484912a72c78ed34b58bdb50483f.html">Typedef Cpa16S</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1gad03fe1a90bdf22509cb874b96dc2f45e.html">Typedef Cpa16U</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1gac72c7b2bb0189988b7f239b7212c0e4e.html">Typedef Cpa32S</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html">Typedef Cpa32U</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1ga0d5f889d11c0a531921cb8cf234c081f.html">Typedef Cpa64S</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html">Typedef Cpa64U</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1ga890e7695b29c3e6a999c141eb92b21b5.html">Typedef Cpa8S</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1ga96cd4f35f3d1a8f9547ee73df01ede2e.html">Typedef Cpa8U</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1ga89d60d4dbeed63c0f89feef4698fa3d2.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00070_1gac37f25e458b2160f831ae93ca4411c77.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1gab7966d9b66644f6be2151d0589c2fd32.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1gae98429a4e86bdde8f8a08b5906bfc911.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1gaaa96787289ada306791572b239cae8b0.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00074_1ga24c26d5394496fcd7f428845237985c9.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00075_1ga8132dc01185283efe97c63446a8a148b.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1ga876bca738d63ef01c8829142c168dad6.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga0ecbacb9aa82aeb8de38290c3583a06b.html">Typedef CPA_DEPRECATED</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1ga59892c26a9717fee364cceb3873c9943.html">Typedef CpaAccelerationServiceType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00059_1ga6ca0d27ac4be8c0d869b3a0e28d6912a.html">Typedef CpaBoolean</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1ga328cc520f3a230d29ea51e9650034538.html">Typedef CpaBufferList</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1ga52d9f54eb9652e3a821b41b0db95ecc3.html">Typedef CpaCrcControlData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga7c5b4462e1864c6cdfa27267cc45f936.html">Typedef CpaCrcData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00065_1gacfa2597455716f6d48b1934a0c2bb17e.html">Typedef CpaCyCapabilitiesInfo</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00070_1gaec02af4edfdcc6f53a8bd9fce6702e30.html">Typedef CpaCyDhPhase1KeyGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00070_1ga91b2ab3ceb90d706f16e820c3cdc2b9a.html">Typedef CpaCyDhPhase2SecretKeyGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00070_1ga5be99610e2869e849835cfe2504c3370.html">Typedef CpaCyDhStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga270c790a14c2d01ef6b1414f0f463030.html">Typedef CpaCyDsaGenCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga45aa7ff8e2ce53ce2ba440877adcf197.html">Typedef CpaCyDsaGParamGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1gadd545f04eab81377e34c3448a211aa57.html">Typedef CpaCyDsaPParamGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga4637e65a10f79c71e7e775389d8bbee2.html">Typedef CpaCyDsaRSignOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga507d1a971aa9a51039e906e34058a196.html">Typedef CpaCyDsaRSSignCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga1fa81e5e9563db335fc96530f74b6a08.html">Typedef CpaCyDsaRSSignOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1gad7afd4bb2afa8f2cdcca86c46880c53f.html">Typedef CpaCyDsaSSignOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga043970e2d8824efb86689d5bfb08fe8b.html">Typedef CpaCyDsaStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga146e61e31cc740c23124f8f70f7e44e0.html">Typedef CpaCyDsaVerifyCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga10b2ec4dc7d40bc5107d7d89a0b77221.html">Typedef CpaCyDsaVerifyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00071_1ga2f045d424c0518848012a91e3b3142bb.html">Typedef CpaCyDsaYParamGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1gaf5b90f2d1c92f17d87867443aa270bb0.html">Typedef CpaCyEcCurve</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1gae387ba396b5b42a61ae6b678a12fdfa4.html">Typedef CpaCyEcCurveParameters</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1gabe2e1a6a35a534062d6157d37ab933b8.html">Typedef CpaCyEcCurveParametersWeierstrass</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1ga6c516f4843b773baa3b6c7df580af65e.html">Typedef CpaCyEcCurveType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00073_1ga421199767775e19b991dd1fcbff514d8.html">Typedef CpaCyEcdsaGenSignCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00073_1ga76090af1e857e279144a2e8af0d0eea5.html">Typedef CpaCyEcdsaSignROpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00073_1ga6a0a60a6563cd6dc1c2b34c34522093c.html">Typedef CpaCyEcdsaSignRSCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00073_1ga0d0cc986d4903d743475031d07e1c05a.html">Typedef CpaCyEcdsaSignRSOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00073_1gaf3bc86d3e954e13e8b114022aa74142a.html">Typedef CpaCyEcdsaSignSOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00073_1ga3e9b716f00445e1a6f65b3033541c8b9.html">Typedef CpaCyEcdsaStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00073_1ga085aa196c694a8244155208f3f098cb6.html">Typedef CpaCyEcdsaVerifyCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00073_1ga7e6ec47b53538cd3b844b1fc788d7aff.html">Typedef CpaCyEcdsaVerifyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1gab1f2fb48c96f9cbc3926aaeef0f519e7.html">Typedef CpaCyEcFieldType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1ga3585f205312327b8b4588d473260c7e3.html">Typedef CpaCyEcGenericPointMultiplyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1ga90f89768b2d42f8a1508bffd5d36d462.html">Typedef CpaCyEcGenericPointVerifyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1ga2706ca33150459b70edb9221d872b8c4.html">Typedef CpaCyEcMontEdwdsCurveType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1ga371fe3799218ab0b7a5ecddeb3074983.html">Typedef CpaCyEcMontEdwdsPointMultiplyOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1ga0d5686e74275d4efc0edfe0ab4188963.html">Typedef CpaCyEcPointMultiplyCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1ga17c42af56f3a91423b1842b5c991d6c1.html">Typedef CpaCyEcPointVerifyCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00072_1gaebfaf34e82f287ebf5479daf9f8b0f9c.html">Typedef CpaCyEcStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00064_1ga7e5fa54d29db6714629185fb013641f7.html">Typedef CpaCyGenericCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00064_1ga2a9c93347b12c3434d9b86dbea7615f3.html">Typedef CpaCyGenFlatBufCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00064_1ga111699f99f0ea6b83b1c4f60148db5dd.html">Typedef CpaCyInstanceNotificationCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1ga074852a57682a4da49f21aaf1faecbe5.html">Typedef CpaCyKeyGenHKDFExpandLabel</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1ga76d217630167374b55ef79d6ff19a9c9.html">Typedef CpaCyKeyGenHKDFOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1gab6de2e63c024cdfbc4640c797b707e1b.html">Typedef CpaCyKeyGenMgfOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1ga67f398faf49ca6e06405b725aed59d3b.html">Typedef CpaCyKeyGenMgfOpDataExt</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1gab14d7d9c6f2589694a562094fda9b8a2.html">Typedef CpaCyKeyGenSslOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1gad8c0985e94fad24fca4114b8610dfe7c.html">Typedef CpaCyKeyGenStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1ga209992d4a608e5f93b51648c1dee89a2.html">Typedef CpaCyKeyGenTlsOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1ga1a5f3eca5a8d282ab14de61bf0c36ee6.html">Typedef CpaCyKeyHKDFCipherSuite</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1ga57b480092c6c09874f4e329e85f0df43.html">Typedef CpaCyKeyHKDFOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1ga1db4b719025409332bff845033d40ac4.html">Typedef CpaCyKeySslOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00068_1ga099a036cd5a0ae418bcd965ee278b60e.html">Typedef CpaCyKeyTlsOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga9f193e6cd31d099451c0ede98ad8f4bb.html">Typedef CpaCyKptEcdsaSignRSOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga3e2414c93d608871ee60d1f973c5c350.html">Typedef CpaCyKptHandle</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga43cd912f59a836829c67d522d2de73fc.html">Typedef CpaCyKptKeyManagementStatus</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga61430f8cc74384ebaff32939396ed7cc.html">Typedef CpaCyKptLoadKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga80a0f08434f629e1d401f940fc3bfe94.html">Typedef CpaCyKptRsaDecryptOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga46ffb437b6d305e9ba7216a867ca5bd1.html">Typedef CpaCyKptRsaPrivateKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga6ab0abe56b66a2178e3710ef7696cfeb.html">Typedef CpaCyKptRsaPrivateKeyRep1</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga12123b2be9e3c5163dd1240f4d457b1f.html">Typedef CpaCyKptRsaPrivateKeyRep2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga4d12c29d93de71042e7f492c83997408.html">Typedef CpaCyKptUnwrapContext</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga2f5e7f6ccd5a2a6450ed765d9979e3c5.html">Typedef CpaCyKptValidationKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00076_1ga3f73e07920915c4344a5e222e2c1d3b3.html">Typedef CpaCyKptWrappingKeyType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00074_1gaa7489a62ee8f5f36acdbfd0752d291ca.html">Typedef CpaCyLnModExpOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00074_1ga638be208336ec1a679558463a2e188af.html">Typedef CpaCyLnModInvOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00074_1gadceb1c0c767f6334efacbfd1577c5e9f.html">Typedef CpaCyLnStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00075_1gad7f1c6f2d6e698ad4fe8c60e7db56bc0.html">Typedef CpaCyPrimeStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00075_1gaef1f03656db7655296632a58e9a56c44.html">Typedef CpaCyPrimeTestCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00075_1gaa90743395328c4d89d34dd9c56a825d7.html">Typedef CpaCyPrimeTestOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00064_1ga95a70ad213db80f28529eb9399ac9e90.html">Typedef CpaCyPriority</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1gaa33ac9941ac808a49a55e0d7b671bc23.html">Typedef CpaCyRsaDecryptOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1gac7698a4df68d9eaebfc2cecbb9d941f4.html">Typedef CpaCyRsaEncryptOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1ga49ec1c85babcab07cf2bc3dd94821cd3.html">Typedef CpaCyRsaKeyGenCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1gad0c888fa523fe55a692cecbbb818a650.html">Typedef CpaCyRsaKeyGenOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1ga9f2a6ff1534078612e09ab8f0e0755ee.html">Typedef CpaCyRsaPrivateKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1ga9657e69208b230b27c27914723543c5b.html">Typedef CpaCyRsaPrivateKeyRep1</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1ga9b1d07e6918002aa0c5c33af043fea1a.html">Typedef CpaCyRsaPrivateKeyRep2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1gab88aa36eecf260095c31962cf285a951.html">Typedef CpaCyRsaPrivateKeyRepType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1ga6c9170ca3f4f599698b958358fa1325b.html">Typedef CpaCyRsaPublicKey</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1gaeb9a5a3a87979bfbcb9e211bedfa97d3.html">Typedef CpaCyRsaStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00069_1gaa70f7520b037790411b1147838756427.html">Typedef CpaCyRsaVersion</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga57457c4a9bb58fa3c27fed9d507e093d.html">Typedef CpaCySymAlgChainOrder</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1gad7088725013b4649379151ff39a74b05.html">Typedef CpaCySymCapabilitiesInfo</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga073af5bf20a6a70cb777387dff082477.html">Typedef CpaCySymCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1gaba4b70af215e5a6cd40d4576a7238fde.html">Typedef CpaCySymCipherAlgorithm</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga96338d052bf084424f7ba96e7f75c28e.html">Typedef CpaCySymCipherDirection</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga4286dbf79e5644daa45a62f41f0a1341.html">Typedef CpaCySymCipherSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1gae7c59feade5dd7232a2236d72f44c6d5.html">Typedef CpaCySymDeriveOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00067_1gab24cdb76cd16106c1ab2ce7980d52584.html">Typedef CpaCySymDpCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00067_1ga0bdace924661c81684151c1553afb2ea.html">Typedef CpaCySymDpOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00067_1ga1661ecfb30fca689ea804513828c812b.html">Typedef CpaCySymDpSessionCtx</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1gaba978e17cb43a8fa73752cf39d166f51.html">Typedef CpaCySymHashAlgorithm</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga70d3e63becc809a72fb6c8ff692a7265.html">Typedef CpaCySymHashAuthModeSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga607ebc8454782d518618d51b74dd82a2.html">Typedef CpaCySymHashMode</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga47ffcf64d7f613aa3cd4fab3f308b97c.html">Typedef CpaCySymHashNestedModeSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga2082e2eec9ad6c04206fb7b8f7e3140b.html">Typedef CpaCySymHashSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1gae170d3eb302f39ace2c77114c6d7a058.html">Typedef CpaCySymOp</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1gae6f7414390b4249624a3cfc9c610d765.html">Typedef CpaCySymOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga4648d2a2f10700aeb8a235e3e902e0a9.html">Typedef CpaCySymOpData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga59ae2aaf71066d9dab28316ee461b31c.html">Typedef CpaCySymPacketType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga78aff6ab7c0fb9e8aa45c74b5c3f479f.html">Typedef CpaCySymSessionCtx</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga1d5d42d0597c1c0ab42ef54b49c1443f.html">Typedef CpaCySymSessionSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1ga2ed130a2ee4d6b1d0043107c5fc7fe30.html">Typedef CpaCySymSessionUpdateData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00066_1gabb1488b39969c4b02d3611a62da92fb7.html">Typedef CpaCySymStats64</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga837fe330f06dc5f924916e25f4146a46.html">Typedef CpaDcAutoSelectBest</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga8e99451073954662d1abc3f0c015bb4c.html">Typedef CpaDcCallbackFn</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00062_1gab2a1b4f5bd9c4d240418bf59c2d9bdce.html">Typedef CpaDcChainOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00062_1gac4ddb0f58fd4f6f9894a8aa62fedc571.html">Typedef CpaDcChainOpData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00062_1ga36baaf3313e7d1cbe20194edd6df29d3.html">Typedef CpaDcChainOperations</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00062_1gafb7ea8ee9aa6fd755948464604e42262.html">Typedef CpaDcChainRqResults</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00062_1ga688ff52346d0a92e6af8b5810bc6a707.html">Typedef CpaDcChainRqVResults</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00062_1ga9c6f3da8fff9804035f34a816d78390b.html">Typedef CpaDcChainSessionSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00062_1gab7d9cc05d72722bc48e07f479d69a608.html">Typedef CpaDcChainSessionType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00062_1gac81e692ae569078ac78809dbb9523dfc.html">Typedef CpaDcChainSubOpData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gab3caa955c2a6edbae45ef5164ef274a1.html">Typedef CpaDcChecksum</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gabc3f3f4d6666c3ec06fbf3d0ba23a940.html">Typedef CpaDcCompLvl</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gab2015043bd8d31934aee6e4a39131584.html">Typedef CpaDcCompLZ4BlockMaxSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga825389c9c7c32fb2591246c7c97f57d9.html">Typedef CpaDcCompMinMatch</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gae0d54c4c234328c29d5ad33e7ee508ef.html">Typedef CpaDcCompType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gaa105a60a2bb4ef40d585a6ca8dfb22cc.html">Typedef CpaDcCompWindowSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00008_1a34f5ae1f4d04fdd5ce221601690c6bc8.html">Typedef CpaDcDir</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00061_1ga5fb8e7a7c11fcde53070259209f7ef0d.html">Typedef CpaDcDpCallbackFn</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00061_1gac4e89a4f2f5951fec74d2dca99c4b533.html">Typedef CpaDcDpOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga1da9903021669d4173ea425d43cc978a.html">Typedef CpaDcFlush</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga141c542923b617667461e0d8711987e2.html">Typedef CpaDcHuffType</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gab1eee64ba2d99ccf6d65f5ef1630fc93.html">Typedef CpaDcInstanceCapabilities</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gac8798e193444e5ea27f36cf03aef382e.html">Typedef CpaDcInstanceNotificationCbFunc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga01f832821f74dedd95bd168b9915f84f.html">Typedef CpaDcIntegrityCrcSize</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00008_1a7be24e61c68a82b023b3c34cb603c0bf.html">Typedef CpaDcNsSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gaf699787d09deffe2b7a5029dff124a50.html">Typedef CpaDcOpData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga17fd21ffb40e437767cced9837b23e44.html">Typedef CpaDcOpData2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga80b196e3762fa7dbd3fd8745d808ccee.html">Typedef CpaDcReqStatus</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga3ff746e52b8dd6bf3cd91ec4c2e307d2.html">Typedef CpaDcRqResults</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga1e91bfffc9897991bbc1fcc356ec8852.html">Typedef CpaDcSessionDir</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gab588f7ffbd4daad1c57e4a61a1913c24.html">Typedef CpaDcSessionHandle</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gae4349fcc29ccd1abe86a6006f5872846.html">Typedef CpaDcSessionSetupData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga6cfad8b4332ed39099e9c78611d51627.html">Typedef CpaDcSessionState</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga4b27098796f378c3315dc871911466fe.html">Typedef CpaDcSessionUpdateData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gab84445f06d3b7eb31ba2ed29a070dfe3.html">Typedef CpaDcSkipData</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga88ec292fad0354bb9694d0eca4e07635.html">Typedef CpaDcSkipMode</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00008_1a088ba92ee452fa3dd781705b2b1f62c6.html">Typedef CpaDcState</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga5010466b9413a8fb668d544fe1d87e23.html">Typedef CpaDcStats</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1gaea410acc66024ede3827909874a6d01d.html">Typedef CpaFlatBuffer</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00057_1ga4d6d379d3107e61c8261e8a88a22f4af.html">Typedef CpaInstanceAllocPolicy</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1gacfb32f55ad5e2dbce3c47e20b663f6cc.html">Typedef CpaInstanceEvent</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1gad2cea791a6c42b590f36b823136593e2.html">Typedef CpaInstanceHandle</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1gaced9213ac909f8b741071e2e15924282.html">Typedef CpaInstanceInfo2</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1gae90e11adebf61aaf0c8095e2afae2811.html">Typedef CpaIntegrityCrc</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00060_1ga7603272e3fb22b9be1f87176521bd10c.html">Typedef CpaIntegrityCrc64b</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1ga566a27afe35d793d4c46adcf1249265c.html">Typedef CpaOperationalState</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1gaa60e87cf28152d3bc87ea267afe57f13.html">Typedef CpaPhysBufferList</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1gadac9e683a287509e2502f16f0bb1c672.html">Typedef CpaPhysFlatBuffer</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1ga3c29807e2e3c15a935d4683444210096.html">Typedef CpaPhysicalAddr</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1ga30b14b68ce2aff3edf5d840499ef6b52.html">Typedef CpaPhysicalInstanceId</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1gaa9e774deebcaa7eec0d62b12aae39ff6.html">Typedef CpaStatus</a></li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="typedef_a00058_1ga5c5e18650a2b89feb1a1ca77923dfa62.html">Typedef CpaVirtualToPhysical</a></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../api_reference.html" class="btn btn-neutral float-left" title="API Reference Manual" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="struct_a00084.html" class="btn btn-neutral float-right" title="Struct _CpaBufferList" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testing Performance of Intel® QAT + OpenSSL* Container with Docker &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Orchestration Software" href="orchestration.html" />
+    <link rel="prev" title="Intel® QAT + NGINX* Container" href="nginx.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../QATzip/index.html">Intel<sup>®</sup> QATzip</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../QATEngine/index.html">Intel<sup>®</sup> QAT OpenSSL* Engine</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel<sup>®</sup> QAT in Linux Containers</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="setup.html">Setting Up Host Platform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="build.html">Build Containers with Intel® QAT Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="run.html">Run Containers using Intel® QAT Acceleration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checkin.html">Quick Test of Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nginx.html">Intel® QAT + NGINX* Container</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Testing Performance of Intel® QAT + OpenSSL* Container with Docker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#rsa-test-2048-bit-keys">RSA Test (2048-bit keys)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ecdh-test-montgomery-ec-curve-x25519">ECDH Test (Montgomery EC Curve X25519)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#aes-gcm-encryption-test-128-bit-keys">AES GCM Encryption Test (128-bit keys)</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="orchestration.html">Orchestration Software</a></li>
+<li class="toctree-l3"><a class="reference internal" href="pre-built.html">Pre-Built Images</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api_reference.html">API Reference Manual</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Application Notes</a> &raquo;</li>
+          <li><a href="index.html">Intel<sup>®</sup> QAT in Linux Containers</a> &raquo;</li>
+      <li>Testing Performance of Intel® QAT + OpenSSL* Container with Docker</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="testing-performance-of-intel-qat-openssl-container-with-docker">
+<span id="qat-2-0-containers-testing"></span><h1>Testing Performance of Intel® QAT + OpenSSL* Container with Docker<a class="headerlink" href="#testing-performance-of-intel-qat-openssl-container-with-docker" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>The commands below will run only the Intel® QuickAssist Technology OpenSSL* Engine (QAT_Engine) portion of the image built in <a class="reference internal" href="build.html#qat-2-0-containers-build"><span class="std std-ref">previous section</span></a>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">openssl</span> <span class="pre">speed</span></code> measures the raw performance of the algorithm itself. The performance of real-world applications will vary depending on the workload and other factors. Configuring an application to use the QAT_Engine is an application-specific procedure, and at minimum, it requires that the application supports OpenSSL’s asynchronous interface.</p></li>
+</ul>
+</div>
+<section id="rsa-test-2048-bit-keys">
+<h2>RSA Test (2048-bit keys)<a class="headerlink" href="#rsa-test-2048-bit-keys" title="Permalink to this headline"></a></h2>
+<p><strong>QAT_Engine for OpenSSL</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -engine qatengine -elapsed -async_jobs 8 rsa2048</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>OpenSSL* Software (No QAT_Engine)</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -elapsed rsa2048</span>
+</pre></div>
+</div>
+</div></blockquote>
+<section id="results-comparison">
+<h3>Results Comparison<a class="headerlink" href="#results-comparison" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Results below are shown for reference only.</p>
+</div>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">RSA Test (2048-bit keys) Results Comparison</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>QAT_Engine for OpenSSL</strong></p></th>
+<th class="head"><p><strong>OpenSSL Software</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Result</p></td>
+<td><p>16910.5 sign/s</p></td>
+<td><p>1937.3 sign/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gain</p></td>
+<td><p>8.73x</p></td>
+<td><p>Baseline</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="ecdh-test-montgomery-ec-curve-x25519">
+<h2>ECDH Test (Montgomery EC Curve X25519)<a class="headerlink" href="#ecdh-test-montgomery-ec-curve-x25519" title="Permalink to this headline"></a></h2>
+<p><strong>QAT_Engine for OpenSSL</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -engine qatengine -elapsed -async_jobs 8 ecdhx25519</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>OpenSSL* Software (No QAT_Engine)</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -elapsed ecdhx25519</span>
+</pre></div>
+</div>
+</div></blockquote>
+<section id="id1">
+<h3>Results Comparison<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Results below are shown for reference only.</p>
+</div>
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">ECDH Test (Montgomery EC Curve X25519) Results Comparison</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>QAT_Engine for OpenSSL</strong></p></th>
+<th class="head"><p><strong>OpenSSL Software</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Result</p></td>
+<td><p>100664.2 op/s</p></td>
+<td><p>35664.4 op/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gain</p></td>
+<td><p>2.82x</p></td>
+<td><p>Baseline</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="aes-gcm-encryption-test-128-bit-keys">
+<h2>AES GCM Encryption Test (128-bit keys)<a class="headerlink" href="#aes-gcm-encryption-test-128-bit-keys" title="Permalink to this headline"></a></h2>
+<p><strong>QAT_Engine for OpenSSL</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -engine qatengine -elapsed -evp aes-128-gcm</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>OpenSSL* Software (No QAT_Engine)</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">docker run -it --cap-add=IPC_LOCK --security-opt seccomp=unconfined $(for i in `ls /dev/vfio/*`; do echo --device $i; done) intel/openssl-qat-engine:devel openssl speed -elapsed -evp aes-128-gcm</span>
+</pre></div>
+</div>
+</div></blockquote>
+<section id="id2">
+<h3>Results Comparison<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Results below are shown for reference only.</p>
+</div>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">AES GCM Encryption Test (128-bit keys) Results Comparison (8k blocks)</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p><strong>QAT_Engine for OpenSSL</strong></p></th>
+<th class="head"><p><strong>OpenSSL Software</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Result</p></td>
+<td><p>19801120.77 kB/s</p></td>
+<td><p>6952815.27 kB/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>Gain</p></td>
+<td><p>2.85x</p></td>
+<td><p>Baseline</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nginx.html" class="btn btn-neutral float-left" title="Intel® QAT + NGINX* Container" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="orchestration.html" class="btn btn-neutral float-right" title="Orchestration Software" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

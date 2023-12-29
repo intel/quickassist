@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Struct _CpaCySymDpOpData &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Struct _CpaCySymHashAuthModeSetupData" href="struct_a00212.html" />
+    <link rel="prev" title="Struct _CpaCySymDeriveOpData" href="struct_a00200.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../api_reference.html">API Reference Manual</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="unabridged_api.html">API Description</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="unabridged_api.html#classes-and-structs">Classes and Structs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="struct_a00084.html">Struct _CpaBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00096.html">Struct _CpaCrcControlData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00140.html">Struct _CpaCrcData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00196.html">Struct _CpaCyCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00320.html">Struct _CpaCyDhPhase1KeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00324.html">Struct _CpaCyDhPhase2SecretKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00328.html">Struct _CpaCyDhStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00332.html">Struct _CpaCyDhStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00340.html">Struct _CpaCyDsaGParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00336.html">Struct _CpaCyDsaPParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00348.html">Struct _CpaCyDsaRSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00356.html">Struct _CpaCyDsaRSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00352.html">Struct _CpaCyDsaSSignOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00364.html">Struct _CpaCyDsaStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00368.html">Struct _CpaCyDsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00360.html">Struct _CpaCyDsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00344.html">Struct _CpaCyDsaYParamGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00380.html">Struct _CpaCyEcCurve</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00372.html">Struct _CpaCyEcCurveParametersWeierstrass</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00408.html">Struct _CpaCyEcdsaSignROpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00416.html">Struct _CpaCyEcdsaSignRSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00412.html">Struct _CpaCyEcdsaSignSOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00424.html">Struct _CpaCyEcdsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00420.html">Struct _CpaCyEcdsaVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00388.html">Struct _CpaCyEcGenericPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00392.html">Struct _CpaCyEcGenericPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00396.html">Struct _CpaCyEcMontEdwdsPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00384.html">Struct _CpaCyEcPointMultiplyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00400.html">Struct _CpaCyEcPointVerifyOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00404.html">Struct _CpaCyEcStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00256.html">Struct _CpaCyKeyGenHKDFExpandLabel</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00260.html">Struct _CpaCyKeyGenHKDFOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00268.html">Struct _CpaCyKeyGenMgfOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00272.html">Struct _CpaCyKeyGenMgfOpDataExt</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00252.html">Struct _CpaCyKeyGenSslOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00276.html">Struct _CpaCyKeyGenStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00280.html">Struct _CpaCyKeyGenStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00264.html">Struct _CpaCyKeyGenTlsOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00428.html">Struct _CpaCyLnModExpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00432.html">Struct _CpaCyLnModInvOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00436.html">Struct _CpaCyLnStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00440.html">Struct _CpaCyLnStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00448.html">Struct _CpaCyPrimeStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00452.html">Struct _CpaCyPrimeStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00444.html">Struct _CpaCyPrimeTestOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00308.html">Struct _CpaCyRsaDecryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00304.html">Struct _CpaCyRsaEncryptOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00300.html">Struct _CpaCyRsaKeyGenOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00296.html">Struct _CpaCyRsaPrivateKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00288.html">Struct _CpaCyRsaPrivateKeyRep1</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00292.html">Struct _CpaCyRsaPrivateKeyRep2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00284.html">Struct _CpaCyRsaPublicKey</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00312.html">Struct _CpaCyRsaStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00316.html">Struct _CpaCyRsaStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00244.html">Struct _CpaCySymCapabilitiesInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00204.html">Struct _CpaCySymCipherSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00200.html">Struct _CpaCySymDeriveOpData</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Struct _CpaCySymDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00212.html">Struct _CpaCySymHashAuthModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00208.html">Struct _CpaCySymHashNestedModeSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00216.html">Struct _CpaCySymHashSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00228.html">Struct _CpaCySymOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00232.html">Struct _CpaCySymOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00220.html">Struct _CpaCySymSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00224.html">Struct _CpaCySymSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00236.html">Struct _CpaCySymStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00240.html">Struct _CpaCySymStats64</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00168.html">Struct _CpaDcChainOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00192.html">Struct _CpaDcChainOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00184.html">Struct _CpaDcChainRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00188.html">Struct _CpaDcChainRqVResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00160.html">Struct _CpaDcChainSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00176.html">Struct _CpaDcChainSubOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00156.html">Struct _CpaDcDpOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00112.html">Struct _CpaDcInstanceCapabilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00148.html">Struct _CpaDcOpData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00152.html">Struct _CpaDcOpData2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00128.html">Struct _CpaDcRqResults</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00116.html">Struct _CpaDcSessionSetupData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00120.html">Struct _CpaDcSessionUpdateData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00144.html">Struct _CpaDcSkipData</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00124.html">Struct _CpaDcStats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00080.html">Struct _CpaFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00100.html">Struct _CpaInstanceInfo</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00108.html">Struct _CpaInstanceInfo2</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00132.html">Struct _CpaIntegrityCrc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00136.html">Struct _CpaIntegrityCrc64b</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00092.html">Struct _CpaPhysBufferList</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00088.html">Struct _CpaPhysFlatBuffer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00104.html">Struct _CpaPhysicalInstanceId</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00484.html">Struct CpaCyKptEcdsaSignRSOpData_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00460.html">Struct CpaCyKptLoadKey_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00480.html">Struct CpaCyKptRsaDecryptOpData_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00476.html">Struct CpaCyKptRsaPrivateKey_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00468.html">Struct CpaCyKptRsaPrivateKeyRep1_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00472.html">Struct CpaCyKptRsaPrivateKeyRep2_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00464.html">Struct CpaCyKptUnwrapContext_t</a></li>
+<li class="toctree-l4"><a class="reference internal" href="struct_a00456.html">Struct CpaCyKptValidationKey_t</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#enums">Enums</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#unions">Unions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#functions">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#defines">Defines</a></li>
+<li class="toctree-l3"><a class="reference internal" href="unabridged_api.html#typedefs">Typedefs</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../api_revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../api_reference.html">API Reference Manual</a> &raquo;</li>
+          <li><a href="unabridged_api.html">API Description</a> &raquo;</li>
+      <li>Struct _CpaCySymDpOpData</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="struct-cpacysymdpopdata">
+<span id="exhale-struct-a00248"></span><h1>Struct _CpaCySymDpOpData<a class="headerlink" href="#struct-cpacysymdpopdata" title="Permalink to this headline"></a></h1>
+<ul class="simple">
+<li><p>Defined in <a class="reference internal" href="file_api_lac_cpa_cy_sym_dp.h.html#file-api-lac-cpa-cy-sym-dp-h"><span class="std std-ref">File cpa_cy_sym_dp.h</span></a></p></li>
+</ul>
+<section id="struct-documentation">
+<h2>Struct Documentation<a class="headerlink" href="#struct-documentation" title="Permalink to this headline"></a></h2>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv417_CpaCySymDpOpData">
+<span id="_CPPv317_CpaCySymDpOpData"></span><span id="_CPPv217_CpaCySymDpOpData"></span><span id="_CpaCySymDpOpData"></span><span class="target" id="a00248"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_CpaCySymDpOpData</span></span></span><a class="headerlink" href="#_CPPv417_CpaCySymDpOpData" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Operation Data for cryptographic data plane API.</p>
+<p>
+The physical memory to which this structure points needs to be at least 8-byte aligned.<dl class="simple">
+<dt><strong>Description:</strong></dt><dd><p>This structure contains data relating to a request to perform symmetric cryptographic processing on one or more data buffers.</p>
+</dd>
+</dl>
+</p>
+<p>All reserved fields SHOULD NOT be written or read by the calling code.</p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="function_a00067_1ga41beb99c6b56541f97321f4f8308f4ca.html#a00067_1ga41beb99c6b56541f97321f4f8308f4ca"><span class="std std-ref">cpaCySymDpEnqueueOp</span></a>, cpaCySymDpEnqueueOpBatch </p>
+</div>
+</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData9reserved0E">
+<span id="_CPPv3N17_CpaCySymDpOpData9reserved0E"></span><span id="_CPPv2N17_CpaCySymDpOpData9reserved0E"></span><span id="_CpaCySymDpOpData::reserved0__Cpa64U"></span><span class="target" id="a00248_1a09b93f6a754f51a1e9cc8c8a411c6146"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reserved0</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData9reserved0E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Reserved for internal usage. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData27cryptoStartSrcOffsetInBytesE">
+<span id="_CPPv3N17_CpaCySymDpOpData27cryptoStartSrcOffsetInBytesE"></span><span id="_CPPv2N17_CpaCySymDpOpData27cryptoStartSrcOffsetInBytesE"></span><span id="_CpaCySymDpOpData::cryptoStartSrcOffsetInBytes__Cpa32U"></span><span class="target" id="a00248_1a0baac1eea018235a416a313bbd107b7e"></span><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html#_CPPv46Cpa32U" title="Cpa32U"><span class="n"><span class="pre">Cpa32U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cryptoStartSrcOffsetInBytes</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData27cryptoStartSrcOffsetInBytesE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Starting point for cipher processing, specified as number of bytes from start of data in the source buffer. The result of the cipher operation will be written back into the buffer starting at this location in the destination buffer. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData25messageLenToCipherInBytesE">
+<span id="_CPPv3N17_CpaCySymDpOpData25messageLenToCipherInBytesE"></span><span id="_CPPv2N17_CpaCySymDpOpData25messageLenToCipherInBytesE"></span><span id="_CpaCySymDpOpData::messageLenToCipherInBytes__Cpa32U"></span><span class="target" id="a00248_1a43ed7f074aa5a0797934e7e5cf49344a"></span><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html#_CPPv46Cpa32U" title="Cpa32U"><span class="n"><span class="pre">Cpa32U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">messageLenToCipherInBytes</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData25messageLenToCipherInBytesE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The message length, in bytes, of the source buffer on which the cryptographic operation will be computed. This must be a multiple of the block size if a block cipher is being used. This is also the same as the result length.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the case of CCM (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4ca262fdbd65b063a2a73c25d6e41f4f23b"><span class="std std-ref">CPA_CY_SYM_HASH_AES_CCM</span></a>), this value should not include the length of the padding or the length of the MAC; the driver will compute the actual number of bytes over which the encryption will occur, which will include these values.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For AES-GMAC (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4caede8976285ddf51b4a77859a348d2bc9"><span class="std std-ref">CPA_CY_SYM_HASH_AES_GMAC</span></a>), this field should be set to 0.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On some implementations, this length may be limited to a 16-bit value (65535 bytes). </p>
+</div>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData2ivE">
+<span id="_CPPv3N17_CpaCySymDpOpData2ivE"></span><span id="_CPPv2N17_CpaCySymDpOpData2ivE"></span><span id="_CpaCySymDpOpData::iv__CpaPhysicalAddr"></span><span class="target" id="a00248_1a177abe2161571ba1f5fdfd63f2a996b7"></span><a class="reference internal" href="typedef_a00058_1ga3c29807e2e3c15a935d4683444210096.html#_CPPv415CpaPhysicalAddr" title="CpaPhysicalAddr"><span class="n"><span class="pre">CpaPhysicalAddr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">iv</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData2ivE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Initialization Vector or Counter. Specifically, this is the physical address of one of the following:</p>
+<p><ul class="simple">
+<li><p>For block ciphers in CBC mode, or for Kasumi in F8 mode, or for SNOW3G in UEA2 mode, this is the Initialization Vector (IV) value.</p></li>
+<li><p>For ARC4, this is reserved for internal usage.</p></li>
+<li><p>For block ciphers in CTR mode, this is the counter.</p></li>
+<li><p>For GCM mode, this is either the IV (if the length is 96 bits) or J0 (for other sizes), where J0 is as defined by NIST SP800-38D. Regardless of the IV length, a full 16 bytes needs to be allocated.</p></li>
+<li><p>For CCM mode, the first byte is reserved, and the nonce should be written starting at &amp;pIv[1] (to allow space for the implementation to write in the flags in the first byte). Note that a full 16 bytes should be allocated, even though the ivLenInBytes field will have a value less than this. The macro <a class="reference internal" href="define_a00066_1ga60128b0f646694b86827fb7de1fe09e2.html#a00066_1ga60128b0f646694b86827fb7de1fe09e2"><span class="std std-ref">CPA_CY_SYM_CCM_SET_NONCE</span></a> may be used here. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData9reserved1E">
+<span id="_CPPv3N17_CpaCySymDpOpData9reserved1E"></span><span id="_CPPv2N17_CpaCySymDpOpData9reserved1E"></span><span id="_CpaCySymDpOpData::reserved1__Cpa64U"></span><span class="target" id="a00248_1ad5297359285f762bd1e81c5f93d3d04d"></span><a class="reference internal" href="typedef_a00059_1gaa5f52ecaa52c3efea7633400f9eaf48f.html#_CPPv46Cpa64U" title="Cpa64U"><span class="n"><span class="pre">Cpa64U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reserved1</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData9reserved1E" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Reserved for internal usage. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData25hashStartSrcOffsetInBytesE">
+<span id="_CPPv3N17_CpaCySymDpOpData25hashStartSrcOffsetInBytesE"></span><span id="_CPPv2N17_CpaCySymDpOpData25hashStartSrcOffsetInBytesE"></span><span id="_CpaCySymDpOpData::hashStartSrcOffsetInBytes__Cpa32U"></span><span class="target" id="a00248_1a0bc574a8b07d65cddc0bd44120120d73"></span><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html#_CPPv46Cpa32U" title="Cpa32U"><span class="n"><span class="pre">Cpa32U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">hashStartSrcOffsetInBytes</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData25hashStartSrcOffsetInBytesE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Starting point for hash processing, specified as number of bytes from start of packet in source buffer.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For CCM and GCM modes of operation, this value in this field is ignored, and the field is reserved for internal usage. The fields <a class="reference internal" href="#a00248_1a531fa3ad8bf90b28853d1d8287931cbb"><span class="std std-ref">additionalAuthData</span></a> and <a class="reference internal" href="#a00248_1a6f737cc8002b3593419bb93290470b59"><span class="std std-ref">pAdditionalAuthData</span></a> should be set instead.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For AES-GMAC (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4caede8976285ddf51b4a77859a348d2bc9"><span class="std std-ref">CPA_CY_SYM_HASH_AES_GMAC</span></a>) mode of operation, this field specifies the start of the AAD data in the source buffer. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData23messageLenToHashInBytesE">
+<span id="_CPPv3N17_CpaCySymDpOpData23messageLenToHashInBytesE"></span><span id="_CPPv2N17_CpaCySymDpOpData23messageLenToHashInBytesE"></span><span id="_CpaCySymDpOpData::messageLenToHashInBytes__Cpa32U"></span><span class="target" id="a00248_1aa20a8f01f43c4933d9c56a93ddf3f4d7"></span><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html#_CPPv46Cpa32U" title="Cpa32U"><span class="n"><span class="pre">Cpa32U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">messageLenToHashInBytes</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData23messageLenToHashInBytesE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>The message length, in bytes, of the source buffer that the hash will be computed on.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For CCM and GCM modes of operation, this value in this field is ignored, and the field is reserved for internal usage. The fields <a class="reference internal" href="#a00248_1a531fa3ad8bf90b28853d1d8287931cbb"><span class="std std-ref">additionalAuthData</span></a> and <a class="reference internal" href="#a00248_1a6f737cc8002b3593419bb93290470b59"><span class="std std-ref">pAdditionalAuthData</span></a> should be set instead.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For AES-GMAC (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4caede8976285ddf51b4a77859a348d2bc9"><span class="std std-ref">CPA_CY_SYM_HASH_AES_GMAC</span></a>) mode of operation, this field specifies the length of the AAD data in the source buffer.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On some implementations, this length may be limited to a 16-bit value (65535 bytes). </p>
+</div>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData18additionalAuthDataE">
+<span id="_CPPv3N17_CpaCySymDpOpData18additionalAuthDataE"></span><span id="_CPPv2N17_CpaCySymDpOpData18additionalAuthDataE"></span><span id="_CpaCySymDpOpData::additionalAuthData__CpaPhysicalAddr"></span><span class="target" id="a00248_1a531fa3ad8bf90b28853d1d8287931cbb"></span><a class="reference internal" href="typedef_a00058_1ga3c29807e2e3c15a935d4683444210096.html#_CPPv415CpaPhysicalAddr" title="CpaPhysicalAddr"><span class="n"><span class="pre">CpaPhysicalAddr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">additionalAuthData</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData18additionalAuthDataE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Physical address of the Additional Authenticated Data (AAD), which is needed for authenticated cipher mechanisms (CCM and GCM), and to the IV for SNOW3G authentication (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4ca5bcd4b6d69d487777fda3c2a87fa2f70"><span class="std std-ref">CPA_CY_SYM_HASH_SNOW3G_UIA2</span></a>). For other authentication mechanisms, this value is ignored, and the field is reserved for internal usage.</p>
+<p>The length of the data pointed to by this field is set up for the session in the <a class="reference internal" href="typedef_a00066_1ga70d3e63becc809a72fb6c8ff692a7265.html#a00066_1ga70d3e63becc809a72fb6c8ff692a7265"><span class="std std-ref">CpaCySymHashAuthModeSetupData</span></a> structure as part of the <a class="reference internal" href="function_a00067_1ga21e417a70393d1c2291b97f529ccd26a.html#a00067_1ga21e417a70393d1c2291b97f529ccd26a"><span class="std std-ref">cpaCySymDpInitSession</span></a> function call. This length must not exceed 240 bytes.</p>
+<p>If AAD is not used, this address must be set to zero.</p>
+<p>Specifically for CCM (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4ca262fdbd65b063a2a73c25d6e41f4f23b"><span class="std std-ref">CPA_CY_SYM_HASH_AES_CCM</span></a>) and GCM (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4cacdd7c48fbae9a74eba8fc48be382bc13"><span class="std std-ref">CPA_CY_SYM_HASH_AES_GCM</span></a>), the caller should be setup as described in the same way as the corresponding field, pAdditionalAuthData, on the “traditional” API (see the <a class="reference internal" href="typedef_a00066_1gae6f7414390b4249624a3cfc9c610d765.html#a00066_1gae6f7414390b4249624a3cfc9c610d765"><span class="std std-ref">CpaCySymOpData</span></a>).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For AES-GMAC (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4caede8976285ddf51b4a77859a348d2bc9"><span class="std std-ref">CPA_CY_SYM_HASH_AES_GMAC</span></a>) mode of operation, this field is not used and should be set to 0. Instead the AAD data should be placed in the source buffer. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData12digestResultE">
+<span id="_CPPv3N17_CpaCySymDpOpData12digestResultE"></span><span id="_CPPv2N17_CpaCySymDpOpData12digestResultE"></span><span id="_CpaCySymDpOpData::digestResult__CpaPhysicalAddr"></span><span class="target" id="a00248_1a535d3834f34c4e0c12eaebc6e86beabd"></span><a class="reference internal" href="typedef_a00058_1ga3c29807e2e3c15a935d4683444210096.html#_CPPv415CpaPhysicalAddr" title="CpaPhysicalAddr"><span class="n"><span class="pre">CpaPhysicalAddr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">digestResult</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData12digestResultE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>If the digestIsAppended member of the <a class="reference internal" href="typedef_a00066_1ga1d5d42d0597c1c0ab42ef54b49c1443f.html#a00066_1ga1d5d42d0597c1c0ab42ef54b49c1443f"><span class="std std-ref">CpaCySymSessionSetupData</span></a> structure is NOT set then this is the physical address of the location where the digest result should be inserted (in the case of digest generation) or where the purported digest exists (in the case of digest verification).</p>
+<p>At session registration time, the client specified the digest result length with the digestResultLenInBytes member of the <a class="reference internal" href="typedef_a00066_1ga2082e2eec9ad6c04206fb7b8f7e3140b.html#a00066_1ga2082e2eec9ad6c04206fb7b8f7e3140b"><span class="std std-ref">CpaCySymHashSetupData</span></a> structure. The client must allocate at least digestResultLenInBytes of physically contiguous memory at this location.</p>
+<p>For digest generation, the digest result will overwrite any data at this location.</p>
+<p>
+If the digestIsAppended member of the <a class="reference internal" href="typedef_a00066_1ga1d5d42d0597c1c0ab42ef54b49c1443f.html#a00066_1ga1d5d42d0597c1c0ab42ef54b49c1443f"><span class="std std-ref">CpaCySymSessionSetupData</span></a> structure is set then this value is ignored and the digest result is understood to be in the destination buffer for digest generation, and in the source buffer for digest verification. The location of the digest result in this case is immediately following the region over which the digest is computed. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For GCM (<a class="reference internal" href="enum_a00066_1ga45166cbe508898f3a2ebfeacbc1b4c4c.html#a00066_1gga45166cbe508898f3a2ebfeacbc1b4c4cacdd7c48fbae9a74eba8fc48be382bc13"><span class="std std-ref">CPA_CY_SYM_HASH_AES_GCM</span></a>), for “digest result” read “authentication tag T”.</p>
+</div>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData14instanceHandleE">
+<span id="_CPPv3N17_CpaCySymDpOpData14instanceHandleE"></span><span id="_CPPv2N17_CpaCySymDpOpData14instanceHandleE"></span><span id="_CpaCySymDpOpData::instanceHandle__CpaInstanceHandle"></span><span class="target" id="a00248_1a2dbfe4cfa23c83ac78e8e09e742b8588"></span><a class="reference internal" href="typedef_a00058_1gad2cea791a6c42b590f36b823136593e2.html#_CPPv417CpaInstanceHandle" title="CpaInstanceHandle"><span class="n"><span class="pre">CpaInstanceHandle</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">instanceHandle</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData14instanceHandleE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Instance to which the request is to be enqueued. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A callback function must have been registered on the instance using <a class="reference internal" href="function_a00067_1ga07c452f4be229a9540d9f557a2ebc3c4.html#a00067_1ga07c452f4be229a9540d9f557a2ebc3c4"><span class="std std-ref">cpaCySymDpRegCbFunc</span></a>. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData10sessionCtxE">
+<span id="_CPPv3N17_CpaCySymDpOpData10sessionCtxE"></span><span id="_CPPv2N17_CpaCySymDpOpData10sessionCtxE"></span><span id="_CpaCySymDpOpData::sessionCtx__CpaCySymDpSessionCtx"></span><span class="target" id="a00248_1a660d0a464486b76e017980135de7c045"></span><a class="reference internal" href="typedef_a00067_1ga1661ecfb30fca689ea804513828c812b.html#_CPPv420CpaCySymDpSessionCtx" title="CpaCySymDpSessionCtx"><span class="n"><span class="pre">CpaCySymDpSessionCtx</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">sessionCtx</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData10sessionCtxE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Session context specifying the cryptographic parameters for this request. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The session must have been created using <a class="reference internal" href="function_a00067_1ga21e417a70393d1c2291b97f529ccd26a.html#a00067_1ga21e417a70393d1c2291b97f529ccd26a"><span class="std std-ref">cpaCySymDpInitSession</span></a>. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData12ivLenInBytesE">
+<span id="_CPPv3N17_CpaCySymDpOpData12ivLenInBytesE"></span><span id="_CPPv2N17_CpaCySymDpOpData12ivLenInBytesE"></span><span id="_CpaCySymDpOpData::ivLenInBytes__Cpa32U"></span><span class="target" id="a00248_1a215b7dfdaf4bf1e04a3b7b80f5876fd3"></span><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html#_CPPv46Cpa32U" title="Cpa32U"><span class="n"><span class="pre">Cpa32U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ivLenInBytes</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData12ivLenInBytesE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Length of valid IV data pointed to by the pIv parameter.</p>
+<p><ul class="simple">
+<li><p>For block ciphers in CBC mode, or for Kasumi in F8 mode, or for SNOW3G in UEA2 mode, this is the length of the IV (which must be the same as the block length of the cipher).</p></li>
+<li><p>For block ciphers in CTR mode, this is the length of the counter (which must be the same as the block length of the cipher).</p></li>
+<li><p>For GCM mode, this is either 12 (for 96-bit IVs) or 16, in which case pIv points to J0.</p></li>
+<li><p>For CCM mode, this is the length of the nonce, which can be in the range 7 to 13 inclusive. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData9srcBufferE">
+<span id="_CPPv3N17_CpaCySymDpOpData9srcBufferE"></span><span id="_CPPv2N17_CpaCySymDpOpData9srcBufferE"></span><span id="_CpaCySymDpOpData::srcBuffer__CpaPhysicalAddr"></span><span class="target" id="a00248_1ac2272dfdffdf53a5365de6b113a698ae"></span><a class="reference internal" href="typedef_a00058_1ga3c29807e2e3c15a935d4683444210096.html#_CPPv415CpaPhysicalAddr" title="CpaPhysicalAddr"><span class="n"><span class="pre">CpaPhysicalAddr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">srcBuffer</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData9srcBufferE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Physical address of the source buffer on which to operate. This is either:</p>
+<p><ul class="simple">
+<li><p>The location of the data, of length srcBufferLen; or,</p></li>
+<li><p>If srcBufferLen has the special value <a class="reference internal" href="define_a00058_1gafe6bb278d636eaf4a399256f8ed5b170.html#a00058_1gafe6bb278d636eaf4a399256f8ed5b170"><span class="std std-ref">CPA_DP_BUFLIST</span></a>, then srcBuffer contains the location where a <a class="reference internal" href="typedef_a00058_1gaa60e87cf28152d3bc87ea267afe57f13.html#a00058_1gaa60e87cf28152d3bc87ea267afe57f13"><span class="std std-ref">CpaPhysBufferList</span></a> is stored. In this case, the CpaPhysBufferList MUST be aligned on an 8-byte boundary.</p></li>
+<li><p>For optimum performance, the buffer should only contain the data region that the cryptographic operation(s) must be performed on. Any additional data in the source buffer may be copied to the destination buffer and this copy may degrade performance. </p></li>
+</ul>
+</p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData12srcBufferLenE">
+<span id="_CPPv3N17_CpaCySymDpOpData12srcBufferLenE"></span><span id="_CPPv2N17_CpaCySymDpOpData12srcBufferLenE"></span><span id="_CpaCySymDpOpData::srcBufferLen__Cpa32U"></span><span class="target" id="a00248_1a4e8d88feeaad62002e09c0ec6a598e8e"></span><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html#_CPPv46Cpa32U" title="Cpa32U"><span class="n"><span class="pre">Cpa32U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">srcBufferLen</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData12srcBufferLenE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Length of source buffer, or <a class="reference internal" href="define_a00058_1gafe6bb278d636eaf4a399256f8ed5b170.html#a00058_1gafe6bb278d636eaf4a399256f8ed5b170"><span class="std std-ref">CPA_DP_BUFLIST</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData9dstBufferE">
+<span id="_CPPv3N17_CpaCySymDpOpData9dstBufferE"></span><span id="_CPPv2N17_CpaCySymDpOpData9dstBufferE"></span><span id="_CpaCySymDpOpData::dstBuffer__CpaPhysicalAddr"></span><span class="target" id="a00248_1ac976c3f86027d17c64c86d2e615b765b"></span><a class="reference internal" href="typedef_a00058_1ga3c29807e2e3c15a935d4683444210096.html#_CPPv415CpaPhysicalAddr" title="CpaPhysicalAddr"><span class="n"><span class="pre">CpaPhysicalAddr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dstBuffer</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData9dstBufferE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Physical address of the destination buffer on which to operate. This is either:</p>
+<p><ul class="simple">
+<li><p>The location of the data, of length srcBufferLen; or,</p></li>
+<li><p>If srcBufferLen has the special value <a class="reference internal" href="define_a00058_1gafe6bb278d636eaf4a399256f8ed5b170.html#a00058_1gafe6bb278d636eaf4a399256f8ed5b170"><span class="std std-ref">CPA_DP_BUFLIST</span></a>, then srcBuffer contains the location where a <a class="reference internal" href="typedef_a00058_1gaa60e87cf28152d3bc87ea267afe57f13.html#a00058_1gaa60e87cf28152d3bc87ea267afe57f13"><span class="std std-ref">CpaPhysBufferList</span></a> is stored. In this case, the CpaPhysBufferList MUST be aligned on an 8-byte boundary.</p></li>
+</ul>
+</p>
+<p>For “in-place” operation, the dstBuffer may be identical to the srcBuffer. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData12dstBufferLenE">
+<span id="_CPPv3N17_CpaCySymDpOpData12dstBufferLenE"></span><span id="_CPPv2N17_CpaCySymDpOpData12dstBufferLenE"></span><span id="_CpaCySymDpOpData::dstBufferLen__Cpa32U"></span><span class="target" id="a00248_1a905922a6a1c3e85a4a11b7071216eaba"></span><a class="reference internal" href="typedef_a00059_1gaff8e9ce49c2111619b49f1f8b91ddb1b.html#_CPPv46Cpa32U" title="Cpa32U"><span class="n"><span class="pre">Cpa32U</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dstBufferLen</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData12dstBufferLenE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Length of destination buffer, or <a class="reference internal" href="define_a00058_1gafe6bb278d636eaf4a399256f8ed5b170.html#a00058_1gafe6bb278d636eaf4a399256f8ed5b170"><span class="std std-ref">CPA_DP_BUFLIST</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData8thisPhysE">
+<span id="_CPPv3N17_CpaCySymDpOpData8thisPhysE"></span><span id="_CPPv2N17_CpaCySymDpOpData8thisPhysE"></span><span id="_CpaCySymDpOpData::thisPhys__CpaPhysicalAddr"></span><span class="target" id="a00248_1af7236ae16356de80b2d41517e1b2f5f4"></span><a class="reference internal" href="typedef_a00058_1ga3c29807e2e3c15a935d4683444210096.html#_CPPv415CpaPhysicalAddr" title="CpaPhysicalAddr"><span class="n"><span class="pre">CpaPhysicalAddr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">thisPhys</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData8thisPhysE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Physical address of this data structure </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData3pIvE">
+<span id="_CPPv3N17_CpaCySymDpOpData3pIvE"></span><span id="_CPPv2N17_CpaCySymDpOpData3pIvE"></span><span id="_CpaCySymDpOpData::pIv__Cpa8UP"></span><span class="target" id="a00248_1a28d248b2722fa7002b0bb775703e6c59"></span><a class="reference internal" href="typedef_a00059_1ga96cd4f35f3d1a8f9547ee73df01ede2e.html#_CPPv45Cpa8U" title="Cpa8U"><span class="n"><span class="pre">Cpa8U</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">pIv</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData3pIvE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Pointer to (and therefore, the virtual address of) the IV field above. Needed here because the driver in some cases writes to this field, in addition to sending it to the accelerator. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData19pAdditionalAuthDataE">
+<span id="_CPPv3N17_CpaCySymDpOpData19pAdditionalAuthDataE"></span><span id="_CPPv2N17_CpaCySymDpOpData19pAdditionalAuthDataE"></span><span id="_CpaCySymDpOpData::pAdditionalAuthData__Cpa8UP"></span><span class="target" id="a00248_1a6f737cc8002b3593419bb93290470b59"></span><a class="reference internal" href="typedef_a00059_1ga96cd4f35f3d1a8f9547ee73df01ede2e.html#_CPPv45Cpa8U" title="Cpa8U"><span class="n"><span class="pre">Cpa8U</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">pAdditionalAuthData</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData19pAdditionalAuthDataE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Pointer to (and therefore, the virtual address of) the additionalAuthData field above. Needed here because the driver in some cases writes to this field, in addition to sending it to the accelerator. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N17_CpaCySymDpOpData12pCallbackTagE">
+<span id="_CPPv3N17_CpaCySymDpOpData12pCallbackTagE"></span><span id="_CPPv2N17_CpaCySymDpOpData12pCallbackTagE"></span><span id="_CpaCySymDpOpData::pCallbackTag__voidP"></span><span class="target" id="a00248_1a0528f1f6ed469854aae2703b26686885"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">pCallbackTag</span></span></span><a class="headerlink" href="#_CPPv4N17_CpaCySymDpOpData12pCallbackTagE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Opaque data that will be returned to the client in the function completion callback.</p>
+<p>This opaque data is not used by the implementation of the API, but is simply returned as part of the asynchronous response. It may be used to store information that might be useful when processing the response later. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="struct_a00200.html" class="btn btn-neutral float-left" title="Struct _CpaCySymDeriveOpData" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="struct_a00212.html" class="btn btn-neutral float-right" title="Struct _CpaCySymHashAuthModeSetupData" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

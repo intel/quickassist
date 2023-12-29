@@ -8,6 +8,7 @@
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -19,6 +20,8 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
+        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
+        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -48,9 +51,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
@@ -75,10 +76,13 @@
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
+<li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
 <li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -149,10 +153,20 @@ each process.</p></td>
 </table>
 </section>
 <section id="services-enabled">
-<h3>Services Enabled<a class="headerlink" href="#services-enabled" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-qatlib-services-enabled"></span><h3>Services Enabled<a class="headerlink" href="#services-enabled" title="Permalink to this headline"></a></h3>
 <p>Tells the kernel driver which services to enable on each Physical Function (PF). All VFs on
 a PF enable the same services. There is a maximum of two services that can be enabled
 on each PF.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Newer QAT Kernel modules include support for the following configuration options. Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a>
+section of the In-Tree Release Notes for details.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Newer QAT Kernel modules include support for the following configuration options. Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a>
+section of the In-Tree Release Notes for details.</p>
+</div>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">Services Enabled Settings</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -182,6 +196,42 @@ on each PF.</p>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">asym;sym</span></code></p></td>
 <td><p>Identical to <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dc</span></code></p></td>
+<td><p>The device is configured for running compression
+services only.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sym</span></code></p></td>
+<td><p>The device is configured for running symmetric
+crypto services only.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">asym</span></code></p></td>
+<td><p>The device is configured for running asymmetric
+crypto services only.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">asym;dc</span></code></p></td>
+<td><p>The device is configured for running asymmetric
+crypto services and compression services.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dc;asym</span></code></p></td>
+<td><p>Identical to <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code> above.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">sym;dc</span></code></p></td>
+<td><p>The device is configured for running symmetric
+crypto services and compression services.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dc;sym</span></code></p></td>
+<td><p>Identical to <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code> above.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">dcc</span></code></p>
+<p><code class="docutils literal notranslate"><span class="pre">asym;sym</span></code></p>
+</td>
+<td><p>The device is configured for running chaining
+operations (hash then compress) only.</p>
+<p>Note:  Throughput is lower than dc. Only use
+setting when chaining is needed.
+Identical to <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code>.</p>
+</td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dc</span></code></p></td>
 <td><p>The device is configured for running compression
@@ -277,6 +327,28 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 <p>There is a maximum of <em>32</em> processes on one-socket system (16 VFs x 4 PFs / POLICY).</p>
 <p>A system with <em>N</em> sockets will have 32 x N processes in total.</p>
 </section>
+<section id="scalability-and-flexibility-for-symmetric-or-asymmetric-plus-compression">
+<h4>Scalability and Flexibility for Symmetric or Asymmetric Plus Compression<a class="headerlink" href="#scalability-and-flexibility-for-symmetric-or-asymmetric-plus-compression" title="Permalink to this headline"></a></h4>
+<p>To support a process that requires access to either <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code> or <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code> services, the <em>Policy</em> parameter is set.
+The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like either:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
+<span class="go">ServicesEnabled=asym;dc</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Or:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
+<span class="go">ServicesEnabled=sym;dc</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Each process will allocate <em>one</em> VFs.</p>
+<p>This provides two sym instances or two asym instance and two dc instances.</p>
+<p>There is a maximum of <em>64</em> processes on one-socket system (16 VFs x 4 PFs / POLICY).</p>
+<p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
+</section>
 <section id="crypto-only-scalability">
 <h4>Crypto-Only Scalability<a class="headerlink" href="#crypto-only-scalability" title="Permalink to this headline"></a></h4>
 <p>To enable the <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
@@ -291,34 +363,39 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 and two asym instances.</p>
 <p>There is a maximum of <em>64</em> processes on one-socket system.</p>
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This configuration also provides optimized throughput for asym.</p>
+</div>
 </section>
-<section id="symmetric-only-scalability">
-<h4>Symmetric-Only Scalability<a class="headerlink" href="#symmetric-only-scalability" title="Permalink to this headline"></a></h4>
+<section id="crypto-only-optimized-throughput">
+<h4>Crypto-Only Optimized Throughput<a class="headerlink" href="#crypto-only-optimized-throughput" title="Permalink to this headline"></a></h4>
+<p>To enable the <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
+The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=0</span>
+<span class="go">ServicesEnabled=sym;asym</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Each process will allocate <em>one</em> VF, so will have two sym instances
+and two asym instances.</p>
+<p>There is a maximum of <em>16</em> processes on one-socket system.</p>
+<p>A system with <em>N</em> sockets will have 16 x N processes in total.</p>
+</section>
+<section id="symmetric-only-optimized-throughput">
+<h4>Symmetric-Only Optimized Throughput<a class="headerlink" href="#symmetric-only-optimized-throughput" title="Permalink to this headline"></a></h4>
 <p>To enable the <code class="docutils literal notranslate"><span class="pre">sym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
 The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=0</span>
 <span class="go">ServicesEnabled=sym</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p>Each process will allocate <em>one</em> VF, so will have four sym instances.</p>
-<p>There is a maximum of <em>64</em> processes on one-socket system.</p>
-<p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
-</section>
-<section id="asymmetric-only-scalability">
-<h4>Asymmetric-Only Scalability<a class="headerlink" href="#asymmetric-only-scalability" title="Permalink to this headline"></a></h4>
-<p>To enable the <code class="docutils literal notranslate"><span class="pre">asym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
-The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
-<blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
-<span class="go">ServicesEnabled=asym</span>
-</pre></div>
-</div>
-</div></blockquote>
-<p>Each process will allocate <em>one</em> VF, so will have four asym instances.</p>
-<p>There is a maximum of <em>64</em> processes on one-socket system.</p>
-<p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
+<p>There is a maximum of <em>16</em> processes on one-socket system.</p>
+<p>A system with <em>N</em> sockets will have 16 x N processes in total.</p>
 </section>
 <section id="compression-only-scalability">
 <h4>Compression-Only Scalability<a class="headerlink" href="#compression-only-scalability" title="Permalink to this headline"></a></h4>
@@ -335,8 +412,22 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 <p>There is a maximum of <em>64</em> processes on one-socket system.</p>
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
+<section id="compression-only-optimized-throughput">
+<h4>Compression-Only Optimized Throughput<a class="headerlink" href="#compression-only-optimized-throughput" title="Permalink to this headline"></a></h4>
+<p>To enable the <code class="docutils literal notranslate"><span class="pre">sym</span></code> service, both the <em>Policy</em> and the <em>Services Enabled</em> parameters are set.
+The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=0</span>
+<span class="go">ServicesEnabled=dc</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Each process will allocate <em>one</em> VF, so will have four dc instances.</p>
+<p>There is a maximum of <em>16</em> processes on one-socket system.</p>
+<p>A system with <em>N</em> sockets will have 16 x N processes in total.</p>
+</section>
 <section id="compression-chaining-scalability">
-<h4>Compression chaining scalability<a class="headerlink" href="#compression-chaining-scalability" title="Permalink to this headline"></a></h4>
+<h4>Compression Chaining Scalability<a class="headerlink" href="#compression-chaining-scalability" title="Permalink to this headline"></a></h4>
 <p>To enable the <code class="docutils literal notranslate"><span class="pre">dcc</span></code> service both the <em>Policy</em> and the <em>Services Enabled</em> parameter are set.
 The configuration file <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> will look like:</p>
 <blockquote>
@@ -345,8 +436,8 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 </div></blockquote>
-<p>All VFs have <code class="docutils literal notranslate"><span class="pre">dc</span></code> with <code class="docutils literal notranslate"><span class="pre">sym</span></code> capabilities but only for chaining operations.</p>
-<p>Each process will be allocated <em>one</em> VF so will have 4 dc instances.</p>
+<p>All VFs have the <code class="docutils literal notranslate"><span class="pre">dc</span></code> with <code class="docutils literal notranslate"><span class="pre">sym</span></code> capabilities but only for chaining operations.</p>
+<p>Each process will allocate <em>one</em> VF, so will have four dc instances.</p>
 <p>There is a maximum of <em>64</em> processes on one-socket system.</p>
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
@@ -373,7 +464,7 @@ or later and applies to all PFs on the platform.</p>
 </div>
 </section>
 <section id="display-current-configuration">
-<h2>Display Current Configuration<a class="headerlink" href="#display-current-configuration" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-qatlib-configuration-script"></span><h2>Display Current Configuration<a class="headerlink" href="#display-current-configuration" title="Permalink to this headline"></a></h2>
 <p>The <a class="reference download internal" download="" href="../_downloads/182f441aa51fb5d6fd149e3718a6afb9/qatlistconfig.sh"><code class="xref download docutils literal notranslate"><span class="pre">script</span></code></a> below can be used to view the PF/VF service configuration.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
