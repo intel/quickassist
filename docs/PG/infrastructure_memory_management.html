@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Memory Management &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -17,11 +16,10 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,14 +32,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
           </a>
               <div class="version">
                 Hardware Version 2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,7 +53,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -91,7 +95,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -109,10 +112,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
-      <li>Memory Management</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
+      <li class="breadcrumb-item active">Memory Management</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -122,10 +125,10 @@
            <div itemprop="articleBody">
              
   <section id="memory-management">
-<span id="qat-2-0-pg-infrastructure-memory-management"></span><h1>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-infrastructure-memory-management"></span><h1>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this heading"></a></h1>
 <p>This section describes memory management requirements for submitting buffers to the QAT hardware.</p>
 <section id="shared-virtual-memory">
-<span id="qat-2-0-pg-shared-virtual-memory"></span><h2>Shared Virtual Memory<a class="headerlink" href="#shared-virtual-memory" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-pg-shared-virtual-memory"></span><h2>Shared Virtual Memory<a class="headerlink" href="#shared-virtual-memory" title="Permalink to this heading"></a></h2>
 <p>Shared Virtual Memory (SVM) is a new feature in QAT 2.0 hardware. In QAT 1.x hardware, memory needs to be
 submitted to the hardware as pinned and physically contiguous memory. In QAT 2.0, SVM allows direct submission
 of an applications buffer, thus removing the memcpy cycle cost, cache thrashing, and memory bandwidth.
@@ -137,7 +140,7 @@ The SVM feature enables passing virtual addresses to the QAT hardware for proces
 <li><p>Can tolerate page faults but Pinning (i.e. locked, guaranteed resident in physical memory) is recommended for performance.</p></li>
 </ul>
 <section id="svm-kernel-requirements">
-<span id="qat-2-0-pg-svm-kernel-requirements"></span><h3>SVM Kernel Requirements<a class="headerlink" href="#svm-kernel-requirements" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-pg-svm-kernel-requirements"></span><h3>SVM Kernel Requirements<a class="headerlink" href="#svm-kernel-requirements" title="Permalink to this heading"></a></h3>
 <p>In order to use SVM, ensure that kernel version v6.1 or higher is used. Alternatively verify the following kernel patches are applied.</p>
 <ul class="simple">
 <li><p>81c95fbaebfa5990c3c786c8c3e87426a33106fe</p></li>
@@ -145,8 +148,8 @@ The SVM feature enables passing virtual addresses to the QAT hardware for proces
 </ul>
 <p>Verification can be done with the following steps:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git tag --contains 81c95fbaebfa5990c3c786c8c3e87426a33106fe
-git tag --contains e65a6897be5e4939d477c4969a05e12d90b08409
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>tag<span class="w"> </span>--contains<span class="w"> </span>81c95fbaebfa5990c3c786c8c3e87426a33106fe
+git<span class="w"> </span>tag<span class="w"> </span>--contains<span class="w"> </span>e65a6897be5e4939d477c4969a05e12d90b08409
 </pre></div>
 </div>
 </div></blockquote>
@@ -159,7 +162,7 @@ git tag --contains e65a6897be5e4939d477c4969a05e12d90b08409
 </section>
 </section>
 <section id="dma-able-memory">
-<h2>DMA-able Memory<a class="headerlink" href="#dma-able-memory" title="Permalink to this headline"></a></h2>
+<h2>DMA-able Memory<a class="headerlink" href="#dma-able-memory" title="Permalink to this heading"></a></h2>
 <p>If SVM is not enabled, Memory passed to Intel<sup>®</sup> QuickAssist Technology hardware must be DMA’able.</p>
 <ul class="simple">
 <li><p>Physically contiguous (can also deal with Scatter Gather Lists).</p></li>
@@ -175,12 +178,12 @@ allocates/frees DMA-able memory, mapped to user space, performs virtual to physi
 <p>This component is used by the sample code supplied with the user space library.</p>
 </section>
 <section id="memory-type-determination">
-<h2>Memory Type Determination<a class="headerlink" href="#memory-type-determination" title="Permalink to this headline"></a></h2>
+<h2>Memory Type Determination<a class="headerlink" href="#memory-type-determination" title="Permalink to this heading"></a></h2>
 <p>QAT 2.0 hardware offers the application to use virtual memory directly to sending the acceleration requests and saving
 the memory copy overhead.
 However, different SVM configurations will result in different memory types. The QAT package offers memory management library called User Space DMAable
 Memory(USDM) to help user space applications using the pinned memory.</p>
-<table class="docutils align-default">
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 25%" />
@@ -212,14 +215,14 @@ zalloc/mmap…)</p></td>
 </table>
 </section>
 <section id="buffer-formats">
-<h2>Buffer Formats<a class="headerlink" href="#buffer-formats" title="Permalink to this headline"></a></h2>
+<h2>Buffer Formats<a class="headerlink" href="#buffer-formats" title="Permalink to this heading"></a></h2>
 <p>Data buffers are passed across the API interface in one of the following formats:</p>
 <ul class="simple">
 <li><p>Flat Buffers represent a single region of physically contiguous memory.</p></li>
 <li><p>Scatter-Gather Lists (SGL) are essentially an array of flat buffers, for cases where the memory is not all physically contiguous.</p></li>
 </ul>
 <section id="flat-buffers">
-<h3>Flat Buffers<a class="headerlink" href="#flat-buffers" title="Permalink to this headline"></a></h3>
+<h3>Flat Buffers<a class="headerlink" href="#flat-buffers" title="Permalink to this heading"></a></h3>
 <p>Flat buffers are represented by the type <code class="docutils literal notranslate"><span class="pre">CpaFlatBuffer</span></code>, defined in the file <code class="docutils literal notranslate"><span class="pre">cpa.h</span></code>. It consists of two fields:</p>
 <ul class="simple">
 <li><p>Data pointer <code class="docutils literal notranslate"><span class="pre">pData</span></code>: points to the start address of the data or payload. The data pointer is a virtual address; however, the actual data pointed to is required to be in contiguous and DMAable physical memory. This buffer type is typically used when simple, unchained buffers are needed.</p></li>
@@ -234,7 +237,7 @@ the type <code class="docutils literal notranslate"><span class="pre">CpaPhysFla
 </figure>
 </section>
 <section id="scatter-gather-list-sgl-buffers">
-<h3>Scatter-Gather List (SGL) Buffers<a class="headerlink" href="#scatter-gather-list-sgl-buffers" title="Permalink to this headline"></a></h3>
+<h3>Scatter-Gather List (SGL) Buffers<a class="headerlink" href="#scatter-gather-list-sgl-buffers" title="Permalink to this heading"></a></h3>
 <p>A scatter-gather list is defined by the type <code class="docutils literal notranslate"><span class="pre">CpaBufferList</span></code>, also defined in the file
 <code class="docutils literal notranslate"><span class="pre">cpa.h</span></code>. This buffer structure is typically used where more than one flat buffer can be
 provided to a particular API. The buffer list contains four fields, as follows:</p>
@@ -261,7 +264,7 @@ buffers are represented using physical rather than virtual addresses.</p>
 </section>
 </section>
 <section id="huge-pages">
-<h2>Huge Pages<a class="headerlink" href="#huge-pages" title="Permalink to this headline"></a></h2>
+<h2>Huge Pages<a class="headerlink" href="#huge-pages" title="Permalink to this heading"></a></h2>
 <p>The included User space DMAable Memory driver <code class="docutils literal notranslate"><span class="pre">usdm_drv.ko</span></code> supports 2MB pages. This allows direct access to
 main memory by devices other than the CPU and the actual supported maximum memory size in one individual allocation
 when huge pages is enabled is 2MB - 5KB. Where the 5KB is used for memory management for the memory driver. The use

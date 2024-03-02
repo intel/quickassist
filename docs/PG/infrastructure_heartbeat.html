@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Heartbeat &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -17,11 +16,10 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,14 +32,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
           </a>
               <div class="version">
                 Hardware Version 2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,7 +53,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -94,7 +98,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -112,10 +115,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
-      <li>Heartbeat</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
+      <li class="breadcrumb-item active">Heartbeat</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -125,17 +128,17 @@
            <div itemprop="articleBody">
              
   <section id="heartbeat">
-<span id="qat-2-0-pg-infrastructure-heartbeat"></span><h1>Heartbeat<a class="headerlink" href="#heartbeat" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-infrastructure-heartbeat"></span><h1>Heartbeat<a class="headerlink" href="#heartbeat" title="Permalink to this heading"></a></h1>
 <p>Under some circumstances, firmware in the Intel<sup>®</sup> QAT devices could become unresponsive, requiring a device reset to recover. The Intel<sup>®</sup> QAT Heartbeat feature provides a mechanism for the customer application to detect and reset unresponsive devices. It also notifies the application processes of the start and end of the reset operation and suspends all Intel<sup>®</sup> QAT instances between the events.</p>
 <section id="heartbeat-operation">
-<h2>Heartbeat Operation<a class="headerlink" href="#heartbeat-operation" title="Permalink to this headline"></a></h2>
+<h2>Heartbeat Operation<a class="headerlink" href="#heartbeat-operation" title="Permalink to this heading"></a></h2>
 <p>A Heartbeat-enabled Intel<sup>®</sup> QAT device firmware periodically writes counters to a specified physical memory location. A pair of counters per thread is incremented at the start and end of the main processing loop within the firmware. Checking for Heartbeat consists of checking the validity of the pair of counter values for each thread. Stagnant counters indicate a firmware hang.</p>
 <section id="initialization">
-<h3>Initialization<a class="headerlink" href="#initialization" title="Permalink to this headline"></a></h3>
+<h3>Initialization<a class="headerlink" href="#initialization" title="Permalink to this heading"></a></h3>
 <p>At startup, the Intel<sup>®</sup> QAT device driver allocates memory for the counter pairs to be written by the firmware and then sends a message to the firmware to start the Heartbeat functionality.</p>
 </section>
 <section id="heartbeat-monitoring">
-<h3>Heartbeat Monitoring<a class="headerlink" href="#heartbeat-monitoring" title="Permalink to this headline"></a></h3>
+<h3>Heartbeat Monitoring<a class="headerlink" href="#heartbeat-monitoring" title="Permalink to this heading"></a></h3>
 <p>Heartbeat check/monitoring refers to invocation of one of the two API calls that checks if the device is responsive. Heartbeat failure refers the API returning failure.</p>
 <p>The Intel<sup>®</sup> QAT driver does not monitor for Heartbeat. It should be initiated by a Heartbeat management thread calling one of the following APIs periodically:</p>
 <blockquote>
@@ -154,11 +157,15 @@
 </ul>
 </section>
 <section id="resetting-a-failed-device">
-<h3>Resetting a Failed Device<a class="headerlink" href="#resetting-a-failed-device" title="Permalink to this headline"></a></h3>
+<h3>Resetting a Failed Device<a class="headerlink" href="#resetting-a-failed-device" title="Permalink to this heading"></a></h3>
 <p>A device can be configured for automatic reset by the Intel<sup>®</sup> QAT framework or manually reset by the application by using the <code class="docutils literal notranslate"><span class="pre">AutoResetOnError</span></code> field in the device
 configuration file <code class="docutils literal notranslate"><span class="pre">/etc/&lt;device&gt;.conf</span></code>, as shown below.</p>
 <table class="longtable docutils align-default" id="id2">
 <caption><span class="caption-text">AutoResetOnError Values</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 54%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>AutoResetOnError Value</strong></p></th>
 <th class="head"><p><strong>Action on Heartbeat Failure</strong></p></th>
@@ -177,13 +184,13 @@ configuration file <code class="docutils literal notranslate"><span class="pre">
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_reset_device()</span></code> function starts an asynchronous reset sequence and returns immediately. The reset function should not be called again until the device has completed the reset to avoid a reset storm. The <code class="docutils literal notranslate"><span class="pre">icp_sal_check_device(&lt;device</span> <span class="pre">id&gt;)</span></code> function could be called in a loop to check if the device reset is still in progress.</p>
 <p>If the application devices are all configured for automatic reset then the <code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices()</span></code> function could be used; otherwise, the function should not be used because it does not return the identity of the failed device, which is a required parameter for the <code class="docutils literal notranslate"><span class="pre">icp_sal_reset_device()</span></code> function.</p>
 <section id="function-signatures">
-<h4>Function Signatures<a class="headerlink" href="#function-signatures" title="Permalink to this headline"></a></h4>
+<h4>Function Signatures<a class="headerlink" href="#function-signatures" title="Permalink to this heading"></a></h4>
 <p>The details of the above functions, parameters, and return values can be found in <a class="reference internal" href="apis_additional_apis_index.html#qat-2-0-pg-supported-apis-additional-apis"><span class="std std-ref">Supported APIs &gt; Additional APIs</span></a>.</p>
 </section>
 </section>
 </section>
 <section id="incorporating-heartbeat-into-intel-qat-applications">
-<h2>Incorporating Heartbeat into Intel<sup>®</sup> QAT Applications<a class="headerlink" href="#incorporating-heartbeat-into-intel-qat-applications" title="Permalink to this headline"></a></h2>
+<h2>Incorporating Heartbeat into Intel<sup>®</sup> QAT Applications<a class="headerlink" href="#incorporating-heartbeat-into-intel-qat-applications" title="Permalink to this heading"></a></h2>
 <p>A typical Intel<sup>®</sup> QAT user application consists of two tasks:</p>
 <ul class="simple">
 <li><p>The first task is typically an application thread that initializes Intel<sup>®</sup> QAT instances and sessions, and then submits service requests for Intel<sup>®</sup> QAT crypto or compression.</p></li>
@@ -212,7 +219,7 @@ using the following APIs:</p>
 <p>The details of the above functions, parameters, and return values can be found in <a class="reference internal" href="apis_additional_apis_index.html#qat-2-0-pg-supported-apis-additional-apis"><span class="std std-ref">Supported APIs &gt; Additional APIs</span></a>.</p>
 </section>
 <section id="restart-sequence">
-<h2>Restart Sequence<a class="headerlink" href="#restart-sequence" title="Permalink to this headline"></a></h2>
+<h2>Restart Sequence<a class="headerlink" href="#restart-sequence" title="Permalink to this heading"></a></h2>
 <p>During the restart sequence, the user space library releases the memory used for rings and other data structures as part of the shutdown and reallocates them when the restart is completed. This is transparent to the user application, so it can continue to use the same logical instance after reset to submit Intel<sup>®</sup> QAT service requests. Any memory allocated by the user application for the Intel<sup>®</sup> QAT service is untouched during device reset.</p>
 <p>A typical Heartbeat error use-case is as follows:</p>
 <ol class="arabic simple">
@@ -234,7 +241,7 @@ using the following APIs:</p>
 </ol>
 </section>
 <section id="status-of-packets-in-flight-crypto-applications-only">
-<h2>Status of Packets in Flight (Crypto Applications Only)<a class="headerlink" href="#status-of-packets-in-flight-crypto-applications-only" title="Permalink to this headline"></a></h2>
+<h2>Status of Packets in Flight (Crypto Applications Only)<a class="headerlink" href="#status-of-packets-in-flight-crypto-applications-only" title="Permalink to this heading"></a></h2>
 <p>When a device has fatal errors, the application ordinarily cannot determine whether or not inflight requests have been processed successfully.</p>
 <p>The current Intel<sup>®</sup> QAT release includes a dummy response feature that creates mock responses to all requests submitted during a fatal error condition, so the application can detect them and, therefore, know which requests need to be resubmitted to the available devices or to the software.</p>
 <div class="admonition note">
@@ -245,7 +252,7 @@ using the following APIs:</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_poll_device_events()</span></code> function should also be called by the application, so that the application get a notification when the device encounters a failure and dummy responses are generated when calling <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPollInstance()</span></code> for the inflight requests.</p>
 </section>
 <section id="determining-device-id">
-<h2>Determining Device ID<a class="headerlink" href="#determining-device-id" title="Permalink to this headline"></a></h2>
+<h2>Determining Device ID<a class="headerlink" href="#determining-device-id" title="Permalink to this heading"></a></h2>
 <p>The <em>&lt;device id&gt;</em> that is passed as a parameter to several Heartbeat API is the numeric suffix of the device name displayed by the following command. (device name: <em>qat_dev0</em>):</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service status</span>
 </pre></div>
@@ -258,21 +265,21 @@ using the following APIs:</p>
 and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_ACCEL_DEV</span></code> to find the device_id of a particular device if they know the Bus Device Function (BDF). Refer to <code class="docutils literal notranslate"><span class="pre">perform_query_dev()</span></code> in <code class="docutils literal notranslate"><span class="pre">./adf_ctl.cpp</span></code>.</p>
 </section>
 <section id="testing-heartbeat">
-<h2>Testing Heartbeat<a class="headerlink" href="#testing-heartbeat" title="Permalink to this headline"></a></h2>
+<h2>Testing Heartbeat<a class="headerlink" href="#testing-heartbeat" title="Permalink to this heading"></a></h2>
 <p>Two debug capabilities are available to assist the developers incorporating Heartbeat into their applications:</p>
 <ul class="simple">
 <li><p>Simulation of Heartbeat failure.</p></li>
 <li><p>System virtual files under <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/</span></code>.</p></li>
 </ul>
 <section id="simulated-heartbeat-failure-configuration">
-<h3>Simulated Heartbeat Failure Configuration<a class="headerlink" href="#simulated-heartbeat-failure-configuration" title="Permalink to this headline"></a></h3>
+<h3>Simulated Heartbeat Failure Configuration<a class="headerlink" href="#simulated-heartbeat-failure-configuration" title="Permalink to this heading"></a></h3>
 <p>The Heartbeat feature is always enabled in the package. However, a debug capability that simulates device failure can be enabled during the configure step as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-icp-hb-fail-sim</span>
 </pre></div>
 </div>
 </section>
 <section id="simulating-heartbeat-failure">
-<h3>Simulating Heartbeat Failure<a class="headerlink" href="#simulating-heartbeat-failure" title="Permalink to this headline"></a></h3>
+<h3>Simulating Heartbeat Failure<a class="headerlink" href="#simulating-heartbeat-failure" title="Permalink to this heading"></a></h3>
 <p>Simulating Heartbeat failure can be accomplished using two methods:</p>
 <ul>
 <li><p>Using the API <code class="docutils literal notranslate"><span class="pre">icp_sal_heartbeat_simulate_failure(&lt;device</span> <span class="pre">id&gt;)</span></code>.</p></li>
@@ -283,7 +290,7 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </li>
 </ul>
 <section id="system-virtual-files">
-<span id="id1"></span><h4>System Virtual Files<a class="headerlink" href="#system-virtual-files" title="Permalink to this headline"></a></h4>
+<span id="id1"></span><h4>System Virtual Files<a class="headerlink" href="#system-virtual-files" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The heartbeat <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug</span></code> files are associated with the QAT Physical Function (PF).</p>
@@ -291,6 +298,10 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <p>The Heartbeat feature implements the following system virtual files under the <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_&lt;device&gt;_&lt;your_device_BDF&gt;/</span></code> directory.</p>
 <table class="longtable docutils align-default" id="id3">
 <caption><span class="caption-text">Heartbeat System Virtual Files</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 24%" />
+<col style="width: 76%" />
+</colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>File</strong></p></th>
 <th class="head"><p><strong>Content</strong></p></th>
@@ -310,14 +321,14 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </table>
 <p>A developer could simulate the Heartbeat management process by running the following script in the background:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-<span class="k">while</span> : <span class="k">do</span>
-   cat /sys/kernel/debug/&lt;device&gt;/heartbeat &gt; /dev/null sleep <span class="m">1</span>
+<span class="k">while</span><span class="w"> </span>:<span class="w"> </span><span class="k">do</span>
+<span class="w">   </span>cat<span class="w"> </span>/sys/kernel/debug/&lt;device&gt;/heartbeat<span class="w"> </span>&gt;<span class="w"> </span>/dev/null<span class="w"> </span>sleep<span class="w"> </span><span class="m">1</span>
 <span class="k">done</span>
 </pre></div>
 </div>
 </section>
 <section id="heartbeat-polling-frequencies">
-<h4>Heartbeat Polling Frequencies<a class="headerlink" href="#heartbeat-polling-frequencies" title="Permalink to this headline"></a></h4>
+<h4>Heartbeat Polling Frequencies<a class="headerlink" href="#heartbeat-polling-frequencies" title="Permalink to this heading"></a></h4>
 <p>The application developer should decide on the following two Heartbeat polling frequencies:</p>
 <ul class="simple">
 <li><p>Device Heartbeat monitoring.</p></li>
@@ -338,7 +349,7 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </section>
 </section>
 <section id="handling-device-failures-in-a-virtualized-environment">
-<h2>Handling Device Failures in a Virtualized Environment<a class="headerlink" href="#handling-device-failures-in-a-virtualized-environment" title="Permalink to this headline"></a></h2>
+<h2>Handling Device Failures in a Virtualized Environment<a class="headerlink" href="#handling-device-failures-in-a-virtualized-environment" title="Permalink to this heading"></a></h2>
 <p>The Heartbeat feature in the acceleration software can be used in a virtualized environment. Refer to the <em>Using Intel®</em> <em>Virtualization Technology (Intel® VT) with</em> Intel<sup>®</sup> <em>QuickAssist Technology Application Note</em> for more details on enabling SR-IOV and the creation of Virtual Functions (VFs) from a single Intel<sup>®</sup> QuickAssist Technology acceleration device to support acceleration for multiple Virtual Machines (VMs).</p>
 <p>The following sequence describes a possible use case for using the Heartbeat feature in a virtualized environment.</p>
 <ol class="arabic simple">
@@ -359,7 +370,7 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </div>
 </section>
 <section id="incorporating-dummy-responses-into-an-intel-qat-application">
-<h2>Incorporating Dummy Responses into an Intel<sup>®</sup> QAT Application<a class="headerlink" href="#incorporating-dummy-responses-into-an-intel-qat-application" title="Permalink to this headline"></a></h2>
+<h2>Incorporating Dummy Responses into an Intel<sup>®</sup> QAT Application<a class="headerlink" href="#incorporating-dummy-responses-into-an-intel-qat-application" title="Permalink to this heading"></a></h2>
 <p>The dummy response feature has been incorporated in a scenario with the Intel<sup>®</sup> QAT engine and Nginx*. Figure below illustrates how it works. This can be used as a reference to so-called “software fallback.”</p>
 <p>The Intel<sup>®</sup> QAT engine is a shim layer between OpenSSL* libcrypto* and Intel<sup>®</sup> QAT Library. The Intel<sup>®</sup> QAT Library will generate failover responses.</p>
 <p>The Heartbeat Monitoring Daemon, a single process, is a daemon which is used to check the device status periodically and trigger the driver the reset the device when heartbeat failure happens. Its only activity is calling <code class="docutils literal notranslate"><span class="pre">icp_sal_check_device()</span></code> or <code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices()</span></code> periodically.</p>

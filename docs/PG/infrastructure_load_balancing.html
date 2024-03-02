@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Load Balancing &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -17,11 +16,10 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,14 +32,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
           </a>
               <div class="version">
                 Hardware Version 2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,7 +53,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -89,7 +93,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -107,10 +110,10 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">Programmer’s Guide</a> &raquo;</li>
-          <li><a href="infrastructure_index.html">Infrastructure</a> &raquo;</li>
-      <li>Load Balancing</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
+      <li class="breadcrumb-item active">Load Balancing</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -120,9 +123,9 @@
            <div itemprop="articleBody">
              
   <section id="load-balancing">
-<span id="qat-2-0-pg-infrastructure-load-balancing"></span><h1>Load Balancing<a class="headerlink" href="#load-balancing" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-infrastructure-load-balancing"></span><h1>Load Balancing<a class="headerlink" href="#load-balancing" title="Permalink to this heading"></a></h1>
 <section id="per-endpoint">
-<h2>Per Endpoint<a class="headerlink" href="#per-endpoint" title="Permalink to this headline"></a></h2>
+<h2>Per Endpoint<a class="headerlink" href="#per-endpoint" title="Permalink to this heading"></a></h2>
 <p>There are four arbiters, which by default are used for the different services (with one spare/unused).</p>
 <p>Each partition:</p>
 <ul class="simple">
@@ -138,7 +141,7 @@
 </figure>
 </section>
 <section id="across-endpoints">
-<h2>Across Endpoints<a class="headerlink" href="#across-endpoints" title="Permalink to this headline"></a></h2>
+<h2>Across Endpoints<a class="headerlink" href="#across-endpoints" title="Permalink to this heading"></a></h2>
 <p>In a platform or CPU with multiple Intel® QAT devices, software is responsible for load sharing across
 devices/endpoints.
 Sapphire Rapids has up to four Intel® QAT devices/endpoints in a single CPU package (depending on SKU)
@@ -149,7 +152,7 @@ PCIe card may have multiple (QAT 1.x) devices across one or more chipsets.</p>
 <li><p>For applications using a framework (e.g. OpenSSL), the framework implements load balancing.</p></li>
 </ul>
 <section id="load-sharing-criteria">
-<h3>Load Sharing Criteria<a class="headerlink" href="#load-sharing-criteria" title="Permalink to this headline"></a></h3>
+<h3>Load Sharing Criteria<a class="headerlink" href="#load-sharing-criteria" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Simple round-robin scheme recommended.</p></li>
 <li><p>May want to consider “locality” in a multi-socket (NUMA) platform.</p></li>
@@ -160,8 +163,8 @@ PCIe card may have multiple (QAT 1.x) devices across one or more chipsets.</p>
 </section>
 </section>
 <section id="dimensions">
-<span id="qat2-0-dimensions"></span><h2>Dimensions<a class="headerlink" href="#dimensions" title="Permalink to this headline"></a></h2>
-<table class="longtable docutils align-default" id="id1">
+<span id="qat2-0-dimensions"></span><h2>Dimensions<a class="headerlink" href="#dimensions" title="Permalink to this heading"></a></h2>
+<table class="longtable colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Dimensions Gen 1 &amp; Gen 2</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 25%" />
@@ -200,7 +203,7 @@ Pairs per Bundle</p></td>
 </tr>
 </tbody>
 </table>
-<table class="longtable docutils align-default" id="id2">
+<table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Dimensions Gen 3 &amp; Gen 4</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 25%" />

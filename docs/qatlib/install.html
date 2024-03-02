@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -17,11 +16,10 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,14 +32,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
           </a>
               <div class="version">
                 Hardware Version 2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,7 +53,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
@@ -79,7 +83,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -97,9 +100,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">QATlib User’s Guide</a> &raquo;</li>
-      <li>Installation</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
+      <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -109,7 +112,7 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<span id="qat-2-0-qatlib-install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-qatlib-install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
 <p>The <em>qatlib</em> library can be installed by either:</p>
 <ul class="simple">
 <li><p>Installing from pre-built packages</p></li>
@@ -122,7 +125,7 @@
 <p>If any issues are encountered, refer to latest installation instructions available at the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/INSTALL">qatlib GitHub repository</a>.</p>
 </div>
 <section id="installing-from-rpm-packages">
-<h2>Installing from RPM Packages<a class="headerlink" href="#installing-from-rpm-packages" title="Permalink to this headline"></a></h2>
+<h2>Installing from RPM Packages<a class="headerlink" href="#installing-from-rpm-packages" title="Permalink to this heading"></a></h2>
 <p>The following steps can be used to install <em>qatlib</em> packages on Linux distributions such as
 <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, or <em>CentOS 9 Stream</em>.</p>
 <ol class="arabic">
@@ -178,7 +181,7 @@ The following commands set the amount of locked memory to 500MB.</p>
 </ol>
 </section>
 <section id="installing-from-sources">
-<span id="qat-2-0-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this heading"></a></h2>
 <p>The following steps can be used to install the <em>qatlib</em> package from source.</p>
 <ol class="arabic">
 <li><p><strong>Install</strong> the dependencies by running the following commands.</p>
@@ -271,7 +274,7 @@ or can be obtained by running the following command:</p>
 <p class="admonition-title">Important</p>
 <p>By default the shared library files are placed in  <code class="docutils literal notranslate"><span class="pre">/usr/local/lib</span></code>.  Depending on your distribution, this directory
 may not be in the library path that ldconfig uses.</p>
-<p>This directly can be included by either adding entry to the file <code class="docutils literal notranslate"><span class="pre">/etc/ld.so.conf</span></code>
+<p>This directory can be included by either adding entry to the file <code class="docutils literal notranslate"><span class="pre">/etc/ld.so.conf</span></code>
 or creating a file <code class="docutils literal notranslate"><span class="pre">usr-local.conf</span></code>  (or name of your choice) in the <code class="docutils literal notranslate"><span class="pre">/etc/ld.so.conf.d</span></code> directory.</p>
 </div>
 <p>To run in <a class="reference internal" href="configuration.html#qat-2-0-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a>, enable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service. This can be done
@@ -353,12 +356,12 @@ The following commands set the amount of locked memory to 500MB.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>On some distros like Ubuntu, it may be necessary to set <code class="docutils literal notranslate"><span class="pre">$LD_LIBRARY_PATH</span></code> to point to the path that contains <code class="docutils literal notranslate"><span class="pre">libusdm.so</span></code>, usually <code class="docutils literal notranslate"><span class="pre">/usr/local/lib</span></code>. Example:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="n">LD_LIBRARY_PATH</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">export</span><span class="w"> </span><span class="n">LD_LIBRARY_PATH</span><span class="o">=/</span><span class="n">usr</span><span class="o">/</span><span class="n">local</span><span class="o">/</span><span class="n">lib</span>
 </pre></div>
 </div>
 </div>
 <section id="configuration-options">
-<span id="qat-2-0-qatlib-configure-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-qatlib-configure-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -381,7 +384,7 @@ The following commands set the amount of locked memory to 500MB.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<table class="longtable docutils align-default" id="id1">
+<table class="longtable colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Available Configuration Options</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
@@ -483,33 +486,34 @@ driver.</p>
 </table>
 </section>
 <section id="confirm-current-version">
-<span id="qat-2-0-qatlib-check-version"></span><h3>Confirm Current Version<a class="headerlink" href="#confirm-current-version" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-qatlib-check-version"></span><h3>Confirm Current Version<a class="headerlink" href="#confirm-current-version" title="Permalink to this heading"></a></h3>
 <ol class="arabic">
 <li><p>To confirm your current qatlib version, use one of the following:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>sudo qatmgr -v
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qatmgr -v</span>
 </pre></div>
 </div>
 <p>Example return:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">qatmgr</span><span class="w"> </span><span class="mf">23.11.0</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">qatmgr</span><span class="w"> </span><span class="mf">23.11.0</span>
 </pre></div>
 </div>
 </li>
 <li><p>Use the package <code class="docutils literal notranslate"><span class="pre">versionfile</span></code>:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>cat /&lt;qatlib_dir&gt;/versionfile
+<p>In the example command below, it assumes the source directory for qatlib is <code class="docutils literal notranslate"><span class="pre">~/qatlib</span></code>.  Update this command if source directory is something different.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat ~/qatlib/versionfile</span>
 </pre></div>
 </div>
 <p>Example return:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">PACKAGE_TYPE</span><span class="o">=</span><span class="n">QAT_UPSTREAM_23</span><span class="mf">.11.0</span><span class="w"></span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">PACKAGE_TYPE</span><span class="o">=</span><span class="n">QAT_UPSTREAM_24</span><span class="mf">.02.0</span>
 
-<span class="n">PACKAGE_OS</span><span class="o">=</span><span class="n">L</span><span class="w"></span>
+<span class="n">PACKAGE_OS</span><span class="o">=</span><span class="n">L</span>
 
-<span class="n">PACKAGE_VERSION_MAJOR_NUMBER</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">PACKAGE_VERSION_MAJOR_NUMBER</span><span class="o">=</span><span class="mi">0</span>
 
-<span class="n">PACKAGE_VERSION_MINOR_NUMBER</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">PACKAGE_VERSION_MINOR_NUMBER</span><span class="o">=</span><span class="mi">0</span>
 
-<span class="n">PACKAGE_VERSION_PATCH_NUMBER</span><span class="o">=</span><span class="mi">0</span><span class="w"></span>
+<span class="n">PACKAGE_VERSION_PATCH_NUMBER</span><span class="o">=</span><span class="mi">0</span>
 
-<span class="n">PACKAGE_VERSION_BUILD_NUMBER</span><span class="o">=</span><span class="mo">00002</span><span class="w"></span>
+<span class="n">PACKAGE_VERSION_BUILD_NUMBER</span><span class="o">=</span><span class="mo">00001</span>
 </pre></div>
 </div>
 </li>

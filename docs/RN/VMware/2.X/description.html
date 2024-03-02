@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Description of Release &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/qat.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
@@ -17,11 +16,10 @@
         <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
         <script src="../../../_static/jquery.js"></script>
         <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script src="../../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -34,14 +32,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
           </a>
               <div class="version">
                 Hardware Version 2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,27 +53,27 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Intro/terminology.html">Terminology</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Release Notes</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../In-Tree/index.html">Release Notes - In-Tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Linux/2.X/index.html">Release Notes - Linux*</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Release Notes - VMware*</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Description of Release</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#features">Features</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#limitations">Limitations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#packages-information">Packages Information</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#version-numbering-scheme">Version Numbering Scheme</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#list-of-files-in-release">List of Files in Release</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#supported-guest-drivers">Supported Guest Drivers</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#technical-support">Technical Support</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#environmental-assumptions">Environmental Assumptions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#related-documentation">Related Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Release Notes - VMware*</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Description of Release</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#packages-information">Packages Information</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#directpath-i-o-packages">DirectPath I/O packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enhanced-directpath-i-o-packages">Enhanced DirectPath I/O packages</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="updates.html">Release Updates</a></li>
-<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#version-numbering-scheme">Version Numbering Scheme</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#list-of-files-in-release">List of Files in Release</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#supported-guest-drivers">Supported Guest Drivers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#technical-support">Technical Support</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#environmental-assumptions">Environmental Assumptions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#related-documentation">Related Documentation</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../FreeBSD/2.X/index.html">FreeBSD* Release Notes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="updates.html">Release Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../GSG/2.X/index.html">Getting Started Guide</a></li>
@@ -81,7 +83,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../qatlib/index.html">QATlib User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../API_PG/index.html">API Programmer’s Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -99,10 +100,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Release Notes</a> &raquo;</li>
-          <li><a href="index.html">Release Notes - VMware*</a> &raquo;</li>
-      <li>Description of Release</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Release Notes - VMware*</a></li>
+      <li class="breadcrumb-item active">Description of Release</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -112,7 +112,7 @@
            <div itemprop="articleBody">
              
   <section id="description-of-release">
-<h1>Description of Release<a class="headerlink" href="#description-of-release" title="Permalink to this headline"></a></h1>
+<h1>Description of Release<a class="headerlink" href="#description-of-release" title="Permalink to this heading"></a></h1>
 <p>This document contains information on the accompanying Intel<sup>®</sup>
 QuickAssist Technology (Intel<sup>®</sup> QAT) Hardware Version 2.0 Driver
 for VMware ESXi*.</p>
@@ -131,7 +131,7 @@ mode for exposing accelerator to guest VM, as listed below:</p>
 <div><ul class="simple">
 <li><p>DirectPath I/O via SR-IOV: Later in the document referred as SR-IOV driver</p></li>
 <li><p>Enhanced DirectPath I/O via Intel<sup>®</sup> Scalable IOV: This package has
-<span class="xref std std-ref">special version convention</span>)</p></li>
+<a class="reference internal" href="#qat-2-0-rn-vmware-versioning"><span class="std std-ref">special version convention</span></a></p></li>
 </ul>
 </div></blockquote>
 <p>Main difference between these two driver types is what kind of QAT devices are
@@ -154,7 +154,7 @@ reference platform components that affect the operation of the
 software.</p>
 </div>
 <section id="features">
-<span id="qat-2-0-rn-vmware-features"></span><h2>Features<a class="headerlink" href="#features" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-rn-vmware-features"></span><h2>Features<a class="headerlink" href="#features" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Sym/Asym Crypto</p></li>
 <li><p>TLS1.3 elliptical curves Montgomery encryption (curve 25519 and curve 448)</p></li>
@@ -172,7 +172,7 @@ Deflate and LZ4s</p></li>
 </ul>
 </section>
 <section id="limitations">
-<span id="qat-2-0-rn-vmware-limitations"></span><h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-rn-vmware-limitations"></span><h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Symmetric services are not configured by default. Refer to the
 <em>Driver configuration - Services</em> section in <code class="docutils literal notranslate"><span class="pre">README.txt</span></code> for additional
@@ -201,10 +201,10 @@ to choose right package.</p></li>
 </ul>
 </section>
 <section id="packages-information">
-<span id="qat-2-0-rn-vmware-packages-info"></span><h2>Packages Information<a class="headerlink" href="#packages-information" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-rn-vmware-packages-info"></span><h2>Packages Information<a class="headerlink" href="#packages-information" title="Permalink to this heading"></a></h2>
 <section id="directpath-i-o-packages">
-<h3>DirectPath I/O packages<a class="headerlink" href="#directpath-i-o-packages" title="Permalink to this headline"></a></h3>
-<table class="docutils align-default">
+<h3>DirectPath I/O packages<a class="headerlink" href="#directpath-i-o-packages" title="Permalink to this heading"></a></h3>
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -214,7 +214,7 @@ to choose right package.</p></li>
 <td><p>qat-2.0_ext_rel_bin_2.5.3.113-7.0.0-15843807.tar.gz</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Release Date</strong></p></td>
-<td><p>12/10/2023</p></td>
+<td><p>02/05/2024</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Supported Hardware</strong></p></td>
 <td><ul class="simple">
@@ -234,16 +234,16 @@ to choose right package.</p></li>
 <td><p>2.5.3.113</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Package Checksum</strong></p></td>
-<td><p>SHA256: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</p>
-<p>FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</p>
+<td><p>SHA256: fa6432cb82748ca0216b5089efd629e5</p>
+<p>a7a5d943a0999abfb0056e9fca3b3d1b</p>
 </td>
 </tr>
 </tbody>
 </table>
 </section>
 <section id="enhanced-directpath-i-o-packages">
-<h3>Enhanced DirectPath I/O packages<a class="headerlink" href="#enhanced-directpath-i-o-packages" title="Permalink to this headline"></a></h3>
-<table class="docutils align-default">
+<h3>Enhanced DirectPath I/O packages<a class="headerlink" href="#enhanced-directpath-i-o-packages" title="Permalink to this heading"></a></h3>
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -253,7 +253,7 @@ to choose right package.</p></li>
 <td><p>qat-2.0_ext_rel_bin_1002.5.3.113-8.0.2-22380479-dvx.tar.gz</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Release Date</strong></p></td>
-<td><p>12/10/2023</p></td>
+<td><p>02/05/2024</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Supported Hardware</strong></p></td>
 <td><ul class="simple">
@@ -272,8 +272,8 @@ to choose right package.</p></li>
 <td><p>1002.5.3.113</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Package Checksum</strong></p></td>
-<td><p>SHA256: FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</p>
-<p>FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF</p>
+<td><p>SHA256: 79f3327be19d8448af3dab81a82a0728</p>
+<p>c352713a7f342c75d6f984aea0ea9ea0</p>
 </td>
 </tr>
 </tbody>
@@ -281,7 +281,7 @@ to choose right package.</p></li>
 </section>
 </section>
 <section id="version-numbering-scheme">
-<span id="qat-2-0-rn-vmware-versioning"></span><h2>Version Numbering Scheme<a class="headerlink" href="#version-numbering-scheme" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-rn-vmware-versioning"></span><h2>Version Numbering Scheme<a class="headerlink" href="#version-numbering-scheme" title="Permalink to this heading"></a></h2>
 <p>The version numbering scheme is major.minor.patch.build, where:</p>
 <blockquote>
 <div><ul class="simple">
@@ -298,8 +298,8 @@ I/O driver <em>major</em> version is the same <em>major</em> version associated 
 Direct Path I/O release + <em>1000</em>. <em>Minor</em> and <em>patch</em> numbers will match.</p>
 </section>
 <section id="list-of-files-in-release">
-<h2>List of Files in Release<a class="headerlink" href="#list-of-files-in-release" title="Permalink to this headline"></a></h2>
-<table class="docutils align-default">
+<h2>List of Files in Release<a class="headerlink" href="#list-of-files-in-release" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 50%" />
 <col style="width: 50%" />
@@ -321,7 +321,7 @@ licensing and basic driver installation and configuration information
 correspondingly.</p>
 </section>
 <section id="supported-guest-drivers">
-<h2>Supported Guest Drivers<a class="headerlink" href="#supported-guest-drivers" title="Permalink to this headline"></a></h2>
+<h2>Supported Guest Drivers<a class="headerlink" href="#supported-guest-drivers" title="Permalink to this heading"></a></h2>
 <p>The software in this release has been validated against the following guest
 drivers:</p>
 <blockquote>
@@ -334,7 +334,7 @@ drivers:</p>
 Refer to the corresponding documentation for more information.</p>
 </section>
 <section id="technical-support">
-<h2>Technical Support<a class="headerlink" href="#technical-support" title="Permalink to this headline"></a></h2>
+<h2>Technical Support<a class="headerlink" href="#technical-support" title="Permalink to this heading"></a></h2>
 <p>Intel offers only support for this software at the Application Programming
 Interface (API) level, defined in the Programmer’s Guide and API reference
 manuals listed in the <a class="reference internal" href="#qat2-0-rn-vmware-related-documentation"><span class="std std-ref">Related Documentation</span></a> section.</p>
@@ -345,7 +345,7 @@ information at <a class="reference external" href="https://www.intel.com/content
 to Intel to help triage and resolve with the customer directly.</p>
 </section>
 <section id="environmental-assumptions">
-<h2>Environmental Assumptions<a class="headerlink" href="#environmental-assumptions" title="Permalink to this headline"></a></h2>
+<h2>Environmental Assumptions<a class="headerlink" href="#environmental-assumptions" title="Permalink to this heading"></a></h2>
 <p>The following assumptions are made about the deployment environment:</p>
 <blockquote>
 <div><ul class="simple">
@@ -371,8 +371,8 @@ write it.</p></li>
 </div></blockquote>
 </section>
 <section id="related-documentation">
-<span id="qat2-0-rn-vmware-related-documentation"></span><h2>Related Documentation<a class="headerlink" href="#related-documentation" title="Permalink to this headline"></a></h2>
-<table class="docutils align-default">
+<span id="qat2-0-rn-vmware-related-documentation"></span><h2>Related Documentation<a class="headerlink" href="#related-documentation" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 85%" />
 <col style="width: 15%" />
