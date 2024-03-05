@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Intel® QuickAssist Technology(QAT) OpenSSL* Engine &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
@@ -20,8 +19,6 @@
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
-        <script src="../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script src="../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
@@ -34,14 +31,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
           </a>
               <div class="version">
                 Hardware Version 2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,7 +52,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../RN/index.html">Release Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
@@ -86,7 +89,6 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../api_reference.html">API Reference Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -104,9 +106,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="index.html">QATlib User’s Guide</a> &raquo;</li>
-      <li>Intel® QuickAssist Technology(QAT) OpenSSL* Engine</li>
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
+      <li class="breadcrumb-item active">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -242,42 +244,42 @@ documentation for details on <code class="docutils literal notranslate"><span cl
 <section id="verify-qat-engine-is-enabled">
 <h2>Verify QAT_Engine is enabled<a class="headerlink" href="#verify-qat-engine-is-enabled" title="Permalink to this headline"></a></h2>
 <p>The following command can be used to verify <em>QAT_Engine</em> is functional and provide details on the configuration.</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openssl engine -t -c -v qatengine
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openssl<span class="w"> </span>engine<span class="w"> </span>-t<span class="w"> </span>-c<span class="w"> </span>-v<span class="w"> </span>qatengine
 </pre></div>
 </div>
 <p>If <em>QAT_Engine</em> was setup with default configuration and just <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> path enabled, the output will look like:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>  <span class="o">(</span>qatengine<span class="o">)</span> Reference implementation of QAT crypto engine<span class="o">(</span>qat_hw<span class="o">)</span> v1.0.0
-<span class="o">[</span>RSA, AES-128-CBC-HMAC-SHA256, AES-256-CBC-HMAC-SHA256, ChaCha20-Poly1305, SHA3-256, SHA3-384, SHA3-512<span class="o">]</span>
-    <span class="o">[</span> available <span class="o">]</span>
-    ENABLE_EXTERNAL_POLLING, POLL, SET_INSTANCE_FOR_THREAD,
-    GET_NUM_OP_RETRIES, SET_MAX_RETRY_COUNT, SET_INTERNAL_POLL_INTERVAL,
-    GET_EXTERNAL_POLLING_FD, ENABLE_EVENT_DRIVEN_POLLING_MODE,
-    GET_NUM_CRYPTO_INSTANCES, DISABLE_EVENT_DRIVEN_POLLING_MODE,
-    SET_EPOLL_TIMEOUT, SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
-    ENABLE_INLINE_POLLING, ENABLE_HEURISTIC_POLLING,
-    GET_NUM_REQUESTS_IN_FLIGHT, INIT_ENGINE, SET_CONFIGURATION_SECTION_NAME,
-    ENABLE_SW_FALLBACK, HEARTBEAT_POLL, DISABLE_QAT_OFFLOAD, HW_ALGO_BITMAP
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="o">(</span>qatengine<span class="o">)</span><span class="w"> </span>Reference<span class="w"> </span>implementation<span class="w"> </span>of<span class="w"> </span>QAT<span class="w"> </span>crypto<span class="w"> </span>engine<span class="o">(</span>qat_hw<span class="o">)</span><span class="w"> </span>v1.0.0
+<span class="o">[</span>RSA,<span class="w"> </span>AES-128-CBC-HMAC-SHA256,<span class="w"> </span>AES-256-CBC-HMAC-SHA256,<span class="w"> </span>ChaCha20-Poly1305,<span class="w"> </span>SHA3-256,<span class="w"> </span>SHA3-384,<span class="w"> </span>SHA3-512<span class="o">]</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span>available<span class="w"> </span><span class="o">]</span>
+<span class="w">    </span>ENABLE_EXTERNAL_POLLING,<span class="w"> </span>POLL,<span class="w"> </span>SET_INSTANCE_FOR_THREAD,
+<span class="w">    </span>GET_NUM_OP_RETRIES,<span class="w"> </span>SET_MAX_RETRY_COUNT,<span class="w"> </span>SET_INTERNAL_POLL_INTERVAL,
+<span class="w">    </span>GET_EXTERNAL_POLLING_FD,<span class="w"> </span>ENABLE_EVENT_DRIVEN_POLLING_MODE,
+<span class="w">    </span>GET_NUM_CRYPTO_INSTANCES,<span class="w"> </span>DISABLE_EVENT_DRIVEN_POLLING_MODE,
+<span class="w">    </span>SET_EPOLL_TIMEOUT,<span class="w"> </span>SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
+<span class="w">    </span>ENABLE_INLINE_POLLING,<span class="w"> </span>ENABLE_HEURISTIC_POLLING,
+<span class="w">    </span>GET_NUM_REQUESTS_IN_FLIGHT,<span class="w"> </span>INIT_ENGINE,<span class="w"> </span>SET_CONFIGURATION_SECTION_NAME,
+<span class="w">    </span>ENABLE_SW_FALLBACK,<span class="w"> </span>HEARTBEAT_POLL,<span class="w"> </span>DISABLE_QAT_OFFLOAD,<span class="w"> </span>HW_ALGO_BITMAP
 </pre></div>
 </div>
 <p>If both <code class="docutils literal notranslate"><span class="pre">qat_hw</span></code> and <code class="docutils literal notranslate"><span class="pre">qat_sw</span></code> are enabled, the output will look like:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>  <span class="o">(</span>qatengine<span class="o">)</span> Reference implementation of QAT crypto engine<span class="o">(</span>qat_hw <span class="p">&amp;</span> qat_sw<span class="o">)</span> v1.0.0
-<span class="o">[</span>RSA, AES-128-CBC-HMAC-SHA256, AES-256-CBC-HMAC-SHA256, ChaCha20-Poly1305, SHA3-256, SHA3-384, SHA3-512<span class="o">]</span>
-    <span class="o">[</span> available <span class="o">]</span>
-    ENABLE_EXTERNAL_POLLING, POLL, SET_INSTANCE_FOR_THREAD,
-    GET_NUM_OP_RETRIES, SET_MAX_RETRY_COUNT, SET_INTERNAL_POLL_INTERVAL,
-    GET_EXTERNAL_POLLING_FD, ENABLE_EVENT_DRIVEN_POLLING_MODE,
-    GET_NUM_CRYPTO_INSTANCES, DISABLE_EVENT_DRIVEN_POLLING_MODE,
-    SET_EPOLL_TIMEOUT, SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
-    ENABLE_INLINE_POLLING, ENABLE_HEURISTIC_POLLING,
-    GET_NUM_REQUESTS_IN_FLIGHT, INIT_ENGINE, SET_CONFIGURATION_SECTION_NAME,
-    ENABLE_SW_FALLBACK, HEARTBEAT_POLL, DISABLE_QAT_OFFLOAD, HW_ALGO_BITMAP,
-    SW_ALGO_BITMAP
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="w">  </span><span class="o">(</span>qatengine<span class="o">)</span><span class="w"> </span>Reference<span class="w"> </span>implementation<span class="w"> </span>of<span class="w"> </span>QAT<span class="w"> </span>crypto<span class="w"> </span>engine<span class="o">(</span>qat_hw<span class="w"> </span><span class="p">&amp;</span><span class="w"> </span>qat_sw<span class="o">)</span><span class="w"> </span>v1.0.0
+<span class="o">[</span>RSA,<span class="w"> </span>AES-128-CBC-HMAC-SHA256,<span class="w"> </span>AES-256-CBC-HMAC-SHA256,<span class="w"> </span>ChaCha20-Poly1305,<span class="w"> </span>SHA3-256,<span class="w"> </span>SHA3-384,<span class="w"> </span>SHA3-512<span class="o">]</span>
+<span class="w">    </span><span class="o">[</span><span class="w"> </span>available<span class="w"> </span><span class="o">]</span>
+<span class="w">    </span>ENABLE_EXTERNAL_POLLING,<span class="w"> </span>POLL,<span class="w"> </span>SET_INSTANCE_FOR_THREAD,
+<span class="w">    </span>GET_NUM_OP_RETRIES,<span class="w"> </span>SET_MAX_RETRY_COUNT,<span class="w"> </span>SET_INTERNAL_POLL_INTERVAL,
+<span class="w">    </span>GET_EXTERNAL_POLLING_FD,<span class="w"> </span>ENABLE_EVENT_DRIVEN_POLLING_MODE,
+<span class="w">    </span>GET_NUM_CRYPTO_INSTANCES,<span class="w"> </span>DISABLE_EVENT_DRIVEN_POLLING_MODE,
+<span class="w">    </span>SET_EPOLL_TIMEOUT,<span class="w"> </span>SET_CRYPTO_SMALL_PACKET_OFFLOAD_THRESHOLD,
+<span class="w">    </span>ENABLE_INLINE_POLLING,<span class="w"> </span>ENABLE_HEURISTIC_POLLING,
+<span class="w">    </span>GET_NUM_REQUESTS_IN_FLIGHT,<span class="w"> </span>INIT_ENGINE,<span class="w"> </span>SET_CONFIGURATION_SECTION_NAME,
+<span class="w">    </span>ENABLE_SW_FALLBACK,<span class="w"> </span>HEARTBEAT_POLL,<span class="w"> </span>DISABLE_QAT_OFFLOAD,<span class="w"> </span>HW_ALGO_BITMAP,
+<span class="w">    </span>SW_ALGO_BITMAP
 </pre></div>
 </div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>If errors are reported that indicate multi-buffer libraries are missing, this can be addressed by adding <code class="docutils literal notranslate"><span class="pre">/usr/lib</span></code> to the LD_LIBRARY_PATH</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/usr/lib
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/usr/lib
 </pre></div>
 </div>
 </div>
