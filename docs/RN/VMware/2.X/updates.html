@@ -1,14 +1,13 @@
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Release Updates &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/copybutton.css" type="text/css" />
-      <link rel="stylesheet" href="../../../_static/collapsible-lists/css/tree_view.css" type="text/css" />
       <link rel="stylesheet" href="../../../_static/css/qat.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="../../../_static/js/html5shiv.min.js"></script>
@@ -20,8 +19,6 @@
         <script src="../../../_static/doctools.js"></script>
         <script src="../../../_static/clipboard.min.js"></script>
         <script src="../../../_static/copybutton.js"></script>
-        <script src="../../../_static/collapsible-lists/js/CollapsibleLists.compressed.js"></script>
-        <script src="../../../_static/collapsible-lists/js/apply-collapsible-lists.js"></script>
     <script src="../../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" />
@@ -34,14 +31,18 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-            <a href="../../../index.html" class="icon icon-home"> Intel® QuickAssist Technology
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
           </a>
               <div class="version">
                 Hardware Version 2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,20 +52,28 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../Intro/terminology.html">Terminology</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../../index.html">Release Notes</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="../../In-Tree/index.html">Release Notes - In-Tree</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../../Linux/2.X/index.html">Release Notes - Linux*</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Release Notes - VMware*</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="description.html">Description of Release</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Release Updates</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#known-issues">Known Issues</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#resolved-issues">Resolved Issues</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Release Notes - VMware*</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="description.html">Description of Release</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Release Updates</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#known-issues">Known Issues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled">QAT20-23616 - [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT) disabled</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected">QAT20-18924 - [MCC] MCC SKUs may consume more power than expected</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">QAT20-20272 - [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vqq-2128-driver-may-leak-memory-if-virtual-device-creation-failed-under-certain-conditions">VQQ-2128 - Driver may leak memory if virtual device creation failed under certain conditions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vqq-1907-virtual-device-power-on-inside-guest-causing-vm-crash">VQQ-1907 - Virtual device power on inside Guest causing VM crash</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#resolved-issues">Resolved Issues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vqq-1618-driver-may-accept-incorrect-service-mask-configuration-and-treat-it-as-default-configuration">VQQ-1618 - Driver may accept incorrect service mask configuration and treat it as default configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vqq-1553-incompatibility-between-legacy-1-7-and-2-0-drivers">VQQ-1553 - Incompatibility between legacy 1.7 and 2.0 drivers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#vqq-1542-vm-with-enabled-viommu-may-crash-with-iommu-fault">VQQ-1542 - VM with enabled vIOMMU may crash with IOMMU fault</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../../FreeBSD/2.X/index.html">FreeBSD* Release Notes</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../../GSG/2.X/index.html">Getting Started Guide</a></li>
@@ -74,7 +83,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../../../qatlib/index.html">QATlib User’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../API_PG/index.html">API Programmer’s Guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../../api_reference.html">API Reference Manual</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -92,10 +100,9 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
-          <li><a href="../../index.html">Release Notes</a> &raquo;</li>
-          <li><a href="index.html">Release Notes - VMware*</a> &raquo;</li>
-      <li>Release Updates</li>
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Release Notes - VMware*</a></li>
+      <li class="breadcrumb-item active">Release Updates</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -110,7 +117,7 @@
 <h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline"></a></h2>
 <section id="qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled">
 <h3>QAT20-23616 - [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT) disabled<a class="headerlink" href="#qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled" title="Permalink to this headline"></a></h3>
-<table class="rn-table docutils align-default">
+<table class="colwidths-given rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -141,7 +148,7 @@ then the QAT firmware/Driver will not make use of or enable SVM with AT.</p>
 </section>
 <section id="qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected">
 <h3>QAT20-18924 - [MCC] MCC SKUs may consume more power than expected<a class="headerlink" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected" title="Permalink to this headline"></a></h3>
-<table class="rn-table docutils align-default">
+<table class="colwidths-given rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -172,7 +179,7 @@ power consumption.</p></td>
 </section>
 <section id="qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">
 <h3>QAT20-20272 - [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs<a class="headerlink" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus" title="Permalink to this headline"></a></h3>
-<table class="rn-table docutils align-default">
+<table class="colwidths-given rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -204,7 +211,7 @@ on the HW counter.</p></td>
 </section>
 <section id="vqq-2128-driver-may-leak-memory-if-virtual-device-creation-failed-under-certain-conditions">
 <h3>VQQ-2128 - Driver may leak memory if virtual device creation failed under certain conditions<a class="headerlink" href="#vqq-2128-driver-may-leak-memory-if-virtual-device-creation-failed-under-certain-conditions" title="Permalink to this headline"></a></h3>
-<table class="rn-table docutils align-default">
+<table class="colwidths-given rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -233,7 +240,7 @@ in the README file, without restarting system.</p></td>
 </section>
 <section id="vqq-1907-virtual-device-power-on-inside-guest-causing-vm-crash">
 <h3>VQQ-1907 - Virtual device power on inside Guest causing VM crash<a class="headerlink" href="#vqq-1907-virtual-device-power-on-inside-guest-causing-vm-crash" title="Permalink to this headline"></a></h3>
-<table class="rn-table docutils align-default">
+<table class="colwidths-given rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -266,7 +273,7 @@ VMware ESXi where this issue will be resolved.</p></td>
 <h2>Resolved Issues<a class="headerlink" href="#resolved-issues" title="Permalink to this headline"></a></h2>
 <section id="vqq-1618-driver-may-accept-incorrect-service-mask-configuration-and-treat-it-as-default-configuration">
 <h3>VQQ-1618 - Driver may accept incorrect service mask configuration and treat it as default configuration<a class="headerlink" href="#vqq-1618-driver-may-accept-incorrect-service-mask-configuration-and-treat-it-as-default-configuration" title="Permalink to this headline"></a></h3>
-<table class="rn-table docutils align-default">
+<table class="colwidths-given rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -297,7 +304,7 @@ documentation.</p></td>
 </section>
 <section id="vqq-1553-incompatibility-between-legacy-1-7-and-2-0-drivers">
 <h3>VQQ-1553 - Incompatibility between legacy 1.7 and 2.0 drivers<a class="headerlink" href="#vqq-1553-incompatibility-between-legacy-1-7-and-2-0-drivers" title="Permalink to this headline"></a></h3>
-<table class="rn-table docutils align-default">
+<table class="colwidths-given rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
@@ -326,7 +333,7 @@ compatible with driver for QAT 2.0.</p></td>
 </section>
 <section id="vqq-1542-vm-with-enabled-viommu-may-crash-with-iommu-fault">
 <h3>VQQ-1542 - VM with enabled vIOMMU may crash with IOMMU fault<a class="headerlink" href="#vqq-1542-vm-with-enabled-viommu-may-crash-with-iommu-fault" title="Permalink to this headline"></a></h3>
-<table class="rn-table docutils align-default">
+<table class="colwidths-given rn-table docutils align-default">
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 80%" />
