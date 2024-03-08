@@ -16,6 +16,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -115,9 +116,9 @@
            <div itemprop="articleBody">
              
   <section id="setting-up-host-platform">
-<span id="qat-2-0-containers-setup"></span><h1>Setting Up Host Platform<a class="headerlink" href="#setting-up-host-platform" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-containers-setup"></span><h1>Setting Up Host Platform<a class="headerlink" href="#setting-up-host-platform" title="Permalink to this heading"></a></h1>
 <section id="updating-the-bios-settings">
-<h2>Updating the BIOS Settings<a class="headerlink" href="#updating-the-bios-settings" title="Permalink to this headline"></a></h2>
+<h2>Updating the BIOS Settings<a class="headerlink" href="#updating-the-bios-settings" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -133,7 +134,7 @@
 </ol>
 </section>
 <section id="configuring-the-host-operating-system-with-sr-iov-iommu">
-<h2>Configuring the Host Operating System with SR-IOV/IOMMU<a class="headerlink" href="#configuring-the-host-operating-system-with-sr-iov-iommu" title="Permalink to this headline"></a></h2>
+<h2>Configuring the Host Operating System with SR-IOV/IOMMU<a class="headerlink" href="#configuring-the-host-operating-system-with-sr-iov-iommu" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -239,7 +240,7 @@ vfio_virqfd 16384 1 vfio_pci_core
 </ol>
 </section>
 <section id="enable-intel-qat-virtual-function-vf-devices">
-<h2>Enable Intel® QAT Virtual Function (VF) Devices<a class="headerlink" href="#enable-intel-qat-virtual-function-vf-devices" title="Permalink to this headline"></a></h2>
+<h2>Enable Intel® QAT Virtual Function (VF) Devices<a class="headerlink" href="#enable-intel-qat-virtual-function-vf-devices" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The below script must be run on every boot.</p>
@@ -255,11 +256,11 @@ vfio_virqfd 16384 1 vfio_pci_core
 </ol>
 </section>
 <section id="installing-container-runtime">
-<h2>Installing Container Runtime<a class="headerlink" href="#installing-container-runtime" title="Permalink to this headline"></a></h2>
+<h2>Installing Container Runtime<a class="headerlink" href="#installing-container-runtime" title="Permalink to this heading"></a></h2>
 <p>The container runtime will allow you to start a container running the Intel®
 QuickAssist Technology (Intel® QAT) Software in it. This guide uses the <em>Docker Container Runtime</em>.</p>
 <section id="docker">
-<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this headline"></a></h3>
+<h3>Docker<a class="headerlink" href="#docker" title="Permalink to this heading"></a></h3>
 <p>Docker is an open-source containerization technology for building and containerizing applications.</p>
 <p>The Linux* environment must be set up to build and run containers. Certain packages
 will need to be loaded and configuration files created and/or updated, which can be
@@ -273,7 +274,7 @@ system specific.</p>
 </ul>
 </div>
 <section id="installing-docker-engine">
-<h4>Installing Docker Engine<a class="headerlink" href="#installing-docker-engine" title="Permalink to this headline"></a></h4>
+<h4>Installing Docker Engine<a class="headerlink" href="#installing-docker-engine" title="Permalink to this heading"></a></h4>
 <ol class="arabic">
 <li><p><strong>Uninstall</strong> old Docker versions.</p>
 <blockquote>
@@ -313,7 +314,7 @@ system specific.</p>
 </ol>
 </section>
 <section id="proxy-settings">
-<h4>Proxy Settings<a class="headerlink" href="#proxy-settings" title="Permalink to this headline"></a></h4>
+<h4>Proxy Settings<a class="headerlink" href="#proxy-settings" title="Permalink to this heading"></a></h4>
 <p>If the system needs to connect to the internet through a corporate firewall, proxy
 settings must be enabled. Contact your network administrator for details on the proxy
 server.</p>
@@ -389,7 +390,7 @@ Environment=&quot;NO_PROXY=.example2.com,localhost,127.0.0.1,dockerregistry.exam
 </ol>
 </section>
 <section id="running-docker">
-<h4>Running Docker<a class="headerlink" href="#running-docker" title="Permalink to this headline"></a></h4>
+<h4>Running Docker<a class="headerlink" href="#running-docker" title="Permalink to this heading"></a></h4>
 <ol class="arabic">
 <li><p>If required, <strong>login</strong> with your DockerID to push and pull images from Docker Hub. If you do not have a Docker ID, create one at <a class="reference external" href="https://hub.docker.com">https://hub.docker.com</a></p>
 <blockquote>
@@ -410,9 +411,9 @@ Environment=&quot;NO_PROXY=.example2.com,localhost,127.0.0.1,dockerregistry.exam
 </section>
 </section>
 <section id="container-target-setup">
-<h2>Container Target Setup<a class="headerlink" href="#container-target-setup" title="Permalink to this headline"></a></h2>
+<h2>Container Target Setup<a class="headerlink" href="#container-target-setup" title="Permalink to this heading"></a></h2>
 <section id="intel-quickassist-technology-nginx-setup">
-<h3>Intel® QuickAssist Technology + NGINX* Setup<a class="headerlink" href="#intel-quickassist-technology-nginx-setup" title="Permalink to this headline"></a></h3>
+<h3>Intel® QuickAssist Technology + NGINX* Setup<a class="headerlink" href="#intel-quickassist-technology-nginx-setup" title="Permalink to this heading"></a></h3>
 <p>The target setup consists of one container running NGINX* (Asynch Mode) with the
 Intel® QAT Software and the Intel® QuickAssist Technology OpenSSL* Engine
 (QAT_Engine). This setup will allow you to run an NGINX application with Intel®

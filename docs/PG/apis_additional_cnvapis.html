@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -124,11 +125,11 @@
            <div itemprop="articleBody">
              
   <section id="compress-and-verify-cnv-related-apis">
-<span id="qat-2-0-pg-supported-apis-additional-apis-cnvapis"></span><h1>Compress and Verify (CnV) Related APIs<a class="headerlink" href="#compress-and-verify-cnv-related-apis" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-cnvapis"></span><h1>Compress and Verify (CnV) Related APIs<a class="headerlink" href="#compress-and-verify-cnv-related-apis" title="Permalink to this heading"></a></h1>
 <p>APIs documented in this section are used for Compress and Verify.
 These APIs can be used in the user space application.</p>
 <section id="icp-sal-get-dc-error">
-<h2>icp_sal_get_dc_error<a class="headerlink" href="#icp-sal-get-dc-error" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_get_dc_error<a class="headerlink" href="#icp-sal-get-dc-error" title="Permalink to this heading"></a></h2>
 <p>This API allows the application to return the number of errors that occurred a particular number of times during the lifetime of a process.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">Cpa64U</span> <span class="pre">icp_sal_get_dc_error(Cpa8S</span> <span class="pre">dcError);</span></code></p>
@@ -149,7 +150,7 @@ These APIs can be used in the user space application.</p>
 by <code class="docutils literal notranslate"><span class="pre">Cpa8S</span></code> <code class="docutils literal notranslate"><span class="pre">dcError</span></code> occurred in the current process.</p>
 </section>
 <section id="icp-sal-dc-simulate-error">
-<h2>icp_sal_dc_simulate_error<a class="headerlink" href="#icp-sal-dc-simulate-error" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_dc_simulate_error<a class="headerlink" href="#icp-sal-dc-simulate-error" title="Permalink to this heading"></a></h2>
 <p>This API injects a simulated compression error for a defined number of compression or decompression requests.
 The simulated compression errors can only be applied to the traditional APIs. It must be called prior the APIs that perform the request.
 In the case of a simulated Compress and Verify error for a single request, the application would call

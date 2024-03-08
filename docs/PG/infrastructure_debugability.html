@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -120,12 +121,12 @@
            <div itemprop="articleBody">
              
   <section id="debugability">
-<span id="qat-2-0-pg-infrastructure-debugability"></span><h1>Debugability<a class="headerlink" href="#debugability" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-infrastructure-debugability"></span><h1>Debugability<a class="headerlink" href="#debugability" title="Permalink to this heading"></a></h1>
 <section id="overview-of-intel-qat-debugfs-entries">
-<h2>Overview of Intel<sup>®</sup> QAT debugfs entries<a class="headerlink" href="#overview-of-intel-qat-debugfs-entries" title="Permalink to this headline"></a></h2>
+<h2>Overview of Intel<sup>®</sup> QAT debugfs entries<a class="headerlink" href="#overview-of-intel-qat-debugfs-entries" title="Permalink to this heading"></a></h2>
 <p>Some useful debugging information for the driver and configuration is available via the Linux debugfs file system, with the entries <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_*</span></code> and  <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span></code> .</p>
 <section id="entries-in-sys-kernel-debug-qat">
-<h3>Entries in /sys/kernel/debug/qat_*<a class="headerlink" href="#entries-in-sys-kernel-debug-qat" title="Permalink to this headline"></a></h3>
+<h3>Entries in /sys/kernel/debug/qat_*<a class="headerlink" href="#entries-in-sys-kernel-debug-qat" title="Permalink to this heading"></a></h3>
 <p>This includes:</p>
 <table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Intel® QuickAssist Technology /sys/kernel/debug Entries</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
@@ -181,7 +182,7 @@
 </table>
 </section>
 <section id="memory-driver-queries-qae-mem-slabs">
-<h3>Memory driver queries ( qae_mem_slabs )<a class="headerlink" href="#memory-driver-queries-qae-mem-slabs" title="Permalink to this headline"></a></h3>
+<h3>Memory driver queries ( qae_mem_slabs )<a class="headerlink" href="#memory-driver-queries-qae-mem-slabs" title="Permalink to this heading"></a></h3>
 <p>Debug features are also available by reading and writing the file <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span></code> . When <em>reading</em> the virtual/physical <code class="docutils literal notranslate"><span class="pre">address</span></code>, <code class="docutils literal notranslate"><span class="pre">size</span></code> and <code class="docutils literal notranslate"><span class="pre">slab</span> <span class="pre">id</span></code> together with the <code class="docutils literal notranslate"><span class="pre">pid</span></code> of the allocating process are shown. <em>Writing</em> a string to the file will start executing debug commands.</p>
 <p>For example:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># cat /sys/kernel/debug/qae_mem_dbg/qae_mem_slabs</span>

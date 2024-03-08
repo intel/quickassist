@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -120,7 +121,7 @@
            <div itemprop="articleBody">
              
   <section id="logical-instances-section">
-<span id="qat-2-0-pg-configuration-files-logical-instances-section"></span><h1>Logical Instances Section<a class="headerlink" href="#logical-instances-section" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-configuration-files-logical-instances-section"></span><h1>Logical Instances Section<a class="headerlink" href="#logical-instances-section" title="Permalink to this heading"></a></h1>
 <p>This section allows the configuration of logical instances in each address domain (kernel space and individual user space processes).</p>
 <p>The address domains are in the following format:</p>
 <ul class="simple">
@@ -139,7 +140,7 @@
 <li><p>The core to which the instance is affinitized (optional).</p></li>
 </ul>
 <section id="kernel-section">
-<h2>[KERNEL] Section<a class="headerlink" href="#kernel-section" title="Permalink to this headline"></a></h2>
+<h2>[KERNEL] Section<a class="headerlink" href="#kernel-section" title="Permalink to this heading"></a></h2>
 <p>In the <code class="docutils literal notranslate"><span class="pre">[KERNEL]</span></code> section of the configuration file, information about the number and type of kernel instances can be defined. This table describes the parameters that determine the number of kernel instances for each service.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -180,7 +181,7 @@ For exceptions refer to <a class="reference internal" href="configuration_files_
 </table>
 </section>
 <section id="user-process-xxxxx-sections">
-<h2>User Process [xxxxx] Sections<a class="headerlink" href="#user-process-xxxxx-sections" title="Permalink to this headline"></a></h2>
+<h2>User Process [xxxxx] Sections<a class="headerlink" href="#user-process-xxxxx-sections" title="Permalink to this heading"></a></h2>
 <p>There is one [xxxxx] section of the configuration file for each Intel<sup>®</sup> QAT Endpoint to be configured. In each [xxxxx] section of the
 configuration file, user space access to the Intel<sup>®</sup> QAT Endpoint can be configured. Parameters for each user process instance can also
 be defined. Common names for this section are <code class="docutils literal notranslate"><span class="pre">[SSL]</span></code> or <code class="docutils literal notranslate"><span class="pre">[SHIM]</span></code></p>
@@ -242,7 +243,7 @@ for additional information.</p>
 </table>
 </section>
 <section id="cryptographic-logical-instance-parameters">
-<h2>Cryptographic Logical Instance Parameters<a class="headerlink" href="#cryptographic-logical-instance-parameters" title="Permalink to this headline"></a></h2>
+<h2>Cryptographic Logical Instance Parameters<a class="headerlink" href="#cryptographic-logical-instance-parameters" title="Permalink to this heading"></a></h2>
 <p>The following table shows the parameters that can be set for cryptographic logical instances.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -289,7 +290,7 @@ SSL0 for user section</p></td>
 </table>
 </section>
 <section id="data-compression-logical-instance-parameters">
-<h2>Data Compression Logical Instance Parameters<a class="headerlink" href="#data-compression-logical-instance-parameters" title="Permalink to this headline"></a></h2>
+<h2>Data Compression Logical Instance Parameters<a class="headerlink" href="#data-compression-logical-instance-parameters" title="Permalink to this heading"></a></h2>
 <p>This table shows the parameters in the configuration file that can be set for data compression logical instances.</p>
 <table class="longtable colwidths-given docutils align-default" id="id4">
 <caption><span class="caption-text">Data Compression Logical Instance Parameters</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
@@ -338,7 +339,7 @@ SSL0 for user section</p></td>
 </div>
 </section>
 <section id="setting-the-core-affinity-parameter-for-a-logical-instance">
-<h2>Setting the Core Affinity Parameter for a Logical Instance<a class="headerlink" href="#setting-the-core-affinity-parameter-for-a-logical-instance" title="Permalink to this headline"></a></h2>
+<h2>Setting the Core Affinity Parameter for a Logical Instance<a class="headerlink" href="#setting-the-core-affinity-parameter-for-a-logical-instance" title="Permalink to this heading"></a></h2>
 <p>When instances are configured with <code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">1</span></code> (Polling mode), the parameter <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> does not have any impact.</p>
 <p>Although not used, it is a valid parameter and applications can query the value using <code class="docutils literal notranslate"><span class="pre">cpaCyInstanceGetInfo2</span></code> (see <code class="docutils literal notranslate"><span class="pre">coreAffinity</span></code> bitmask in <code class="docutils literal notranslate"><span class="pre">CpaInstanceInfo2</span></code>). For example, the sample code affinitizes the thread that uses an instance to the core indicated in <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> the config file for that instance.</p>
 <p>For instances configured in Interrupt Mode (<code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">2</span></code> in user space (epoll) and <code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">0</span></code> in kernel space), the value of <code class="docutils literal notranslate"><span class="pre">CoreAffinity</span></code> is used to affinitize the interrupt handler to that core.</p>

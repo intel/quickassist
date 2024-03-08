@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -114,11 +115,11 @@
            <div itemprop="articleBody">
              
   <section id="virtualization-with-oot">
-<span id="qat-2-0-virtualization-deployment-guide-oot-installation"></span><h1>Virtualization with OOT<a class="headerlink" href="#virtualization-with-oot" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-virtualization-deployment-guide-oot-installation"></span><h1>Virtualization with OOT<a class="headerlink" href="#virtualization-with-oot" title="Permalink to this heading"></a></h1>
 <p>This section describes the steps required to enable QAT in a virtualized environment using the <em>OOT package</em>.  Details on setting up virtualization with
 the <em>in-tree stack</em> are included in <a class="reference internal" href="../qatlib/running_in_vm.html#qat-2-0-qatlib-usersguide-running-in-vm"><span class="std std-ref">Running in a Virtual Machine</span></a> section of QATlib User’s Guide.</p>
 <section id="installing-intel-qat-on-the-host">
-<h2>Installing Intel QAT on the Host<a class="headerlink" href="#installing-intel-qat-on-the-host" title="Permalink to this headline"></a></h2>
+<h2>Installing Intel QAT on the Host<a class="headerlink" href="#installing-intel-qat-on-the-host" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For complete installation instructions refer to the <a class="reference internal" href="../GSG/2.X/index.html"><span class="doc">Getting Started Guide</span></a>.</p>
@@ -165,7 +166,7 @@ the <em>in-tree stack</em> are included in <a class="reference internal" href=".
 </li>
 </ol>
 <section id="software-installation-on-the-host-demo">
-<h3>Software Installation on the Host Demo<a class="headerlink" href="#software-installation-on-the-host-demo" title="Permalink to this headline"></a></h3>
+<h3>Software Installation on the Host Demo<a class="headerlink" href="#software-installation-on-the-host-demo" title="Permalink to this heading"></a></h3>
 <p>Here is a demonstration of how to install the Intel QAT software package on the host.</p>
 <video controls="True" height="300" preload="auto" width="500"><source src="../_static/video/virt/compile.mp4" type="video/mp4"></video><div class="line-block">
 <div class="line"><br /></div>
@@ -173,7 +174,7 @@ the <em>in-tree stack</em> are included in <a class="reference internal" href=".
 </section>
 </section>
 <section id="setting-up-siov">
-<h2>Setting Up sIOV<a class="headerlink" href="#setting-up-siov" title="Permalink to this headline"></a></h2>
+<h2>Setting Up sIOV<a class="headerlink" href="#setting-up-siov" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If <em>sIOV</em> is required rather than <em>SR-IOV</em>, the PF configuration files under <code class="docutils literal notranslate"><span class="pre">/etc/</span></code> need to be modified. Detailed steps are listed below.</p>
@@ -204,7 +205,7 @@ the <em>in-tree stack</em> are included in <a class="reference internal" href=".
 <li><p><strong>Verify</strong> <em>sIOV</em> is enabled on the device using the <code class="docutils literal notranslate"><span class="pre">vqat_ctl</span></code> utility. Refer to the section <a class="reference internal" href="#qat-2-0-virt-vqat-ctl-utility"><span class="std std-ref">Using the vqat_ctl utility</span></a> for more details.</p></li>
 </ol>
 <section id="using-the-vqat-ctl-utility">
-<span id="qat-2-0-virt-vqat-ctl-utility"></span><h3>Using the vqat_ctl utility<a class="headerlink" href="#using-the-vqat-ctl-utility" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-virt-vqat-ctl-utility"></span><h3>Using the vqat_ctl utility<a class="headerlink" href="#using-the-vqat-ctl-utility" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">vqat_ctl</span></code> utility returns the available <code class="docutils literal notranslate"><span class="pre">sym</span></code>, <code class="docutils literal notranslate"><span class="pre">asym</span></code> or <code class="docutils literal notranslate"><span class="pre">dc</span></code> ADI resources on the PFs. If <em>sIOV</em> is not enabled, available <code class="docutils literal notranslate"><span class="pre">sym</span></code>, <code class="docutils literal notranslate"><span class="pre">asym</span></code> or <code class="docutils literal notranslate"><span class="pre">dc</span></code> will return <code class="docutils literal notranslate"><span class="pre">0</span></code>. For devices that have already enabled <em>sIOV</em>, you can create the required vdev/vqat devices.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -267,14 +268,14 @@ the <em>in-tree stack</em> are included in <a class="reference internal" href=".
 </section>
 </section>
 <section id="passing-through-the-vf-vqat-to-the-guest">
-<h2>Passing-through the VF/VQAT to the Guest<a class="headerlink" href="#passing-through-the-vf-vqat-to-the-guest" title="Permalink to this headline"></a></h2>
+<h2>Passing-through the VF/VQAT to the Guest<a class="headerlink" href="#passing-through-the-vf-vqat-to-the-guest" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>When using <code class="docutils literal notranslate"><span class="pre">libvirt</span></code>, both <em>sIOV</em> VQATs or SR-IOV VFs are attached to a guest OS using a xml configuration file. However,
 the addressing scheme of both differ because VQATs are identified using UUIDs, while VFs use PCIe BDF (<code class="docutils literal notranslate"><span class="pre">Bus:Device.Function</span></code>) numbering.</p>
 </div>
 <section id="sr-iov-vf-configuration">
-<h3>SR-IOV VF Configuration<a class="headerlink" href="#sr-iov-vf-configuration" title="Permalink to this headline"></a></h3>
+<h3>SR-IOV VF Configuration<a class="headerlink" href="#sr-iov-vf-configuration" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">virt-manager</span></code> GUI can be used to pass-through to the guest. The following steps utilize the <code class="docutils literal notranslate"><span class="pre">libvirt</span></code> command line utility to accomplish the same.</p>
@@ -327,7 +328,7 @@ the addressing scheme of both differ because VQATs are identified using UUIDs, w
 </ol>
 </section>
 <section id="siov-vqat-configuration">
-<h3>sIOV VQAT Configuration<a class="headerlink" href="#siov-vqat-configuration" title="Permalink to this headline"></a></h3>
+<h3>sIOV VQAT Configuration<a class="headerlink" href="#siov-vqat-configuration" title="Permalink to this heading"></a></h3>
 <ol class="arabic">
 <li><p><strong>Create</strong> the VQAT device file needed.</p>
 <blockquote>
@@ -387,7 +388,7 @@ should look like the following:</p>
 </section>
 </section>
 <section id="installing-intel-qat-on-the-guest">
-<h2>Installing Intel QAT on the Guest<a class="headerlink" href="#installing-intel-qat-on-the-guest" title="Permalink to this headline"></a></h2>
+<h2>Installing Intel QAT on the Guest<a class="headerlink" href="#installing-intel-qat-on-the-guest" title="Permalink to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Verify</strong> the Intel QAT devices are assigned.</p>
 <blockquote>

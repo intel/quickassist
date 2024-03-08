@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -119,7 +120,7 @@
            <div itemprop="articleBody">
              
   <section id="system-requirements">
-<span id="qat2-0-qatlib-userguide-requirements"></span><h1>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this headline"></a></h1>
+<span id="qat2-0-qatlib-userguide-requirements"></span><h1>System Requirements<a class="headerlink" href="#system-requirements" title="Permalink to this heading"></a></h1>
 <p>There are some prerequisites when using QATlib. When running on newer Linux distributions many of these are taken care of.</p>
 <blockquote>
 <div><ul class="simple">
@@ -132,7 +133,7 @@
 </div></blockquote>
 <p>The following sections provide the details to verify all prerequisites listed above.</p>
 <section id="bios-configuration">
-<h2>BIOS Configuration<a class="headerlink" href="#bios-configuration" title="Permalink to this headline"></a></h2>
+<h2>BIOS Configuration<a class="headerlink" href="#bios-configuration" title="Permalink to this heading"></a></h2>
 <p>To properly use the QATlib library, the <em>Intel VT-d</em> and <em>SR-IOV</em> parameters must be enabled in the platform BIOS.
 Consult your platform guide for details on enabling these parameters. If using an Intel Best Known Configuration
 (BKC) these parameters are usually enabled by default.</p>
@@ -180,11 +181,11 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </table>
 </section>
 <section id="kernel-firmware-requirements">
-<h2>Kernel/Firmware Requirements<a class="headerlink" href="#kernel-firmware-requirements" title="Permalink to this headline"></a></h2>
+<h2>Kernel/Firmware Requirements<a class="headerlink" href="#kernel-firmware-requirements" title="Permalink to this heading"></a></h2>
 <p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">Kernel/Firmware Requirements</span></a> for details on required kernel/firmware version.</p>
 </section>
 <section id="supported-devices">
-<span id="qat2-0-qatlib-supported-devices"></span><h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline"></a></h2>
+<span id="qat2-0-qatlib-supported-devices"></span><h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this heading"></a></h2>
 <p>The following platforms are supported by QATlib:</p>
 <table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Supported Platforms</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
@@ -238,7 +239,7 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </div></blockquote>
 </section>
 <section id="firmware">
-<h2>Firmware<a class="headerlink" href="#firmware" title="Permalink to this headline"></a></h2>
+<h2>Firmware<a class="headerlink" href="#firmware" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This step is required when running on host system. It does not apply when running in a virtual machine as the firmware is loaded on the host.</p>
@@ -285,10 +286,10 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </div>
 </section>
 <section id="kernel-drivers">
-<h2>Kernel Drivers<a class="headerlink" href="#kernel-drivers" title="Permalink to this headline"></a></h2>
+<h2>Kernel Drivers<a class="headerlink" href="#kernel-drivers" title="Permalink to this heading"></a></h2>
 <p>Verify the appropriate kernel drivers are loaded in the host and/or the guest system(s).</p>
 <section id="host-system-kernel-drivers">
-<h3>Host System Kernel Drivers<a class="headerlink" href="#host-system-kernel-drivers" title="Permalink to this headline"></a></h3>
+<h3>Host System Kernel Drivers<a class="headerlink" href="#host-system-kernel-drivers" title="Permalink to this heading"></a></h3>
 <p>When running on the <em>host</em> system, use the following command to verify the kernel drivers are present:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lsmod | grep qat</span>
@@ -351,7 +352,7 @@ Try upgrading the kernel version to 5.19+.</p>
 </div></blockquote>
 </section>
 <section id="guest-system-kernel-drivers">
-<h3>Guest System Kernel Drivers<a class="headerlink" href="#guest-system-kernel-drivers" title="Permalink to this headline"></a></h3>
+<h3>Guest System Kernel Drivers<a class="headerlink" href="#guest-system-kernel-drivers" title="Permalink to this heading"></a></h3>
 <p>When running on the <em>guest</em> system, use the following command to verify the kernel drivers are present:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lsmod | grep vfio_pci</span>
@@ -382,7 +383,7 @@ Kernel driver in use: vfio_pci
 </section>
 </section>
 <section id="linux-boot-parameters">
-<h2>Linux Boot Parameters<a class="headerlink" href="#linux-boot-parameters" title="Permalink to this headline"></a></h2>
+<h2>Linux Boot Parameters<a class="headerlink" href="#linux-boot-parameters" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">intel_iommu</span></code> parameter <strong>must</strong> be enabled. Verify this setting is enabled by running the following command:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/cmdline | grep intel_iommu=on</span>
@@ -391,7 +392,7 @@ Kernel driver in use: vfio_pci
 </div></blockquote>
 <p>If <code class="docutils literal notranslate"><span class="pre">intel_iommu</span></code> is <strong>not</strong> enabled, the following steps can be used to turn it on.</p>
 <section id="instructions-for-debian-based-distros">
-<h3>Instructions for Debian Based Distros<a class="headerlink" href="#instructions-for-debian-based-distros" title="Permalink to this headline"></a></h3>
+<h3>Instructions for Debian Based Distros<a class="headerlink" href="#instructions-for-debian-based-distros" title="Permalink to this heading"></a></h3>
 <p>If using a Debian based distribution, run the following commands:</p>
 <blockquote>
 <div><ol class="arabic">
@@ -421,7 +422,7 @@ Kernel driver in use: vfio_pci
 </div></blockquote>
 </section>
 <section id="instructions-for-rhel-centos-fedora">
-<h3>Instructions for RHEL/CentOS/Fedora<a class="headerlink" href="#instructions-for-rhel-centos-fedora" title="Permalink to this headline"></a></h3>
+<h3>Instructions for RHEL/CentOS/Fedora<a class="headerlink" href="#instructions-for-rhel-centos-fedora" title="Permalink to this heading"></a></h3>
 <p>If using RHEL, CentOS or Fedora, run the following commands:</p>
 <blockquote>
 <div><ol class="arabic">
