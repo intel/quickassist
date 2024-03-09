@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -110,9 +111,9 @@
            <div itemprop="articleBody">
              
   <section id="virtualization">
-<span id="qat-2-0-pg-virtualization"></span><h1>Virtualization<a class="headerlink" href="#virtualization" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-virtualization"></span><h1>Virtualization<a class="headerlink" href="#virtualization" title="Permalink to this heading"></a></h1>
 <section id="virtualization-deployment-model-for-intel-qat-2-0">
-<h2>Virtualization Deployment Model for Intel<sup>®</sup> QAT 2.0<a class="headerlink" href="#virtualization-deployment-model-for-intel-qat-2-0" title="Permalink to this headline"></a></h2>
+<h2>Virtualization Deployment Model for Intel<sup>®</sup> QAT 2.0<a class="headerlink" href="#virtualization-deployment-model-for-intel-qat-2-0" title="Permalink to this heading"></a></h2>
 <p>Three different methods of virtualization are supported as shown in the below image.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -123,20 +124,24 @@
 </figure>
 </section>
 <section id="physical-device-direct-assignment">
-<span id="direct-assignment"></span><h2>Physical Device Direct Assignment<a class="headerlink" href="#physical-device-direct-assignment" title="Permalink to this headline"></a></h2>
+<span id="direct-assignment"></span><h2>Physical Device Direct Assignment<a class="headerlink" href="#physical-device-direct-assignment" title="Permalink to this heading"></a></h2>
 <p>The hardware exposes one Physical Function (PF) per QAT Endpoint to the host.  Number of QAT Endpoints per platform is included in the <a class="reference internal" href="infrastructure_load_balancing.html#qat2-0-dimensions"><span class="std std-ref">Dimensions</span></a>.</p>
 <p>One or more PFs may be passed to a single virtual machine.</p>
 <p>There is no sharing of the PF.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Hot plugging of Physical Functions (PFs) is not supported. To ensure the device functions correctly after being added, please restart the virtual machine.</p>
+</div>
 </section>
 <section id="single-root-iov-sr-iov">
-<span id="sriov"></span><h2>Single Root IOV (SR-IOV)<a class="headerlink" href="#single-root-iov-sr-iov" title="Permalink to this headline"></a></h2>
+<span id="sriov"></span><h2>Single Root IOV (SR-IOV)<a class="headerlink" href="#single-root-iov-sr-iov" title="Permalink to this heading"></a></h2>
 <p>When SR-IOV is enabled, the hardware exposes one Physical Function (PF) and <strong>n</strong> Virtual Functions(VFs) per QAT Endpoint to the host, where <strong>n</strong> is
 defined in <a class="reference internal" href="infrastructure_load_balancing.html#qat2-0-dimensions"><span class="std std-ref">Dimensions</span></a>.  Number of QAT Endpoints per platform is also included in the <a class="reference internal" href="infrastructure_load_balancing.html#qat2-0-dimensions"><span class="std std-ref">Dimensions</span></a>.</p>
 <p>One or more VFs can be passed through to different guests/VMs</p>
 <p>For details on enabling SR-IOV refer to the <span class="xref std std-ref">Virtualization Deployment Guide</span>.</p>
 </section>
 <section id="scalable-iov-s-iov">
-<span id="scalable-iov"></span><h2>Scalable IOV (S-IOV)<a class="headerlink" href="#scalable-iov-s-iov" title="Permalink to this headline"></a></h2>
+<span id="scalable-iov"></span><h2>Scalable IOV (S-IOV)<a class="headerlink" href="#scalable-iov-s-iov" title="Permalink to this heading"></a></h2>
 <p>Scalable I/O Virtualization enables flexible composition of Virtual Functions by software from native hardware interfaces.
 Rather than implementing a complete SR-IOV virtual function (VF) interface, an S-IOV device exposes light-weight Assignable Device
 Interfaces (ADIs) that are optimized for fast-path (data-path) operations from the guest.</p>
@@ -152,7 +157,7 @@ Interfaces (ADIs) that are optimized for fast-path (data-path) operations from t
 <p>For details on enabling S-IOV refer to the <span class="xref std std-ref">Virtualization Deployment Guide</span>.</p>
 </section>
 <section id="reducing-number-of-vfs-per-endpoint">
-<h2>Reducing Number of VFs per Endpoint<a class="headerlink" href="#reducing-number-of-vfs-per-endpoint" title="Permalink to this headline"></a></h2>
+<h2>Reducing Number of VFs per Endpoint<a class="headerlink" href="#reducing-number-of-vfs-per-endpoint" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Reducing number of VFs per endpoint is supported starting with QAT Gen 4.</p>

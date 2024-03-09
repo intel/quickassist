@@ -16,6 +16,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -109,10 +110,10 @@
            <div itemprop="articleBody">
              
   <section id="system-configuration">
-<span id="qat-2-0-gsg-systemconfiguration"></span><h1>System Configuration<a class="headerlink" href="#system-configuration" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-gsg-systemconfiguration"></span><h1>System Configuration<a class="headerlink" href="#system-configuration" title="Permalink to this heading"></a></h1>
 <p>This section describes the process of configuring the system prior to the Intel<sup>®</sup> QuickAssist Technology (Intel® QAT) driver installation.</p>
 <section id="configuring-bios">
-<h2>Configuring BIOS<a class="headerlink" href="#configuring-bios" title="Permalink to this headline"></a></h2>
+<h2>Configuring BIOS<a class="headerlink" href="#configuring-bios" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If installing the Intel QAT 2.0 driver for use in a virtual environment, refer to the <span class="xref std std-ref">Virtualization Deployment Guide</span> for additional details.</p>
@@ -123,7 +124,7 @@
 </div>
 </section>
 <section id="disabling-qat-endpoints">
-<h2>Disabling QAT Endpoints<a class="headerlink" href="#disabling-qat-endpoints" title="Permalink to this headline"></a></h2>
+<h2>Disabling QAT Endpoints<a class="headerlink" href="#disabling-qat-endpoints" title="Permalink to this heading"></a></h2>
 <p>Depending on the hardware SKU, there can be up to 4 QAT endpoints per socket. It is possible to disable individual QAT endpoints by following the instructions below:</p>
 <ol class="arabic simple">
 <li><p><strong>Enter</strong> BIOS setup.</p></li>
@@ -137,11 +138,11 @@
 </figure>
 </section>
 <section id="configuring-operating-system">
-<h2>Configuring Operating System<a class="headerlink" href="#configuring-operating-system" title="Permalink to this headline"></a></h2>
+<h2>Configuring Operating System<a class="headerlink" href="#configuring-operating-system" title="Permalink to this heading"></a></h2>
 <p>There are a few configuration items that may need to be completed, such as updating <code class="docutils literal notranslate"><span class="pre">dnf</span></code> or <code class="docutils literal notranslate"><span class="pre">apt</span></code> configuration files
 as well as the system security configuration. This section describes these items.</p>
 <section id="updating-dnf-configuration-files">
-<h3>Updating dnf Configuration Files<a class="headerlink" href="#updating-dnf-configuration-files" title="Permalink to this headline"></a></h3>
+<h3>Updating dnf Configuration Files<a class="headerlink" href="#updating-dnf-configuration-files" title="Permalink to this heading"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This section is optional for RPM-based Linux distributions such as RHEL*, CentOS*, and Fedora*.</p>
@@ -171,7 +172,7 @@ the following change may be required:</p>
 </ol>
 </section>
 <section id="updating-apt-configuration-files">
-<h3>Updating apt Configuration Files<a class="headerlink" href="#updating-apt-configuration-files" title="Permalink to this headline"></a></h3>
+<h3>Updating apt Configuration Files<a class="headerlink" href="#updating-apt-configuration-files" title="Permalink to this heading"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This section is optional for DEB-based Linux distributions such as Ubuntu*.</p>
@@ -203,10 +204,10 @@ the following updates may be required:</p>
 </ol>
 </section>
 <section id="installing-package-dependencies">
-<h3>Installing Package Dependencies<a class="headerlink" href="#installing-package-dependencies" title="Permalink to this headline"></a></h3>
+<h3>Installing Package Dependencies<a class="headerlink" href="#installing-package-dependencies" title="Permalink to this heading"></a></h3>
 <p>The Intel QAT package depends on a number of libraries that must be installed first on the system.</p>
 <section id="rpm-based-package-dependencies">
-<h4>RPM-based package dependencies<a class="headerlink" href="#rpm-based-package-dependencies" title="Permalink to this headline"></a></h4>
+<h4>RPM-based package dependencies<a class="headerlink" href="#rpm-based-package-dependencies" title="Permalink to this heading"></a></h4>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This section is required for RPM-based Linux distributions such as RHEL*, CentOS*, Fedora*, and Rocky* Linux.</p>
@@ -262,7 +263,7 @@ the following updates may be required:</p>
 </ol>
 </section>
 <section id="deb-based-package-dependencies">
-<h4>DEB-based package dependencies<a class="headerlink" href="#deb-based-package-dependencies" title="Permalink to this headline"></a></h4>
+<h4>DEB-based package dependencies<a class="headerlink" href="#deb-based-package-dependencies" title="Permalink to this heading"></a></h4>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This section is required for DEB-based Linux distributions such as Ubuntu*.</p>
@@ -294,7 +295,7 @@ the following updates may be required:</p>
 </section>
 </section>
 <section id="system-security-considerations">
-<h3>System Security Considerations<a class="headerlink" href="#system-security-considerations" title="Permalink to this headline"></a></h3>
+<h3>System Security Considerations<a class="headerlink" href="#system-security-considerations" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">

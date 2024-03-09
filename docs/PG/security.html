@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -118,14 +119,14 @@
            <div itemprop="articleBody">
              
   <section id="secure-architecture-considerations">
-<span id="qat-2-0-pg-secure-architecture-considerations"></span><h1>Secure Architecture Considerations<a class="headerlink" href="#secure-architecture-considerations" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-secure-architecture-considerations"></span><h1>Secure Architecture Considerations<a class="headerlink" href="#secure-architecture-considerations" title="Permalink to this heading"></a></h1>
 <p>This section describes the potential threats identified as part of the secure architecture analysis of the Intel<sup>®</sup> Quick Assist Technology
 acceleration complex and the actions that can be taken to protect against these threats.
 This chapter concentrates on the acceleration complex. First, the terminology covering the main threat categories and mechanisms, attacker privilege
 and deployment models are presented. Then, some common mitigation actions that can be applied to many of these threat categories and mechanisms are
 discussed. Finally, more specific threat/attack vectors, including attacks against specific services of the PCH device are described.</p>
 <section id="terminology">
-<span id="secure-architecture-terminology-1"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline"></a></h2>
+<span id="secure-architecture-terminology-1"></span><h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this heading"></a></h2>
 <p>Each of the potential threat/attack vectors discussed may be described
 in terms of the following:</p>
 <ul class="simple">
@@ -135,7 +136,7 @@ in terms of the following:</p>
 <li><p><a class="reference external" href="#deployment-models">Deployment Models</a></p></li>
 </ul>
 <section id="threat-categories">
-<h3>Threat Categories<a class="headerlink" href="#threat-categories" title="Permalink to this headline"></a></h3>
+<h3>Threat Categories<a class="headerlink" href="#threat-categories" title="Permalink to this heading"></a></h3>
 <p>System threats can be classified into the categories in the following table.</p>
 <table class="longtable colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Threat Categories</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
@@ -171,7 +172,7 @@ legitimate client.</p></td>
 </table>
 </section>
 <section id="attack-mechanism">
-<h3>Attack Mechanism<a class="headerlink" href="#attack-mechanism" title="Permalink to this headline"></a></h3>
+<h3>Attack Mechanism<a class="headerlink" href="#attack-mechanism" title="Permalink to this heading"></a></h3>
 <p>Attack Mechanisms and Examples</p>
 <p>Some of the mechanisms by which an attacker can carry out an attack are listed in the following table.</p>
 <table class="longtable colwidths-given docutils align-default" id="id2">
@@ -206,7 +207,7 @@ their own application, separate from the main application software, they may inv
 </table>
 </section>
 <section id="attacker-privilege">
-<h3>Attacker Privilege<a class="headerlink" href="#attacker-privilege" title="Permalink to this headline"></a></h3>
+<h3>Attacker Privilege<a class="headerlink" href="#attacker-privilege" title="Permalink to this heading"></a></h3>
 <p>The following table describes the privileges that an attacker may have. The table describes the case of a non-virtualized system.</p>
 <table class="longtable colwidths-given docutils align-default" id="id3">
 <caption><span class="caption-text">Attacker Privilege</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
@@ -236,7 +237,7 @@ their own application, separate from the main application software, they may inv
 </table>
 </section>
 <section id="deployment-models">
-<h3>Deployment Models<a class="headerlink" href="#deployment-models" title="Permalink to this headline"></a></h3>
+<h3>Deployment Models<a class="headerlink" href="#deployment-models" title="Permalink to this heading"></a></h3>
 <p>Some of the possible deployment models are given in the following table.</p>
 <table class="longtable docutils align-default" id="id4">
 <caption><span class="caption-text">Deployment Models</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
@@ -268,7 +269,7 @@ their own application, separate from the main application software, they may inv
 </section>
 </section>
 <section id="threat-attack-vectors">
-<h2>Threat/Attack Vectors<a class="headerlink" href="#threat-attack-vectors" title="Permalink to this headline"></a></h2>
+<h2>Threat/Attack Vectors<a class="headerlink" href="#threat-attack-vectors" title="Permalink to this heading"></a></h2>
 <p>A thorough analysis has been conducted by considering each of the threat
 categories, attack mechanisms, attacker privilege levels, and deployment
 models. As a result, the following threats have been identified. Also
@@ -277,7 +278,7 @@ against each threat. Some general practices that mitigate many of the
 common threats are considered first. Thereafter, threats on specific
 services and mitigation against those threats are described.</p>
 <section id="general-mitigation">
-<h3>General Mitigation<a class="headerlink" href="#general-mitigation" title="Permalink to this headline"></a></h3>
+<h3>General Mitigation<a class="headerlink" href="#general-mitigation" title="Permalink to this heading"></a></h3>
 <p>The following mitigation techniques are generic to different threats and attack vectors:</p>
 <ul class="simple">
 <li><p>Ensure that all software running on the platform that has access to Intel<sup>®</sup> Quick Assist Technology devices is within the trust boundary of the platform owner. This mitigation includes software running in virtual machines and containers.</p></li>
@@ -288,7 +289,7 @@ services and mitigation against those threats are described.</p>
 </ul>
 </section>
 <section id="general-threats">
-<h3>General Threats<a class="headerlink" href="#general-threats" title="Permalink to this headline"></a></h3>
+<h3>General Threats<a class="headerlink" href="#general-threats" title="Permalink to this heading"></a></h3>
 <p>General threats include the following:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="#security-dma"><span class="std std-ref">DMA</span></a></p></li>
@@ -298,7 +299,7 @@ services and mitigation against those threats are described.</p>
 <li><p><a class="reference internal" href="#security-denial-of-service"><span class="std std-ref">Denial of Service</span></a></p></li>
 </ul>
 <section id="dma">
-<span id="security-dma"></span><h4>DMA<a class="headerlink" href="#dma" title="Permalink to this headline"></a></h4>
+<span id="security-dma"></span><h4>DMA<a class="headerlink" href="#dma" title="Permalink to this heading"></a></h4>
 <p><strong>Threat:</strong> The PCH can perform Direct Memory Access (DMA, the copying
 of data) between defined memory locations. Once an attacker has
 sufficient privilege to invoke the Intel<sup>®</sup> QuickAssist
@@ -332,7 +333,7 @@ may be in <code class="docutils literal notranslate"><span class="pre">/dev</spa
 </ul>
 </section>
 <section id="intentional-modification-of-ia-driver">
-<span id="security-ia-driver"></span><h4>Intentional Modification of IA Driver<a class="headerlink" href="#intentional-modification-of-ia-driver" title="Permalink to this headline"></a></h4>
+<span id="security-ia-driver"></span><h4>Intentional Modification of IA Driver<a class="headerlink" href="#intentional-modification-of-ia-driver" title="Permalink to this heading"></a></h4>
 <p><strong>Threat</strong>: An attacker can potentially modify the IA driver to behave
 maliciously. This may lead to a denial of service of Intel<sup>®</sup>
 Quick Assist Technology services.</p>
@@ -346,7 +347,7 @@ Quick Assist Technology services, then this group should not have write
 permission to the binaries.</p>
 </section>
 <section id="modification-of-the-qat-configuration-file">
-<span id="security-conf-file"></span><h4>Modification of the QAT Configuration File<a class="headerlink" href="#modification-of-the-qat-configuration-file" title="Permalink to this headline"></a></h4>
+<span id="security-conf-file"></span><h4>Modification of the QAT Configuration File<a class="headerlink" href="#modification-of-the-qat-configuration-file" title="Permalink to this heading"></a></h4>
 <p><strong>Threat</strong>: The QAT configuration file is read at initialization time by
 the driver and specifies what instances of each service (cryptographic,
 data compression) should be created, and which rings each service
@@ -363,7 +364,7 @@ users, for example, a privileged user or an administrator.</p>
 </div>
 </section>
 <section id="malicious-application-code">
-<span id="security-app-code"></span><h4>Malicious Application Code<a class="headerlink" href="#malicious-application-code" title="Permalink to this headline"></a></h4>
+<span id="security-app-code"></span><h4>Malicious Application Code<a class="headerlink" href="#malicious-application-code" title="Permalink to this heading"></a></h4>
 <p><strong>Threat</strong>: An attacker who can gain access to the Intel<sup>®</sup>
 QuickAssist Technology API may be able to exploit the following features
 of the API:</p>
@@ -382,7 +383,7 @@ applications should be allowed to access the Intel<sup>®</sup> QuickAssist
 Technology API, as described in General Mitigations.</p>
 </section>
 <section id="denial-of-service">
-<span id="security-denial-of-service"></span><h4>Denial of Service<a class="headerlink" href="#denial-of-service" title="Permalink to this headline"></a></h4>
+<span id="security-denial-of-service"></span><h4>Denial of Service<a class="headerlink" href="#denial-of-service" title="Permalink to this heading"></a></h4>
 <p><strong>Threat</strong>: An attacker may construct a service request that does not
 conform to the specification, resulting in low of service due to service
 timeouts, halting of Quick Assist service or undesired platform level
@@ -411,10 +412,10 @@ of the Rate Limiting feature.</p>
 </section>
 </section>
 <section id="threats-specific-to-cryptographic-service">
-<h3>Threats Specific to Cryptographic Service<a class="headerlink" href="#threats-specific-to-cryptographic-service" title="Permalink to this headline"></a></h3>
+<h3>Threats Specific to Cryptographic Service<a class="headerlink" href="#threats-specific-to-cryptographic-service" title="Permalink to this heading"></a></h3>
 <p>Threats against the cryptographic service include:</p>
 <section id="reading-cryptographic-keys">
-<h4>Reading Cryptographic Keys<a class="headerlink" href="#reading-cryptographic-keys" title="Permalink to this headline"></a></h4>
+<h4>Reading Cryptographic Keys<a class="headerlink" href="#reading-cryptographic-keys" title="Permalink to this heading"></a></h4>
 <p><strong>Threat</strong>: Cryptographic keys are stored in DRAM. An attacker who can determine where these are stored could read the DRAM to get access to the keys or could write the DRAM to use keys known by the attacker, thereby compromising the confidentiality of data protected by these keys. Some cryptographic keys have long lives. The impact of an attacker obtaining the key may exist for the lifetime of the key itself.</p>
 <p><strong>Mitigation</strong>: DRAM is considered inside the cryptographic boundary (as defined by FIPS 140-2). The normal memory protection schemes provided by the Intel<sup>®</sup> architecture processor and memory controller, and by the operating system, prevent unauthorized access to these memory regions.</p>
 </section>

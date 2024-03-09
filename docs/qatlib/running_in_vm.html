@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -123,17 +124,17 @@
            <div itemprop="articleBody">
              
   <section id="running-in-a-virtual-machine-vm">
-<span id="qat-2-0-qatlib-usersguide-running-in-vm"></span><h1>Running in a Virtual Machine (VM)<a class="headerlink" href="#running-in-a-virtual-machine-vm" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-qatlib-usersguide-running-in-vm"></span><h1>Running in a Virtual Machine (VM)<a class="headerlink" href="#running-in-a-virtual-machine-vm" title="Permalink to this heading"></a></h1>
 <p>This document provides instructions for attaching QAT Virtual Function(s) to the guest VM. This allows us to run applications using qatlib on the Guest VM utilizing the QAT Hardware.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>These instructions assume the QAT in-tree driver is currently installed on the host system.</p>
 </div>
 <section id="virtual-machine-configuration">
-<h2>Virtual Machine Configuration<a class="headerlink" href="#virtual-machine-configuration" title="Permalink to this headline"></a></h2>
+<h2>Virtual Machine Configuration<a class="headerlink" href="#virtual-machine-configuration" title="Permalink to this heading"></a></h2>
 <p>This section describes the configuration options for the virtual machine.</p>
 <section id="cpu-pinning-optional">
-<h3>CPU Pinning (Optional)<a class="headerlink" href="#cpu-pinning-optional" title="Permalink to this headline"></a></h3>
+<h3>CPU Pinning (Optional)<a class="headerlink" href="#cpu-pinning-optional" title="Permalink to this heading"></a></h3>
 <p>This step is <strong>optional</strong> and is only needed when we wish to pin the cores used by a VM.  In the example below we are pinning 8 cores used in the VM to cores 17-24.</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;vcpu placement=&#39;static&#39; cpuset=&#39;17-24&#39;&gt;8&lt;/vcpu&gt;</span>
@@ -142,7 +143,7 @@
 </div></blockquote>
 </section>
 <section id="machine-type">
-<h3>Machine Type<a class="headerlink" href="#machine-type" title="Permalink to this headline"></a></h3>
+<h3>Machine Type<a class="headerlink" href="#machine-type" title="Permalink to this heading"></a></h3>
 <p>The machine type needs to be set <code class="docutils literal notranslate"><span class="pre">q35</span></code>.  In the example below, the machine type for RHEL 9.2 is <cite>pc-q35-rhel9</cite>.</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;os&gt;</span>
@@ -154,7 +155,7 @@
 </div></blockquote>
 </section>
 <section id="i-o-apic-driver">
-<h3>I/O APIC Driver<a class="headerlink" href="#i-o-apic-driver" title="Permalink to this headline"></a></h3>
+<h3>I/O APIC Driver<a class="headerlink" href="#i-o-apic-driver" title="Permalink to this heading"></a></h3>
 <p>The I/O APIC driver needs to be set to <cite>qemu</cite>.</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;features&gt;</span>
@@ -167,7 +168,7 @@
 </div></blockquote>
 </section>
 <section id="qat-virtual-function">
-<h3>QAT Virtual Function<a class="headerlink" href="#qat-virtual-function" title="Permalink to this headline"></a></h3>
+<h3>QAT Virtual Function<a class="headerlink" href="#qat-virtual-function" title="Permalink to this heading"></a></h3>
 <p>When passing VFs to a guest, the BDFs on the guest should facilitate qatlib
 recognizing whether VFs are from the same PF or not.</p>
 <p>So the libvirt XML file should specify that VFs from the same host
@@ -253,7 +254,7 @@ to the VM.</p>
 </section>
 </section>
 <section id="guest-os-linux-boot-parameters">
-<h2>Guest OS Linux Boot Parameters<a class="headerlink" href="#guest-os-linux-boot-parameters" title="Permalink to this headline"></a></h2>
+<h2>Guest OS Linux Boot Parameters<a class="headerlink" href="#guest-os-linux-boot-parameters" title="Permalink to this heading"></a></h2>
 <p>The following kernel boot parameters must be included in the Guest OS.</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code></p></li>
@@ -265,7 +266,7 @@ to the VM.</p>
 </div>
 <p>If these parameters are <strong>not</strong> enabled, the following steps can be used to turn them on.</p>
 <section id="instructions-for-debian-based-distros">
-<h3>Instructions for Debian Based Distros<a class="headerlink" href="#instructions-for-debian-based-distros" title="Permalink to this headline"></a></h3>
+<h3>Instructions for Debian Based Distros<a class="headerlink" href="#instructions-for-debian-based-distros" title="Permalink to this heading"></a></h3>
 <p>If using a Debian based distribution, run the following commands:</p>
 <blockquote>
 <div><ol class="arabic">
@@ -298,7 +299,7 @@ to the VM.</p>
 </div></blockquote>
 </section>
 <section id="instructions-for-rhel-centos-fedora">
-<h3>Instructions for RHEL/CentOS/Fedora<a class="headerlink" href="#instructions-for-rhel-centos-fedora" title="Permalink to this headline"></a></h3>
+<h3>Instructions for RHEL/CentOS/Fedora<a class="headerlink" href="#instructions-for-rhel-centos-fedora" title="Permalink to this heading"></a></h3>
 <p>If using RHEL, CentOS or Fedora, run the following commands:</p>
 <blockquote>
 <div><ol class="arabic">
@@ -322,7 +323,7 @@ to the VM.</p>
 </section>
 </section>
 <section id="guest-system-kernel-drivers">
-<h2>Guest System Kernel Drivers<a class="headerlink" href="#guest-system-kernel-drivers" title="Permalink to this headline"></a></h2>
+<h2>Guest System Kernel Drivers<a class="headerlink" href="#guest-system-kernel-drivers" title="Permalink to this heading"></a></h2>
 <p>When running on the <em>guest</em> system, use the following command to verify the kernel drivers are present:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lsmod | grep vfio_pci</span>
@@ -350,9 +351,9 @@ to the VM.</p>
 </div></blockquote>
 </section>
 <section id="common-issues">
-<h2>Common Issues<a class="headerlink" href="#common-issues" title="Permalink to this headline"></a></h2>
+<h2>Common Issues<a class="headerlink" href="#common-issues" title="Permalink to this heading"></a></h2>
 <section id="error-observed-when-vm-is-started">
-<h3>Error observed when VM is started<a class="headerlink" href="#error-observed-when-vm-is-started" title="Permalink to this headline"></a></h3>
+<h3>Error observed when VM is started<a class="headerlink" href="#error-observed-when-vm-is-started" title="Permalink to this heading"></a></h3>
 <p>If error similar to the following is reported when VM is started:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo virsh start &lt;Guest_VM_NAME&gt;</span>
@@ -393,7 +394,7 @@ to the VM.</p>
 </div></blockquote>
 </section>
 <section id="error-with-cpa-sample-code">
-<h3>Error with cpa_sample_code<a class="headerlink" href="#error-with-cpa-sample-code" title="Permalink to this headline"></a></h3>
+<h3>Error with cpa_sample_code<a class="headerlink" href="#error-with-cpa-sample-code" title="Permalink to this heading"></a></h3>
 <p>Error when running cpa sample application on the guest VM</p>
 <p>If errors like the following are observed:</p>
 <blockquote>
