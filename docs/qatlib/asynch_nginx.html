@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -121,9 +122,9 @@
            <div itemprop="articleBody">
              
   <section id="asynch-mode-for-nginx">
-<span id="qat-2-0-qatlib-asynch-nginx"></span><h1>Asynch Mode for NGINX*<a class="headerlink" href="#asynch-mode-for-nginx" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-qatlib-asynch-nginx"></span><h1>Asynch Mode for NGINX*<a class="headerlink" href="#asynch-mode-for-nginx" title="Permalink to this heading"></a></h1>
 <section id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
 <p>The Asynch Mode for NGINX (<strong>asynch_nginx</strong>) package can be installed using the instructions in this section.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -131,10 +132,10 @@
 <p>If using the out-of-tree QAT package, refer to the latest installation instructions available at the <a class="reference external" href="https://github.com/intel/asynch_mode_nginx#installation-instructions">asynch_mode_nginx GitHub repository</a>.</p>
 </div>
 <section id="package-dependencies">
-<span id="qat-2-0-qatlib-asynch-mode-nginx-install-source"></span><h3>Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-qatlib-asynch-mode-nginx-install-source"></span><h3>Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permalink to this heading"></a></h3>
 <p>This section includes instructions on installing the required packages dependencies.</p>
 <section id="rpm-based-package-dependencies">
-<h4>RPM-based package dependencies<a class="headerlink" href="#rpm-based-package-dependencies" title="Permalink to this headline"></a></h4>
+<h4>RPM-based package dependencies<a class="headerlink" href="#rpm-based-package-dependencies" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section is required for RPM-based Linux distributions such as RHEL*, CentOS*, and Fedora*.</p>
@@ -157,7 +158,7 @@
 </ol>
 </section>
 <section id="deb-based-package-dependencies">
-<h4>DEB-based package dependencies<a class="headerlink" href="#deb-based-package-dependencies" title="Permalink to this headline"></a></h4>
+<h4>DEB-based package dependencies<a class="headerlink" href="#deb-based-package-dependencies" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section is required for DEB-based Linux distributions such as Ubuntu*.</p>
@@ -178,7 +179,7 @@
 </section>
 </section>
 <section id="pre-requisites">
-<h3>Pre-Requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline"></a></h3>
+<h3>Pre-Requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this heading"></a></h3>
 <p>Prior to installing <em>async_nginx</em> ensure the following packages have been installed:</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="install.html#qat-2-0-qatlib-install"><span class="std std-ref">QATlib</span></a></p></li>
@@ -190,7 +191,7 @@
 </ul>
 </section>
 <section id="installation-instructions">
-<h3>Installation instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this headline"></a></h3>
+<h3>Installation instructions<a class="headerlink" href="#installation-instructions" title="Permalink to this heading"></a></h3>
 <ol class="arabic">
 <li><p><strong>Obtain</strong> the source package for <em>async_nginx</em> by running the following commands:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
@@ -246,9 +247,9 @@
 </section>
 </section>
 <section id="configuration">
-<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this headline"></a></h2>
+<h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h2>
 <section id="qat-configuration">
-<h3>QAT Configuration<a class="headerlink" href="#qat-configuration" title="Permalink to this headline"></a></h3>
+<h3>QAT Configuration<a class="headerlink" href="#qat-configuration" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>At least one QAT endpoint needs to have asymmetric/symmetric (<strong>asym;sym</strong>) services enabled to utilize cryptography.</p></li>
 <li><p>At least one QAT endpoint needs to have compression (<strong>dc</strong>) service enabled to utilize compression.</p></li>
@@ -266,10 +267,10 @@ This mode is ideal if both compression and asymmetric crypto support is required
 </ul>
 </section>
 <section id="nginx-configuration">
-<h3>NGINX Configuration<a class="headerlink" href="#nginx-configuration" title="Permalink to this headline"></a></h3>
+<h3>NGINX Configuration<a class="headerlink" href="#nginx-configuration" title="Permalink to this heading"></a></h3>
 <p>This section includes details on configuring NGINX to utilize QAT.  Example configuration file is also available for <a class="reference download internal" download="" href="../_downloads/14a2f2c88d0836a5ccf37fcd135adda8/nginx_qat.conf"><code class="xref download docutils literal notranslate"><span class="pre">download</span></code></a>.</p>
 <section id="general-section">
-<h4>General Section<a class="headerlink" href="#general-section" title="Permalink to this headline"></a></h4>
+<h4>General Section<a class="headerlink" href="#general-section" title="Permalink to this heading"></a></h4>
 <p>Here is example of the general section of the NGINX configuration file:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">user  www www;</span>
@@ -324,7 +325,7 @@ This mode is ideal if both compression and asymmetric crypto support is required
 </div></blockquote>
 </section>
 <section id="compression-settings">
-<h4>Compression Settings<a class="headerlink" href="#compression-settings" title="Permalink to this headline"></a></h4>
+<h4>Compression Settings<a class="headerlink" href="#compression-settings" title="Permalink to this heading"></a></h4>
 <p>Compression settings are included in the http block of the NGINX configuration file. Here is example compression configuration.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">http {</span>
 <span class="go"> include       mime.types;</span>
@@ -355,7 +356,7 @@ This mode is ideal if both compression and asymmetric crypto support is required
 </div></blockquote>
 </section>
 <section id="https-settings">
-<h4>HTTPS Settings<a class="headerlink" href="#https-settings" title="Permalink to this headline"></a></h4>
+<h4>HTTPS Settings<a class="headerlink" href="#https-settings" title="Permalink to this heading"></a></h4>
 <p>We can configure NGINX to use QAT for encryption with updates to the HTTPS server section.   An example of this configuration is:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">server {</span>
 <span class="go">     listen       443 ssl asynch;</span>
@@ -377,7 +378,7 @@ This mode is ideal if both compression and asymmetric crypto support is required
 </section>
 </section>
 <section id="benchmarking-nginx-server">
-<h2>Benchmarking NGINX Server<a class="headerlink" href="#benchmarking-nginx-server" title="Permalink to this headline"></a></h2>
+<h2>Benchmarking NGINX Server<a class="headerlink" href="#benchmarking-nginx-server" title="Permalink to this heading"></a></h2>
 <p>When benchmarking NGINX server we can focus on two main areas:</p>
 <blockquote>
 <div><ul class="simple">
@@ -390,7 +391,7 @@ the value QAT brings to Public Key Encryption.</p>
 <p>Throughput tests would focus on the data being encrypted and optionally compressed.  This test highlights the value qat_sw brings to the symmetric
 crypto operations and the value QAT brings to compression.</p>
 <section id="cps-testing">
-<h3>CPS Testing<a class="headerlink" href="#cps-testing" title="Permalink to this headline"></a></h3>
+<h3>CPS Testing<a class="headerlink" href="#cps-testing" title="Permalink to this heading"></a></h3>
 <p>The following scripts can be used benchmark CPS:</p>
 <blockquote>
 <div><ul class="simple">
@@ -399,7 +400,7 @@ crypto operations and the value QAT brings to compression.</p>
 </ul>
 </div></blockquote>
 <section id="connection-test-sh">
-<h4>connection_test.sh<a class="headerlink" href="#connection-test-sh" title="Permalink to this headline"></a></h4>
+<h4>connection_test.sh<a class="headerlink" href="#connection-test-sh" title="Permalink to this heading"></a></h4>
 <p>Script invokes <strong>openssl s_time</strong> to create connection requests to the specified NGINX server.
 The script has has the following parameters that can be changed to meet user specific
 test requirements:</p>
@@ -427,7 +428,7 @@ test requirements:</p>
 </div></blockquote>
 </section>
 <section id="cps-test-py">
-<h4>cps_test.py<a class="headerlink" href="#cps-test-py" title="Permalink to this headline"></a></h4>
+<h4>cps_test.py<a class="headerlink" href="#cps-test-py" title="Permalink to this heading"></a></h4>
 <p>This is a wrapper python script around the <strong>connection_test.sh</strong>.  The test script is called
 in an endless loop capturing test results  (Connections per Second) to log file.  In the
 example script we are writing to a textfile_collector file for Prometheus.  This allows
@@ -436,7 +437,7 @@ to the script could be made to output to stdout or other log file.</p>
 </section>
 </section>
 <section id="throughput-testing">
-<h3>Throughput Testing<a class="headerlink" href="#throughput-testing" title="Permalink to this headline"></a></h3>
+<h3>Throughput Testing<a class="headerlink" href="#throughput-testing" title="Permalink to this heading"></a></h3>
 <p>For throughput testing we are using the <strong>wrk</strong> application to generate client traffic
 requests to the specified NGINX server.  These requests include the downloading of a file
 from the NGINX server.</p>

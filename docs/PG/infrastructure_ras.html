@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -121,12 +122,12 @@
            <div itemprop="articleBody">
              
   <section id="reliability-availability-and-stability-ras">
-<span id="qat-2-0-pg-infrastructure-ras"></span><h1>Reliability, Availability, and Stability (RAS)<a class="headerlink" href="#reliability-availability-and-stability-ras" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-infrastructure-ras"></span><h1>Reliability, Availability, and Stability (RAS)<a class="headerlink" href="#reliability-availability-and-stability-ras" title="Permalink to this heading"></a></h1>
 <p>The RAS feature goal is to support the acceleration devices Reliability, Availability and Stability by handling the error interrupts initiated
 by the device.</p>
 <p>Additionally the types of errors are counted and the counters made available via sysfs.</p>
 <section id="ras-usage">
-<h2>RAS Usage<a class="headerlink" href="#ras-usage" title="Permalink to this headline"></a></h2>
+<h2>RAS Usage<a class="headerlink" href="#ras-usage" title="Permalink to this heading"></a></h2>
 <p>Following PCIe specifications, errors are categorized as follows:</p>
 <table class="longtable colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">RAS Error Types</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
@@ -180,7 +181,7 @@ where:</p>
 </div>
 </section>
 <section id="aer-errors">
-<span id="aer-errors-link"></span><h2>AER Errors<a class="headerlink" href="#aer-errors" title="Permalink to this headline"></a></h2>
+<span id="aer-errors-link"></span><h2>AER Errors<a class="headerlink" href="#aer-errors" title="Permalink to this heading"></a></h2>
 <p>The Linux kernel implements an AER driver for each PCIe device to handle errors reported through the AER mechanism.</p>
 <p>AER error counters for each device are exposed through sysfs files categorized as follows:</p>
 <table class="longtable colwidths-given docutils align-default" id="id2">
