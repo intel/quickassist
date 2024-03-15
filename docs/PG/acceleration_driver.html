@@ -69,6 +69,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#application-payload-memory-allocation">Application Payload Memory Allocation</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#services">Services</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#thread-specific-usdm">Thread Specific USDM</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#return-codes">Return Codes</a></li>
@@ -298,9 +299,51 @@ Table 2) for details.</p></td>
 </div>
 <p>If using the Intel<sup>®</sup> QAT Data Plane API, buffers are passed to the Intel<sup>®</sup> QAT API as physical addresses. The library passes this directly to the hardware, without the need for translation.</p>
 </section>
+<section id="thread-specific-usdm">
+<span id="managing-endpoints-using-qat-service"></span><h3>Thread Specific USDM<a class="headerlink" href="#thread-specific-usdm" title="Permalink to this heading"></a></h3>
+<p>By default, memory allocation uses the USDM slab allocator, which gives 2MB contiguous
+memory. The allocation has locks in the library to prevent a race condition in getting the
+memory from the slab.</p>
+<p>This lock has an impact on some multi-threaded applications and use
+cases, like HAProxy, causing a drop in performance.</p>
+<p>To mitigate this issue, thread specific USDM is implemented which allocates and handles memory specific to
+threads. (For multi-thread apps, allocated memory information will be maintained separately
+for each thread).</p>
+<p>This feature can be enabled by configuring with the configure flag:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p>
+</div></blockquote>
+<p>In some use cases with thread specific USDM, using a 128K slab allocator instead of the default
+2MB allocator could improve performance and reduce memory consumption for a large
+number of threads. This can be enabled by configuring with the configure flag</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">--enable-128k-slab</span></code></p>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is a limitation with thread specific USDM: memory allocated in one thread
+should be freed only by the thread which allocates it.</p>
+<p>Incorrect cleanup can lead to a segmentation fault (segfault).</p>
+<p>Also, memory allocated in a thread is freed automatically when the thread exits/terminates, even if the user does not explicitly
+free the memory.</p>
+</div>
+<p>See the <a class="reference internal" href="../GSG/2.X/installation.html#qat-2-0-gsg-configuration-options"><span class="std std-ref">./configure flags`</span></a> section of the Getting Started Guide for more information on these flags.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>We have observed poor multithreaded performance with QAT_Engine using OpenSSL* at
+higher thread counts.</p>
+<p>Unfortunately, these issues appear to stem from the way OpenSSL*
+implements its <code class="docutils literal notranslate"><span class="pre">engine_table_select</span></code> and locks. For relevant issues on the OpenSSL*
+github pages, see the two issues below:</p>
+<ul class="simple">
+<li><p>OpenSSL* 1.1.1.x: Performance bottleneck with locks in <code class="docutils literal notranslate"><span class="pre">engine_table_select()</span></code> function #18509, <a class="reference external" href="https://github.com/openssl/openssl/issues/18509">https://github.com/openssl/openssl/issues/18509</a></p></li>
+<li><p>OpenSSL* 3.0: 3.0 performance degraded due to locking #20286, <a class="reference external" href="https://github.com/openssl/openssl/issues/20286">https://github.com/openssl/openssl/issues/20286</a></p></li>
+</ul>
+</div>
+</section>
 </section>
 <section id="return-codes">
-<span id="managing-endpoints-using-qat-service"></span><h2>Return Codes<a class="headerlink" href="#return-codes" title="Permalink to this heading"></a></h2>
+<h2>Return Codes<a class="headerlink" href="#return-codes" title="Permalink to this heading"></a></h2>
 <p>This table shows the return codes used by various components of the acceleration driver, defined in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/cpa.h</span></code>.</p>
 <table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Return Codes</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
