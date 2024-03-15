@@ -373,6 +373,17 @@ See <a class="reference internal" href="#qat-2-0-cnv-messaging"><span class="std
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
 <td><p>Enables Data Compression Error Simulation.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
+<td><p>USDM allocates and handles memory specific to threads (for
+multi-thread apps, allocated memory information will be
+maintained separately for each thread).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-128k-slab</span></code></p></td>
+<td><p>Enables 128k slab allocator in USDM. It could improve
+performance and reduce memory consumption for the large
+number of threads when thread specific memory allocator is
+enabled.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="admonition important" id="qat-2-0-cnv-messaging">

@@ -1,5 +1,4 @@
-#!/usr/bin/python3.6
-
+#!/usr/bin/env python
 import time
 import curses
 import subprocess
@@ -215,4 +214,3 @@ def pbar(window):
 if __name__ == "__main__":
     EnableTelemetry()
     curses.wrapper(pbar)
-
