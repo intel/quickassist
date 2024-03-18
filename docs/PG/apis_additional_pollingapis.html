@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -124,10 +125,10 @@
            <div itemprop="articleBody">
              
   <section id="device-polling-apis">
-<span id="qat-2-0-pg-supported-apis-additional-apis-pollingapis"></span><h1>Device Polling APIs<a class="headerlink" href="#device-polling-apis" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-supported-apis-additional-apis-pollingapis"></span><h1>Device Polling APIs<a class="headerlink" href="#device-polling-apis" title="Permalink to this heading"></a></h1>
 <p>APIs documented in this section are used for polling devices.</p>
 <section id="icp-sal-poll-device-events">
-<h2>icp_sal_poll_device_events<a class="headerlink" href="#icp-sal-poll-device-events" title="Permalink to this headline"></a></h2>
+<h2>icp_sal_poll_device_events<a class="headerlink" href="#icp-sal-poll-device-events" title="Permalink to this heading"></a></h2>
 <p>This function polls for device reset events.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_poll_device_events(void);</span></code></p>
@@ -155,7 +156,7 @@
 </div>
 </section>
 <section id="cpacyinstancesetnotificationcb">
-<h2>cpaCyInstanceSetNotificationCb<a class="headerlink" href="#cpacyinstancesetnotificationcb" title="Permalink to this headline"></a></h2>
+<h2>cpaCyInstanceSetNotificationCb<a class="headerlink" href="#cpacyinstancesetnotificationcb" title="Permalink to this heading"></a></h2>
 <p>Cryptographic instances use this function to register for device event notifications.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">cpaCyInstanceSetNotificationCb(const</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">const</span> <span class="pre">CpaCyInstanceNotificationCbFunc</span> <span class="pre">pinstanceNotificationCb,</span> <span class="pre">void</span> <span class="pre">*pCallbackTag);</span></code></p>
@@ -221,7 +222,7 @@
 </div></blockquote>
 </section>
 <section id="cpadcinstancesetnotificationcb">
-<h2>cpaDcInstanceSetNotificationCb<a class="headerlink" href="#cpadcinstancesetnotificationcb" title="Permalink to this headline"></a></h2>
+<h2>cpaDcInstanceSetNotificationCb<a class="headerlink" href="#cpadcinstancesetnotificationcb" title="Permalink to this heading"></a></h2>
 <p>Data compression instances use this function to register for device event notifications.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">cpaDcInstanceSetNotificationCb(const</span> <span class="pre">CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">const</span> <span class="pre">CpaDcInstanceNotificationCbFunc</span> <span class="pre">pinstanceNotificationCb,</span> <span class="pre">void</span> <span class="pre">*pCallbackTag);</span></code></p>

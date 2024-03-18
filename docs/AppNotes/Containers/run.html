@@ -16,6 +16,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -113,7 +114,7 @@
            <div itemprop="articleBody">
              
   <section id="run-containers-using-intel-qat-acceleration">
-<span id="qat-2-0-containers-run"></span><h1>Run Containers using Intel® QAT Acceleration<a class="headerlink" href="#run-containers-using-intel-qat-acceleration" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-containers-run"></span><h1>Run Containers using Intel® QAT Acceleration<a class="headerlink" href="#run-containers-using-intel-qat-acceleration" title="Permalink to this heading"></a></h1>
 <p>This section includes details on how to launch a container image with QAT support.</p>
 <p>Topics include:</p>
 <ul class="simple">
@@ -122,10 +123,10 @@
 <li><p>Tuning Parameters</p></li>
 </ul>
 <section id="command-line-parameters">
-<h2>Command Line Parameters<a class="headerlink" href="#command-line-parameters" title="Permalink to this headline"></a></h2>
+<h2>Command Line Parameters<a class="headerlink" href="#command-line-parameters" title="Permalink to this heading"></a></h2>
 <p>Here are list of required and optional command line arguments when launching containers with QAT support.</p>
 <section id="memlock-required">
-<h3>memlock (REQUIRED)<a class="headerlink" href="#memlock-required" title="Permalink to this headline"></a></h3>
+<h3>memlock (REQUIRED)<a class="headerlink" href="#memlock-required" title="Permalink to this heading"></a></h3>
 <p>memlock <strong>must</strong> be enabled within the container.  This can be done with the following parameter:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--cap-add=IPC_LOCK</span>
@@ -135,7 +136,7 @@
 <p>Refer to <a class="reference external" href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">*docker* docs</a> for additional information.</p>
 </section>
 <section id="security-configuration-optional">
-<h3>Security Configuration (OPTIONAL)<a class="headerlink" href="#security-configuration-optional" title="Permalink to this headline"></a></h3>
+<h3>Security Configuration (OPTIONAL)<a class="headerlink" href="#security-configuration-optional" title="Permalink to this heading"></a></h3>
 <p>Security options for the container is set using the <code class="docutils literal notranslate"><span class="pre">--security-opt</span></code> parameter.</p>
 <p>In examples below this parameter is set to:</p>
 <blockquote>
@@ -148,7 +149,7 @@
 <p>Refer to <a class="reference external" href="https://docs.docker.com/engine/reference/run/#security-configuration">*docker* docs</a> for additional information.</p>
 </section>
 <section id="cpu-pinning-optional">
-<h3>CPU Pinning (OPTIONAL)<a class="headerlink" href="#cpu-pinning-optional" title="Permalink to this headline"></a></h3>
+<h3>CPU Pinning (OPTIONAL)<a class="headerlink" href="#cpu-pinning-optional" title="Permalink to this heading"></a></h3>
 <p>This allows locking of CPUs the container will run.   The can be done with the following parameter:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--cpuset-cpus 10-20</span>
@@ -163,7 +164,7 @@
 <p>Refer to <a class="reference external" href="https://docs.docker.com/engine/reference/run/#cpuset-constraint">*docker* docs</a> for additional information.</p>
 </section>
 <section id="memory-node-pinning">
-<h3>Memory Node Pinning<a class="headerlink" href="#memory-node-pinning" title="Permalink to this headline"></a></h3>
+<h3>Memory Node Pinning<a class="headerlink" href="#memory-node-pinning" title="Permalink to this heading"></a></h3>
 <p>This parameter allows controlling which memory nodes to allow execution.  This can be done as follows:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--cpuset-mems=&quot;0&quot;</span>
@@ -175,7 +176,7 @@
 </section>
 </section>
 <section id="providing-qat-resources-to-container">
-<h2>Providing QAT Resources to Container<a class="headerlink" href="#providing-qat-resources-to-container" title="Permalink to this headline"></a></h2>
+<h2>Providing QAT Resources to Container<a class="headerlink" href="#providing-qat-resources-to-container" title="Permalink to this heading"></a></h2>
 <p>This section describes how QAT resources are provided to the container images.</p>
 <p>The the examples below, the following command line parameter is used to provide QAT resources to the container image.</p>
 <blockquote>
@@ -227,9 +228,9 @@ VFIO GROUP    | NODE  | PF BDF       | VF BDF       | SERVICES
 <p>Refer to <a class="reference internal" href="orchestration.html#qat-2-0-containers-orchestration"><span class="std std-ref">Orchestration Software</span></a> for additional information.</p>
 </section>
 <section id="tuning-parameters">
-<h2>Tuning Parameters<a class="headerlink" href="#tuning-parameters" title="Permalink to this headline"></a></h2>
+<h2>Tuning Parameters<a class="headerlink" href="#tuning-parameters" title="Permalink to this heading"></a></h2>
 <section id="container-runtime-memory-lock-limit-required">
-<h3>Container Runtime Memory Lock Limit (REQUIRED)<a class="headerlink" href="#container-runtime-memory-lock-limit-required" title="Permalink to this headline"></a></h3>
+<h3>Container Runtime Memory Lock Limit (REQUIRED)<a class="headerlink" href="#container-runtime-memory-lock-limit-required" title="Permalink to this heading"></a></h3>
 <p>This section assigns the memory lock limit for the container.  How much memory is required depends on the application as well as memory requirements for the QAT library (qatlib)
 qatlib requires 4MB per VF of locked memory.</p>
 <ol class="arabic">

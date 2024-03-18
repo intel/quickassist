@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -108,13 +109,13 @@
            <div itemprop="articleBody">
              
   <section id="host-system-environment-preparation">
-<span id="qat-2-0-virtualization-deployment-guide-system-preparation"></span><h1>Host System Environment Preparation<a class="headerlink" href="#host-system-environment-preparation" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-virtualization-deployment-guide-system-preparation"></span><h1>Host System Environment Preparation<a class="headerlink" href="#host-system-environment-preparation" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>These steps are required when configuring the host system to support virtualization.</p>
 </div>
 <section id="updating-the-bios-settings">
-<h2>Updating the BIOS Settings<a class="headerlink" href="#updating-the-bios-settings" title="Permalink to this headline"></a></h2>
+<h2>Updating the BIOS Settings<a class="headerlink" href="#updating-the-bios-settings" title="Permalink to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Enter</strong> to the BIOS setup.</p></li>
 <li><p><strong>Enable</strong> the <em>VT-d</em> parameter in BIOS. This setting is usually under <code class="docutils literal notranslate"><span class="pre">Socket</span> <span class="pre">configuration</span> <span class="pre">&gt;</span> <span class="pre">IIO</span> <span class="pre">configuration</span> <span class="pre">&gt;</span> <span class="pre">Intel</span> <span class="pre">VT-d</span></code>.</p>
@@ -142,7 +143,7 @@
 </ol>
 </section>
 <section id="configuring-the-host-os">
-<h2>Configuring the Host OS<a class="headerlink" href="#configuring-the-host-os" title="Permalink to this headline"></a></h2>
+<h2>Configuring the Host OS<a class="headerlink" href="#configuring-the-host-os" title="Permalink to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Check</strong> the <a class="reference internal" href="#qat-2-0-virt-kernel-requirements"><span class="std std-ref">kernel requirements</span></a> are met.</p></li>
 <li><p><strong>Verify</strong> appropriate <a class="reference internal" href="#qat-2-0-virt-kernel-parameters"><span class="std std-ref">kernel boot parameters</span></a> are defined using the following command:</p>
@@ -183,7 +184,7 @@ and verify they are correct with the above command.</p>
 </li>
 </ol>
 <section id="kernel-requirements">
-<span id="qat-2-0-virt-kernel-requirements"></span><h3>Kernel Requirements<a class="headerlink" href="#kernel-requirements" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-virt-kernel-requirements"></span><h3>Kernel Requirements<a class="headerlink" href="#kernel-requirements" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 51%" />
@@ -206,7 +207,7 @@ be used.</p></td>
 </table>
 </section>
 <section id="kernel-boot-parameters">
-<span id="qat-2-0-virt-kernel-parameters"></span><h3>Kernel Boot Parameters<a class="headerlink" href="#kernel-boot-parameters" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-virt-kernel-parameters"></span><h3>Kernel Boot Parameters<a class="headerlink" href="#kernel-boot-parameters" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 51%" />
@@ -226,7 +227,7 @@ be used.</p></td>
 </section>
 </section>
 <section id="install-virtualization-packages">
-<h2>Install Virtualization Packages<a class="headerlink" href="#install-virtualization-packages" title="Permalink to this headline"></a></h2>
+<h2>Install Virtualization Packages<a class="headerlink" href="#install-virtualization-packages" title="Permalink to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Install</strong> virtualization related packages using the following command:</p>
 <blockquote>
@@ -255,7 +256,7 @@ be used.</p></td>
 </ol>
 </section>
 <section id="system-environment-preparation-demo">
-<h2>System Environment Preparation Demo<a class="headerlink" href="#system-environment-preparation-demo" title="Permalink to this headline"></a></h2>
+<h2>System Environment Preparation Demo<a class="headerlink" href="#system-environment-preparation-demo" title="Permalink to this heading"></a></h2>
 <p>Here is a demonstration of how to configure the system to enable virtualization.</p>
 <video controls="True" height="300" preload="auto" width="500"><source src="../_static/video/virt/configuration.mp4" type="video/mp4"></video><div class="line-block">
 <div class="line"><br /></div>

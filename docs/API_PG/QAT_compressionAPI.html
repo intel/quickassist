@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -112,7 +113,7 @@
            <div itemprop="articleBody">
              
   <section id="intel-qat-data-compression-api">
-<span id="qat-api-programmers-guide-qat-compressionapi"></span><h1>Intel® QAT Data Compression API<a class="headerlink" href="#intel-qat-data-compression-api" title="Permalink to this headline"></a></h1>
+<span id="qat-api-programmers-guide-qat-compressionapi"></span><h1>Intel® QAT Data Compression API<a class="headerlink" href="#intel-qat-data-compression-api" title="Permalink to this heading"></a></h1>
 <p>This section describes the sample code for the Intel® QuickAssist Technology Data
 Compression API, beginning with an API overview, and followed by descriptions of
 various scenarios to illustrate the usage of the API.</p>
@@ -124,7 +125,7 @@ various scenarios to illustrate the usage of the API.</p>
 information on data integrity concepts, including the Compress-and-Verify feature.</p>
 </div>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
 <p>The Intel® QuickAssist Technology Data Compression API can be categorized into
 three broad areas as follows:</p>
 <ul>
@@ -146,7 +147,7 @@ Request order is guaranteed within a given instance of the service.</p></li>
 <p>The Intel® QAT Data Compression API uses the base API, which defines base data types used across
 all services of the Intel® QAT API.</p>
 <section id="sessions">
-<h3>Sessions<a class="headerlink" href="#sessions" title="Permalink to this headline"></a></h3>
+<h3>Sessions<a class="headerlink" href="#sessions" title="Permalink to this heading"></a></h3>
 <p>Similar to the symmetric cryptography API, the data compression API has the concept
 of a session. In the case of the compression API, a session is an object that describes
 the compression parameters to be applied across several requests. These requests
@@ -199,7 +200,7 @@ request may be in-flight at any one time for that session.</p>
 </section>
 </section>
 <section id="stateful-data-compression">
-<h2>Stateful Data Compression<a class="headerlink" href="#stateful-data-compression" title="Permalink to this headline"></a></h2>
+<h2>Stateful Data Compression<a class="headerlink" href="#stateful-data-compression" title="Permalink to this heading"></a></h2>
 <p>This example demonstrates the usage of the synchronous API, specifically using this
 API to perform a compression operation. It compresses a file via a stateful session
 using the deflate compress algorithm with static Huffman trees and using GZIP style
@@ -211,7 +212,7 @@ headers and footers.</p>
 However, stateful decompression is available in Intel® QAT v1.8 and later releases.</p>
 </div>
 <section id="session-establishment">
-<h3>Session Establishment<a class="headerlink" href="#session-establishment" title="Permalink to this headline"></a></h3>
+<h3>Session Establishment<a class="headerlink" href="#session-establishment" title="Permalink to this heading"></a></h3>
 <p>This is the main entry point for the sample compression code. It demonstrates the
 sequence of calls to be made to the API to create a session, perform one or more
 compress operations, and then tear down the session. At this point, the instance has
@@ -514,7 +515,7 @@ as shown below.</p>
 </section>
 </section>
 <section id="stateless-data-compression">
-<h2>Stateless Data Compression<a class="headerlink" href="#stateless-data-compression" title="Permalink to this headline"></a></h2>
+<h2>Stateless Data Compression<a class="headerlink" href="#stateless-data-compression" title="Permalink to this heading"></a></h2>
 <p>This example demonstrates the usage of the asynchronous API, specifically using this
 API to perform a compression operation. It compresses a data buffer through a
 stateless session using the deflate compress algorithm with dynamic Huffman trees.</p>
@@ -630,7 +631,7 @@ as shown below.</p>
 </div>
 </section>
 <section id="stateless-data-compression-using-multiple-compress-operations">
-<h2>Stateless Data Compression Using Multiple Compress Operations<a class="headerlink" href="#stateless-data-compression-using-multiple-compress-operations" title="Permalink to this headline"></a></h2>
+<h2>Stateless Data Compression Using Multiple Compress Operations<a class="headerlink" href="#stateless-data-compression-using-multiple-compress-operations" title="Permalink to this heading"></a></h2>
 <p>This example demonstrates the use of the asynchronous API, specifically, using this
 API to perform a compression operation. It compresses a data buffer using multiple
 stateless compression API requests and maintains length and checksum information
@@ -661,7 +662,7 @@ compress operation on that data set.</p></li>
 </ul>
 </section>
 <section id="data-compression-data-plane-api">
-<span id="qat-api-programmers-guide-qat-compressionapi-dcdataplaneapi"></span><h2>Data Compression Data Plane API<a class="headerlink" href="#data-compression-data-plane-api" title="Permalink to this headline"></a></h2>
+<span id="qat-api-programmers-guide-qat-compressionapi-dcdataplaneapi"></span><h2>Data Compression Data Plane API<a class="headerlink" href="#data-compression-data-plane-api" title="Permalink to this heading"></a></h2>
 <p>This example demonstrates the usage of the data plane data compression API to
 perform a compression operation. It compresses a data buffer via a stateless session
 using the deflate compress algorithm with dynamic Huffman trees. This example is
@@ -797,7 +798,7 @@ be removed.</p>
 </div>
 </section>
 <section id="chained-hash-and-stateless-compression">
-<h2>Chained Hash and Stateless Compression<a class="headerlink" href="#chained-hash-and-stateless-compression" title="Permalink to this headline"></a></h2>
+<h2>Chained Hash and Stateless Compression<a class="headerlink" href="#chained-hash-and-stateless-compression" title="Permalink to this heading"></a></h2>
 <p>This example demonstrates the use of the asynchronous API, specifically, using the
 data compression chain API to perform chained hash and stateless compression
 operations. It performs a SHA-256 hash on the sample text and then compresses the

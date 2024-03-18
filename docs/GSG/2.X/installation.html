@@ -16,6 +16,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -113,14 +114,14 @@
            <div itemprop="articleBody">
              
   <section id="software-installation">
-<span id="qat-2-0-gsg-installation"></span><h1>Software Installation<a class="headerlink" href="#software-installation" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-gsg-installation"></span><h1>Software Installation<a class="headerlink" href="#software-installation" title="Permalink to this heading"></a></h1>
 <p>This section provides details on building and installing the software.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This document describes the steps required to install the out-of-tree acceleration software package. For details on installing the upstreamed acceleration software, refer to the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/INSTALL">installation</a> and <a class="reference external" href="https://github.com/intel/qatlib/blob/main/README.md">readme</a> instructions at the <a class="reference external" href="https://github.com/intel/qatlib">Intel QuickAssist Technology Library (QATlib)</a> repository.</p>
 </div>
 <section id="installation-overview">
-<h2>Installation Overview<a class="headerlink" href="#installation-overview" title="Permalink to this headline"></a></h2>
+<h2>Installation Overview<a class="headerlink" href="#installation-overview" title="Permalink to this heading"></a></h2>
 <p>The installation procedure handles a number of tasks that would otherwise have to be done manually, including the following:</p>
 <ul class="simple">
 <li><p>Create the kernel module files and copy them the appropriate directory (e.g. <code class="docutils literal notranslate"><span class="pre">/usr/lib/modules/KERN_VERSION/kernel/drivers/crypto</span></code> )</p></li>
@@ -135,7 +136,7 @@
 </ul>
 </section>
 <section id="unpacking-the-software">
-<h2>Unpacking the Software<a class="headerlink" href="#unpacking-the-software" title="Permalink to this headline"></a></h2>
+<h2>Unpacking the Software<a class="headerlink" href="#unpacking-the-software" title="Permalink to this heading"></a></h2>
 <p>The software package comes in the form of a tarball.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -172,7 +173,7 @@
 </ol>
 </section>
 <section id="configure-acceleration-software">
-<h2>Configure Acceleration Software<a class="headerlink" href="#configure-acceleration-software" title="Permalink to this headline"></a></h2>
+<h2>Configure Acceleration Software<a class="headerlink" href="#configure-acceleration-software" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -228,7 +229,7 @@ Type make followed by make install to build QAT with the following options
 </li>
 </ol>
 <section id="dependencies">
-<span id="qat-2-0-gsg-dependencies"></span><h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-gsg-dependencies"></span><h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h3>
 <p>Various dependencies are required, see the ouput from <cite>.configure</cite>.</p>
 <p><code class="docutils literal notranslate"><span class="pre">yasm</span></code>, for example, may need to be manually downloaded and installed via <a class="reference external" href="https://yasm.tortall.net/Download.html">https://yasm.tortall.net/Download.html</a> .</p>
 <p>On Linux:</p>
@@ -242,7 +243,7 @@ Type make followed by make install to build QAT with the following options
 <p>Then return to the QAT directory to perform the <code class="docutils literal notranslate"><span class="pre">.configure</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> commands.</p>
 </section>
 <section id="configuration-options">
-<span id="qat-2-0-gsg-configuration-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
+<span id="qat-2-0-gsg-configuration-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this heading"></a></h3>
 <p>A complete list of compile flags and build parameters can also be obtained by executing the following command in the shell:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --help</span>
 </pre></div>
@@ -372,6 +373,17 @@ See <a class="reference internal" href="#qat-2-0-cnv-messaging"><span class="std
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
 <td><p>Enables Data Compression Error Simulation.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
+<td><p>USDM allocates and handles memory specific to threads (for
+multi-thread apps, allocated memory information will be
+maintained separately for each thread).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-128k-slab</span></code></p></td>
+<td><p>Enables 128k slab allocator in USDM. It could improve
+performance and reduce memory consumption for the large
+number of threads when thread specific memory allocator is
+enabled.</p></td>
+</tr>
 </tbody>
 </table>
 <div class="admonition important" id="qat-2-0-cnv-messaging">
@@ -387,7 +399,7 @@ the Compress and Verify capability.</p>
 </section>
 </section>
 <section id="install-acceleration-software">
-<span id="qat-2-0-gsg-install-software"></span><h2>Install Acceleration Software<a class="headerlink" href="#install-acceleration-software" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-gsg-install-software"></span><h2>Install Acceleration Software<a class="headerlink" href="#install-acceleration-software" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It is recommended to <a class="reference internal" href="#qat-2-0-gsg-uninstall-software"><span class="std std-ref">uninstall</span></a> previous installations of the acceleration software (if previously installed).</p>
@@ -454,14 +466,14 @@ irqbypass              16384  2 intel_qat,kvm
 </ol>
 </section>
 <section id="software-installation-demo">
-<h2>Software Installation Demo<a class="headerlink" href="#software-installation-demo" title="Permalink to this headline"></a></h2>
+<h2>Software Installation Demo<a class="headerlink" href="#software-installation-demo" title="Permalink to this heading"></a></h2>
 <p>Here is a demonstration of the process to setup and install the Intel<sup>®</sup> QAT software package.</p>
 <video controls="True" height="300" preload="auto" width="500"><source src="../../_static/video/gsg/install.mp4" type="video/mp4"></video><div class="line-block">
 <div class="line"><br /></div>
 </div>
 </section>
 <section id="uninstall-acceleration-software">
-<span id="qat-2-0-gsg-uninstall-software"></span><h2>Uninstall Acceleration Software<a class="headerlink" href="#uninstall-acceleration-software" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-gsg-uninstall-software"></span><h2>Uninstall Acceleration Software<a class="headerlink" href="#uninstall-acceleration-software" title="Permalink to this heading"></a></h2>
 <ol class="arabic">
 <li><p><strong>Open</strong> a terminal windows and <strong>switch</strong> to superuser. Provide root password when prompted.</p>
 <blockquote>
@@ -482,7 +494,7 @@ irqbypass              16384  2 intel_qat,kvm
 </ol>
 </section>
 <section id="starting-stopping-the-acceleration-software">
-<span id="qat-2-0-gsg-start-stop-software"></span><h2>Starting/Stopping the Acceleration Software<a class="headerlink" href="#starting-stopping-the-acceleration-software" title="Permalink to this headline"></a></h2>
+<span id="qat-2-0-gsg-start-stop-software"></span><h2>Starting/Stopping the Acceleration Software<a class="headerlink" href="#starting-stopping-the-acceleration-software" title="Permalink to this heading"></a></h2>
 <p>When the acceleration software is installed, a script file titled <code class="docutils literal notranslate"><span class="pre">qat_service</span></code> is installed in the <code class="docutils literal notranslate"><span class="pre">/etc/init.d</span></code> directory. The script file can be used to start and stop the acceleration software.</p>
 <p>To <em>start</em> the software, issue the following command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service start</span>
@@ -499,7 +511,7 @@ irqbypass              16384  2 intel_qat,kvm
 <p>When the acceleration software is installed, it is set to load automatically when the operating system loads.</p>
 </section>
 <section id="configuration-files">
-<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this headline"></a></h2>
+<h2>Configuration Files<a class="headerlink" href="#configuration-files" title="Permalink to this heading"></a></h2>
 <p>When the acceleration software loads, it is configured based on the settings in the platform-specific configuration files.</p>
 <p>The configuration files are in the <code class="docutils literal notranslate"><span class="pre">/etc</span></code> directory. Specifically:</p>
 <ul class="simple">
@@ -528,7 +540,7 @@ has more than one type of hardware device or SKU, verify that the correct config
 <p>Refer to the <a class="reference internal" href="../../PG/configuration_files_index.html#qat-2-0-pg-configuration-files"><span class="std std-ref">Programmer’s Guide</span></a> for additional information on the configuration files.</p>
 </section>
 <section id="running-applications-as-non-root-user">
-<span id="running-applications-as-non-root"></span><h2>Running Applications as Non-Root User<a class="headerlink" href="#running-applications-as-non-root-user" title="Permalink to this headline"></a></h2>
+<span id="running-applications-as-non-root"></span><h2>Running Applications as Non-Root User<a class="headerlink" href="#running-applications-as-non-root-user" title="Permalink to this heading"></a></h2>
 <p>The installation of Intel<sup>®</sup> QAT software package configures the driver to allow applications to run as non-root user. The users must be added to the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group.</p>
 <p>When the <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> command is performed at the directory where the Intel<sup>®</sup> QAT package is installed, the following <em>udev</em> file is created which is responsible for setting up non-root access.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>KERNEL==&quot;qat_adf_ctl&quot; MODE=&quot;0660&quot; GROUP=&quot;qat&quot; RUN+=&quot;/bin/chgrp qat/usr/local/bin/adf_ctl&quot;

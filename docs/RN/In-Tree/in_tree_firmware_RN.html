@@ -16,6 +16,7 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -118,7 +119,7 @@
            <div itemprop="articleBody">
              
   <span class="target" id="qat-2-0-in-tree-firmware-release-notes"></span><section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
 <p>The term <em>in-tree</em> refers to the Intel® QAT kernel modules and firmware included in the Linux kernel <em>tree</em>, as opposed to our more common
 <em>out-of-tree</em> (OOT) driver and firmware, provided directly by Intel at
 <a class="reference external" href="https://www.intel.com/content/www/us/en/download/765501">Intel® QuickAssist Technology Driver for Linux* - HW Version 2.0</a>.</p>
@@ -128,7 +129,7 @@
 If you’re using the Intel OOT package, your firmware version may not match what’s on this page.</p>
 </div>
 <section id="detecting-current-firmware">
-<h2>Detecting Current Firmware<a class="headerlink" href="#detecting-current-firmware" title="Permalink to this headline"></a></h2>
+<h2>Detecting Current Firmware<a class="headerlink" href="#detecting-current-firmware" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Your firmware may be in a compressed <code class="docutils literal notranslate"><span class="pre">.xz</span></code> filetype. Decompress first using the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">xz</span> <span class="pre">--decompress</span> <span class="pre">compressed_file_filename.xz</span></code> command.</p>
@@ -152,7 +153,7 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 </div>
 </section>
 <section id="qat-firmware-available">
-<h2>QAT Firmware Available<a class="headerlink" href="#qat-firmware-available" title="Permalink to this headline"></a></h2>
+<h2>QAT Firmware Available<a class="headerlink" href="#qat-firmware-available" title="Permalink to this heading"></a></h2>
 <table class="longtable colwidths-given docutils align-default" id="id3">
 <caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -257,12 +258,12 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 </table>
 </section>
 <section id="download">
-<h2>Download<a class="headerlink" href="#download" title="Permalink to this headline"></a></h2>
+<h2>Download<a class="headerlink" href="#download" title="Permalink to this heading"></a></h2>
 <p>QAT in-tree firmware can be downloaded from <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/">https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/</a>.</p>
 </section>
 </section>
 <section id="qat-kernel-driver-releases-features">
-<span id="qat-2-0-in-tree-kernel-requirements"></span><h1>QAT Kernel Driver Releases &amp; Features<a class="headerlink" href="#qat-kernel-driver-releases-features" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-in-tree-kernel-requirements"></span><h1>QAT Kernel Driver Releases &amp; Features<a class="headerlink" href="#qat-kernel-driver-releases-features" title="Permalink to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Some qatlib features require a recent kernel driver or firmware version.</p>
@@ -334,9 +335,9 @@ Asymmetric Crypto SM2</p></td>
 </div>
 </section>
 <section id="known-errata-linux-firmware-kernel-modules">
-<h1>Known Errata (Linux Firmware/Kernel Modules)<a class="headerlink" href="#known-errata-linux-firmware-kernel-modules" title="Permalink to this headline"></a></h1>
+<h1>Known Errata (Linux Firmware/Kernel Modules)<a class="headerlink" href="#known-errata-linux-firmware-kernel-modules" title="Permalink to this heading"></a></h1>
 <section id="qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">
-<h2>QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response<a class="headerlink" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response" title="Permalink to this headline"></a></h2>
+<h2>QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response<a class="headerlink" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -385,7 +386,7 @@ verify that SW doesn’t generate IOMMU pagefaults.</p></td>
 </table>
 </section>
 <section id="qat20-24970-firmware-potential-false-positive-heartbeat-failures">
-<h2>QAT20-24970 [Firmware] Potential false positive heartbeat failures<a class="headerlink" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures" title="Permalink to this headline"></a></h2>
+<h2>QAT20-24970 [Firmware] Potential false positive heartbeat failures<a class="headerlink" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -435,7 +436,7 @@ release.</p>
 </table>
 </section>
 <section id="qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus">
-<h2>QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs<a class="headerlink" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus" title="Permalink to this headline"></a></h2>
+<h2>QAT20-20272 [XCC/MCC] Spurious heartbeat failures may be observed on some SKUs<a class="headerlink" href="#qat20-20272-xcc-mcc-spurious-heartbeat-failures-may-be-observed-on-some-skus" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -485,7 +486,7 @@ release.</p>
 </table>
 </section>
 <section id="qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected">
-<h2>QAT20-18924 [MCC] MCC SKUs may consume more power than expected<a class="headerlink" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected" title="Permalink to this headline"></a></h2>
+<h2>QAT20-18924 [MCC] MCC SKUs may consume more power than expected<a class="headerlink" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -530,7 +531,7 @@ does not have impact on power consumption.</p></td>
 </table>
 </section>
 <section id="qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected">
-<h2>QATE-45537 [Firmware] - Firmware authentication may fail if PCIe* errors occur or are injected<a class="headerlink" href="#qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected" title="Permalink to this headline"></a></h2>
+<h2>QATE-45537 [Firmware] - Firmware authentication may fail if PCIe* errors occur or are injected<a class="headerlink" href="#qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -572,7 +573,7 @@ firmware successfully.</p></td>
 </table>
 </section>
 <section id="qate-68323-virt-attempting-to-create-any-number-of-qat-vf-s-results-in-all-vf-s-created">
-<h2>QATE-68323 [VIRT] Attempting to create any number of QAT VF’s results in all VF’s created<a class="headerlink" href="#qate-68323-virt-attempting-to-create-any-number-of-qat-vf-s-results-in-all-vf-s-created" title="Permalink to this headline"></a></h2>
+<h2>QATE-68323 [VIRT] Attempting to create any number of QAT VF’s results in all VF’s created<a class="headerlink" href="#qate-68323-virt-attempting-to-create-any-number-of-qat-vf-s-results-in-all-vf-s-created" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -627,10 +628,10 @@ the resource availability for the particular guest (VM).</p></td>
 </section>
 </section>
 <section id="resolved-errata">
-<h1>Resolved Errata<a class="headerlink" href="#resolved-errata" title="Permalink to this headline"></a></h1>
+<h1>Resolved Errata<a class="headerlink" href="#resolved-errata" title="Permalink to this heading"></a></h1>
 <p>This section lists those errata related to firmware which were previously resolved.</p>
 <section id="qate-8109-firmware-driver-and-firmware-versions-are-not-reported-to-user-space">
-<h2>QATE-8109 [Firmware] - Driver and firmware versions are not reported to user space<a class="headerlink" href="#qate-8109-firmware-driver-and-firmware-versions-are-not-reported-to-user-space" title="Permalink to this headline"></a></h2>
+<h2>QATE-8109 [Firmware] - Driver and firmware versions are not reported to user space<a class="headerlink" href="#qate-8109-firmware-driver-and-firmware-versions-are-not-reported-to-user-space" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -670,7 +671,7 @@ cannot be queried using the icp api.</p></td>
 </table>
 </section>
 <section id="qate-4051-unable-to-activate-driver-using-qat1-7-devices-in-full-passthrough-mode">
-<h2>QATE-4051 - Unable to activate driver using QAT1.7 devices in full passthrough mode<a class="headerlink" href="#qate-4051-unable-to-activate-driver-using-qat1-7-devices-in-full-passthrough-mode" title="Permalink to this headline"></a></h2>
+<h2>QATE-4051 - Unable to activate driver using QAT1.7 devices in full passthrough mode<a class="headerlink" href="#qate-4051-unable-to-activate-driver-using-qat1-7-devices-in-full-passthrough-mode" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -717,7 +718,7 @@ through a QAT PF to a VM. Talk to your Intel® representative for more informati
 </table>
 </section>
 <section id="qate-77659-unexpected-behaviour-may-be-triggered-by-certain-sgl-sub-buffer-layouts-on-clc-devices">
-<h2>QATE-77659 Unexpected behaviour may be triggered by certain SGL sub-buffer layouts on CLC devices<a class="headerlink" href="#qate-77659-unexpected-behaviour-may-be-triggered-by-certain-sgl-sub-buffer-layouts-on-clc-devices" title="Permalink to this headline"></a></h2>
+<h2>QATE-77659 Unexpected behaviour may be triggered by certain SGL sub-buffer layouts on CLC devices<a class="headerlink" href="#qate-77659-unexpected-behaviour-may-be-triggered-by-certain-sgl-sub-buffer-layouts-on-clc-devices" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -758,7 +759,7 @@ of 8 bytes in length are not affected.</p></td>
 </table>
 </section>
 <section id="qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support">
-<h2>QATE-39335 Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support<a class="headerlink" href="#qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support" title="Permalink to this headline"></a></h2>
+<h2>QATE-39335 Compression instances do not work on Virtual Machine with Linux Host QAT driver without CnVnR support<a class="headerlink" href="#qate-39335-compression-instances-do-not-work-on-virtual-machine-with-linux-host-qat-driver-without-cnvnr-support" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -799,7 +800,7 @@ support on Host QAT driver firmware.</p></td>
 </section>
 </section>
 <section id="license">
-<h1>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h1>
+<h1>License<a class="headerlink" href="#license" title="Permalink to this heading"></a></h1>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Copyright (c) Intel Corporation.
 
 Redistribution.  Redistribution and use in binary form, without modification, are permitted provided that the following conditions are met:

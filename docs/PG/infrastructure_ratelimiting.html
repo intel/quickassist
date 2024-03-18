@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -122,7 +123,7 @@
            <div itemprop="articleBody">
              
   <section id="rate-limiting">
-<span id="qat-2-0-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this headline"></a></h1>
+<span id="qat-2-0-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this heading"></a></h1>
 <p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service. Resources are shared across guests and the resource utilization of each guest is measured relative to the capacity of the physical function.</p>
 <p>The feature is supported only for SYM and ASYM services.</p>
 <p>To enable the Rate Limiting feature:</p>
@@ -132,7 +133,7 @@
 <li><p><strong>Perform</strong> <code class="docutils literal notranslate"><span class="pre">qat_service</span> <span class="pre">shutdown</span></code> and <code class="docutils literal notranslate"><span class="pre">qat_service</span> <span class="pre">start</span></code>.</p></li>
 </ol>
 <section id="service-level-agreement-sla">
-<h2>Service Level Agreement (SLA)<a class="headerlink" href="#service-level-agreement-sla" title="Permalink to this headline"></a></h2>
+<h2>Service Level Agreement (SLA)<a class="headerlink" href="#service-level-agreement-sla" title="Permalink to this heading"></a></h2>
 <p>Service Level Agreement enforcement allocates a specified amount of capacity for a specified service to a specified VF:
 <em>max SLA enforced = (number of VFs) X (number of services)</em> where:</p>
 <blockquote>
@@ -143,7 +144,7 @@
 </div></blockquote>
 </section>
 <section id="sla-units">
-<h2>SLA Units<a class="headerlink" href="#sla-units" title="Permalink to this headline"></a></h2>
+<h2>SLA Units<a class="headerlink" href="#sla-units" title="Permalink to this heading"></a></h2>
 <p>SLA units are measured as follows:</p>
 <ul class="simple">
 <li><p>Symmetric Crypto – 1Mbps of throughput.</p></li>
@@ -151,11 +152,11 @@
 </ul>
 </section>
 <section id="sla-manager-application">
-<h2>SLA Manager Application<a class="headerlink" href="#sla-manager-application" title="Permalink to this headline"></a></h2>
+<h2>SLA Manager Application<a class="headerlink" href="#sla-manager-application" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">sla_mgr</span></code> tool is used to create, update, delete, list and get SLA capabilities.
 The SLA Manager executable is available in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build/sla_mgr</span></code> after the package is built and installed using <code class="docutils literal notranslate"><span class="pre">./configure;</span> <span class="pre">make</span> <span class="pre">install</span></code> commands.</p>
 <section id="sla-commands">
-<h3>SLA Commands<a class="headerlink" href="#sla-commands" title="Permalink to this headline"></a></h3>
+<h3>SLA Commands<a class="headerlink" href="#sla-commands" title="Permalink to this heading"></a></h3>
 <table class="longtable docutils align-default" id="id1">
 <caption><span class="caption-text">Rate Limiting SLA Commands</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -203,7 +204,7 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 </ul>
 </section>
 <section id="sla-manager-application-demo">
-<h3>SLA Manager Application Demo<a class="headerlink" href="#sla-manager-application-demo" title="Permalink to this headline"></a></h3>
+<h3>SLA Manager Application Demo<a class="headerlink" href="#sla-manager-application-demo" title="Permalink to this heading"></a></h3>
 <p>Here is a demonstration of using the <code class="docutils literal notranslate"><span class="pre">sla_mgr</span></code> tool to create, update, and delete SLAs.
 The device utilization script from the previous section is used to visualize the SLAs in action.
 The demo consists of the following steps:</p>

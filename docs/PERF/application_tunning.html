@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -114,15 +115,15 @@
            <div itemprop="articleBody">
              
   <section id="application-tuning">
-<span id="qat-perf-opt-guide-application-tuning"></span><h1>Application Tuning<a class="headerlink" href="#application-tuning" title="Permalink to this headline"></a></h1>
+<span id="qat-perf-opt-guide-application-tuning"></span><h1>Application Tuning<a class="headerlink" href="#application-tuning" title="Permalink to this heading"></a></h1>
 <p>This chapter describes techniques you may employ to optimize your
 application.</p>
 <section id="platform-level-optimizations">
-<h2>Platform-Level Optimizations<a class="headerlink" href="#platform-level-optimizations" title="Permalink to this headline"></a></h2>
+<h2>Platform-Level Optimizations<a class="headerlink" href="#platform-level-optimizations" title="Permalink to this heading"></a></h2>
 <p>This section describes platform-level optimizations required to achieve
 the best performance.</p>
 <section id="bios-configuration">
-<h3>BIOS Configuration<a class="headerlink" href="#bios-configuration" title="Permalink to this headline"></a></h3>
+<h3>BIOS Configuration<a class="headerlink" href="#bios-configuration" title="Permalink to this heading"></a></h3>
 <p>In some cases, maximum performance may only be achieved with the
 following BIOS configuration settings:</p>
 <p>CPU Power and Performance:</p>
@@ -133,12 +134,12 @@ following BIOS configuration settings:</p>
 </ul>
 </section>
 <section id="core-selection">
-<h3>Core Selection<a class="headerlink" href="#core-selection" title="Permalink to this headline"></a></h3>
+<h3>Core Selection<a class="headerlink" href="#core-selection" title="Permalink to this heading"></a></h3>
 <p>Using physical cores as opposed to hyper threads may result in higher
 performance.</p>
 </section>
 <section id="memory-configuration">
-<h3>Memory Configuration<a class="headerlink" href="#memory-configuration" title="Permalink to this headline"></a></h3>
+<h3>Memory Configuration<a class="headerlink" href="#memory-configuration" title="Permalink to this heading"></a></h3>
 <p>Ensure that memory is not a bottleneck. For instance, ensure that all
 CPU nodes have enough local memory and can take advantage of available
 memory channels.</p>
@@ -148,7 +149,7 @@ memory channels.</p>
 </div>
 </section>
 <section id="payload-alignment">
-<span id="qat-perf-opt-guide-payload-alignment"></span><h3>Payload Alignment<a class="headerlink" href="#payload-alignment" title="Permalink to this headline"></a></h3>
+<span id="qat-perf-opt-guide-payload-alignment"></span><h3>Payload Alignment<a class="headerlink" href="#payload-alignment" title="Permalink to this heading"></a></h3>
 <p>For optimal performance, data pointers should be at least 8-byte
 aligned. In some cases, this is a requirement. Refer to the API for
 details.</p>
@@ -177,7 +178,7 @@ packet.</p></li>
 </figure>
 </section>
 <section id="numa-awareness">
-<h3>NUMA Awareness<a class="headerlink" href="#numa-awareness" title="Permalink to this headline"></a></h3>
+<h3>NUMA Awareness<a class="headerlink" href="#numa-awareness" title="Permalink to this heading"></a></h3>
 <p>For a dual processor system, memory allocated for data submitted to the
 acceleration device should be allocated on the same node as the attached
 acceleration device. This is to prevent having to fetch data for
@@ -185,13 +186,13 @@ processing on memory of the remote node.</p>
 </section>
 </section>
 <section id="intel-quickassist-technology-optimization">
-<h2>Intel QuickAssist Technology Optimization<a class="headerlink" href="#intel-quickassist-technology-optimization" title="Permalink to this headline"></a></h2>
+<h2>Intel QuickAssist Technology Optimization<a class="headerlink" href="#intel-quickassist-technology-optimization" title="Permalink to this heading"></a></h2>
 <p>This section references parameters that can be modified in the
 configuration file or build system to help maximize throughput and
 minimize latency or reduce memory footprint. Refer to the <a class="reference internal" href="../PG/index.html"><span class="doc">Programmer’s Guide</span></a> for detailed descriptions of the
 configuration file and its parameters.</p>
 <section id="disable-services-not-used">
-<h3>Disable Services Not Used<a class="headerlink" href="#disable-services-not-used" title="Permalink to this headline"></a></h3>
+<h3>Disable Services Not Used<a class="headerlink" href="#disable-services-not-used" title="Permalink to this heading"></a></h3>
 <p>The compression service, when enabled, impacts the throughput
 performance of crypto services at larger packet sizes and vice versa.
 This is due to partitioning of internal resources between the two
@@ -199,7 +200,7 @@ services when both are enabled. It is recommended to disable unused
 services.</p>
 </section>
 <section id="disable-parameter-checking">
-<h3>Disable Parameter Checking<a class="headerlink" href="#disable-parameter-checking" title="Permalink to this headline"></a></h3>
+<h3>Disable Parameter Checking<a class="headerlink" href="#disable-parameter-checking" title="Permalink to this heading"></a></h3>
 <p>Parameter checking results in more Intel architecture cycles consumed
 by the driver. By default, parameter checking is enabled. This is
 controlled by <code class="docutils literal notranslate"><span class="pre">ICP_PARAM_CHECK</span></code>, which can be set as an environment
@@ -207,7 +208,7 @@ variable or it can be controlled with the configure script option, if
 available.</p>
 </section>
 <section id="adjusting-the-polling-interval">
-<h3>Adjusting the Polling Interval<a class="headerlink" href="#adjusting-the-polling-interval" title="Permalink to this headline"></a></h3>
+<h3>Adjusting the Polling Interval<a class="headerlink" href="#adjusting-the-polling-interval" title="Permalink to this heading"></a></h3>
 <p>This section describes how to get an indication of whether your
 application is polling at the right frequency. As described in the <a class="reference internal" href="design_guidelines.html#qat-perf-opt-guide-polling-mode"><span class="std std-ref">Polling Mode</span></a> section
 the rate of polling will impact latency, offload cost
@@ -231,7 +232,7 @@ variances, a larger ring size is recommended, but this in turn will add
 to the maximum latency.</p>
 </section>
 <section id="application-enqueue-dequeue-tuning-in-intel-qat-multi-instances-under-stress-condition">
-<h3>Application enqueue/dequeue tuning in Intel QAT multi-instances under stress condition<a class="headerlink" href="#application-enqueue-dequeue-tuning-in-intel-qat-multi-instances-under-stress-condition" title="Permalink to this headline"></a></h3>
+<h3>Application enqueue/dequeue tuning in Intel QAT multi-instances under stress condition<a class="headerlink" href="#application-enqueue-dequeue-tuning-in-intel-qat-multi-instances-under-stress-condition" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This applies only to platforms starting with Intel QAT Gen 4.</p>

@@ -16,6 +16,7 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -133,12 +134,12 @@
            <div itemprop="articleBody">
              
   <section id="intel-qat-cryptographic-api">
-<span id="qat-api-programmers-guide-qat-cryptoapi"></span><h1>Intel® QAT Cryptographic API<a class="headerlink" href="#intel-qat-cryptographic-api" title="Permalink to this headline"></a></h1>
+<span id="qat-api-programmers-guide-qat-cryptoapi"></span><h1>Intel® QAT Cryptographic API<a class="headerlink" href="#intel-qat-cryptographic-api" title="Permalink to this heading"></a></h1>
 <p>This section describes the sample code for the Intel® QuickAssist Technology
 Cryptographic API, beginning with an API overview, and followed by descriptions of
 various scenarios to illustrate the usage of the API.</p>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
 <p>The Intel® QuickAssist Technology Cryptographic API can be categorized into the
 following broad areas:</p>
 <ul>
@@ -196,19 +197,19 @@ have been deprecated because random bit generation can be handled in the CPU:</p
 <p>The cryptographic API uses the base API, which defines base data types used across
 all services of the Intel® QAT API.</p>
 <section id="sessions">
-<h3>Sessions<a class="headerlink" href="#sessions" title="Permalink to this headline"></a></h3>
+<h3>Sessions<a class="headerlink" href="#sessions" title="Permalink to this heading"></a></h3>
 <p>The symmetric API is the only API with the concept of sessions. The meaning of a
 session within the symmetric API is defined below.</p>
 </section>
 <section id="priority">
-<h3>Priority<a class="headerlink" href="#priority" title="Permalink to this headline"></a></h3>
+<h3>Priority<a class="headerlink" href="#priority" title="Permalink to this heading"></a></h3>
 <p>The cryptographic symmetric API has support for priorities. Priority can be specified
 on a per-session basis. Two levels of priority are supported: <em>high priority</em> and <em>normal priority</em>.
 Implementations may use a strict priority order or a weighted round robinbased priority scheme.</p>
 </section>
 </section>
 <section id="using-the-symmetric-cryptography-api">
-<h2>Using the Symmetric Cryptography API<a class="headerlink" href="#using-the-symmetric-cryptography-api" title="Permalink to this headline"></a></h2>
+<h2>Using the Symmetric Cryptography API<a class="headerlink" href="#using-the-symmetric-cryptography-api" title="Permalink to this heading"></a></h2>
 <p>This section contains examples of how to use the symmetric API. It describes general
 concepts and how to use the symmetric API to perform various types of cipher and
 hash.</p>
@@ -230,7 +231,7 @@ how to use the API for best performance.</p>
 <li><p>Stop the cryptographic service instance.</p></li>
 </ul>
 <section id="general-concepts">
-<h3>General Concepts<a class="headerlink" href="#general-concepts" title="Permalink to this headline"></a></h3>
+<h3>General Concepts<a class="headerlink" href="#general-concepts" title="Permalink to this heading"></a></h3>
 <p>This section describes the following concepts:</p>
 <ul class="simple">
 <li><p><em>Session</em></p></li>
@@ -238,7 +239,7 @@ how to use the API for best performance.</p>
 <li><p><em>Partial Support</em></p></li>
 </ul>
 <section id="session">
-<h4>Session<a class="headerlink" href="#session" title="Permalink to this headline"></a></h4>
+<h4>Session<a class="headerlink" href="#session" title="Permalink to this heading"></a></h4>
 <p>In case of the symmetric API, a session is a handle that describes the cryptographic
 parameters to be applied to several buffers. This might be the buffers within a single
 file or all the packets associated with a particular Internet Protocol Security (IPSec)
@@ -265,13 +266,13 @@ well as the outer hash algorithm.</p></li>
 </ul>
 </section>
 <section id="in-place-and-out-of-place-support">
-<h4>In-Place and Out-of-Place Support<a class="headerlink" href="#in-place-and-out-of-place-support" title="Permalink to this headline"></a></h4>
+<h4>In-Place and Out-of-Place Support<a class="headerlink" href="#in-place-and-out-of-place-support" title="Permalink to this heading"></a></h4>
 <p>An <em>In-Place</em> operation means that the destination buffer is the same as the source
 buffer. An <em>Out-of-Place</em> operation means that the destination buffer is different from
 the source buffer.</p>
 </section>
 <section id="partial-support">
-<h4>Partial Support<a class="headerlink" href="#partial-support" title="Permalink to this headline"></a></h4>
+<h4>Partial Support<a class="headerlink" href="#partial-support" title="Permalink to this heading"></a></h4>
 <p>Most of the examples in this section operate on full packets, as indicated by the
 <code class="docutils literal notranslate"><span class="pre">packetType</span></code> of <code class="docutils literal notranslate"><span class="pre">CPA_CY_SYM_PACKET_TYPE_FULL</span></code>. The API also supports operating in
 partial mode, where, for example, state (e.g., cipher state) needs to be carried
@@ -296,14 +297,14 @@ be used.</p></li>
 </section>
 </section>
 <section id="cipher">
-<h3>Cipher<a class="headerlink" href="#cipher" title="Permalink to this headline"></a></h3>
+<h3>Cipher<a class="headerlink" href="#cipher" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the symmetric API, specifically using this API
 to perform a cipher operation. It encrypts some sample text using the AES-256
 algorithm in Cipher Block Chaining (CBC) mode.</p>
 <p>These samples are located in <code class="docutils literal notranslate"><span class="pre">quickassist/lookaside/access_layer/src/sample_code/functional/sym/cipher_sample</span></code>.</p>
 <p>The following subsections describe the main functions in this file.</p>
 <section id="symcallback">
-<h4>symCallback<a class="headerlink" href="#symcallback" title="Permalink to this headline"></a></h4>
+<h4>symCallback<a class="headerlink" href="#symcallback" title="Permalink to this heading"></a></h4>
 <p>A callback function must be supplied to use the API in asynchronous mode, and this
 function is called back (that is, invoked by the implementation of the API) when the
 asynchronous operation has completed. The context in which it is invoked depends on
@@ -335,7 +336,7 @@ called.</p>
 </div>
 </section>
 <section id="ciphersample">
-<span id="qat-api-programmers-guide-qat-cryptoapi-ciphersample"></span><h4>cipherSample<a class="headerlink" href="#ciphersample" title="Permalink to this headline"></a></h4>
+<span id="qat-api-programmers-guide-qat-cryptoapi-ciphersample"></span><h4>cipherSample<a class="headerlink" href="#ciphersample" title="Permalink to this heading"></a></h4>
 <p>This is the main entry point for the sample cipher code. It demonstrates the sequence
 of calls to be made to the API to create a session, perform one or more cipher
 operations, and then tear down the session.</p>
@@ -572,7 +573,7 @@ using <code class="docutils literal notranslate"><span class="pre">cpaCySymSessi
 </section>
 </section>
 <section id="hash">
-<h3>Hash<a class="headerlink" href="#hash" title="Permalink to this headline"></a></h3>
+<h3>Hash<a class="headerlink" href="#hash" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the symmetric API, specifically using this API
 to perform a hash operation. It performs a SHA-256 hash operation on some sample
 data.</p>
@@ -606,7 +607,7 @@ operational data structure are again different from the cipher case, as shown be
 </div>
 </section>
 <section id="hash-a-file">
-<span id="qat-api-programmers-guide-qat-cryptoapi-hashafile"></span><h3>Hash a File<a class="headerlink" href="#hash-a-file" title="Permalink to this headline"></a></h3>
+<span id="qat-api-programmers-guide-qat-cryptoapi-hashafile"></span><h3>Hash a File<a class="headerlink" href="#hash-a-file" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the symmetric API for partial mode,
 specifically using this API to perform hash operations. It performs a SHA-1 hash
 operation on a file.</p>
@@ -679,7 +680,7 @@ is produced only on the last call to the API. See example below.</p>
 </div>
 </section>
 <section id="chained-cipher-and-hash">
-<h3>Chained Cipher and Hash<a class="headerlink" href="#chained-cipher-and-hash" title="Permalink to this headline"></a></h3>
+<h3>Chained Cipher and Hash<a class="headerlink" href="#chained-cipher-and-hash" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the symmetric API, specifically using this API
 to perform a <em>chained</em> cipher and hash operation. It encrypts some sample text using
 the AES-256 algorithm in CBC mode, and then performs a SHA-256 Hashed Message
@@ -731,7 +732,7 @@ immediately after the region to hash, and the <code class="docutils literal notr
 operational data is ignored.</p>
 </section>
 <section id="chained-cipher-and-hash-ipsec-like-use-case">
-<h3>Chained Cipher and Hash – IPSec Like Use Case<a class="headerlink" href="#chained-cipher-and-hash-ipsec-like-use-case" title="Permalink to this headline"></a></h3>
+<h3>Chained Cipher and Hash – IPSec Like Use Case<a class="headerlink" href="#chained-cipher-and-hash-ipsec-like-use-case" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the symmetric API for IPSec-like use cases,
 as described in the below figures. For the outbound direction, this example uses
 the symmetric API to perform a <em>chained</em> cipher and hash operation. It encrypts some
@@ -837,7 +838,7 @@ of the operational data structure are listed below.</p>
 and ICV).</p>
 </section>
 <section id="chained-cipher-and-hash-ssl-like-use-case">
-<h3>Chained Cipher and Hash – SSL Like Use Case<a class="headerlink" href="#chained-cipher-and-hash-ssl-like-use-case" title="Permalink to this headline"></a></h3>
+<h3>Chained Cipher and Hash – SSL Like Use Case<a class="headerlink" href="#chained-cipher-and-hash-ssl-like-use-case" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the symmetric API for SSL-like use cases, as
 described in the below figures. For the outbound direction, this example employs
 the symmetric API to perform a <em>chained</em> hash and cipher operation. It performs a
@@ -1011,7 +1012,7 @@ of the operational data structure are shown below.</p>
 </div>
 </section>
 <section id="chained-cipher-and-hash-ccm-use-case">
-<h3>Chained Cipher and Hash – CCM Use Case<a class="headerlink" href="#chained-cipher-and-hash-ccm-use-case" title="Permalink to this headline"></a></h3>
+<h3>Chained Cipher and Hash – CCM Use Case<a class="headerlink" href="#chained-cipher-and-hash-ccm-use-case" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the symmetric API to perform a CCM
 operation as described in NIST publication SP800-38C (<em>Recommendation for Block
 Cipher Modes of Operation: The CCM Mode for Authentication and Confidentiality</em>). Refer
@@ -1099,7 +1100,7 @@ operation is shown below.</p>
 </div>
 </section>
 <section id="chained-cipher-and-hash-gcm-use-case">
-<h3>Chained Cipher and Hash – GCM Use Case<a class="headerlink" href="#chained-cipher-and-hash-gcm-use-case" title="Permalink to this headline"></a></h3>
+<h3>Chained Cipher and Hash – GCM Use Case<a class="headerlink" href="#chained-cipher-and-hash-gcm-use-case" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the symmetric API to perform a GCM
 operation as described in NIST publication SP800-38D (<em>Recommendation for Block
 Cipher Modes of Operation: Galois/Counter Mode (GCM) and GMAC</em>). Refer
@@ -1215,7 +1216,7 @@ to 0.</p>
 </div>
 </section>
 <section id="chained-cipher-and-hash-using-the-symmetric-data-plane-api">
-<span id="qat-api-programmers-guide-qat-cryptoapi-chainedcipherhashsymdataplaneapi"></span><h3>Chained Cipher and Hash Using the Symmetric Data Plane API<a class="headerlink" href="#chained-cipher-and-hash-using-the-symmetric-data-plane-api" title="Permalink to this headline"></a></h3>
+<span id="qat-api-programmers-guide-qat-cryptoapi-chainedcipherhashsymdataplaneapi"></span><h3>Chained Cipher and Hash Using the Symmetric Data Plane API<a class="headerlink" href="#chained-cipher-and-hash-using-the-symmetric-data-plane-api" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the data plane symmetric API to perform a
 <em>chained</em> cipher and hash operation. It encrypts some sample text using the AES-256
 algorithm in CBC mode, and then performs an SHA-256 HMAC operation on the
@@ -1394,7 +1395,7 @@ request, using <code class="docutils literal notranslate"><span class="pre">cpaC
 </ul>
 </section>
 <section id="tls-key-and-mgf-mask-generation">
-<h3>TLS Key and MGF Mask Generation<a class="headerlink" href="#tls-key-and-mgf-mask-generation" title="Permalink to this headline"></a></h3>
+<h3>TLS Key and MGF Mask Generation<a class="headerlink" href="#tls-key-and-mgf-mask-generation" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Refer to <a class="reference internal" href="introduction.html#qat-api-programmers-guide-introduction-related-documentation-references"><span class="std std-ref">Related Documents and References</span></a>
@@ -1427,7 +1428,7 @@ the operation data structure.</p>
 <p>The following sections describe examples of the parameter mapping to the
 cryptographic API.</p>
 <section id="setting-cpacykeygentlsopdata-structure-fields">
-<h4>Setting CpaCyKeyGenTlsOpData Structure Fields<a class="headerlink" href="#setting-cpacykeygentlsopdata-structure-fields" title="Permalink to this headline"></a></h4>
+<h4>Setting CpaCyKeyGenTlsOpData Structure Fields<a class="headerlink" href="#setting-cpacykeygentlsopdata-structure-fields" title="Permalink to this heading"></a></h4>
 <p>The Transport Layer Security (TLS) Protocol Version 1.1 standard, RFC 4346 (refer to
 <a class="reference internal" href="introduction.html#qat-api-programmers-guide-introduction-related-documentation-references"><span class="std std-ref">Related Documents and References</span></a>),
 section 6.3 <code class="docutils literal notranslate"><span class="pre">key_block</span></code> is described as:</p>
@@ -1499,7 +1500,7 @@ user. This memory must be available to the API for the duration of the operation
 </section>
 </section>
 <section id="session-update-for-chained-cipher-and-hash-operation">
-<h3>Session Update for Chained Cipher and Hash Operation<a class="headerlink" href="#session-update-for-chained-cipher-and-hash-operation" title="Permalink to this headline"></a></h3>
+<h3>Session Update for Chained Cipher and Hash Operation<a class="headerlink" href="#session-update-for-chained-cipher-and-hash-operation" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the session update together with data plane
 symmetric API to perform a <em>chained</em> cipher and hash operation. It performs a
 KASUMI F9 hash operation on the sample text and then encrypts the sample text using
@@ -1531,7 +1532,7 @@ symmetric API where the callback function is registered for the session.</p>
 </li>
 </ul>
 <section id="create-and-initialize-a-session">
-<h4>Create and Initialize a Session<a class="headerlink" href="#create-and-initialize-a-session" title="Permalink to this headline"></a></h4>
+<h4>Create and Initialize a Session<a class="headerlink" href="#create-and-initialize-a-session" title="Permalink to this heading"></a></h4>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">sessionSetupData</span><span class="p">.</span><span class="n">sessionPriority</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CPA_CY_PRIORITY_HIGH</span><span class="p">;</span>
 <span class="n">sessionSetupData</span><span class="p">.</span><span class="n">symOperation</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CPA_CY_SYM_OP_ALGORITHM_CHAINING</span><span class="p">;</span>
 <span class="n">sessionSetupData</span><span class="p">.</span><span class="n">algChainOrder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CPA_CY_SYM_ALG_CHAIN_ORDER_HASH_THEN_CIPHER</span><span class="p">;</span>
@@ -1630,7 +1631,7 @@ be removed.</p>
 </section>
 </section>
 <section id="hkdf-use-case">
-<h3>HKDF Use Case<a class="headerlink" href="#hkdf-use-case" title="Permalink to this headline"></a></h3>
+<h3>HKDF Use Case<a class="headerlink" href="#hkdf-use-case" title="Permalink to this heading"></a></h3>
 <p>This section contains sample code that demonstrates the usage of the symmetric API,
 specifically using this API to perform hash-based message authentication code key
 derivation function (HKDF) operations. It performs HKDF Extract and Expand, and
@@ -1640,7 +1641,7 @@ and build the structures required. This example does not demonstrate the optimal
 to use the API to get maximum performance for implementation.</p>
 <p>This sample is located in <code class="docutils literal notranslate"><span class="pre">/quickassist/lookaside/access_layer/src/sample_code/functional/sym/hkdf_sample</span></code>.</p>
 <section id="instance-configuration-and-memory-allocation">
-<h4>Instance Configuration and Memory Allocation<a class="headerlink" href="#instance-configuration-and-memory-allocation" title="Permalink to this headline"></a></h4>
+<h4>Instance Configuration and Memory Allocation<a class="headerlink" href="#instance-configuration-and-memory-allocation" title="Permalink to this heading"></a></h4>
 <p>Cryptographic service instances are discovered and started in the same way and using
 the same API as the traditional symmetric use cases.</p>
 <ol class="arabic">
@@ -1660,7 +1661,7 @@ Polling is done in an implementation-dependent manner.</p></li>
 </ol>
 </section>
 <section id="hkdf-extract-expand-operation">
-<h4>HKDF Extract Expand Operation<a class="headerlink" href="#hkdf-extract-expand-operation" title="Permalink to this headline"></a></h4>
+<h4>HKDF Extract Expand Operation<a class="headerlink" href="#hkdf-extract-expand-operation" title="Permalink to this heading"></a></h4>
 <p>To perform an Extract Expand operation, go to the <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenHKDFOpData</span></code> structure,
 and set <code class="docutils literal notranslate"><span class="pre">hkdfKeyOp</span></code> to <code class="docutils literal notranslate"><span class="pre">CPA_CY_HKDF_KEY_EXTRACT_EXPAND</span></code>.</p>
 <div class="admonition note">
@@ -1682,7 +1683,7 @@ seed, secret, and info tables.</p>
 </div>
 </section>
 <section id="hkdf-extract-expand-label-operation">
-<h4>HKDF Extract Expand Label Operation<a class="headerlink" href="#hkdf-extract-expand-label-operation" title="Permalink to this headline"></a></h4>
+<h4>HKDF Extract Expand Label Operation<a class="headerlink" href="#hkdf-extract-expand-label-operation" title="Permalink to this heading"></a></h4>
 <p>To perform an Extract, Expand Label operation:</p>
 <ol class="arabic simple">
 <li><p>Go to the <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenHKDFOpData</span></code> structure and set <code class="docutils literal notranslate"><span class="pre">hkdfKeyOp</span></code> to
@@ -1711,7 +1712,7 @@ sublabels.</p></li>
 </div>
 </section>
 <section id="hkdf-extract-expand-label-and-sublabels-operation">
-<h4>HKDF Extract Expand Label and Sublabels Operation<a class="headerlink" href="#hkdf-extract-expand-label-and-sublabels-operation" title="Permalink to this headline"></a></h4>
+<h4>HKDF Extract Expand Label and Sublabels Operation<a class="headerlink" href="#hkdf-extract-expand-label-and-sublabels-operation" title="Permalink to this heading"></a></h4>
 <p>To perform an Extract, Expand Label and Sublabels operation:</p>
 <ol class="arabic simple">
 <li><p>Go to the <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenHKDFOpData</span></code> structure and set <code class="docutils literal notranslate"><span class="pre">hkdfKeyOp</span></code> to
@@ -1743,7 +1744,7 @@ below to generate Key and IV sublabels.</p></li>
 </section>
 </section>
 <section id="perform-hkdf-operation">
-<h3>Perform HKDF Operation<a class="headerlink" href="#perform-hkdf-operation" title="Permalink to this headline"></a></h3>
+<h3>Perform HKDF Operation<a class="headerlink" href="#perform-hkdf-operation" title="Permalink to this heading"></a></h3>
 <p>The crypto instance must be specified in the <code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code> to execute the HKDF
 operation. When the operation is performed asynchronously, the callback function and
 callback tag should be set in the <code class="docutils literal notranslate"><span class="pre">pKeyGenCb</span></code> and <code class="docutils literal notranslate"><span class="pre">pCallbackTag</span></code> arguments.
@@ -1762,7 +1763,7 @@ performed, the buffer length should be adjusted. See below example.</p>
 </section>
 </section>
 <section id="using-the-diffie-hellman-api">
-<h2>Using the Diffie-Hellman API<a class="headerlink" href="#using-the-diffie-hellman-api" title="Permalink to this headline"></a></h2>
+<h2>Using the Diffie-Hellman API<a class="headerlink" href="#using-the-diffie-hellman-api" title="Permalink to this heading"></a></h2>
 <p>This example demonstrates the usage of the Diffie-Hellman API.</p>
 <p>These samples are located in <code class="docutils literal notranslate"><span class="pre">/asym/diffie_hellman_sample</span></code>.</p>
 <p>The following steps are carried out:</p>
@@ -1848,7 +1849,7 @@ defined earlier as a parameter. See below example.</p>
 </div>
 <p>Finally, clean up by freeing up memory, stopping the instance, etc.</p>
 <section id="prime-number-testing">
-<h3>Prime Number Testing<a class="headerlink" href="#prime-number-testing" title="Permalink to this headline"></a></h3>
+<h3>Prime Number Testing<a class="headerlink" href="#prime-number-testing" title="Permalink to this heading"></a></h3>
 <p>This example demonstrates the usage of the prime number testing API.</p>
 <p>These samples are located in <code class="docutils literal notranslate"><span class="pre">/asym/prime_sample</span></code>.</p>
 <p>The following steps are carried out:</p>
@@ -1894,7 +1895,7 @@ fields populated include the following:</p>
 </section>
 </section>
 <section id="using-the-sm2-api">
-<h2>Using the SM2 API<a class="headerlink" href="#using-the-sm2-api" title="Permalink to this headline"></a></h2>
+<h2>Using the SM2 API<a class="headerlink" href="#using-the-sm2-api" title="Permalink to this heading"></a></h2>
 <p>This example demonstrates the usage of the SM2 API.</p>
 <p>The following steps are carried out:</p>
 <ul class="simple">
@@ -1906,7 +1907,7 @@ symmetric examples above.</p></li>
 multiplication/verify.</p></li>
 </ul>
 <section id="sm2-digital-signature-generation-and-verification">
-<h3>SM2 Digital Signature Generation and Verification<a class="headerlink" href="#sm2-digital-signature-generation-and-verification" title="Permalink to this headline"></a></h3>
+<h3>SM2 Digital Signature Generation and Verification<a class="headerlink" href="#sm2-digital-signature-generation-and-verification" title="Permalink to this heading"></a></h3>
 <p>This operation is to sign a given message and output its digital signature (r,s) then
 verify (r,s).</p>
 <p>The function <code class="docutils literal notranslate"><span class="pre">sampleEcsm2SignPerformOp</span></code> provisions parts of the example
@@ -1961,7 +1962,7 @@ of public key.</p></li>
 </div>
 </section>
 <section id="sm2-public-key-encryption">
-<h3>SM2 Public Key Encryption<a class="headerlink" href="#sm2-public-key-encryption" title="Permalink to this headline"></a></h3>
+<h3>SM2 Public Key Encryption<a class="headerlink" href="#sm2-public-key-encryption" title="Permalink to this heading"></a></h3>
 <p>This operation is to encrypt a given message then decrypt the cipher and compare to
 the given message.</p>
 <p>The function <code class="docutils literal notranslate"><span class="pre">sampleEcsm2EncPerformOp</span></code> provisions parts of the example
@@ -2025,7 +2026,7 @@ implementation, which does the following:</p>
 </div>
 </section>
 <section id="sm2-key-exchange">
-<h3>SM2 Key Exchange<a class="headerlink" href="#sm2-key-exchange" title="Permalink to this headline"></a></h3>
+<h3>SM2 Key Exchange<a class="headerlink" href="#sm2-key-exchange" title="Permalink to this heading"></a></h3>
 <p>This operation is to exchange key between the <em>A</em> side and <em>B</em> side, and check if the shared
 keys are the same.</p>
 <p>The function <code class="docutils literal notranslate"><span class="pre">sampleEcsm2KeyExPerformOp</span></code> provisions parts of the example
@@ -2120,7 +2121,7 @@ separately.</p></li>
 </div>
 </section>
 <section id="sm2-elliptic-curve-point">
-<h3>SM2 Elliptic Curve Point<a class="headerlink" href="#sm2-elliptic-curve-point" title="Permalink to this headline"></a></h3>
+<h3>SM2 Elliptic Curve Point<a class="headerlink" href="#sm2-elliptic-curve-point" title="Permalink to this heading"></a></h3>
 <p>This operation is to calculate a point on the curve according to a given random
 number and verify if the point <em>(x,y)</em> is on the curve or not.</p>
 <p>The function <code class="docutils literal notranslate"><span class="pre">sampleEcsm2PointMultiply</span></code> provisions parts of the example
