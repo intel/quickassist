@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sample Applications &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
+    <link rel="prev" title="Software Installation" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Getting Started Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="systemconfiguration.html">System Configuration</a></li>
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Software Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sample Applications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#performance-sample-code">Performance Sample Code</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#compiling-the-performance-sample-code">Compiling the Performance Sample Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#default-configuration-files">Default Configuration Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#loading-the-sample-code-application">Loading the Sample Code Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sample-code-parameters">Sample Code Parameters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#test-results">Test Results</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-sample-code-demo">Performance Sample Code Demo</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#functional-sample-applications">Functional Sample Applications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#compiling-the-acceleration-functional-sample-code">Compiling the Acceleration Functional Sample Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executing-the-acceleration-functional-sample-code-in-user-space">Executing the Acceleration Functional Sample Code in <em>User Space</em></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Getting Started Guide</a></li>
+      <li class="breadcrumb-item active">Sample Applications</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sample-applications">
+<span id="qat-2-0-gsg-sampleapplications"></span><h1>Sample Applications<a class="headerlink" href="#sample-applications" title="Permalink to this heading"></a></h1>
+<p>The software package contains a performance sample as well as functional sample applications. This section describes the steps
+required to build and execute these applications.</p>
+<section id="performance-sample-code">
+<h2>Performance Sample Code<a class="headerlink" href="#performance-sample-code" title="Permalink to this heading"></a></h2>
+<p>The sample application is provided for the user space.</p>
+<section id="compiling-the-performance-sample-code">
+<h3>Compiling the Performance Sample Code<a class="headerlink" href="#compiling-the-performance-sample-code" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>These instructions assume the software package was untarred in the <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT</span></code> directory.</p></li>
+<li><p>For details on running user space applications as non-root user refer to the section <a class="reference internal" href="installation.html#running-applications-as-non-root"><span class="std std-ref">Running Applications as Non-Root User</span></a>.</p></li>
+</ul>
+</div>
+<ol class="arabic">
+<li><p><strong>Open</strong> a terminal window and <strong>switch</strong> to superuser. Provide root password when prompted.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">su</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Switch</strong> to the <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT</span></code> directory and <strong>compile</strong> the installation samples.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $ICP_ROOT</span>
+<span class="go">make samples-install</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>This compiles the acceleration sample code for <em>user space</em>. It also compiles the memory mapping driver used with the
+user space application.</p>
+</section>
+<section id="default-configuration-files">
+<span id="default-configuration"></span><h3>Default Configuration Files<a class="headerlink" href="#default-configuration-files" title="Permalink to this heading"></a></h3>
+<p>By default, the QAT configuration files enable asymmetric crypto and data compression services. If symmetric crypto is
+desired, the service must be enabled in the QAT configuration file. The QAT configuration files are included in <code class="docutils literal notranslate"><span class="pre">/etc</span></code> folder and are
+named <code class="docutils literal notranslate"><span class="pre">4xxx_dev&lt;x&gt;.conf</span></code> where <code class="docutils literal notranslate"><span class="pre">x</span></code> is the device number.</p>
+<p>In this file, <strong>replace</strong> the line:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ServicesEnabled = asym;dc
+</pre></div>
+</div>
+<p>With:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ServicesEnabled = sym;dc
+</pre></div>
+</div>
+<section id="default-configuration-demo">
+<h4>Default Configuration Demo<a class="headerlink" href="#default-configuration-demo" title="Permalink to this heading"></a></h4>
+<p>Here is a demonstration of how to enable the asymmetric crypto service in the default configuration files.</p>
+<video controls="True" height="300" preload="auto" width="500"><source src="../../_static/video/gsg/defaultconfiguration.mp4" type="video/mp4"></video><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="loading-the-sample-code-application">
+<h3>Loading the Sample Code Application<a class="headerlink" href="#loading-the-sample-code-application" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In <em>user space</em>, before launching the <code class="docutils literal notranslate"><span class="pre">cpa_sample_code</span></code> application, the environmental variable <code class="docutils literal notranslate"><span class="pre">LD_LIBRARY_PATH</span></code> may need to be set to the path where <code class="docutils literal notranslate"><span class="pre">libqat_s.so</span></code> is located. This may be <code class="docutils literal notranslate"><span class="pre">/usr/local/lib</span></code> or <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build</span></code>.</p>
+</div>
+<p>The acceleration kernel module must be installed and the software must be started before attempting to execute the sample code.
+This can be verified by running the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lsmod | grep &quot;qa&quot;</span>
+<span class="go">service qat_service status</span>
+</pre></div>
+</div>
+<p>Typical output is similar to the following:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>$ lsmod | grep &quot;qa&quot;
+qat_4xxx               61440  0
+intel_qat             401408  2 qat_4xxx,usdm_drv
+uio                    20480  1 intel_qat
+irqbypass              16384  4 intel_qat,vfio_pci_core,idxd_mdev,kvm
+
+$ service qat_service status
+Checking status of all devices.
+There is 8 QAT acceleration device(s) in the system:
+qat_dev0 - type: 4xxx,  inst_id: 0,  node_id: 0,  bsf: 0000:6b:00.0,  #accel: 1 #engines: 9 state: up
+qat_dev1 - type: 4xxx,  inst_id: 1,  node_id: 0,  bsf: 0000:70:00.0,  #accel: 1 #engines: 9 state: up
+qat_dev2 - type: 4xxx,  inst_id: 2,  node_id: 0,  bsf: 0000:75:00.0,  #accel: 1 #engines: 9 state: up
+qat_dev3 - type: 4xxx,  inst_id: 3,  node_id: 0,  bsf: 0000:7a:00.0,  #accel: 1 #engines: 9 state: up
+qat_dev4 - type: 4xxx,  inst_id: 4,  node_id: 1,  bsf: 0000:e8:00.0,  #accel: 1 #engines: 9 state: up
+qat_dev5 - type: 4xxx,  inst_id: 5,  node_id: 1,  bsf: 0000:ed:00.0,  #accel: 1 #engines: 9 state: up
+qat_dev6 - type: 4xxx,  inst_id: 6,  node_id: 1,  bsf: 0000:f2:00.0,  #accel: 1 #engines: 9 state: up
+qat_dev7 - type: 4xxx,  inst_id: 7,  node_id: 1,  bsf: 0000:f7:00.0,  #accel: 1 #engines: 9 state: up
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the modules are not returned from the first command, refer to the <a class="reference internal" href="installation.html#qat-2-0-gsg-install-software"><span class="std std-ref">installation instructions</span></a> for additional information on starting the acceleration software.</p>
+</div>
+<p>In <em>user space</em>, the sample code is executed with the command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./build/cpa_sample_code</span>
+</pre></div>
+</div>
+</section>
+<section id="sample-code-parameters">
+<span id="qat-2-0-gsg-sample-code-parameters"></span><h3>Sample Code Parameters<a class="headerlink" href="#sample-code-parameters" title="Permalink to this heading"></a></h3>
+<p>The application allows the run-time parameters listed below:</p>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Sample Code Parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cyNumBuffers=w</span></code></p></td>
+<td><p>Number of buffers submitted for each iteration. (default=20)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">cySymLoops=x</span></code></p></td>
+<td><p>Number of iterations of all symmetric code tests. (default= 5000)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cyAsymLoops=y</span></code></p></td>
+<td><p>Number of iterations of all asymmetric code tests. (default=5000)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=1</span></code></p></td>
+<td><p>Run symmetric code tests.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=2</span></code></p></td>
+<td><p>Run RSA test code.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=4</span></code></p></td>
+<td><p>Run DSA test code.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=8</span></code></p></td>
+<td><p>Run ECDSA test code.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=16</span></code></p></td>
+<td><p>Run Diffie-Hellman code tests.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=32</span></code></p></td>
+<td><p>Run compression code tests.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=63</span></code></p></td>
+<td><p>Run all tests except the chained hash and compression tests. (default)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=128</span></code></p></td>
+<td><p>Run chained hash and compression test code.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runStateful=1</span></code></p></td>
+<td><p>Enable stateful compression tests. Applies when compression code tests are run.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">signOfLife=1</span></code></p></td>
+<td><p>Indicates shorter test run that verifies the acceleration software is working.
+This parameter executes a subset of sample tests. Details are included in
+<a class="reference internal" href="#qat-2-0-gsg-signoflife-test-parameter"><span class="std std-ref">signOfLife Test Parameter</span></a>. (default=0)</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">getLatency=1</span></code></p></td>
+<td><p>Measures the processing time for the request being processed. Requires
+<code class="docutils literal notranslate"><span class="pre">NumberCyInstances=1</span></code> and <code class="docutils literal notranslate"><span class="pre">NumberDcInstances=1</span></code> to be configured in
+<code class="docutils literal notranslate"><span class="pre">[SSL]</span></code> section of the driver configuration file.</p>
+<p>Performance sample code needs to be compiled with flag to enable latency
+measurements.</p>
+<p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">samples-install</span> <span class="pre">LATENCY_CODE=1</span></code></p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">getOffloadCost=1</span></code></p></td>
+<td><p>Measures the average number of cycles spent for single request offloading.
+Requires <code class="docutils literal notranslate"><span class="pre">NumberCyInstances=1</span></code> and <code class="docutils literal notranslate"><span class="pre">NumberDcInstances=1</span></code> to be configured in
+<code class="docutils literal notranslate"><span class="pre">[SSL]</span></code> section of the driver configuration file.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">includeLZ4=1</span></code></p></td>
+<td><p>Include LZ4 compression tests. Applies when compression code tests are run.</p></td>
+</tr>
+</tbody>
+</table>
+<section id="signoflife-test-parameter">
+<span id="qat-2-0-gsg-signoflife-test-parameter"></span><h4>signOfLife Test Parameter<a class="headerlink" href="#signoflife-test-parameter" title="Permalink to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">signOfLife</span></code> parameter is used to specify that a subset of the sample tests are executed with smaller iteration counts.
+This provides a quick test to verify the acceleration software and hardware are set up correctly.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the <code class="docutils literal notranslate"><span class="pre">signOfLife</span></code> parameter is not specified, the full run of tests can take a significant amount of time to complete.</p>
+</div>
+</section>
+<section id="user-space">
+<h4>User Space<a class="headerlink" href="#user-space" title="Permalink to this heading"></a></h4>
+<p>After building the sample code with the installation script, the user space application is located at <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build</span></code>.</p>
+<p>Then run the following commands:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $ICP_ROOT/build/</span>
+<span class="go">export LD_LIBRARY_PATH=`pwd\`</span>
+<span class="go">./cpa_sample_code signOfLife=1</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="test-results">
+<h3>Test Results<a class="headerlink" href="#test-results" title="Permalink to this heading"></a></h3>
+<p>When running the application, the results are printed to the terminal window in which the application is launched.</p>
+<p>Here is an example of the log messages created during the test:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Algorithm Chaining - AES256-CBC HMAC-SHA512 Number of threads 2
+Total Submissions 20
+Total Responses 20
+Packet Size 512
+</pre></div>
+</div>
+<p>A similar pattern is repeated for each of the tests.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>During asymmetric crypto tests, warning messages similar to the following may be observed:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>ECDSA Warning! SYMMETRIC operation is not supported on Instance. Using calcSWDigest instead.
+</pre></div>
+</div>
+<p>These warning messages can be safely ignored. The test itself is working as designed.</p>
+</div>
+</section>
+<section id="performance-sample-code-demo">
+<h3>Performance Sample Code Demo<a class="headerlink" href="#performance-sample-code-demo" title="Permalink to this heading"></a></h3>
+<p>Here is a demonstration of the performance sample code running.</p>
+<video controls="True" height="300" preload="auto" width="500"><source src="../../_static/video/gsg/cpa_sample_code.mp4" type="video/mp4"></video><div class="line-block">
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="functional-sample-applications">
+<h2>Functional Sample Applications<a class="headerlink" href="#functional-sample-applications" title="Permalink to this heading"></a></h2>
+<p>The software package contains sample code that demonstrates how to use the Intel<sup>®</sup> QuickAssist Technology APIs and build the structures required for various use cases.</p>
+<p>For more details, refer to the Intel<sup>®</sup> QuickAssist Technology API Programmer’s Guide.</p>
+<section id="compiling-the-acceleration-functional-sample-code">
+<h3>Compiling the Acceleration Functional Sample Code<a class="headerlink" href="#compiling-the-acceleration-functional-sample-code" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These instructions assume the software package has been untarred to the <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT</span></code> directory.</p>
+</div>
+<p>The acceleration functional sample code can be compiled manually.</p>
+<ol class="arabic">
+<li><p><strong>Compile</strong> for the user space using the following commands:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $ICP_ROOT/quickassist/lookaside/access_layer/src/sample_code/functional</span>
+<span class="go">make all</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<p>The generated sample applications are located at: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/lookaside/access_layer/src/sample_code/functional/build</span></code></p>
+</section>
+<section id="executing-the-acceleration-functional-sample-code-in-user-space">
+<h3>Executing the Acceleration Functional Sample Code in <em>User Space</em><a class="headerlink" href="#executing-the-acceleration-functional-sample-code-in-user-space" title="Permalink to this heading"></a></h3>
+<ol class="arabic">
+<li><p>To execute the acceleration functional sample code in user space, <strong>use</strong> a command similar to the following:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $ICP_ROOT/quickassist/lookaside/access_layer/src/sample_code/functional/build</span>
+<span class="go">./hash_file_sample</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">hash_file_sample</span></code> is one of the functional user space applications. You can launch the other user space applications in a similar fashion.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Software Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
