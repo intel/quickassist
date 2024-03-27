@@ -1,0 +1,87 @@
+#!/usr/bin/env python
+import time
+import curses
+import os
+import glob
+
+# Use glob to find telemetry directories without using shell
+def find_telemetry_directories():
+    return sorted(glob.glob('/sys/kernel/debug/qat_4xxx_*/telemetry'))
+
+# Enable Telemetry for QAT endpoints
+def enable_telemetry(devices):
+    for device in devices:
+        control_file_name = os.path.join(device, "control")
+        try:
+            with open(control_file_name, 'r') as control_file:
+                output = control_file.read().strip()
+            if output == "0":
+                with open(control_file_name, 'w') as control_file:
+                    control_file.write("1")
+        except IOError as e:
+            print(f"Error: {e}")
+            break
+
+def parse_device_data(device):
+    device_data_file = os.path.join(device, "device_data")
+    try:
+        with open(device_data_file, 'r') as data_file:
+            output = dict(item.split() for item in data_file.read().splitlines())
+    except IOError as e:
+        print(f"Error: {e}")
+        return {}
+    return output
+
+def calculate_utilization(values):
+    if values:
+        avg = sum(map(int, values)) / len(values)
+        return str(int(round(avg)))  # Round the average and convert to an integer, then to a string
+    return "N/A"
+
+def pbar(window, devices):
+    refresh_counter = 0
+    while True:
+        try:
+            refresh_counter += 1
+            window.clear()
+            window.addstr(0, 10, "Intel(R) QuickAssist Device Utilization")
+            window.addstr(2, 10, "Device\t%Comp\t%Decomp\t%PKE\t%Cipher\t%Auth\t%UCS\tLatency(ns)")
+            window.addstr(3, 10, "=========================================================================")
+
+            for count, device in enumerate(devices):
+                output = parse_device_data(device)
+                if not output:
+                    continue
+
+                latency = output.get("rd_lat_acc_avg", "N/A")
+                compression = str(int(output.get("util_cpr0", "0")))
+                decompression_values = [output.get(f"util_dcpr{i}", "0") for i in range(3)]
+                pke_values = [output.get(f"util_pke{i}", "0") for i in range(6)]
+                cph_values = [output.get(f"util_cph{i}", "0") for i in range(4)]
+                auth_values = [output.get(f"util_ath{i}", "0") for i in range(4)]
+                ucs_values = [output.get(f"util_ucs{i}", "0") for i in range(2)]
+
+                decompression_utilization = calculate_utilization(decompression_values)
+                pke_utilization = calculate_utilization(pke_values)
+                cph_utilization = calculate_utilization(cph_values)
+                ath_utilization = calculate_utilization(auth_values)
+                ucs_utilization = calculate_utilization(ucs_values)
+
+                window.addstr(4+count, 10, f"4xxx_dev{count}\t{compression}\t{decompression_utilization}\t{pke_utilization}\t{cph_utilization}\t{ath_utilization}\t{ucs_utilization}\t{latency}")
+
+            window.addstr(4+len(devices), 10, "=========================================================================")
+            window.refresh()
+            time.sleep(2)
+            if refresh_counter % 5 == 0:
+                devices = find_telemetry_directories()
+                enable_telemetry(devices)
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            break
+
+if __name__ == "__main__":
+    devices = find_telemetry_directories()
+    enable_telemetry(devices)
+    curses.wrapper(pbar, devices)

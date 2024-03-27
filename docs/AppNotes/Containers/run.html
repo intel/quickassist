@@ -135,6 +135,17 @@
 </div></blockquote>
 <p>Refer to <a class="reference external" href="https://docs.docker.com/engine/reference/run/#runtime-privilege-and-linux-capabilities">*docker* docs</a> for additional information.</p>
 </section>
+<section id="qat-policy-recommended">
+<h3>QAT_POLICY (RECOMMENDED)<a class="headerlink" href="#qat-policy-recommended" title="Permalink to this heading"></a></h3>
+<p>It is important to specify the QAT_POLICY for the container.  This affects how resources are allocated.
+For most configurations, setting QAT_POLICY to <strong>1</strong> is appropriate.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">--env QAT_POLICY=1</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Refer to <a class="reference internal" href="../../qatlib/configuration.html#qat-2-0-qatlib-policy-setting"><span class="std std-ref">QATlib User’s Guide</span></a> for additional details on POLICY settings.</p>
+</section>
 <section id="security-configuration-optional">
 <h3>Security Configuration (OPTIONAL)<a class="headerlink" href="#security-configuration-optional" title="Permalink to this heading"></a></h3>
 <p>Security options for the container is set using the <code class="docutils literal notranslate"><span class="pre">--security-opt</span></code> parameter.</p>
@@ -225,6 +236,10 @@ VFIO GROUP    | NODE  | PF BDF       | VF BDF       | SERVICES
 </div></blockquote>
 <p>The answer to these questions will depend on resources available and performance targets for individual container images.</p>
 <p>As we can see setting this up can be quite complex. This complexity can be mitigated by using orchestration software that hides the complexity of assigning QAT resources to the container image.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When providing subset of available VFIO device IDs to container, it is very important to include QAT_POLICY command line parameter when launching the container.</p>
+</div>
 <p>Refer to <a class="reference internal" href="orchestration.html#qat-2-0-containers-orchestration"><span class="std std-ref">Orchestration Software</span></a> for additional information.</p>
 </section>
 <section id="tuning-parameters">

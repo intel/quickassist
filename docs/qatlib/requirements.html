@@ -83,6 +83,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html">Migrating Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
@@ -239,7 +240,7 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </div></blockquote>
 </section>
 <section id="firmware">
-<h2>Firmware<a class="headerlink" href="#firmware" title="Permalink to this heading"></a></h2>
+<span id="qat2-0-qatlib-userguide-firmware"></span><h2>Firmware<a class="headerlink" href="#firmware" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This step is required when running on host system. It does not apply when running in a virtual machine as the firmware is loaded on the host.</p>
@@ -279,6 +280,17 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dracut --force</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>dracut</strong> is not used on some distributions such as Ubuntu. The following steps can be ran instead.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">update</span><span class="o">-</span><span class="n">initramfs</span><span class="w"> </span><span class="o">-</span><span class="n">u</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">rmmod</span><span class="w"> </span><span class="n">qat_4xxx</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">rmmod</span><span class="w"> </span><span class="n">intel_qat</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">modprobe</span><span class="w"> </span><span class="n">intel_qat</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">modprobe</span><span class="w"> </span><span class="n">qat_4xxx</span>
+</pre></div>
+</div>
 </div>
 </div></blockquote>
 </li>
@@ -373,10 +385,7 @@ Try upgrading the kernel version to 5.19+.</p>
 </div></blockquote>
 <p>You should see an output similar to the following:</p>
 <blockquote>
-<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Kernel driver in use: vfio_pci
-Kernel driver in use: vfio_pci
-Kernel driver in use: vfio_pci
-Kernel driver in use: vfio_pci
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use: vfio-pci Kernel driver in use:
 </pre></div>
 </div>
 </div></blockquote>
@@ -406,7 +415,7 @@ Kernel driver in use: vfio_pci
 <li><p><strong>Update</strong> the <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> line by adding <code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code>.</p></li>
 <li><p><strong>Load</strong> the changes done.</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo grub2-mkconfig -o /etc/grub2-efi.cfg</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo update-grub</span>
 </pre></div>
 </div>
 </div></blockquote>

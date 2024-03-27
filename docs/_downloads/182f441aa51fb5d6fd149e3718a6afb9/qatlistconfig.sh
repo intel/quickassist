@@ -8,6 +8,9 @@ for vfio_group in /dev/vfio/*; do
     if [ $vfio_group = "/dev/vfio/vfio" ]; then
         continue
     fi
+    if [ $vfio_group = "/dev/vfio/devices" ]; then
+        continue
+    fi
 
     group=${vfio_group##*/}
     # assume one bdf per iommu group

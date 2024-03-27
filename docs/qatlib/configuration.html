@@ -70,6 +70,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#policy">Policy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#services-enabled">Services Enabled</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#example-configurations">Example Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat-script">qat script</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#standalone-mode">Standalone Mode</a><ul>
@@ -81,6 +82,7 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html">Migrating Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
@@ -131,7 +133,7 @@ application’s workload which might work in two modes:</p>
 each process on process startup.</p>
 <p>The following parameters can be set in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code>.</p>
 <section id="policy">
-<h3>Policy<a class="headerlink" href="#policy" title="Permalink to this heading"></a></h3>
+<span id="qat-2-0-qatlib-policy-setting"></span><h3>Policy<a class="headerlink" href="#policy" title="Permalink to this heading"></a></h3>
 <p>Indicates how many VFs will be assigned to each process. The maximum value allowed for POLICY is 256.
 In practice this value must not exceed number of QAT PFs * 16.</p>
 <table class="longtable colwidths-given docutils align-default" id="id1">
@@ -165,13 +167,13 @@ a PF enable the same services. There is a maximum of two services that can be en
 on each PF.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Newer QAT Kernel modules include support for the following configuration options. Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a>
-section of the In-Tree Release Notes for details.</p>
+<p>Newer QAT Kernel modules include support for the following configuration options.</p>
+<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a> section of the In-Tree Release Notes for details.</p>
 </div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> configuration requires Linux kernel v6.0
-or later and applies to all PFs on the platform.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Newer QAT Kernel modules include support for the following configuration options.</p>
+<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a> section of the In-Tree Release Notes for details.</p>
 </div>
 <table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Services Enabled Settings</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
@@ -238,10 +240,6 @@ setting when chaining is needed.</p>
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>All other combinations of services are currently not supported.</p>
-</div>
 <section id="performance-considerations">
 <h4>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this heading"></a></h4>
 <div class="admonition important">
@@ -412,6 +410,136 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 <p>A system with <em>N</em> sockets will have 64 x N processes in total.</p>
 </section>
 </section>
+<section id="qat-script">
+<span id="qat-2-0-qatlib-qat-script"></span><h3>qat script<a class="headerlink" href="#qat-script" title="Permalink to this heading"></a></h3>
+<p>This <strong>qat</strong> script can be used to control qatlib stack when running in <strong>Managed</strong> mode.</p>
+<p>The following command line options are supported:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qat -h</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">optional arguments:</span>
+<span class="go">-h, --help                  show this help message and exit</span>
+<span class="go">--config, -c                Configure QAT driver (Note: Specify mode/policy or default option will be used)</span>
+<span class="go">--reload, -r                Reload QAT driver without any configuration change</span>
+<span class="go">--status, -s                Print current QAT configuration for each VF</span>
+<span class="go">--mode MODE, -m MODE        Valid options are 1 to 7: 1-&gt;sym;asym | 2-&gt;dc | 3-&gt;sym | 4-&gt;asym | 5-&gt;asym;dc | 6-&gt;sym;dc | 7-&gt;dcc</span>
+<span class="go">--policy POLICY, -p POLICY  Specify QAT config POLICY value to set</span>
+<span class="go">--version, -v               Print version</span>
+</pre></div>
+</div>
+</div></blockquote>
+<section id="supported-operations">
+<h4>Supported Operations<a class="headerlink" href="#supported-operations" title="Permalink to this heading"></a></h4>
+<ul>
+<li><p>Display Current Configuration</p>
+<blockquote>
+<div><p>We can display current configuration with the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qat --status</span>
+</pre></div>
+</div>
+<p>Output will look like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">+-----+---------------+------+--------------+--------------+----------+</span>
+<span class="go">|  #  |   VFIO GROUP  | NODE |    PF BDF    |    VF BDF    | SERVICES |</span>
+<span class="go">+-----+---------------+------+--------------+--------------+----------+</span>
+<span class="go">|  1  | /dev/vfio/419 |  0   | 0000:6b:00.0 | 0000:6b:00.1 | sym;asym |</span>
+<span class="go">|  2  | /dev/vfio/420 |  0   | 0000:6b:00.0 | 0000:6b:00.2 | sym;asym |</span>
+<span class="go">|  3  | /dev/vfio/421 |  0   | 0000:6b:00.0 | 0000:6b:00.3 | sym;asym |</span>
+<span class="go">|  4  | /dev/vfio/422 |  0   | 0000:6b:00.0 | 0000:6b:00.4 | sym;asym |</span>
+<span class="go">|  5  | /dev/vfio/423 |  0   | 0000:6b:00.0 | 0000:6b:00.5 | sym;asym |</span>
+<span class="go">|  6  | /dev/vfio/424 |  0   | 0000:6b:00.0 | 0000:6b:00.6 | sym;asym |</span>
+<span class="go">|  7  | /dev/vfio/425 |  0   | 0000:6b:00.0 | 0000:6b:00.7 | sym;asym |</span>
+<span class="go">|  8  | /dev/vfio/426 |  0   | 0000:6b:00.0 | 0000:6b:01.0 | sym;asym |</span>
+<span class="go">|  9  | /dev/vfio/427 |  0   | 0000:6b:00.0 | 0000:6b:01.1 | sym;asym |</span>
+<span class="go">|  10 | /dev/vfio/428 |  0   | 0000:6b:00.0 | 0000:6b:01.2 | sym;asym |</span>
+<span class="go">|  11 | /dev/vfio/429 |  0   | 0000:6b:00.0 | 0000:6b:01.3 | sym;asym |</span>
+<span class="go">|  12 | /dev/vfio/430 |  0   | 0000:6b:00.0 | 0000:6b:01.4 | sym;asym |</span>
+<span class="go">|  13 | /dev/vfio/431 |  0   | 0000:6b:00.0 | 0000:6b:01.5 | sym;asym |</span>
+<span class="go">|  14 | /dev/vfio/432 |  0   | 0000:6b:00.0 | 0000:6b:01.6 | sym;asym |</span>
+<span class="go">|  15 | /dev/vfio/433 |  0   | 0000:6b:00.0 | 0000:6b:01.7 | sym;asym |</span>
+<span class="go">|  16 | /dev/vfio/434 |  0   | 0000:6b:00.0 | 0000:6b:02.0 | sym;asym |</span>
+<span class="go">|  17 | /dev/vfio/435 |  0   | 0000:70:00.0 | 0000:70:00.1 |    dc    |</span>
+<span class="go">|  18 | /dev/vfio/436 |  0   | 0000:70:00.0 | 0000:70:00.2 |    dc    |</span>
+<span class="go">|  19 | /dev/vfio/437 |  0   | 0000:70:00.0 | 0000:70:00.3 |    dc    |</span>
+<span class="go">|  20 | /dev/vfio/438 |  0   | 0000:70:00.0 | 0000:70:00.4 |    dc    |</span>
+</pre></div>
+</div>
+<p>Information includes:</p>
+<ul class="simple">
+<li><p>VFIO Group: This information is required when passing QAT resources to container</p></li>
+<li><p>NODE:  Which processor node the QAT resource comes from</p></li>
+<li><p>PF BDF: Bus/device/function of QAT PF</p></li>
+<li><p>VF BDF: Bus/device/function of QAT VF</p></li>
+<li><p>SERVICES:  Current services that are enabled on device</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>Update Configuration</p>
+<blockquote>
+<div><p>We can update configuration using command similar to the following:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qat --config --policy 1 --mode 5</span>
+</pre></div>
+</div>
+<p>In the example above we update the policy setting to <strong>1</strong> and mode to <strong>asym;dc</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If <code class="docutils literal notranslate"><span class="pre">--policy</span></code> or <code class="docutils literal notranslate"><span class="pre">--mode</span></code> is not specified, the default values are used.</p>
+</div>
+<p>This script will update the <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> file and restart QAT kernel modules.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Older QAT kernel modules and user space library may not support all mode settings included here.</p>
+<p>This script includes logic to detect these issues and provide guidance.</p>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</section>
+<section id="requirements-for-running-script">
+<h4>Requirements for running script<a class="headerlink" href="#requirements-for-running-script" title="Permalink to this heading"></a></h4>
+<ol class="arabic">
+<li><p>Install Dependencies</p>
+<blockquote>
+<div><p>For RPM-based distros:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y python3</span>
+<span class="go">sudo dnf install -y python3-venv</span>
+<span class="go">sudo dnf install -y python-is-python3</span>
+<span class="go">sudo dnf install -y python3-pip</span>
+</pre></div>
+</div>
+<p>For Ubuntu and other Debian-based distros, install these dependencies:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install -y python3</span>
+<span class="go">sudo apt-get install -y python3-venv</span>
+<span class="go">sudo apt-get install -y python-is-python3</span>
+<span class="go">sudo apt-get install -y python3-pip</span>
+<span class="go">sudo apt-get install -y python3-packaging</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Setup Virtual Environment Install Python packages</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">python -m venv myenv</span>
+<span class="go">source ~/myenv/bin/activate</span>
+<span class="go">pip install prettytable</span>
+<span class="go">deactivate</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p>Copy script to system directory</p>
+<blockquote>
+<div><p>This script is available <a class="reference download internal" download="" href="../_downloads/74bdfa2cd6bb4987b51a4f550d8f26ba/qat"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a>.</p>
+<p>After copying to local directory, this can be moved to system directory.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">mv ./qat /usr/bin</span>
+<span class="go">sudo chmod 755 /usr/bin/qat</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</section>
+</section>
 </section>
 <section id="standalone-mode">
 <span id="qat-2-0-qatlib-standalone-mode"></span><h2>Standalone Mode<a class="headerlink" href="#standalone-mode" title="Permalink to this heading"></a></h2>
@@ -502,6 +630,13 @@ be performed in this usage.</p>
 </section>
 <section id="display-current-configuration">
 <span id="qat-2-0-qatlib-configuration-script"></span><h2>Display Current Configuration<a class="headerlink" href="#display-current-configuration" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This functionality is also available in the <strong>qat</strong> script described in this <a class="reference internal" href="#qat-2-0-qatlib-qat-script"><span class="std std-ref">section</span></a>.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#qat-2-0-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a> (without the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service).</p></li>
+</ul>
+</div>
 <p>The <a class="reference download internal" download="" href="../_downloads/182f441aa51fb5d6fd149e3718a6afb9/qatlistconfig.sh"><code class="xref download docutils literal notranslate"><span class="pre">script</span></code></a> below can be used to view the PF/VF service configuration.</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
@@ -512,6 +647,9 @@ be performed in this usage.</p>
 
 <span class="k">for</span><span class="w"> </span>vfio_group<span class="w"> </span><span class="k">in</span><span class="w"> </span>/dev/vfio/*<span class="p">;</span><span class="w"> </span><span class="k">do</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$vfio_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/dev/vfio/vfio&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">        </span><span class="k">continue</span>
+<span class="w">    </span><span class="k">fi</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="nv">$vfio_group</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;/dev/vfio/devices&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="k">continue</span>
 <span class="w">    </span><span class="k">fi</span>
 
