@@ -1,0 +1,257 @@
+#!/usr/bin/env python
+'''
+Brief:
+    qat - Facilitates QAT in-tree driver configuration
+
+----------------------------------------------------------------------------
+2023.10.13        padillar - Initial Creation
+2024.02.02        padillar - Add support for all driver configs
+----------------------------------------------------------------------------
+'''
+
+import os
+import subprocess
+import argparse
+import time
+import warnings
+# If pip command fails, check your proxy settings or manually run pip command with --proxy option
+try:
+    from prettytable import PrettyTable
+except ModuleNotFoundError:
+    os.system("python -m pip install prettytable")
+    from prettytable import PrettyTable
+    pass
+try:
+    from packaging import version
+except ModuleNotFoundError:
+    os.system("python -m pip install packaging")
+    from packaging import version
+    pass
+
+
+VERSION = '1.0.1'
+INTEL_VENDOR = '0x8086'
+QAT_PF_DEVICE_ID_LIST = ["0x4940", "0x4942", "0x4944", "0x4946"]
+QAT_VF_DEVICE_ID_LIST = ["0x4941", "0x4943", "0x4945", "0x4947"]
+TABLE_HEADERS = ["#", "VFIO GROUP", "NODE", "PF BDF", "VF BDF", "SERVICES"]
+QAT_CONFIG_FILE = "/etc/sysconfig/qat"
+TEMP_CONFIG_FILE = "/tmp/qat"
+QAT_SERVICES = {
+    "1": ["sym;asym", "All PFs, and so all VFs, have sym;asym only."],
+    "2": ["dc", "The device is configured for running compression services only."],
+    "3": ["sym", "The device is configured for running symmetric crypto services only."],
+    "4": ["asym", "The device is configured for running asymmetric crypto services only."],
+    "5": ["asym;dc", "The device is configured for running asymmetric crypto services and compression services."],
+    "6": ["sym;dc", "The device is configured for running symmetric crypto services and compression services."],
+    "7": ["dcc", "The device is configured for running chaining operations (hash then compress) only. Note: Throughput is lower than dc. Only use setting when chaining is needed."]
+}
+
+
+def run_cmd(cmd, verbose=False, timeout=60):
+    try:
+        process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                    universal_newlines=True)
+        output, _ = process.communicate(timeout=int(timeout))
+    except subprocess.TimeoutExpired as e:
+        process.kill()
+    if process.returncode == 0:
+        result = output
+        if "is not supported" in result:
+            print("{}\n".format(result))
+            support_url = 'https://intel.github.io/quickassist/RN/In-Tree/in_tree_firmware_RN.html#qat-kernel-driver-releases-features'
+            print("ERROR: Selected mode is not supported. You may need to update your kernel driver.  See QAT kernel release notes. \n{}".format(support_url))
+            result = False
+        elif verbose: print("{}".format(result))
+    else:
+        print("ERROR: {}".format(cmd))
+        result = False
+    return result
+
+
+# Check qatmgr minimum version is met
+def check_qatmgr():
+    result = False
+    qatmgr_min_ver = "23.08"
+    cmd_out = run_cmd("qatmgr --v")
+    if cmd_out:
+        cmd_out = cmd_out.rstrip()
+        print("Checking qatmgr version --> {}".format(cmd_out))
+        out_list = cmd_out.split()
+        pkg_name = out_list[0]
+        pkg_ver = out_list[1]
+        if "qatmgr" in pkg_name:
+            if version.parse(pkg_ver) < version.parse(qatmgr_min_ver):
+                print("ERROR: qatmgr version found {}, needs to be at least {}".format(pkg_ver, qatmgr_min_ver))
+                print("Please update to qatlib 23.08 or newer.")
+            else:
+                result = True
+    else:
+        print("ERROR: Please make sure you have installed qatlib 23.08 or newer.")
+    return result
+
+
+# Update QAT configuration file options
+def update_qat_config(policy='16', service='dc'):
+    with open(TEMP_CONFIG_FILE, "w") as cfg_file:
+        cfg_file.write("POLICY={}\nServicesEnabled={}\n".format(policy, service))
+        cfg_file.close()
+        print("Updated QAT configs to:\nPOLICY={}\nServicesEnabled={}\n".format(policy, service))
+        os.system("sudo cp {} {}".format(TEMP_CONFIG_FILE, QAT_CONFIG_FILE))
+        os.system("sudo rm {}".format(TEMP_CONFIG_FILE))
+
+
+# If QAT config file does not exist go ahead and set something as starting configs
+def init_qat_config():
+    if os.path.exists(QAT_CONFIG_FILE):
+        print("Found existing QAT config file: {}\n".format(QAT_CONFIG_FILE))
+    else:
+        print("Creating new config file: {}\n".format(QAT_CONFIG_FILE))
+        update_qat_config()
+
+
+# Detect how many QAT physical devices available
+def get_qat_pf():
+    qat_devices = []
+    for pf_did in QAT_PF_DEVICE_ID_LIST:
+        did = pf_did.replace("0x", "")
+        cmd_out = run_cmd("lspci -d :{}".format(did))
+        cmd_out = cmd_out.rstrip()
+        if cmd_out:
+            qat_devices = qat_devices + cmd_out.split('\n')
+    print("Found a total of {} QAT physical devices\n".format(len(qat_devices)))
+
+
+# Reload QAT driver without config changes
+def reload_qat():
+    init_qat_config()
+    # Print current QAT config
+    print("Current QAT configuration:")
+    run_cmd("cat /etc/sysconfig/qat", verbose=True)
+    # Stop QAT service
+    print("Stopping QAT Service...")
+    run_cmd("sudo systemctl stop qat", verbose=True)
+    # Remove QAT drivers
+    print("Removing QAT drivers...")
+    run_cmd("sudo rmmod qat_4xxx; sudo rmmod intel_qat", verbose=True)
+    time.sleep(5)
+    # Loading QAT drivers
+    print("Loading QAT drivers again...")
+    run_cmd("sudo modprobe intel_qat; sudo modprobe qat_4xxx", verbose=True)
+    time.sleep(5)
+    # Start QAT service
+    print("Starting QAT service...")
+    run_cmd("sudo systemctl --no-pager start qat", verbose=True)
+    # QAT service status
+    print("Checking QAT service status...")
+    status = run_cmd("systemctl --no-pager status qat")
+    if status:
+        print("Started QAT service.\n")
+        get_qat_pf()
+        print_status()
+    else:
+        print("ERROR: QAT service failed to start or started with errors.\n")
+
+
+# Get QAT service mode config string
+def get_mode_config(mode):
+    item = QAT_SERVICES.get(mode)
+    return item
+
+
+# Set QAT driver configurations
+def set_configuration(policy, service):
+    init_qat_config()
+    update_qat_config(policy, service)
+    reload_qat()
+
+
+# Print QAT driver status
+def print_status():
+    table_count = 1
+    table_data = []
+    table_data.append(TABLE_HEADERS)
+    vfio_items = run_cmd("ls /dev/vfio/").split()
+    for vfio_group in vfio_items:
+        if (vfio_group != 'vfio' and vfio_group != 'devices'):
+            bdf = run_cmd("ls /sys/kernel/iommu_groups/{}/devices/".format(vfio_group)).replace("\n", "")
+            vendor = run_cmd("cat /sys/kernel/iommu_groups/{}/devices/{}/vendor".format(vfio_group, bdf)).replace("\n", "")
+            node = run_cmd("cat /sys/kernel/iommu_groups/{}/devices/{}/numa_node".format(vfio_group, bdf)).replace("\n", "")
+            did = run_cmd("cat /sys/kernel/iommu_groups/{}/devices/{}/device".format(vfio_group, bdf)).replace("\n", "")
+            if vendor in INTEL_VENDOR:
+                if did in QAT_VF_DEVICE_ID_LIST:
+                    bdf_items = bdf.split(':')
+                    pf_bdf = "{}:{}:00.0".format(bdf_items[0], bdf_items[1])
+                    cfg_services = run_cmd("cat /sys/bus/pci/devices/{}/qat/cfg_services".format(pf_bdf)).replace("\n", "")
+                    table_data.append([table_count, "/dev/vfio/{}".format(vfio_group), node, pf_bdf, bdf, cfg_services])
+                    table_count = table_count + 1
+    table = PrettyTable(table_data[0])
+    table.add_rows(table_data[1:])
+    print(table)
+
+
+# Check arguments and call requested function
+def main(opts, p):
+    global VERSION
+    mode = opts.mode
+    policy = opts.policy
+    if opts.version:
+        print("Version: {}".format(VERSION))
+
+    if opts.config:
+        if check_qatmgr():
+            # Default mode value 2 --> 'dc and policy value --> 16'
+            default_mode = "2"
+            default_policy = "16"
+            service_cfg = ""
+            service_policy = ""
+            print("Configuring QAT Driver...\n")
+            # Determine if mode value was provided or use default value
+            if mode:
+                service_cfg = get_mode_config(mode)
+            else:
+                print("Using default service value since one was not provided")
+                service_cfg = get_mode_config(default_mode)
+            # Determine if policy value was provided or use default value
+            if policy:
+                service_policy = policy
+            else:
+                print("Using default policy value since one was not provided")
+                service_policy = default_policy
+            if service_cfg:
+                print("services=\'{}\'\nservice description: {}\npolicy=\'{}\'".format(service_cfg[0], service_cfg[1], service_policy))
+                set_configuration(service_policy, service_cfg[0])
+            else:
+                print("ERROR: Unknown mode value provided --> {}".format(mode))
+                services_table = PrettyTable()
+                services_table.field_names = ["Selector #", "QAT Service Value", "Service Description"]
+                for key, value in QAT_SERVICES.items():
+                    services_table.add_row([key, value[0], value[1]], divider=True)
+                services_table.align["Service Description"] = "l"
+                print("\nQAT Driver Services:")
+                print(services_table)
+                print("\n")
+    elif opts.reload:
+        print("Reload QAT driver without configuration change...\n")
+        reload_qat()
+    elif opts.status:
+        print_status()
+    elif opts.mode or opts.policy:
+        print("WARNING: To configure any mode or policy you must also use the --config or -c option...\n")
+        p.print_help()
+    else:
+        print("Version: {}".format(VERSION))
+        p.print_help()
+
+
+# Parse arguments and call main() function
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='QAT helper utility')
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument('--config', '-c', action='store_true', default=False, help='Configure QAT driver (Note: Specify mode/policy or default option will be used)')
+    group.add_argument('--reload', '-r', action='store_true', default=False, help='Reload QAT driver without any configuration change')
+    group.add_argument('--status', '-s', action='store_true', default=False, help='Print current QAT configuration for each VF')
+    parser.add_argument('--mode', '-m', type=str, help="Valid options are 1 to 7: 1->sym;asym | 2->dc | 3->sym | 4->asym | 5->asym;dc | 6->sym;dc | 7->dcc")
+    parser.add_argument('--policy', '-p', type=str, help="Specify QAT config POLICY value to set")
+    parser.add_argument('--version', '-v', action='store_true', default=False, help='Print version')
+    results = parser.parse_args()
+    main(results, parser)

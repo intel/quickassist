@@ -251,6 +251,21 @@ vfio_virqfd 16384 1 vfio_pci_core
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">for i in `(lspci -D -d :4940 || lspci-D -d :4942)| awk &#39;{print $1}&#39;`; do echo 16|sudo tee /sys/bus/pci/devices/$i/sriov_numvfs; done</span>
 </pre></div>
 </div>
+<p>If the error messages similar to the following are observed:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">16</span>
+<span class="go">tee: &#39;/sys/bus/pci/devices/0000:e8.00.0/sriov_numfs&#39;: No such file or directory&#39;</span>
+<span class="go">16</span>
+<span class="go">tee: &#39;/sys/bus/pci/devices/0000:ed.00.0/sriov_numfs&#39;: No such file or directory&#39;</span>
+</pre></div>
+</div>
+<p>Check <code class="docutils literal notranslate"><span class="pre">dmesg</span></code> logs for potential issues such as missing firmware.  In the case of missing firmware, the error message would look like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">8.146032] 4xxx probe of 0000:e8:00.0 failed with error -14</span>
+<span class="go">8.152241] 4xxx 0000:e8:00.0: Direct firmware load for qat_4xxx_mmp.bin failed with error -2</span>
+<span class="go">8.152241] 4xxx 0000:e8:00.0: Failed to load MMP firmware qat_4xxx_mmp.bin</span>
+<span class="go">8.152241] 4xxx 0000:e8:00.0: Failed to load acceleration FW</span>
+</pre></div>
+</div>
+<p>Refer to <a class="reference internal" href="../../qatlib/requirements.html#qat2-0-qatlib-userguide-firmware"><span class="std std-ref">QATlib User’s Guide</span></a> for details on updating firmware.</p>
 </div></blockquote>
 </li>
 </ol>

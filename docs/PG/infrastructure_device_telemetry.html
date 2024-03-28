@@ -126,14 +126,24 @@
 <span id="qat-2-0-pg-infrastructure-device-telemetry"></span><h1>Telemetry<a class="headerlink" href="#telemetry" title="Permalink to this heading"></a></h1>
 <p>The telemetry feature is a tool to view the performance and utilization of an acceleration device.
 Telemetry data can be viewed on a per device and a per ring pair (also known as <a class="reference internal" href="infrastructure_queue_pairs.html#qat-2-0-pg-infrastructure-queue-pairs"><span class="std std-ref">queue pair</span></a>) basis.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There are differences between the implementations of Telemetry with the in-tree acceleration driver and the out-of-tree acceleration driver.</p>
+<p>Details for each are included in the sections below.</p>
+</div>
 <section id="telemetry-usage">
 <h2>Telemetry Usage<a class="headerlink" href="#telemetry-usage" title="Permalink to this heading"></a></h2>
-<p>The telemetry feature is configured and queried using sysfs files in the Linux filesystem.</p>
-<p>The telemetry sysfs folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/telemetry</span></code> where:</p>
+<section id="out-of-tree">
+<h3>Out-Of-Tree<a class="headerlink" href="#out-of-tree" title="Permalink to this heading"></a></h3>
+<p>The telemetry feature is configured and queried using <strong>sysfs</strong> files in the Linux filesystem.</p>
+<p>The telemetry <strong>sysfs</strong> folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/telemetry</span></code></p>
+<blockquote>
+<div><p>Where:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">AAAA:BB:CC.D</span></code> is the <em>Domain:BDF</em> of the target Intel® QAT Endpoint.</p></li>
 </ul>
+</div></blockquote>
 </div></blockquote>
 <p>Example:</p>
 <blockquote>
@@ -141,9 +151,37 @@ Telemetry data can be viewed on a per device and a per ring pair (also known as 
 </pre></div>
 </div>
 </div></blockquote>
+</section>
+<section id="in-tree">
+<h3>In-Tree<a class="headerlink" href="#in-tree" title="Permalink to this heading"></a></h3>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">Release Notes -In-Tree</span></a> for kernel version requirements for enabling this feature.</p>
+</div>
+<p>The telemetry feature is configured and queried using <strong>debugfs</strong> files in the Linux filesystem.</p>
+<p>The telemetry <strong>debugfs</strong> folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_4xxx_*/telemetry</span></code></p>
+<blockquote>
+<div><blockquote>
+<div><p>Where:</p>
+</div></blockquote>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">qat_4xxx_*</span></code> is the <em>Domain:BDF</em> of the target Intel® QAT Endpoint.</p></li>
+</ul>
+</div></blockquote>
+<p>Example:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ls /sys/kernel/debug/qat_4xxx_0000:76:00.0/telemetry/telemetry</span>
+</pre></div>
+</div>
+</div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Update the <em>Domain:BDF</em> above as needed.</p>
+</div>
 <p>The telemetry feature is controlled with standard linux file commands into the control file as outlined below.
 The telemetry data is accessed through the <code class="docutils literal notranslate"><span class="pre">device_data</span></code> or <code class="docutils literal notranslate"><span class="pre">rp_&lt;X&gt;_data</span></code> file depending on what data is required.</p>
 <p>The telemetry data for device level and ring pair level is updated each second.</p>
+</section>
 </section>
 <section id="telemetry-control">
 <h2>Telemetry Control<a class="headerlink" href="#telemetry-control" title="Permalink to this heading"></a></h2>
@@ -152,10 +190,8 @@ Reading the control file will tell whether the feature is currently enabled or d
 <p>Ring Pair level telemetry is enabled when device level telemetry is enabled. However the ring pairs need to be selected.
 Only 4 ring pairs can be shown at any given time.
 By echoing the number of the ring pair (0-63) into a <code class="docutils literal notranslate"><span class="pre">rp_&lt;X&gt;_data</span></code> file it can be selected. Where X is A,B,C or D.</p>
-<section id="telemetry-commands">
-<h3>Telemetry Commands<a class="headerlink" href="#telemetry-commands" title="Permalink to this heading"></a></h3>
-<table class="longtable docutils align-default" id="id1">
-<caption><span class="caption-text">Telemetry Commands</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="longtable docutils align-default" id="id4">
+<caption><span class="caption-text">Telemetry Commands</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 29%" />
 <col style="width: 71%" />
@@ -184,11 +220,13 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </tbody>
 </table>
 <section id="selecting-ring-pairs">
-<h4>Selecting Ring Pairs<a class="headerlink" href="#selecting-ring-pairs" title="Permalink to this heading"></a></h4>
-<p>This section provides guidance on the mapping of ring pairs to the VFs for the PF.
-There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following:</p>
-<table class="docutils align-default" id="id2">
-<caption><span class="caption-text">Ring Pairs</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<h3>Selecting Ring Pairs<a class="headerlink" href="#selecting-ring-pairs" title="Permalink to this heading"></a></h3>
+<section id="id1">
+<h4>Out-Of-Tree<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<p>This section provides guidance on the mapping of ring pairs to the VFs for the PF when using the Out-Of-Tree acceleration driver.</p>
+<p>There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following:</p>
+<table class="docutils align-default" id="id5">
+<caption><span class="caption-text">Ring Pairs</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 31%" />
 <col style="width: 17%" />
@@ -306,12 +344,10 @@ There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following
 <li><p>If <code class="docutils literal notranslate"><span class="pre">dc</span></code> and <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">asym</span></code> is enabled, the first two columns are for <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">asym</span></code> and the second two columns are for <code class="docutils literal notranslate"><span class="pre">dc</span></code></p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">sym</span></code> and <code class="docutils literal notranslate"><span class="pre">asym</span></code> is enabled, the first and third columns are for <code class="docutils literal notranslate"><span class="pre">asym</span></code> and second and fourth columns are for <code class="docutils literal notranslate"><span class="pre">sym</span></code>.</p></li>
 </ul>
-</section>
-</section>
 <section id="device-level-telemetry-values">
-<h3>Device Level Telemetry Values<a class="headerlink" href="#device-level-telemetry-values" title="Permalink to this heading"></a></h3>
-<table class="longtable docutils align-default" id="id3">
-<caption><span class="caption-text">Device Level Telemetry Values</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<h5>Device Level Telemetry Values<a class="headerlink" href="#device-level-telemetry-values" title="Permalink to this heading"></a></h5>
+<table class="longtable docutils align-default" id="id6">
+<caption><span class="caption-text">Device Level Telemetry Values</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 29%" />
 <col style="width: 71%" />
@@ -380,9 +416,9 @@ There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following
 </table>
 </section>
 <section id="ring-pair-level-telemetry-values">
-<h3>Ring Pair Level Telemetry Values<a class="headerlink" href="#ring-pair-level-telemetry-values" title="Permalink to this heading"></a></h3>
-<table class="longtable docutils align-default" id="id4">
-<caption><span class="caption-text">Ring Pair Level Telemetry Values</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<h5>Ring Pair Level Telemetry Values<a class="headerlink" href="#ring-pair-level-telemetry-values" title="Permalink to this heading"></a></h5>
+<table class="longtable docutils align-default" id="id7">
+<caption><span class="caption-text">Ring Pair Level Telemetry Values</span><a class="headerlink" href="#id7" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 29%" />
 <col style="width: 71%" />
@@ -427,14 +463,19 @@ There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following
 </table>
 </section>
 </section>
+</section>
+</section>
 <section id="monitoring-telemetry-text-based">
 <span id="qat2-0-text-based-telemetry"></span><h2>Monitoring Telemetry - Text Based<a class="headerlink" href="#monitoring-telemetry-text-based" title="Permalink to this heading"></a></h2>
-<p>The following example Python script highlights how telemetry data can be monitored at the command line.  The
+<p>The following example Python scripts highlight how telemetry data can be monitored at the command line.  The
 script first enables telemetry service for each QAT endpoint that supports telemetry and is in the <code class="docutils literal notranslate"><span class="pre">up</span></code>
 state. It then queries the telemetry data on a periodic basis collecting the data and formatting the display.</p>
 <figure class="align-default">
 <img alt="../_images/device_utilization.png" src="../_images/device_utilization.png" />
 </figure>
+<section id="id2">
+<h3>Out-Of-Tree<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>Device utilization script for Out-Of-Tree driver is included here.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>When running script as non-root User, ensure <strong>adf_ctl</strong> is added to <strong>qat</strong> group.</p>
@@ -444,232 +485,25 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 </div>
 </div></blockquote>
 </div>
-<p>Script can be downloaded from <a class="reference download internal" download="" href="../_downloads/c23772b066a515549da404c3494f4581/monitor_qat.sh"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/usr/bin/env python</span>
-
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">curses</span>
-<span class="kn">import</span> <span class="nn">subprocess</span>
-<span class="kn">import</span> <span class="nn">re</span>
-
-
-<span class="n">devices</span><span class="o">=</span><span class="p">[]</span>
-<span class="n">paths</span><span class="o">=</span><span class="p">[]</span>
-<span class="n">set_paths</span><span class="o">=</span><span class="p">[]</span>
-
-<span class="k">def</span> <span class="nf">EnableTelemetry</span><span class="p">():</span>
-
-        <span class="n">devices</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;adf_ctl status&quot;</span>
-        <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="c1"># Store the return code in rc variable</span>
-        <span class="n">rc</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-
-        <span class="c1"># Separate the output and error</span>
-        <span class="c1"># This is similar to Tuple where we store two values to two different variables</span>
-        <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
-
-        <span class="c1"># Split string into list of strings</span>
-        <span class="n">output_adf</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-
-        <span class="n">paths</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;find /sys/devices/ -name &quot;telemetry&quot;&#39;</span>
-        <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-        <span class="c1"># Store the return code in rc variable</span>
-        <span class="n">rc</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-
-        <span class="c1"># Separate the output and error.</span>
-        <span class="c1"># This is similar to Tuple where we store two values to two different variables</span>
-        <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
-
-        <span class="c1"># Split string into list of strings</span>
-        <span class="n">original_array</span><span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-        <span class="n">output_telem</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">original_array</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">],</span> <span class="mi">16</span><span class="p">))</span>
-
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
-        <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">bus</span> <span class="o">=</span> <span class="kc">None</span>
-        <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">False</span>
-
-        <span class="c1"># Build device list from adf_status output</span>
-        <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">output_adf</span><span class="p">):</span>
-                <span class="k">if</span> <span class="s2">&quot;qat_dev&quot;</span> <span class="ow">in</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">name</span> <span class="o">=</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-                <span class="k">elif</span> <span class="s2">&quot;type:&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="k">if</span> <span class="s2">&quot;4xxx,&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
-                                <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">True</span>
-                <span class="k">elif</span> <span class="s2">&quot;bsf:&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="n">bus</span> <span class="o">=</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="mi">5</span><span class="p">:</span><span class="mi">7</span><span class="p">]</span>
-                <span class="k">elif</span> <span class="s2">&quot;state:&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                        <span class="k">if</span> <span class="s2">&quot;up&quot;</span> <span class="o">==</span> <span class="n">output_adf</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]:</span>
-                                <span class="k">if</span> <span class="n">telemetry_supported</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
-                                        <span class="n">devices</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">name</span><span class="p">,</span> <span class="n">bus</span><span class="p">))</span>
-
-                        <span class="c1"># Reset variables to ensure we only attempt to enable telemetery on devices that support telemetry and are in up state</span>
-                        <span class="n">state</span> <span class="o">=</span> <span class="s2">&quot;down&quot;</span>
-                        <span class="n">name</span> <span class="o">=</span> <span class="kc">None</span>
-                        <span class="n">telemetry_supported</span> <span class="o">=</span> <span class="kc">False</span>
-                <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-
-        <span class="c1"># Build path list from Telemetry search</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">output_telem</span><span class="p">)):</span>
-                <span class="n">paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">output_telem</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-
-        <span class="c1"># Verify Telemetry paths are part of enabled QAT endpoints</span>
-        <span class="n">set_paths</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">paths</span><span class="p">:</span>
-                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">):</span>
-                        <span class="k">if</span> <span class="n">devices</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="ow">in</span> <span class="n">path</span><span class="p">:</span>
-                                <span class="n">set_paths</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">set_paths</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-           <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;No telemetry supported QAT endpoints found... exiting.&quot;</span><span class="p">)</span>
-           <span class="n">quit</span><span class="p">()</span>
-
-        <span class="c1"># Enable Telemetry for QAT endpoints</span>
-        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">set_paths</span><span class="p">:</span>
-                <span class="n">control_file_name</span><span class="o">=</span> <span class="n">path</span> <span class="o">+</span> <span class="s2">&quot;/control&quot;</span>
-                <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;echo 1 &gt; &quot;</span> <span class="o">+</span> <span class="n">control_file_name</span>
-
-                <span class="k">try</span><span class="p">:</span>
-                        <span class="nb">str</span><span class="p">(</span><span class="n">subprocess</span><span class="o">.</span><span class="n">check_output</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
-                <span class="k">except</span><span class="p">:</span>
-                        <span class="k">break</span>
-
-<span class="k">def</span> <span class="nf">pbar</span><span class="p">(</span><span class="n">window</span><span class="p">):</span>
-        <span class="n">refresh_counter</span> <span class="o">=</span> <span class="mi">0</span>
-
-        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-
-                <span class="k">try</span><span class="p">:</span>
-                        <span class="n">refresh_counter</span> <span class="o">+=</span> <span class="mi">1</span>
-
-                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;Intel(R) QuickAssist Device Utilization&quot;</span><span class="p">)</span>
-                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;Device</span><span class="se">\t</span><span class="s2">%Comp</span><span class="se">\t</span><span class="s2">%Decomp</span><span class="se">\t</span><span class="s2">%PKE</span><span class="se">\t</span><span class="s2">%Cipher</span><span class="se">\t</span><span class="s2">%Auth</span><span class="se">\t</span><span class="s2">%UCS</span><span class="se">\t</span><span class="s2">Latency(ns)&quot;</span><span class="p">)</span>
-                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;=========================================================================&quot;</span><span class="p">)</span>
-
-                        <span class="n">count</span> <span class="o">=</span> <span class="mi">0</span>
-                        <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
-
-                                <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;cat &quot;</span> <span class="o">+</span> <span class="n">set_paths</span><span class="p">[</span><span class="n">count</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;/device_data&quot;</span>
-                                <span class="n">sp</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">command</span><span class="p">,</span><span class="n">shell</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span><span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span><span class="n">universal_newlines</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-
-                                <span class="c1"># Store the return code in rc variable</span>
-                                <span class="n">rc</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">wait</span><span class="p">()</span>
-
-                                <span class="c1"># Separate the output and error</span>
-                                <span class="c1"># This is similar to Tuple where we store two values to two different variables</span>
-                                <span class="n">out</span><span class="p">,</span><span class="n">err</span><span class="o">=</span><span class="n">sp</span><span class="o">.</span><span class="n">communicate</span><span class="p">()</span>
-
-                                <span class="c1"># Split string into list of strings</span>
-                                <span class="n">output</span> <span class="o">=</span> <span class="n">out</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
-
-                                <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
-                                <span class="k">while</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">output</span><span class="p">):</span>
-
-                                        <span class="k">if</span> <span class="s2">&quot;lat_acc_avg&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">latency</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_cpr0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">compression</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_dcpr0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">decompression0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_dcpr1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">decompression1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_dcpr2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">decompression2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_pke0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">pke0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_pke1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">pke1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_pke2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">pke2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_pke3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">pke3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_pke4&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">pke4</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_pke5&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">pke5</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_cph0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">cph0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_cph1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">cph1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_cph2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">cph2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_cph3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">cph3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_ath0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">ath0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_ath1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">ath1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_ath2&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">ath2</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_ath3&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">ath3</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_ucs0&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">ucs0</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="k">elif</span> <span class="s2">&quot;util_ucs1&quot;</span> <span class="o">==</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
-                                                <span class="n">ucs1</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span>
-                                        <span class="n">i</span> <span class="o">+=</span> <span class="mi">1</span>
-
-                                <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">decompression2</span><span class="p">)</span>
-                                <span class="k">if</span> <span class="n">decompress_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                                        <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="n">decompress_utilization</span> <span class="o">/</span> <span class="mi">3</span>
-                                        <span class="n">decompress_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">decompress_utilization</span><span class="p">)</span>
-                                <span class="n">pke_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke3</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke4</span><span class="p">)</span><span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">pke5</span><span class="p">)</span>
-                                <span class="k">if</span> <span class="n">pke_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                                        <span class="n">pke_utilization</span> <span class="o">=</span> <span class="n">pke_utilization</span> <span class="o">/</span> <span class="mi">6</span>
-                                        <span class="n">pke_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">pke_utilization</span><span class="p">)</span>
-                                <span class="n">cph_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">cph3</span><span class="p">)</span>
-                                <span class="k">if</span> <span class="n">cph_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                                        <span class="n">cph_utilization</span> <span class="o">=</span> <span class="n">cph_utilization</span> <span class="o">/</span> <span class="mi">4</span>
-                                        <span class="n">cph_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">cph_utilization</span><span class="p">)</span>
-                                <span class="n">ath_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath1</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath2</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ath3</span><span class="p">)</span>
-                                <span class="k">if</span> <span class="n">ath_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                                        <span class="n">ath_utilization</span> <span class="o">=</span> <span class="n">ath_utilization</span> <span class="o">/</span> <span class="mi">4</span>
-                                        <span class="n">ath_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">ath_utilization</span><span class="p">)</span>
-                                <span class="n">usc_utilization</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">ucs0</span><span class="p">)</span> <span class="o">+</span> <span class="nb">int</span><span class="p">(</span><span class="n">ucs1</span><span class="p">)</span>
-                                <span class="k">if</span> <span class="n">usc_utilization</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
-                                        <span class="n">usc_utilization</span> <span class="o">=</span> <span class="n">usc_utilization</span> <span class="o">/</span> <span class="mi">2</span>
-                                        <span class="n">usc_utilization</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">usc_utilization</span><span class="p">)</span>
-                                <span class="k">if</span> <span class="nb">int</span><span class="p">(</span><span class="n">latency</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">device</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">0</span><span class="se">\t</span><span class="s1">00                 &#39;</span><span class="p">)</span>
-
-                                <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">device</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="n">compression</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">decompress_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">pke_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">cph_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">ath_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">usc_utilization</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="o">+</span> <span class="n">latency</span><span class="p">)</span>
-                                <span class="n">count</span> <span class="o">+=</span> <span class="mi">1</span>
-
-
-                        <span class="n">window</span><span class="o">.</span><span class="n">addstr</span><span class="p">(</span><span class="mi">4</span><span class="o">+</span><span class="n">count</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s2">&quot;=========================================================================&quot;</span><span class="p">)</span>
-                        <span class="n">window</span><span class="o">.</span><span class="n">refresh</span><span class="p">()</span>
-                        <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-                        <span class="k">if</span> <span class="n">refresh_counter</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-                                <span class="n">window</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
-                                <span class="n">EnableTelemetry</span><span class="p">()</span>
-
-                <span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">:</span>
-                        <span class="k">break</span>
-                <span class="k">except</span><span class="p">:</span>
-                        <span class="k">break</span>
-
-
-<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-        <span class="n">EnableTelemetry</span><span class="p">()</span>
-        <span class="n">curses</span><span class="o">.</span><span class="n">wrapper</span><span class="p">(</span><span class="n">pbar</span><span class="p">)</span>
+<p>Script can be downloaded from <a class="reference download internal" download="" href="../_downloads/0daaa81cfc7261b6eae34068ec089c0a/monitor-qat-oot-utilization"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
+<p>Running the script looks like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo monitor-qat-oot-utilization</span>
 </pre></div>
 </div>
-<section id="monitoring-telemetry-demo">
-<h3>Monitoring Telemetry Demo<a class="headerlink" href="#monitoring-telemetry-demo" title="Permalink to this heading"></a></h3>
-<p>Here is a demonstration of how to monitor telemetry while running the Intel<sup>®</sup> QAT sample code.</p>
-<video controls="True" height="300" preload="auto" width="500"><source src="../_static/video/pg/telemetry.mp4" type="video/mp4"></video><div class="line-block">
-<div class="line"><br /></div>
-</div>
+</div></blockquote>
 </section>
+<section id="id3">
+<h3>In-Tree<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<p>Device utilization script for In-Tree driver can be downloaded from <a class="reference download internal" download="" href="../_downloads/95d578efa33569dc2d128478ff963200/monitor-qat-utilization"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
+<p>Running the script looks like:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo monitor-qat-utilization</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>Here is a demonstration of how to monitor telemetry while running the Intel<sup>®</sup> QAT sample code.</p>
+<video controls="True" height="300" preload="auto" width="500"><source src="../_static/video/pg/telemetry.mp4" type="video/mp4"></video></section>
 </section>
 </section>
 

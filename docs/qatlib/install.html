@@ -75,6 +75,7 @@
 <li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="migrate.html">Migrating Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
@@ -193,7 +194,7 @@ The following commands set the amount of locked memory to 500MB.</p>
 </div>
 <p>For Ubuntu and other Debian-based distros, install these dependencies:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install -y gcc libsystemd-dev automake autoconf libtool</span>
-<span class="go">sudo apt-get install -y libssl-dev zlib1g-dev</span>
+<span class="go">sudo apt-get install -y libssl-dev zlib1g-dev nasm</span>
 </pre></div>
 </div>
 <div class="admonition tip">
@@ -276,6 +277,15 @@ or can be obtained by running the following command:</p>
 may not be in the library path that ldconfig uses.</p>
 <p>This directory can be included by either adding entry to the file <code class="docutils literal notranslate"><span class="pre">/etc/ld.so.conf</span></code>
 or creating a file <code class="docutils literal notranslate"><span class="pre">usr-local.conf</span></code>  (or name of your choice) in the <code class="docutils literal notranslate"><span class="pre">/etc/ld.so.conf.d</span></code> directory.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>With some OS distributions such as Ubuntu, the directory for <code class="docutils literal notranslate"><span class="pre">qat.service</span></code> is in a different location.</p>
+<p>To address potential issues, include additional configuration option: <code class="docutils literal notranslate"><span class="pre">systemdsystemunitdir</span></code>.</p>
+<p>Configure step would look like:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-service systemdsystemunitdir=/lib/systemd/system/ --prefix=/usr</span>
+</pre></div>
+</div>
 </div>
 <p>To run in <a class="reference internal" href="configuration.html#qat-2-0-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a>, enable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service. This can be done
 automatically with the following command:</p>

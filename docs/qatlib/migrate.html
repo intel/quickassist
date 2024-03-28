@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Description &mdash; Intel® QuickAssist Technology  documentation</title>
+  <title>Migrating Applications &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="System Requirements" href="requirements.html" />
-    <link rel="prev" title="QATlib User’s Guide" href="index.html" /> 
+    <link rel="next" title="Intel® QuickAssist Technology (QAT) QATzip Library" href="qatzip.html" />
+    <link rel="prev" title="Running in a Virtual Machine (VM)" href="running_in_vm.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -61,16 +61,13 @@
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">QATlib User’s Guide</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Description</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#features-limitation">Features &amp; Limitation</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="description.html">Description</a></li>
 <li class="toctree-l2"><a class="reference internal" href="requirements.html">System Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="migrate.html">Migrating Applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Migrating Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
@@ -98,7 +95,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
-      <li class="breadcrumb-item active">Description</li>
+      <li class="breadcrumb-item active">Migrating Applications</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -107,33 +104,56 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="description">
-<span id="qat-2-0-qatlib-userguide-description"></span><h1>Description<a class="headerlink" href="#description" title="Permalink to this heading"></a></h1>
-<p>Intel<sup>®</sup> QuickAssist Technology (Intel<sup>®</sup> QAT) provides hardware acceleration for offloading security,
-authentication and compression services from the CPU, thus significantly increasing the performance and
-efficiency of standard platform solutions.</p>
-<p>Its services include symmetric encryption and authentication, asymmetric encryption, digital signatures,
-Rivest–Shamir–Adleman (RSA), Diffie–Hellman (DH) and Elliptic-Curve Cryptography (ECC), and lossless
-data compression.</p>
-<p>The Intel<sup>®</sup> QuickAssist Technology Library (QATlib) provides user space libraries that allow access to Intel<sup>®</sup> QAT devices
-and expose the Intel<sup>®</sup> QAT APIs and sample codes.</p>
-<section id="features-limitation">
-<h2>Features &amp; Limitation<a class="headerlink" href="#features-limitation" title="Permalink to this heading"></a></h2>
-<p>Current features and limitations are described in the GitHub page for the QATlib library:</p>
+  <section id="migrating-applications">
+<span id="qat-2-0-qatlib-migrate"></span><h1>Migrating Applications<a class="headerlink" href="#migrating-applications" title="Permalink to this heading"></a></h1>
+<p>This section provides a detailed guide for migrating an application from the Intel QuickAssist Technology (QAT) out-of-tree driver to the in-tree QAT driver and QATlib.
+The in-tree driver is integrated into the Linux kernel, offering a streamlined update process and better compatibility with kernel updates.
+QATlib is a user-space library that facilitates interaction with QAT hardware through a high-level API.</p>
+<ol class="arabic">
+<li><p><strong>Remove the Out-of-Tree Driver</strong></p>
+<blockquote>
+<div><p>Before installing the in-tree driver, you must first remove the out-of-tree driver to prevent conflicts.
+If the out-of-tree driver is currently loaded, you will need to unload it and ensure it does not load on boot.
+You may need to remove or disable any startup scripts or systemd services that load the out-of-tree driver.</p>
+<p>Refer to the <a class="reference internal" href="../GSG/2.X/installation.html#qat-2-0-gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a> section of the Getting Started Guide for details.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Install In-Tree Driver Stack</strong></p>
+<blockquote>
+<div><p>The in-tree driver stack is part of the Linux kernel, and you may need to enable it through your distribution’s kernel configuration.
+Instructions on platform configuration and library installation are included in the <a class="reference internal" href="install.html#qat-2-0-qatlib-install"><span class="std std-ref">Installation</span></a> section.</p>
+<p>Start with the <a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> section.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Update Application Dependencies</strong></p>
+<blockquote>
+<div><p>Adapt your application to use QATlib instead of the out-of-tree driver’s libraries.</p>
 <ul class="simple">
-<li><p><a class="reference external" href="https://github.com/intel/qatlib#features">Features</a></p></li>
-<li><p><a class="reference external" href="https://github.com/intel/qatlib#limitations">Limitations</a></p></li>
+<li><p>Link against <strong>libqat.so</strong> and <strong>libusdm.so</strong> instead of <strong>libqat_s.so</strong> and <strong>libusdm_s.so</strong></p></li>
+<li><p>Use system includes with the prefix <strong>qat</strong>, e.g.  <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;qat/cpa.h&gt;</span></code></p></li>
 </ul>
-<p id="qatlib-release-note">The QATLib Release Notes are available here:  <a class="reference external" href="https://github.com/intel/qatlib#revision-history">https://github.com/intel/qatlib#revision-history</a> .</p>
-</section>
+</div></blockquote>
+</li>
+<li><p><strong>Test the Application</strong></p>
+<blockquote>
+<div><p>Thoroughly test your application to ensure that it works correctly with the in-tree driver and QATlib.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Update Deployment and Configuration</strong></p>
+<blockquote>
+<div><p>Update any deployment scripts, configuration files, or documentation to reflect the changes made to the application and its dependencies.</p>
+<p>Refer to the <a class="reference internal" href="configuration.html#qat-2-0-qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> section of this document for details.</p>
+</div></blockquote>
+</li>
+</ol>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="QATlib User’s Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="requirements.html" class="btn btn-neutral float-right" title="System Requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="running_in_vm.html" class="btn btn-neutral float-left" title="Running in a Virtual Machine (VM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qatzip.html" class="btn btn-neutral float-right" title="Intel® QuickAssist Technology (QAT) QATzip Library" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

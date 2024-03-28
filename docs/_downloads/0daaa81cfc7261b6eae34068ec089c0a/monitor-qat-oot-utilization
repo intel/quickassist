@@ -1,0 +1,113 @@
+#!/usr/bin/env python
+import time
+import curses
+import subprocess
+import re
+    
+def EnableTelemetry():
+    paths = []
+    devices = []
+
+    # Use subprocess.run for a cleaner subprocess call
+    result = subprocess.run('find /sys/devices/ -name "telemetry"', shell=True, capture_output=True, text=True)
+
+    # Check for errors in the subprocess call
+    if result.returncode != 0:
+        print(f"Error executing 'find' command: {result.stderr}")
+        return devices, paths
+
+    # Split string into list of strings
+    original_array = result.stdout.split()
+    output_telem = sorted(original_array, key=lambda x: (x.split(':')[1], 16))
+    
+    # Use subprocess.run for a cleaner subprocess call
+    result = subprocess.run("adf_ctl status", shell=True, capture_output=True, text=True)
+
+    # Check for errors in the subprocess call
+    if result.returncode != 0:
+        print(f"Error executing 'adf_ctl status': {result.stderr}")
+        return devices, paths
+
+    # Parse the output using regular expressions
+    device_info_pattern = re.compile(r"(\w+)\s+-\s+type:\s+(\w+),\s+.*\s+bsf:\s+([\da-fA-F:.]+),\s+.*\s+state:\s+(\w+)")
+    for match in device_info_pattern.finditer(result.stdout):
+        name, device_type, bsf, state = match.groups()
+        if device_type == "4xxx" and state == "up":
+            bus = bsf.split(':')[1]  # Extract the bus number
+            devices.append((name, bus))
+
+    # Assuming output_telem and devices are defined earlier in the code
+    paths = output_telem  # Directly assign the list instead of appending in a loop
+
+    # Verify Telemetry paths are part of enabled QAT endpoints
+    set_paths = [path for path in paths if any(device[1] in path for device in devices)]
+
+    if not set_paths:
+        print("No telemetry supported QAT endpoints found... exiting.")
+        quit()
+
+    # Enable Telemetry for QAT endpoints
+    for path in set_paths:
+        control_file_name = f"{path}/control"
+        try:
+            with open(control_file_name, 'r') as control_file:
+                output = control_file.read().strip()
+                if output == "off":
+                    with open(control_file_name, 'w') as control_file:
+                        control_file.write("1")
+        except Exception as e:
+            print(f"Failed to enable telemetry for {path}: {e}")
+            break
+
+    return devices, paths
+
+def calculate_utilization(data, keys):
+    values = [int(data.get(key, 0)) for key in keys]
+    return round(sum(values) / len(values)) if values else 0
+
+def pbar(window, devices, set_paths):
+    refresh_counter = 0
+
+    while True:
+        try:
+            refresh_counter += 1
+
+            window.addstr(0, 10, "Intel(R) QuickAssist Device Utilization")
+            window.addstr(2, 10, "Device\t%Comp\t%Decomp\t%PKE\t%Cipher\t%Auth\t%UCS\tLatency(ns)")
+            window.addstr(3, 10, "=" * 73)
+
+            for count, device in enumerate(devices):
+                device_data_path = set_paths[count] + "/device_data"
+                result = subprocess.run(f"cat {device_data_path}", shell=True, capture_output=True, text=True)
+                output = result.stdout.split()
+
+                data = {output[i]: output[i + 1] for i in range(0, len(output), 2)}
+
+                decompress_utilization = calculate_utilization(data, ['util_dcpr0', 'util_dcpr1', 'util_dcpr2'])
+                pke_utilization = calculate_utilization(data, [f'util_pke{i}' for i in range(6)])
+                cph_utilization = calculate_utilization(data, [f'util_cph{i}' for i in range(4)])
+                ath_utilization = calculate_utilization(data, [f'util_ath{i}' for i in range(4)])
+                usc_utilization = calculate_utilization(data, ['util_ucs0', 'util_ucs1'])
+                latency = data.get("lat_acc_avg", '0')
+
+                window.addstr(4 + count, 10, f"{device[0]}\t{data.get('util_cpr0', '0')}\t{decompress_utilization}\t{pke_utilization}\t{cph_utilization}\t{ath_utilization}\t{usc_utilization}\t{latency}    ")
+
+            window.addstr(4 + len(devices), 10, "=" * 73)
+            window.refresh()
+            time.sleep(2)
+
+            if refresh_counter % 5 == 0:
+                window.clear()
+                # Assuming EnableTelemetry() is a function that updates devices and set_paths
+                devices, set_paths = EnableTelemetry()
+
+        except KeyboardInterrupt:
+            break
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            break
+
+if __name__ == "__main__":
+    devices, paths = EnableTelemetry()
+    curses.wrapper(pbar, devices, paths)
+
