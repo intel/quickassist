@@ -154,7 +154,7 @@ each process.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">N</span></code></p></td>
 <td><p>N VFs will be assigned to each process.</p>
-<p>Maximum value is <strong>64</strong></p>
+<p>Maximum value is: <strong># of PFs * 16</strong></p>
 </td>
 </tr>
 </tbody>
@@ -503,8 +503,31 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 <div><p>For RPM-based distros:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y python3</span>
 <span class="go">sudo dnf install -y python3-venv</span>
-<span class="go">sudo dnf install -y python-is-python3</span>
 <span class="go">sudo dnf install -y python3-pip</span>
+</pre></div>
+</div>
+<p>Ensure <strong>/usr/bin/python</strong> exists and points to the installed python3 binary.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span>!/bin/bash
+
+<span class="gp"># </span>Check<span class="w"> </span><span class="k">if</span><span class="w"> </span>Python<span class="w"> </span><span class="m">3</span><span class="w"> </span>is<span class="w"> </span>installed
+<span class="go">if command -v python3 &amp;&gt;/dev/null; then</span>
+<span class="gp">    # </span>Get<span class="w"> </span>the<span class="w"> </span>path<span class="w"> </span>to<span class="w"> </span>the<span class="w"> </span>Python<span class="w"> </span><span class="m">3</span><span class="w"> </span>executable
+<span class="go">    PYTHON3_PATH=$(which python3)</span>
+
+<span class="gp">    # </span>Check<span class="w"> </span><span class="k">if</span><span class="w"> </span>/usr/bin/python<span class="w"> </span>already<span class="w"> </span>exists
+<span class="go">    if [ -L /usr/bin/python ] || [ -e /usr/bin/python ]; then</span>
+<span class="go">        echo &quot;A file or symbolic link already exists at /usr/bin/python.&quot;</span>
+<span class="go">        echo &quot;Please remove or rename it before running this script.&quot;</span>
+<span class="go">        exit 1</span>
+<span class="go">    else</span>
+<span class="gp">        # </span>Create<span class="w"> </span>a<span class="w"> </span>symbolic<span class="w"> </span>link<span class="w"> </span><span class="k">for</span><span class="w"> </span>Python<span class="w"> </span><span class="m">3</span>
+<span class="go">        sudo ln -s &quot;$PYTHON3_PATH&quot; /usr/bin/python</span>
+<span class="go">        echo &quot;Symbolic link created for Python 3 at /usr/bin/python.&quot;</span>
+<span class="go">    fi</span>
+<span class="go">else</span>
+<span class="go">    echo &quot;Python 3 is not installed or not found in the system PATH.&quot;</span>
+<span class="go">    exit 1</span>
+<span class="go">fi</span>
 </pre></div>
 </div>
 <p>For Ubuntu and other Debian-based distros, install these dependencies:</p>

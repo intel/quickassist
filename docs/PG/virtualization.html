@@ -69,7 +69,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#virtualization-deployment-model-for-intel-qat-2-0">Virtualization Deployment Model for Intel<sup>®</sup> QAT 2.0</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#physical-device-direct-assignment">Physical Device Direct Assignment</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#single-root-iov-sr-iov">Single Root IOV (SR-IOV)</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#scalable-iov-s-iov">Scalable IOV (S-IOV)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#reducing-number-of-vfs-per-endpoint">Reducing Number of VFs per Endpoint</a></li>
 </ul>
 </li>
@@ -114,11 +113,7 @@
 <span id="qat-2-0-pg-virtualization"></span><h1>Virtualization<a class="headerlink" href="#virtualization" title="Permalink to this heading"></a></h1>
 <section id="virtualization-deployment-model-for-intel-qat-2-0">
 <h2>Virtualization Deployment Model for Intel<sup>®</sup> QAT 2.0<a class="headerlink" href="#virtualization-deployment-model-for-intel-qat-2-0" title="Permalink to this heading"></a></h2>
-<p>Three different methods of virtualization are supported as shown in the below image.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Single Root IOV (SR-IOV) and Scalable IOV (S-IOV) virtualization methods cannot be used simultaneously on the same Physical Function (PF).</p>
-</div>
+<p>Two different methods of virtualization are supported as shown in the below image.</p>
 <figure class="align-default">
 <img alt="../_images/virtualization_models.png" src="../_images/virtualization_models.png" />
 </figure>
@@ -140,22 +135,6 @@ defined in <a class="reference internal" href="infrastructure_load_balancing.htm
 <p>One or more VFs can be passed through to different guests/VMs</p>
 <p>For details on enabling SR-IOV refer to the <span class="xref std std-ref">Virtualization Deployment Guide</span>.</p>
 </section>
-<section id="scalable-iov-s-iov">
-<span id="scalable-iov"></span><h2>Scalable IOV (S-IOV)<a class="headerlink" href="#scalable-iov-s-iov" title="Permalink to this heading"></a></h2>
-<p>Scalable I/O Virtualization enables flexible composition of Virtual Functions by software from native hardware interfaces.
-Rather than implementing a complete SR-IOV virtual function (VF) interface, an S-IOV device exposes light-weight Assignable Device
-Interfaces (ADIs) that are optimized for fast-path (data-path) operations from the guest.</p>
-<p>S-IOV uses <em>PASID</em> rather than BDF to identify unique address spaces which allow greater scalability. Number of supported ADIs is defined in <a class="reference internal" href="infrastructure_load_balancing.html#qat2-0-dimensions"><span class="std std-ref">Dimensions</span></a>.</p>
-<p>The public specification is available at <a class="reference external" href="https://www.intel.com/content/www/us/en/developer/articles/technical/introducing-intel-scalable-io-virtualization.html">Introducing Intel® Scalable I/O Virtualization</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>S-IOV is disabled in Linux Kernel after v5.16. Effort is underway to reenable in future kernel version.</p>
-</div>
-<figure class="align-default">
-<a class="reference internal image-reference" href="../_images/siov_updated.png"><img alt="../_images/siov_updated.png" src="../_images/siov_updated.png" style="width: 860px; height: 409px;" /></a>
-</figure>
-<p>For details on enabling S-IOV refer to the <span class="xref std std-ref">Virtualization Deployment Guide</span>.</p>
-</section>
 <section id="reducing-number-of-vfs-per-endpoint">
 <h2>Reducing Number of VFs per Endpoint<a class="headerlink" href="#reducing-number-of-vfs-per-endpoint" title="Permalink to this heading"></a></h2>
 <div class="admonition note">
@@ -168,14 +147,14 @@ In some instances, it is not desirable to enable all VFs.</p>
 <ol class="arabic">
 <li><p><strong>Disable</strong> all VFs on a specific device (6b:00.0 in this example):</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 0 &gt; /sys/bus/pci/devices/0000\:6b:00.0/sriov_numvfs</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 0 | sudo tee /sys/bus/pci/devices/0000:76:00.0/sriov_numvfs</span>
 </pre></div>
 </div>
 </div></blockquote>
 </li>
 <li><p><strong>Enable</strong> number of desired VFs for specific device (4 VFs on 6b:00.0 in this example):</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 4 &gt; /sys/bus/pci/devices/0000\:6b:00.0/sriov_numvfs</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 4 | sudo tee /sys/bus/pci/devices/0000:76:00.0/sriov_numvfs</span>
 </pre></div>
 </div>
 </div></blockquote>

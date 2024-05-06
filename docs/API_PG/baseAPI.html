@@ -71,6 +71,7 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#intel-qat-api-conventions">Intel® QAT API Conventions</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#instance-discovery">Instance Discovery</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#querying-capabilities">Querying Capabilities</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#modes-of-operation">Modes of Operation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#memory-allocation-and-ownership">Memory Allocation and Ownership</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#data-plane-apis">Data Plane APIs</a></li>
@@ -210,8 +211,10 @@ using the <code class="docutils literal notranslate"><span class="pre">CpaInstan
 a specific instance within the system and is passed as a parameter to all
 API functions that operate on instances.</p>
 <p>Instance discovery is achieved through service-specific API invocations.
-This section describes the instance discovery for data compression (<code class="docutils literal notranslate"><span class="pre">dc</span></code>);
-however, the flow of the calls is similar for the cryptographic service.</p>
+Subsections here provide details on the instance discovery for data compression (<code class="docutils literal notranslate"><span class="pre">dc</span></code>)
+as well as the cryptographic service.</p>
+<section id="data-compression">
+<h4>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this heading"></a></h4>
 <p>In the below example, the number of <code class="docutils literal notranslate"><span class="pre">dc</span></code> instances available to the application is
 queried via the <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumInstances</span></code> call. The application obtains the
 instance handle of the first instance.</p>
@@ -240,8 +243,65 @@ instance handle of the first instance.</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+</section>
+<section id="cryptography">
+<h4>Cryptography<a class="headerlink" href="#cryptography" title="Permalink to this heading"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This note is pertinent to customers utilizing legacy QuickAssist Technology (QAT) generations, such as QAT1.7. It is <strong>not applicable</strong> to customers operating on QAT2.0 or newer generations.</p>
+<p>For cryptographic operations on legacy QAT generations, it is imperative to use the APIs <code class="docutils literal notranslate"><span class="pre">cpaCyGetNumInstances</span></code> and <code class="docutils literal notranslate"><span class="pre">cpaCyGetInstances</span></code>.</p>
+<p>A notable distinction is that legacy QAT generations support both symmetric (<code class="docutils literal notranslate"><span class="pre">sym</span></code>) and asymmetric (<code class="docutils literal notranslate"><span class="pre">asym</span></code>) cryptographic instances within a single instance.
+In contrast, starting with QAT2.0, each instance is dedicated to either symmetric or asymmetric operations exclusively.</p>
+</div>
+<p>Cryptography instance types are delineated by the enumeration <code class="docutils literal notranslate"><span class="pre">CpaAccelerationServiceType</span></code>, which can be found in the <code class="docutils literal notranslate"><span class="pre">cpa.h</span></code> header file.</p>
+<p>The currently supported instance types are:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_ACC_SVC_TYPE_CRYPTO_ASYM</span></code> for asymmetric cryptographic services</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_ACC_SVC_TYPE_CRYPTO_SYM</span></code> for symmetric cryptographic services</p></li>
+</ul>
+<p>Consider the following example, where an additional parameter is provided to specify the desired service type. The application first queries the number of available instances for the requested service type using the <code class="docutils literal notranslate"><span class="pre">cpaGetNumInstances</span></code> API.</p>
+<p>Subsequently, the application acquires the handle for the first instance returned by the <code class="docutils literal notranslate"><span class="pre">cpaGetInstances</span></code> API call.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">sampleCyGetInstance</span><span class="p">(</span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="o">*</span><span class="n">pCyInstHandle</span><span class="p">,</span><span class="w"> </span><span class="n">CpaAccelerationServiceType</span><span class="w"> </span><span class="n">service_type</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">    </span><span class="n">CpaInstanceHandle</span><span class="w"> </span><span class="n">cyInstHandles</span><span class="p">[</span><span class="n">MAX_INSTANCES</span><span class="p">];</span>
+<span class="w">    </span><span class="n">Cpa16U</span><span class="w"> </span><span class="n">numInstances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="n">CpaStatus</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">CPA_STATUS_SUCCESS</span><span class="p">;</span>
+
+<span class="w">    </span><span class="o">*</span><span class="n">pCyInstHandle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">NULL</span><span class="p">;</span>
+<span class="w">    </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpaGetNumInstances</span><span class="p">(</span><span class="n">service_type</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">numInstances</span><span class="p">);</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">numInstances</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="n">MAX_INSTANCES</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">numInstances</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">MAX_INSTANCES</span><span class="p">;</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CPA_STATUS_SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="p">(</span><span class="n">numInstances</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cpaGetInstances</span><span class="p">(</span><span class="n">service_type</span><span class="p">,</span><span class="w"> </span><span class="n">numInstances</span><span class="p">,</span><span class="w"> </span><span class="n">cyInstHandles</span><span class="p">);</span>
+<span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">status</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CPA_STATUS_SUCCESS</span><span class="p">)</span>
+<span class="w">        </span><span class="p">{</span>
+<span class="w">            </span><span class="o">*</span><span class="n">pCyInstHandle</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cyInstHandles</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="mi">0</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">numInstances</span><span class="p">)</span>
+<span class="w">    </span><span class="p">{</span>
+<span class="w">        </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;No instances found for &#39;SSL&#39;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;Please check your section names&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot; in the config file.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">        </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;Also make sure to use config file version 2.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="querying-capabilities">
+<h3>Querying Capabilities<a class="headerlink" href="#querying-capabilities" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section describes the querying capabilities for data compression (dc); however, the flow of the calls is similar for the cryptographic service.</p>
+</div>
 <p>The next example shows the application querying the capabilities of the data
-compression implementation, and veryfing the required functionality is present.
+compression implementation, and verifying the required functionality is present.
 Each service implementation exposes the capabilities that have been implemented
 and are available. Capabilities include algorithms, common features, and limits
 to variables. Each service has a unique capability matrix, and each implementation
