@@ -120,22 +120,14 @@
 <li><p><strong>Enter</strong> to the BIOS setup.</p></li>
 <li><p><strong>Enable</strong> the <em>VT-d</em> parameter in BIOS. This setting is usually under <code class="docutils literal notranslate"><span class="pre">Socket</span> <span class="pre">configuration</span> <span class="pre">&gt;</span> <span class="pre">IIO</span> <span class="pre">configuration</span> <span class="pre">&gt;</span> <span class="pre">Intel</span> <span class="pre">VT-d</span></code>.</p>
 <blockquote>
-<div><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p><em>VT-d</em> is required for both <em>sIOV</em> and <em>SR-IOV</em>.</p>
-</div>
-<figure class="align-default">
+<div><figure class="align-default">
 <a class="reference internal image-reference" href="../_images/bios1.png"><img alt="../_images/bios1.png" src="../_images/bios1.png" style="width: 6.5in; height: 2.84861in;" /></a>
 </figure>
 </div></blockquote>
 </li>
 <li><p><strong>Enable</strong> <em>SR-IOV</em> in BIOS. This setting is usually under <code class="docutils literal notranslate"><span class="pre">Platform</span> <span class="pre">Configuration</span> <span class="pre">&gt;</span> <span class="pre">Miscellaneous</span> <span class="pre">Configuration</span> <span class="pre">&gt;</span> <span class="pre">SR-IOV</span> <span class="pre">Support</span></code>.</p>
 <blockquote>
-<div><div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This is only required for <em>SR-IOV</em>.</p>
-</div>
-<figure class="align-default">
+<div><figure class="align-default">
 <a class="reference internal image-reference" href="../_images/bios2.png"><img alt="../_images/bios2.png" src="../_images/bios2.png" style="width: 6.5in; height: 2.87083in;" /></a>
 </figure>
 </div></blockquote>
@@ -159,12 +151,6 @@ and verify they are correct with the above command.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<p>For sIOV:</p>
-<blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">grubby --update-kernel=ALL --args=&quot;intel_iommu=on,sm_on&quot;</span>
-</pre></div>
-</div>
-</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">grubby</span> <span class="pre">--remove-args</span></code> argument can be used to remove any arguments that are not required.</p>
@@ -185,42 +171,19 @@ and verify they are correct with the above command.</p>
 </ol>
 <section id="kernel-requirements">
 <span id="qat-2-0-virt-kernel-requirements"></span><h3>Kernel Requirements<a class="headerlink" href="#kernel-requirements" title="Permalink to this heading"></a></h3>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 51%" />
-<col style="width: 49%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>SR-IOV</strong></p></th>
-<th class="head"><p><strong>sIOV</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>No special limitations. Any
-kernel version which is
-supported by Intel QAT 2.0 can
-be used.</p></td>
-<td><p>Official kernel: 5.11 &lt;= version
-&lt; 5.16</p></td>
-</tr>
-</tbody>
-</table>
 </section>
 <section id="kernel-boot-parameters">
 <span id="qat-2-0-virt-kernel-parameters"></span><h3>Kernel Boot Parameters<a class="headerlink" href="#kernel-boot-parameters" title="Permalink to this heading"></a></h3>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 51%" />
-<col style="width: 49%" />
+<col style="width: 100%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>SR-IOV</strong></p></th>
-<th class="head"><p><strong>sIOV</strong></p></th>
 </tr>
 </thead>
 <tbody>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code></p></td>
-<td><p><code class="docutils literal notranslate"><span class="pre">intel_iommu=on,sm_on</span></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -238,7 +201,7 @@ be used.</p></td>
 </li>
 <li><p><strong>Verify</strong> device capabilities using below command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(lspci -vnd 8086:4940 || lspci -vnd 8086:4942)</span> <span class="go">| (grep SR-IOV || grep PASID)</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(lspci -vnd 8086:4940 || lspci -vnd 8086:4942)</span> <span class="go">| (grep SR-IOV)</span>
 </pre></div>
 </div>
 <figure class="align-default">
@@ -247,7 +210,6 @@ be used.</p></td>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>For <em>sIOV</em>, <code class="docutils literal notranslate"><span class="pre">Process</span> <span class="pre">Address</span> <span class="pre">Space</span> <span class="pre">ID</span> <span class="pre">(PASID)</span></code> needs to be present.</p></li>
 <li><p>For <em>SR-IOV</em>, <code class="docutils literal notranslate"><span class="pre">Single</span> <span class="pre">Root</span> <span class="pre">I/O</span> <span class="pre">Virtualization</span> <span class="pre">(SR-IOV)</span></code> needs to be present.</p></li>
 </ul>
 </div>
