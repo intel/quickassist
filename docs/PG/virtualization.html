@@ -145,14 +145,14 @@ defined in <a class="reference internal" href="infrastructure_load_balancing.htm
 In some instances, it is not desirable to enable all VFs.</p>
 <p>The following commands can be used to limit VFs exposed per PF.</p>
 <ol class="arabic">
-<li><p><strong>Disable</strong> all VFs on a specific device (6b:00.0 in this example):</p>
+<li><p><strong>Disable</strong> all VFs on a specific device (76:00.0 in this example):</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 0 | sudo tee /sys/bus/pci/devices/0000:76:00.0/sriov_numvfs</span>
 </pre></div>
 </div>
 </div></blockquote>
 </li>
-<li><p><strong>Enable</strong> number of desired VFs for specific device (4 VFs on 6b:00.0 in this example):</p>
+<li><p><strong>Enable</strong> number of desired VFs for specific device (4 VFs on 76:00.0 in this example):</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 4 | sudo tee /sys/bus/pci/devices/0000:76:00.0/sriov_numvfs</span>
 </pre></div>
@@ -163,7 +163,6 @@ In some instances, it is not desirable to enable all VFs.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <ul class="simple">
-<li><p>Restart the acceleration software for this change to take place.</p></li>
 <li><p>This change is not persistent. After a reboot, all VFs are exposed per PF.</p></li>
 </ul>
 </div>
