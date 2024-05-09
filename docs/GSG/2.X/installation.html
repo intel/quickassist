@@ -292,93 +292,96 @@ confusing) to the casual installer.</p></td>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-debug</span></code></p></td>
 <td><p>Enables debugging.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-uio</span></code></p></td>
-<td><p>Enables Userspace I/O.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code></p></td>
 <td><p>Disables parameters checking in the top-level APIs
 (use for performance optimization).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dc-dyn</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dc-dyn</span></code></p></td>
 <td><p>Disables dynamic compression support.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-stats</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-stats</span></code></p></td>
 <td><p>Disables statistic collection (use for performance
 optimization).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-drbg-poll-and-wait</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-drbg-poll-and-wait</span></code></p></td>
 <td><p>Modifies the behavior of DRBG HT functions to use single
 threaded operation.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-log-syslog</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-log-syslog</span></code></p></td>
 <td><p>Enables debugging messages to be outputted to the system log
 instead of standard output.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-nonblocking-partials-perform</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-nonblocking-partials-perform</span></code></p></td>
 <td><p>Partial operations results are not being blocked.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-sriov</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-sriov</span></code></p></td>
 <td><p>Enables Single-root I/O Virtualization in the QAT driver
 (available options: <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">guest</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-trace</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-trace</span></code></p></td>
 <td><p>Enables tracing for the Cryptography API.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-asym-only</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-asym-only</span></code></p></td>
 <td><p>Enables driver to support Asymmetric Crypto services only.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-sym-only</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-sym-only</span></code></p></td>
 <td><p>Enables driver to support Symmetric Crypto services only.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-only</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-only</span></code></p></td>
 <td><p>Enables driver supports only compression service
 (can optimize size of build objects).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-sym-only</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-sym-only</span></code></p></td>
 <td><p>Enables driver to support Data Compression and
 Symmetric Crypto services only.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-return-counters-on-error</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-return-counters-on-error</span></code></p></td>
 <td><p>Enables updates of consumed/produced results in case
 of error during compression or decompression operations.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-icp-inline</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-icp-inline</span></code></p></td>
 <td><p>When defined, function inlining for functions that cannot be
 inlined by the compiler is removed to enable compilation
 of the driver for kernels build without
 <code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_SUPPORTS_OPTIMIZED_INLINING</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-inline</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-inline</span></code></p></td>
 <td><p>Enables <code class="docutils literal notranslate"><span class="pre">INLINE</span></code> feature.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-hb-fail-sim</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-hb-fail-sim</span></code></p></td>
 <td><p>Enable Heartbeat Failure Simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-coexistence</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-coexistence</span></code></p></td>
 <td><p>Enables legacy and upstream driver coexistence.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-lkcf</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-lkcf</span></code></p></td>
 <td><p>Enables QAT registration with Linux Kernel Crypto Framework.
 Kernel instances are disabled by default. See
 <a class="reference internal" href="../../PG/configuration_files_logicalsection.html#qat-2-0-pg-configuration-files-logical-instances-section"><span class="std std-ref">Logical Instances Section of the Programmer’s Guide</span></a>
 for additional details.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-kpt-debug-key</span></code></p></td>
-<td><p>Enable QAT debug issue certificate.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-kpt</span></code></p></td>
+<td><p>Enables kpt.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dc-strict-mode</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dc-strict-mode</span></code></p></td>
 <td><p>Disables Compress and Verify (CnV) functionality.
 See <a class="reference internal" href="#qat-2-0-cnv-messaging"><span class="std std-ref">below</span></a> for details.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
 <td><p>Enables Data Compression Error Simulation.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-algorithms</span></code></p></td>
+<td><p>Enables legacy algorithms.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-sla-mgr</span></code></p></td>
+<td><p>Enables the legacy SLA manager.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
 <td><p>USDM allocates and handles memory specific to threads (for
 multi-thread apps, allocated memory information will be
 maintained separately for each thread).</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-128k-slab</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-128k-slab</span></code></p></td>
 <td><p>Enables 128k slab allocator in USDM. It could improve
 performance and reduce memory consumption for the large
 number of threads when thread specific memory allocator is

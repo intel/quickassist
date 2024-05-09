@@ -185,38 +185,45 @@ data compression [dc]).</p>
 <td><p>64</p></td>
 <td><p>32 or 64</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">HeartbeatTimer</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ServiceChainingEnabled</span></code></p></td>
+<td><p>Flag enables dc chaining.</p>
+<p>NOTE: <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> must be set to <code class="docutils literal notranslate"><span class="pre">dc</span></code>.</p>
+</td>
+<td><p>0</p></td>
+<td><p>0 or 1</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">HeartbeatTimer</span></code></p></td>
 <td><p>Default heartbeat timer.</p></td>
 <td><p>1000</p></td>
 <td><p>&gt; 200</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">AutoResetOnError</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">AutoResetOnError</span></code></p></td>
 <td><p>Automatically resets the device in case of fatal error or heartbeat failure.</p></td>
 <td><p>0</p></td>
 <td><p>0 or 1</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleInterruptDelay</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleInterruptDelay</span></code></p></td>
 <td><p>Default value for power management idle interrupt delay.</p>
 <p>Refer to <a class="reference external" href="#power-management-parameters">Power Management Parameters</a> for additional details.</p>
 </td>
 <td><p>512</p></td>
 <td></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code></p></td>
 <td><p>This flag is to enable power management idle support.</p>
 <p>Refer to <a class="reference external" href="#power-management-parameters">Power Management Parameters</a> for additional details.</p>
 </td>
 <td><p>1</p></td>
 <td><p>0 or 1</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SVMEnabled</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SVMEnabled</span></code></p></td>
 <td><p>This flag is to enable SVM support.</p>
 <p>Refer to <a class="reference external" href="#shared-virtual-memory-svm-parameters">Shared Virtual Memory Parameters</a> for additional details.</p>
 </td>
 <td><p>0</p></td>
 <td><p>0 or 1</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ATEnabled</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ATEnabled</span></code></p></td>
 <td><p>This flag is to enable Address Translation Service(ATS).</p>
 <p>Refer to <a class="reference external" href="#shared-virtual-memory-svm-parameters">Shared Virtual Memory Parameters</a> for additional details.</p>
 </td>

@@ -122,7 +122,7 @@ required to build and execute these applications.</p>
 <h2>Performance Sample Code<a class="headerlink" href="#performance-sample-code" title="Permalink to this heading"></a></h2>
 <p>The sample application is provided for the user space.</p>
 <section id="compiling-the-performance-sample-code">
-<h3>Compiling the Performance Sample Code<a class="headerlink" href="#compiling-the-performance-sample-code" title="Permalink to this heading"></a></h3>
+<span id="qat-2-0-gsg-install-performance-sample"></span><h3>Compiling the Performance Sample Code<a class="headerlink" href="#compiling-the-performance-sample-code" title="Permalink to this heading"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -149,6 +149,10 @@ required to build and execute these applications.</p>
 </ol>
 <p>This compiles the acceleration sample code for <em>user space</em>. It also compiles the memory mapping driver used with the
 user space application.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The command above also builds the functional sample applications described in <a class="reference internal" href="#qat-2-0-gsg-functional-sample-applications"><span class="std std-ref">Functional Sample Applications</span></a>.</p>
+</div>
 </section>
 <section id="default-configuration-files">
 <span id="default-configuration"></span><h3>Default Configuration Files<a class="headerlink" href="#default-configuration-files" title="Permalink to this heading"></a></h3>
@@ -298,11 +302,9 @@ This provides a quick test to verify the acceleration software and hardware are 
 </section>
 <section id="user-space">
 <h4>User Space<a class="headerlink" href="#user-space" title="Permalink to this heading"></a></h4>
-<p>After building the sample code with the installation script, the user space application is located at <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build</span></code>.</p>
+<p>After installing the sample code, the user space application is located at <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code> and <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build</span></code>.</p>
 <p>Then run the following commands:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd $ICP_ROOT/build/</span>
-<span class="go">export LD_LIBRARY_PATH=`pwd\`</span>
-<span class="go">./cpa_sample_code signOfLife=1</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cpa_sample_code signOfLife=1</span>
 </pre></div>
 </div>
 </section>
@@ -336,7 +338,7 @@ Packet Size 512
 </section>
 </section>
 <section id="functional-sample-applications">
-<h2>Functional Sample Applications<a class="headerlink" href="#functional-sample-applications" title="Permalink to this heading"></a></h2>
+<span id="qat-2-0-gsg-functional-sample-applications"></span><h2>Functional Sample Applications<a class="headerlink" href="#functional-sample-applications" title="Permalink to this heading"></a></h2>
 <p>The software package contains sample code that demonstrates how to use the Intel<sup>®</sup> QuickAssist Technology APIs and build the structures required for various use cases.</p>
 <p>For more details, refer to the Intel<sup>®</sup> QuickAssist Technology API Programmer’s Guide.</p>
 <section id="compiling-the-acceleration-functional-sample-code">
@@ -346,6 +348,10 @@ Packet Size 512
 <p>These instructions assume the software package has been untarred to the <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT</span></code> directory.</p>
 </div>
 <p>The acceleration functional sample code can be compiled manually.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This step is not required if <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">samples-install</span></code> command was issued in the  <a class="reference internal" href="#qat-2-0-gsg-install-performance-sample"><span class="std std-ref">Performance Sample Code</span></a> section.</p>
+</div>
 <ol class="arabic">
 <li><p><strong>Compile</strong> for the user space using the following commands:</p>
 <blockquote>
