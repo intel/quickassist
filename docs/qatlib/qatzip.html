@@ -126,7 +126,7 @@
 <li><p>Installing from pre-built packages</p></li>
 <li><p>Installing from source code</p></li>
 </ul>
-<p>Distributions such as <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, <em>CentOS 9 Stream</em> include <em>qatzip</em> packages within their repositories.</p>
+<p>Distributions such as <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, <em>CentOS 9 Stream</em>, and <em>Ubunutu 24.04</em> each include <em>qatzip</em> packages within their repositories.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>The instructions here are to be used when using <em>QATzip</em> with <em>qatlib</em>.</p>
@@ -137,6 +137,34 @@
 </div>
 <section id="installing-from-packages">
 <h3>Installing from Packages<a class="headerlink" href="#installing-from-packages" title="Permalink to this heading"></a></h3>
+<p>This section outlines the installation of <em>QATzip</em> using package managers.</p>
+<p>Instructions cover:</p>
+<ul class="simple">
+<li><p>Ubuntu 24.04</p></li>
+<li><p>RPM (RPM Package Manager)</p></li>
+</ul>
+<section id="ubuntu-24-04">
+<h4>Ubuntu 24.04<a class="headerlink" href="#ubuntu-24-04" title="Permalink to this heading"></a></h4>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To install <em>QATzip</em> on older versions of Ubuntu, you must manually compile and install it from the source code.</p>
+<p>See the <a class="reference internal" href="#qat-2-0-qatlib-qatzip-install-source"><span class="std std-ref">Installing from Sources</span></a> section for instructions on installing from source.</p>
+</div>
+<ol class="arabic">
+<li><p><strong>Install</strong> the <em>QATzip</em> library by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo -E apt install -y qatzip libqatzip3</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install</strong> the <em>QATzip</em> development package by running the below command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo -E apt install -y libqatzip-dev</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="rpm">
+<h4>RPM<a class="headerlink" href="#rpm" title="Permalink to this heading"></a></h4>
 <ol class="arabic">
 <li><p><strong>Install</strong> the <em>QATzip</em> library by running the below command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf -y install qatzip</span>
@@ -154,7 +182,7 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf remove qatzip</span>
 </pre></div>
 </div>
-<p>See the <a class="reference internal" href="#qat-2-0-qatlib-qatzip-install-source"><span class="std std-ref">Installing from Sources</span></a> section for instructions on compiling from source.</p>
+<p>See the <a class="reference internal" href="#qat-2-0-qatlib-qatzip-install-source"><span class="std std-ref">Installing from Sources</span></a> section for instructions on installing from source.</p>
 </div>
 </li>
 <li><p><strong>Install</strong> the <em>QATzip</em> test application(s) by running the below command:</p>
@@ -172,6 +200,7 @@
 </div>
 </li>
 </ol>
+</section>
 </section>
 <section id="installing-from-sources">
 <span id="qat-2-0-qatlib-qatzip-install-source"></span><h3>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this heading"></a></h3>

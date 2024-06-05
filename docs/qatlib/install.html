@@ -64,12 +64,17 @@
 <li class="toctree-l2"><a class="reference internal" href="description.html">Description</a></li>
 <li class="toctree-l2"><a class="reference internal" href="requirements.html">System Requirements</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#installing-from-rpm-packages">Installing from RPM Packages</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#installing-from-sources">Installing from Sources</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#configuration-options">Configuration Options</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#confirm-current-version">Confirm Current Version</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-from-packages">Installing from Packages</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ubuntu-24-04">Ubuntu 24.04</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rpm">RPM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#system-updates">System Updates</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#installing-from-sources">Installing from Sources</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#configuration-options">Configuration Options</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#confirm-current-version">Confirm Current Version</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
@@ -119,14 +124,44 @@
 <li><p>Installing from pre-built packages</p></li>
 <li><p>Installing from source code</p></li>
 </ul>
-<p>Distributions such as <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, <em>CentOS 9 Stream</em> include <em>qatlib</em> packages within their repositories.</p>
+<p>Distributions such as <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, <em>CentOS 9 Stream</em>, and <em>Ubunutu 24.04</em> each include <em>qatlib</em> packages within their repositories.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>At the time of writing this user’s guide, the steps in this section were accurate.</p>
 <p>If any issues are encountered, refer to latest installation instructions available at the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/INSTALL">qatlib GitHub repository</a>.</p>
 </div>
-<section id="installing-from-rpm-packages">
-<h2>Installing from RPM Packages<a class="headerlink" href="#installing-from-rpm-packages" title="Permalink to this heading"></a></h2>
+<section id="installing-from-packages">
+<h2>Installing from Packages<a class="headerlink" href="#installing-from-packages" title="Permalink to this heading"></a></h2>
+<p>This section outlines the installation of <em>qatlib</em> using package managers.</p>
+<p>Instructions cover:</p>
+<ul class="simple">
+<li><p>Ubuntu 24.04</p></li>
+<li><p>RPM (RPM Package Manager)</p></li>
+</ul>
+<section id="ubuntu-24-04">
+<h3>Ubuntu 24.04<a class="headerlink" href="#ubuntu-24-04" title="Permalink to this heading"></a></h3>
+<p>The following steps can be used to install <em>qatlib</em> packages on <em>Ubuntu 24.04</em>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To install <em>qatlib</em> on older versions of Ubuntu, you must manually compile and install it from the source code.</p>
+<p>See the <a class="reference internal" href="#qat-2-0-qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a> section for instructions on installing from source.</p>
+</div>
+<ol class="arabic">
+<li><p><strong>Update</strong> list of available packages and then upgrade the installed packages to their latest versions.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt update</span>
+<span class="go">sudo apt upgrade -y</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Install</strong> the <em>qatlib</em> library by running the following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo -E apt install -y libqat4 libqat-dev qatlib-service qatlib-examples</span>
+</pre></div>
+</div>
+</li>
+</ol>
+</section>
+<section id="rpm">
+<h3>RPM<a class="headerlink" href="#rpm" title="Permalink to this heading"></a></h3>
 <p>The following steps can be used to install <em>qatlib</em> packages on Linux distributions such as
 <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, or <em>CentOS 9 Stream</em>.</p>
 <ol class="arabic">
@@ -149,10 +184,17 @@
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf remove qatlib</span>
 </pre></div>
 </div>
-<p>See the <a class="reference internal" href="#qat-2-0-qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a> section for instructions on compiling from source.</p>
+<p>See the <a class="reference internal" href="#qat-2-0-qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a> section for instructions on installing from source.</p>
 </div>
 </div></blockquote>
-<ol class="arabic" start="3">
+</section>
+<section id="system-updates">
+<h3>System Updates<a class="headerlink" href="#system-updates" title="Permalink to this heading"></a></h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is required for both on Ubunutu24.04 and RPM installations.</p>
+</div>
+<ol class="arabic">
 <li><p><strong>Add</strong> your user to the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group by running the below command, and <strong>re-login</strong> to make the change effective. This is necessary for non-root users to use qat services.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo usermod -a -G qat `whoami`</span>
 <span class="go">sudo su -l $USER</span>
@@ -180,6 +222,7 @@ The following commands set the amount of locked memory to 500MB.</p>
 </div></blockquote>
 </li>
 </ol>
+</section>
 </section>
 <section id="installing-from-sources">
 <span id="qat-2-0-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this heading"></a></h2>
@@ -495,15 +538,16 @@ driver.</p>
 </tbody>
 </table>
 </section>
+</section>
 <section id="confirm-current-version">
-<span id="qat-2-0-qatlib-check-version"></span><h3>Confirm Current Version<a class="headerlink" href="#confirm-current-version" title="Permalink to this heading"></a></h3>
+<span id="qat-2-0-qatlib-check-version"></span><h2>Confirm Current Version<a class="headerlink" href="#confirm-current-version" title="Permalink to this heading"></a></h2>
 <ol class="arabic">
 <li><p>To confirm your current qatlib version, use one of the following:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qatmgr -v</span>
 </pre></div>
 </div>
 <p>Example return:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">qatmgr</span><span class="w"> </span><span class="mf">23.11.0</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">qatmgr</span><span class="w"> </span><span class="mf">24.02.0</span>
 </pre></div>
 </div>
 </li>
@@ -528,7 +572,6 @@ driver.</p>
 </div>
 </li>
 </ol>
-</section>
 </section>
 </section>
 

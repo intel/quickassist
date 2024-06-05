@@ -71,6 +71,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#cpu-pinning-optional">CPU Pinning (Optional)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#machine-type">Machine Type</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#i-o-apic-driver">I/O APIC Driver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#iommu-settings">IOMMU Settings</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat-virtual-function">QAT Virtual Function</a></li>
 </ul>
 </li>
@@ -164,6 +165,17 @@
 <span class="go">    &lt;apic/&gt;</span>
 <span class="go">        &lt;ioapic driver=&#39;qemu&#39;/&gt;</span>
 <span class="go">&lt;/features&gt;</span>
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="iommu-settings">
+<h3>IOMMU Settings<a class="headerlink" href="#iommu-settings" title="Permalink to this heading"></a></h3>
+<p>IOMMU should be configured as defined below.</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">&lt;iommu model=&#39;intel&#39;&gt;</span>
+<span class="go">    &lt;driver intremap=&#39;on&#39; caching_mode=&#39;on&#39;/&gt;</span>
+<span class="go">&lt;/iommu&gt;</span>
 </pre></div>
 </div>
 </div></blockquote>
