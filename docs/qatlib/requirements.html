@@ -343,6 +343,15 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </div>
 </div></blockquote>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For Debian-based systems like Ubuntu, QAT (QuickAssist Technology) kernel modules may be available in an additional package. Install it with:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="w"> </span><span class="n">update</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">apy</span><span class="w"> </span><span class="n">upgrade</span><span class="w"> </span><span class="o">-</span><span class="n">y</span>
+<span class="n">sudo</span><span class="w"> </span><span class="n">apt</span><span class="o">-</span><span class="n">get</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="o">-</span><span class="n">y</span><span class="w"> </span><span class="n">linux</span><span class="o">-</span><span class="n">modules</span><span class="o">-</span><span class="n">extra</span><span class="o">-</span><span class="n">$</span><span class="p">(</span><span class="n">uname</span><span class="w"> </span><span class="o">-</span><span class="n">r</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
 </div></blockquote>
 <p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">4xxx</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Physical Function (PF) by running one of the following commands, depending on your device id:</p>
 <blockquote>

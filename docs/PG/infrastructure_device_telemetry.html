@@ -190,6 +190,8 @@ Reading the control file will tell whether the feature is currently enabled or d
 <p>Ring Pair level telemetry is enabled when device level telemetry is enabled. However the ring pairs need to be selected.
 Only 4 ring pairs can be shown at any given time.
 By echoing the number of the ring pair (0-63) into a <code class="docutils literal notranslate"><span class="pre">rp_&lt;X&gt;_data</span></code> file it can be selected. Where X is A,B,C or D.</p>
+<section id="telemetry-commands">
+<h3>Telemetry Commands<a class="headerlink" href="#telemetry-commands" title="Permalink to this heading"></a></h3>
 <table class="longtable docutils align-default" id="id4">
 <caption><span class="caption-text">Telemetry Commands</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -220,9 +222,9 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </tbody>
 </table>
 <section id="selecting-ring-pairs">
-<h3>Selecting Ring Pairs<a class="headerlink" href="#selecting-ring-pairs" title="Permalink to this heading"></a></h3>
+<h4>Selecting Ring Pairs<a class="headerlink" href="#selecting-ring-pairs" title="Permalink to this heading"></a></h4>
 <section id="id1">
-<h4>Out-Of-Tree<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<h5>Out-Of-Tree<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h5>
 <p>This section provides guidance on the mapping of ring pairs to the VFs for the PF when using the Out-Of-Tree acceleration driver.</p>
 <p>There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following:</p>
 <table class="docutils align-default" id="id5">
@@ -344,8 +346,11 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 <li><p>If <code class="docutils literal notranslate"><span class="pre">dc</span></code> and <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">asym</span></code> is enabled, the first two columns are for <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">asym</span></code> and the second two columns are for <code class="docutils literal notranslate"><span class="pre">dc</span></code></p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">sym</span></code> and <code class="docutils literal notranslate"><span class="pre">asym</span></code> is enabled, the first and third columns are for <code class="docutils literal notranslate"><span class="pre">asym</span></code> and second and fourth columns are for <code class="docutils literal notranslate"><span class="pre">sym</span></code>.</p></li>
 </ul>
+</section>
+</section>
+</section>
 <section id="device-level-telemetry-values">
-<h5>Device Level Telemetry Values<a class="headerlink" href="#device-level-telemetry-values" title="Permalink to this heading"></a></h5>
+<h3>Device Level Telemetry Values<a class="headerlink" href="#device-level-telemetry-values" title="Permalink to this heading"></a></h3>
 <table class="longtable docutils align-default" id="id6">
 <caption><span class="caption-text">Device Level Telemetry Values</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -416,7 +421,7 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </table>
 </section>
 <section id="ring-pair-level-telemetry-values">
-<h5>Ring Pair Level Telemetry Values<a class="headerlink" href="#ring-pair-level-telemetry-values" title="Permalink to this heading"></a></h5>
+<h3>Ring Pair Level Telemetry Values<a class="headerlink" href="#ring-pair-level-telemetry-values" title="Permalink to this heading"></a></h3>
 <table class="longtable docutils align-default" id="id7">
 <caption><span class="caption-text">Ring Pair Level Telemetry Values</span><a class="headerlink" href="#id7" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -463,8 +468,6 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </table>
 </section>
 </section>
-</section>
-</section>
 <section id="monitoring-telemetry-text-based">
 <span id="qat2-0-text-based-telemetry"></span><h2>Monitoring Telemetry - Text Based<a class="headerlink" href="#monitoring-telemetry-text-based" title="Permalink to this heading"></a></h2>
 <p>The following example Python scripts highlight how telemetry data can be monitored at the command line.  The
@@ -502,6 +505,9 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 </pre></div>
 </div>
 </div></blockquote>
+</section>
+<section id="monitoring-telemetry-demo">
+<h3>Monitoring Telemetry Demo<a class="headerlink" href="#monitoring-telemetry-demo" title="Permalink to this heading"></a></h3>
 <p>Here is a demonstration of how to monitor telemetry while running the Intel<sup>®</sup> QAT sample code.</p>
 <video controls="True" height="300" preload="auto" width="500"><source src="../_static/video/pg/telemetry.mp4" type="video/mp4"></video></section>
 </section>

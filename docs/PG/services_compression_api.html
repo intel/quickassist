@@ -65,7 +65,7 @@
 <li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="services_index.html">Services</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Data Compression</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#compresion-features">Compresion Features</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compression-features">Compression Features</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#compression-limitations">Compression Limitations</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#compression-session-setup">Compression Session Setup</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#decompression-session-setup">Decompression Session Setup</a></li>
@@ -131,8 +131,8 @@
              
   <section id="data-compression">
 <span id="qat-2-0-pg-services-compression"></span><h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this heading"></a></h1>
-<section id="compresion-features">
-<h2>Compresion Features<a class="headerlink" href="#compresion-features" title="Permalink to this heading"></a></h2>
+<section id="compression-features">
+<h2>Compression Features<a class="headerlink" href="#compression-features" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>Deflate Compression Algorithm.</p></li>
 <li><p>LZ77 and Huffman Encoding.</p></li>
@@ -140,6 +140,7 @@
 <li><p>Compress and Verify.</p></li>
 <li><p>Checksums.</p></li>
 <li><p>Programmable CRC64.</p></li>
+<li><p>accumulateXXHash.</p></li>
 </ul>
 </section>
 <section id="compression-limitations">
@@ -148,6 +149,8 @@
 <li><p>Stateful compression is not supported.</p></li>
 <li><p>Stateful decompression is not supported on QAT2.0 hardware devices.</p></li>
 <li><p>Batch and Pack (BnP) compression is not supported.</p></li>
+<li><p>accumulateXXHash is not supported when combined with autoSelectBestHuffmanTree</p></li>
+<li><p>accumulateXXHash is not supported in Decompression or Combined sessions</p></li>
 </ul>
 </section>
 <section id="compression-session-setup">
@@ -193,8 +196,7 @@ all algorithms</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CpaBoolean</span> <span class="pre">lz4BlockIndependence</span></code></p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CpaBoolean</span> <span class="pre">accumulateXXHash</span></code>
-(currently unsupported)</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CpaBoolean</span> <span class="pre">accumulateXXHash</span></code></p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CpaDcCompMinMatch</span> <span class="pre">minMatch</span></code></p></td>
 <td><p>LZ4s specific</p></td>
