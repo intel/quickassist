@@ -356,7 +356,7 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <li><p>The Intel<sup>®</sup> QAT Physical Function driver (PF driver) isloaded, initialized and started.</p></li>
 <li><p>The Intel<sup>®</sup> QAT Virtual Function driver (VF driver) is loaded, initialized and started in the Guest OS in the VM.</p></li>
 <li><p>The PF driver detects that the firmware is unresponsive (using either of the following methods: User Proc Entry Read (not Enabled by Default) on page 47 or User Application Heartbeat APIs (not Enabled by Default) on page 48).</p></li>
-<li><p>The PF driver sends the “Restarting” event message to the VF via the internal PFto-VF communication messaging mechanism.</p></li>
+<li><p>The PF driver sends the “Restarting” event message to the VF via the internal PF-to-VF communication messaging mechanism.</p></li>
 <li><p>The VF driver sends the “Restarting” event to the application’s registered callback. The callback is registered using either of the Intel<sup>®</sup> QAT API functions <code class="docutils literal notranslate"><span class="pre">cpaDcInstanceSetNotificationCb()</span></code> or <code class="docutils literal notranslate"><span class="pre">cpaCyInstanceSetNotificationCb()</span></code> in the Guest OS. (The application’s callback function may perform any application-level cleanup.)</p></li>
 <li><p>The PF driver starts the reset sequence (save state, initiate reset, and restore state).</p></li>
 <li><p>The user restarts the Guest OS and loads the VF driver and application in the Guest OS.</p></li>

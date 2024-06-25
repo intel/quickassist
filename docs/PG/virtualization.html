@@ -164,6 +164,7 @@ In some instances, it is not desirable to enable all VFs.</p>
 <p class="admonition-title">Important</p>
 <ul class="simple">
 <li><p>This change is not persistent. After a reboot, all VFs are exposed per PF.</p></li>
+<li><p>Restarting the QAT service will also result in all VFs being exposed per PF.</p></li>
 </ul>
 </div>
 <p>After reducing the number of VFs per PF, it is possible that the mapping of QAT VF to configuration file has changed.  This mapping is very

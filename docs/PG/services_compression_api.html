@@ -256,8 +256,8 @@ all algorithms</p></td>
 <p>When the <em>Deflate Block #3</em> is processed, the property <code class="docutils literal notranslate"><span class="pre">endOfLastBlock</span></code> in the <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure will be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code>. This notifies the application that no more data can be decompressed. At this point, the session must be either removed and re-initialized, or reset.
 With an application handling multi-gzip data, the both the Gzip footer and Gzip header must be skipped.</p>
 </section>
-<section id="lz4-decompresion">
-<h3>LZ4 Decompresion<a class="headerlink" href="#lz4-decompresion" title="Permalink to this heading"></a></h3>
+<section id="lz4-decompression">
+<h3>LZ4 Decompression<a class="headerlink" href="#lz4-decompression" title="Permalink to this heading"></a></h3>
 <p>When decompressing LZ4 frames, the application is required to parse the frame header to extract <code class="docutils literal notranslate"><span class="pre">B.Checksum</span></code> flag. This flag is used to set the configuration parameter <code class="docutils literal notranslate"><span class="pre">lz4BlockChecksum</span></code> in <code class="docutils literal notranslate"><span class="pre">CpaDcSessionSetupData</span></code>. When decompressing LZ4 frames, the application should not include the frame header nor the frame footer in the source buffer to be processed by Intel<sup>®</sup> QAT hardware.</p>
 <figure class="align-default">
 <a class="reference internal image-reference" href="../_images/lz4_decompression.png"><img alt="../_images/lz4_decompression.png" src="../_images/lz4_decompression.png" style="width: 600px;" /></a>
@@ -306,7 +306,7 @@ With an application handling multi-gzip data, the both the Gzip footer and Gzip 
 <td><p>Stateless compression</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_FULL</span></code></p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_FINAL</span></code>
-to set BFinal</p></td>
+to set BFINAL</p></td>
 </tr>
 <tr class="row-odd"><td><p>Stateless decompression</p></td>
 <td><p><code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_FINAL</span></code></p></td>
@@ -343,7 +343,7 @@ to set BFinal</p></td>
 </section>
 <section id="checksums">
 <h2>Checksums<a class="headerlink" href="#checksums" title="Permalink to this heading"></a></h2>
-<p>With the addition of LZ4 algorithm support on QAT2.0, the compression hardware accelerators are now capable to generate XXash32 checksums. QAT2.0 device is now supporting the following checksums:</p>
+<p>With the addition of LZ4 algorithm support on QAT2.0, the compression hardware accelerators are now capable to generate XXHash32 checksums. QAT2.0 device is now supporting the following checksums:</p>
 <table class="longtable docutils align-default" id="id5">
 <caption><span class="caption-text">Checksums</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -362,7 +362,7 @@ to set BFinal</p></td>
 <tr class="row-odd"><td><p>Adler32</p></td>
 <td><p>Required for Zlib support</p></td>
 </tr>
-<tr class="row-even"><td><p>XXhash32</p></td>
+<tr class="row-even"><td><p>XXHash32</p></td>
 <td><p>Required for LZ4 support</p></td>
 </tr>
 </tbody>
@@ -486,7 +486,7 @@ The error count is provided on a per Acceleration Engine basis.</p>
 correction without returning a CnV error to the application.</p>
 <p>When a recovery occurs, <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults.status</span></code> will return <code class="docutils literal notranslate"><span class="pre">CPA_DC_OK</span></code> or <code class="docutils literal notranslate"><span class="pre">CPA_DC_OVERFLOW</span></code> and the destination buffer will hold valid deflate data.</p>
 <p>The application can find out if CnVnR is supported by querying the instance capabilities via the <code class="docutils literal notranslate"><span class="pre">cpaDcQueryCapabilities</span></code> API. On completion, the
-<code class="docutils literal notranslate"><span class="pre">compressAndVerifyAndRecover</span></code> property of the <code class="docutils literal notranslate"><span class="pre">CpaDcInstanceCapabilitie:</span> <span class="pre">..\image::</span> <span class="pre">./s</span></code> structure will be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code> if the feature is supported.</p>
+<code class="docutils literal notranslate"><span class="pre">compressAndVerifyAndRecover</span></code> property of the <code class="docutils literal notranslate"><span class="pre">CpaDcInstanceCapabilities</span></code> structure will be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code> if the feature is supported.</p>
 <table class="longtable colwidths-given docutils align-default" id="id7">
 <caption><span class="caption-text">Compress and Verify and Recover (CnVnR) Behaviors</span><a class="headerlink" href="#id7" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -559,14 +559,14 @@ that is incremented every time a compression recovery happens.</p>
 </figure>
 <p>When the application selects the Huffman type to <code class="docutils literal notranslate"><span class="pre">CPA_DC_HT_FULL_DYNAMIC</span></code> in the session and auto-select best feature is set to <code class="docutils literal notranslate"><span class="pre">CPA_DC_ASB_DISABLED</span></code>, the compression service may not always produce
 a deflate stream with dynamic Huffman trees.</p>
-<p>When using QAT2.0 device, it is no longer required to allocate intermediate buffers. The API <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumIntermediateBuffers()</span></code> returns 0. As a good programming practise, the application should still call <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumIntermediateBuffers()</span></code> and ensure that the number of intermediate buffers returned is 0.</p>
+<p>When using QAT2.0 device, it is no longer required to allocate intermediate buffers. The API <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumIntermediateBuffers()</span></code> returns 0. As a good programming practice, the application should still call <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumIntermediateBuffers()</span></code> and ensure that the number of intermediate buffers returned is 0.</p>
 </section>
 <section id="maximum-expansion-with-auto-select-best-feature-asb">
 <h2>Maximum Expansion with Auto Select Best Feature (ASB)<a class="headerlink" href="#maximum-expansion-with-auto-select-best-feature-asb" title="Permalink to this heading"></a></h2>
 <p>Compressing some input data may lead to a lower-than-expected compression ratio. This is because the input data may not be very compressible. To achieve a maximum compression ratio,
 the acceleration unit provides an auto select best (ASB) feature.</p>
 <p>With QAT1.X devices, the Intel<sup>®</sup> QuickAssist Technology hardware will first execute static compression followed by dynamic compression and then select the output that yields the best compression ratio.</p>
-<p>With QAT2.0 devices, the behaviour is different. ASB features chooses between a static and a stored block. ASB features with choose the block type that offers the best compression ratio.</p>
+<p>With QAT2.0 devices, the is different. ASB features chooses between a static and a stored block. ASB features with choose the block type that offers the best compression ratio.</p>
 <p>Regardless of the ASB setting selected, dynamic compression will only be attempted if the session is configured for dynamic compression.</p>
 <table class="longtable docutils align-default" id="id8">
 <caption><span class="caption-text">ASB Settings</span><a class="headerlink" href="#id8" title="Permalink to this table"></a></caption>
@@ -1039,7 +1039,7 @@ indicates that
 the request was
 submitted with a
 CPA_DC_FLUSH_FINAL.
-However, a BFINAL
+However, a
 bit was not found
 in the request.</p>
 <p>QAT2.0 can return
@@ -1272,7 +1272,7 @@ A detailed explanation of <em>compressBound</em> APIs is provided in the <a clas
 <section id="integrity-checksums">
 <h2>Integrity Checksums<a class="headerlink" href="#integrity-checksums" title="Permalink to this heading"></a></h2>
 <p>Integrity checksums are an additional method for payload verification throughout the compression/decompression lifecycle. They may be used to verify corruption has not happened when sending data to and from the Intel<sup>®</sup> QuickAssist HW, or for example the integrity checksums may be stored by an application along with the compressed data and used to detect corruption in the future without needing to decompress the data.</p>
-<p>They should not be confused with the Gzip/Zlib/LZ4 footer checksums of CRC32, Adler32 and Xxhash32 that are calculated over the uncompressed input data only.</p>
+<p>They should not be confused with the Gzip/Zlib/LZ4 footer checksums of CRC32, Adler32 and XXHash32 that are calculated over the uncompressed input data only.</p>
 <p>Integrity checksums use an additional structure that is the application’s responsibility to allocate, maintain, and free. The structure is <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> and contains the following fields:</p>
 <table class="longtable colwidths-given docutils align-default" id="id12">
 <caption><span class="caption-text">Integrity Checksums</span><a class="headerlink" href="#id12" title="Permalink to this table"></a></caption>
@@ -1298,7 +1298,7 @@ cpaDcRqResults checksum field.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">Cpu32U</span> <span class="pre">adler32</span></code></p></td>
 <td><p>This is the existing
-Adler32/Xxhash32 for the footer
+Adler32/XXHash32 for the footer
 calculated across the uncompressed
 data in either the source or dest
 buffer depending whether it is a
@@ -1336,7 +1336,7 @@ Integrity checksums are available on the Traditional API including No Session re
 Integrity checksums are calculated across only the current request in QAT 2.0. With QAT 1.8 it is possible to seed the integrity checksums on stateful decompression requests by reusing the same <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> structure on the subsequent request without resetting the contents. For QAT 1.8 stateful decompression requests it is the application’s responsibility to allocate the <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> structure and keep it allocated for the lifetime of the session. Integrity checksums are not available on devices prior to QAT 1.8.</p>
 <section id="verify-hw-integrity-crc-s">
 <h3>Verify HW Integrity CRC’s<a class="headerlink" href="#verify-hw-integrity-crc-s" title="Permalink to this heading"></a></h3>
-<p>There is an additional feature to integrity checksums that can be enabled to automatically check that no corruption to data buffers has occured during transport to and from the Intel<sup>®</sup> QAT HW. This works by calculating integrity checksums across the source and destination buffers within the Intel<sup>®</sup> QAT API, and comparing the checksums with those generated within the Intel<sup>®</sup> QAT HW. Any discrepencies will result in a status of <code class="docutils literal notranslate"><span class="pre">CPA_DC_INTEG_ERR</span></code> being returned within the <code class="docutils literal notranslate"><span class="pre">cpaDcRqResults</span></code> structure. These additional checksums are calculated in SW using the CPU and have a cost in terms of performance.
+<p>There is an additional feature to integrity checksums that can be enabled to automatically check that no corruption to data buffers has occurred during transport to and from the Intel<sup>®</sup> QAT HW. This works by calculating integrity checksums across the source and destination buffers within the Intel<sup>®</sup> QAT API, and comparing the checksums with those generated within the Intel<sup>®</sup> QAT HW. Any discrepancies will result in a status of <code class="docutils literal notranslate"><span class="pre">CPA_DC_INTEG_ERR</span></code> being returned within the <code class="docutils literal notranslate"><span class="pre">cpaDcRqResults</span></code> structure. These additional checksums are calculated in SW using the CPU and have a cost in terms of performance.
 In order to enable the <em>Verify HW Integrity CRC</em> feature on a per request basis the <code class="docutils literal notranslate"><span class="pre">verifyHwIntegrityCrcs</span></code> field contained in the <code class="docutils literal notranslate"><span class="pre">cpaDcOpdata</span></code> structure needs to be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code>. Additionally the <code class="docutils literal notranslate"><span class="pre">integrityCrcCheck</span></code> field must be enabled and a <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> structure allocated and a pointer to it must be assigned to the <code class="docutils literal notranslate"><span class="pre">pCrcData</span></code> field.</p>
 </section>
 </section>

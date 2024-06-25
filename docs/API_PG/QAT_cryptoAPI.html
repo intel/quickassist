@@ -1068,7 +1068,7 @@ to <a class="reference internal" href="introduction.html#qat-api-programmers-gui
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CPA_STATUS_SUCCESS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">status</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="cm">/* Allocate memory for AAD. For CCM this memory will hold the 16 byte</span>
 <span class="cm">   * B0 block, the 2 bytes encoded length of associated data, the</span>
-<span class="cm">   * assocaiated data itself and any padding to ensure total size is</span>
+<span class="cm">   * associated data itself and any padding to ensure total size is</span>
 <span class="cm">   * a multiple of the AES block size */</span>
 <span class="w">  </span><span class="n">aadBuffSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">B0_BLOCK_SIZE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ALEN_ENCODING_SIZE</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">sampleAssocData</span><span class="p">);</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">aadBuffSize</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="n">AES_BLOCK_SIZE</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -1435,7 +1435,7 @@ section 6.3 <code class="docutils literal notranslate"><span class="pre">key_blo
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">key_block</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PRF</span><span class="p">(</span><span class="n">SecurityParameters</span><span class="p">.</span><span class="n">master_secret</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;key expansion&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">SecurityParameters</span><span class="p">.</span><span class="n">server_random</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">SecurityParameters</span><span class="p">.</span><span class="n">client_random</span><span class="p">);</span>
 </pre></div>
 </div>
-<p>This maps to the cryptographic API’s <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenTlsOpData</span></code> as follows:</p>
+<p>This maps to the cryptographic APIs <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenTlsOpData</span></code> as follows:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TLS Key-Material Derivation:
 
   tlsOp = CPA_CY_KEY_TLS_OP_KEY_MATERIAL_DERIVE
@@ -1452,7 +1452,7 @@ Section 6.3 <code class="docutils literal notranslate"><span class="pre">final_c
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">final_client_write_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PRF</span><span class="p">(</span><span class="n">client_write_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;client write key&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">client_random</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">server_random</span><span class="p">)[</span><span class="mf">0..15</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>This maps to the cryptographic API’s <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenTlsOpData</span></code> as follows:</p>
+<p>This maps to the cryptographic APIs <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenTlsOpData</span></code> as follows:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TLS User Defined Derivation:
 
   tlsOp = CPA_CY_KEY_TLS_OP_USER_DEFINED
@@ -1468,7 +1468,7 @@ Section 6.3 <code class="docutils literal notranslate"><span class="pre">final_s
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">final_server_write_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PRF</span><span class="p">(</span><span class="n">server_write_key</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;server write key&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">client_random</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">server_random</span><span class="p">)[</span><span class="mf">0..15</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>This maps to the cryptographic API’s <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenTlsOpData</span></code> as follows:</p>
+<p>This maps to the cryptographic APIs <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenTlsOpData</span></code> as follows:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TLS User Defined Derivation:
 
   tlsOp = CPA_CY_KEY_TLS_OP_USER_DEFINED
@@ -1484,7 +1484,7 @@ Section 6.3 <code class="docutils literal notranslate"><span class="pre">iv_bloc
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">iv_block</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PRF</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;IV block&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">client_random</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">server_random</span><span class="p">)[</span><span class="mf">0..15</span><span class="p">]</span>
 </pre></div>
 </div>
-<p>This maps to the cryptographic API’s <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenTlsOpData</span></code> as follows:</p>
+<p>This maps to the cryptographic APIs <code class="docutils literal notranslate"><span class="pre">CpaCyKeyGenTlsOpData</span></code> as follows:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>TLS User Defined Derivation:
 
   tlsOp = CPA_CY_KEY_TLS_OP_USER_DEFINED
@@ -2156,7 +2156,7 @@ point multiplication <code class="docutils literal notranslate"><span class="pre
 <span class="w">    </span><span class="n">pYk</span><span class="p">);</span><span class="w"> </span><span class="cm">/* Point multiplication response data */</span>
 </pre></div>
 </div>
-<p>The function <code class="docutils literal notranslate"><span class="pre">sampleEcsm2GeneratortMultiply</span></code> provisions parts of the example
+<p>The function <code class="docutils literal notranslate"><span class="pre">sampleEcsm2GeneratorMultiply</span></code> provisions parts of the example
 implementation, which does the following:</p>
 <ul class="simple">
 <li><p>Allocate memory and populate date for the input buffer which includes the scalar
