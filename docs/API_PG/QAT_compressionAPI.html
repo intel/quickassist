@@ -734,7 +734,7 @@ buffer is shown. The destination buffers can be allocated and set up in a simila
 <span class="cm">/* Size of CpaPhysBufferList and array of CpaPhysFlatBuffers */</span>
 <span class="n">bufferListMemSize</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CpaPhysBufferList</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">numBuffers</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="k">sizeof</span><span class="p">(</span><span class="n">CpaPhysFlatBuffer</span><span class="p">));</span>
 
-<span class="cm">/* Allocte 8-byte aligned source buffer List */</span>
+<span class="cm">/* Allocate 8-byte aligned source buffer List */</span>
 <span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">PHYS_CONTIG_ALLOC_ALIGNED</span><span class="p">(</span><span class="o">&amp;</span><span class="n">pBufferListSrc</span><span class="p">,</span><span class="w"> </span><span class="n">bufferListMemSize</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">);</span>
 
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CPA_STATUS_SUCCESS</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">status</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>

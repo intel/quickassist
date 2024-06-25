@@ -237,13 +237,13 @@ to the maximum latency.</p>
 <p class="admonition-title">Note</p>
 <p>This applies only to platforms starting with Intel QAT Gen 4.</p>
 </div>
-<p>It is up to the application level to decide how many frames to enqueue/dequeue in a single burst, but different tunning
+<p>It is up to the application level to decide how many frames to enqueue/dequeue in a single burst, but different tuning
 is expected across Intel QAT generations in multi-instances under stress conditions.</p>
 <p>The common scheme for async engines usually enqueue a full burst size of frames to Intel QAT and the crypto dispatch function
 dequeued from Intel QAT, the dequeue call back function is called periodically in a loop until full burst size of frames are dequeued.</p>
 <p>This common scheme design works well for Intel QAT Gen 2 and Gen 3 platforms as the dequeue is more responsive, hence the application
 always gets responses. For Intel QAT Gen 4 platform, if the dequeue requests been called are too aggressive, the Intel QAT is constantly
-busy during stress, and it eventually cannot catch up filling the responses for the next dequeue. This behaviour can directly lead to
+busy during stress, and it eventually cannot catch up filling the responses for the next dequeue. This behavior can directly lead to
 dequeue number constantly to be zero, even if some processes are already completed.</p>
 <p>It is recommended for the application to always check the inflight number at the beginning before calling enqueue burst and don’t dequeue
 as many as possible but only a certain number (e.g. 64) of frames that are enough to process. Then the enqueue and dequeue can be followed in turns.

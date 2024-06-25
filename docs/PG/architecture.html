@@ -117,7 +117,7 @@ but some knowledge of the underlying hardware and software is helpful for perfor
 <div><ol class="arabic simple">
 <li><p>Application submits payloads via the Intel® QuickAssist API as part of the request. The user space library converts these requests into descriptors and places these in the Transmit (Tx) <a class="reference internal" href="infrastructure_queue_pairs.html#qat-2-0-pg-infrastructure-queue-pairs"><span class="std std-ref">hardware-assisted queues</span></a> (aka ring).</p></li>
 <li><p>Firmware parses the descriptor and configures the accelerators accordingly. Upon a job completion firmware returns the processed payload (either encrypted or compressed or both) and generates a response message. This response message is inserted in the response ring.</p></li>
-<li><p>A polling thread owned by the application queries the response ring via the Intel® QuickAssist Library. If the application choses non-blocking calls the user space library will issue a callback to the application to inform that the operation is complete.</p></li>
+<li><p>A polling thread owned by the application queries the response ring via the Intel® QuickAssist Library. If the application chooses non-blocking calls the user space library will issue a callback to the application to inform that the operation is complete.</p></li>
 </ol>
 </div></blockquote>
 <div class="admonition note">
