@@ -124,12 +124,13 @@
              
   <section id="rate-limiting">
 <span id="qat-2-0-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this heading"></a></h1>
-<p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service. Resources are shared across guests and the resource utilization of each guest is measured relative to the capacity of the physical function.</p>
-<p>The feature is supported only for SYM and ASYM services.</p>
+<p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service.</p>
+<p>Resources are shared across guests and the resource utilization of each guest is measured relative to the capacity of the physical function.</p>
+<p>The feature is supported for SYM, ASYM, and DC services.</p>
 <p>To enable the Rate Limiting feature:</p>
 <ol class="arabic simple">
 <li><p><strong>Install</strong> the driver package on the host with Single-Root Input/Output Virtualization (SR-IOV) enabled.</p></li>
-<li><p><strong>Set</strong> <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> to <code class="docutils literal notranslate"><span class="pre">asym</span></code> or <code class="docutils literal notranslate"><span class="pre">sym</span></code>.</p></li>
+<li><p><strong>Set</strong> <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> to <code class="docutils literal notranslate"><span class="pre">asym</span></code> or <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">dc</span></code>.</p></li>
 <li><p><strong>Perform</strong> <code class="docutils literal notranslate"><span class="pre">qat_service</span> <span class="pre">shutdown</span></code> and <code class="docutils literal notranslate"><span class="pre">qat_service</span> <span class="pre">start</span></code>.</p></li>
 </ol>
 <section id="service-level-agreement-sla">
@@ -139,7 +140,7 @@
 <blockquote>
 <div><ul class="simple">
 <li><p>Number of VFs varies based on device type</p></li>
-<li><p>Number of services = 2 (asymmetric or symmetric)</p></li>
+<li><p>Number of services = 2 (asymmetric or symmetric or compression)</p></li>
 </ul>
 </div></blockquote>
 </section>
@@ -149,6 +150,7 @@
 <ul class="simple">
 <li><p>Symmetric Crypto – 1Mbps of throughput.</p></li>
 <li><p>Asymmetric Crypto – 1 operation (ops) of reference operation.</p></li>
+<li><p>Compression - 1Mbps of throughput.</p></li>
 </ul>
 </section>
 <section id="sla-manager-application">
@@ -193,7 +195,7 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">pf_addr</span></code> - Physical address in domain:bus:device.function(xxxx:xx:xx.x) format.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">vf_addr</span></code> - Virtual address in domain:bus:device.function(xxxx:xx:xx.x) format.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Service</span></code> - Asym(=0) or Sym(=1).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Service</span></code> - Asym(=0) or Sym(=1) or DC(=2).</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">rate_in_sla_units</span></code> - [ 0-MAX]. MAX is found by querying the capabilities.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sla_id</span></code> - Value returned by <code class="docutils literal notranslate"><span class="pre">create</span></code> command.</p></li>
 </ul>

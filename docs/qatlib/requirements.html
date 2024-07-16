@@ -126,7 +126,7 @@
 <blockquote>
 <div><ul class="simple">
 <li><p>Required BIOS parameters must be enabled.</p></li>
-<li><p>Platform must have a 4xxx Intel<sup>®</sup> Communication device.</p></li>
+<li><p>Platform must have a 4xxx Intel<sup>®</sup> Communication device.  This includes 4xxx, 401xx, 402xx, and 420xx.</p></li>
 <li><p>Firmware must be available for the 4xxx Intel<sup>®</sup> Communication device.</p></li>
 <li><p>Kernel drivers must be running and properly bound to the Intel<sup>®</sup> QAT Physical and Virtual Functions (PF and VF).</p></li>
 <li><p>Required Linux boot parameters must be configured.</p></li>
@@ -191,10 +191,11 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Supported Platforms</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
-<col style="width: 20%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
+<col style="width: 16%" />
 <col style="width: 20%" />
 </colgroup>
 <thead>
@@ -203,6 +204,7 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <th class="head"><p><strong>Kernel Module</strong></p></th>
 <th class="head"><p><strong>PF Did</strong></p></th>
 <th class="head"><p><strong>VF Did</strong></p></th>
+<th class="head"><p><strong>FW Files</strong></p></th>
 </tr>
 </thead>
 <tbody>
@@ -211,24 +213,50 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <td><p>qat_4xxx</p></td>
 <td><p>4940</p></td>
 <td><p>4941</p></td>
+<td><div class="line-block">
+<div class="line">qat_4xxx.bin</div>
+<div class="line">qat_4xxx_mmp.bin</div>
+</div>
+</td>
 </tr>
 <tr class="row-odd"><td><p>4</p></td>
 <td><p>401xx</p></td>
 <td><p>qat_4xxx</p></td>
 <td><p>4942</p></td>
 <td><p>4943</p></td>
+<td><div class="line-block">
+<div class="line">qat_4xxx.bin</div>
+<div class="line">qat_4xxx_mmp.bin</div>
+</div>
+</td>
 </tr>
-<tr class="row-even"><td><p>5</p></td>
+<tr class="row-even"><td><p>4</p></td>
+<td><p>402xx</p></td>
+<td><p>qat_4xxx</p></td>
+<td><p>4944</p></td>
+<td><p>4945</p></td>
+<td><div class="line-block">
+<div class="line">qat_402xx.bin</div>
+<div class="line">qat_402xx_mmp.bin</div>
+</div>
+</td>
+</tr>
+<tr class="row-odd"><td><p>5</p></td>
 <td><p>420xx</p></td>
 <td><p>qat_420xx</p></td>
 <td><p>4946</p></td>
 <td><p>4947</p></td>
+<td><div class="line-block">
+<div class="line">qat_420xx.bin</div>
+<div class="line">qat_420xx_mmp.bin</div>
+</div>
+</td>
 </tr>
 </tbody>
 </table>
 <p>Verify the platform contains a supported 4xxx Intel<sup>®</sup> Communications device by running the below command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -d 8086:4940 &amp;&amp; lspci -d 8086:4941 &amp;&amp; lspci -d 8086:4942 &amp;&amp; lspci -d 8086:4943 &amp;&amp; lspci -d 8086:4946 &amp;&amp; lspci -d 8086:4947) | wc -l` supported devices found.</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -d 8086:4940 &amp;&amp; lspci -d 8086:4941 &amp;&amp; lspci -d 8086:4942 &amp;&amp; lspci -d 8086:4943 &amp;&amp; lspci -d 8086:4944 &amp;&amp; lspci -d 8086:4945 &amp;&amp; lspci -d 8086:4946 &amp;&amp; lspci -d 8086:4947) | wc -l` supported devices found.</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -245,19 +273,15 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <p class="admonition-title">Note</p>
 <p>This step is required when running on host system. It does not apply when running in a virtual machine as the firmware is loaded on the host.</p>
 </div>
-<p>Verify the supported firmware is available in the <code class="docutils literal notranslate"><span class="pre">/lib/firmware</span></code> directory by running the below commands:</p>
+<p>Verify the supported firmware for your platform is available in the <code class="docutils literal notranslate"><span class="pre">/lib/firmware</span></code> directory by running the below commands:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ls /lib/firmware/qat_4xxx.bin*</span>
-<span class="go">ls /lib/firmware/qat_4xxx_mmp.bin*</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ls /lib/firmware/{qat_4xxx,qat_402xx,qat_420xx}.bin* 2&gt;/dev/null</span>
+<span class="go">ls /lib/firmware/{qat_4xxx,qat_402xx,qat_420xx}_mmp.bin* 2&gt;/dev/null</span>
 </pre></div>
 </div>
-<p>The output will look like one of the following:</p>
+<p>The output will look like:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/lib/firmware/qat_4xxx.bin</span>
 <span class="go">/lib/firmware/qat_4xxx_mmp.bin</span>
-</pre></div>
-</div>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">/lib/firmware/qat_4xxx.bin.xz</span>
-<span class="go">/lib/firmware/qat_4xxx_mmp.bin.xz</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -270,8 +294,10 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
 <span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_4xxx.bin</span>
 <span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_4xxx_mmp.bin</span>
-<span class="go">sudo cp qat_4xxx*.bin /lib/firmware</span>
-<span class="go">rm ./qat_4xxx*.bin</span>
+<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_402xx.bin</span>
+<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_402xx_mmp.bin</span>
+<span class="go">sudo cp qat_4xxx*.bin qat_402xx*.bin /lib/firmware</span>
+<span class="go">rm qat_4xxx*.bin qat_402xx*.bin</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -300,6 +326,10 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <section id="kernel-drivers">
 <h2>Kernel Drivers<a class="headerlink" href="#kernel-drivers" title="Permalink to this heading"></a></h2>
 <p>Verify the appropriate kernel drivers are loaded in the host and/or the guest system(s).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Refer to <a class="reference internal" href="#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> for appropriate kernel module for your device.</p>
+</div>
 <section id="host-system-kernel-drivers">
 <h3>Host System Kernel Drivers<a class="headerlink" href="#host-system-kernel-drivers" title="Permalink to this heading"></a></h3>
 <p>When running on the <em>host</em> system, use the following command to verify the kernel drivers are present:</p>
@@ -353,9 +383,9 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </div>
 </div>
 </div></blockquote>
-<p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">4xxx</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Physical Function (PF) by running one of the following commands, depending on your device id:</p>
+<p>Lastly, verify the appropriate kernel driver is bound to each Intel<sup>®</sup> QAT Physical Function (PF) by running the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4940 &amp;&amp; lspci -vvv -d 8086:4942 &amp;&amp; lspci -vvv -d 8086:4946) | grep &quot;Kernel driver&quot;`</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4940 &amp;&amp; lspci -vvv -d 8086:4942 &amp;&amp; lspci -vvv -d 8086:4944 &amp;&amp; lspci -vvv -d 8086:4946) | grep &quot;Kernel driver&quot;`</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -364,11 +394,15 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 <div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx Kernel driver in use: 4xxx
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Refer to <a class="reference internal" href="#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> for appropriate kernel module for your device.</p>
+</div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>If you are not getting any results from the above command, it means the 4xxx driver is not bound to the Intel<sup>®</sup> QAT PF.
-This could be due to the current kernel version in the system does not support  the particular Intel<sup>®</sup> CPU SKU in your system.
-Try upgrading the kernel version to 5.19+.</p>
+<p>If you are not getting any results from the above command, it means the QAT kernel driver is not bound to the Intel<sup>®</sup> QAT PF.</p>
+<p>This could be due to the current kernel version in the system does not support  the particular Intel<sup>®</sup> CPU SKU in your system.</p>
+<p>Try upgrading the kernel version to 5.19+.</p>
 </div>
 </div></blockquote>
 </section>
@@ -388,7 +422,7 @@ Try upgrading the kernel version to 5.19+.</p>
 </div></blockquote>
 <p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">vfio_pci</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Virtual Function (VF) by running the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4941 &amp;&amp; lspci -vvv -d 8086:4943 &amp;&amp; lspci -vvv -d 8086:4947) | grep &quot;Kernel driver&quot;`</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4941 &amp;&amp; lspci -vvv -d 8086:4943 &amp;&amp; lspci -vvv -d 8086:4945 &amp;&amp; lspci -vvv -d 8086:4947) | grep &quot;Kernel driver&quot;`</span>
 </pre></div>
 </div>
 </div></blockquote>

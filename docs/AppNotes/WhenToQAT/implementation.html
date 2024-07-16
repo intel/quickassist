@@ -120,7 +120,7 @@
 <h2>Platform Compatibility<a class="headerlink" href="#platform-compatibility" title="Permalink to this heading"></a></h2>
 <p>To check that your hardware platform supports Intel<sup>®</sup> QAT, perform the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci -nn | egrep -e &#39;8086:37c8|8086:19e2|8086:0435|8086:6f54|8086:4940|8086:4942&#39;</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci -nn | egrep -e &#39;8086:37c8|8086:19e2|8086:0435|8086:6f54|8086:4940|8086:4942|8086:4944|8086:4946&#39;</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -148,8 +148,8 @@
 <img alt="../../_images/compressionstack.png" src="../../_images/compressionstack.png" />
 </figure>
 <p>From this stack we see that applications can utilize QAT by:</p>
-<section id="coding-directly-to-the-intel-quickassist-api">
-<h4>Coding directly to the Intel QuickAssist API<a class="headerlink" href="#coding-directly-to-the-intel-quickassist-api" title="Permalink to this heading"></a></h4>
+<section id="coding-directly-to-the-intel-quickassist-compression-apis">
+<h4>Coding directly to the Intel QuickAssist Compression APIs<a class="headerlink" href="#coding-directly-to-the-intel-quickassist-compression-apis" title="Permalink to this heading"></a></h4>
 <p>Application developers can directly access QAT features through the Intel<sup>®</sup> QuickAssist API. This API provides an easy interface between customer applications and the QuickAssist acceleration driver.
 It allows seamless integration of Intel<sup>®</sup> QAT capabilities into custom software.</p>
 <p>Useful links:</p>
@@ -168,8 +168,8 @@ It allows seamless integration of QAT capabilities into custom software. QATzip 
 <li><p><a class="reference external" href="https://intel.github.io/quickassist/qatlib/qatzip.html">https://intel.github.io/quickassist/qatlib/qatzip.html</a></p></li>
 </ul>
 </section>
-<section id="use-applications-that-have-been-updated-for-intel-qat">
-<h4>Use Applications that have been updated for Intel<sup>®</sup> QAT<a class="headerlink" href="#use-applications-that-have-been-updated-for-intel-qat" title="Permalink to this heading"></a></h4>
+<section id="use-data-compression-applications-that-have-been-updated-for-intel-qat">
+<h4>Use Data Compression Applications that have been updated for Intel<sup>®</sup> QAT<a class="headerlink" href="#use-data-compression-applications-that-have-been-updated-for-intel-qat" title="Permalink to this heading"></a></h4>
 <p>A number of applications/libraries have already been updated to take advantage of Intel<sup>®</sup> QAT.  These include:</p>
 <ul class="simple">
 <li><p>NGINX =&gt; <a class="reference external" href="https://github.com/intel/asynch_mode_nginx">https://github.com/intel/asynch_mode_nginx</a></p></li>
@@ -187,8 +187,8 @@ It allows seamless integration of QAT capabilities into custom software. QATzip 
 <img alt="../../_images/cryptostack.png" src="../../_images/cryptostack.png" />
 </figure>
 <p>From this stack we see that applications can utilize Intel<sup>®</sup> QAT by:</p>
-<section id="id1">
-<h4>Coding directly to the Intel QuickAssist API<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<section id="coding-directly-to-the-intel-quickassist-cryptographic-apis">
+<h4>Coding directly to the Intel QuickAssist Cryptographic APIs<a class="headerlink" href="#coding-directly-to-the-intel-quickassist-cryptographic-apis" title="Permalink to this heading"></a></h4>
 <p>Application developers can directly access Intel<sup>®</sup> QAT features through the Intel<sup>®</sup> QuickAssist API. This API provides an easy interface between customer applications and the QuickAssist acceleration driver.
 It allows seamless integration of Intel<sup>®</sup> QAT capabilities into custom software.</p>
 <p>Useful links:</p>
@@ -206,8 +206,8 @@ their crypto needs to Intel<sup>®</sup> QAT hardware as well as to optimized so
 <li><p><a class="reference external" href="https://intel.github.io/quickassist/qatlib/qatengine.html">https://intel.github.io/quickassist/qatlib/qatengine.html</a></p></li>
 </ul>
 </section>
-<section id="id2">
-<h4>Use Applications that have been updated for Intel<sup>®</sup> QAT<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h4>
+<section id="use-crypto-applications-that-have-been-updated-for-intel-qat">
+<h4>Use Crypto Applications that have been updated for Intel<sup>®</sup> QAT<a class="headerlink" href="#use-crypto-applications-that-have-been-updated-for-intel-qat" title="Permalink to this heading"></a></h4>
 <p>A number of applications/libraries have already been updated to take advantage of Intel<sup>®</sup> QAT.  These include:</p>
 <ul class="simple">
 <li><p>NGINX =&gt; <a class="reference external" href="https://github.com/intel/asynch_mode_nginx">https://github.com/intel/asynch_mode_nginx</a></p></li>

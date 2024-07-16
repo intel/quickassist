@@ -187,7 +187,12 @@ the <a class="reference internal" href="#qat-2-0-qatlib-qatengine-install-source
 <span id="qat-2-0-qatlib-qatengine-install-source"></span><h3>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this heading"></a></h3>
 <ol class="arabic">
 <li><p><strong>Install</strong> the package dependencies by running the below command:</p>
+<p>For RPM-based distros:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y autoconf automake libtool cmake openssl-devel pkg-config nasm</span>
+</pre></div>
+</div>
+<p>For Ubuntu and other Debian-based distros, install these dependencies:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt install -y autoconf automake libtool cmake pkg-config nasm libusdm-dev</span>
 </pre></div>
 </div>
 </li>

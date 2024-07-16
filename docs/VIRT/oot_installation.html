@@ -151,7 +151,7 @@ the <em>in-tree stack</em> are included in <a class="reference internal" href=".
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>For Intel QAT 2.0 devices, the Physical Function (PF) device ID is <code class="docutils literal notranslate"><span class="pre">4940</span></code> or <code class="docutils literal notranslate"><span class="pre">4942</span></code> and the Virtual Function (VF) device ID is <code class="docutils literal notranslate"><span class="pre">4941</span></code> or <code class="docutils literal notranslate"><span class="pre">4943</span></code>.</p>
+<p>Refer to <a class="reference internal" href="../qatlib/requirements.html#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> for list of supported devices.</p>
 </div>
 </div></blockquote>
 </li>
@@ -229,7 +229,7 @@ the <em>in-tree stack</em> are included in <a class="reference internal" href=".
 <ol class="arabic">
 <li><p><strong>Verify</strong> the Intel QAT devices are assigned.</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci -vnd:4941</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci | grep -E &#39;4941|4943|4945|4947&#39;</span>
 </pre></div>
 </div>
 </div></blockquote>
