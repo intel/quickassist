@@ -145,7 +145,7 @@
 <ol class="arabic">
 <li><p><strong>Verify</strong> SR-IOV hardware capabilities.</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(lspci -vnd 8086:4940 || lspci -vnd 8086:4942)</span> <span class="go">| grep SR-IOV</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(lspci -vnd 8086:4940 || lspci -vnd 8086:4942 || lspci -vnd 8086:4944 || lspci -vnd 8086:4946)</span> <span class="go">| grep SR-IOV</span>
 </pre></div>
 </div>
 <p>The output will look similar to:</p>
@@ -248,7 +248,7 @@ vfio_virqfd 16384 1 vfio_pci_core
 <ol class="arabic">
 <li><p><strong>Enable</strong> the VF devices with the following script.</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">for i in `(lspci -D -d :4940 || lspci-D -d :4942)| awk &#39;{print $1}&#39;`; do echo 16|sudo tee /sys/bus/pci/devices/$i/sriov_numvfs; done</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">for i in `(lspci -D -d :4940 || lspci-D -d :4942 || lspci-D -d :4944 || lspci-D -d :4946)| awk &#39;{print $1}&#39;`; do echo 16|sudo tee /sys/bus/pci/devices/$i/sriov_numvfs; done</span>
 </pre></div>
 </div>
 <p>If the error messages similar to the following are observed:</p>

@@ -249,7 +249,7 @@ provided to a particular API. The buffer list contains four fields, as follows:<
 <ul>
 <li><p>The metadata is required for internal use by the API. The memory for this buffer needs to be allocated by the client as contiguous data. The size of this metadata buffer is obtained by calling <code class="docutils literal notranslate"><span class="pre">cpaCyBufferListGetMetaSize</span></code> for crypto, <code class="docutils literal notranslate"><span class="pre">cpaBufferLists</span></code>, and <code class="docutils literal notranslate"><span class="pre">cpaDcBufferListGetMetaSize</span></code> for data compression.</p></li>
 <li><p>The memory required to hold the <code class="docutils literal notranslate"><span class="pre">CpaBufferList</span></code> structure and the array of flat buffers is not required to be physically contiguous. However, the flat buffer data pointers and the metadata pointer are required to reference physically contiguous DMAable memory.</p></li>
-<li><p>There is a performance impact when using scatter-gather lists instead of flat buffers. Refer to the <span class="xref std std-ref">Performance Optimization Guide</span> for additional information.</p></li>
+<li><p>There is a performance impact when using scatter-gather lists instead of flat buffers. Refer to the <a class="reference internal" href="../PERF/introduction.html#qat-perf-opt-guide-introduction"><span class="std std-ref">Performance Optimization Guide</span></a> for additional information.</p></li>
 <li><p>Scatter-Gather list (SGL) buffers should not have more than 256 entries.</p></li>
 </ul>
 </li>

@@ -23,7 +23,7 @@ for vfio_group in /dev/vfio/*; do
         continue
     fi
 
-    if [ "$did" != "0x4941" ] && [ "$did" != "0x4943" ] && [ "$did" != "0x4947" ]; then
+    if [ "$did" != "0x4941" ] && [ "$did" != "0x4943" ] && [ "$did" != "0x4945" ] && [ "$did" != "0x4947" ]; then
         continue
     fi
 

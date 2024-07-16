@@ -132,6 +132,10 @@ application’s workload which might work in two modes:</p>
 <p>In <em>Managed Mode</em>, <em>qatmgr</em> manages the allocation of the Virtual Function (VF) resources to
 each process on process startup.</p>
 <p>The following parameters can be set in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>End of line comments are not supported in this file.</p>
+</div>
 <section id="policy">
 <span id="qat-2-0-qatlib-policy-setting"></span><h3>Policy<a class="headerlink" href="#policy" title="Permalink to this heading"></a></h3>
 <p>Indicates how many VFs will be assigned to each process. The maximum value allowed for POLICY is 512.
@@ -587,7 +591,7 @@ be performed in this usage.</p>
 <blockquote>
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Depending on your device, it might be 4941, 4943 or 4947. This is the device ID of the VFs.</p>
+<p>Depending on your device, it might be 4941, 4943, 4945 or 4947. This is the device ID of the VFs.</p>
 <p>If your PF is 4940, the VF device ID is 4941, if the PF is 4942, the VF is 4943.</p>
 <p>See <a class="reference internal" href="requirements.html#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> for additional details.</p>
 </div>
@@ -596,21 +600,25 @@ be performed in this usage.</p>
 <li><p><strong>Obtain</strong> the Domain Bus Device Function (BDF) of the QAT PF with <code class="docutils literal notranslate"><span class="pre">lspci</span></code></p>
 <blockquote>
 <div><p>This will be used when accessing sysfs.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -nd 8086:4940 &amp;&amp; lspci -nd 8086:4942 &amp;&amp; lspci -nd 8086:4946)`</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -nd 8086:4940 &amp;&amp; lspci -nd 8086:4942 &amp;&amp; lspci -nd 8086:4944 &amp;&amp; lspci -nd 8086:4946)`</span>
 </pre></div>
 </div>
 </div></blockquote>
 </li>
 <li><p>Load the qat driver if not loaded</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">modprobe qat_4xxx</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo modprobe qat_4xxx</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Refer to <a class="reference internal" href="requirements.html#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> for appropriate kernel module for your device.</p>
 </div>
 </div></blockquote>
 </li>
 <li><p>Load vfio-pci driver if not loaded</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">modprobe vfio-pci</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo modprobe vfio-pci</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -687,7 +695,7 @@ be performed in this usage.</p>
 <span class="w">        </span><span class="k">continue</span>
 <span class="w">    </span><span class="k">fi</span>
 
-<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4941&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4943&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4947&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4941&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4943&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4945&quot;</span><span class="w"> </span><span class="o">]</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="o">[</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$did</span><span class="s2">&quot;</span><span class="w"> </span>!<span class="o">=</span><span class="w"> </span><span class="s2">&quot;0x4947&quot;</span><span class="w"> </span><span class="o">]</span><span class="p">;</span><span class="w"> </span><span class="k">then</span>
 <span class="w">        </span><span class="k">continue</span>
 <span class="w">    </span><span class="k">fi</span>
 

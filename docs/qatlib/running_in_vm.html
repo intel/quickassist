@@ -200,9 +200,9 @@ process so that the process has both CY and DC instances.
 Set either POLICY=0 or POLICY=2 (or 4, 6, …) in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> on
 the guest and restart qatmgr.</p>
 </div>
-<p>To list the BSF info from the host, use the <code class="docutils literal notranslate"><span class="pre">lspci</span></code> command with a <code class="docutils literal notranslate"><span class="pre">grep</span></code> for the device ID of your VFs. Some SKUs may use <code class="docutils literal notranslate"><span class="pre">4941</span></code> as their device ID. For example, the <code class="docutils literal notranslate"><span class="pre">4943</span></code> device ID should give output similar to the below:</p>
+<p>To list the BDF info from the host, the following command can be used.</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>lspci<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>-i<span class="w"> </span><span class="m">4943</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci -d 8086:4941  &amp;&amp; lspci -d 8086:4943  &amp;&amp; lspci -d 8086:4945 &amp;&amp; lspci -d 8086:4947</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -255,9 +255,10 @@ to the VM.</p>
 </div></blockquote>
 <p>Within the VM, the VFs would appear like the following:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci -d &#39;8086:4941&#39; | lspci -d &#39;8086:4943&#39;</span>
-
-<span class="go">07:00.0 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">lspci | grep -E &#39;4941|4943|4945|4947&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">07:00.0 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
 <span class="go">07:00.1 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
 <span class="go">08:00.0 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
 <span class="go">08:00.1 Co-processor: Intel Corporation Device 4941 (rev 40)</span>
@@ -352,7 +353,7 @@ to the VM.</p>
 <p>In some situations, you may also need to modprobe the <code class="docutils literal notranslate"><span class="pre">qat_4xxx</span></code> module via <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">modprobe</span> <span class="pre">qat_4xxx</span></code>.</p>
 <p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">vfio_pci</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Virtual Function (VF) by running the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4941 || lspci -vvv -d 8086:4943) | grep &quot;Kernel driver&quot;`</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4941 || lspci -vvv -d 8086:4943 || lspci -vvv -d 8086:4945 || lspci -vvv -d 8086:4947) | grep &quot;Kernel driver&quot;`</span>
 </pre></div>
 </div>
 </div></blockquote>

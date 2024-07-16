@@ -223,9 +223,8 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </table>
 <section id="selecting-ring-pairs">
 <h4>Selecting Ring Pairs<a class="headerlink" href="#selecting-ring-pairs" title="Permalink to this heading"></a></h4>
-</section>
 <section id="id1">
-<h4>Out-Of-Tree<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h4>
+<h5>Out-Of-Tree<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h5>
 <p>This section provides guidance on the mapping of ring pairs to the VFs for the PF when using the Out-Of-Tree acceleration driver.</p>
 <p>There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following:</p>
 <table class="docutils align-default" id="id5">
@@ -347,6 +346,7 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 <li><p>If <code class="docutils literal notranslate"><span class="pre">dc</span></code> and <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">asym</span></code> is enabled, the first two columns are for <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">asym</span></code> and the second two columns are for <code class="docutils literal notranslate"><span class="pre">dc</span></code></p></li>
 <li><p>If <code class="docutils literal notranslate"><span class="pre">sym</span></code> and <code class="docutils literal notranslate"><span class="pre">asym</span></code> is enabled, the first and third columns are for <code class="docutils literal notranslate"><span class="pre">asym</span></code> and second and fourth columns are for <code class="docutils literal notranslate"><span class="pre">sym</span></code>.</p></li>
 </ul>
+</section>
 </section>
 </section>
 <section id="device-level-telemetry-values">
@@ -495,8 +495,9 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 </pre></div>
 </div>
 </div></blockquote>
+</section>
 <section id="id3">
-<h4>In-Tree<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h4>
+<h3>In-Tree<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
 <p>Device utilization script for In-Tree driver can be downloaded from <a class="reference download internal" download="" href="../_downloads/95d578efa33569dc2d128478ff963200/monitor-qat-utilization"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
 <p>Running the script looks like:</p>
 <blockquote>
@@ -504,7 +505,6 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 </pre></div>
 </div>
 </div></blockquote>
-</section>
 </section>
 <section id="monitoring-telemetry-demo">
 <h3>Monitoring Telemetry Demo<a class="headerlink" href="#monitoring-telemetry-demo" title="Permalink to this heading"></a></h3>

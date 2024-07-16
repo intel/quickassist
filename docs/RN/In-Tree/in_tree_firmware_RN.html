@@ -138,6 +138,9 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_4xxx*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
 </pre></div>
 </div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_402xx*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+</pre></div>
+</div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_895xcc* | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
 </pre></div>
 </div>
@@ -154,8 +157,8 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 </section>
 <section id="qat-firmware-available">
 <h2>QAT Firmware Available<a class="headerlink" href="#qat-firmware-available" title="Permalink to this heading"></a></h2>
-<table class="longtable colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 15%" />
@@ -183,16 +186,16 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <td><p>N/A</p></td>
 </tr>
 <tr class="row-odd"><td><p>qat_402xx.bin</p></td>
-<td><p>Pending</p></td>
-<td><p>contact <a class="reference external" href="mailto:qat-linux&#37;&#52;&#48;intel&#46;com">qat-linux<span>&#64;</span>intel<span>&#46;</span>com</a> mailing list for firmware</p></td>
-<td><p>Pending</p></td>
-<td><p>4th Gen Intel® Xeon® Scalable Processor</p></td>
+<td><p>1.2.40</p></td>
+<td><p>b82b6faf0d1da97b78d2ec3b78cbdb3f769cbb1339227b82025d0f2ca4857037</p></td>
+<td><p>2024-07-12</p></td>
+<td><p>Intel® Xeon® 6 - Sierra Forest</p></td>
 </tr>
 <tr class="row-even"><td><p>qat_402xx_mmp.bin</p></td>
-<td><p>Pending</p></td>
-<td><p>contact <a class="reference external" href="mailto:qat-linux&#37;&#52;&#48;intel&#46;com">qat-linux<span>&#64;</span>intel<span>&#46;</span>com</a> mailing list for firmware</p></td>
-<td><p>Pending</p></td>
-<td><p>4th Gen Intel® Xeon® Scalable Processor</p></td>
+<td><p>1.2.40</p></td>
+<td><p>e08d6fa7ee7079e6eaa06f1b92dbfcf7cc60f8a6ec6894710ec1001388bd6d57</p></td>
+<td><p>2024-07-12</p></td>
+<td><p>Intel® Xeon® 6 - Sierra Forest</p></td>
 </tr>
 <tr class="row-odd"><td><p>qat_420xx.bin</p></td>
 <td><p>Pending</p></td>
@@ -268,60 +271,105 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <p class="admonition-title">Note</p>
 <p>Some qatlib features require a recent kernel driver or firmware version.</p>
 </div>
-<table class="docutils align-default" id="id4">
-<caption><span class="caption-text">QAT Kernel Driver Releases &amp; Features</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<table class="colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">QAT Kernel Driver Releases &amp; Features</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 34%" />
-<col style="width: 35%" />
 <col style="width: 30%" />
+<col style="width: 20%" />
+<col style="width: 15%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 15%" />
 </colgroup>
 <thead>
-<tr class="row-odd"><th class="head"><p><strong>Feature</strong></p></th>
-<th class="head"><p><strong>Required Kernel Driver Version</strong></p></th>
-<th class="head"><p><strong>Required Firmware Version</strong></p></th>
+<tr class="row-odd"><th class="head" rowspan="2"><p><strong>Feature</strong></p></th>
+<th class="head" rowspan="2"><p><strong>qatlib version</strong></p></th>
+<th class="head" rowspan="2"><p><strong>Required Kernel Driver Version</strong></p></th>
+<th class="head" colspan="3"><p><strong>Required Firmware Version</strong></p></th>
+</tr>
+<tr class="row-even"><th class="head"><p><strong>4xxx</strong></p></th>
+<th class="head"><p><strong>402xx</strong></p></th>
+<th class="head"><p><strong>420xx</strong></p></th>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Symmetric and asymmetric crypto</p></td>
+<tr class="row-odd"><td><p>Symmetric and asymmetric crypto</p></td>
+<td><p>20.08+</p></td>
 <td><p>v5.15.3+</p></td>
 <td><p>Any</p></td>
+<td><p>Any</p></td>
+<td><p>Any</p></td>
 </tr>
-<tr class="row-odd"><td><p>Data Compression</p></td>
+<tr class="row-even"><td><p>Data Compression</p></td>
+<td><p>21.08+</p></td>
 <td><p>v5.17+</p></td>
 <td><p>Any</p></td>
-</tr>
-<tr class="row-even"><td><p>Enable device 401xx/CPM2.0b</p></td>
-<td><p>v5.19+</p></td>
+<td><p>Any</p></td>
 <td><p>Any</p></td>
 </tr>
-<tr class="row-odd"><td><p>Configure dc and sym;asym</p></td>
+<tr class="row-odd"><td><p>Enable device 401xx</p></td>
+<td><p>22.07+</p></td>
+<td><p>v5.19+</p></td>
+<td><p>N/A</p></td>
+<td><p>Any</p></td>
+<td><p>N/A</p></td>
+</tr>
+<tr class="row-even"><td><p>Configure dc and sym;asym</p></td>
+<td><p>22.07+</p></td>
 <td><p>v6.0+</p></td>
 <td><p>Any</p></td>
+<td><p>Any</p></td>
+<td><p>Any</p></td>
 </tr>
-<tr class="row-even"><td><p>Configure sym asym sym;dc asym;dc</p></td>
+<tr class="row-odd"><td><p>Configure sym asym sym;dc asym;dc</p></td>
+<td><p>23.08+</p></td>
 <td><p>v6.5+</p></td>
 <td><p>Any</p></td>
-</tr>
-<tr class="row-odd"><td><p>Symmetric Crypto SM3 &amp; SM4 and
-Asymmetric Crypto SM2</p></td>
-<td><p>v6.6+</p></td>
+<td><p>Any</p></td>
 <td><p>Any</p></td>
 </tr>
-<tr class="row-even"><td><p>DC Chaining (dcc)</p></td>
+<tr class="row-even"><td><p>Symmetric Crypto SM3 &amp; SM4 and
+Asymmetric Crypto SM2</p></td>
+<td><p>23.11+</p></td>
+<td><p>v6.6+</p></td>
+<td><p>Any</p></td>
+<td><p>Any</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="row-odd"><td><p>DC Chaining (dcc)</p></td>
+<td><p>23.08+</p></td>
 <td><p>v6.7+</p></td>
-<td><p>1.1.20 (for 4xxx)</p></td>
+<td><p>1.1.20+</p></td>
+<td><p>Any</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="row-even"><td><p>Enable device 402xx</p></td>
+<td><p>24.02+</p></td>
+<td><p>v6.4+</p></td>
+<td><p>N/A</p></td>
+<td><p>1.2.40+</p></td>
+<td><p>N/A</p></td>
 </tr>
 <tr class="row-odd"><td><p>Enable device 420xx</p></td>
+<td><p>24.02+</p></td>
 <td><p>v6.8+</p></td>
-<td><p>Pending (420xx)</p></td>
+<td><p>N/A</p></td>
+<td><p>N/A</p></td>
+<td><p>Pending</p></td>
 </tr>
 <tr class="row-even"><td><p>Telemetry</p></td>
+<td><p>N/A</p></td>
 <td><p>v6.8+</p></td>
-<td><p>1.1.20 (4xxx)</p></td>
+<td><p>1.1.20+</p></td>
+<td><p>1.2.40+</p></td>
+<td><p>Pending</p></td>
 </tr>
 <tr class="row-odd"><td><p>RAS</p></td>
+<td><p>24.02+</p></td>
 <td><p>v6.9+</p></td>
-<td><p>1.1.20 (4xxx) Pending (420xx)</p></td>
+<td><p>1.1.20+</p></td>
+<td><p>1.2.40+</p></td>
+<td><p>Pending</p></td>
 </tr>
 </tbody>
 </table>
@@ -333,7 +381,7 @@ This is because the kernel version <em>reported</em> is only the <em>base</em> k
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><a href="#id1"><span class="problematic" id="id2">*</span></a>For pending firmware, contact your Intel Representative or <a class="reference external" href="mailto:qat-linux&#37;&#52;&#48;intel&#46;com">qat-linux<span>&#64;</span>intel<span>&#46;</span>com</a>.</p>
+<p>For pending firmware, contact your Intel Representative or <a class="reference external" href="mailto:qat-linux&#37;&#52;&#48;intel&#46;com">qat-linux<span>&#64;</span>intel<span>&#46;</span>com</a>.</p>
 </div>
 </section>
 <section id="known-errata-linux-firmware-kernel-modules">
