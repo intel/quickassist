@@ -436,13 +436,18 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </section>
 <section id="linux-boot-parameters">
 <h2>Linux Boot Parameters<a class="headerlink" href="#linux-boot-parameters" title="Permalink to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">intel_iommu</span></code> parameter <strong>must</strong> be enabled. Verify this setting is enabled by running the following command:</p>
+<p>There are two boot parameters that are required.</p>
+<ul class="simple">
+<li><p>intel_iommu=on</p></li>
+<li><p>vfio-pci.ids=[QAT VF DID]</p></li>
+</ul>
+<p>Verify these settings are enabled by running the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cat /proc/cmdline | grep intel_iommu=on</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">grep -E &#39;intel_iommu=on&#39; /proc/cmdline &amp;&amp; grep -o &#39;vfio-pci.ids=[^ ]*&#39; /proc/cmdline | grep -E &#39;8086:4941|8086:4943|8086:4945|8086:4947&#39;</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>If <code class="docutils literal notranslate"><span class="pre">intel_iommu</span></code> is <strong>not</strong> enabled, the following steps can be used to turn it on.</p>
+<p>If they are <strong>not</strong> enabled, the following steps can be used to turn it on.</p>
 <section id="instructions-for-debian-based-distros">
 <h3>Instructions for Debian Based Distros<a class="headerlink" href="#instructions-for-debian-based-distros" title="Permalink to this heading"></a></h3>
 <p>If using a Debian based distribution, run the following commands:</p>
@@ -456,6 +461,17 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </div></blockquote>
 </li>
 <li><p><strong>Update</strong> the <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> line by adding <code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code>.</p></li>
+<li><p><strong>Update</strong> the <code class="docutils literal notranslate"><span class="pre">GRUB_CMDLINE_LINUX</span></code> line by adding <code class="docutils literal notranslate"><span class="pre">vfio-pci-ids=8086:4941</span></code>.</p>
+<blockquote>
+<div><div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line">In the command above we added the 8086:4941 device id.  Depending on your system, this ID could also be 8086:4943, 8086:4945, or 8086:4947.</div>
+<div class="line">Refer to <a class="reference internal" href="#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> section of QATlib Users Guide for additional details.</div>
+</div>
+</div>
+</div></blockquote>
+</li>
 <li><p><strong>Load</strong> the changes done.</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo update-grub</span>
@@ -481,7 +497,15 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 <li><p><strong>Update</strong> the kernel boot parameters.</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo grubby --update-kernel=ALL --args=&quot;intel_iommu=on&quot;</span>
+<span class="go">sudo grubby --update-kernel=ALL --args=&quot;vfio-pci.ids=8086:4941&quot;</span>
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line">In the command above we added the 8086:4941 device id.  Depending on your system, this ID could also be 8086:4943, 8086:4945, or 8086:4947.</div>
+<div class="line">Refer to <a class="reference internal" href="#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> section of QATlib Users Guide for additional details.</div>
+</div>
 </div>
 </div></blockquote>
 </li>

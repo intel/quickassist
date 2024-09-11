@@ -826,7 +826,7 @@ static Huffman trees.</p>
 
 <span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">CPA_FALSE</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">CPA_BITMAP_BIT_TEST</span><span class="p">(</span><span class="n">cap</span><span class="p">.</span><span class="n">dcChainCapInfo</span><span class="p">,</span><span class="w"> </span><span class="n">CPA_DC_CHAIN_HASH_THEN_COMPRESS</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;Hash + compress chained operation is not supported on logical instance.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
-<span class="w">    </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;Please ensure StorageEnabled=1 in the device configuration file.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
+<span class="w">    </span><span class="n">PRINT_ERR</span><span class="p">(</span><span class="s">&quot;Please ensure Chaining related settings are enabled in the device configuration file.</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">);</span>
 <span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">CPA_STATUS_FAIL</span><span class="p">;</span>
 <span class="w">    </span><span class="p">}</span>
 
