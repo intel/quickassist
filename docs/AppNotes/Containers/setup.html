@@ -183,12 +183,17 @@ Capabilities: [150] Single Root I/O Virtualization (SR-IOV)
 </div>
 </div></blockquote>
 </li>
-<li><p><strong>Register</strong> the Intel® QAT Virtual Function (VF) IDs. [OPTIONAL]</p>
+<li><p><strong>Register</strong> the Intel® QAT Virtual Function (VF) IDs.</p>
 <blockquote>
-<div><p>This step is optional, but is highly recommended when running qatlib in <a class="reference internal" href="../../qatlib/configuration.html#qat-2-0-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a>.</p>
-<p>In Standalone mode, <strong>qatmgr</strong> is not installed and additional work is required to bind vfio-pci to all QAT2.0 VFs when sriov_numvfs is enabled.</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sudo grubby --update-kernel=ALL --args=&quot;vfio-pci.ids=8086:4941 vfio-pci.ids=8086:4943&quot;
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>sudo grubby --update-kernel=ALL --args=&quot;vfio-pci.ids=8086:4941&quot;
 </pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<div class="line-block">
+<div class="line">In the above command, the device ID is 8086:4941. Depending on your system, this ID could also be 8086:4943, 8086:4945, or 8086:4947.</div>
+<div class="line">Refer to <a class="reference internal" href="../../qatlib/requirements.html#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> section of QATlib Users Guide for additional details.</div>
+</div>
 </div>
 </div></blockquote>
 </li>

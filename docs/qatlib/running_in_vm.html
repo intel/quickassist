@@ -412,6 +412,17 @@ to the VM.</p>
 <p>Error when running cpa sample application on the guest VM</p>
 <p>If errors like the following are observed:</p>
 <blockquote>
+<div><p><strong>Terminal output</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[error] [error] [error] LacSymCb_ProcessCallbackInternal() - : Response status value not as expected</span>
+<span class="go">[error] [error] LacSymQat_SymRespHandler() - : The PCIe End Point Push/Pull or TI/RI Parity error detected.</span>
+<span class="go">LacSymQat_SymRespHandler() - : The PCIe End Point Push/Pull or TI/RI Parity error detected.</span>
+<span class="go">LacSymCb_ProcessCallbackInternal() - : Response status value not as expected</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>dmesg output</strong></p>
+<blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">[56400.152502] DMAR: DRHD: handling fault status reg 3</span>
 <span class="go">[56400.152513] DMAR: [DMA Read NO_PASID] Request device [70:00.1] fault addr 0x2995c000 [fault reason 0x79] SM: Read/Write permission error in second-level paging entry</span>
 <span class="go">[56400.153297] DMAR: DRHD: handling fault status reg 3</span>
@@ -421,6 +432,7 @@ to the VM.</p>
 <span class="go">[56400.212228] DMAR: DRHD: handling fault status reg 2</span>
 </pre></div>
 </div>
+</div></blockquote>
 </div></blockquote>
 <p><strong>Likely cause</strong>: Limit to maximum number of concurrent DMA mapping that a user is allowed to create has been reached</p>
 <p><strong>Solution</strong>: Increase/edit the <code class="docutils literal notranslate"><span class="pre">dma_entry</span></code> limit value in <code class="docutils literal notranslate"><span class="pre">/etc/modprobe.d/vfio-iommu-type1.config</span></code></p>

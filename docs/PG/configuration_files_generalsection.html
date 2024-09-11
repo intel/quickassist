@@ -202,28 +202,21 @@ data compression [dc]).</p>
 <td><p>0</p></td>
 <td><p>0 or 1</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleInterruptDelay</span></code></p></td>
-<td><p>Default value for power management idle interrupt delay.</p>
-<p>Refer to <a class="reference external" href="#power-management-parameters">Power Management Parameters</a> for additional details.</p>
-</td>
-<td><p>512</p></td>
-<td></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code></p></td>
 <td><p>This flag is to enable power management idle support.</p>
 <p>Refer to <a class="reference external" href="#power-management-parameters">Power Management Parameters</a> for additional details.</p>
 </td>
 <td><p>1</p></td>
 <td><p>0 or 1</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">SVMEnabled</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">SVMEnabled</span></code></p></td>
 <td><p>This flag is to enable SVM support.</p>
 <p>Refer to <a class="reference external" href="#shared-virtual-memory-svm-parameters">Shared Virtual Memory Parameters</a> for additional details.</p>
 </td>
 <td><p>0</p></td>
 <td><p>0 or 1</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">ATEnabled</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">ATEnabled</span></code></p></td>
 <td><p>This flag is to enable Address Translation Service(ATS).</p>
 <p>Refer to <a class="reference external" href="#shared-virtual-memory-svm-parameters">Shared Virtual Memory Parameters</a> for additional details.</p>
 </td>
@@ -399,7 +392,6 @@ the compression and decompression are available, along with service chaining, bu
 the device.)</p>
 <p>Power management configurations parameters include:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">PmIdleInterruptDelay</span></code> - Configure power management interrupt delay from the system to QAT driver in millisecond(s). The default value is 512 milliseconds.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code> - Configure the device to enable/disable power management idle supporting. Power management idle support is enabled by default.</p></li>
 </ul>
 <p>Refer to the <a class="reference internal" href="infrastructure_power_management.html#qat-2-0-pg-infrastructure-power-management"><span class="std std-ref">Power Management</span></a> section for additional details.</p>
