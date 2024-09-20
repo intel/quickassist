@@ -175,7 +175,36 @@ logs as IOMMU pagefault.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
 <td><p>Avoid enabling vIOMMU. Use the latest version of VMware ESXi where this
-issue resolved, like 8.0 Update 2 or 7.0 Update 3p.</p></td>
+issue resolved, like 8.0 Update 2 or 7.0 Update 3q.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vqq-2128-driver-may-leak-memory-if-virtual-device-creation-failed-under-certain-conditions">
+<h2>VQQ-2128 - Driver may leak memory if virtual device creation failed under certain conditions<a class="headerlink" href="#vqq-2128-driver-may-leak-memory-if-virtual-device-creation-failed-under-certain-conditions" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given rn-table docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>Driver may leak memory if virtual device creation failed under certain
+conditions</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>VQQ-2128</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Under certain conditions if driver fails to create virtual device
+for Enhanced DirectPath I/O it may leak memory.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>It will be impossible to recover HW from fatal error as described
+in the README file, without restarting system.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>There is no workaround currently available.</p></td>
 </tr>
 </tbody>
 </table>

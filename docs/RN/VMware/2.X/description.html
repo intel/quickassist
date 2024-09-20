@@ -61,7 +61,6 @@
 <li class="toctree-l3"><a class="reference internal" href="#limitations">Limitations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#packages-information">Packages Information</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#directpath-i-o-packages">DirectPath I/O packages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#enhanced-directpath-i-o-packages">Enhanced DirectPath I/O packages</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#version-numbering-scheme">Version Numbering Scheme</a></li>
@@ -119,27 +118,16 @@ for VMware ESXi*.</p>
 <p>This software enables Intel® QuickAssist Technology (Intel<sup>®</sup> QAT)
 accelerator on VMware ESXi.
 Driver enables sharing of a Physical Function (PF) across multiple guest
-Virtual Machines (VM) using Single Root I/O Virtualization (SR-IOV) and
-Intel<sup>®</sup> Scalable I/O Virtualization (Intel<sup>®</sup> Scalable IOV)
-technologies. This is accomplished by exposing Intel<sup>®</sup> QAT accelerator
-as Virtual Functions (VFs) in case of SR-IOV or Assignable Device Interfaces
-(ADIs) as Virtual Devices (VDEVs) in case of Intel<sup>®</sup> Scalable IOV,
-to a specific guest VM(s).</p>
-<p>This release includes two types of driver packages, each supporting a specific
-mode for exposing accelerator to guest VM, as listed below:</p>
+Virtual Machines (VM) using Single Root I/O Virtualization (SR-IOV) technology.
+This is accomplished by exposing Intel<sup>®</sup> QAT accelerator as Virtual
+Functions (VFs)to a specific guest VM(s).</p>
+<p>This release includes following types of driver packages, each supporting a
+specific mode for exposing accelerator to guest VM, as listed below:</p>
 <blockquote>
 <div><ul class="simple">
 <li><p>DirectPath I/O via SR-IOV: Later in the document referred as SR-IOV driver</p></li>
-<li><p>Enhanced DirectPath I/O via Intel<sup>®</sup> Scalable IOV: This package has
-<a class="reference internal" href="#qat-2-0-rn-vmware-versioning"><span class="std std-ref">special version convention</span></a></p></li>
 </ul>
 </div></blockquote>
-<p>Main difference between these two driver types is what kind of QAT devices are
-exposed to the VM. SR-IOV driver exposes conventional VFs, but Enhanced
-DirectPath I/O driver - vQAT VDEV. Drivers have different set of features and
-limitations, refer to <a class="reference internal" href="#qat-2-0-rn-vmware-features"><span class="std std-ref">Features</span></a> and
-<a class="reference internal" href="#qat-2-0-rn-vmware-limitations"><span class="std std-ref">Limitations</span></a> sections correspondingly
-for additional details.</p>
 <p>For instructions on loading and running the release software, refer to the
 <code class="docutils literal notranslate"><span class="pre">README.txt</span></code> file in the corresponding released software package. For
 instructions on installing the driver in the Guest Operating System (OS),
@@ -166,9 +154,8 @@ Deflate and LZ4s</p></li>
 <li><p>Telemetry</p></li>
 <li><p>Power Management</p></li>
 <li><p>Extended RAS (uncorrectable and fatal error support)</p></li>
-<li><p>Ratelimiting (only with Direct Path I/O driver)</p></li>
-<li><p>Intel<sup>®</sup> Scalable IOV (only with Enhanced DirectPath I/O driver)</p></li>
-<li><p>VMware vSphere* vMotion* support (only with Enhanced DirectPath I/O driver)</p></li>
+<li><p>Ratelimiting</p></li>
+<li><p>Intel<sup>®</sup> Device Manager for VMware* vCenter Server support</p></li>
 </ul>
 </section>
 <section id="limitations">
@@ -183,6 +170,7 @@ information.</p></li>
 <li><p>Dynamic Power Management (DPM) is not currently supported.</p></li>
 <li><p>Shared Virtual Memory (SVM) and Address Translation (AT) are not currently
 supported.</p></li>
+<li><p>Enhanced DirectPath I/O driver is not available as part of this release.</p></li>
 <li><p>ESXi limitation: number of PCI passthrough devices per VM is limited. Check
 “ESXi/ESX Configuration Maximums” <a class="reference external" href="https://kb.vmware.com/s/article/1003497">KB article</a> for exact limits. ESXi will
 not allow to power on VM if such limit is exceeded.</p></li>
@@ -195,9 +183,10 @@ DirectPath I/O drivers, as well as SW stack inside VM. Switching between
 driver types can cause VM to fail power on, so re-configuration will be
 required.</p></li>
 <li><p>Due to VMware limitations, package for Enhanced DirectPath I/O
-driver is compatible only with particular version of ESXi. Refer to
-<em>Supported ESXi Version</em> in <a class="reference internal" href="#qat-2-0-rn-vmware-packages-info"><span class="std std-ref">package description</span></a>
-to choose right package.</p></li>
+driver for VMware ESXi 8.0 Update 2 is compatible only with this particular
+version of ESXi. Refer to <em>Supported ESXi Version</em> in
+<a class="reference internal" href="#qat-2-0-rn-vmware-packages-info"><span class="std std-ref">package description</span></a> to choose right
+package.</p></li>
 </ul>
 </section>
 <section id="packages-information">
@@ -211,10 +200,10 @@ to choose right package.</p></li>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Package Name</strong></p></td>
-<td><p>qat-2.0_ext_rel_bin_2.5.3.113-7.0.0-15843807.tar.gz</p></td>
+<td><p>qat-2.0_ext_rel_bin_2.5.5.151-7.0.3-18644231.tar.gz</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Release Date</strong></p></td>
-<td><p>02/05/2024</p></td>
+<td><p>09/10/2024</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Supported Hardware</strong></p></td>
 <td><ul class="simple">
@@ -231,50 +220,10 @@ to choose right package.</p></li>
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>Driver Version</strong></p></td>
-<td><p>2.5.3.113</p></td>
+<td><p>2.5.5.151</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Package Checksum</strong></p></td>
-<td><p>SHA256: fa6432cb82748ca0216b5089efd629e5</p>
-<p>a7a5d943a0999abfb0056e9fca3b3d1b</p>
-</td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="enhanced-directpath-i-o-packages">
-<h3>Enhanced DirectPath I/O packages<a class="headerlink" href="#enhanced-directpath-i-o-packages" title="Permalink to this heading"></a></h3>
-<table class="colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Package Name</strong></p></td>
-<td><p>qat-2.0_ext_rel_bin_1002.5.3.113-8.0.2-22380479-dvx.tar.gz</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Release Date</strong></p></td>
-<td><p>02/05/2024</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Supported Hardware</strong></p></td>
-<td><ul class="simple">
-<li><p>4th Generation Intel<sup>®</sup> Xeon<sup>®</sup> Scalable Processor (4xxx QAT)</p></li>
-<li><p>5th Generation Intel<sup>®</sup> Xeon<sup>®</sup> Scalable Processor (4xxx QAT)</p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-even"><td><p><strong>Supported ESXi Version(s)</strong></p></td>
-<td><ul class="simple">
-<li><p>8.0 Update 2</p></li>
-</ul>
-</td>
-</tr>
-<tr class="row-odd"><td><p><strong>Driver Version</strong></p></td>
-<td><p>1002.5.3.113</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Package Checksum</strong></p></td>
-<td><p>SHA256: 79f3327be19d8448af3dab81a82a0728</p>
-<p>c352713a7f342c75d6f984aea0ea9ea0</p>
-</td>
+<td><p>SHA256: a2ab22a1dfcade3d08a9d1ed30638b69 0d076108ee38dc5e36448d95fa8a9d25</p></td>
 </tr>
 </tbody>
 </table>
@@ -308,10 +257,10 @@ Direct Path I/O release + <em>1000</em>. <em>Minor</em> and <em>patch</em> numbe
 <tr class="row-odd"><td><p><strong>File</strong></p></td>
 <td><p><strong>Description</strong></p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">qat-2.0_ext_rel_bin_2.5.3.113-7.0.0-15843807.tar.gz</span></code></p></td>
+<tr class="row-even"><td><p>qat-2.0_ext_rel_bin_2.5.5.151-7.0.3-18644231.tar.gz</p></td>
 <td><p>DirectPath I/O driver (SR-IOV)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">qat-2.0_ext_rel_bin_1002.5.3.113-8.0.2-22380479-dvx.tar.gz</span></code></p></td>
+<tr class="row-odd"><td><p>qat-2.0_ext_rel_bin_1002.5.5.151-8.0.2-22380479-dvx.tar.gz</p></td>
 <td><p>Enhanced DirectPath I/O driver</p></td>
 </tr>
 </tbody>
@@ -326,8 +275,8 @@ correspondingly.</p>
 drivers:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>Linux*:</strong> Intel QAT driver <code class="docutils literal notranslate"><span class="pre">QAT20.L.1.1.20-*</span></code></p></li>
-<li><p><strong>Windows*:</strong> Intel QAT driver <code class="docutils literal notranslate"><span class="pre">QAT2.0.W.2.1.0-*</span></code></p></li>
+<li><p><strong>Linux*:</strong> Intel QAT driver QAT20.L.1.1.50-*</p></li>
+<li><p><strong>Windows*:</strong> Intel QAT driver QAT2.0.W.2.1.0-*</p></li>
 </ul>
 </div></blockquote>
 <p>The actual list of supported guest OS depends on the guest driver compatibility.

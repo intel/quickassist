@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Revision History &mdash; Intel® QuickAssist Technology  documentation</title>
+  <title>Running in a Container &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Application Notes" href="../AppNotes/index.html" />
-    <link rel="prev" title="Asynch Mode for NGINX*" href="asynch_nginx.html" /> 
+    <link rel="next" title="Migrating Applications" href="migrate.html" />
+    <link rel="prev" title="Running in a Virtual Machine (VM)" href="running_in_vm.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -67,12 +67,12 @@
 <li class="toctree-l2"><a class="reference internal" href="sample_code.html">Sample Code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="running_in_a_container.html">Running in a Container</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Running in a Container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="migrate.html">Migrating Applications</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Revision History</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
@@ -96,7 +96,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">QATlib User’s Guide</a></li>
-      <li class="breadcrumb-item active">Revision History</li>
+      <li class="breadcrumb-item active">Running in a Container</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -105,58 +105,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="revision-history">
-<span id="qat2-0-qatlib-userguide-revision-history"></span><h1>Revision History<a class="headerlink" href="#revision-history" title="Permalink to this heading"></a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This file shows the Revision History for our qatlib User’s Guide. For the Revision History of qatlib releases, see <a class="reference external" href="https://github.com/intel/qatlib/releases">https://github.com/intel/qatlib/releases</a> .</p>
-</div>
-<table class="longtable colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 60%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Document</strong></p>
-<p><strong>Version</strong></p>
-</th>
-<th class="head"><p><strong>Description</strong></p></th>
-<th class="head"><p><strong>Date</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>003</p></td>
-<td><p>Updated for qatlib 23.11 release.
-Added: - Support DC NS (NoSession) APIs.
-- Support DC compressBound APIs.
-- Support Symmetric Crypto SM3 &amp; SM4.
-- Support Asymmetric Crypto SM2.
-- Bug Fixes. See Resolved Issues.
-- Added “Running in a Virtual Machine” section.</p></td>
-<td><p>Nov 2023</p></td>
-</tr>
-<tr class="row-odd"><td><p>002</p></td>
-<td><p>Updated for qatlib 23.08 release.
-Updated qatlib configuration to include full possibilities,
-updated text of Performance Considerations.
-Added “Kernel/OS Requirements” table to Requirements section.</p></td>
-<td><p>Sept 2023</p></td>
-</tr>
-<tr class="row-even"><td><p>001</p></td>
-<td><p>Added “Kernel/OS Requirements” table to Requirements section. See</p></td>
-<td><p>June 2023</p></td>
-</tr>
-</tbody>
-</table>
+  <section id="running-in-a-container">
+<span id="qat-2-0-qatlib-usersguide-running-in-a-container"></span><h1>Running in a Container<a class="headerlink" href="#running-in-a-container" title="Permalink to this heading"></a></h1>
+<p>Refer to <a class="reference internal" href="../AppNotes/Containers/index.html#qat-2-0-containers"><span class="std std-ref">Run Containers using Intel® QAT Acceleration</span></a> for instructions on how to execute containers utilizing Intel® QAT Acceleration.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="asynch_nginx.html" class="btn btn-neutral float-left" title="Asynch Mode for NGINX*" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../AppNotes/index.html" class="btn btn-neutral float-right" title="Application Notes" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="running_in_vm.html" class="btn btn-neutral float-left" title="Running in a Virtual Machine (VM)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="migrate.html" class="btn btn-neutral float-right" title="Migrating Applications" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
