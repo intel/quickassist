@@ -251,11 +251,11 @@
 <section id="benchmarking">
 <h2>Benchmarking<a class="headerlink" href="#benchmarking" title="Permalink to this heading"></a></h2>
 <p>The <em>QATzip</em> package, when installed from source includes a test application that can be used for benchmarking.</p>
-<p>The application is placed in <code class="docutils literal notranslate"><span class="pre">~/QATzip/test/test</span></code> directory.</p>
+<p>The application is placed in <code class="docutils literal notranslate"><span class="pre">test/</span></code> directory under the cloned QATzip repository.</p>
 <section id="example-test">
 <h3>Example test<a class="headerlink" href="#example-test" title="Permalink to this heading"></a></h3>
 <blockquote>
-<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>taskset<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>~/QATzip/test/test<span class="w"> </span>-m<span class="w"> </span><span class="m">4</span><span class="w"> </span>-l<span class="w"> </span><span class="m">100</span><span class="w"> </span>-t<span class="w"> </span><span class="m">1</span><span class="w"> </span>-D<span class="w"> </span>comp<span class="w"> </span>-L<span class="w"> </span><span class="m">1</span><span class="w"> </span>-B<span class="w"> </span><span class="m">0</span><span class="w"> </span>-i<span class="w"> </span>./silesia
+<div><div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>taskset<span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>~/QATzip/test/qatzip-test<span class="w"> </span>-m<span class="w"> </span><span class="m">4</span><span class="w"> </span>-l<span class="w"> </span><span class="m">100</span><span class="w"> </span>-t<span class="w"> </span><span class="m">1</span><span class="w"> </span>-D<span class="w"> </span>comp<span class="w"> </span>-L<span class="w"> </span><span class="m">1</span><span class="w"> </span>-B<span class="w"> </span><span class="m">0</span><span class="w"> </span>-i<span class="w"> </span>./silesia
 </pre></div>
 </div>
 <p>This test performs compression test at level 1 utilizing QAT to compress file silesia.  Software fallback
@@ -265,7 +265,7 @@ is disabled in this test case.</p>
 <section id="test-details">
 <h3>Test Details<a class="headerlink" href="#test-details" title="Permalink to this heading"></a></h3>
 <p>Usage:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>./test<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>Usage:<span class="w"> </span>./qatzip-test<span class="w"> </span><span class="o">[</span>options<span class="o">]</span>
 </pre></div>
 </div>
 <p>Required options:</p>

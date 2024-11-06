@@ -581,8 +581,8 @@ called on the host to bind VFs to <code class="docutils literal notranslate"><sp
 on the <em>Services Enabled</em> parameter.</p>
 <p>In this mode the <em>Policy</em> parameter should not be set in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code>. If it is set, it will be ignored.</p>
 <p>Instead an environment variable <code class="docutils literal notranslate"><span class="pre">QAT_POLICY</span></code> can be set.</p>
-<p>Valid values are the same as for <code class="docutils literal notranslate"><span class="pre">POLICY</span></code>, except that for <code class="docutils literal notranslate"><span class="pre">QAT_POLICY=0</span></code> a maximum
-of 6 VFs will be allocated.</p>
+<p>Please note that the QAT_POLICY=0 is not a valid setting in standalone mode. The valid
+setting range starts from 1 and goes up to max PFs * 16.</p>
 <section id="running-without-qat-init-sh">
 <h3>Running Without <strong>qat_init.sh</strong><a class="headerlink" href="#running-without-qat-init-sh" title="Permalink to this heading"></a></h3>
 <p>In some scenarios, it is not possible to use <code class="docutils literal notranslate"><span class="pre">qat_init.sh</span></code>. This section provides details on the steps that need to
