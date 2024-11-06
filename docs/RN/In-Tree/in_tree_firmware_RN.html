@@ -156,8 +156,8 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 </section>
 <section id="qat-firmware-available">
 <h2>QAT Firmware Available<a class="headerlink" href="#qat-firmware-available" title="Permalink to this heading"></a></h2>
-<table class="longtable colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id6">
+<caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 15%" />
@@ -197,15 +197,15 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <td><p>Intel® Xeon® 6 - Sierra Forest</p></td>
 </tr>
 <tr class="row-odd"><td><p>qat_420xx.bin</p></td>
-<td><p>Pending</p></td>
+<td><p>Pending <a class="footnote-reference brackets" href="#id5" id="id1">1</a></p></td>
 <td><p>contact <a class="reference external" href="mailto:qat-linux&#37;&#52;&#48;intel&#46;com">qat-linux<span>&#64;</span>intel<span>&#46;</span>com</a> mailing list for firmware</p></td>
-<td><p>Pending</p></td>
+<td><p>Pending <a class="footnote-reference brackets" href="#id5" id="id2">1</a></p></td>
 <td><p>5th Gen Intel® Xeon® Scalable Processor</p></td>
 </tr>
 <tr class="row-even"><td><p>qat_420xx_mmp.bin</p></td>
-<td><p>Pending</p></td>
+<td><p>Pending <a class="footnote-reference brackets" href="#id5" id="id3">1</a></p></td>
 <td><p>contact <a class="reference external" href="mailto:qat-linux&#37;&#52;&#48;intel&#46;com">qat-linux<span>&#64;</span>intel<span>&#46;</span>com</a> mailing list for firmware</p></td>
-<td><p>Pending</p></td>
+<td><p>Pending <a class="footnote-reference brackets" href="#id5" id="id4">1</a></p></td>
 <td><p>5th Gen Intel® Xeon® Scalable Processor</p></td>
 </tr>
 <tr class="row-odd"><td><p>qat_4xxx.bin</p></td>
@@ -258,6 +258,15 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 </tr>
 </tbody>
 </table>
+<dl class="footnote brackets">
+<dt class="label" id="id5"><span class="brackets">1</span><span class="fn-backref">(<a href="#id1">1</a>,<a href="#id2">2</a>,<a href="#id3">3</a>,<a href="#id4">4</a>)</span></dt>
+<dd><p>For Pending firmware, if you are running on a system that does not include the QAT device and the firmware image is not available, you may encounter a warning when building the Linux Kernel or initramfs. To work around these issues, you can use the following commands:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Device not available&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/lib/firmware/qat_420xx.bin
+sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Device not available&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/lib/firmware/qat_420xx_mmp.bin
+</pre></div>
+</div>
+</dd>
+</dl>
 </section>
 <section id="download">
 <h2>Download<a class="headerlink" href="#download" title="Permalink to this heading"></a></h2>
@@ -270,8 +279,8 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <p class="admonition-title">Note</p>
 <p>Some qatlib features require a recent kernel driver or firmware version.</p>
 </div>
-<table class="colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">QAT Kernel Driver Releases &amp; Features</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<table class="colwidths-given docutils align-default" id="id7">
+<caption><span class="caption-text">QAT Kernel Driver Releases &amp; Features</span><a class="headerlink" href="#id7" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 20%" />
@@ -377,10 +386,6 @@ Asymmetric Crypto SM2</p></td>
 <p>Also, if running on a distro like RHEL or SUSE, the kernel version reported should be ignored.
 This is because the kernel version <em>reported</em> is only the <em>base</em> kernel version, however, the distro generally contains a more recent qat kernel driver.</p>
 <p>Consult your distro support for details.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For pending firmware, contact your Intel Representative or <a class="reference external" href="mailto:qat-linux&#37;&#52;&#48;intel&#46;com">qat-linux<span>&#64;</span>intel<span>&#46;</span>com</a>.</p>
 </div>
 </section>
 <section id="known-errata-linux-firmware-kernel-modules">
