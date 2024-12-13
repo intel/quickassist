@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checksum Discussion &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Summary of Checksum Algorithms" href="checksum_algorithms.html" />
+    <link rel="prev" title="Introduction" href="introduction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel® QAT Compress and Verify White Paper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Checksum Discussion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#table-of-checksums">Table of Checksums</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#collisions-crc32-adler32-and-xxhash32">Collisions CRC32, Adler32 and XXHash32</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#anatomy-of-crc32-checksum">Anatomy of CRC32 checksum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#anatomy-of-adler32-checksum">Anatomy of Adler32 checksum</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#anatomy-of-xxhash32">Anatomy of XXHash32</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="checksum_algorithms.html">Summary of Checksum Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cnv_tests.html">Intel® QAT Compress and Verify Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html">The CRC64 Values Used in End-To-End mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html#the-empirical-study">The Empirical Study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="references.html">Footnotes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Application Notes</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Intel® QAT Compress and Verify White Paper</a></li>
+      <li class="breadcrumb-item active">Checksum Discussion</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="checksum-discussion">
+<span id="qat-2-0-cnv-checksums"></span><h1>Checksum Discussion<a class="headerlink" href="#checksum-discussion" title="Permalink to this heading"></a></h1>
+<p>Intel® QAT computes Cyclic Redundancy Checks (CRCs), checksums, and hash values during compression and decompression
+operations. For brevity, these algorithms will collectively be referred to as checksums in this paper.</p>
+<p>This section introduces the checksums used in CnV, explains the concept of checksum collisions, outlines how each checksum
+is calculated, and highlights their differences.</p>
+<section id="table-of-checksums">
+<h2>Table of Checksums<a class="headerlink" href="#table-of-checksums" title="Permalink to this heading"></a></h2>
+<p>The following table identifies the checksums used in CnV, based on the compression algorithm.</p>
+<table class="longtable colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 15%" />
+<col style="width: 15%" />
+<col style="width: 20%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Compression
+Algorithm</strong></p></th>
+<th class="head"><p><strong>CnV
+Checksums</strong></p></th>
+<th class="head"><p><strong>Notes</strong></p></th>
+<th class="head"><p><strong>Reference</strong></p>
+<p><strong>(as of 9/19/2024)</strong></p>
+</th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Deflate</p></td>
+<td><p>Adler32 and
+CRC32</p></td>
+<td><p>Default
+polynomial
+for CRC32</p></td>
+<td><p>Deflate Specification</p>
+<p><a class="reference external" href="https://www.rfc-editor.org/info/rfc1951">https://www.rfc-editor.org/info/rfc1951</a></p>
+</td>
+</tr>
+<tr class="row-odd"><td><p>LZ4</p></td>
+<td><p>XXHash32
+and CRC32</p></td>
+<td><p>Default
+polynomial
+for CRC32</p></td>
+<td><p>lz4_Block_format</p>
+<p><a class="reference external" href="https://github.com/lz4/lz4/blob/dev/doc/lz4_Block_format.md">https://github.com/lz4/lz4/blob/dev/doc/lz4_Block_format.md</a></p>
+</td>
+</tr>
+<tr class="row-even"><td><p>LZ4s</p></td>
+<td><p>XXHash32
+and CRC32</p></td>
+<td><p>Default
+polynomial
+for CRC32</p></td>
+<td><p>LZ4s Compress Block Format</p>
+<p><a class="reference external" href="https://intel.github.io/quickassist/PG/services_compression_api.html#lz4s-compressed-data-block-format">https://intel.github.io/quickassist/PG/services_compression_api.html#lz4s-compressed-data-block-format</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When compression or decompression requests are submitted to an Intel® QAT device with the End-to-End CRC feature enabled,
+input and output programmable CRC64 values are included in the response descriptor and may be verified by the application.
+These CRC64 values are not included in the CnV calculation.</p>
+<p>See section <a class="reference internal" href="notes.html#qat-2-0-crc64-end-to-end-mode"><span class="std std-ref">The CRC64 Values Used in End-to-End Mode</span></a> for details.</p>
+</div>
+</section>
+<section id="collisions-crc32-adler32-and-xxhash32">
+<h2>Collisions CRC32, Adler32 and XXHash32<a class="headerlink" href="#collisions-crc32-adler32-and-xxhash32" title="Permalink to this heading"></a></h2>
+<p>Any programmatic operation that reduces a dataset to a smaller value has
+the potential to result in a collision.</p>
+<section id="crc32-collision-examples">
+<h3>CRC32 Collision Examples<a class="headerlink" href="#crc32-collision-examples" title="Permalink to this heading"></a></h3>
+<p>This table shows CRC32 collisions for four different input datasets, each with two different lengths.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 63%" />
+<col style="width: 21%" />
+<col style="width: 16%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Input</strong></p></th>
+<th class="head"><p><strong>Dataset
+Length</strong></p></th>
+<th class="head"><p><strong>CRC32</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>0x61, 0x62, 0x63, 0x64, 0x65
+(‘a’,’b’,’c’,’d’,’e’)</p></td>
+<td><p>5 octets</p></td>
+<td><p>0
+x43a52f78</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x00, 0x00, 0x00, 0x00, 0x75, 0x97,
+0x13, 0xa3</p></td>
+<td><p>8 octets</p></td>
+<td><p>0
+x43a52f78</p></td>
+</tr>
+<tr class="row-even"><td><p>0x00, 0x00, 0x00, 0x01, 0xae, 0xe6,
+0x15, 0xe2</p></td>
+<td><p>8 octets</p></td>
+<td><p>0
+x43a52f78</p></td>
+</tr>
+<tr class="row-odd"><td><p>0x00, 0x00, 0x00, 0x02, 0x18, 0x04,
+0x19, 0x60</p></td>
+<td><p>8 octets</p></td>
+<td><p>0
+x43a52f78</p></td>
+</tr>
+</tbody>
+</table>
+<p>This is referred to as a collision. Empirical evidence shows there is a
+small non-zero likelihood of checksum collisions when minor changes are
+made in the dataset. See section <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.</p>
+</section>
+</section>
+<section id="anatomy-of-crc32-checksum">
+<h2>Anatomy of CRC32 checksum<a class="headerlink" href="#anatomy-of-crc32-checksum" title="Permalink to this heading"></a></h2>
+<p>CRC32 (Cyclic Redundancy Check) is a popular checksum algorithm used
+to detect errors in data.</p>
+<p>CRC32 checksums are calculated using polynomial division. This is
+implemented by use of the XOR operation and shift values. See <a class="reference internal" href="references.html#qat-2-0-cnv-footnote1"><span class="std std-ref">Footnote 1</span></a> for details.</p>
+<p>It is composed by three steps:</p>
+<ol class="arabic">
+<li><p><strong>Division Operation</strong></p>
+<p>The CRC calculation involves binary division, where the data (
+a sequence of bits) is divided by the polynomial using XOR
+operations instead of traditional subtraction.</p>
+<p>Here’s a high-level view of how it works:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Initial Value: Start with an initial CRC value, usually set to <code class="docutils literal notranslate"><span class="pre">0xFFFFFFFF</span></code> (all bits set to 1).</p></li>
+<li><p>Data Preparation: Append 32 zero bits to the end of the data to accommodate the CRC bits.</p></li>
+<li><p>Division Process: For each bit of data, if the leftmost bit of the data (when XORed with the polynomial) is 1, the polynomial is XORed with the data. This step mirrors polynomial long division but is implemented using binary operations.</p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p><strong>XOR Operations</strong></p>
+<p>XOR is the primary operation in CRC calculations. When you encounter
+a non-zero bit in the polynomial, you perform an XOR operation
+between the data and the polynomial at the relevant bit positions.
+XOR is used because it has properties that align with the algebraic
+structure required for CRC calculations.</p>
+</li>
+<li><p><strong>Final XOR</strong></p>
+<p>After processing all the bits, the resulting CRC value is XORed with
+<code class="docutils literal notranslate"><span class="pre">0xFFFFFFFF</span></code> (again, all bits set). This step provides the final CRC32
+checksum.</p>
+</li>
+</ol>
+<section id="example-calculation">
+<h3>Example Calculation<a class="headerlink" href="#example-calculation" title="Permalink to this heading"></a></h3>
+<p>Here’s a simplified example to illustrate:</p>
+<ol class="arabic simple">
+<li><p>Data: Let’s say our data to be checked is 110101.</p></li>
+<li><p>Polynomial: The CRC polynomial for CRC32 is represented as <code class="docutils literal notranslate"><span class="pre">10000010011000001000100000000001</span></code> in binary.</p></li>
+<li><p>Initial CRC Value: <code class="docutils literal notranslate"><span class="pre">0xFFFFFFFF</span></code>.</p></li>
+<li><p>Division: Append 32 zeros to the end of the data. Perform the XOR
+operations as you shift the data to the left, aligning it with the
+polynomial, and reduce the polynomial if necessary.</p></li>
+<li><p>Final XOR: XOR the final result with <code class="docutils literal notranslate"><span class="pre">0xFFFFFFFF</span></code>.</p></li>
+</ol>
+<p>The result from this final XOR operation is the CRC32 checksum, which
+is a 32-bit value.</p>
+<section id="summary">
+<h4>Summary<a class="headerlink" href="#summary" title="Permalink to this heading"></a></h4>
+<p>The CRC32 algorithm combines binary polynomial division and XOR
+operations to compute a 32-bit checksum for a given data block. This
+checksum helps detect errors by ensuring that data has not been
+altered.</p>
+</section>
+<section id="collision-rate-crc32">
+<h4>Collision Rate CRC32<a class="headerlink" href="#collision-rate-crc32" title="Permalink to this heading"></a></h4>
+<p>Based on the dataset used in an empirical study of collisions (See <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> section for details.),
+CRC32 collisions can be expected to occur at a rate of
+approximately 0.2 per billion tests. This indicates that, relative to a
+completely random dataset, a modest reduction in CRC32 collisions is
+observed due to the nature of the dataset.</p>
+</section>
+</section>
+</section>
+<section id="anatomy-of-adler32-checksum">
+<h2>Anatomy of Adler32 checksum<a class="headerlink" href="#anatomy-of-adler32-checksum" title="Permalink to this heading"></a></h2>
+<p>The Adler32 algorithm uses modulo addition of individual octets of the
+datasets as described below:</p>
+<blockquote>
+<div><p>For a given dataset DS that requires an Adler32 checksum, two
+sixteen-bit values A and B are created. Concatenated together, these
+two values comprise the Adler32 checksum.</p>
+<p>At the start of the calculation phase, A is initialized to 1 and B is
+initialized to 0. The sums calculated modulo 65521, which is the
+largest prime number smaller than 2E16 (65,536).</p>
+<p>The A value is the sum of all the values in the dataset + 1. The B
+value is the sum of all of the A values for each step.</p>
+<p>This can be represented as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>A = (1 + DS1 + DS2 + DS3 + … + DSn )(mod 65521)
+B = (1 + DS1) + ( 1+ DS1 + DS2 ) + …+(1+DS1 + DS2 + … + DSn)(mod 65521)
+Adler32 of DS = B || A
+</pre></div>
+</div>
+</div></blockquote>
+<section id="collision-rate-adler32">
+<h3>Collision Rate Adler32<a class="headerlink" href="#collision-rate-adler32" title="Permalink to this heading"></a></h3>
+<p>Based on the dataset used in an empirical study of collisions (See section <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.), Adler32 collisions can be expected to occur at a rate of
+approximately 175 collisions per billion tests. It is concluded the
+dataset chosen has significantly higher levels of checksum collision for
+Alder32 checksums compared to random data, especially in small datasets</p>
+</section>
+</section>
+<section id="anatomy-of-xxhash32">
+<h2>Anatomy of XXHash32<a class="headerlink" href="#anatomy-of-xxhash32" title="Permalink to this heading"></a></h2>
+<p>XXHash32 creates the hash with a series of rotates, addition,
+multiplication and XOR operations. See <a class="reference internal" href="references.html#qat-2-0-cnv-footnote2"><span class="std std-ref">Footnote 2</span></a> for details.</p>
+<p>XXHash32 sets up four accumulators, which are based on an optional seed and two prime numbers.</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>u32 acc1 = seed + PRIME32_1 + PRIME32_2;
+u32 acc2 = seed + PRIME32_2;
+u32 acc3 = seed + 0;
+u32 acc4 = seed - PRIME32_1;
+</pre></div>
+</div>
+</div></blockquote>
+<p>The dataset is processed sixteen bytes at a time—four bytes are mixed into each of the four accumulators,
+as shown below. Note that the <strong>“&lt;&lt;&lt;”</strong> symbol below represents a left rotate operation.</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>accN = accN + (laneN * PRIME32_2);
+accN = accN &lt;&lt;&lt; 13;
+accN = accN * PRIME32_1;
+</pre></div>
+</div>
+</div></blockquote>
+<p>After the completion of the sixteen byte sections, the accumulators are
+converged:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>acc = (acc1 &lt;&lt;&lt; 1) + (acc2 &lt;&lt;&lt; 7) + (acc3 &lt;&lt;&lt; 12) + (acc4 &lt;&lt;&lt; 18);
+acc = acc + (u32)inputLength;
+</pre></div>
+</div>
+</div></blockquote>
+<p>Any remaining bytes (up to 15) are mixed is shown :</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>while (remainingLength &gt;= 4) {
+   lane = read_32bit_little_endian(input_ptr);
+   acc = acc + lane * PRIME32_3;
+   acc = (acc &lt;&lt;&lt; 17) * PRIME32_4;
+   input_ptr += 4; remainingLength -= 4;
+}
+
+while (remainingLength &gt;= 1) {
+   lane = read_byte(input_ptr);
+   acc = acc + lane * PRIME32_5;
+   acc = (acc &lt;&lt;&lt; 11) * PRIME32_1;
+   input_ptr += 1; remainingLength -= 1;
+}
+</pre></div>
+</div>
+</div></blockquote>
+<p>And a final mix is performed:</p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>acc = acc xor (acc &gt;&gt; 15);
+acc = acc * PRIME32_2;
+acc = acc xor (acc &gt;&gt; 13);
+acc = acc * PRIME32_3;
+acc = acc xor (acc &gt;&gt; 16);
+</pre></div>
+</div>
+</div></blockquote>
+<section id="collision-rate-xxhash32">
+<h3>Collision Rate XXHash32<a class="headerlink" href="#collision-rate-xxhash32" title="Permalink to this heading"></a></h3>
+<p>Based on the dataset used in an empirical study of collisions (See section <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.), XXHash32 collisions are expected to occur at a rate of
+approximately 3.4 errors per billion tests. This suggests a modest
+reduction when compared to CRC32 collisions, which can be attributed to the nature of the dataset.</p>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="introduction.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="checksum_algorithms.html" class="btn btn-neutral float-right" title="Summary of Checksum Algorithms" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

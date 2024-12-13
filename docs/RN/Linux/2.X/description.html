@@ -58,6 +58,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Description of Release</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#limitations">Limitations</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#device-co-existence">Device co-existence</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#supported-operating-systems-and-platforms">Supported Operating Systems and Platforms</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#version-numbering-scheme">Version Numbering Scheme</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#package-version">Package Version</a></li>
@@ -134,8 +135,9 @@ in the <a class="reference internal" href="#qat2-0-rn-linux-related-documentatio
 <li><p>SM3/SM4.</p></li>
 <li><p>Asynchronous E2E support for compression.</p></li>
 <li><p>Extended RAS (uncorrectable and fatal error support).</p></li>
-<li><p>LZ4 E2E CRC32.</p></li>
+<li><p>LZ4 E2E CRC32 with CNV enforcement enabled.</p></li>
 <li><p>Thread Specific USDM support.</p></li>
+<li><p>Device co-existence with QAT1.7 plugin cards.</p></li>
 </ul>
 </section>
 <section id="limitations">
@@ -149,6 +151,81 @@ in the <a class="reference internal" href="#qat2-0-rn-linux-related-documentatio
 <li><p>Firmware or Hardware Anti-Rollback (ARB) mechanisms are not natively supported.  Customers must support their own implementation of firmware or software anti-rollback mechanisms. Customers that do not implement ARB solutions accept all security risks of doing so.</p></li>
 <li><p>When using Shared Virtual Memory (SVM) and Address Translation (AT) performance can be affected by number of page faults that occur during processing.</p></li>
 </ul>
+</section>
+<section id="device-co-existence">
+<h2>Device co-existence<a class="headerlink" href="#device-co-existence" title="Permalink to this heading"></a></h2>
+<p>The driver supports a single platform containing both QAT2.0 devices along with QAT1.7 plug-in cards. Note that only plug-in cards are supported for QAT1.7.</p>
+<p>The following table table documents the constraints of the support due to generational differences in the implementation.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Features</strong></p></th>
+<th class="head"><p><strong>1.7</strong></p></th>
+<th class="head"><p><strong>2.0</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Compression/Decompression</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>Symmetric</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-even"><td><p>Asymmetric</p></td>
+<td><p>Y</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>Dummy Response</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-even"><td><p>RAS</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>Heartbeat</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-even"><td><p>Decompression SW Fallback</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>Rate Limiting</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-even"><td><p>Device Utilization</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>Debuggability</p></td>
+<td><p>N</p></td>
+<td><p>N</p></td>
+</tr>
+<tr class="row-even"><td><p>SVM</p></td>
+<td><p>N/A</p></td>
+<td><p>Y</p></td>
+</tr>
+<tr class="row-odd"><td><p>LKCF</p></td>
+<td><p>N</p></td>
+<td><p>Y</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There is a current limitation with the Performance Sample Application (cpa_sample_code) where cryptographic operations, both
+symmetric and asymmetric, are not executed on QAT1.7 devices, even when these devices are configured for cryptographic operations
+(cy). For QAT1.7 devices, the ‘cy’ configuration should encompass both symmetric and asymmetric cryptography. In contrast, QAT2.0
+devices utilize separate configurations for symmetric (sym) and asymmetric (asym) cryptographic operations.</p>
+</div>
 </section>
 <section id="supported-operating-systems-and-platforms">
 <h2>Supported Operating Systems and Platforms<a class="headerlink" href="#supported-operating-systems-and-platforms" title="Permalink to this heading"></a></h2>
@@ -170,44 +247,50 @@ in the <a class="reference internal" href="#qat2-0-rn-linux-related-documentatio
 <tr class="row-odd"><td><p>CentOS Stream release 8</p></td>
 <td><p>5.19.0-emr.bkc.2.11.13.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Fedora release 32</p></td>
+<tr class="row-even"><td><p>CentOS 9</p></td>
+<td><p>6.6.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>Fedora release 32</p></td>
 <td><p>5.6.6-300.fc32.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux Server 7.6</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux Server 7.6</p></td>
 <td><p>3.10.0-957.el7.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux Server 7.8</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux Server 7.8</p></td>
 <td><p>3.10.0-1127.el7.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.0</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.0</p></td>
 <td><p>4.18.0-80.el8.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.1</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.1</p></td>
 <td><p>4.18.0-147.el8.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.2</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.2</p></td>
 <td><p>4.18.0-193.el8.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.3</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.3</p></td>
 <td><p>4.18.0-240.el8.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.4</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.4</p></td>
 <td><p>4.18.0-305.el8.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.5</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.5</p></td>
 <td><p>4.18.0-348.el8.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.6</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.6</p></td>
 <td><p>4.18.0-372.9.1.el8.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.0</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.0</p></td>
 <td><p>5.14.0-70.13.1.el9_0.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.1</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.1</p></td>
 <td><p>5.14.0-162.6.1.el9_1.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.2</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.2</p></td>
 <td><p>5.14.0-284.11.1.el9_2.x86_64</p></td>
+</tr>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.4</p></td>
+<td><p>5.14.0-427.13.1.el9_4.x86_64</p></td>
 </tr>
 <tr class="row-odd"><td><p>SUSE Linux Enterprise Server 12</p></td>
 <td><p>4.12.14-94.41-default</p></td>
@@ -224,32 +307,38 @@ in the <a class="reference internal" href="#qat2-0-rn-linux-related-documentatio
 <tr class="row-odd"><td><p>SUSE Linux Enterprise Server 15 SP5</p></td>
 <td><p>5.14.21-150500.53-default</p></td>
 </tr>
-<tr class="row-even"><td><p>Ubuntu 19.04</p></td>
+<tr class="row-even"><td><p>SUSE Linux Enterprise Server 15 SP6</p></td>
+<td><p>6.4.0-150600.21-default</p></td>
+</tr>
+<tr class="row-odd"><td><p>Ubuntu 19.04</p></td>
 <td><p>5.0.0-25-generic</p></td>
 </tr>
-<tr class="row-odd"><td><p>Ubuntu 19.10</p></td>
+<tr class="row-even"><td><p>Ubuntu 19.10</p></td>
 <td><p>5.3.0-24-generic</p></td>
 </tr>
-<tr class="row-even"><td><p>Ubuntu 20.04 LTS</p></td>
+<tr class="row-odd"><td><p>Ubuntu 20.04 LTS</p></td>
 <td><p>5.4.0-26-generic</p></td>
 </tr>
-<tr class="row-odd"><td><p>Ubuntu 20.10</p></td>
+<tr class="row-even"><td><p>Ubuntu 20.10</p></td>
 <td><p>5.8.0-45-generic</p></td>
 </tr>
-<tr class="row-even"><td><p>Ubuntu 21.04</p></td>
+<tr class="row-odd"><td><p>Ubuntu 21.04</p></td>
 <td><p>5.11.0-22-generic</p></td>
 </tr>
-<tr class="row-odd"><td><p>Ubuntu 21.10</p></td>
+<tr class="row-even"><td><p>Ubuntu 21.10</p></td>
 <td><p>5.13.0-14-generic</p></td>
 </tr>
-<tr class="row-even"><td><p>Ubuntu 22.04 LTS</p></td>
+<tr class="row-odd"><td><p>Ubuntu 22.04 LTS</p></td>
 <td><p>5.15.0-25-generic</p></td>
 </tr>
-<tr class="row-odd"><td><p>Ubuntu 22.04 LTS (realtime)</p></td>
+<tr class="row-even"><td><p>Ubuntu 22.04 LTS (realtime)</p></td>
 <td><p>5.15.0-1040-realtime</p></td>
 </tr>
-<tr class="row-even"><td><p>Ubuntu 22.10</p></td>
+<tr class="row-odd"><td><p>Ubuntu 22.10</p></td>
 <td><p>5.19.0-23-generic</p></td>
+</tr>
+<tr class="row-even"><td><p>Ubuntu 24.04</p></td>
+<td><p>6.8.0-35-generic</p></td>
 </tr>
 </tbody>
 </table>
@@ -280,7 +369,7 @@ platform supported in this release.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Top-Level Package</p></td>
-<td><p>QAT20.L.1.1.50-00003</p></td>
+<td><p>QAT20.L.1.2.30-00078</p></td>
 </tr>
 </tbody>
 </table>
@@ -368,8 +457,8 @@ test files</p></td>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>QAT20.L.1.1.50-00003</p></td>
-<td><p>a505e0807b82e87314d214244dce4c34de477a555e6c95034f150c079c6d1b51</p></td>
+<tr class="row-even"><td><p>QAT20.L.1.2.30-00078</p></td>
+<td><p>ad9d736a94eaeb8214c2d2a7601e9bef6ec8b6fdcb1ea6343ebe31b66220a3b3</p></td>
 </tr>
 </tbody>
 </table>

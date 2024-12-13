@@ -90,6 +90,156 @@
              
   <section id="known-issues">
 <span id="qat-2-0-rn-linux-knownissues"></span><h1>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h1>
+<section id="qat20-26988-chaining-compression-encryption-failure-status-is-not-returned-when-chained-operation-fails">
+<h2>QAT20-26988 [Chaining] compression/encryption failure status is not returned when chained operation fails<a class="headerlink" href="#qat20-26988-chaining-compression-encryption-failure-status-is-not-returned-when-chained-operation-fails" title="Permalink to this heading"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Chaining] compression/encryption failure status is
+not returned when chained operation fails.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-26988</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>If error occurs in either compression or encryption
+during a chained operation, the chaining service
+returns error, but does not include details on the
+compression/encryption failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Error details for compression/encryption operations of
+chained operation are not returned.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>No workaround currently available.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Chaining</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-31286-virt-installation-of-driver-in-guest-os-reports-incorrect-error-message">
+<h2>QAT20-31286 [VIRT] Installation of driver in guest OS reports incorrect error message<a class="headerlink" href="#qat20-31286-virt-installation-of-driver-in-guest-os-reports-incorrect-error-message" title="Permalink to this heading"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[VIRT] Installation of driver in guest OS reports
+incorrect error message</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-31286</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When the QAT driver is installed in guest OS with QAT
+VF passed in, there will be
+<code class="docutils literal notranslate"><span class="pre">qat_vqat</span> <span class="pre">module</span> <span class="pre">not</span> <span class="pre">installed</span></code> error printed.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>User will see an error when installing, but there is
+no implication to functionality.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Future Fix.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-30379-mcc-multi-process-test-failures-in-certain-configurations">
+<h2>QAT20-30379 [MCC] Multi-Process Test Failures in Certain Configurations<a class="headerlink" href="#qat20-30379-mcc-multi-process-test-failures-in-certain-configurations" title="Permalink to this heading"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[MCC] Multi-Process Test Failures in Certain
+Configurations</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-30379</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Multi-process tests for Data Compression (DC) and
+Chaining functionalities are experiencing failures on
+specific configurations.</p>
+<p>The issue appears to be related to a function within
+GCC version 11.3.1.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>This issue affects the proper functioning of
+multi-process DC/Chaining tests on RHEL 9.2,
+potentially impacting the system’s performance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Future Fix.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf">
+<h2>QAT20-25341 [RL] Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)<a class="headerlink" href="#qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf" title="Permalink to this heading"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[RL] Service Level Agreements (SLAs) may not be met
+with multiple services enabled on a Physical Function
+(PF)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-25341</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>With more than one service on a PF, Service Level
+Agreement (SLA) allocations may not be met.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The issue could affect the performance of the system
+when using the combination of services in a specific
+configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Future Fix.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail">
 <h2>QATE20-8981 [Sample Code] sym_dp_update_sample Functional Sample Code application execution will fail<a class="headerlink" href="#qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
@@ -203,49 +353,6 @@ Compression direction only.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
 <td><p>Future Fix</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
-<td><p>Linux</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
-<td><p>QAT IA - Data Compression</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance">
-<h2>QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance<a class="headerlink" href="#qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance" title="Permalink to this heading"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Title</strong></p></td>
-<td><p>[DC] - Additional configuration required to enable 8K
-data decompression performance</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Reference</strong></p></td>
-<td><p>QATE20-19310</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Description</strong></p></td>
-<td><p>To utilize compression HW slices to full potential
-while symmetric service enabled a modified policy
-needs to be applied for this mode of operation.</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Implication</strong></p></td>
-<td><p>Decompression performance is not fully realized and
-limited to ~83% for 8K compressed payloads.</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
-<td><p>This issue can be resolved by modifying
-./quickassist/
-qat/drivers/crypto/qat/qat_4xxx/adf_4xxx_hw_data.c:50
-and changing dc_me_active_thd_mask = 0x03; to
-dc_me_active_thd_mask = 0x01; and then recompile.
-This modification is for the singular use case where
-decompression performance at 8K is payloads is
-required. This will be addressed in a future release.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
 <td><p>Linux</p></td>
@@ -654,8 +761,8 @@ for optimal performance.</p></td>
 </tbody>
 </table>
 </section>
-<section id="qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf">
-<h2>QAT20-25341 [RL] - Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)<a class="headerlink" href="#qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf" title="Permalink to this heading"></a></h2>
+<section id="id1">
+<h2>QAT20-25341 [RL] - Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />

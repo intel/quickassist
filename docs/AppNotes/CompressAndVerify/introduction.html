@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Checksum Discussion" href="checksums.html" />
+    <link rel="prev" title="Intel® QAT Compress and Verify White Paper" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel® QAT Compress and Verify White Paper</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#author">Author</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#acronyms">Acronyms</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#background">Background</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compression-offload-described">Compression Offload Described</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="checksums.html">Checksum Discussion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checksum_algorithms.html">Summary of Checksum Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cnv_tests.html">Intel® QAT Compress and Verify Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html">The CRC64 Values Used in End-To-End mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html#the-empirical-study">The Empirical Study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="references.html">Footnotes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Application Notes</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Intel® QAT Compress and Verify White Paper</a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<span id="qat-2-0-cnv-introduction"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
+<p>This paper describes the <strong>Compress and Verify</strong> feature employed in Intel® QuickAssist Technology products. The paper includes an overview of the feature, including its purpose.
+It describes the tests used to determine correctness, as well as the detailed description of a study undertaken to verify the design assumptions of the feature.</p>
+<section id="author">
+<h2>Author<a class="headerlink" href="#author" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Gordon McFadden</div>
+<div class="line">Software and Firmware Architect for Intel® QuickAssist Technology</div>
+</div>
+</section>
+<section id="acronyms">
+<h2>Acronyms<a class="headerlink" href="#acronyms" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 19%" />
+<col style="width: 81%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p>CnV</p></td>
+<td><p>Compress and Verify</p></td>
+</tr>
+<tr class="row-even"><td><p>CRC</p></td>
+<td><p>Cyclic Redundancy Check</p></td>
+</tr>
+<tr class="row-odd"><td><p>DMA</p></td>
+<td><p>Direct Memory Access</p></td>
+</tr>
+<tr class="row-even"><td><p>DRAM</p></td>
+<td><p>Dynamic Random Access Memory</p></td>
+</tr>
+<tr class="row-odd"><td><p>e2e</p></td>
+<td><p>End-to-end</p></td>
+</tr>
+<tr class="row-even"><td><p>ME</p></td>
+<td><p>Microengine</p></td>
+</tr>
+<tr class="row-odd"><td><p>QAT</p></td>
+<td><p>Intel QuickAssist Technology</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="background">
+<h2>Background<a class="headerlink" href="#background" title="Permalink to this heading"></a></h2>
+<p><strong>Compress and Verify (CnV)</strong> is a feature of Intel® QuickAssist Technology
+(Intel® QAT) which allows assurance that a dataset being compressed using
+Intel® QAT hardware can be correctly decompressed later. <strong>Compress and
+Verify</strong> is designed to detect invalid encodings of literals, lengths, or
+distance codes by replaying the compressed data through a decompression
+engine.</p>
+<p>This paper specifically addresses the 2.0 a/b/c version of Intel® QAT, which is
+integrated into Sapphire Rapids, Emerald Rapids and Granite Rapids
+processors, as well as other processors.</p>
+</section>
+<section id="compression-offload-described">
+<h2>Compression Offload Described<a class="headerlink" href="#compression-offload-described" title="Permalink to this heading"></a></h2>
+<p>When a compress operation is submitted to Intel® QAT as a stand-alone
+operation, the basic steps are:</p>
+<ol class="arabic simple">
+<li><p>The compress request is submitted to Intel® QAT for compression via a
+hardware ring.</p></li>
+<li><p>A compression engine is allocated for the compress component of CnV.</p></li>
+<li><p>A decompression engine is allocated for the verify component of CnV.</p></li>
+<li><p>The dataset is moved via Direct Memory Access (DMA) from memory to the
+QAT complex.</p></li>
+<li><p>The cleartext of the dataset is fed to the compress engine</p></li>
+<li><p>Compressed data from the compress engine is moved to DRAM.</p></li>
+<li><p>Compressed data from the compress engine is fed to the decompress engine.</p></li>
+<li><p>At completion, the Microengine (ME) collects the available data and verifies the
+request or marks the request as failed.</p></li>
+</ol>
+<p>Pictorially, this looks like:</p>
+<figure class="align-default">
+<a class="reference internal image-reference" href="../../_images/compression_offload.png"><img alt="../../_images/compression_offload.png" src="../../_images/compression_offload.png" style="width: 788px; height: 482px;" /></a>
+</figure>
+<p>The compression hardware and decompression hardware have separate
+engines for computing the checksums on the cleartext of the dataset.
+This prevents errors in the calculation of checksums in the
+compression block being replicated in the decompression block.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Intel® QAT Compress and Verify White Paper" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="checksums.html" class="btn btn-neutral float-right" title="Checksum Discussion" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

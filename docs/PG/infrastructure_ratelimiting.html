@@ -124,6 +124,10 @@
              
   <section id="rate-limiting">
 <span id="qat-2-0-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The instructions in this section apply to the Out-of-Tree QAT package.  For details on Rate Limiting with In-tree solution, refer to <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-qat_rl">sysfs-driver-qat_rl documentation.</a></p>
+</div>
 <p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service.</p>
 <p>Resources are shared across guests and the resource utilization of each guest is measured relative to the capacity of the physical function.</p>
 <p>The feature is supported for SYM, ASYM, and DC services.</p>
