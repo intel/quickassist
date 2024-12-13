@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Footnotes &mdash; Intel® QuickAssist Technology  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/qat.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Revision History" href="revision_history.html" />
+    <link rel="prev" title="The CRC64 Values Used in End-To-End mode" href="notes.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
+          </a>
+              <div class="version">
+                Hardware Version 2.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../Intro/terminology.html">Terminology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PG/index.html">Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel® QAT Compress and Verify White Paper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checksums.html">Checksum Discussion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checksum_algorithms.html">Summary of Checksum Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cnv_tests.html">Intel® QAT Compress and Verify Tests</a></li>
+<li class="toctree-l3"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html">The CRC64 Values Used in End-To-End mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html#the-empirical-study">The Empirical Study</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Footnotes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mit-freebsd-project-crc32-implementation-in-c">MIT FreeBSD Project: CRC32 Implementation in C</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#xxhash-specification-documentation-on-github">xxHash Specification Documentation on GitHub</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Application Notes</a></li>
+          <li class="breadcrumb-item"><a href="index.html">Intel® QAT Compress and Verify White Paper</a></li>
+      <li class="breadcrumb-item active">Footnotes</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="footnotes">
+<span id="qat-2-0-cnv-footnotes"></span><h1>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading"></a></h1>
+<section id="mit-freebsd-project-crc32-implementation-in-c">
+<span id="qat-2-0-cnv-footnote1"></span><h2>MIT FreeBSD Project: CRC32 Implementation in C<a class="headerlink" href="#mit-freebsd-project-crc32-implementation-in-c" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://web.mit.edu/freebsd/head/sys/libkern/crc32.c">https://web.mit.edu/freebsd/head/sys/libkern/crc32.c</a></p>
+<blockquote>
+<div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/*
+ * COPYRIGHT (C) 1986 Gary S. Brown. You may use this program, or
+ * code or tables extracted from it, as desired without restriction.
+ */
+
+/*
+ * First, the polynomial itself and its table of feedback terms. The
+ * polynomial is
+ * X^32+X^26+X^23+X^22+X^16+X^12+X^11+X^10+X^8+X^7+X^5+X^4+X^2+X^1+X^0
+ *
+ * Note that we take it &quot;backwards&quot; and put the highest-order term in
+ * the lowest-order bit. The X^32 term is &quot;implied&quot;; the LSB is the
+ * X^31 term, etc. The X^0 term (usually shown as &quot;+1&quot;) results in
+ * the MSB being 1
+ …
+</pre></div>
+</div>
+</div></blockquote>
+</section>
+<section id="xxhash-specification-documentation-on-github">
+<span id="qat-2-0-cnv-footnote2"></span><h2>xxHash Specification Documentation on GitHub<a class="headerlink" href="#xxhash-specification-documentation-on-github" title="Permalink to this heading"></a></h2>
+<p><a class="reference external" href="https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md">https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md</a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For brevity, the <em>Version</em>, <em>Introduction</em> and <em>Operation notations</em> sections have been removed.</p>
+</div>
+<section id="notices">
+<h3>Notices<a class="headerlink" href="#notices" title="Permalink to this heading"></a></h3>
+<p>Copyright (c) Yann Collet</p>
+<p>Permission is granted to copy and distribute this document
+for any purpose and without charge,
+including translations into other languages
+and incorporation into compilations,
+provided that the copyright notice and this notice are preserved,
+and that any substantive changes or deletions from the original
+are clearly marked.
+Distribution of this document is unlimited.</p>
+</section>
+<section id="xxh32-algorithm-description">
+<h3>XXH32 Algorithm Description<a class="headerlink" href="#xxh32-algorithm-description" title="Permalink to this heading"></a></h3>
+<section id="overview">
+<h4>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h4>
+<p>We begin by supposing that we have a message of any length <code class="docutils literal notranslate"><span class="pre">L</span></code> as input, and that we wish to find its digest. Here <code class="docutils literal notranslate"><span class="pre">L</span></code> is an arbitrary nonnegative integer; <code class="docutils literal notranslate"><span class="pre">L</span></code> may be zero. The following steps are performed to compute the digest of the message.</p>
+<p>The algorithm collects and transforms input in <em>stripes</em> of 16 bytes. The transforms are stored inside 4 “accumulators”, each one storing an unsigned 32-bit value. Each accumulator can be processed independently in parallel, speeding up processing for CPUs with multiple execution units.</p>
+<p>The algorithm uses 32-bits addition, multiplication, rotate, shift, and xor operations. Many operations require some 32-bits prime number constants, all defined below:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">PRIME32_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x9E3779B1U</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0b10011110001101110111100110110001</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">PRIME32_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x85EBCA77U</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0b10000101111010111100101001110111</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">PRIME32_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0xC2B2AE3DU</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0b11000010101100101010111000111101</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">PRIME32_4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x27D4EB2FU</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0b00100111110101001110101100101111</span>
+<span class="k">static</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">u32</span><span class="w"> </span><span class="n">PRIME32_5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0x165667B1U</span><span class="p">;</span><span class="w">  </span><span class="c1">// 0b00010110010101100110011110110001</span>
+</pre></div>
+</div>
+<p>These constants are prime numbers and feature a good mix of bits 1 and 0, neither too regular nor too dissymmetric. These properties help dispersion capabilities.</p>
+</section>
+<section id="step-1-initialize-internal-accumulators">
+<h4>Step 1. Initialize internal accumulators<a class="headerlink" href="#step-1-initialize-internal-accumulators" title="Permalink to this heading"></a></h4>
+<p>Each accumulator gets an initial value based on optional <code class="docutils literal notranslate"><span class="pre">seed</span></code> input. Since the <code class="docutils literal notranslate"><span class="pre">seed</span></code> is optional, it can be <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">u32</span><span class="w"> </span><span class="n">acc1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PRIME32_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PRIME32_2</span><span class="p">;</span>
+<span class="n">u32</span><span class="w"> </span><span class="n">acc2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PRIME32_2</span><span class="p">;</span>
+<span class="n">u32</span><span class="w"> </span><span class="n">acc3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="n">u32</span><span class="w"> </span><span class="n">acc4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">PRIME32_1</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="special-case-input-is-less-than-16-bytes">
+<h3>Special case: input is less than 16 bytes<a class="headerlink" href="#special-case-input-is-less-than-16-bytes" title="Permalink to this heading"></a></h3>
+<p>When the input is too small (&lt; 16 bytes), the algorithm will not process any stripes. Consequently, it will not make use of parallel accumulators.</p>
+<p>In this case, a simplified initialization is performed, using a single accumulator:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">u32</span><span class="w"> </span><span class="n">acc</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PRIME32_5</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The algorithm then proceeds directly to step 4.</p>
+<section id="step-2-process-stripes">
+<h4>Step 2. Process stripes<a class="headerlink" href="#step-2-process-stripes" title="Permalink to this heading"></a></h4>
+<p>A stripe is a contiguous segment of 16 bytes.
+It is evenly divided into 4 <em>lanes</em>, of 4 bytes each.
+The first lane is used to update accumulator 1, the second lane is used to update accumulator 2, and so on.</p>
+<p>Each lane reads its associated 32-bit value using <strong>little-endian</strong> convention.</p>
+<p>For each {lane, accumulator}, the update process is called a <em>round</em>, and applies the following formula:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">accN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accN</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">laneN</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_2</span><span class="p">);</span>
+<span class="n">accN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accN</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">13</span><span class="p">;</span>
+<span class="n">accN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">accN</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This shuffles the bits so that any bit from input <em>lane</em> impacts several bits in output <em>accumulator</em>. All operations are performed modulo 2^32.</p>
+<p>Input is consumed one full stripe at a time. Step 2 is looped as many times as necessary to consume the whole input, except for the last remaining bytes which cannot form a stripe (&lt; 16 bytes).
+When that happens, move to step 3.</p>
+</section>
+<section id="step-3-accumulator-convergence">
+<h4>Step 3. Accumulator convergence<a class="headerlink" href="#step-3-accumulator-convergence" title="Permalink to this heading"></a></h4>
+<p>All 4 lane accumulators from the previous steps are merged to produce a single remaining accumulator of the same width (32-bit). The associated formula is as follows:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">acc1</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">acc2</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">acc3</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">acc4</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">18</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="step-4-add-input-length">
+<h4>Step 4. Add input length<a class="headerlink" href="#step-4-add-input-length" title="Permalink to this heading"></a></h4>
+<p>The input total length is presumed known at this stage. This step is just about adding the length to the accumulator, so that it participates in the final mixing.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">u32</span><span class="p">)</span><span class="n">inputLength</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Note that, if the input length is so large that it requires more than 32-bits, only the lower 32-bits are added to the accumulator.</p>
+</section>
+<section id="step-5-consume-remaining-input">
+<h4>Step 5. Consume remaining input<a class="headerlink" href="#step-5-consume-remaining-input" title="Permalink to this heading"></a></h4>
+<p>There may be up to 15 bytes remaining to consume from the input.
+The final stage will digest them according to the following pseudo-code:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">remainingLength</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">lane</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_32bit_little_endian</span><span class="p">(</span><span class="n">input_ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">lane</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_3</span><span class="p">;</span>
+<span class="w">    </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">acc</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">17</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_4</span><span class="p">;</span>
+<span class="w">    </span><span class="n">input_ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w"> </span><span class="n">remainingLength</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">remainingLength</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">lane</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_byte</span><span class="p">(</span><span class="n">input_ptr</span><span class="p">);</span>
+<span class="w">    </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">lane</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_5</span><span class="p">;</span>
+<span class="w">    </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">acc</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">11</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">input_ptr</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w"> </span><span class="n">remainingLength</span><span class="w"> </span><span class="o">-=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This process ensures that all input bytes are present in the final mix.</p>
+</section>
+<section id="step-6-final-mix-avalanche">
+<h4>Step 6. Final mix (avalanche)<a class="headerlink" href="#step-6-final-mix-avalanche" title="Permalink to this heading"></a></h4>
+<p>The final mix ensures that all input bits have a chance to impact any bit in the output digest, resulting in an unbiased distribution. This is also called the avalanche effect.</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="n">xor</span><span class="w"> </span><span class="p">(</span><span class="n">acc</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">15</span><span class="p">);</span>
+<span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_2</span><span class="p">;</span>
+<span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="n">xor</span><span class="w"> </span><span class="p">(</span><span class="n">acc</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">13</span><span class="p">);</span>
+<span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_3</span><span class="p">;</span>
+<span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="n">xor</span><span class="w"> </span><span class="p">(</span><span class="n">acc</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">16</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="step-7-output">
+<h4>Step 7. Output<a class="headerlink" href="#step-7-output" title="Permalink to this heading"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">XXH32()</span></code> function produces an unsigned 32-bit value as output.</p>
+<p>For systems which require to store and/or display the result in binary or hexadecimal format, the canonical format is defined to reproduce the same value as the natural decimal format, hence follows <strong>big-endian</strong> convention (most significant byte first).</p>
+</section>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="notes.html" class="btn btn-neutral float-left" title="The CRC64 Values Used in End-To-End mode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="revision_history.html" class="btn btn-neutral float-right" title="Revision History" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -132,7 +132,9 @@
 </ul>
 <section id="configuration">
 <h2>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading"></a></h2>
-<p>Power management configuration is included in the device configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">/etc/4xxx_devX.conf</span></code> where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the 0-based index of
+<section id="out-of-tree">
+<h3>Out-of-Tree<a class="headerlink" href="#out-of-tree" title="Permalink to this heading"></a></h3>
+<p>When using the Out-of-Tree QAT package, Power management configuration is included in the device configuration file (i.e. <code class="docutils literal notranslate"><span class="pre">/etc/4xxx_devX.conf</span></code> where <code class="docutils literal notranslate"><span class="pre">X</span></code> is the 0-based index of
 the device.)</p>
 <p>Power management configurations parameters include:</p>
 <table class="longtable colwidths-given docutils align-default" id="id1">
@@ -155,6 +157,14 @@ supporting.</p>
 </tr>
 </tbody>
 </table>
+</section>
+<section id="in-tree">
+<h3>In-Tree<a class="headerlink" href="#in-tree" title="Permalink to this heading"></a></h3>
+<div class="line-block">
+<div class="line">When using the in-tree solution, Power Management configuration is handled via sysfs-driver-qat.</div>
+<div class="line">For details refer to <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-qat">sysfs-driver-qat documentation.</a></div>
+</div>
+</section>
 </section>
 <section id="usage">
 <span id="pm-status"></span><h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>

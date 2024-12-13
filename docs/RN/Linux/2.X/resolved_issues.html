@@ -835,6 +835,42 @@ section of the Programmer’s Guide for details on enabling.</p></td>
 </tbody>
 </table>
 </section>
+<section id="qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance">
+<h2>QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance<a class="headerlink" href="#qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance" title="Permalink to this heading"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Additional configuration required to enable 8K
+data decompression performance</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-19310</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>To utilize compression HW slices to full potential
+while symmetric service enabled a modified policy
+needs to be applied for this mode of operation.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Decompression performance is not fully realized and
+limited to ~83% for 8K compressed payloads.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 1.0.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 

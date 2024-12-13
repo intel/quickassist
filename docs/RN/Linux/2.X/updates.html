@@ -58,10 +58,13 @@
 <li class="toctree-l2"><a class="reference internal" href="description.html">Description of Release</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Release Updates</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#known-issues">Known Issues</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-26988-chaining-compression-encryption-failure-status-is-not-returned-when-chained-operation-fails">QAT20-26988 [Chaining] compression/encryption failure status is not returned when chained operation fails</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-31286-virt-installation-of-driver-in-guest-os-reports-incorrect-error-message">QAT20-31286 [VIRT] Installation of driver in guest OS reports incorrect error message</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-30379-mcc-multi-process-test-failures-in-certain-configurations">QAT20-30379 [MCC] Multi-Process Test Failures in Certain Configurations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf">QAT20-25341 [RL] Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail">QATE20-8981 [Sample Code] sym_dp_update_sample Functional Sample Code application execution will fail</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qate20-9131-dc-incorrect-xxhash32-can-be-generated-when-using-error-injection-and-buffer-overflow-occurs-when-using-accumulated-xxhash32">QATE20-9131 [DC] - Incorrect XXHASH32 can be generated when using error injection and buffer overflow occurs when using accumulated XXHASH32</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qate20-9671-dc-accumulated-xxhash32-is-not-supported-for-lz4-decompress-operations">QATE20-9671 [DC] - Accumulated XXHash32 is not supported for LZ4 decompress operations</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance">QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat20-21905-svm-at-cannot-be-enabled-when-prs-is-disabled">QAT20-21905 SVM/AT cannot be enabled when PRS is disabled</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qate20-21751-virt-missing-vfs-on-host-when-attaching-to-vms">QATE20-21751 [VIRT] -  Missing VFs on host when attaching to VMs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qate20-22999-sample-code-functional-sample-applications-will-fail-if-service-is-not-enabled-on-first-qat-endpoint">QATE20-22999 [Sample Code] Functional sample applications will fail if service is not enabled on first QAT Endpoint</a></li>
@@ -71,7 +74,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat20-28723-svm-iommu-incorrect-reporting-slice-timeout-due-to-page-request-latency">QAT20-28723 [SVM/IOMMU] Incorrect reporting slice timeout due to page request latency</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat20-30635-virt-pf-vf-communication-fails-after-attaching-vf-to-guest-and-rebooting-guest-os-performance-may-also-suffer">QAT20-30635 [VIRT] PF/VF communication fails after attaching VF to guest and rebooting guest OS; performance may also suffer</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf">QAT20-25341 [RL] - Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id1">QAT20-25341 [RL] - Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#resolved-issues">Resolved Issues</a><ul>
@@ -93,6 +96,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#qat20-11092-sriov-default-number-of-vf-devices-is-not-available-for-4s-platform">QAT20-11092 [SRIOV] Default number of VF devices is not available for 4S+ platform</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qate20-9754-dc-deflate-decompression-overflow-may-result-in-a-timeout-event-16-cpa-dc-wdog-timer-err">QATE20-9754 [DC] - Deflate Decompression Overflow may result in a timeout event (-16 CPA_DC_WDOG_TIMER_ERR)</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled">QAT20-23616 [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT) disabled</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance">QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance</a></li>
 </ul>
 </li>
 </ul>
@@ -140,6 +144,156 @@
 <span id="qat-2-0-rn-linux-updates"></span><h1>Release Updates<a class="headerlink" href="#release-updates" title="Permalink to this heading"></a></h1>
 <section id="known-issues">
 <span id="qat-2-0-rn-linux-knownissues"></span><h2>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h2>
+<section id="qat20-26988-chaining-compression-encryption-failure-status-is-not-returned-when-chained-operation-fails">
+<h3>QAT20-26988 [Chaining] compression/encryption failure status is not returned when chained operation fails<a class="headerlink" href="#qat20-26988-chaining-compression-encryption-failure-status-is-not-returned-when-chained-operation-fails" title="Permalink to this heading"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Chaining] compression/encryption failure status is
+not returned when chained operation fails.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-26988</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>If error occurs in either compression or encryption
+during a chained operation, the chaining service
+returns error, but does not include details on the
+compression/encryption failure.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Error details for compression/encryption operations of
+chained operation are not returned.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>No workaround currently available.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Chaining</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-31286-virt-installation-of-driver-in-guest-os-reports-incorrect-error-message">
+<h3>QAT20-31286 [VIRT] Installation of driver in guest OS reports incorrect error message<a class="headerlink" href="#qat20-31286-virt-installation-of-driver-in-guest-os-reports-incorrect-error-message" title="Permalink to this heading"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[VIRT] Installation of driver in guest OS reports
+incorrect error message</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-31286</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When the QAT driver is installed in guest OS with QAT
+VF passed in, there will be
+<code class="docutils literal notranslate"><span class="pre">qat_vqat</span> <span class="pre">module</span> <span class="pre">not</span> <span class="pre">installed</span></code> error printed.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>User will see an error when installing, but there is
+no implication to functionality.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Future Fix.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-30379-mcc-multi-process-test-failures-in-certain-configurations">
+<h3>QAT20-30379 [MCC] Multi-Process Test Failures in Certain Configurations<a class="headerlink" href="#qat20-30379-mcc-multi-process-test-failures-in-certain-configurations" title="Permalink to this heading"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[MCC] Multi-Process Test Failures in Certain
+Configurations</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-30379</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Multi-process tests for Data Compression (DC) and
+Chaining functionalities are experiencing failures on
+specific configurations.</p>
+<p>The issue appears to be related to a function within
+GCC version 11.3.1.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>This issue affects the proper functioning of
+multi-process DC/Chaining tests on RHEL 9.2,
+potentially impacting the system’s performance.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Future Fix.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf">
+<h3>QAT20-25341 [RL] Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)<a class="headerlink" href="#qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf" title="Permalink to this heading"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[RL] Service Level Agreements (SLAs) may not be met
+with multiple services enabled on a Physical Function
+(PF)</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-25341</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>With more than one service on a PF, Service Level
+Agreement (SLA) allocations may not be met.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The issue could affect the performance of the system
+when using the combination of services in a specific
+configuration.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Future Fix.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail">
 <h3>QATE20-8981 [Sample Code] sym_dp_update_sample Functional Sample Code application execution will fail<a class="headerlink" href="#qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail" title="Permalink to this heading"></a></h3>
 <table class="rn-table colwidths-given docutils align-default">
@@ -253,49 +407,6 @@ Compression direction only.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
 <td><p>Future Fix</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
-<td><p>Linux</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
-<td><p>QAT IA - Data Compression</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance">
-<h3>QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance<a class="headerlink" href="#qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance" title="Permalink to this heading"></a></h3>
-<table class="rn-table colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Title</strong></p></td>
-<td><p>[DC] - Additional configuration required to enable 8K
-data decompression performance</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Reference</strong></p></td>
-<td><p>QATE20-19310</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Description</strong></p></td>
-<td><p>To utilize compression HW slices to full potential
-while symmetric service enabled a modified policy
-needs to be applied for this mode of operation.</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Implication</strong></p></td>
-<td><p>Decompression performance is not fully realized and
-limited to ~83% for 8K compressed payloads.</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
-<td><p>This issue can be resolved by modifying
-./quickassist/
-qat/drivers/crypto/qat/qat_4xxx/adf_4xxx_hw_data.c:50
-and changing dc_me_active_thd_mask = 0x03; to
-dc_me_active_thd_mask = 0x01; and then recompile.
-This modification is for the singular use case where
-decompression performance at 8K is payloads is
-required. This will be addressed in a future release.</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
 <td><p>Linux</p></td>
@@ -704,8 +815,8 @@ for optimal performance.</p></td>
 </tbody>
 </table>
 </section>
-<section id="qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf">
-<h3>QAT20-25341 [RL] - Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)<a class="headerlink" href="#qat20-25341-rl-service-level-agreements-slas-may-not-be-met-with-multiple-services-enabled-on-a-physical-function-pf" title="Permalink to this heading"></a></h3>
+<section id="id1">
+<h3>QAT20-25341 [RL] - Service Level Agreements (SLAs) may not be met with multiple services enabled on a Physical Function (PF)<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -1485,6 +1596,42 @@ section of the Programmer’s Guide for details on enabling.</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
 <td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance">
+<h3>QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance<a class="headerlink" href="#qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance" title="Permalink to this heading"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[DC] - Additional configuration required to enable 8K
+data decompression performance</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QATE20-19310</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>To utilize compression HW slices to full potential
+while symmetric service enabled a modified policy
+needs to be applied for this mode of operation.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Decompression performance is not fully realized and
+limited to ~83% for 8K compressed payloads.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 1.0.0 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - Data Compression</p></td>
 </tr>
 </tbody>
 </table>

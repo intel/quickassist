@@ -360,8 +360,8 @@ Kernel instances are disabled by default. See
 <a class="reference internal" href="../../PG/configuration_files_logicalsection.html#qat-2-0-pg-configuration-files-logical-instances-section"><span class="std std-ref">Logical Instances Section of the Programmer’s Guide</span></a>
 for additional details.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-kpt</span></code></p></td>
-<td><p>Enables kpt.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-kpt-debug-key</span></code></p></td>
+<td><p>Enable QAT debug issue certificate.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dc-strict-mode</span></code></p></td>
 <td><p>Disables Compress and Verify (CnV) functionality.
@@ -370,18 +370,21 @@ See <a class="reference internal" href="#qat-2-0-cnv-messaging"><span class="std
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
 <td><p>Enables Data Compression Error Simulation.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-algorithms</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-kpt</span></code></p></td>
+<td><p>Enables kpt.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-algorithms</span></code></p></td>
 <td><p>Enables legacy algorithms.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-sla-mgr</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-sla-mgr</span></code></p></td>
 <td><p>Enables the legacy SLA manager.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
 <td><p>USDM allocates and handles memory specific to threads (for
 multi-thread apps, allocated memory information will be
 maintained separately for each thread).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-128k-slab</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-128k-slab</span></code></p></td>
 <td><p>Enables 128k slab allocator in USDM. It could improve
 performance and reduce memory consumption for the large
 number of threads when thread specific memory allocator is

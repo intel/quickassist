@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Revision History &mdash; Intel® QuickAssist Technology  documentation</title>
+  <title>Conclusion &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="When to Use Intel® QAT" href="../WhenToQAT/index.html" />
-    <link rel="prev" title="Pre-Built Images" href="pre-built.html" /> 
+    <link rel="next" title="The CRC64 Values Used in End-To-End mode" href="notes.html" />
+    <link rel="prev" title="Intel® QAT Compress and Verify Tests" href="cnv_tests.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -62,21 +62,20 @@
 <li class="toctree-l1"><a class="reference internal" href="../../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel<sup>®</sup> QAT in Linux Containers</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel® QAT Compress and Verify White Paper</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l3"><a class="reference internal" href="setup.html">Setting Up Host Platform</a></li>
-<li class="toctree-l3"><a class="reference internal" href="build.html">Build Containers with Intel® QAT Software</a></li>
-<li class="toctree-l3"><a class="reference internal" href="run.html">Run Containers using Intel® QAT Acceleration</a></li>
-<li class="toctree-l3"><a class="reference internal" href="checkin.html">Quick Test of Container</a></li>
-<li class="toctree-l3"><a class="reference internal" href="nginx.html">Intel® QAT + NGINX* Container</a></li>
-<li class="toctree-l3"><a class="reference internal" href="testing.html">Testing Performance of Intel® QAT + OpenSSL* Container with Docker</a></li>
-<li class="toctree-l3"><a class="reference internal" href="orchestration.html">Orchestration Software</a></li>
-<li class="toctree-l3"><a class="reference internal" href="pre-built.html">Pre-Built Images</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Revision History</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checksums.html">Checksum Discussion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checksum_algorithms.html">Summary of Checksum Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cnv_tests.html">Intel® QAT Compress and Verify Tests</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Conclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html">The CRC64 Values Used in End-To-End mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html#the-empirical-study">The Empirical Study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="references.html">Footnotes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../CompressAndVerify/index.html">Intel® QAT Compress and Verify White Paper</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
@@ -99,8 +98,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Application Notes</a></li>
-          <li class="breadcrumb-item"><a href="index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
-      <li class="breadcrumb-item active">Revision History</li>
+          <li class="breadcrumb-item"><a href="index.html">Intel® QAT Compress and Verify White Paper</a></li>
+      <li class="breadcrumb-item active">Conclusion</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -109,41 +108,25 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="revision-history">
-<span id="qat-2-0-containers-revision-history"></span><h1>Revision History<a class="headerlink" href="#revision-history" title="Permalink to this heading"></a></h1>
-<table class="longtable colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 60%" />
-<col style="width: 20%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Document</strong></p>
-<p><strong>Version</strong></p>
-</th>
-<th class="head"><p><strong>Description</strong></p></th>
-<th class="head"><p><strong>Date</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>002</p></td>
-<td><p>Refresh</p></td>
-<td><p>December 2023</p></td>
-</tr>
-<tr class="row-odd"><td><p>001</p></td>
-<td><p>Initial Release</p></td>
-<td><p>June 2022</p></td>
-</tr>
-</tbody>
-</table>
+  <section id="conclusion">
+<span id="qat-2-0-cnv-conclusion"></span><h1>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading"></a></h1>
+<p><strong>Compress and Verify</strong> provides robust error detection by answering the
+following key questions:</p>
+<ol class="arabic simple">
+<li><p>Can the compressed dataset be successfully decompressed according to the relevant specification?</p></li>
+<li><p>Does the length of the decompressed data match the length of the original plaintext data?</p></li>
+<li><p>Do both checksums (CRC-32 and Adler-32 or CRC-32 and XXHash-32) produce
+the same result on the incoming dataset and the decompressed data?</p></li>
+</ol>
+<p>By testing the compression job with multiple checksums, this approach ensures the highest level of confidence that no error has occurred.</p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="pre-built.html" class="btn btn-neutral float-left" title="Pre-Built Images" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../WhenToQAT/index.html" class="btn btn-neutral float-right" title="When to Use Intel® QAT" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="cnv_tests.html" class="btn btn-neutral float-left" title="Intel® QAT Compress and Verify Tests" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="notes.html" class="btn btn-neutral float-right" title="The CRC64 Values Used in End-To-End mode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

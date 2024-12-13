@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Use Cases for Intel QuickAssist Technology &mdash; Intel® QuickAssist Technology  documentation</title>
+  <title>Summary of Checksum Algorithms &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Implementation Considerations" href="implementation.html" />
-    <link rel="prev" title="When to Use Intel® QuickAssist Technology" href="introduction.html" /> 
+    <link rel="next" title="Intel® QAT Compress and Verify Tests" href="cnv_tests.html" />
+    <link rel="prev" title="Checksum Discussion" href="checksums.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -63,23 +63,19 @@
 <li class="toctree-l1"><a class="reference internal" href="../../qatlib/index.html">QATlib User’s Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">Application Notes</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../Containers/index.html">Intel<sup>®</sup> QAT in Linux Containers</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="index.html">When to Use Intel<sup>®</sup> QAT</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="introduction.html">When to Use Intel<sup>®</sup> QuickAssist Technology</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Use Cases for Intel QuickAssist Technology</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#ssl-tls-acceleration">SSL/TLS Acceleration</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#asynchronous-openssl">Asynchronous OpenSSL</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#cloud-computing">Cloud Computing</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#network-security-appliances">Network Security Appliances</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#storage-solutions">Storage Solutions</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#high-performance-computing-hpc">High Performance Computing (HPC)</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="implementation.html">Implementation Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../WhenToQAT/index.html">When to Use Intel<sup>®</sup> QAT</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">Intel® QAT Compress and Verify White Paper</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="checksums.html">Checksum Discussion</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Summary of Checksum Algorithms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="cnv_tests.html">Intel® QAT Compress and Verify Tests</a></li>
 <li class="toctree-l3"><a class="reference internal" href="conclusion.html">Conclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html">The CRC64 Values Used in End-To-End mode</a></li>
+<li class="toctree-l3"><a class="reference internal" href="notes.html#the-empirical-study">The Empirical Study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="references.html">Footnotes</a></li>
 <li class="toctree-l3"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../CompressAndVerify/index.html">Intel® QAT Compress and Verify White Paper</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../../API_PG/index.html">API Programmer’s Guide</a></li>
@@ -102,8 +98,8 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Application Notes</a></li>
-          <li class="breadcrumb-item"><a href="index.html">When to Use Intel<sup>®</sup> QAT</a></li>
-      <li class="breadcrumb-item active">Use Cases for Intel QuickAssist Technology</li>
+          <li class="breadcrumb-item"><a href="index.html">Intel® QAT Compress and Verify White Paper</a></li>
+      <li class="breadcrumb-item active">Summary of Checksum Algorithms</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -112,48 +108,43 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="use-cases-for-intel-quickassist-technology">
-<span id="qat-2-0-2qatornot-usecases"></span><h1>Use Cases for Intel QuickAssist Technology<a class="headerlink" href="#use-cases-for-intel-quickassist-technology" title="Permalink to this heading"></a></h1>
-<section id="ssl-tls-acceleration">
-<h2>SSL/TLS Acceleration<a class="headerlink" href="#ssl-tls-acceleration" title="Permalink to this heading"></a></h2>
-<p>The demand for secure data transmissions over the internet has surged due to widespread adoption of HTTPS by applications like Gmail, Twitter, and Facebook.
-Servers in data centers, telecom networks, and enterprises must handle increasing amounts of SSL traffic. Intel<sup>®</sup> QAT can significantly boost SSL performance, ensuring efficient encryption and decryption of data during secure communication sessions2.</p>
-</section>
-<section id="asynchronous-openssl">
-<h2>Asynchronous OpenSSL<a class="headerlink" href="#asynchronous-openssl" title="Permalink to this heading"></a></h2>
-<p>The standard release of OpenSSL is serial in nature, handling one connection within one context. However, contributors to OpenSSL have been working on an exciting
-enhancement called Asynchronous OpenSSL.</p>
-<p>This parallel development project aims to improve performance by allowing higher throughput for single flows and reducing
-context management overhead. Asynchronous OpenSSL promises many-fold performance increases, making it an excellent candidate for Intel<sup>®</sup> QAT integration.</p>
-</section>
-<section id="cloud-computing">
-<h2>Cloud Computing<a class="headerlink" href="#cloud-computing" title="Permalink to this heading"></a></h2>
-<p>In cloud environments, where scalability and efficiency are critical, Intel<sup>®</sup> QAT can accelerate cryptographic workloads. Whether it’s securing virtual machine communication or
-encrypting data at rest, Intel<sup>®</sup> QAT ensures optimal performance while offloading CPU resources.</p>
-</section>
-<section id="network-security-appliances">
-<h2>Network Security Appliances<a class="headerlink" href="#network-security-appliances" title="Permalink to this heading"></a></h2>
-<p>Network security appliances, such as firewalls and intrusion detection systems, rely heavily on cryptographic functions. By leveraging Intel<sup>®</sup> QAT, these appliances can handle
-large volumes of encrypted traffic without compromising performance.</p>
-</section>
-<section id="storage-solutions">
-<h2>Storage Solutions<a class="headerlink" href="#storage-solutions" title="Permalink to this heading"></a></h2>
-<p>Data encryption is essential for protecting sensitive information in storage systems. Intel<sup>®</sup> QAT accelerates encryption and decryption tasks, allowing storage solutions to maintain high
-throughput while ensuring data confidentiality.</p>
-</section>
-<section id="high-performance-computing-hpc">
-<h2>High Performance Computing (HPC)<a class="headerlink" href="#high-performance-computing-hpc" title="Permalink to this heading"></a></h2>
-<p>Intel<sup>®</sup> QAT significantly contributes to HPC by improving encryption, compression, and overall system efficiency. Its integration into HPC clusters ensures faster data handling,
-reduced resource consumption, and better performance across diverse workloads.</p>
-</section>
+  <section id="summary-of-checksum-algorithms">
+<span id="qat-2-0-cnv-checksum-algorithms"></span><h1>Summary of Checksum Algorithms<a class="headerlink" href="#summary-of-checksum-algorithms" title="Permalink to this heading"></a></h1>
+<p>Each checksum algorithm utilizes distinct methods for error detection.
+The Adler32 uses an additive process. The CRC32 uses a polynomial-based
+division operation. The XXHash32 checksum employs addition,
+multiplication, rotate, shift and xor operations.</p>
+<p>Despite their different techniques, all checksum algorithms are, to varying extents, vulnerable to collisions—instances where distinct inputs produce the same hash output. This susceptibility impacts their performance and reliability, although the degree of vulnerability varies across the algorithms</p>
+<p>Empirical testing, which involved over 500 billion error-injected dataset tests (detailed in the section The Empirical Study), supports the notion that each algorithm’s collision rate differs based on its design.</p>
+<p>It was noted that when the dataset was sourced from the printable ASCII range (32 to 128), Adler32 exhibited a higher collision rate compared to when the dataset used the full ASCII character set. CRC32 and XXHash32, however, showed no significant difference in collision rates between these two datasets.</p>
+<p>The increased collision rate for Adler32 when using printable ASCII characters can be attributed to the simplicity of its additive process. The nature of the data perturbations, combined with the smaller dataset size, makes Adler32 more prone to hash collisions—particularly when the modulo operation used in the addition step does not adequately account for the smaller dataset.</p>
+<p>This paper suggests that the differing mechanisms behind Adler32, CRC32, and XXHash32 provide complementary checks for dataset integrity. This idea is further corroborated by the empirical data, supporting the rationale for using multiple checksums in the QAT CnV process.</p>
+<p>From the testing, the following p-values for collisions were obtained:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>CRC32: Pc</strong> = 2.22196E-10</p></li>
+<li><p><strong>Adler32: Pa</strong> = 1.75051E-07</p></li>
+<li><p><strong>XXHash32: Px</strong> = 2.87547E-10</p></li>
+</ul>
+</div></blockquote>
+<p>Because the algorithms are independent of each other, calculating the probability of
+an error inducing collisions with two checks is straightforward.</p>
+<p>For the Deflate algorithm, using both CRC32 and Adler32 as integrity checks produces a P value of:</p>
+<blockquote>
+<div><p>Pdef = Pc x Pa = 2.22196E-10 * 1.75051E-07 = 5.03354E-17</p>
+</div></blockquote>
+<p>For LZ4 and LZ4s, using CRC32 and XXHash32:</p>
+<blockquote>
+<div><p>Plz4 = Pc x Px = 2.22196E-10 * 2.87547E-10 = 6.38918E-20</p>
+</div></blockquote>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="introduction.html" class="btn btn-neutral float-left" title="When to Use Intel® QuickAssist Technology" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="implementation.html" class="btn btn-neutral float-right" title="Implementation Considerations" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="checksums.html" class="btn btn-neutral float-left" title="Checksum Discussion" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cnv_tests.html" class="btn btn-neutral float-right" title="Intel® QAT Compress and Verify Tests" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
