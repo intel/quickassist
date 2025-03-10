@@ -38,9 +38,6 @@
           <a href="../index.html" class="icon icon-home">
             Intel® QuickAssist Technology
           </a>
-              <div class="version">
-                Hardware Version 2.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -148,10 +145,10 @@ accelerators into network and security applications.</p>
 <table class="longtable docutils align-default" id="id4">
 <caption><span class="caption-text">Supported Cipher Algorithms</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 25%" />
-<col style="width: 24%" />
-<col style="width: 24%" />
+<col style="width: 39%" />
+<col style="width: 21%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Algorithm</strong></p></th>
@@ -281,10 +278,10 @@ accelerators into network and security applications.</p>
 <table class="longtable docutils align-default" id="id5">
 <caption><span class="caption-text">Supported Hash/Authenticate Algorithms</span><a class="headerlink" href="#id5" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 27%" />
-<col style="width: 25%" />
-<col style="width: 24%" />
-<col style="width: 24%" />
+<col style="width: 39%" />
+<col style="width: 21%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Algorithm</strong></p></th>
@@ -412,10 +409,10 @@ accelerators into network and security applications.</p>
 <table class="longtable docutils align-default" id="id6">
 <caption><span class="caption-text">Supported Public Key Algorithms</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 34%" />
-<col style="width: 23%" />
+<col style="width: 39%" />
 <col style="width: 21%" />
-<col style="width: 21%" />
+<col style="width: 20%" />
+<col style="width: 20%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Algorithm</strong></p></th>
@@ -425,60 +422,270 @@ accelerators into network and security applications.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>RSA-1024</p></td>
+<tr class="row-even"><td><p>DSA1024_160_VERIFY</p></td>
 <td><p>Opt-in</p></td>
 <td><p>Opt-in</p></td>
 <td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>DSA2048_224_SIGN</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-even"><td><p>DSA2048_224_VERIFY</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>DSA2048_256_SIGN</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-even"><td><p>DSA2048_256_VERIFY</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>DSA3072_256_SIGN</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-even"><td><p>DSA3072_256_VERIFY</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDH Point Multiply</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDH_P192_PTMULT</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDH_P256_PTMULT</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDH_P384_PTMULT</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDH_P521_PTMULT</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>X25519</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>X448</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDSA SIGN</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDSA_P192_SIGN</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDSA VERIFY</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDSA_P192_VERIFY</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDSA_P256_SIGN</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDSA_P256_VERIFY</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDSA_P384_SIGN</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDSA_P384_VERIFY</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDSA_P521_SIGN</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDSA_P521_VERIFY</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SM2</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>EC_x25519</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>EC_x448</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ED_25519_PMULT</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>ED_448_PTMULT</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>EDDSA_25519_SIGN</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>EDDSA_25519_VERIFY</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>EDDSA_448_SIGN</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>EDDSA_448_VERIFY</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA-1024</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA1024_CRT_SIGN</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+<td><p>Opt-in</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA1024_NONCRT_SIGN</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA1024_NONCRT_VERIFY</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
 </tr>
 <tr class="row-odd"><td><p>RSA-2048</p></td>
 <td><p>Yes</p></td>
 <td><p>Yes</p></td>
 <td><p>Yes</p></td>
 </tr>
-<tr class="row-even"><td><p>RSA-3072</p></td>
+<tr class="row-even"><td><p>RSA2048_CRT_SIGN</p></td>
 <td><p>Yes</p></td>
 <td><p>Yes</p></td>
 <td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA2048_NONCRT_SIGN</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA2048_NONCRT_VERIFY</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA-3072</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA3072_CRT_SIGN</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA3072_NONCRT_SIGN</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA3072_NONCRT_VERIFY</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
 </tr>
 <tr class="row-odd"><td><p>RSA-4096</p></td>
 <td><p>Yes</p></td>
 <td><p>Yes</p></td>
 <td><p>Yes</p></td>
 </tr>
-<tr class="row-even"><td><p>RSA-8192</p></td>
+<tr class="row-even"><td><p>RSA4096_CRT_SIGN</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA4096_NONCRT_SIGN</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA4096_NONCRT_VERIFY</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>RSA-8192</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>RSA8192_CRT_SIGN</p></td>
 <td><p>No</p></td>
 <td><p>No</p></td>
 <td><p>Yes</p></td>
 </tr>
-<tr class="row-odd"><td><p>SM2</p></td>
+<tr class="row-odd"><td><p>RSA8192_NONCRT_SIGN</p></td>
 <td><p>No</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
 </tr>
-<tr class="row-even"><td><p>ECDH Point Multiply</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>ECDSA Sign</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-even"><td><p>ECDSA Verify</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-odd"><td><p>x25519</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-</tr>
-<tr class="row-even"><td><p>x448</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
-<td><p>Yes</p></td>
+<tr class="row-even"><td><p>RSA8192_NONCRT_VERIFY</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
+<td><p>No</p></td>
 </tr>
 </tbody>
 </table>
