@@ -38,9 +38,6 @@
           <a href="../../index.html" class="icon icon-home">
             Intel® QuickAssist Technology
           </a>
-              <div class="version">
-                Hardware Version 2.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -240,39 +237,42 @@ qat_dev7 - type: 4xxx,  inst_id: 7,  node_id: 1,  bsf: 0000:f7:00.0,  #accel: 1 
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">cyAsymLoops=y</span></code></p></td>
 <td><p>Number of iterations of all asymmetric code tests. (default=5000)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=1</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">dcLoops=y</span></code></p></td>
+<td><p>Number of iterations of all compression code tests. (default=100)</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=1</span></code></p></td>
 <td><p>Run symmetric code tests.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=2</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=2</span></code></p></td>
 <td><p>Run RSA test code.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=4</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=4</span></code></p></td>
 <td><p>Run DSA test code.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=8</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=8</span></code></p></td>
 <td><p>Run ECDSA test code.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=16</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=16</span></code></p></td>
 <td><p>Run Diffie-Hellman code tests.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=32</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=32</span></code></p></td>
 <td><p>Run compression code tests.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=63</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=63</span></code></p></td>
 <td><p>Run all tests except the chained hash and compression tests. (default)</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=128</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runTests=128</span></code></p></td>
 <td><p>Run chained hash and compression test code.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">runStateful=1</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">runStateful=1</span></code></p></td>
 <td><p>Enable stateful compression tests. Applies when compression code tests are run.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">signOfLife=1</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">signOfLife=1</span></code></p></td>
 <td><p>Indicates shorter test run that verifies the acceleration software is working.
 This parameter executes a subset of sample tests. Details are included in
 <a class="reference internal" href="#qat-2-0-gsg-signoflife-test-parameter"><span class="std std-ref">signOfLife Test Parameter</span></a>. (default=0)</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">getLatency=1</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">getLatency=1</span></code></p></td>
 <td><p>Measures the processing time for the request being processed. Requires
 <code class="docutils literal notranslate"><span class="pre">NumberCyInstances=1</span></code> and <code class="docutils literal notranslate"><span class="pre">NumberDcInstances=1</span></code> to be configured in
 <code class="docutils literal notranslate"><span class="pre">[SSL]</span></code> section of the driver configuration file.</p>
@@ -281,12 +281,12 @@ measurements.</p>
 <p><code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">samples-install</span> <span class="pre">LATENCY_CODE=1</span></code></p>
 </td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">getOffloadCost=1</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">getOffloadCost=1</span></code></p></td>
 <td><p>Measures the average number of cycles spent for single request offloading.
 Requires <code class="docutils literal notranslate"><span class="pre">NumberCyInstances=1</span></code> and <code class="docutils literal notranslate"><span class="pre">NumberDcInstances=1</span></code> to be configured in
 <code class="docutils literal notranslate"><span class="pre">[SSL]</span></code> section of the driver configuration file.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">includeLZ4=1</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">includeLZ4=1</span></code></p></td>
 <td><p>Include LZ4 compression tests. Applies when compression code tests are run.</p></td>
 </tr>
 </tbody>
