@@ -67,9 +67,9 @@
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_heartbeat.html">Heartbeat</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_device_telemetry.html">Telemetry</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Rate Limiting</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#service-level-agreement-sla">Service Level Agreement (SLA)</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#sla-units">SLA Units</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#sla-manager-application">SLA Manager Application</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rate-limiting-overview">Rate Limiting Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#out-of-tree-rate-limiting">Out-of-Tree Rate Limiting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#in-tree-rate-limiting">In-tree Rate Limiting</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_power_management.html">Power Management</a></li>
@@ -121,21 +121,30 @@
              
   <section id="rate-limiting">
 <span id="qat-2-0-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this heading"></a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The instructions in this section apply to the Out-of-Tree QAT package.  For details on Rate Limiting with In-tree solution, refer to <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-qat_rl">sysfs-driver-qat_rl documentation.</a></p>
-</div>
-<p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service.</p>
-<p>Resources are shared across guests and the resource utilization of each guest is measured relative to the capacity of the physical function.</p>
-<p>The feature is supported for SYM, ASYM, and DC services.</p>
-<p>To enable the Rate Limiting feature:</p>
+<section id="rate-limiting-overview">
+<h2>Rate Limiting Overview<a class="headerlink" href="#rate-limiting-overview" title="Permalink to this heading"></a></h2>
+<p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service. This ensures that resources are allocated according to predefined agreements, preventing any single VF from monopolizing device capacity.</p>
+<p>Rate Limiting is set up on the host system, allowing administrators to manage and allocate resources effectively. It can be configured for each Physical Function (PF) on the device, providing granular control over resource distribution across different services and virtual functions.</p>
+<p>Resources are shared across guests, and the resource utilization of each guest is measured relative to the capacity of the physical function. The feature is supported for SYM, ASYM, and DC services.</p>
+<p>This document provides instructions for enabling Rate Limiting for both Out-of-Tree (OOT) and In-tree stacks.</p>
+</section>
+<section id="out-of-tree-rate-limiting">
+<h2>Out-of-Tree Rate Limiting<a class="headerlink" href="#out-of-tree-rate-limiting" title="Permalink to this heading"></a></h2>
+<section id="enabling-rate-limiting">
+<h3>Enabling Rate Limiting<a class="headerlink" href="#enabling-rate-limiting" title="Permalink to this heading"></a></h3>
+<p>To enable the Rate Limiting feature for the Out-of-Tree stack:</p>
 <ol class="arabic simple">
 <li><p><strong>Install</strong> the driver package on the host with Single-Root Input/Output Virtualization (SR-IOV) enabled.</p></li>
-<li><p><strong>Set</strong> <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> to <code class="docutils literal notranslate"><span class="pre">asym</span></code> or <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">dc</span></code>.</p></li>
+<li><p><strong>Set</strong> <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> to <code class="docutils literal notranslate"><span class="pre">asym</span></code> or <code class="docutils literal notranslate"><span class="pre">sym</span></code> or <code class="docutils literal notranslate"><span class="pre">dc</span></code> (or any combination of up to two of these services).</p></li>
 <li><p><strong>Perform</strong> <code class="docutils literal notranslate"><span class="pre">qat_service</span> <span class="pre">shutdown</span></code> and <code class="docutils literal notranslate"><span class="pre">qat_service</span> <span class="pre">start</span></code>.</p></li>
 </ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>For Out-of-Tree (OOT) PKE, the total CIR for all SLAs should equal 1000 to ensure proper rate limiting. For symmetric crypto and data compression services, the total CIR should equal the total capacity as returned by the <cite>sla_mgr</cite> tool.</p>
+</div>
+</section>
 <section id="service-level-agreement-sla">
-<h2>Service Level Agreement (SLA)<a class="headerlink" href="#service-level-agreement-sla" title="Permalink to this heading"></a></h2>
+<h3>Service Level Agreement (SLA)<a class="headerlink" href="#service-level-agreement-sla" title="Permalink to this heading"></a></h3>
 <p>Service Level Agreement enforcement allocates a specified amount of capacity for a specified service to a specified VF:
 <em>max SLA enforced = (number of VFs) X (number of services)</em> where:</p>
 <blockquote>
@@ -146,7 +155,7 @@
 </div></blockquote>
 </section>
 <section id="sla-units">
-<h2>SLA Units<a class="headerlink" href="#sla-units" title="Permalink to this heading"></a></h2>
+<h3>SLA Units<a class="headerlink" href="#sla-units" title="Permalink to this heading"></a></h3>
 <p>SLA units are measured as follows:</p>
 <ul class="simple">
 <li><p>Symmetric Crypto - 1Mbps of throughput.</p></li>
@@ -156,16 +165,15 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ol class="arabic simple">
-<li><p>In Gen4 devices, for Asymmetric Crypto services, it is more accurate to use metrics such as slice utilization and PCI bandwidth instead of Operations/second for SLA measurements.</p></li>
-<li><p>Slice utilization and PCI bandwidth are more fair metrics as they show exactly how much HW resources each user is consuming, regardless of a particular algorithm processing speed.</p></li>
+<li><p>In Gen4 devices, for Asymmetric Crypto services, SLA units are measured in terms of percentage of slice utilization. This metric is more accurate than operations/second or throughput/second because it directly reflects the hardware resources consumed by each user, independent of algorithm processing speed, providing a fair representation of resource usage.</p></li>
 <li><p>Gen4 devices use a Hardware-assisted Rate limiting approach whereas legacy devices use a firmware-only Rate limiting approach.</p></li>
 <li><p>For asymmetric service, SLAs shall be allocated at a granularity of 1 unit of device utilization percentage for RSA2K.</p></li>
 <li><p>Below is a sample mapping table for the 5th Gen Intel® Xeon® Scalable Processer - MCC SKU platform that translates the SLA units to equivalent ops/sec.</p></li>
 <li><p>Users can run tests with the required algorithm to determine the mapping for other SKUs with different performance. Gen4 asymmetric performance numbers can differ based on the SKU.</p></li>
 </ol>
 </div>
-<table class="docutils align-default" id="id1">
-<caption><span class="caption-text">Sample Mapping Table for 5th Gen Intel® Xeon® Scalable Processer - MCC SKU</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Sample Mapping Table for 5th Gen Intel® Xeon® Scalable Processer - MCC SKU</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -218,13 +226,13 @@
 </table>
 </section>
 <section id="sla-manager-application">
-<h2>SLA Manager Application<a class="headerlink" href="#sla-manager-application" title="Permalink to this heading"></a></h2>
+<h3>SLA Manager Application<a class="headerlink" href="#sla-manager-application" title="Permalink to this heading"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">sla_mgr</span></code> tool is used to create, update, delete, list and get SLA capabilities.
 The SLA Manager executable is available in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build/sla_mgr</span></code> after the package is built and installed using <code class="docutils literal notranslate"><span class="pre">./configure;</span> <span class="pre">make</span> <span class="pre">install</span></code> commands.</p>
 <section id="sla-commands">
-<h3>SLA Commands<a class="headerlink" href="#sla-commands" title="Permalink to this heading"></a></h3>
-<table class="longtable colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">Rate Limiting SLA Commands</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<h4>SLA Commands<a class="headerlink" href="#sla-commands" title="Permalink to this heading"></a></h4>
+<table class="longtable colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">Rate Limiting SLA Commands</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 67%" />
@@ -286,20 +294,96 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 <p>To use Legacy Rate limiting <cite>sla_mgr</cite> application, user needs to configure with option <cite>–enable-legacy-sla-mgr</cite>.</p>
 </div>
 </section>
-<section id="sla-manager-application-demo">
-<h3>SLA Manager Application Demo<a class="headerlink" href="#sla-manager-application-demo" title="Permalink to this heading"></a></h3>
-<p>Here is a demonstration of using the <code class="docutils literal notranslate"><span class="pre">sla_mgr</span></code> tool to create, update, and delete SLAs.
-The device utilization script from the previous section is used to visualize the SLAs in action.
-The demo consists of the following steps:</p>
-<ol class="arabic simple">
-<li><p><strong>Run</strong> Encryption workload without SLA in place to observe full utilization.</p></li>
-<li><p><strong>Create</strong> SLA enabling 75% of bandwidth and observe reduced utilization.</p></li>
-<li><p><strong>Update</strong> the SLA to enable 25% of bandwidth and observe reduced utilization.</p></li>
-<li><p><strong>Remove</strong> the SLA and verify full utilization.</p></li>
-</ol>
-<video controls="True" height="300" preload="auto" width="600"><source src="../_static/video/pg/ratelimiting.mp4" type="video/mp4"></video><div class="line-block">
-<div class="line"><br /></div>
+</section>
+<section id="best-practices-for-sla-management">
+<h3>Best Practices for SLA Management<a class="headerlink" href="#best-practices-for-sla-management" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Ensure all VFs are included in SLAs to prevent unregulated resource usage.</p></li>
+<li><p>Regularly monitor performance and adjust CIR and PIR values as needed to maintain optimal throughput.</p></li>
+</ul>
+</section>
+</section>
+<section id="in-tree-rate-limiting">
+<h2>In-tree Rate Limiting<a class="headerlink" href="#in-tree-rate-limiting" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For additional details on Rate Limiting with the In-tree solution, refer to <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-qat_rl">sysfs-driver-qat_rl documentation.</a></p>
 </div>
+<p>Rate Limiting for the in-tree stack is configured per individual Physical Function (PF) using sysfs calls. Each PF has a directory structure that includes several files used to manage SLAs:</p>
+<section id="directory-structure">
+<h3>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this heading"></a></h3>
+<p>The rate limiting attributes for each PF are located at:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/sys/bus/pci/devices/&lt;BDF&gt;/qat_rl/
+</pre></div>
+</div>
+<p>The files included in this directory are:</p>
+<ul class="simple">
+<li><p><strong>cap_rem</strong>: Reports the remaining capability for a particular service/SLA. This is the remaining value that a new SLA can be set to or a current SLA can be increased with.</p></li>
+<li><p><strong>cir</strong>: Committed Information Rate (CIR). The guaranteed rate of throughput that a VF can achieve under its SLA. The value is expressed in permille scale, i.e., 1000 refers to the maximum device throughput for a selected service.</p></li>
+<li><p><strong>id</strong>: Used to retrieve a particular SLA and operate on it. Valid for update, rm, and get operations.</p></li>
+<li><p><strong>pir</strong>: Peak Information Rate (PIR). The maximum rate that can be achieved by that particular SLA. An SLA can reach a value between CIR and PIR when the device is not fully utilized by requests from other users.</p></li>
+<li><p><strong>rp</strong>: Configures the ring pairs associated with an SLA. The value is a 64-bit bit mask and is written/displayed in hex.</p></li>
+<li><p><strong>sla_op</strong>: Used to perform operations on an SLA, such as add, update, rm, rm_all, and get.</p></li>
+<li><p><strong>srv</strong>: Represents the service (sym, asym, dc) associated with an SLA.</p></li>
+</ul>
+</section>
+<section id="id1">
+<h3>Enabling Rate Limiting<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<p>To enable the Rate Limiting feature for the In-tree stack:</p>
+<ol class="arabic simple">
+<li><p><strong>Identify</strong> the device using the Bus-Device-Function (BDF) format, e.g., <cite>&lt;BDF&gt;</cite>.</p></li>
+<li><p><strong>Configure</strong> the SLA using the sysfs attributes available for qat_4xxx devices.</p></li>
+<li><p><strong>Ensure</strong> the total CIR for all VFs equals 1000 to ensure proper rate limiting.</p></li>
+</ol>
+</section>
+<section id="id2">
+<h3>SLA Units<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<p>For the In-tree stack, SLA units are measured as follows:</p>
+<ul class="simple">
+<li><p>All services (sym, asym, dc) - 1 unit is equal to 0.1 percent of available utilization.</p></li>
+</ul>
+</section>
+<section id="example-setting-of-slas">
+<h3>Example Setting of SLAs<a class="headerlink" href="#example-setting-of-slas" title="Permalink to this heading"></a></h3>
+<p>This example demonstrates setting up SLAs for all VFs for a specified PF, focusing on symmetric and asymmetric crypto services. The RP value is shifted for each VF to allocate resources appropriately.</p>
+<ol class="arabic">
+<li><p><strong>Remove Existing SLAs</strong>: Clear any existing SLAs for the device.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;rm_all&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/sla_op
+</pre></div>
+</div>
+</li>
+<li><p><strong>Set SLAs for Symmetric Service</strong>:
+For each VF, set the SLA parameters and add the SLA:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>vf<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">0</span>..15<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">cir_pir_value</span><span class="o">=</span><span class="m">62</span>
+<span class="w">    </span><span class="nv">rp_value</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;0x%x&quot;</span><span class="w"> </span><span class="k">$((</span><span class="m">0xa</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">(</span><span class="nv">vf</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">4</span><span class="k">)))</span><span class="o">)</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$cir_pir_value</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/cir
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$cir_pir_value</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/pir
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;sym&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/srv
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$rp_value</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/rp
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;add&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/sla_op
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;SLA added for BDF: 0000:6b:00.0, VF: </span><span class="nv">$vf</span><span class="s2">, Service: sym, RP: </span><span class="nv">$rp_value</span><span class="s2">, CIR/PIR: </span><span class="nv">$cir_pir_value</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</li>
+<li><p><strong>Set SLAs for Asymmetric Service</strong>:
+Similarly, set the SLA parameters for the asymmetric service:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="k">for</span><span class="w"> </span>vf<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="o">{</span><span class="m">0</span>..15<span class="o">}</span><span class="p">;</span><span class="w"> </span><span class="k">do</span>
+<span class="w">    </span><span class="nv">cir_pir_value</span><span class="o">=</span><span class="m">62</span>
+<span class="w">    </span><span class="nv">rp_value</span><span class="o">=</span><span class="k">$(</span><span class="nb">printf</span><span class="w"> </span><span class="s2">&quot;0x%x&quot;</span><span class="w"> </span><span class="k">$((</span><span class="m">0x5</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="o">(</span><span class="nv">vf</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">4</span><span class="k">)))</span><span class="o">)</span>
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$cir_pir_value</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/cir
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$cir_pir_value</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/pir
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;asym&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/srv
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="nv">$rp_value</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/rp
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;add&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/bus/pci/devices/0000:6b:00.0/qat_rl/sla_op
+<span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;SLA added for BDF: 0000:6b:00.0, VF: </span><span class="nv">$vf</span><span class="s2">, Service: asym, RP: </span><span class="nv">$rp_value</span><span class="s2">, CIR/PIR: </span><span class="nv">$cir_pir_value</span><span class="s2">&quot;</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+</li>
+</ol>
+<p>This example illustrates setting up rate limiting for one QAT endpoint, evenly distributing the PF capacity among 16 VFs for both symmetric and asymmetric services.</p>
 </section>
 </section>
 </section>
