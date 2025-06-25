@@ -190,8 +190,7 @@ on the HW counter.</p></td>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Title</strong></p></td>
-<td><p>Virtual device power on inside Guest causing VM crash
-conditions</p></td>
+<td><p>Virtual device power on inside Guest causing VM crash</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Reference</strong></p></td>
 <td><p>VQQ-1907</p></td>
@@ -207,6 +206,47 @@ ESXi*.</p></td>
 <tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
 <td><p>Avoid toggling power for the virtual PCI device. Use latest version of
 VMware ESXi where this issue will be resolved.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="vval-3507-vm-killed-with-failed-to-enable-msi-message-in-kernel-log">
+<h2>VVAL-3507 - VM killed with “Failed to enable MSI” message in kernel log<a class="headerlink" href="#vval-3507-vm-killed-with-failed-to-enable-msi-message-in-kernel-log" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given rn-table docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>VM killed with <code class="docutils literal notranslate"><span class="pre">Failed</span> <span class="pre">to</span> <span class="pre">enable</span> <span class="pre">MSI</span></code> message in kernel log</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>VVAL-3507</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>By default, VMkernel supports limited number of MSI interrupt cookies,
+available for drivers to use. If they are exhausted, driver will be not
+able to allocate new interrupts and escalate error to ESXi which will
+result in VM being killed as soon as Guest driver requests interrupts.</p>
+<p>This problem could be identified by similar message in vmkernel.log:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>`WARNING: qat 4xxxvf-X-X: Failed to enable MSI`
+</pre></div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>User may lose unsaved data inside VM.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Limit for MSI interrupts could be increased via following command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">esxcli system settings kernel set --setting=intrFirstMsixVector --value=0x90</span>
+</pre></div>
+</div>
+<p>Where default value will be changed to desired <code class="docutils literal notranslate"><span class="pre">0x90</span></code>. Increasing
+number of available MSI interrupts will decrease the number of available
+MSI-X interrupts which may cause issues with other devices.</p>
+</td>
 </tr>
 </tbody>
 </table>

@@ -206,6 +206,36 @@ in the README file, without restarting system.</p></td>
 </tbody>
 </table>
 </section>
+<section id="qat20-38022-cy-edwards-and-montgomery-curves-not-supported-in-pke-operations-with-qatlib">
+<h2>QAT20-38022 - CY - Edwards and Montgomery curves not supported in PKE operations with qatlib<a class="headerlink" href="#qat20-38022-cy-edwards-and-montgomery-curves-not-supported-in-pke-operations-with-qatlib" title="Permalink to this heading"></a></h2>
+<table class="colwidths-given rn-table docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>CY - Edwards and Montgomery curves not supported in PKE operations</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-38022</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>On some platforms the function <code class="docutils literal notranslate"><span class="pre">cpaCyQueryCapabilities()</span></code> will report
+the <code class="docutils literal notranslate"><span class="pre">ecEdMontSupported</span></code> capability as FALSE and operations using those
+curves will fail. This case can arise when qatlib is running in a guest
+and the QAT driver on the host is not properly expose corresponding
+capabilities.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>PKE operations using those elliptic curves will fail.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Problem is resolved in latest driver release.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 

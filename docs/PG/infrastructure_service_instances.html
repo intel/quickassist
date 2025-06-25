@@ -56,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in_tree_vs_oot.html">In-Tree vs. Out-of-Tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_queue_pairs.html">Queues and Queue Pairs</a></li>
@@ -71,7 +72,7 @@
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_device_telemetry.html">Telemetry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_ratelimiting.html">Rate Limiting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_power_management.html">Power Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="infrastructure_ras.html">Reliability, Availability, and Stability (RAS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_ras.html">Reliability, Availability, and Serviceability (RAS)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
@@ -140,6 +141,10 @@
 </ul>
 <section id="configurable-items-via-config-file">
 <h2>Configurable Items (via config file)<a class="headerlink" href="#configurable-items-via-config-file" title="Permalink to this heading"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The items listed below are configurable only with the out-of-tree acceleration driver.</p>
+</div>
 <ul>
 <li><p>Queue depth (for each queue).</p></li>
 <li><p>Number of service instances per process for a given device (limited by available rings), for example:</p>
@@ -150,7 +155,6 @@
 </ul>
 </div></blockquote>
 </li>
-<li><p>Number of queue pairs per service, per bundle/VF, will be configurable in future.</p></li>
 </ul>
 </section>
 </section>
