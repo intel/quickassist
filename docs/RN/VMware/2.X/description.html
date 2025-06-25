@@ -57,10 +57,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#features">Features</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#limitations">Limitations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#packages-information">Packages Information</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#directpath-i-o-packages">DirectPath I/O packages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enhanced-directpath-i-o-package">Enhanced DirectPath I/O package</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#version-numbering-scheme">Version Numbering Scheme</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#list-of-files-in-release">List of Files in Release</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#supported-guest-drivers">Supported Guest Drivers</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#technical-support">Technical Support</a></li>
@@ -117,14 +116,7 @@ accelerator on VMware ESXi.
 Driver enables sharing of a Physical Function (PF) across multiple guest
 Virtual Machines (VM) using Single Root I/O Virtualization (SR-IOV) technology.
 This is accomplished by exposing Intel<sup>®</sup> QAT accelerator as Virtual
-Functions (VFs)to a specific guest VM(s).</p>
-<p>This release includes following types of driver packages, each supporting a
-specific mode for exposing accelerator to guest VM, as listed below:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p>DirectPath I/O via SR-IOV: Later in the document referred as SR-IOV driver</p></li>
-</ul>
-</div></blockquote>
+Devices (VDEVs) to a specific guest VM(s) via Enhanced DirectPath I/O.</p>
 <p>For instructions on loading and running the release software, refer to the
 <code class="docutils literal notranslate"><span class="pre">README.txt</span></code> file in the corresponding released software package. For
 instructions on installing the driver in the Guest Operating System (OS),
@@ -145,6 +137,7 @@ software.</p>
 <li><p>TLS1.3 elliptical curves Montgomery encryption (curve 25519 and curve 448)</p></li>
 <li><p>Data Compression with CnV for Deflate and LZ4/LZ4s algorithms and CnVnR for
 Deflate and LZ4s</p></li>
+<li><p>LZ4 E2E CRC32 with CNV enforcement enabled</p></li>
 <li><p>Chaining support</p></li>
 <li><p>SM3/SM4</p></li>
 <li><p>Asynchronous E2E support for compression</p></li>
@@ -153,6 +146,8 @@ Deflate and LZ4s</p></li>
 <li><p>Extended RAS (uncorrectable and fatal error support)</p></li>
 <li><p>Ratelimiting</p></li>
 <li><p>Intel<sup>®</sup> Device Manager for VMware* vCenter Server support</p></li>
+<li><p>Enhanced DirectPath I/O via SR-IOV</p></li>
+<li><p>VMware vSphere* vMotion* support</p></li>
 </ul>
 </section>
 <section id="limitations">
@@ -167,29 +162,31 @@ information.</p></li>
 <li><p>Dynamic Power Management (DPM) is not currently supported.</p></li>
 <li><p>Shared Virtual Memory (SVM) and Address Translation (AT) are not currently
 supported.</p></li>
-<li><p>Enhanced DirectPath I/O driver is not available as part of this release.</p></li>
 <li><p>ESXi limitation: number of PCI passthrough devices per VM is limited. Check
 “ESXi/ESX Configuration Maximums” <a class="reference external" href="https://kb.vmware.com/s/article/1003497">KB article</a> for exact limits. ESXi will
 not allow to power on VM if such limit is exceeded.</p></li>
-<li><p>Enhanced and non-Enhanced DirectPath I/O drivers are mutually exclusive and
-cannot be installed simultaneously. Switching from one driver to another is
-covered in the <em>Coexistence with Enhanced Direct Path I/O* driver</em> section of
-the <code class="docutils literal notranslate"><span class="pre">README</span></code> file.</p></li>
-<li><p>VM configuration will be different between Enhanced and non-Enhanced
-DirectPath I/O drivers, as well as SW stack inside VM. Switching between
-driver types can cause VM to fail power on, so re-configuration will be
-required.</p></li>
-<li><p>Due to VMware limitations, package for Enhanced DirectPath I/O
-driver for VMware ESXi 8.0 Update 2 is compatible only with this particular
-version of ESXi. Refer to <em>Supported ESXi Version</em> in
-<a class="reference internal" href="#qat-2-0-rn-vmware-packages-info"><span class="std std-ref">package description</span></a> to choose right
-package.</p></li>
+<li><p>Non-Enhanced DirectPath I/O driver, also known as DirectPath I/O or just
+SR-IOV driver is not supported anymore. Switching to this release will
+require next steps: “XXXX QAT VF” PCI device (with access type DirectPath
+I/O) should be removed from VM config and replaced by “XXXX QAT VF Device”
+(with access type Enhanced DirectPath I/O). In configuration options of
+“XXXX QAT VF Device” appropriate/desired configuration should be selected.
+No changes inside VM are required.</p></li>
+<li><p>Enhanced DirectPath I/O via Intel<sup>®</sup> Scalable IOV is not supported
+anymore. Switching to this release will require next steps: “* vQAT Device”
+PCI device (with access type Enhanced DirectPath I/O) should be removed
+from VM config and replaced by “XXXX QAT VF Device” (with access type
+Enhanced DirectPath I/O). In configuration options of “XXXX QAT VF Device”
+appropriate/desired configuration should be selected. Inside VM,
+configuration file for vQAT should be replaced by one for VF. Please refer
+to Guest driver documentation for general information about device
+configuration.</p></li>
 </ul>
 </section>
 <section id="packages-information">
 <span id="qat-2-0-rn-vmware-packages-info"></span><h2>Packages Information<a class="headerlink" href="#packages-information" title="Permalink to this heading"></a></h2>
-<section id="directpath-i-o-packages">
-<h3>DirectPath I/O packages<a class="headerlink" href="#directpath-i-o-packages" title="Permalink to this heading"></a></h3>
+<section id="enhanced-directpath-i-o-package">
+<h3>Enhanced DirectPath I/O package<a class="headerlink" href="#enhanced-directpath-i-o-package" title="Permalink to this heading"></a></h3>
 <table class="colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -197,51 +194,34 @@ package.</p></li>
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p><strong>Package Name</strong></p></td>
-<td><p>qat-2.0_ext_rel_bin_2.5.5.151-7.0.3-18644231.tar.gz</p></td>
+<td><p>qat-2.0_ext_rel_bin_2.6.6.170-8.0.3-24022510-dvx.tar.gz</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Release Date</strong></p></td>
-<td><p>09/10/2024</p></td>
+<td><p>04/11/2025</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Supported Hardware</strong></p></td>
 <td><ul class="simple">
 <li><p>4th Generation Intel<sup>®</sup> Xeon<sup>®</sup> Scalable Processor (4xxx QAT)</p></li>
 <li><p>5th Generation Intel<sup>®</sup> Xeon<sup>®</sup> Scalable Processor (4xxx QAT)</p></li>
+<li><p>Intel<sup>®</sup> Xeon<sup>®</sup> 6 Processor (4xxx QAT)</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-even"><td><p><strong>Supported ESXi Version(s)</strong></p></td>
 <td><ul class="simple">
-<li><p>7.0 Update 3i and newer</p></li>
-<li><p>8.0 and newer</p></li>
+<li><p>8.0 Update 3 and newer</p></li>
 </ul>
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>Driver Version</strong></p></td>
-<td><p>2.5.5.151</p></td>
+<td><p>1002.6.6.170</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Package Checksum</strong></p></td>
-<td><p>SHA256: a2ab22a1dfcade3d08a9d1ed30638b69 0d076108ee38dc5e36448d95fa8a9d25</p></td>
+<td><p>SHA256: 98107c75eee93f78 655914fc4fa3f108 28ba293e95a6447c f6f6777c7a3d42c2</p></td>
 </tr>
 </tbody>
 </table>
 </section>
-</section>
-<section id="version-numbering-scheme">
-<span id="qat-2-0-rn-vmware-versioning"></span><h2>Version Numbering Scheme<a class="headerlink" href="#version-numbering-scheme" title="Permalink to this heading"></a></h2>
-<p>The version numbering scheme is major.minor.patch.build, where:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><em>major</em> is the major version of the software,</p></li>
-<li><p><em>minor</em> is the minor version of the software,</p></li>
-<li><p><em>patch.build</em> is the patch release and build number.</p></li>
-</ul>
-</div></blockquote>
-<p><em>Major</em> version number is used as a differentiator between the two mentioned
-package types in the same release. Enhanced Direct Path I/O driver
-package will be designated with <em>major</em> version greater than <em>1000</em>.
-To keep the two package types aligned, the assigned Enhanced Direct Path
-I/O driver <em>major</em> version is the same <em>major</em> version associated with the
-Direct Path I/O release + <em>1000</em>. <em>Minor</em> and <em>patch</em> numbers will match.</p>
 </section>
 <section id="list-of-files-in-release">
 <h2>List of Files in Release<a class="headerlink" href="#list-of-files-in-release" title="Permalink to this heading"></a></h2>
@@ -254,10 +234,7 @@ Direct Path I/O release + <em>1000</em>. <em>Minor</em> and <em>patch</em> numbe
 <tr class="row-odd"><td><p><strong>File</strong></p></td>
 <td><p><strong>Description</strong></p></td>
 </tr>
-<tr class="row-even"><td><p>qat-2.0_ext_rel_bin_2.5.5.151-7.0.3-18644231.tar.gz</p></td>
-<td><p>DirectPath I/O driver (SR-IOV)</p></td>
-</tr>
-<tr class="row-odd"><td><p>qat-2.0_ext_rel_bin_1002.5.5.151-8.0.2-22380479-dvx.tar.gz</p></td>
+<tr class="row-even"><td><p>qat-2.0_ext_rel_bin_2.6.6.170-8.0.3-24022510-dvx.tar.gz</p></td>
 <td><p>Enhanced DirectPath I/O driver</p></td>
 </tr>
 </tbody>
@@ -272,8 +249,8 @@ correspondingly.</p>
 drivers:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p><strong>Linux*:</strong> Intel QAT driver QAT20.L.1.1.50-*</p></li>
-<li><p><strong>Windows*:</strong> Intel QAT driver QAT2.0.W.2.1.0-*</p></li>
+<li><p><strong>Linux*:</strong> Intel QAT driver QAT20.L.1.2.30-*</p></li>
+<li><p><strong>Windows*:</strong> Intel QAT driver QAT2.0.W.2.5.0-*</p></li>
 </ul>
 </div></blockquote>
 <p>The actual list of supported guest OS depends on the guest driver compatibility.
@@ -327,29 +304,29 @@ write it.</p></li>
 <tr class="row-odd"><td><p><strong>Title</strong></p></td>
 <td><p><strong>Number</strong></p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/632506">Intel QuickAssist Technology for Linux* - Getting Started Guide (HW 2.0)</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://intel.github.io/quickassist/index.html">Intel QuickAssist Technology Documentation - Hardware Version 2.0</a></p></td>
+<td><p>n/a</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/632506">Intel QuickAssist Technology for Linux* - Getting Started Guide (HW 2.0)</a></p></td>
 <td><p>632506</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/632507">Intel QuickAssist Technology for Linux* - Release Notes (HW 2.0)</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/632507">Intel QuickAssist Technology for Linux* - Release Notes (HW 2.0)</a></p></td>
 <td><p>632507</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/766469">Intel QuickAssist Technology for VMware* - Release Notes (HW 2.0)</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/766469">Intel QuickAssist Technology for VMware* - Release Notes (HW 2.0)</a></p></td>
 <td><p>766469</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/758459">Intel QuickAssist Technology for Windows* - Release Notes (HW 2.0)</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/758459">Intel QuickAssist Technology for Windows* - Release Notes (HW 2.0)</a></p></td>
 <td><p>758459</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/743912">Intel QuickAssist Technology - Programmer’s Guide (HW 2.0)</a></p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/743912">Intel QuickAssist Technology - Programmer’s Guide (HW 2.0)</a></p></td>
 <td><p>743912</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/330684">Intel QuickAssist Technology API Programmer’s Guide</a></p></td>
+<tr class="row-even"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/330684">Intel QuickAssist Technology API Programmer’s Guide</a></p></td>
 <td><p>330684</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/330685">Intel QuickAssist Technology Cryptographic API Reference Manual</a></p></td>
-<td><p>330685</p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/330686">Intel QuickAssist Technology Data Compression API Reference Manual</a></p></td>
-<td><p>330686</p></td>
+<tr class="row-odd"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/709199">Intel QuickAssist Technology API Reference Manual, Combined Cryptographic and Compression</a></p></td>
+<td><p>709199</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference external" href="https://www.intel.com/content/www/us/en/content-details/773349">Intel Device Manager for VMware vCenter Server</a></p></td>
 <td><p>773349</p></td>

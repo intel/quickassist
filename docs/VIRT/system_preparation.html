@@ -142,21 +142,28 @@
 </div>
 <p>If the parameters are not defined, the <code class="docutils literal notranslate"><span class="pre">grubby</span></code> command can be used to add the parameters. Reboot the system after adding the kernel parameters,
 and verify they are correct with the above command.</p>
-<p>For SR-IOV:</p>
+<p><strong>Grubby Instructions:</strong></p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">grubby --update-kernel=ALL --args=&quot;intel_iommu=on&quot;</span>
 </pre></div>
 </div>
-</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><code class="docutils literal notranslate"><span class="pre">grubby</span> <span class="pre">--remove-args</span></code> argument can be used to remove any arguments that are not required.</p>
 </div>
 </div></blockquote>
+<p><strong>Non-grubby Instructions:</strong></p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo sed -i &#39;s/^\(GRUB_CMDLINE_LINUX_DEFAULT=&quot;[^&quot;]*\)/\1 intel_iommu=on/&#39; /etc/default/grub</span>
+<span class="go">sudo update-grub</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div></blockquote>
 </li>
 <li><p>Once the system is restarted, <strong>check</strong> the DMAR and IOMMU messages using the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dmesg | grep -e DMAR -e IOMMU</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dmesg | grep -e DMAR -e IOMMU</span>
 </pre></div>
 </div>
 <p>You should see a similar output as below:</p>
@@ -205,26 +212,96 @@ be used.</p></td>
 <section id="install-virtualization-packages">
 <h2>Install Virtualization Packages<a class="headerlink" href="#install-virtualization-packages" title="Permalink to this heading"></a></h2>
 <ol class="arabic">
-<li><p><strong>Install</strong> virtualization related packages using the following command:</p>
+<li><p><strong>Setup</strong> Virtualization:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">dnf -y install qemu-kvm libvirt</span>
+<div><p><strong>RHEL/CentOS/Fedora</strong></p>
+<blockquote>
+<div><ul class="simple">
+<li><p><strong>Update</strong> the package list:</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>update
+</pre></div>
+</div>
+<ul class="simple">
+<li><p><strong>Install</strong> virtualization-related packages using the following command:</p></li>
+</ul>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>dnf<span class="w"> </span>-y<span class="w"> </span>install<span class="w"> </span>qemu-kvm<span class="w"> </span>libvirt
+</pre></div>
+</div>
+</div></blockquote>
+<p><strong>Debian/Ubuntu</strong></p>
+<blockquote>
+<div><ul>
+<li><p><strong>Update</strong> the package list:</p>
+<blockquote>
+<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>update
 </pre></div>
 </div>
 </div></blockquote>
 </li>
-<li><p><strong>Verify</strong> device capabilities using below command:</p>
+<li><p><strong>Install</strong> virtualization-related packages:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp gp-VirtualEnv">(lspci -vnd 8086:4940 || lspci -vnd 8086:4942 || lspci -vnd 8086:4944 || lspci -vnd 8086:4946 )</span> <span class="go">| (grep SR-IOV)</span>
+<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>qemu-kvm<span class="w"> </span>libvirt-daemon-system<span class="w"> </span>libvirt-clients<span class="w"> </span>bridge-utils
 </pre></div>
 </div>
-<figure class="align-default">
-<a class="reference internal image-reference" href="../_images/lspci_virt_capabilities.png"><img alt="../_images/lspci_virt_capabilities.png" src="../_images/lspci_virt_capabilities.png" style="width: 6.5in; height: 3.31736in;" /></a>
-</figure>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul class="simple">
-<li><p>For <em>SR-IOV</em>, <code class="docutils literal notranslate"><span class="pre">Single</span> <span class="pre">Root</span> <span class="pre">I/O</span> <span class="pre">Virtualization</span> <span class="pre">(SR-IOV)</span></code> needs to be present.</p></li>
+</div></blockquote>
+</li>
 </ul>
+</div></blockquote>
+<p><strong>Common Steps</strong></p>
+<p>The following steps are common for both RHEL/CentOS/Fedora and Debian/Ubuntu:</p>
+<blockquote>
+<div><ul>
+<li><p><strong>Add</strong> your user to the <cite>libvirt</cite> and <cite>kvm</cite> groups:</p>
+<blockquote>
+<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>libvirt<span class="w"> </span><span class="k">$(</span>whoami<span class="k">)</span>
+sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>kvm<span class="w"> </span><span class="k">$(</span>whoami<span class="k">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Enable</strong> and start the <cite>libvirtd</cite> service:</p>
+<blockquote>
+<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span><span class="nb">enable</span><span class="w"> </span>libvirtd
+sudo<span class="w"> </span>systemctl<span class="w"> </span>start<span class="w"> </span>libvirtd
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Verify</strong> that the <cite>libvirtd</cite> service is running:</p>
+<blockquote>
+<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>libvirtd
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>log</strong> back in to apply the group changes:</p>
+<blockquote>
+<div><div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>su<span class="w"> </span>-l<span class="w"> </span><span class="nv">$USER</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ul>
+</div></blockquote>
+</div></blockquote>
+</li>
+<li><p><strong>Verify</strong> device capabilities using below command:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">for id in 4940 4942 4944 4946; do sudo lspci -vnd 8086:$id; done | grep SR-IOV</span>
+</pre></div>
+</div>
+<p>The output will look similar to:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span><span class="k">for</span><span class="w"> </span>id<span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="m">4940</span><span class="w"> </span><span class="m">4942</span><span class="w"> </span><span class="m">4944</span><span class="w"> </span><span class="m">4946</span><span class="p">;</span><span class="w"> </span><span class="k">do</span><span class="w"> </span>sudo<span class="w"> </span>lspci<span class="w"> </span>-vnd<span class="w"> </span><span class="m">8086</span>:<span class="nv">$id</span><span class="p">;</span><span class="w"> </span><span class="k">done</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>SR-IOV
+<span class="go">Capabilities: [150] Single Root I/O Virtualization (SR-IOV)</span>
+<span class="go">Capabilities: [150] Single Root I/O Virtualization (SR-IOV)</span>
+<span class="go">Capabilities: [150] Single Root I/O Virtualization (SR-IOV)</span>
+<span class="go">Capabilities: [150] Single Root I/O Virtualization (SR-IOV)</span>
+<span class="go">Capabilities: [150] Single Root I/O Virtualization (SR-IOV)</span>
+<span class="go">Capabilities: [150] Single Root I/O Virtualization (SR-IOV)</span>
+<span class="go">Capabilities: [150] Single Root I/O Virtualization (SR-IOV)</span>
+<span class="go">Capabilities: [150] Single Root I/O Virtualization (SR-IOV)</span>
+</pre></div>
 </div>
 </div></blockquote>
 </li>

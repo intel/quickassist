@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reliability, Availability, and Stability (RAS) &mdash; Intel® QuickAssist Technology  documentation</title>
+  <title>Reliability, Availability, and Serviceability (RAS) &mdash; Intel® QuickAssist Technology  documentation</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
@@ -56,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in_tree_vs_oot.html">In-Tree vs. Out-of-Tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_queue_pairs.html">Queues and Queue Pairs</a></li>
@@ -68,7 +69,7 @@
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_device_telemetry.html">Telemetry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_ratelimiting.html">Rate Limiting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_power_management.html">Power Management</a></li>
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Reliability, Availability, and Stability (RAS)</a><ul>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Reliability, Availability, and Serviceability (RAS)</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#ras-usage">RAS Usage</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#aer-errors">AER Errors</a></li>
 </ul>
@@ -109,7 +110,7 @@
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
           <li class="breadcrumb-item"><a href="infrastructure_index.html">Infrastructure</a></li>
-      <li class="breadcrumb-item active">Reliability, Availability, and Stability (RAS)</li>
+      <li class="breadcrumb-item active">Reliability, Availability, and Serviceability (RAS)</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -118,9 +119,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="reliability-availability-and-stability-ras">
-<span id="qat-2-0-pg-infrastructure-ras"></span><h1>Reliability, Availability, and Stability (RAS)<a class="headerlink" href="#reliability-availability-and-stability-ras" title="Permalink to this heading"></a></h1>
-<p>The RAS feature goal is to support the acceleration devices Reliability, Availability and Stability by handling the error interrupts initiated
+  <section id="reliability-availability-and-serviceability-ras">
+<span id="qat-2-0-pg-infrastructure-ras"></span><h1>Reliability, Availability, and Serviceability (RAS)<a class="headerlink" href="#reliability-availability-and-serviceability-ras" title="Permalink to this heading"></a></h1>
+<p>The RAS feature goal is to support the acceleration devices Reliability, Availability and Serviceability by handling the error interrupts initiated
 by the device.</p>
 <div class="line-block">
 <div class="line">Additionally the types of errors are counted and the counters made available via sysfs.</div>
@@ -161,7 +162,7 @@ Restarting the device is required.</p>
 </tr>
 </tbody>
 </table>
-<p>The RAS sysfs files are located at <code class="docutils literal notranslate"><span class="pre">/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/ras_X</span></code>
+<p>The RAS sysfs files are located at <code class="docutils literal notranslate"><span class="pre">/sys/bus/pci/devices/AAAA:BB:CC.D/ras_X</span></code>
 where:</p>
 <blockquote>
 <div><ul class="simple">
@@ -177,7 +178,7 @@ where:</p>
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>RAS is enabled by default when the device is initialised.</p>
+<p>RAS is enabled by default when the device is initialized.</p>
 </div>
 </section>
 <section id="aer-errors">
@@ -201,13 +202,13 @@ where:</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">aer_dev_correctable</span></code> counter is incremented in sysfs.</p>
 </td>
 </tr>
-<tr class="row-odd"><td><p>AER Uncorrectable</p></td>
+<tr class="row-odd"><td><p>AER Non-Fatal</p></td>
 <td><p>Software intervention is needed to resolve the error.
 In the case of an error caused by a transaction failure or
 for instance a packet memory buffer that can’t be restored
 by ECC, then the device will need to reset in order to
 retry the transaction and attempt recovery.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">aer_dev_uncorrectable</span></code> counter is incremented in sysfs.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">aer_dev_nonfatal</span></code> counter is incremented in sysfs.</p>
 </td>
 </tr>
 <tr class="row-even"><td><p>AER Fatal</p></td>
@@ -236,6 +237,58 @@ where:</p>
 <p class="admonition-title">Important</p>
 <p>AER reporting must be enabled in the BIOS to have errors reported through AER.</p>
 </div>
+<section id="aer-error-injection-testing">
+<h3>AER Error Injection Testing<a class="headerlink" href="#aer-error-injection-testing" title="Permalink to this heading"></a></h3>
+<p>To conduct PCI Error Injection with AER, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Kernel Configuration</strong>:</p>
+<p>Ensure the kernel is compiled with <cite>CONFIG_PCIEAER_INJECT=m</cite> to obtain the <cite>aer_inject.ko</cite> module.</p>
+</li>
+<li><p><strong>Enable Linux Native PCIe Interrupt Handler</strong>:</p>
+<p>Update the kernel parameters to use native PCIe interrupt handling:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>grubby<span class="w"> </span>--update-kernel<span class="o">=</span>/boot/vmlinuz-<span class="k">$(</span>uname<span class="w"> </span>-r<span class="k">)</span><span class="w"> </span>--args<span class="o">=</span><span class="s2">&quot;pcie_ports=native&quot;</span>
+sudo<span class="w"> </span>reboot
+</pre></div>
+</div>
+</li>
+<li><p><strong>Load AER Inject Kernel Module</strong>:</p>
+<p>Load the <cite>aer_inject</cite> module to enable the <cite>/dev/aer_inject</cite> interface:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>modprobe<span class="w"> </span>aer_inject
+</pre></div>
+</div>
+</li>
+<li><p><strong>Clone and Compile User Space Tool</strong>:</p>
+<p>Clone the <cite>aer-inject</cite> repository and compile the user space tool to inject errors:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://git.kernel.org/pub/scm/linux/kernel/git/gong.chen/aer-inject.git
+<span class="nb">cd</span><span class="w"> </span>aer-inject
+make<span class="w"> </span>-j
+</pre></div>
+</div>
+</li>
+<li><p><strong>Inject Errors</strong>:</p>
+<p>Assuming QAT is loaded, use the <cite>aer-inject</cite> tool to inject errors. Adjust the PCIe address to match your environment:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>./aer-inject<span class="w"> </span>--id<span class="w"> </span>6b:00.0<span class="w"> </span>./examples/nonfatal
+</pre></div>
+</div>
+<p>After error injection, only the PCIe AER error counters will increase (e.g., <cite>/sys/bus/pci/devices/0000:6b:00.0/aer_dev_correctable</cite> or <cite>aer_dev_nonfatal</cite>). QAT RAS error counters will not increase.</p>
+<p>You may observe a message in <cite>dmesg</cite> such as:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>AER: Uncorrected (Non-Fatal) error received: 0000:6b:00.0
+</pre></div>
+</div>
+</li>
+</ol>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The AER injection test focuses on two levels of errors:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><strong>PCIe Interface Errors</strong>: These involve testing the PCIe interface through PCIe AER testing, including Fatal, Non-fatal, correctable, and non-correctable errors. This level of testing can be conducted by customers using the AER injection tools.</p></li>
+<li><p><strong>Low-Level Errors</strong>: These target specific hardware components such as slices, bus, and memory parity. This type of testing may require specialized hardware configurations or access to specific CPU parts that are not generally available outside of Intel.</p></li>
+</ol>
+</div></blockquote>
+<p>The PCIe AER testing is designed to simulate errors at the PCIe interface level, which can help identify and address issues related to PCIe communication and error handling.</p>
+</div>
+</section>
 </section>
 </section>
 

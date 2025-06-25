@@ -56,6 +56,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in_tree_vs_oot.html">In-Tree vs. Out-of-Tree</a></li>
 <li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a><ul class="current">
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_queue_pairs.html">Queues and Queue Pairs</a></li>
@@ -78,7 +79,7 @@
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_device_telemetry.html">Telemetry</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_ratelimiting.html">Rate Limiting</a></li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_power_management.html">Power Management</a></li>
-<li class="toctree-l3"><a class="reference internal" href="infrastructure_ras.html">Reliability, Availability, and Stability (RAS)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="infrastructure_ras.html">Reliability, Availability, and Serviceability (RAS)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
@@ -152,6 +153,15 @@
 <li><p>It can be a user application that uses Intel<sup>®</sup> QAT services, or a separate management/control plane process.</p></li>
 <li><p>In virtualized environment, monitoring process(es)/thread(s) must run in the context of the host or hypervisor.</p></li>
 </ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>When performing heartbeat checks, such as executing <cite>cat /sys/kernel/debug/&lt;device&gt;/heartbeat</cite> or calling APIs like <cite>icp_sal_check_all_devices(void)</cite> or
+<cite>icp_sal_check_device(Cpa32U accelId)</cite>, be aware that these actions may result in the silent clearing of the BusMaster, which disables QAT DMA operations.
+Disabling PCIe Bus Master is done to put the QAT device in a safe state to prevent the possibility of additional data corruption.
+This behavior can lead to unexpected QAT device hangs if a simulated or incorrectly detected heartbeat failure triggers BusMaster clearing.</p>
+<p>Users should ensure that heartbeat monitoring is performed with an understanding of the potential impact on BusMaster status, especially when configuring
+monitoring frequencies or using failure simulation tools.</p>
+</div>
 </section>
 <section id="resetting-a-failed-device">
 <h3>Resetting a Failed Device<a class="headerlink" href="#resetting-a-failed-device" title="Permalink to this heading"></a></h3>

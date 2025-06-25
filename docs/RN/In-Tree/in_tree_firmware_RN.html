@@ -130,7 +130,7 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <p class="admonition-title">Note</p>
 <p>Your firmware may be in a compressed <code class="docutils literal notranslate"><span class="pre">.xz</span></code> filetype. Decompress first using the <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">xz</span> <span class="pre">--decompress</span> <span class="pre">compressed_file_filename.xz</span></code> command.</p>
 </div>
-<p>To detect which firmware version is on a platform or running in a device, see the below commands. Change to the appropriate directory (i.e. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">usr/lib/firmware/</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">to</span> <span class="pre">[QAT_DIR]/quickassist/qat/fw/</span></code> ) and use the appropriate command for your hardware:</p>
+<p>To detect which firmware version is on a platform or running in a device, see the below commands. Change to the appropriate directory (i.e. <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">/usr/lib/firmware/</span></code> or <code class="docutils literal notranslate"><span class="pre">cd</span> <span class="pre">to</span> <span class="pre">[QAT_DIR]/quickassist/qat/fw/</span></code> ) and use the appropriate command for your hardware:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_4xxx*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
 </pre></div>
 </div>
@@ -144,6 +144,12 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 </pre></div>
 </div>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_c62x*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_d15xx*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">strings qat_c4xxx*   | grep -oP &#39;Firmware version: \K[0-9]+\.[0-9]+\.[0-9]+&#39;</span>
 </pre></div>
 </div>
 <div class="admonition note">
@@ -181,25 +187,25 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <td><p>1.2.40</p></td>
 <td><p>b82b6faf0d1da97b78d2ec3b78cbdb3f769cbb1339227b82025d0f2ca4857037</p></td>
 <td><p>2024-07-12</p></td>
-<td><p>Intel® Xeon® 6 - SRF - GR</p></td>
+<td><p>Intel® Xeon® 6 - SRF - GNR</p></td>
 </tr>
 <tr class="row-even"><td><p>qat_402xx_mmp.bin</p></td>
 <td><p>1.2.40</p></td>
 <td><p>e08d6fa7ee7079e6eaa06f1b92dbfcf7cc60f8a6ec6894710ec1001388bd6d57</p></td>
 <td><p>2024-07-12</p></td>
-<td><p>Intel® Xeon® 6 - SRF - GR</p></td>
+<td><p>Intel® Xeon® 6 - SRF - GNR</p></td>
 </tr>
 <tr class="row-odd"><td><p>qat_420xx.bin</p></td>
 <td><p>0.9.0</p></td>
 <td><p>32f0d78fd739a392dc9cd1be0de1ad4f014137ed0cd44bcb1857101f80b681e8</p></td>
 <td><p>2025-03-11</p></td>
-<td><p>Intel® Xeon® 6 - GR-D</p></td>
+<td><p>Intel® Xeon® 6 - GNR-D</p></td>
 </tr>
 <tr class="row-even"><td><p>qat_420xx_mmp.bin</p></td>
 <td><p>0.9.0</p></td>
 <td><p>db264ee400c2c42fb2b4ce0f7675e142810f3ce4a01da70a8ce91f5a0b838d6b</p></td>
 <td><p>2025-03-11</p></td>
-<td><p>Intel® Xeon® 6 - GR-D</p></td>
+<td><p>Intel® Xeon® 6 - GNR-D</p></td>
 </tr>
 <tr class="row-odd"><td><p>qat_4xxx.bin</p></td>
 <td><p>1.1.20</p></td>
@@ -248,6 +254,30 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <td><p>52bfda93819413807c7be56baf69f0b5f07a4be067ce9c69e61bf78bb395d1da</p></td>
 <td><p>2023-04-18</p></td>
 <td><p>Intel® C62x Chipset</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat_d15xx.bin</p></td>
+<td><p>4.9.0</p></td>
+<td><p>4045438198416dcfcf8efc58151c7d3c282b23e970960acf666969a257d59c87</p></td>
+<td><p>2023-09-05</p></td>
+<td><p>Intel Xeon® Processor D1500</p></td>
+</tr>
+<tr class="row-even"><td><p>qat_d15xx_mmp.bin</p></td>
+<td><p>N/A</p></td>
+<td><p>e716abf6dde6ff78b8063420ea9efee63d262db87fd4c94790fa946b3096005e</p></td>
+<td><p>2023-09-05</p></td>
+<td><p>Intel Xeon® Processor D1500</p></td>
+</tr>
+<tr class="row-odd"><td><p>qat_c4xxx.bin</p></td>
+<td><p>5.1.0</p></td>
+<td><p>5e24efa1e482f69f73b9115fe974701cf992e79a1d6d38b9d6fb34b90a09d807</p></td>
+<td><p>2023-09-05</p></td>
+<td><p>Intel Atom® Processor P5000</p></td>
+</tr>
+<tr class="row-even"><td><p>qat_c4xxx_mmp.bin</p></td>
+<td><p>N/A</p></td>
+<td><p>2dee3a3f2a4e700b156a35b94635327aca7f29cad15fc276f70c8a2ca31e3ee9</p></td>
+<td><p>2023-09-05</p></td>
+<td><p>Intel Atom® Processor P5000</p></td>
 </tr>
 </tbody>
 </table>
