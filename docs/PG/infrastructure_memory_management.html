@@ -66,7 +66,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#dma-able-memory">DMA-able Memory</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#memory-type-determination">Memory Type Determination</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#buffer-formats">Buffer Formats</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#huge-pages">Huge Pages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#huge-pages-hugepages">Huge Pages (Hugepages)</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_modes_of_operation.html">Modes of Operation</a></li>
@@ -261,14 +261,16 @@ similar to the <code class="docutils literal notranslate"><span class="pre">CpaB
 buffers are represented using physical rather than virtual addresses.</p>
 </section>
 </section>
-<section id="huge-pages">
-<h2>Huge Pages<a class="headerlink" href="#huge-pages" title="Permalink to this heading"></a></h2>
-<p>The included User space DMAable Memory driver <code class="docutils literal notranslate"><span class="pre">usdm_drv.ko</span></code> supports 2MB pages. This allows direct access to
-main memory by devices other than the CPU and the actual supported maximum memory size in one individual allocation
-when huge pages is enabled is 2MB - 5KB. Where the 5KB is used for memory management for the memory driver. The use
-of 2MB pages provides benefits, but also requires additional configuration. Use of this capability assumes that a
-sufficient number of huge pages are allocated in the operating system for the particular use case and configuration.</p>
-<p>Here are some example use cases:</p>
+<section id="huge-pages-hugepages">
+<h2>Huge Pages (Hugepages)<a class="headerlink" href="#huge-pages-hugepages" title="Permalink to this heading"></a></h2>
+<p>The included User space DMAable Memory driver USDM supports 2MB pages. This allows direct access to main memory by devices other than the CPU.
+However, the actual supported maximum memory size in one individual allocation when huge pages are enabled is slightly less than the full 2MB page size,
+specifically 2MB - 5KB. The 5KB is reserved for memory management purposes by the memory driver itself, leaving 2MB - 5KB available for actual data storage.
+The use of 2MB pages provides benefits, but also requires additional configuration. Use of this capability assumes that a sufficient number of huge pages
+are allocated in the operating system for the particular use case and configuration.</p>
+<section id="out-of-tree-example-use-cases">
+<h3>Out-Of-Tree Example Use cases<a class="headerlink" href="#out-of-tree-example-use-cases" title="Permalink to this heading"></a></h3>
+<p>Here are some example use cases that apply to the USDM driver included with the Out-Of-Tree package:</p>
 <ul>
 <li><p>Default settings applied:</p>
 <blockquote>
@@ -324,6 +326,7 @@ sufficient number of huge pages are allocated in the operating system for the pa
 <p class="admonition-title">Note</p>
 <p>The use of huge pages may not be supported for all use cases. For instance, depending on the driver version, some limitations may exist for an Input/Output Memory Management Unit (IOMMU).</p>
 </div>
+</section>
 </section>
 </section>
 

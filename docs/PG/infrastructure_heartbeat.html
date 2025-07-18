@@ -69,7 +69,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#heartbeat-operation">Heartbeat Operation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#incorporating-heartbeat-into-intel-qat-applications">Incorporating Heartbeat into Intel<sup>®</sup> QAT Applications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#restart-sequence">Restart Sequence</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#status-of-packets-in-flight-crypto-applications-only">Status of Packets in Flight (Crypto Applications Only)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#status-of-packets-in-flight">Status of Packets in Flight</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#determining-device-id">Determining Device ID</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#testing-heartbeat">Testing Heartbeat</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#handling-device-failures-in-a-virtualized-environment">Handling Device Failures in a Virtualized Environment</a></li>
@@ -139,12 +139,10 @@
 <h3>Heartbeat Monitoring<a class="headerlink" href="#heartbeat-monitoring" title="Permalink to this heading"></a></h3>
 <p>Heartbeat check/monitoring refers to invocation of one of the two API calls that checks if the device is responsive. Heartbeat failure refers the API returning failure.</p>
 <p>The Intel<sup>®</sup> QAT driver does not monitor for Heartbeat. It should be initiated by a Heartbeat management thread calling one of the following APIs periodically:</p>
-<blockquote>
-<div><ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">icp_sal_check_device(Cpa32U</span> <span class="pre">accelId)</span></code></p></li>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">icp_sal_check_device(Cpa32U</span> <span class="pre">packageId)</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices(void)</span></code></p></li>
 </ul>
-</div></blockquote>
 <p>A failure return code implies the device has failed or hung.</p>
 <p>The Heartbeat management thread should satisfy the following conditions:</p>
 <ul class="simple">
@@ -155,8 +153,8 @@
 </ul>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>When performing heartbeat checks, such as executing <cite>cat /sys/kernel/debug/&lt;device&gt;/heartbeat</cite> or calling APIs like <cite>icp_sal_check_all_devices(void)</cite> or
-<cite>icp_sal_check_device(Cpa32U accelId)</cite>, be aware that these actions may result in the silent clearing of the BusMaster, which disables QAT DMA operations.
+<p>When performing heartbeat checks, such as executing <cite>cat /sys/kernel/debug/&lt;device&gt;/heartbeat</cite> or calling APIs like <cite>icp_sal_check_all_devices()</cite> or
+<cite>icp_sal_check_device()</cite>, be aware that these actions may result in the silent clearing of the BusMaster, which disables QAT DMA operations.
 Disabling PCIe Bus Master is done to put the QAT device in a safe state to prevent the possibility of additional data corruption.
 This behavior can lead to unexpected QAT device hangs if a simulated or incorrectly detected heartbeat failure triggers BusMaster clearing.</p>
 <p>Users should ensure that heartbeat monitoring is performed with an understanding of the potential impact on BusMaster status, especially when configuring
@@ -165,10 +163,12 @@ monitoring frequencies or using failure simulation tools.</p>
 </section>
 <section id="resetting-a-failed-device">
 <h3>Resetting a Failed Device<a class="headerlink" href="#resetting-a-failed-device" title="Permalink to this heading"></a></h3>
-<p>A device can be configured for automatic reset by the Intel<sup>®</sup> QAT framework or manually reset by the application by using the <code class="docutils literal notranslate"><span class="pre">AutoResetOnError</span></code> field in the device
-configuration file <code class="docutils literal notranslate"><span class="pre">/etc/&lt;device&gt;.conf</span></code>, as shown below.</p>
-<table class="longtable docutils align-default" id="id2">
-<caption><span class="caption-text">AutoResetOnError Values</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<p>A device can be configured for automatic reset by the Intel<sup>®</sup> QAT framework or manually reset by the application. The configuration differs based on whether the device is using the out-of-tree (OOT) driver or the in-tree kernel driver.</p>
+<section id="out-of-tree-oot-driver">
+<h4>Out-of-Tree (OOT) Driver<a class="headerlink" href="#out-of-tree-oot-driver" title="Permalink to this heading"></a></h4>
+<p>For devices using the OOT driver, the <code class="docutils literal notranslate"><span class="pre">AutoResetOnError</span></code> field in the device configuration file <code class="docutils literal notranslate"><span class="pre">/etc/&lt;device&gt;.conf</span></code> can be used to configure automatic reset, as shown below.</p>
+<table class="longtable docutils align-default" id="id3">
+<caption><span class="caption-text">AutoResetOnError Values</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 46%" />
 <col style="width: 54%" />
@@ -187,9 +187,19 @@ configuration file <code class="docutils literal notranslate"><span class="pre">
 </tr>
 </tbody>
 </table>
-<p>If an Intel<sup>®</sup> QAT device is not configured for automatic reset, the management thread should reset it using the <code class="docutils literal notranslate"><span class="pre">icp_sal_reset_device(Cpa32U</span> <span class="pre">accelId)</span></code> API.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_reset_device()</span></code> function starts an asynchronous reset sequence and returns immediately. The reset function should not be called again until the device has completed the reset to avoid a reset storm. The <code class="docutils literal notranslate"><span class="pre">icp_sal_check_device(&lt;device</span> <span class="pre">id&gt;)</span></code> function could be called in a loop to check if the device reset is still in progress.</p>
+<p>If an Intel<sup>®</sup> QAT device is not configured for automatic reset, the management thread should reset it using the <code class="docutils literal notranslate"><span class="pre">icp_sal_reset_device()</span></code> API.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_reset_device()</span></code> function starts an asynchronous reset sequence and returns immediately. The reset function should not be called again until the device has completed the reset to avoid a reset storm. The <code class="docutils literal notranslate"><span class="pre">icp_sal_check_device()</span></code> function could be called in a loop to check if the device reset is still in progress.</p>
 <p>If the application devices are all configured for automatic reset then the <code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices()</span></code> function could be used; otherwise, the function should not be used because it does not return the identity of the failed device, which is a required parameter for the <code class="docutils literal notranslate"><span class="pre">icp_sal_reset_device()</span></code> function.</p>
+</section>
+<section id="in-tree-kernel-driver">
+<h4>In-Tree Kernel Driver<a class="headerlink" href="#in-tree-kernel-driver" title="Permalink to this heading"></a></h4>
+<p>For devices using the in-tree kernel driver, automatic reset configuration is managed through the sysfs interface. The path will be similar to:</p>
+<blockquote>
+<div><p><code class="docutils literal notranslate"><span class="pre">/sys/bus/pci/devices/0000:05:00.0/qat/auto_reset</span></code></p>
+</div></blockquote>
+<p>The automatic reset applies to PCIe errors as well as Heartbeat errors. For more detailed information, refer to the official documentation at:
+<a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/herbert/cryptodev-2.6.git/tree/Documentation/ABI/testing/sysfs-driver-qat">sysfs-driver-qat</a></p>
+</section>
 <section id="function-signatures">
 <h4>Function Signatures<a class="headerlink" href="#function-signatures" title="Permalink to this heading"></a></h4>
 <p>The details of the above functions, parameters, and return values can be found in <a class="reference internal" href="apis_additional_apis_index.html#qat-2-0-pg-supported-apis-additional-apis"><span class="std std-ref">Supported APIs &gt; Additional APIs</span></a>.</p>
@@ -208,17 +218,15 @@ configuration file <code class="docutils literal notranslate"><span class="pre">
 <li><p>The first is a management task to monitor the devices for failure or hang and then resets them, when required. As discussed earlier, this could be an application thread of an independent management process.</p></li>
 <li><p>The second task is an application thread that polls for device reset events:</p>
 <ul>
+<li><p>Device encountered error:  <code class="docutils literal notranslate"><span class="pre">CPA_INSTANCE_EVENT_FATAL_ERROR</span></code></p></li>
 <li><p>Device is restarting: <code class="docutils literal notranslate"><span class="pre">CPA_INSTANCE_EVENT_RESTARTING</span></code></p></li>
 <li><p>Device restart is complete: <code class="docutils literal notranslate"><span class="pre">CPA_INSTANCE_EVENT_RESTARTED</span></code></p></li>
 </ul>
 </li>
 </ul>
-<p>If the application employs polling to receive Intel<sup>®</sup> QAT
-service responses, then this task could be included in the same polling
-loop.</p>
+<p>If the application employs polling to receive Intel<sup>®</sup> QAT service responses, then this task could be included in the same polling loop.</p>
 <p>The polling for device events is done using the API: <code class="docutils literal notranslate"><span class="pre">icp_sal_poll_device_events()</span></code>.</p>
-<p>The two callback functions for crypto and compression are registered
-using the following APIs:</p>
+<p>The two callback functions for crypto and compression are registered using the following APIs. If an event occurs, the poll will trigger callbacks registered by these APIs:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">cpaCyInstanceSetNotificationCb</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cpaDcInstanceSetNotificationCb</span></code></p></li>
@@ -247,16 +255,24 @@ using the following APIs:</p>
 <li><p>The user space driver allocates the memory and rings and then forwards the device Restarted event to each of the registered instances.</p></li>
 </ol>
 </section>
-<section id="status-of-packets-in-flight-crypto-applications-only">
-<h2>Status of Packets in Flight (Crypto Applications Only)<a class="headerlink" href="#status-of-packets-in-flight-crypto-applications-only" title="Permalink to this heading"></a></h2>
+<section id="status-of-packets-in-flight">
+<h2>Status of Packets in Flight<a class="headerlink" href="#status-of-packets-in-flight" title="Permalink to this heading"></a></h2>
 <p>When a device has fatal errors, the application ordinarily cannot determine whether or not inflight requests have been processed successfully.</p>
-<p>The current Intel<sup>®</sup> QAT release includes a dummy response feature that creates mock responses to all requests submitted during a fatal error condition, so the application can detect them and, therefore, know which requests need to be resubmitted to the available devices or to the software.</p>
+<p>The Intel® QAT release includes a dummy response feature that creates mock responses to all requests submitted during a fatal error condition, so the application can detect them and, therefore, know which requests need to be resubmitted to the available devices or to the software.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The sequence of dummy responses will match the sending request sequence for all requests submitted during a fatal error.</p>
 </div>
-<p>Since the dummy response feature only supports Public Key Encryption (PKE), dummy responses may be generated only when the <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPollInstance()</span></code> function is called, since it is the function for crypto services.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_poll_device_events()</span></code> function should also be called by the application, so that the application get a notification when the device encounters a failure and dummy responses are generated when calling <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPollInstance()</span></code> for the inflight requests.</p>
+<section id="crypto-applications">
+<h3>Crypto Applications<a class="headerlink" href="#crypto-applications" title="Permalink to this heading"></a></h3>
+<p>The dummy response feature supports both Public Key Encryption (PKE) and symmetric crypto. Dummy responses may be generated when the <cite>icp_sal_CyPollInstance()</cite> function is called, since it is the function for crypto services.</p>
+<p>The <cite>icp_sal_poll_device_events()</cite> function should also be called by the application, so that the application gets a notification when the device encounters a failure and dummy responses are generated when calling <cite>icp_sal_CyPollInstance()</cite> for the inflight requests.</p>
+</section>
+<section id="compression-applications">
+<h3>Compression Applications<a class="headerlink" href="#compression-applications" title="Permalink to this heading"></a></h3>
+<p>The dummy response feature also supports compression services. Dummy responses may be generated when the <cite>icp_sal_DcPollInstance()</cite> function is called, as it handles compression services.</p>
+<p>The <cite>icp_sal_poll_device_events()</cite> function remains essential for applications to receive notifications of device failures and the generation of dummy responses for inflight requests.</p>
+</section>
 </section>
 <section id="determining-device-id">
 <h2>Determining Device ID<a class="headerlink" href="#determining-device-id" title="Permalink to this heading"></a></h2>
@@ -265,7 +281,7 @@ using the following APIs:</p>
 </pre></div>
 </div>
 <p>The output will look like:</p>
-<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>There is 1 QAT acceleration device(s) in the system: qat_dev0 - type: c3xxx, inst_id: 0, node_id: 0, bsf: 01:00.0, #accel: 3 #engines: 6 state: up
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>There is 1 QAT acceleration device(s) in the system: qat_dev0 - type: 4xxx,  inst_id: 0,  node_id: 0,  bsf: 0000:76:00.0,  #accel: 1 #engines: 9 state: up
 </pre></div>
 </div>
 <p>The Intel<sup>®</sup> QAT library has no API to discover the device number easily. However, an application can use the IOCTLs <code class="docutils literal notranslate"><span class="pre">IOCTL_GET_NUM_DEVICES</span></code>
@@ -280,14 +296,16 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </ul>
 <section id="simulated-heartbeat-failure-configuration">
 <h3>Simulated Heartbeat Failure Configuration<a class="headerlink" href="#simulated-heartbeat-failure-configuration" title="Permalink to this heading"></a></h3>
-<p>The Heartbeat feature is always enabled in the package. However, a debug capability that simulates device failure can be enabled during the configure step as follows:</p>
+<p>The Heartbeat feature is always enabled in the package. However, debug capabilities that simulate device failure can be configured differently for Out-Of-Tree and In-Tree drivers.</p>
+<section id="out-of-tree-driver">
+<h4>Out-Of-Tree Driver<a class="headerlink" href="#out-of-tree-driver" title="Permalink to this heading"></a></h4>
+<p>For the Out-Of-Tree driver, enable the simulation of device failure during the configure step as follows:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-icp-hb-fail-sim</span>
 </pre></div>
 </div>
-</section>
 <section id="simulating-heartbeat-failure">
-<h3>Simulating Heartbeat Failure<a class="headerlink" href="#simulating-heartbeat-failure" title="Permalink to this heading"></a></h3>
-<p>Simulating Heartbeat failure can be accomplished using two methods:</p>
+<h5>Simulating Heartbeat Failure<a class="headerlink" href="#simulating-heartbeat-failure" title="Permalink to this heading"></a></h5>
+<p>Simulating Heartbeat failure for the Out-Of-Tree driver can be accomplished using two methods:</p>
 <ul>
 <li><p>Using the API <code class="docutils literal notranslate"><span class="pre">icp_sal_heartbeat_simulate_failure(&lt;device</span> <span class="pre">id&gt;)</span></code>.</p></li>
 <li><p>Executing the command:</p>
@@ -296,8 +314,28 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </div>
 </li>
 </ul>
+</section>
+</section>
+<section id="in-tree-driver">
+<h4>In-Tree Driver<a class="headerlink" href="#in-tree-driver" title="Permalink to this heading"></a></h4>
+<p>For the In-Tree driver, configure the QATlib to support heartbeat simulation failures during the configure step as follows:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-hb-error-simulation</span>
+</pre></div>
+</div>
+<section id="id1">
+<h5>Simulating Heartbeat Failure<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h5>
+<p>Simulating Heartbeat failure for the In-Tree driver can be accomplished using the following method:</p>
+<ul>
+<li><p>Execute the command:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo 1 &gt; /sys/kernel/debug/qat_&lt;device_id&gt;/heartbeat/inject_error</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</section>
+</section>
 <section id="system-virtual-files">
-<span id="id1"></span><h4>System Virtual Files<a class="headerlink" href="#system-virtual-files" title="Permalink to this heading"></a></h4>
+<span id="id2"></span><h4>System Virtual Files<a class="headerlink" href="#system-virtual-files" title="Permalink to this heading"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The heartbeat <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug</span></code> files are associated with the QAT Physical Function (PF).</p>
@@ -306,8 +344,8 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <div class="line">The Heartbeat feature implements the following system virtual files under the <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_&lt;device&gt;_&lt;your_device_BDF&gt;/</span></code> directory.</div>
 <div class="line">For additional details refer to <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/debugfs-driver-qat">debugfs-driver-qat documentation.</a></div>
 </div>
-<table class="longtable docutils align-default" id="id3">
-<caption><span class="caption-text">Heartbeat System Virtual Files</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<table class="longtable docutils align-default" id="id4">
+<caption><span class="caption-text">Heartbeat System Virtual Files</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 24%" />
 <col style="width: 76%" />
@@ -351,7 +389,7 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <li><p>However, since device unresponsiveness should be an infrequent event, high frequency Heartbeat monitoring wastes CPU cycles.</p></li>
 <li><p>Also, if there are large Intel<sup>®</sup> QAT service requests that take some time to complete, high frequency Heartbeat monitoring could result in false reports of unresponsiveness.</p></li>
 <li><p>With QAT Gen4 devices, heartbeat update timer in firmware is a constant value of 200ms (unconfigurable).  With QAT Gen2 devices this value is configurable with configuration item <strong>HeartbeatTimer</strong> (the default value is 500ms and the minimal allowed value is 200ms)</p></li>
-<li><p>For both QAT Gen2 and Gen4 monitoring interval should be larger or equal than the Heartbeat update interval. (e.g. if user configure HeartbeatTimer=300, polling interval should be &gt;=300ms)</p></li>
+<li><p>For both QAT Gen2 and Gen4 monitoring the interval should be greater than or equal to the Heartbeat update interval. (e.g. if user configure HeartbeatTimer=300, polling interval should be &gt;=300ms)</p></li>
 </ul>
 <p><strong>Checking for Device Reset Events</strong></p>
 <p>If the application uses polling for reading Intel<sup>®</sup> QAT service responses, there is no value in checking for resets more frequently. Since device unresponsiveness is an infrequent occurrence, frequency of checking for reset events could be a fraction of the frequency of polling for Intel<sup>®</sup> QAT service responses.</p>
@@ -386,8 +424,8 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <p>The Heartbeat Monitoring Daemon, a single process, is a daemon which is used to check the device status periodically and trigger the driver the reset the device when heartbeat failure happens. Its only activity is calling <code class="docutils literal notranslate"><span class="pre">icp_sal_check_device()</span></code> or <code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices()</span></code> periodically.</p>
 <p>The Intel<sup>®</sup> QAT Engine polls for and handles “device error” and “device ok” events (via udev). It keeps track of the number of devices which are active.</p>
 <ul class="simple">
-<li><p>If some, but not all, Intel<sup>®</sup> QAT devices encounter errors, switch to remaining available devices by resubmitting the inflight requests, which are responded to with dummy responses and new requests to the available devices.</p></li>
-<li><p>If the number of active Intel<sup>®</sup> QAT devices goes to zero, switch to software and resubmit the inflight requests which are responded to with dummy responses and new requests to the software.</p></li>
+<li><p>If some, but not all, Intel<sup>®</sup> QAT devices encounter errors, switch to remaining available devices by resubmitting the inflight requests, which are responded to with dummy responses, as new requests to the available devices.</p></li>
+<li><p>If the number of active Intel<sup>®</sup> QAT devices goes to zero, switch to software and resubmit the inflight requests, which are responded to with dummy responses, as new requests to the software.</p></li>
 <li><p>If the number of active Intel<sup>®</sup> QAT devices goes positive again, switch back to hardware.</p></li>
 </ul>
 <figure class="align-default">

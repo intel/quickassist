@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_a_container.html">Running in a Container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="migrate.html">Migrating Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no_iommu.html">QATlib VFIO no-IOMMU Mode Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
@@ -244,7 +245,7 @@ The following commands set the amount of locked memory to 500MB.</p>
 </pre></div>
 </div>
 <p>For Ubuntu and other Debian-based distros, install these dependencies:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install -y gcc libsystemd-dev automake autoconf libtool</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo apt-get install -y gcc libsystemd-dev automake autoconf libtool autoconf-archive</span>
 <span class="go">sudo apt-get install -y libssl-dev zlib1g-dev nasm libnuma-dev</span>
 </pre></div>
 </div>
@@ -445,11 +446,10 @@ The following commands set the amount of locked memory to 500MB.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<table class="longtable colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">Available Configuration Options</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="docutils align-default">
 <colgroup>
-<col style="width: 40%" />
-<col style="width: 60%" />
+<col style="width: 31%" />
+<col style="width: 69%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
@@ -474,33 +474,34 @@ run along with it.</p></td>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-silent-rules</span></code></p></td>
 <td><p>Verbose build output (undo: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">V=0</span></code>).</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-maintainer-mode</span></code></p></td>
-<td><p>Enables <code class="docutils literal notranslate"><span class="pre">make</span></code> rules and dependencies not
-useful (and sometimes confusing) to the
-casual installer.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dependency-tracking</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dependency-tracking</span></code></p></td>
 <td><p>Does not reject slow dependency extractors.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dependency-tracking</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dependency-tracking</span></code></p></td>
 <td><p>Speeds up one-time build.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-debug</span></code></p></td>
-<td><p>Enables debugging.</p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-systemd</span></code></p></td>
+<td><p>Enable <code class="docutils literal notranslate"><span class="pre">systemd</span></code> support. Set it to <code class="docutils literal notranslate"><span class="pre">No</span></code> to remove
+dependency on systemd (default = <code class="docutils literal notranslate"><span class="pre">yes</span></code>).
+<strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">--enable-service</span></code> should not be used
+in this case.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code></p></td>
-<td><p>Disables parameters checking in the top-level
-APIs (used for performance optimization).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-stats</span></code></p></td>
-<td><p>Disables statistic collection (used for
-performance optimization).</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-fast-crc-in-assembler</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-fast-crc-in-assembler</span></code></p></td>
 <td><p>Force use of C code instead of faster
 assembler implementation of CRC for <em>DC</em>
 <em>integrityCrc</em> feature. Not recommended unless
 <code class="docutils literal notranslate"><span class="pre">nasm</span></code> assembler compiler is unavailable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-debug</span></code></p></td>
+<td><p>Enables debugging.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code></p></td>
+<td><p>Disables parameters checking in the top-level
+APIs (used for performance optimization).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-stats</span></code></p></td>
+<td><p>Disables statistic collection (used for
+performance optimization).</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-log-syslog</span></code></p></td>
 <td><p>Enables debugging messages to be outputted
@@ -512,36 +513,41 @@ to the system log instead of standard output.</p></td>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
 <td><p>Enables Data Compression Error Simulation.</p></td>
 </tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-hb-error-simulation</span></code></p></td>
+<td><p>Enables Heartbeat Error Simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
+<td><p>USDM allocates and handles memory specific to threads (For multi-thread apps, allocated memory
+information will be maintained separately for each thread). [default=no]</p></td>
+</tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-lib-names</span></code></p></td>
 <td><p>Enables legacy names for libraries.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-systemd</span></code></p></td>
-<td><p>Enable <code class="docutils literal notranslate"><span class="pre">systemd</span></code> support. Set it to <code class="docutils literal notranslate"><span class="pre">No</span></code> to remove
-dependency on systemd (default = <code class="docutils literal notranslate"><span class="pre">yes</span></code>).</p>
-<p><strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">--enable-service</span></code> should not be used
-in this case.</p>
-</td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-service</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-service</span></code></p></td>
 <td><p>Automatically creates the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group and
 enables <code class="docutils literal notranslate"><span class="pre">systemd</span></code> service during installation.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-algorithms</span></code></p></td>
-<td><p>Enables deprecated legacy crypto algorithms.</p>
-<p>See the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/README.md#insecure-algorithms">README</a>  for
-the list of algorithms which are deprecated by default.</p>
-</td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-algorithms</span></code></p></td>
+<td><p>Enables deprecated legacy crypto algorithms.
+See the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/README.md#insecure-algorithms">README</a>
+for the list of algorithms which are deprecated by default.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">MAX_MR</span></code></p></td>
-<td><p>Number of Miller Rabin rounds for prime
-operations. Setting this to a smaller value
-reduces the memory usage required by the
-driver.</p>
-<div class="line-block">
-<div class="line">Type: value</div>
-<div class="line">Default value: <code class="docutils literal notranslate"><span class="pre">50</span></code></div>
-</div>
-</td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-without-qp-submission-lock</span></code></p></td>
+<td><p>This allows for the removal of Queue Pair (QP) submission locks and is designed to optimize performance in environments
+where QPs assigned to one thread are not shared by another thread. In these scenarios, the frequent invocation of
+mutex_lock/unlock during hardware request submissions is unnecessary and can affect performance. By enabling this flag,
+the locks around QP submissions are eliminated, thus reducing the cost of offload.
+As QPs are assigned to instances, only enable this if instances are not shared across threads,
+else undefined behaviour could occur.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-treat-crc-from-comp-engine-as-error</span></code></p></td>
+<td><p>When the device calculates a CRC over the uncompressed data, it usually uses the decompression engine to do the CRC calculation.
+In compression operation cases where the stored block is returned e.g. due to input data being incompressible, the returned CRC
+is calculated using the compression engine, which should give exactly the same CRC as the decompression engine would.
+Enabling this option causes any case where the CRC is calculated by the compression engine to be reported as a
+CPA_DC_E2E_NO_DECOMPRESSION error, rather than as a successful operation.
+Please see <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a>
+for firmware needed to support this feature.</p></td>
 </tr>
 </tbody>
 </table>
@@ -554,7 +560,7 @@ driver.</p>
 </pre></div>
 </div>
 <p>Example return:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">qatmgr</span><span class="w"> </span><span class="mf">24.02.0</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">qatmgr</span><span class="w"> </span><span class="mf">25.08.0</span>
 </pre></div>
 </div>
 </li>
@@ -564,17 +570,17 @@ driver.</p>
 </pre></div>
 </div>
 <p>Example return:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">PACKAGE_TYPE</span><span class="o">=</span><span class="n">QAT_UPSTREAM_24</span><span class="mf">.02.0</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">PACKAGE_TYPE</span><span class="o">=</span><span class="n">QAT_UPSTREAM</span>
 
 <span class="n">PACKAGE_OS</span><span class="o">=</span><span class="n">L</span>
 
-<span class="n">PACKAGE_VERSION_MAJOR_NUMBER</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">PACKAGE_VERSION_MAJOR_NUMBER</span><span class="o">=</span><span class="mi">25</span>
 
-<span class="n">PACKAGE_VERSION_MINOR_NUMBER</span><span class="o">=</span><span class="mi">0</span>
+<span class="n">PACKAGE_VERSION_MINOR_NUMBER</span><span class="o">=</span><span class="mi">08</span>
 
 <span class="n">PACKAGE_VERSION_PATCH_NUMBER</span><span class="o">=</span><span class="mi">0</span>
 
-<span class="n">PACKAGE_VERSION_BUILD_NUMBER</span><span class="o">=</span><span class="mo">00001</span>
+<span class="n">PACKAGE_VERSION_BUILD_NUMBER</span><span class="o">=</span><span class="mo">0002</span><span class="mi">8</span>
 </pre></div>
 </div>
 </li>

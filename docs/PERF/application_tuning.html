@@ -164,7 +164,7 @@ boundary in memory, as the alignment usually depends upon which
 packet headers are present. In general, the mitigation for handling
 this is to adjust the buffer pointer, length and cipher offsets
 passed to hardware to make the pointer aligned. This works on the
-assumption that there is a point in the packet, before the payload,
+assumption that there is a pointer in the packet, before the payload,
 that is 64B aligned. See the diagram below for an illustration of
 adjusted alignment in the context of encrypt/decrypt of an IPsec
 packet.</p></li>
