@@ -82,6 +82,7 @@
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_a_container.html">Running in a Container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="migrate.html">Migrating Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no_iommu.html">QATlib VFIO no-IOMMU Mode Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
@@ -189,12 +190,12 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Supported Platforms</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
-<col style="width: 16%" />
+<col style="width: 15%" />
+<col style="width: 15%" />
 <col style="width: 20%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 30%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>GEN</strong></p></th>
@@ -479,7 +480,7 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </li>
 <li><p><strong>Reboot</strong> the system.</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">shutdown -r now</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo shutdown -r now</span>
 </pre></div>
 </div>
 </div></blockquote>

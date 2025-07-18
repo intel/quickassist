@@ -81,6 +81,7 @@
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_a_container.html">Running in a Container</a></li>
 <li class="toctree-l2"><a class="reference internal" href="migrate.html">Migrating Applications</a></li>
+<li class="toctree-l2"><a class="reference internal" href="no_iommu.html">QATlib VFIO no-IOMMU Mode Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
 <li class="toctree-l2"><a class="reference internal" href="asynch_nginx.html">Asynch Mode for NGINX*</a></li>
@@ -167,11 +168,6 @@ each process.</p></td>
 <p>Tells the kernel driver which services to enable on each Physical Function (PF). All VFs on
 a PF enable the same services. There is a maximum of two services that can be enabled
 on each PF.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
-<p>Newer QAT Kernel modules include support for the following configuration options.</p>
-<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a> section of the In-Tree Release Notes for details.</p>
-</div>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Newer QAT Kernel modules include support for the following configuration options.</p>
@@ -568,18 +564,21 @@ The configuration file <code class="docutils literal notranslate"><span class="p
 </section>
 <section id="standalone-mode">
 <span id="qat-2-0-qatlib-standalone-mode"></span><h2>Standalone Mode<a class="headerlink" href="#standalone-mode" title="Permalink to this heading"></a></h2>
-<p>In <em>Standalone Mode</em>, there is no <code class="docutils literal notranslate"><span class="pre">qat</span></code> service running.</p>
-<p>This is the preferred way to run on containers where a subset of VFs
-are explicitly passed through and no <em>qatmgr</em> managed resource manager is needed.</p>
-<p>Each standalone process assumes VF devices which it can’t open are in
-use by another process and looks for unopened VFs.</p>
-<p>In this mode, the <code class="docutils literal notranslate"><span class="pre">/quickassist/utilities/service/qat_init.sh</span></code> script can be
-called on the host to bind VFs to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code> and to enable services based
-on the <em>Services Enabled</em> parameter.</p>
-<p>In this mode the <em>Policy</em> parameter should not be set in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code>. If it is set, it will be ignored.</p>
-<p>Instead an environment variable <code class="docutils literal notranslate"><span class="pre">QAT_POLICY</span></code> can be set.</p>
-<p>Please note that the QAT_POLICY=0 is not a valid setting in standalone mode. The valid
-setting range starts from 1 and goes up to max PFs * 16.</p>
+<p>In <em>Standalone Mode</em>, there is no <code class="docutils literal notranslate"><span class="pre">qat</span></code> service running. This is the preferred way to run on containers where a subset of VFs are explicitly passed through and no <em>qatmgr</em> managed resource manager is needed.</p>
+<p>Each standalone process assumes VF devices which it can’t open are in use by another process and looks for unopened VFs.</p>
+<p>In this mode, the <code class="docutils literal notranslate"><span class="pre">/quickassist/utilities/service/qat_init.sh</span></code> script can be called on the host to enable SR-IOV and expose the VFs. It sets services based on the <em>Services Enabled</em> parameter from <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Binding VFs to <code class="docutils literal notranslate"><span class="pre">vfio-pci</span></code> is required for containers before passing them through, but it is not necessary for VMs.</p>
+</div>
+<p>In this mode, the <em>Policy</em> parameter should NOT be set in <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> on the host. If it is set, it will be ignored. Instead, an environment variable <code class="docutils literal notranslate"><span class="pre">QAT_POLICY</span></code> can be set in the container.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><cite>QAT_POLICY=0</cite> is not valid in standalone mode. The valid setting range starts from 1 and goes up to max PFs * 16.</p>
+</div>
+<p>Standalone mode is particularly useful in containers or guests, which typically have fewer VFs and a smaller number of processes. This mode allows for efficient management of resources without the need for a centralized resource manager.</p>
+<p>Refer to <a class="reference internal" href="../AppNotes/Containers/index.html#qat-2-0-containers"><span class="std std-ref">Run Containers using Intel® QAT Acceleration</span></a> for instructions on how to execute containers utilizing Intel® QAT Acceleration.</p>
+<p>For running in a VM, see <a class="reference internal" href="running_in_vm.html#qat-2-0-qatlib-usersguide-running-in-vm"><span class="std std-ref">Running in a VM</span></a>.</p>
 <section id="running-without-qat-init-sh">
 <h3>Running Without <strong>qat_init.sh</strong><a class="headerlink" href="#running-without-qat-init-sh" title="Permalink to this heading"></a></h3>
 <p>In some scenarios, it is not possible to use <code class="docutils literal notranslate"><span class="pre">qat_init.sh</span></code>. This section provides details on the steps that need to

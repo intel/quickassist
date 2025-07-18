@@ -57,7 +57,8 @@
 <li class="toctree-l3"><a class="reference internal" href="#download">Download</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#qat-kernel-driver-releases-features">QAT Kernel Driver Releases &amp; Features</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#qat-feature-compatibility-and-version-requirements">QAT Feature Compatibility and Version Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#linux-kernel-release-timeline-features-overview">Linux Kernel Release Timeline &amp; Features Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#known-errata-linux-firmware-kernel-modules">Known Errata (Linux Firmware/Kernel Modules)</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#qate-102222-kernel-ssm-soft-errors-on-a-compression-or-translation-slices-are-not-reported">QATE-102222 [KERNEL] SSM soft errors on a compression or translation slices are not reported</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response</a></li>
@@ -66,6 +67,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#qat20-18924-mcc-mcc-skus-may-consume-more-power-than-expected">QAT20-18924 [MCC] MCC SKUs may consume more power than expected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qate-45537-firmware-firmware-authentication-may-fail-if-pcie-errors-occur-or-are-injected">QATE-45537 [Firmware] - Firmware authentication may fail if PCIe* errors occur or are injected</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qate-68323-virt-attempting-to-create-any-number-of-qat-vf-s-results-in-all-vf-s-created">QATE-68323 [VIRT] Attempting to create any number of QAT VF’s results in all VF’s created</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#qat20-40049-kernel-intel-qat-cnv-error-with-lz4-compression-on-gen-4-and-gen-5-devices">QAT20-40049 [KERNEL] Intel QAT CnV Error with LZ4 Compression on GEN 4 and GEN 5 Devices</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#resolved-errata-linux-firmware-kernel-modules">Resolved Errata (Linux Firmware/Kernel Modules)</a><ul>
@@ -162,10 +164,10 @@ If you’re using the Intel OOT package, your firmware version may not match wha
 <table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">QAT Firmware Available</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 12%" />
-<col style="width: 12%" />
-<col style="width: 38%" />
-<col style="width: 12%" />
+<col style="width: 13%" />
+<col style="width: 7%" />
+<col style="width: 43%" />
+<col style="width: 10%" />
 <col style="width: 27%" />
 </colgroup>
 <thead>
@@ -296,14 +298,11 @@ sudo<span class="w"> </span><span class="nb">echo</span><span class="w"> </span>
 <p>QAT in-tree firmware can be downloaded from <a class="reference external" href="https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/">https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/tree/</a>.</p>
 </section>
 </section>
-<section id="qat-kernel-driver-releases-features">
-<span id="qat-2-0-in-tree-kernel-requirements"></span><h1>QAT Kernel Driver Releases &amp; Features<a class="headerlink" href="#qat-kernel-driver-releases-features" title="Permalink to this heading"></a></h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Some qatlib features require a recent kernel driver or firmware version.</p>
-</div>
+<section id="qat-feature-compatibility-and-version-requirements">
+<span id="qat-2-0-in-tree-kernel-requirements"></span><h1>QAT Feature Compatibility and Version Requirements<a class="headerlink" href="#qat-feature-compatibility-and-version-requirements" title="Permalink to this heading"></a></h1>
+<p>Some qatlib features require a recent kernel driver or firmware version. The table below provides details on features and version requirements for qatlib and underlying QAT kernel driver.</p>
 <table class="colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">QAT Kernel Driver Releases &amp; Features</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<caption><span class="caption-text">QAT Feature Support Matrix</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 20%" />
@@ -386,20 +385,35 @@ Asymmetric Crypto SM2</p></td>
 <td><p>v6.8+</p></td>
 <td><p>N/A</p></td>
 <td><p>N/A</p></td>
-<td><p>Pending</p></td>
+<td><p>Any</p></td>
 </tr>
 <tr class="row-even"><td><p>Telemetry</p></td>
 <td><p>N/A</p></td>
 <td><p>v6.8+</p></td>
 <td><p>1.1.20+</p></td>
 <td><p>1.2.40+</p></td>
-<td><p>Pending</p></td>
+<td><p>Any</p></td>
 </tr>
 <tr class="row-odd"><td><p>RAS</p></td>
 <td><p>24.02+</p></td>
 <td><p>v6.9+</p></td>
 <td><p>1.1.20+</p></td>
 <td><p>1.2.40+</p></td>
+<td><p>Any</p></td>
+</tr>
+<tr class="row-even"><td><p>Treating a CRC generated by the
+compression engine as an error</p></td>
+<td><p>25.08+</p></td>
+<td><p>v5.17+</p></td>
+<td><p>Pending</p></td>
+<td><p>Pending</p></td>
+<td><p>Pending</p></td>
+</tr>
+<tr class="row-odd"><td><p>Programmable CRC for DC service</p></td>
+<td><p>25.08+</p></td>
+<td><p>v5.17+</p></td>
+<td><p>Pending</p></td>
+<td><p>Pending</p></td>
 <td><p>Pending</p></td>
 </tr>
 </tbody>
@@ -410,6 +424,228 @@ Asymmetric Crypto SM2</p></td>
 This is because the kernel version <em>reported</em> is only the <em>base</em> kernel version, however, the distro generally contains a more recent qat kernel driver.</p>
 <p>Consult your distro support for details.</p>
 </div>
+</section>
+<section id="linux-kernel-release-timeline-features-overview">
+<h1>Linux Kernel Release Timeline &amp; Features Overview<a class="headerlink" href="#linux-kernel-release-timeline-features-overview" title="Permalink to this heading"></a></h1>
+<p>The following table provides an overview of kernel releases, their associated features, and the status of each release. This information is crucial for understanding the development timeline and feature integration within different kernel versions.</p>
+<table class="colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">Kernel Release Timeline &amp; Features Overview</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Release Version</strong></p></th>
+<th class="head"><p><strong>Kernel Release Date</strong></p></th>
+<th class="head"><p><strong>Features</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Kernel 6.16</p></td>
+<td><p>July 2025</p></td>
+<td><ul class="simple">
+<li><p>Infrastructure rework for 6xxx driver</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 6.15</p></td>
+<td><p>May 2025</p></td>
+<td><ul class="simple">
+<li><p>Foundational driver for 6xxx</p></li>
+<li><p>Remove support for NULL destination buffers in acomp</p></li>
+<li><p>Bug fixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 6.14</p></td>
+<td><p>March 2025</p></td>
+<td><ul class="simple">
+<li><p>Bug fixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 6.13</p></td>
+<td><p>January 2025</p></td>
+<td><ul class="simple">
+<li><p>Bug fixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 6.12</p></td>
+<td><p>November 2024</p></td>
+<td><ul class="simple">
+<li><p>RAS recovery flows</p></li>
+<li><p>Bug fixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 6.11</p></td>
+<td><p>September 2024</p></td>
+<td><ul class="simple">
+<li><p>Bug fixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 6.10</p></td>
+<td><p>June 2024</p></td>
+<td><ul class="simple">
+<li><p>Live migration SRIOV</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 6.9</p></td>
+<td><p>April 2024</p></td>
+<td><ul class="simple">
+<li><p>RAS (reset/recoveries, pfvf compat increment 4-&gt;5)</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 6.8</p></td>
+<td><p>February 2024</p></td>
+<td><ul class="simple">
+<li><p>Host-only telemetry (debugFS)</p></li>
+<li><p>Support for 420xx</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 6.7</p></td>
+<td><p>December 2023</p></td>
+<td><ul class="simple">
+<li><p>Rate Limiting</p></li>
+<li><p>RAS (error/counters)</p></li>
+<li><p>CnV counter</p></li>
+<li><p>PM debug entry</p></li>
+<li><p>Bug fixes</p></li>
+<li><p>acomp-zlib removed</p></li>
+<li><p>User-space enablement: DCC Compression + Hash chaining</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 6.6</p></td>
+<td><p>October 2023</p></td>
+<td><ul class="simple">
+<li><p>RAS: heartbeat</p></li>
+<li><p>FW counters</p></li>
+<li><p>User-space enablement: +config profiles, SMX capabilities</p></li>
+<li><p>Bug fixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 6.5</p></td>
+<td><p>August 2023</p></td>
+<td><ul class="simple">
+<li><p>Advanced Power Management</p></li>
+<li><p>Instances configuration profiles</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 6.4</p></td>
+<td><p>June 2023</p></td>
+<td><ul class="simple">
+<li><p>Support for 402xx</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 6.3</p></td>
+<td><p>April 2023</p></td>
+<td><ul class="simple">
+<li><p>acomp-zlib</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 6.2</p></td>
+<td><p>February 2023</p></td>
+<td><ul class="simple">
+<li><p>acomp deflate</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 6.1 (aka 5.21)</p></td>
+<td><p>December 2022</p></td>
+<td><ul class="simple">
+<li><p>bugfixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 6.0 (aka 5.20)</p></td>
+<td><p>October 2022</p></td>
+<td><ul class="simple">
+<li><p>Configuration through sysfs</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 5.19</p></td>
+<td><p>August 2022</p></td>
+<td><ul class="simple">
+<li><p>Fixes to algorithms</p></li>
+<li><p>Registration of cy algos re-enabled in LKCF</p></li>
+<li><p>Support for 401xx</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 5.18</p></td>
+<td><p>May 2022</p></td>
+<td><ul class="simple">
+<li><p>PfVf fixes</p></li>
+<li><p>Power mgmt enabled</p></li>
+<li><p>Registration of cy algos disabled in LKCF.</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 5.17</p></td>
+<td><p>March 2022</p></td>
+<td><ul class="simple">
+<li><p>Enabler for compression in user space</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 5.16</p></td>
+<td><p>January 2022</p></td>
+<td><ul class="simple">
+<li><p>Bug fixes</p></li>
+<li><p>rework in preparation to updates to PFVF</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 5.15</p></td>
+<td><p>November 2021</p></td>
+<td><ul class="simple">
+<li><p>Bug fixes related to PFVF</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 5.14</p></td>
+<td><p>September 2021</p></td>
+<td><ul class="simple">
+<li><p>Bug fixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 5.13</p></td>
+<td><p>July 2021</p></td>
+<td><ul class="simple">
+<li><p>Slice hang</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p>Kernel 5.12</p></td>
+<td><p>May 2021</p></td>
+<td><ul class="simple">
+<li><p>Bug fixes</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td><p>Kernel 5.11</p></td>
+<td><p>February 2021</p></td>
+<td><ul class="simple">
+<li><p>Foundational driver for 4xxx with support for sym/asym</p></li>
+<li><p>SRIOV enabler.</p></li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="known-errata-linux-firmware-kernel-modules">
 <h1>Known Errata (Linux Firmware/Kernel Modules)<a class="headerlink" href="#known-errata-linux-firmware-kernel-modules" title="Permalink to this heading"></a></h1>
@@ -743,6 +979,49 @@ the resource availability for the particular guest (VM).</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
 <td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-40049-kernel-intel-qat-cnv-error-with-lz4-compression-on-gen-4-and-gen-5-devices">
+<h2>QAT20-40049 [KERNEL] Intel QAT CnV Error with LZ4 Compression on GEN 4 and GEN 5 Devices<a class="headerlink" href="#qat20-40049-kernel-intel-qat-cnv-error-with-lz4-compression-on-gen-4-and-gen-5-devices" title="Permalink to this heading"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>[KERNEL] Intel QAT CnV Error with LZ4 Compression on
+GEN 4 and GEN 5 Devices.</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-40049</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>A Compress and Verify (CnV) error is reported on GEN 4
+and GEN 5 devices when executing LZ4 compression
+requests. The issue occurs when
+CpaDcSessionSetupData:accumulateXXHash is false and
+CpaDcOpData:flushFlag is not equal to CPA_DC_FLUSH_FINAL.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>No compressed data will be returned to the application.
+The produced and consumed data counters in
+CpaDcRqResults will be 0 and error code
+CPA_DC_VERIFY_ERROR will be returned.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Do not submit request with both accumulateXXHash
+disabled and flushFlag not equal to CPA_DC_FLUSH_FINAL.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>CPM-IA - Data Compression</p></td>
 </tr>
 </tbody>
 </table>
