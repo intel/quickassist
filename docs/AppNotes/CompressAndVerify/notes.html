@@ -16,7 +16,6 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -112,7 +111,7 @@
            <div itemprop="articleBody">
              
   <section id="the-crc64-values-used-in-end-to-end-mode">
-<span id="qat-2-0-crc64-end-to-end-mode"></span><span id="qat-2-0-cnv-notes"></span><h1>The CRC64 Values Used in End-To-End mode<a class="headerlink" href="#the-crc64-values-used-in-end-to-end-mode" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-crc64-end-to-end-mode"></span><span id="qat-2-0-cnv-notes"></span><h1>The CRC64 Values Used in End-To-End mode<a class="headerlink" href="#the-crc64-values-used-in-end-to-end-mode" title="Permalink to this headline"></a></h1>
 <p><strong>Compress and Verify (CnV)</strong> was developed before the end-to-end (e2e) feature
 with CRC64 checksums was introduced. The e2e feature allows customers to supply the
 polynomial. While this is useful for some customers, it presents two
@@ -128,13 +127,13 @@ inconsistent behavior.</p></li>
 </ol>
 </section>
 <section id="the-empirical-study">
-<span id="qat-2-0-empirical-study"></span><h1>The Empirical Study<a class="headerlink" href="#the-empirical-study" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-empirical-study"></span><h1>The Empirical Study<a class="headerlink" href="#the-empirical-study" title="Permalink to this headline"></a></h1>
 <div class="line-block">
 <div class="line">In order to examine the existence or lack of existence of checksum collisions for more than one checksum at the same time.</div>
 <div class="line">Stated differently, can a single intentionally corrupted dataset show a checksum collision for more than one checksum?</div>
 </div>
 <section id="dataset-generation">
-<h2>Dataset Generation<a class="headerlink" href="#dataset-generation" title="Permalink to this heading"></a></h2>
+<h2>Dataset Generation<a class="headerlink" href="#dataset-generation" title="Permalink to this headline"></a></h2>
 <p>The datasets were created with the following parameters:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -161,7 +160,7 @@ pseudo-random order</p></td>
 </table>
 </section>
 <section id="dataset-modification">
-<h2>Dataset Modification<a class="headerlink" href="#dataset-modification" title="Permalink to this heading"></a></h2>
+<h2>Dataset Modification<a class="headerlink" href="#dataset-modification" title="Permalink to this headline"></a></h2>
 <p>A second dataset was created with the following changes:</p>
 <blockquote>
 <div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>do
@@ -195,14 +194,14 @@ modified buffer matches the original unmodified buffer.</p></li>
 </div>
 </section>
 <section id="scope-of-experiment">
-<h2>Scope of Experiment<a class="headerlink" href="#scope-of-experiment" title="Permalink to this heading"></a></h2>
+<h2>Scope of Experiment<a class="headerlink" href="#scope-of-experiment" title="Permalink to this headline"></a></h2>
 <div class="line-block">
 <div class="line">A total of 548,459,000,000 datasets were created, duplicated with errors, and checksums were calculated for both the original dataset and modified datasets.</div>
 <div class="line">The checksums from the two datasets were compared to check for checksum collisions.</div>
 </div>
 </section>
 <section id="collisions">
-<h2>Collisions<a class="headerlink" href="#collisions" title="Permalink to this heading"></a></h2>
+<h2>Collisions<a class="headerlink" href="#collisions" title="Permalink to this headline"></a></h2>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 23%" />
@@ -243,7 +242,7 @@ billion)</strong></p></th>
 <p>The number of datasets with collisions had collisions with more than one
 algorithm.</p>
 <section id="details-total-collisions-by-dataset-size">
-<h3>Details - Total collisions by dataset size<a class="headerlink" href="#details-total-collisions-by-dataset-size" title="Permalink to this heading"></a></h3>
+<h3>Details - Total collisions by dataset size<a class="headerlink" href="#details-total-collisions-by-dataset-size" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 23%" />
@@ -313,7 +312,7 @@ count</strong></p>
 </table>
 </section>
 <section id="details-total-datasets-by-dataset-size">
-<h3>Details - Total datasets by dataset size<a class="headerlink" href="#details-total-datasets-by-dataset-size" title="Permalink to this heading"></a></h3>
+<h3>Details - Total datasets by dataset size<a class="headerlink" href="#details-total-datasets-by-dataset-size" title="Permalink to this headline"></a></h3>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 58%" />

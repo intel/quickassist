@@ -16,7 +16,6 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -110,9 +109,9 @@
            <div itemprop="articleBody">
              
   <section id="footnotes">
-<span id="qat-2-0-cnv-footnotes"></span><h1>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-cnv-footnotes"></span><h1>Footnotes<a class="headerlink" href="#footnotes" title="Permalink to this headline"></a></h1>
 <section id="mit-freebsd-project-crc32-implementation-in-c">
-<span id="qat-2-0-cnv-footnote1"></span><h2>MIT FreeBSD Project: CRC32 Implementation in C<a class="headerlink" href="#mit-freebsd-project-crc32-implementation-in-c" title="Permalink to this heading"></a></h2>
+<span id="qat-2-0-cnv-footnote1"></span><h2>MIT FreeBSD Project: CRC32 Implementation in C<a class="headerlink" href="#mit-freebsd-project-crc32-implementation-in-c" title="Permalink to this headline"></a></h2>
 <p><a class="reference external" href="https://web.mit.edu/freebsd/head/sys/libkern/crc32.c">https://web.mit.edu/freebsd/head/sys/libkern/crc32.c</a></p>
 <blockquote>
 <div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/*
@@ -135,14 +134,14 @@
 </div></blockquote>
 </section>
 <section id="xxhash-specification-documentation-on-github">
-<span id="qat-2-0-cnv-footnote2"></span><h2>xxHash Specification Documentation on GitHub<a class="headerlink" href="#xxhash-specification-documentation-on-github" title="Permalink to this heading"></a></h2>
+<span id="qat-2-0-cnv-footnote2"></span><h2>xxHash Specification Documentation on GitHub<a class="headerlink" href="#xxhash-specification-documentation-on-github" title="Permalink to this headline"></a></h2>
 <p><a class="reference external" href="https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md">https://github.com/Cyan4973/xxHash/blob/dev/doc/xxhash_spec.md</a></p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For brevity, the <em>Version</em>, <em>Introduction</em> and <em>Operation notations</em> sections have been removed.</p>
 </div>
 <section id="notices">
-<h3>Notices<a class="headerlink" href="#notices" title="Permalink to this heading"></a></h3>
+<h3>Notices<a class="headerlink" href="#notices" title="Permalink to this headline"></a></h3>
 <p>Copyright (c) Yann Collet</p>
 <p>Permission is granted to copy and distribute this document
 for any purpose and without charge,
@@ -154,9 +153,9 @@ are clearly marked.
 Distribution of this document is unlimited.</p>
 </section>
 <section id="xxh32-algorithm-description">
-<h3>XXH32 Algorithm Description<a class="headerlink" href="#xxh32-algorithm-description" title="Permalink to this heading"></a></h3>
+<h3>XXH32 Algorithm Description<a class="headerlink" href="#xxh32-algorithm-description" title="Permalink to this headline"></a></h3>
 <section id="overview">
-<h4>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h4>
+<h4>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h4>
 <p>We begin by supposing that we have a message of any length <code class="docutils literal notranslate"><span class="pre">L</span></code> as input, and that we wish to find its digest. Here <code class="docutils literal notranslate"><span class="pre">L</span></code> is an arbitrary nonnegative integer; <code class="docutils literal notranslate"><span class="pre">L</span></code> may be zero. The following steps are performed to compute the digest of the message.</p>
 <p>The algorithm collects and transforms input in <em>stripes</em> of 16 bytes. The transforms are stored inside 4 “accumulators”, each one storing an unsigned 32-bit value. Each accumulator can be processed independently in parallel, speeding up processing for CPUs with multiple execution units.</p>
 <p>The algorithm uses 32-bits addition, multiplication, rotate, shift, and xor operations. Many operations require some 32-bits prime number constants, all defined below:</p>
@@ -170,7 +169,7 @@ Distribution of this document is unlimited.</p>
 <p>These constants are prime numbers and feature a good mix of bits 1 and 0, neither too regular nor too dissymmetric. These properties help dispersion capabilities.</p>
 </section>
 <section id="step-1-initialize-internal-accumulators">
-<h4>Step 1. Initialize internal accumulators<a class="headerlink" href="#step-1-initialize-internal-accumulators" title="Permalink to this heading"></a></h4>
+<h4>Step 1. Initialize internal accumulators<a class="headerlink" href="#step-1-initialize-internal-accumulators" title="Permalink to this headline"></a></h4>
 <p>Each accumulator gets an initial value based on optional <code class="docutils literal notranslate"><span class="pre">seed</span></code> input. Since the <code class="docutils literal notranslate"><span class="pre">seed</span></code> is optional, it can be <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">u32</span><span class="w"> </span><span class="n">acc1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PRIME32_1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PRIME32_2</span><span class="p">;</span>
 <span class="n">u32</span><span class="w"> </span><span class="n">acc2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PRIME32_2</span><span class="p">;</span>
@@ -181,7 +180,7 @@ Distribution of this document is unlimited.</p>
 </section>
 </section>
 <section id="special-case-input-is-less-than-16-bytes">
-<h3>Special case: input is less than 16 bytes<a class="headerlink" href="#special-case-input-is-less-than-16-bytes" title="Permalink to this heading"></a></h3>
+<h3>Special case: input is less than 16 bytes<a class="headerlink" href="#special-case-input-is-less-than-16-bytes" title="Permalink to this headline"></a></h3>
 <p>When the input is too small (&lt; 16 bytes), the algorithm will not process any stripes. Consequently, it will not make use of parallel accumulators.</p>
 <p>In this case, a simplified initialization is performed, using a single accumulator:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">u32</span><span class="w"> </span><span class="n">acc</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">seed</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">PRIME32_5</span><span class="p">;</span>
@@ -189,7 +188,7 @@ Distribution of this document is unlimited.</p>
 </div>
 <p>The algorithm then proceeds directly to step 4.</p>
 <section id="step-2-process-stripes">
-<h4>Step 2. Process stripes<a class="headerlink" href="#step-2-process-stripes" title="Permalink to this heading"></a></h4>
+<h4>Step 2. Process stripes<a class="headerlink" href="#step-2-process-stripes" title="Permalink to this headline"></a></h4>
 <p>A stripe is a contiguous segment of 16 bytes.
 It is evenly divided into 4 <em>lanes</em>, of 4 bytes each.
 The first lane is used to update accumulator 1, the second lane is used to update accumulator 2, and so on.</p>
@@ -205,14 +204,14 @@ The first lane is used to update accumulator 1, the second lane is used to updat
 When that happens, move to step 3.</p>
 </section>
 <section id="step-3-accumulator-convergence">
-<h4>Step 3. Accumulator convergence<a class="headerlink" href="#step-3-accumulator-convergence" title="Permalink to this heading"></a></h4>
+<h4>Step 3. Accumulator convergence<a class="headerlink" href="#step-3-accumulator-convergence" title="Permalink to this headline"></a></h4>
 <p>All 4 lane accumulators from the previous steps are merged to produce a single remaining accumulator of the same width (32-bit). The associated formula is as follows:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">acc1</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">acc2</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">acc3</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">12</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">acc4</span><span class="w"> </span><span class="o">&lt;&lt;&lt;</span><span class="w"> </span><span class="mi">18</span><span class="p">);</span>
 </pre></div>
 </div>
 </section>
 <section id="step-4-add-input-length">
-<h4>Step 4. Add input length<a class="headerlink" href="#step-4-add-input-length" title="Permalink to this heading"></a></h4>
+<h4>Step 4. Add input length<a class="headerlink" href="#step-4-add-input-length" title="Permalink to this headline"></a></h4>
 <p>The input total length is presumed known at this stage. This step is just about adding the length to the accumulator, so that it participates in the final mixing.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">u32</span><span class="p">)</span><span class="n">inputLength</span><span class="p">;</span>
 </pre></div>
@@ -220,7 +219,7 @@ When that happens, move to step 3.</p>
 <p>Note that, if the input length is so large that it requires more than 32-bits, only the lower 32-bits are added to the accumulator.</p>
 </section>
 <section id="step-5-consume-remaining-input">
-<h4>Step 5. Consume remaining input<a class="headerlink" href="#step-5-consume-remaining-input" title="Permalink to this heading"></a></h4>
+<h4>Step 5. Consume remaining input<a class="headerlink" href="#step-5-consume-remaining-input" title="Permalink to this headline"></a></h4>
 <p>There may be up to 15 bytes remaining to consume from the input.
 The final stage will digest them according to the following pseudo-code:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="n">remainingLength</span><span class="w"> </span><span class="o">&gt;=</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
@@ -241,7 +240,7 @@ The final stage will digest them according to the following pseudo-code:</p>
 <p>This process ensures that all input bytes are present in the final mix.</p>
 </section>
 <section id="step-6-final-mix-avalanche">
-<h4>Step 6. Final mix (avalanche)<a class="headerlink" href="#step-6-final-mix-avalanche" title="Permalink to this heading"></a></h4>
+<h4>Step 6. Final mix (avalanche)<a class="headerlink" href="#step-6-final-mix-avalanche" title="Permalink to this headline"></a></h4>
 <p>The final mix ensures that all input bits have a chance to impact any bit in the output digest, resulting in an unbiased distribution. This is also called the avalanche effect.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="n">xor</span><span class="w"> </span><span class="p">(</span><span class="n">acc</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">15</span><span class="p">);</span>
 <span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">PRIME32_2</span><span class="p">;</span>
@@ -252,7 +251,7 @@ The final stage will digest them according to the following pseudo-code:</p>
 </div>
 </section>
 <section id="step-7-output">
-<h4>Step 7. Output<a class="headerlink" href="#step-7-output" title="Permalink to this heading"></a></h4>
+<h4>Step 7. Output<a class="headerlink" href="#step-7-output" title="Permalink to this headline"></a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">XXH32()</span></code> function produces an unsigned 32-bit value as output.</p>
 <p>For systems which require to store and/or display the result in binary or hexadecimal format, the canonical format is defined to reproduce the same value as the natural decimal format, hence follows <strong>big-endian</strong> convention (most significant byte first).</p>
 </section>

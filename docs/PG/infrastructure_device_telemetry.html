@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -121,7 +120,7 @@
            <div itemprop="articleBody">
              
   <section id="telemetry">
-<span id="qat-2-0-pg-infrastructure-device-telemetry"></span><h1>Telemetry<a class="headerlink" href="#telemetry" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-infrastructure-device-telemetry"></span><h1>Telemetry<a class="headerlink" href="#telemetry" title="Permalink to this headline"></a></h1>
 <p>The telemetry feature is a tool to view the performance and utilization of an acceleration device.
 Telemetry data can be viewed on a per device and a per ring pair (also known as <a class="reference internal" href="infrastructure_queue_pairs.html#qat-2-0-pg-infrastructure-queue-pairs"><span class="std std-ref">queue pair</span></a>) basis.</p>
 <div class="admonition note">
@@ -130,9 +129,9 @@ Telemetry data can be viewed on a per device and a per ring pair (also known as 
 <p>Details for each are included in the sections below.</p>
 </div>
 <section id="telemetry-usage">
-<h2>Telemetry Usage<a class="headerlink" href="#telemetry-usage" title="Permalink to this heading"></a></h2>
+<h2>Telemetry Usage<a class="headerlink" href="#telemetry-usage" title="Permalink to this headline"></a></h2>
 <section id="out-of-tree">
-<h3>Out-Of-Tree<a class="headerlink" href="#out-of-tree" title="Permalink to this heading"></a></h3>
+<h3>Out-Of-Tree<a class="headerlink" href="#out-of-tree" title="Permalink to this headline"></a></h3>
 <p>The telemetry feature is configured and queried using <strong>sysfs</strong> files in the Linux filesystem.</p>
 <p>The telemetry <strong>sysfs</strong> folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/telemetry</span></code></p>
 <blockquote>
@@ -155,7 +154,7 @@ Telemetry data can be viewed on a per device and a per ring pair (also known as 
 </div></blockquote>
 </section>
 <section id="in-tree">
-<h3>In-Tree<a class="headerlink" href="#in-tree" title="Permalink to this heading"></a></h3>
+<h3>In-Tree<a class="headerlink" href="#in-tree" title="Permalink to this headline"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">Release Notes -In-Tree</span></a> for kernel version requirements for enabling this feature.</p>
@@ -186,14 +185,14 @@ The telemetry data is accessed through the <code class="docutils literal notrans
 </section>
 </section>
 <section id="telemetry-control">
-<h2>Telemetry Control<a class="headerlink" href="#telemetry-control" title="Permalink to this heading"></a></h2>
+<h2>Telemetry Control<a class="headerlink" href="#telemetry-control" title="Permalink to this headline"></a></h2>
 <p>Device level telemetry is enabled by echoing <code class="docutils literal notranslate"><span class="pre">1</span></code> into the control file and disabled by echoing <code class="docutils literal notranslate"><span class="pre">0</span></code>.
 Reading the control file will tell whether the feature is currently enabled or disabled.</p>
 <p>Ring Pair level telemetry is enabled when device level telemetry is enabled. However the ring pairs need to be selected.
 Only 4 ring pairs can be shown at any given time.
 By echoing the number of the ring pair (0-63) into a <code class="docutils literal notranslate"><span class="pre">rp_&lt;X&gt;_data</span></code> file it can be selected. Where X is A,B,C or D.</p>
 <section id="telemetry-commands">
-<h3>Telemetry Commands<a class="headerlink" href="#telemetry-commands" title="Permalink to this heading"></a></h3>
+<h3>Telemetry Commands<a class="headerlink" href="#telemetry-commands" title="Permalink to this headline"></a></h3>
 <table class="longtable docutils align-default" id="id4">
 <caption><span class="caption-text">Telemetry Commands</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -224,9 +223,9 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </tbody>
 </table>
 <section id="selecting-ring-pairs">
-<h4>Selecting Ring Pairs<a class="headerlink" href="#selecting-ring-pairs" title="Permalink to this heading"></a></h4>
+<h4>Selecting Ring Pairs<a class="headerlink" href="#selecting-ring-pairs" title="Permalink to this headline"></a></h4>
 <section id="id1">
-<h5>Out-Of-Tree<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h5>
+<h5>Out-Of-Tree<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h5>
 <p>This section provides guidance on the mapping of ring pairs to the VFs for the PF when using the Out-Of-Tree acceleration driver.</p>
 <p>There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following:</p>
 <table class="docutils align-default" id="id5">
@@ -352,7 +351,7 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </section>
 </section>
 <section id="device-level-telemetry-values">
-<h3>Device Level Telemetry Values<a class="headerlink" href="#device-level-telemetry-values" title="Permalink to this heading"></a></h3>
+<h3>Device Level Telemetry Values<a class="headerlink" href="#device-level-telemetry-values" title="Permalink to this headline"></a></h3>
 <table class="longtable docutils align-default" id="id6">
 <caption><span class="caption-text">Device Level Telemetry Values</span><a class="headerlink" href="#id6" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -423,7 +422,7 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </table>
 </section>
 <section id="ring-pair-level-telemetry-values">
-<h3>Ring Pair Level Telemetry Values<a class="headerlink" href="#ring-pair-level-telemetry-values" title="Permalink to this heading"></a></h3>
+<h3>Ring Pair Level Telemetry Values<a class="headerlink" href="#ring-pair-level-telemetry-values" title="Permalink to this headline"></a></h3>
 <table class="longtable docutils align-default" id="id7">
 <caption><span class="caption-text">Ring Pair Level Telemetry Values</span><a class="headerlink" href="#id7" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -471,7 +470,7 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </section>
 </section>
 <section id="monitoring-telemetry-text-based">
-<span id="qat2-0-text-based-telemetry"></span><h2>Monitoring Telemetry - Text Based<a class="headerlink" href="#monitoring-telemetry-text-based" title="Permalink to this heading"></a></h2>
+<span id="qat2-0-text-based-telemetry"></span><h2>Monitoring Telemetry - Text Based<a class="headerlink" href="#monitoring-telemetry-text-based" title="Permalink to this headline"></a></h2>
 <p>The following example Python scripts highlight how telemetry data can be monitored at the command line.  The
 script first enables telemetry service for each QAT endpoint that supports telemetry and is in the <code class="docutils literal notranslate"><span class="pre">up</span></code>
 state. It then queries the telemetry data on a periodic basis collecting the data and formatting the display.</p>
@@ -479,7 +478,7 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 <img alt="../_images/device_utilization.png" src="../_images/device_utilization.png" />
 </figure>
 <section id="id2">
-<h3>Out-Of-Tree<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<h3>Out-Of-Tree<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
 <p>Device utilization script for Out-Of-Tree driver is included here.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
@@ -499,7 +498,7 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 </div></blockquote>
 </section>
 <section id="id3">
-<h3>In-Tree<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h3>
+<h3>In-Tree<a class="headerlink" href="#id3" title="Permalink to this headline"></a></h3>
 <p>Device utilization script for In-Tree driver can be downloaded from <a class="reference download internal" download="" href="../_downloads/95d578efa33569dc2d128478ff963200/monitor-qat-utilization"><code class="xref download docutils literal notranslate"><span class="pre">here</span></code></a></p>
 <p>Running the script looks like:</p>
 <blockquote>
@@ -509,7 +508,7 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
 </div></blockquote>
 </section>
 <section id="monitoring-telemetry-demo">
-<h3>Monitoring Telemetry Demo<a class="headerlink" href="#monitoring-telemetry-demo" title="Permalink to this heading"></a></h3>
+<h3>Monitoring Telemetry Demo<a class="headerlink" href="#monitoring-telemetry-demo" title="Permalink to this headline"></a></h3>
 <p>Here is a demonstration of how to monitor telemetry while running the Intel<sup>®</sup> QAT sample code.</p>
 <video controls="True" height="300" preload="auto" width="500"><source src="../_static/video/pg/telemetry.mp4" type="video/mp4"></video></section>
 </section>
