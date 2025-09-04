@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -117,7 +116,7 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<span id="qat-2-0-qatlib-install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-qatlib-install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
 <p>The <em>qatlib</em> library can be installed by either:</p>
 <ul class="simple">
 <li><p>Installing from pre-built packages</p></li>
@@ -130,7 +129,7 @@
 <p>If any issues are encountered, refer to latest installation instructions available at the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/INSTALL">qatlib GitHub repository</a>.</p>
 </div>
 <section id="installing-from-packages">
-<h2>Installing from Packages<a class="headerlink" href="#installing-from-packages" title="Permalink to this heading"></a></h2>
+<h2>Installing from Packages<a class="headerlink" href="#installing-from-packages" title="Permalink to this headline"></a></h2>
 <p>This section outlines the installation of <em>qatlib</em> using package managers.</p>
 <p>Instructions cover:</p>
 <ul class="simple">
@@ -138,7 +137,7 @@
 <li><p>RPM (RPM Package Manager)</p></li>
 </ul>
 <section id="ubuntu-24-04">
-<h3>Ubuntu 24.04<a class="headerlink" href="#ubuntu-24-04" title="Permalink to this heading"></a></h3>
+<h3>Ubuntu 24.04<a class="headerlink" href="#ubuntu-24-04" title="Permalink to this headline"></a></h3>
 <p>The following steps can be used to install <em>qatlib</em> packages on <em>Ubuntu 24.04</em>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -159,7 +158,7 @@
 </li>
 </ol>
 <section id="update-qat-libraries-via-ppa">
-<h4>Update QAT Libraries via PPA<a class="headerlink" href="#update-qat-libraries-via-ppa" title="Permalink to this heading"></a></h4>
+<h4>Update QAT Libraries via PPA<a class="headerlink" href="#update-qat-libraries-via-ppa" title="Permalink to this headline"></a></h4>
 <p>The following commands allows users to update the <cite>qatlib</cite> version in Ubuntu24.04 using PPA (Personal Package Archive).</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>ppa:intelqat/qatlib
@@ -170,7 +169,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>update
 </section>
 </section>
 <section id="rpm">
-<h3>RPM<a class="headerlink" href="#rpm" title="Permalink to this heading"></a></h3>
+<h3>RPM<a class="headerlink" href="#rpm" title="Permalink to this headline"></a></h3>
 <p>The following steps can be used to install <em>qatlib</em> packages on Linux distributions such as
 <em>Fedora 34+</em>, <em>RHEL 9.1+</em>, or <em>CentOS 9 Stream</em>.</p>
 <ol class="arabic">
@@ -198,7 +197,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>update
 </div></blockquote>
 </section>
 <section id="system-updates">
-<h3>System Updates<a class="headerlink" href="#system-updates" title="Permalink to this heading"></a></h3>
+<h3>System Updates<a class="headerlink" href="#system-updates" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section is required for both on Ubunutu24.04 and RPM installations.</p>
@@ -234,12 +233,12 @@ The following commands set the amount of locked memory to 500MB.</p>
 </section>
 </section>
 <section id="installing-from-sources">
-<span id="qat-2-0-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this heading"></a></h2>
+<span id="qat-2-0-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h2>
 <p>The following steps can be used to install the <em>qatlib</em> package from source.</p>
 <ol class="arabic">
 <li><p><strong>Install</strong> the dependencies by running the following commands.</p>
 <p>For RPM-based distros:</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y gcc systemd-devel automake autoconf libtool make</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y gcc systemd-devel automake autoconf libtool make autoconf-archive</span>
 <span class="go">sudo dnf install -y openssl-devel zlib-devel numactl-devel</span>
 <span class="go">sudo dnf install -y nasm</span>
 </pre></div>
@@ -423,7 +422,7 @@ The following commands set the amount of locked memory to 500MB.</p>
 </div>
 </div>
 <section id="configuration-options">
-<span id="qat-2-0-qatlib-configure-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this heading"></a></h3>
+<span id="qat-2-0-qatlib-configure-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -446,10 +445,11 @@ The following commands set the amount of locked memory to 500MB.</p>
 </pre></div>
 </div>
 </div></blockquote>
-<table class="docutils align-default">
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Available Configuration Options</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 31%" />
-<col style="width: 69%" />
+<col style="width: 40%" />
+<col style="width: 60%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
@@ -553,7 +553,7 @@ for firmware needed to support this feature.</p></td>
 </table>
 </section>
 <section id="confirm-current-version">
-<span id="qat-2-0-qatlib-check-version"></span><h3>Confirm Current Version<a class="headerlink" href="#confirm-current-version" title="Permalink to this heading"></a></h3>
+<span id="qat-2-0-qatlib-check-version"></span><h3>Confirm Current Version<a class="headerlink" href="#confirm-current-version" title="Permalink to this headline"></a></h3>
 <ol class="arabic">
 <li><p>To confirm your current qatlib version, use one of the following:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qatmgr -v</span>

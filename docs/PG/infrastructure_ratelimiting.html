@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -121,18 +120,18 @@
            <div itemprop="articleBody">
              
   <section id="rate-limiting">
-<span id="qat-2-0-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this headline"></a></h1>
 <section id="rate-limiting-overview">
-<h2>Rate Limiting Overview<a class="headerlink" href="#rate-limiting-overview" title="Permalink to this heading"></a></h2>
+<h2>Rate Limiting Overview<a class="headerlink" href="#rate-limiting-overview" title="Permalink to this headline"></a></h2>
 <p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service. This ensures that resources are allocated according to predefined agreements, preventing any single VF from monopolizing device capacity.</p>
 <p>Rate Limiting is set up on the host system, allowing administrators to manage and allocate resources effectively. It can be configured for each Physical Function (PF) on the device, providing granular control over resource distribution across different services and virtual functions.</p>
 <p>Resources are shared across guests, and the resource utilization of each guest is measured relative to the capacity of the physical function. The feature is supported for SYM, ASYM, and DC services.</p>
 <p>This document provides instructions for enabling Rate Limiting for both Out-of-Tree (OOT) and In-tree stacks.</p>
 </section>
 <section id="out-of-tree-rate-limiting">
-<h2>Out-of-Tree Rate Limiting<a class="headerlink" href="#out-of-tree-rate-limiting" title="Permalink to this heading"></a></h2>
+<h2>Out-of-Tree Rate Limiting<a class="headerlink" href="#out-of-tree-rate-limiting" title="Permalink to this headline"></a></h2>
 <section id="enabling-rate-limiting">
-<h3>Enabling Rate Limiting<a class="headerlink" href="#enabling-rate-limiting" title="Permalink to this heading"></a></h3>
+<h3>Enabling Rate Limiting<a class="headerlink" href="#enabling-rate-limiting" title="Permalink to this headline"></a></h3>
 <p>To enable the Rate Limiting feature for the Out-of-Tree stack:</p>
 <ol class="arabic simple">
 <li><p><strong>Install</strong> the driver package on the host with Single-Root Input/Output Virtualization (SR-IOV) enabled.</p></li>
@@ -145,7 +144,7 @@
 </div>
 </section>
 <section id="service-level-agreement-sla">
-<h3>Service Level Agreement (SLA)<a class="headerlink" href="#service-level-agreement-sla" title="Permalink to this heading"></a></h3>
+<h3>Service Level Agreement (SLA)<a class="headerlink" href="#service-level-agreement-sla" title="Permalink to this headline"></a></h3>
 <p>Service Level Agreement enforcement allocates a specified amount of capacity for a specified service to a specified VF:
 <em>max SLA enforced = (number of VFs) X (number of services)</em> where:</p>
 <blockquote>
@@ -156,7 +155,7 @@
 </div></blockquote>
 </section>
 <section id="sla-units">
-<h3>SLA Units<a class="headerlink" href="#sla-units" title="Permalink to this heading"></a></h3>
+<h3>SLA Units<a class="headerlink" href="#sla-units" title="Permalink to this headline"></a></h3>
 <p>SLA units are measured as follows:</p>
 <ul class="simple">
 <li><p>Symmetric Crypto - 1Mbps of throughput.</p></li>
@@ -227,11 +226,11 @@
 </table>
 </section>
 <section id="sla-manager-application">
-<h3>SLA Manager Application<a class="headerlink" href="#sla-manager-application" title="Permalink to this heading"></a></h3>
+<h3>SLA Manager Application<a class="headerlink" href="#sla-manager-application" title="Permalink to this headline"></a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">sla_mgr</span></code> tool is used to create, update, delete, list and get SLA capabilities.
 The SLA Manager executable is available in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build/sla_mgr</span></code> after the package is built and installed using <code class="docutils literal notranslate"><span class="pre">./configure;</span> <span class="pre">make</span> <span class="pre">install</span></code> commands.</p>
 <section id="sla-commands">
-<h4>SLA Commands<a class="headerlink" href="#sla-commands" title="Permalink to this heading"></a></h4>
+<h4>SLA Commands<a class="headerlink" href="#sla-commands" title="Permalink to this headline"></a></h4>
 <table class="longtable colwidths-given docutils align-default" id="id4">
 <caption><span class="caption-text">Rate Limiting SLA Commands</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -297,7 +296,7 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 </section>
 </section>
 <section id="best-practices-for-sla-management">
-<h3>Best Practices for SLA Management<a class="headerlink" href="#best-practices-for-sla-management" title="Permalink to this heading"></a></h3>
+<h3>Best Practices for SLA Management<a class="headerlink" href="#best-practices-for-sla-management" title="Permalink to this headline"></a></h3>
 <ul class="simple">
 <li><p>Ensure all VFs are included in SLAs to prevent unregulated resource usage.</p></li>
 <li><p>Regularly monitor performance and adjust CIR and PIR values as needed to maintain optimal throughput.</p></li>
@@ -305,14 +304,14 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 </section>
 </section>
 <section id="in-tree-rate-limiting">
-<h2>In-tree Rate Limiting<a class="headerlink" href="#in-tree-rate-limiting" title="Permalink to this heading"></a></h2>
+<h2>In-tree Rate Limiting<a class="headerlink" href="#in-tree-rate-limiting" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>For additional details on Rate Limiting with the In-tree solution, refer to <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-qat_rl">sysfs-driver-qat_rl documentation.</a></p>
 </div>
 <p>Rate Limiting for the in-tree stack is configured per individual Physical Function (PF) using sysfs calls. Each PF has a directory structure that includes several files used to manage SLAs:</p>
 <section id="directory-structure">
-<h3>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this heading"></a></h3>
+<h3>Directory Structure<a class="headerlink" href="#directory-structure" title="Permalink to this headline"></a></h3>
 <p>The rate limiting attributes for each PF are located at:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>/sys/bus/pci/devices/&lt;BDF&gt;/qat_rl/
 </pre></div>
@@ -329,7 +328,7 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 </ul>
 </section>
 <section id="id1">
-<h3>Enabling Rate Limiting<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h3>
+<h3>Enabling Rate Limiting<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
 <p>To enable the Rate Limiting feature for the In-tree stack:</p>
 <ol class="arabic simple">
 <li><p><strong>Identify</strong> the device using the Bus-Device-Function (BDF) format, e.g., <cite>&lt;BDF&gt;</cite>.</p></li>
@@ -338,14 +337,14 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 </ol>
 </section>
 <section id="id2">
-<h3>SLA Units<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h3>
+<h3>SLA Units<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
 <p>For the In-tree stack, SLA units are measured as follows:</p>
 <ul class="simple">
 <li><p>All services (sym, asym, dc) - 1 unit is equal to 0.1 percent of available utilization.</p></li>
 </ul>
 </section>
 <section id="example-setting-of-slas">
-<h3>Example Setting of SLAs<a class="headerlink" href="#example-setting-of-slas" title="Permalink to this heading"></a></h3>
+<h3>Example Setting of SLAs<a class="headerlink" href="#example-setting-of-slas" title="Permalink to this headline"></a></h3>
 <p>This example demonstrates setting up SLAs for all VFs for a specified PF, focusing on symmetric and asymmetric crypto services. The RP value is shifted for each VF to allocate resources appropriately.</p>
 <ol class="arabic">
 <li><p><strong>Remove Existing SLAs</strong>: Clear any existing SLAs for the device.</p>

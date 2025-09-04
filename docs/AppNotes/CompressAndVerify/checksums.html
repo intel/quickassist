@@ -16,7 +16,6 @@
         <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
         <script src="../../_static/jquery.js"></script>
         <script src="../../_static/underscore.js"></script>
-        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/clipboard.min.js"></script>
         <script src="../../_static/copybutton.js"></script>
@@ -113,13 +112,13 @@
            <div itemprop="articleBody">
              
   <section id="checksum-discussion">
-<span id="qat-2-0-cnv-checksums"></span><h1>Checksum Discussion<a class="headerlink" href="#checksum-discussion" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-cnv-checksums"></span><h1>Checksum Discussion<a class="headerlink" href="#checksum-discussion" title="Permalink to this headline"></a></h1>
 <p>Intel® QAT computes Cyclic Redundancy Checks (CRCs), checksums, and hash values during compression and decompression
 operations. For brevity, these algorithms will collectively be referred to as checksums in this paper.</p>
 <p>This section introduces the checksums used in CnV, explains the concept of checksum collisions, outlines how each checksum
 is calculated, and highlights their differences.</p>
 <section id="table-of-checksums">
-<h2>Table of Checksums<a class="headerlink" href="#table-of-checksums" title="Permalink to this heading"></a></h2>
+<h2>Table of Checksums<a class="headerlink" href="#table-of-checksums" title="Permalink to this headline"></a></h2>
 <p>The following table identifies the checksums used in CnV, based on the compression algorithm.</p>
 <table class="longtable colwidths-given docutils align-default">
 <colgroup>
@@ -181,11 +180,11 @@ These CRC64 values are not included in the CnV calculation.</p>
 </div>
 </section>
 <section id="collisions-crc32-adler32-and-xxhash32">
-<h2>Collisions CRC32, Adler32 and XXHash32<a class="headerlink" href="#collisions-crc32-adler32-and-xxhash32" title="Permalink to this heading"></a></h2>
+<h2>Collisions CRC32, Adler32 and XXHash32<a class="headerlink" href="#collisions-crc32-adler32-and-xxhash32" title="Permalink to this headline"></a></h2>
 <p>Any programmatic operation that reduces a dataset to a smaller value has
 the potential to result in a collision.</p>
 <section id="crc32-collision-examples">
-<h3>CRC32 Collision Examples<a class="headerlink" href="#crc32-collision-examples" title="Permalink to this heading"></a></h3>
+<h3>CRC32 Collision Examples<a class="headerlink" href="#crc32-collision-examples" title="Permalink to this headline"></a></h3>
 <p>This table shows CRC32 collisions for four different input datasets, each with two different lengths.</p>
 <table class="docutils align-default">
 <colgroup>
@@ -233,7 +232,7 @@ made in the dataset. See section <a class="reference internal" href="notes.html#
 </section>
 </section>
 <section id="anatomy-of-crc32-checksum">
-<h2>Anatomy of CRC32 checksum<a class="headerlink" href="#anatomy-of-crc32-checksum" title="Permalink to this heading"></a></h2>
+<h2>Anatomy of CRC32 checksum<a class="headerlink" href="#anatomy-of-crc32-checksum" title="Permalink to this headline"></a></h2>
 <p>CRC32 (Cyclic Redundancy Check) is a popular checksum algorithm used
 to detect errors in data.</p>
 <p>CRC32 checksums are calculated using polynomial division. This is
@@ -267,7 +266,7 @@ checksum.</p>
 </li>
 </ol>
 <section id="example-calculation">
-<h3>Example Calculation<a class="headerlink" href="#example-calculation" title="Permalink to this heading"></a></h3>
+<h3>Example Calculation<a class="headerlink" href="#example-calculation" title="Permalink to this headline"></a></h3>
 <p>Here’s a simplified example to illustrate:</p>
 <ol class="arabic simple">
 <li><p>Data: Let’s say our data to be checked is 110101.</p></li>
@@ -281,14 +280,14 @@ polynomial, and reduce the polynomial if necessary.</p></li>
 <p>The result from this final XOR operation is the CRC32 checksum, which
 is a 32-bit value.</p>
 <section id="summary">
-<h4>Summary<a class="headerlink" href="#summary" title="Permalink to this heading"></a></h4>
+<h4>Summary<a class="headerlink" href="#summary" title="Permalink to this headline"></a></h4>
 <p>The CRC32 algorithm combines binary polynomial division and XOR
 operations to compute a 32-bit checksum for a given data block. This
 checksum helps detect errors by ensuring that data has not been
 altered.</p>
 </section>
 <section id="collision-rate-crc32">
-<h4>Collision Rate CRC32<a class="headerlink" href="#collision-rate-crc32" title="Permalink to this heading"></a></h4>
+<h4>Collision Rate CRC32<a class="headerlink" href="#collision-rate-crc32" title="Permalink to this headline"></a></h4>
 <p>Based on the dataset used in an empirical study of collisions (See <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> section for details.),
 CRC32 collisions can be expected to occur at a rate of
 approximately 0.2 per billion tests. This indicates that, relative to a
@@ -298,7 +297,7 @@ observed due to the nature of the dataset.</p>
 </section>
 </section>
 <section id="anatomy-of-adler32-checksum">
-<h2>Anatomy of Adler32 checksum<a class="headerlink" href="#anatomy-of-adler32-checksum" title="Permalink to this heading"></a></h2>
+<h2>Anatomy of Adler32 checksum<a class="headerlink" href="#anatomy-of-adler32-checksum" title="Permalink to this headline"></a></h2>
 <p>The Adler32 algorithm uses modulo addition of individual octets of the
 datasets as described below:</p>
 <blockquote>
@@ -318,7 +317,7 @@ Adler32 of DS = B || A
 </div>
 </div></blockquote>
 <section id="collision-rate-adler32">
-<h3>Collision Rate Adler32<a class="headerlink" href="#collision-rate-adler32" title="Permalink to this heading"></a></h3>
+<h3>Collision Rate Adler32<a class="headerlink" href="#collision-rate-adler32" title="Permalink to this headline"></a></h3>
 <p>Based on the dataset used in an empirical study of collisions (See section <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.), Adler32 collisions can be expected to occur at a rate of
 approximately 175 collisions per billion tests. It is concluded the
 dataset chosen has significantly higher levels of checksum collision for
@@ -326,7 +325,7 @@ Alder32 checksums compared to random data, especially in small datasets</p>
 </section>
 </section>
 <section id="anatomy-of-xxhash32">
-<h2>Anatomy of XXHash32<a class="headerlink" href="#anatomy-of-xxhash32" title="Permalink to this heading"></a></h2>
+<h2>Anatomy of XXHash32<a class="headerlink" href="#anatomy-of-xxhash32" title="Permalink to this headline"></a></h2>
 <p>XXHash32 creates the hash with a series of rotates, addition,
 multiplication and XOR operations. See <a class="reference internal" href="references.html#qat-2-0-cnv-footnote2"><span class="std std-ref">Footnote 2</span></a> for details.</p>
 <p>XXHash32 sets up four accumulators, which are based on an optional seed and two prime numbers.</p>
@@ -384,7 +383,7 @@ acc = acc xor (acc &gt;&gt; 16);
 </div>
 </div></blockquote>
 <section id="collision-rate-xxhash32">
-<h3>Collision Rate XXHash32<a class="headerlink" href="#collision-rate-xxhash32" title="Permalink to this heading"></a></h3>
+<h3>Collision Rate XXHash32<a class="headerlink" href="#collision-rate-xxhash32" title="Permalink to this headline"></a></h3>
 <p>Based on the dataset used in an empirical study of collisions (See section <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.), XXHash32 collisions are expected to occur at a rate of
 approximately 3.4 errors per billion tests. This suggests a modest
 reduction when compared to CRC32 collisions, which can be attributed to the nature of the dataset.</p>

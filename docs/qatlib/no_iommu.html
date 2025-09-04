@@ -16,7 +16,6 @@
         <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
-        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
         <script src="../_static/doctools.js"></script>
         <script src="../_static/clipboard.min.js"></script>
         <script src="../_static/copybutton.js"></script>
@@ -69,7 +68,17 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">QATlib VFIO no-IOMMU Mode Support</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#steps-to-enable-vfio-no-iommu-mode-for-qat-applications">Steps to Enable VFIO no-IOMMU Mode for QAT Applications</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#process-to-enable-vfio-no-iommu-mode-for-qat-applications">Process to Enable VFIO no-IOMMU Mode for QAT Applications</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#setup-hugepages-on-the-host">Setup Hugepages on the Host</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#configure-qemu-for-hugepages">Configure QEMU for Hugepages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#boot-vm-without-viommu">Boot VM Without viommu</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#enable-vfio-no-iommu-mode-in-vm">Enable VFIO no-IOMMU Mode in VM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load-vfio-pci-driver">Load VFIO-PCI Driver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#verify-vfio-groups">Verify VFIO Groups</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setup-hugepages-on-the-guest-vm">Setup Hugepages on the Guest VM</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#run-sample-applications">Run Sample Applications</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
@@ -109,98 +118,127 @@
            <div itemprop="articleBody">
              
   <section id="qatlib-vfio-no-iommu-mode-support">
-<span id="qat-2-0-qatlib-no-iommu"></span><h1>QATlib VFIO no-IOMMU Mode Support<a class="headerlink" href="#qatlib-vfio-no-iommu-mode-support" title="Permalink to this heading"></a></h1>
+<span id="qat-2-0-qatlib-no-iommu"></span><h1>QATlib VFIO no-IOMMU Mode Support<a class="headerlink" href="#qatlib-vfio-no-iommu-mode-support" title="Permalink to this headline"></a></h1>
 <section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h2>
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
 <p>QATlib now supports VFIO no-IOMMU mode, allowing customers to use VFIO without viommu in virtual machines (VMs). In this mode, QATlib passes the guest physical address directly to the host IOMMU, instead of using an IOVA. This feature is automatically detected by QATlib when it identifies QAT devices on VMs, switching to no-IOMMU mode as needed.</p>
 </section>
 <section id="prerequisites">
-<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this heading"></a></h2>
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Ensure hugepages are enabled on both the host and guest VM to pin host physical memory and maintain contiguous guest physical memory for host IOMMU operations.</p></li>
 <li><p>For Kernel versions 6.12 to 6.15, enabling SR-IOV when IOMMU is disabled requires an additional patch to the QAT kernel driver code. The patch can be found <a class="reference external" href="https://patchwork.kernel.org/project/linux-crypto/patch/20250604082343.26819-1-ahsan.atta&#64;intel.com/">here</a>. The QAT kernel driver will need to be recompiled to support this usage.</p></li>
 </ul>
 </section>
-<section id="steps-to-enable-vfio-no-iommu-mode-for-qat-applications">
-<h2>Steps to Enable VFIO no-IOMMU Mode for QAT Applications<a class="headerlink" href="#steps-to-enable-vfio-no-iommu-mode-for-qat-applications" title="Permalink to this heading"></a></h2>
-<ol class="arabic">
-<li><p>Hugepages must be enabled for optimal performance. Hugepage support is required to reserve large page sizes (2MB or 1GB per page) to reduce TLB (Translation Lookaside Buffers) misses and improve cache efficiency.</p>
+<section id="process-to-enable-vfio-no-iommu-mode-for-qat-applications">
+<h2>Process to Enable VFIO no-IOMMU Mode for QAT Applications<a class="headerlink" href="#process-to-enable-vfio-no-iommu-mode-for-qat-applications" title="Permalink to this headline"></a></h2>
+<p>Follow the sections below to enable VFIO no-IOMMU mode for QAT applications.</p>
+<section id="setup-hugepages-on-the-host">
+<h3>Setup Hugepages on the Host<a class="headerlink" href="#setup-hugepages-on-the-host" title="Permalink to this headline"></a></h3>
+<p>Hugepages must be enabled for optimal performance. Hugepage support is required to reserve large page sizes (2MB or 1GB per page) to reduce TLB (Translation Lookaside Buffers) misses and improve cache efficiency.</p>
 <p>For 2MB pages, you can activate hugepages while booting or at any time after the system is booted. Define hugepages setting in <cite>/etc/default/grub</cite> to activate it while booting, or overwrite the number of 2MB hugepages as follows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
 </pre></div>
 </div>
+</div></blockquote>
 <p>In this case, 1024 pages of 2MB (totally 2048 MB) are reserved.</p>
-<ol class="arabic simple">
-<li><p>Create a directory for hugepages:</p></li>
-</ol>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Create a directory for hugepages:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/hugepages
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li><p>Mount the hugepages filesystem:</p></li>
-</ol>
+</li>
+<li><p>Mount the hugepages filesystem:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mount<span class="w"> </span>-t<span class="w"> </span>hugetlbfs<span class="w"> </span>nodev<span class="w"> </span>/mnt/hugepages
 </pre></div>
 </div>
-<ol class="arabic simple" start="3">
-<li><p>Reserve hugepages:</p></li>
-</ol>
+</li>
+<li><p>Reserve hugepages:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/vm/nr_hugepages
 </pre></div>
 </div>
 </li>
-<li><p>Add hugepage options in the QEMU command to allocate memory for the VM:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qemu-system-x86_64<span class="w"> </span><span class="se">\</span>
+</ol>
+</div></blockquote>
+</section>
+<section id="configure-qemu-for-hugepages">
+<h3>Configure QEMU for Hugepages<a class="headerlink" href="#configure-qemu-for-hugepages" title="Permalink to this headline"></a></h3>
+<p>Add hugepage options in the QEMU command to allocate memory for the VM:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>qemu-system-x86_64<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>-m<span class="w"> </span>4G<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>-object<span class="w"> </span>memory-backend-file,id<span class="o">=</span>mem0,mem-path<span class="o">=</span>/mnt/hugepages,size<span class="o">=</span>4G,share<span class="o">=</span>on,prealloc<span class="o">=</span>on<span class="w"> </span><span class="se">\</span>
 <span class="w">      </span>-machine<span class="w"> </span>memory-backend<span class="o">=</span>mem0<span class="w"> </span><span class="se">\</span>
 </pre></div>
 </div>
-</li>
-<li><p>Remove <cite>intel_iommu=on</cite> from the boot command line to disable viommu.</p></li>
-<li><p>If there is no IOMMU available on the system, VFIO can still be used by enabling the unsafe no-IOMMU mode. This mode allows VFIO to function without IOMMU protection, which is inherently unsafe but necessary in certain situations.</p>
+</div></blockquote>
+</section>
+<section id="boot-vm-without-viommu">
+<h3>Boot VM Without viommu<a class="headerlink" href="#boot-vm-without-viommu" title="Permalink to this headline"></a></h3>
+<p>Remove <cite>intel_iommu=on</cite> from the boot command line to disable viommu.</p>
+</section>
+<section id="enable-vfio-no-iommu-mode-in-vm">
+<h3>Enable VFIO no-IOMMU Mode in VM<a class="headerlink" href="#enable-vfio-no-iommu-mode-in-vm" title="Permalink to this headline"></a></h3>
+<p>If there is no IOMMU available on the system, VFIO can still be used by enabling the unsafe no-IOMMU mode. This mode allows VFIO to function without IOMMU protection, which is inherently unsafe but necessary in certain situations.</p>
 <p>Once inside the VM, enable VFIO no-IOMMU mode:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/module/vfio/parameters/enable_unsafe_noiommu_mode
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/module/vfio/parameters/enable_unsafe_noiommu_mode
 </pre></div>
 </div>
+</div></blockquote>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Since no-IOMMU mode forgoes IOMMU protection, it is inherently unsafe. Ensure that you understand the risks before enabling this mode.</p>
 </div>
-</li>
-<li><p>Load the VFIO-PCI driver (or <cite>qat_vfio_pci</cite>):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe<span class="w"> </span>vfio-pci
+</section>
+<section id="load-vfio-pci-driver">
+<h3>Load VFIO-PCI Driver<a class="headerlink" href="#load-vfio-pci-driver" title="Permalink to this headline"></a></h3>
+<p>Load the VFIO-PCI driver (or <cite>qat_vfio_pci</cite>):</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>modprobe<span class="w"> </span>vfio-pci
 </pre></div>
 </div>
-</li>
-<li><p>Check VFIO groups to ensure they are in no-IOMMU mode:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/dev/vfio
+</div></blockquote>
+</section>
+<section id="verify-vfio-groups">
+<h3>Verify VFIO Groups<a class="headerlink" href="#verify-vfio-groups" title="Permalink to this headline"></a></h3>
+<p>Check VFIO groups to ensure they are in no-IOMMU mode:</p>
+<blockquote>
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ls<span class="w"> </span>/dev/vfio
 </pre></div>
 </div>
+</div></blockquote>
 <p>You should see VFIO groups as <cite>noiommu-&lt;group id&gt;</cite>.</p>
-</li>
-<li><p>Make the memory available for using hugepages. The mount point for hugepages can be made permanent across reboots by configuring <cite>/etc/fstab</cite>.</p>
-<ol class="arabic simple">
-<li><p>Create a directory for hugepages:</p></li>
-</ol>
+</section>
+<section id="setup-hugepages-on-the-guest-vm">
+<h3>Setup Hugepages on the Guest VM<a class="headerlink" href="#setup-hugepages-on-the-guest-vm" title="Permalink to this headline"></a></h3>
+<p>Make the memory available for using hugepages. The mount point for hugepages can be made permanent across reboots by configuring <cite>/etc/fstab</cite>.</p>
+<blockquote>
+<div><ol class="arabic">
+<li><p>Create a directory for hugepages:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>/mnt/hugepages
 </pre></div>
 </div>
-<ol class="arabic simple" start="2">
-<li><p>Mount the hugepages filesystem:</p></li>
-</ol>
+</li>
+<li><p>Mount the hugepages filesystem:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mount<span class="w"> </span>-t<span class="w"> </span>hugetlbfs<span class="w"> </span>nodev<span class="w"> </span>/mnt/hugepages
 </pre></div>
 </div>
-<ol class="arabic simple" start="3">
-<li><p>Reserve hugepages:</p></li>
-</ol>
+</li>
+<li><p>Reserve hugepages:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">2048</span><span class="w"> </span>&gt;<span class="w"> </span>/proc/sys/vm/nr_hugepages
 </pre></div>
 </div>
 </li>
-<li><p>With VFIO no-IOMMU support enabled in QATlib, you can now run sample applications to test the setup.</p></li>
 </ol>
+</div></blockquote>
+</section>
+<section id="run-sample-applications">
+<h3>Run Sample Applications<a class="headerlink" href="#run-sample-applications" title="Permalink to this headline"></a></h3>
+<p>With VFIO no-IOMMU support enabled in QATlib, you can now run sample applications to test the setup.</p>
+</section>
 </section>
 </section>
 
