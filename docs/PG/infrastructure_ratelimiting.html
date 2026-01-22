@@ -4,11 +4,12 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rate Limiting &mdash; Intel® QuickAssist Technology  documentation</title>
+  <title>Rate Limiting &mdash; Intel® QuickAssist Technology</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo-white-72px.svg"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -36,6 +37,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Intel® QuickAssist Technology
+              <img src="../_static/logo-energyblue-white-72px.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -45,13 +47,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Legal &amp; Overview</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guides</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -68,8 +77,10 @@
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_device_telemetry.html">Telemetry</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Rate Limiting</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#rate-limiting-overview">Rate Limiting Overview</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rate-limiting-reference-algorithms-and-capacity">Rate Limiting Reference Algorithms and Capacity</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#out-of-tree-rate-limiting">Out-of-Tree Rate Limiting</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#in-tree-rate-limiting">In-tree Rate Limiting</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-validation">Performance Validation</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="infrastructure_power_management.html">Power Management</a></li>
@@ -88,8 +99,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Resources</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -128,10 +145,38 @@
 <p>Resources are shared across guests, and the resource utilization of each guest is measured relative to the capacity of the physical function. The feature is supported for SYM, ASYM, and DC services.</p>
 <p>This document provides instructions for enabling Rate Limiting for both Out-of-Tree (OOT) and In-tree stacks.</p>
 </section>
+<section id="rate-limiting-reference-algorithms-and-capacity">
+<h2>Rate Limiting Reference Algorithms and Capacity<a class="headerlink" href="#rate-limiting-reference-algorithms-and-capacity" title="Permalink to this headline"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Understanding reference algorithms is critical for proper SLA configuration across both In-Tree and Out-of-Tree implementations.</p>
+</div>
+<section id="device-capacity-reference-algorithms">
+<h3>Device Capacity Reference Algorithms<a class="headerlink" href="#device-capacity-reference-algorithms" title="Permalink to this headline"></a></h3>
+<p>QAT devices report capacity based on these reference algorithms:</p>
+<ul class="simple">
+<li><p><strong>Symmetric Crypto</strong> - AES-128-GCM with 4KB packet size</p></li>
+<li><p><strong>Compression</strong> - Dynamic DEFLATE level 1 with 64KB packet size</p></li>
+<li><p><strong>Asymmetric Crypto</strong> - RSA-2048 decrypt operations</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Migration Note</strong>: Customers upgrading from QAT 1.6/1.7 should note that the symmetric crypto reference changed from AES-128-CBC + SHA256-HMAC at 1KB to AES-128-GCM at 4KB.</p>
+</div>
+</section>
+<section id="sku-specific-capacity-values">
+<h3>SKU-Specific Capacity Values<a class="headerlink" href="#sku-specific-capacity-values" title="Permalink to this headline"></a></h3>
+<p>Device capacity and performance characteristics vary significantly between different SKUs (such as MCC and XCC variants). The same reference algorithm may achieve different throughput levels depending on the specific hardware configuration.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Always consult your device’s performance brief for SKU-specific capacity values and performance characteristics before configuring SLAs.</p>
+</div>
+</section>
+</section>
 <section id="out-of-tree-rate-limiting">
 <h2>Out-of-Tree Rate Limiting<a class="headerlink" href="#out-of-tree-rate-limiting" title="Permalink to this headline"></a></h2>
-<section id="enabling-rate-limiting">
-<h3>Enabling Rate Limiting<a class="headerlink" href="#enabling-rate-limiting" title="Permalink to this headline"></a></h3>
+<section id="enabling-rate-limiting-with-out-of-tree-driver">
+<h3>Enabling Rate Limiting With Out-of-Tree Driver<a class="headerlink" href="#enabling-rate-limiting-with-out-of-tree-driver" title="Permalink to this headline"></a></h3>
 <p>To enable the Rate Limiting feature for the Out-of-Tree stack:</p>
 <ol class="arabic simple">
 <li><p><strong>Install</strong> the driver package on the host with Single-Root Input/Output Virtualization (SR-IOV) enabled.</p></li>
@@ -154,13 +199,13 @@
 </ul>
 </div></blockquote>
 </section>
-<section id="sla-units">
-<h3>SLA Units<a class="headerlink" href="#sla-units" title="Permalink to this headline"></a></h3>
+<section id="sla-units-with-out-of-tree-driver">
+<h3>SLA Units With Out-of-Tree Driver<a class="headerlink" href="#sla-units-with-out-of-tree-driver" title="Permalink to this headline"></a></h3>
 <p>SLA units are measured as follows:</p>
 <ul class="simple">
-<li><p>Symmetric Crypto - 1Mbps of throughput.</p></li>
+<li><p>Symmetric Crypto - 1Mbps of throughput (based on AES-128-GCM &#64; 4KB reference algorithm).</p></li>
 <li><p>Asymmetric Crypto - 1 unit is equal to 0.1 percent of available utilization.</p></li>
-<li><p>Compression - 1Mbps of throughput.</p></li>
+<li><p>Compression - 1Mbps of throughput (based on Dynamic DEFLATE level 1 &#64; 64KB reference algorithm).</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -172,8 +217,8 @@
 <li><p>Users can run tests with the required algorithm to determine the mapping for other SKUs with different performance. Gen4 asymmetric performance numbers can differ based on the SKU.</p></li>
 </ol>
 </div>
-<table class="docutils align-default" id="id3">
-<caption><span class="caption-text">Sample Mapping Table for 5th Gen Intel® Xeon® Scalable Processer - MCC SKU</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Sample Mapping Table for 5th Gen Intel® Xeon® Scalable Processer - MCC SKU</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 33%" />
@@ -224,6 +269,19 @@
 </tr>
 </tbody>
 </table>
+<section id="migration-from-qat-1-x">
+<h4>Migration from QAT 1.x<a class="headerlink" href="#migration-from-qat-1-x" title="Permalink to this headline"></a></h4>
+<p>Customers upgrading from QAT 1.6/1.7 should be aware of reference algorithm changes:</p>
+<ul class="simple">
+<li><p><strong>Symmetric Crypto</strong>: The reference algorithm changed from AES-128-CBC + SHA256-HMAC at 1KB to AES-128-GCM at 4KB. This may require SLA scaling based on your specific SKU and algorithms.</p></li>
+<li><p><strong>Algorithm Impact</strong>: Performance varies significantly with algorithm choice and packet size compared to the reference.</p></li>
+<li><p><strong>Decompression Behavior</strong>: Decompression operations may achieve approximately 2x the throughput of compression operations for the same SLA setting.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Test your specific algorithms and packet sizes to determine appropriate SLA values for your use case.</p>
+</div>
+</section>
 </section>
 <section id="sla-manager-application">
 <h3>SLA Manager Application<a class="headerlink" href="#sla-manager-application" title="Permalink to this headline"></a></h3>
@@ -231,8 +289,8 @@
 The SLA Manager executable is available in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/build/sla_mgr</span></code> after the package is built and installed using <code class="docutils literal notranslate"><span class="pre">./configure;</span> <span class="pre">make</span> <span class="pre">install</span></code> commands.</p>
 <section id="sla-commands">
 <h4>SLA Commands<a class="headerlink" href="#sla-commands" title="Permalink to this headline"></a></h4>
-<table class="longtable colwidths-given docutils align-default" id="id4">
-<caption><span class="caption-text">Rate Limiting SLA Commands</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">Rate Limiting SLA Commands</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 33%" />
 <col style="width: 67%" />
@@ -302,6 +360,35 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 <li><p>Regularly monitor performance and adjust CIR and PIR values as needed to maintain optimal throughput.</p></li>
 </ul>
 </section>
+<section id="out-of-tree-troubleshooting">
+<h3>Out-of-Tree Troubleshooting<a class="headerlink" href="#out-of-tree-troubleshooting" title="Permalink to this headline"></a></h3>
+<p><strong>Issue</strong>: SLA performance doesn’t match expectations</p>
+<p><strong>Solutions</strong>:</p>
+<ol class="arabic simple">
+<li><p>Check if your algorithm matches the reference (AES-128-GCM &#64; 4KB for symmetric crypto)</p></li>
+<li><p>For different algorithms, scale SLA based on performance brief ratios</p></li>
+<li><p>Verify total SLA allocation doesn’t exceed device capacity</p></li>
+</ol>
+<p><strong>Issue</strong>: Decompression achieves higher throughput than expected</p>
+<p><strong>Solution</strong>: This is expected behavior. Decompression can achieve ~2x compression throughput.</p>
+<p><strong>Issue</strong>: Asymmetric performance varies significantly between workloads</p>
+<p><strong>Solution</strong>: Gen4 devices use slice utilization measurement which provides more accurate resource allocation than operations-per-second metrics.</p>
+<section id="debugging-commands">
+<h4>Debugging Commands<a class="headerlink" href="#debugging-commands" title="Permalink to this headline"></a></h4>
+<p>Check current SLA configuration:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./sla_mgr<span class="w"> </span>list<span class="w"> </span>&lt;pf_addr&gt;
+</pre></div>
+</div>
+<p>Query device capabilities:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./sla_mgr<span class="w"> </span>caps<span class="w"> </span>&lt;pf_addr&gt;
+</pre></div>
+</div>
+<p>Verify SLA is active:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>./sla_mgr<span class="w"> </span>get<span class="w"> </span>&lt;pf_addr&gt;<span class="w"> </span>&lt;sla_id&gt;
+</pre></div>
+</div>
+</section>
+</section>
 </section>
 <section id="in-tree-rate-limiting">
 <h2>In-tree Rate Limiting<a class="headerlink" href="#in-tree-rate-limiting" title="Permalink to this headline"></a></h2>
@@ -327,8 +414,8 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 <li><p><strong>srv</strong>: Represents the service (sym, asym, dc) associated with an SLA.</p></li>
 </ul>
 </section>
-<section id="id1">
-<h3>Enabling Rate Limiting<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h3>
+<section id="enabling-rate-limiting-with-in-tree-driver">
+<h3>Enabling Rate Limiting With In-Tree Driver<a class="headerlink" href="#enabling-rate-limiting-with-in-tree-driver" title="Permalink to this headline"></a></h3>
 <p>To enable the Rate Limiting feature for the In-tree stack:</p>
 <ol class="arabic simple">
 <li><p><strong>Identify</strong> the device using the Bus-Device-Function (BDF) format, e.g., <cite>&lt;BDF&gt;</cite>.</p></li>
@@ -336,12 +423,16 @@ The SLA Manager executable is available in <code class="docutils literal notrans
 <li><p><strong>Ensure</strong> the total CIR for all VFs equals 1000 to ensure proper rate limiting.</p></li>
 </ol>
 </section>
-<section id="id2">
-<h3>SLA Units<a class="headerlink" href="#id2" title="Permalink to this headline"></a></h3>
+<section id="sla-units-with-in-tree-driver">
+<h3>SLA Units With In-Tree Driver<a class="headerlink" href="#sla-units-with-in-tree-driver" title="Permalink to this headline"></a></h3>
 <p>For the In-tree stack, SLA units are measured as follows:</p>
 <ul class="simple">
-<li><p>All services (sym, asym, dc) - 1 unit is equal to 0.1 percent of available utilization.</p></li>
+<li><p><strong>All services (sym, asym, dc)</strong> - Values are expressed in permille scale, where 1000 refers to the maximum device throughput for the selected service.</p></li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The percentage-based approach provides consistent units across all services and abstracts away underlying reference algorithm details. Use the <code class="docutils literal notranslate"><span class="pre">cap_rem</span></code> attribute to check remaining capacity for each service.</p>
+</div>
 </section>
 <section id="example-setting-of-slas">
 <h3>Example Setting of SLAs<a class="headerlink" href="#example-setting-of-slas" title="Permalink to this headline"></a></h3>
@@ -384,6 +475,31 @@ Similarly, set the SLA parameters for the asymmetric service:</p>
 </li>
 </ol>
 <p>This example illustrates setting up rate limiting for one QAT endpoint, evenly distributing the PF capacity among 16 VFs for both symmetric and asymmetric services.</p>
+</section>
+</section>
+<section id="performance-validation">
+<h2>Performance Validation<a class="headerlink" href="#performance-validation" title="Permalink to this headline"></a></h2>
+<section id="validating-sla-performance">
+<h3>Validating SLA Performance<a class="headerlink" href="#validating-sla-performance" title="Permalink to this headline"></a></h3>
+<p>To ensure your SLA configuration meets performance requirements:</p>
+<ol class="arabic simple">
+<li><p><strong>Baseline Testing</strong>: Test your application without rate limiting enabled to establish maximum performance.</p></li>
+<li><p><strong>SLA Testing</strong>: Configure SLAs and test with rate limiting enabled.</p></li>
+<li><p><strong>Performance Comparison</strong>: Compare results and adjust SLA values if needed.</p></li>
+</ol>
+</section>
+<section id="expected-performance-ranges">
+<h3>Expected Performance Ranges<a class="headerlink" href="#expected-performance-ranges" title="Permalink to this headline"></a></h3>
+<ul class="simple">
+<li><p><strong>Symmetric Crypto</strong>: 90-100% of calculated SLA performance</p></li>
+<li><p><strong>Compression</strong>: 90-100% of calculated SLA performance</p></li>
+<li><p><strong>Decompression</strong>: May achieve higher throughput than compression (expected behavior)</p></li>
+<li><p><strong>Asymmetric</strong>: Performance varies by algorithm complexity</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Performance measurements should be taken over at least 1-second intervals for accurate rate limiting assessment.</p>
+</div>
 </section>
 </section>
 </section>

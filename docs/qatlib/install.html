@@ -4,11 +4,12 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation &mdash; Intel® QuickAssist Technology  documentation</title>
+  <title>Installation &mdash; Intel® QuickAssist Technology</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo-white-72px.svg"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -36,6 +37,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Intel® QuickAssist Technology
+              <img src="../_static/logo-energyblue-white-72px.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -45,13 +47,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Legal &amp; Overview</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guides</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PG/index.html">Programmer’s Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
@@ -85,8 +94,14 @@
 <li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
 </ul>
 </li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Resources</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -234,8 +249,51 @@ The following commands set the amount of locked memory to 500MB.</p>
 </section>
 <section id="installing-from-sources">
 <span id="qat-2-0-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h2>
-<p>The following steps can be used to install the <em>qatlib</em> package from source.</p>
+<p>The following steps explain how to verify and build the <em>qatlib</em> package from
+source.</p>
+<p>Step 1 walks through optional verification of the signed <cite>25.08.0</cite> tarball
+from the <a class="reference external" href="https://github.com/intel/qatlib/releases">QATlib GitHub releases page</a>,
+followed by the build steps that assume the artifact was verified or otherwise
+trusted.</p>
 <ol class="arabic">
+<li><p><strong>Verify the source package (Optional).</strong></p>
+<p>Use this step whenever you download <cite>25.08.0.tar.gz</cite> directly from the release
+page and want to confirm the artifact is authentic before compiling.</p>
+<ul>
+<li><p><strong>Download</strong> the <cite>25.08.0.tar.gz</cite> and <cite>25.08.0.tar.gz.asc</cite> files from the
+release.</p></li>
+<li><p><strong>Import</strong> the public signing key:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">curl -sSfL https://github.com/Ahsan-atta.gpg | gpg --import</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Verify</strong> the key fingerprint matches <cite>928F94F0ADA52F3778D340E85755001BD60500F4</cite>:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">gpg --fingerprint 928F94F0ADA52F3778D340E85755001BD60500F4</span>
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><strong>Check</strong> the tarball checksum to ensure the download is complete:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sha256sum 25.08.0.tar.gz</span>
+</pre></div>
+</div>
+<p>The value returned must match <cite>b91c3d99c4f8d77af9ccd7e32738272aa7f205e4853a2005ae96c6be511a161</cite>.</p>
+</div></blockquote>
+</li>
+<li><p><strong>Verify</strong> the signature:</p>
+<blockquote>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">gpg --verify 25.08.0.tar.gz.asc 25.08.0.tar.gz</span>
+</pre></div>
+</div>
+<p>A successful verification reports a good signature from the key above.</p>
+</div></blockquote>
+</li>
+</ul>
+</li>
 <li><p><strong>Install</strong> the dependencies by running the following commands.</p>
 <p>For RPM-based distros:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf install -y gcc systemd-devel automake autoconf libtool make autoconf-archive</span>

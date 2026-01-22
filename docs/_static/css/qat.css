@@ -1,32 +1,41 @@
 /* Intel Colors */
 :root {
     --classic-blue-shade-2: #00285A;
-	--classic-blue-shade-1: #004A86;
-	--classic-blue: #0068B5;
+    --classic-blue-shade-1: #004A86;
+    --classic-blue: #0068B5;
     --classic-blue-tint-1: #00A3F6;
     --classic-blue-tint-2: #76CEFF;
     --energy-blue-shade-2: #005B85;
-	--energy-blue-shade-1: #0095CA;
-	--energy-blue: #00C7Fd;
+    --energy-blue-shade-1: #0095CA;
+    --energy-blue: #00C7Fd;
     --energy-blue-tint-1: #7BDEFF;
     --energy-blue-tint-2: #B4F0FF;
     --carbon-shade-2: #262626;
-	--carbon-shade-1: #525252;
-	--carbon: #808080;
+    --carbon-shade-1: #525252;
+    --carbon: #808080;
     --carbon-tint-1: #AEAEAE;
     --carbon-tint-2: #E9E9E9;
     --blue-steel-shade-2: #183544;
-	--blue-steel-shade-1: #41728A;
-	--blue-steel: #548FAD;
+    --blue-steel-shade-1: #41728A;
+    --blue-steel: #548FAD;
     --blue-steel-tint-1: #86B3CA;
     --blue-steel-tint-2: #B9D6E5;
-	--geode-shade-1: #653171;
-	--geode: #8F5DA2;
+    --moss-shade-2: #515A3D;
+    --moss-shade-1: #708541;
+    --moss-steel: #8BAE46;
+    --moss-tint-1: #B1D272;
+    --moss-tint-2: #D7F3A2;
+    --daisy-shade-2: #C98F00;
+    --daisy-shade-1: #EDB200;
+    --daisy-steel: #FEC91B;
+    --daisy-tint-1: #FFE17A;
+    --geode-shade-1: #653171;
+    --geode: #8F5DA2;
     --geode-tint-1: #CC94DA;
     --geode-tint-2: #EEC3F7;
     --cobalt-shade-2: #000864;
-	--cobalt-shade-1: #000F8A;
-	--cobalt-steel: #1E2EB8;
+    --cobalt-shade-1: #000F8A;
+    --cobalt-steel: #1E2EB8;
     --cobalt-tint-1: #5B69FF;
     --cobalt-tint-2: #98A1FF;
 }
@@ -51,25 +60,51 @@
 }
 /* General Font & Background */
 body {
-    font-family: intelone-text-light;
+    font-family: intelone-text-regular;
+    font-weight: normal;
     background: white;
+    background: var(--carbon-tint-2);
     color: var(--carbon-shade-2);
   }
-h1, h2, h3, h4, h5, h6 {
-    font-family: intelone-display-light;
-    font-weight: bold;
+h1, h2, h3, h4, h5, h6,
+.caption>.caption-text {
+    font-family: intelone-display-regular;
+    font-weight: normal;
 }
-h1, h2 {
+h1, h2,
+.caption>.caption-text {
     color: var(--classic-blue-shade-1);
 }
 h3, h4 {
     color: var(--classic-blue);
 }
 h5, h6 {
-    color: var(--classic-blue-shade-1);
+    color: var(--classic-blue-tint-1);
 }
 a {
     color: var(--cobalt-steel);
+}
+strong {
+    font-family: intelone-text-medium;
+    font-weight: normal;
+}
+.logo {
+    width: 150px !important;
+    height: 60px !important;
+    object-fit: contain;
+}
+.wy-side-nav-search a.icon-home::before {
+    content: none !important;
+    display: none !important;
+}
+#rtd-search-form input[type="text"],
+.wy-form input[type="text"] {
+    border-radius: 0 !important;
+    -webkit-border-radius: 0 !important;
+    -moz-border-radius: 0 !important;
+}
+#rtd-search-form input[type="text"]:focus {
+    border-radius: 0 !important;
 }
 .toctree-wrapper ul li {
     list-style-type: none !important;
@@ -83,18 +118,23 @@ a {
 }
 .wy-side-nav-search>a {
     font-weight: normal;
-    font-family: intelone-display-light;
+    font-family: intelone-display-regular;
     font-size: 18px;
-    color: white;
+    color: var(--carbon-tint-2);
 }
 .wy-side-nav-search>a:hover {
     background: transparent;
 }
 .wy-side-nav-search>div.version {
     font-weight: normal;
-    font-family: intelone-display-light;
+    font-family: intelone-display-regular;
     font-size: 15px;
-    color: white;
+    color: var(--carbon-tint-2);
+}
+.wy-menu-vertical p>.caption-text {
+    font-weight: normal;
+    font-family: intelone-display-medium;
+    color: var(--energy-blue-shade-1);
 }
 /* Level 1 */
 .wy-menu-vertical li.toctree-l1>a, .wy-menu-vertical li.toctree-l1>a>button.toctree-expand {
@@ -171,19 +211,35 @@ a {
 }
 /* Note Boxes */
 .note .admonition-title {
-    font-family: intelone-text-regular;
+    font-family: intelone-text-medium;
     font-weight: normal;
-    background: var(--blue-steel) !important;
+    background: var(--classic-blue-shade-1) !important;
 }
 .note {
     background: var(--carbon-tint-2) !important;
 }
 .important .admonition-title {
-    font-family: intelone-text-regular;
+    font-family: intelone-text-medium;
     font-weight: normal;
-    background: var(--geode) !important;
+    background: var(--geode-shade-1) !important;
 }
 .important {
+    background: var(--carbon-tint-2) !important;
+}
+.warning .admonition-title {
+    font-family: intelone-text-medium;
+    font-weight: normal;
+    background: var(--daisy-shade-1) !important;
+}
+.warning {
+    background: var(--carbon-tint-2) !important;
+}
+.tip .admonition-title {
+    font-family: intelone-text-medium;
+    font-weight: normal;
+    background: var(--moss-shade-1) !important;
+}
+.tip {
     background: var(--carbon-tint-2) !important;
 }
 /* Tables */
