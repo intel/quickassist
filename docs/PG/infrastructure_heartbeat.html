@@ -4,11 +4,12 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Heartbeat &mdash; Intel® QuickAssist Technology  documentation</title>
+  <title>Heartbeat &mdash; Intel® QuickAssist Technology</title>
       <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
       <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo-white-72px.svg"/>
   <!--[if lt IE 9]>
     <script src="../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -36,6 +37,7 @@
           
           <a href="../index.html" class="icon icon-home">
             Intel® QuickAssist Technology
+              <img src="../_static/logo-energyblue-white-72px.svg" class="logo" alt="Logo"/>
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -45,13 +47,20 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul class="current">
+              <p class="caption" role="heading"><span class="caption-text">Legal &amp; Overview</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guides</span></p>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
@@ -93,8 +102,14 @@
 <li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Resources</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
 </ul>
@@ -166,8 +181,8 @@ monitoring frequencies or using failure simulation tools.</p>
 <section id="out-of-tree-oot-driver">
 <h4>Out-of-Tree (OOT) Driver<a class="headerlink" href="#out-of-tree-oot-driver" title="Permalink to this headline"></a></h4>
 <p>For devices using the OOT driver, the <code class="docutils literal notranslate"><span class="pre">AutoResetOnError</span></code> field in the device configuration file <code class="docutils literal notranslate"><span class="pre">/etc/&lt;device&gt;.conf</span></code> can be used to configure automatic reset, as shown below.</p>
-<table class="longtable docutils align-default" id="id3">
-<caption><span class="caption-text">AutoResetOnError Values</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<table class="longtable docutils align-default" id="id2">
+<caption><span class="caption-text">AutoResetOnError Values</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 46%" />
 <col style="width: 54%" />
@@ -302,8 +317,8 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-icp-hb-fail-sim</span>
 </pre></div>
 </div>
-<section id="simulating-heartbeat-failure">
-<h5>Simulating Heartbeat Failure<a class="headerlink" href="#simulating-heartbeat-failure" title="Permalink to this headline"></a></h5>
+<section id="simulating-heartbeat-failure-using-out-of-tree-driver">
+<h5>Simulating Heartbeat Failure Using Out-Of-Tree Driver<a class="headerlink" href="#simulating-heartbeat-failure-using-out-of-tree-driver" title="Permalink to this headline"></a></h5>
 <p>Simulating Heartbeat failure for the Out-Of-Tree driver can be accomplished using two methods:</p>
 <ul>
 <li><p>Using the API <code class="docutils literal notranslate"><span class="pre">icp_sal_heartbeat_simulate_failure(&lt;device</span> <span class="pre">id&gt;)</span></code>.</p></li>
@@ -321,8 +336,8 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-hb-error-simulation</span>
 </pre></div>
 </div>
-<section id="id1">
-<h5>Simulating Heartbeat Failure<a class="headerlink" href="#id1" title="Permalink to this headline"></a></h5>
+<section id="simulating-heartbeat-failure-using-in-tree-driver">
+<h5>Simulating Heartbeat Failure Using In-Tree Driver<a class="headerlink" href="#simulating-heartbeat-failure-using-in-tree-driver" title="Permalink to this headline"></a></h5>
 <p>Simulating Heartbeat failure for the In-Tree driver can be accomplished using the following method:</p>
 <ul>
 <li><p>Execute the command:</p>
@@ -334,7 +349,7 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 </section>
 </section>
 <section id="system-virtual-files">
-<span id="id2"></span><h4>System Virtual Files<a class="headerlink" href="#system-virtual-files" title="Permalink to this headline"></a></h4>
+<span id="id1"></span><h4>System Virtual Files<a class="headerlink" href="#system-virtual-files" title="Permalink to this headline"></a></h4>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The heartbeat <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug</span></code> files are associated with the QAT Physical Function (PF).</p>
@@ -343,8 +358,8 @@ and <code class="docutils literal notranslate"><span class="pre">IOCTL_STATUS_AC
 <div class="line">The Heartbeat feature implements the following system virtual files under the <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_&lt;device&gt;_&lt;your_device_BDF&gt;/</span></code> directory.</div>
 <div class="line">For additional details refer to <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/debugfs-driver-qat">debugfs-driver-qat documentation.</a></div>
 </div>
-<table class="longtable docutils align-default" id="id4">
-<caption><span class="caption-text">Heartbeat System Virtual Files</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<table class="longtable docutils align-default" id="id3">
+<caption><span class="caption-text">Heartbeat System Virtual Files</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 24%" />
 <col style="width: 76%" />
