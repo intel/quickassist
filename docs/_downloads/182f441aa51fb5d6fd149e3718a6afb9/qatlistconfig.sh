@@ -1,4 +1,4 @@
- #!/bin/bash
+#!/bin/bash
 
 printf "%-13s | %-5s | %-12s | %-12s | %-10s\n"  "VFIO GROUP" "NODE"   \
 "PF BDF" "VF BDF" "SERVICES"
@@ -8,13 +8,27 @@ for vfio_group in /dev/vfio/*; do
     if [ $vfio_group = "/dev/vfio/vfio" ]; then
         continue
     fi
-    if [ $vfio_group = "/dev/vfio/devices" ]; then
+
+    group=${vfio_group##*/}
+    
+    # Skip the new 'devices' folder in kernel 6.14+
+    if [ "$group" = "devices" ]; then
+        continue
+    fi
+    
+    # Check if the group is numeric (additional safety check)
+    if ! [[ "$group" =~ ^[0-9]+$ ]]; then
         continue
     fi
 
-    group=${vfio_group##*/}
     # assume one bdf per iommu group
     bdf=$(ls /sys/kernel/iommu_groups/$group/devices/)
+    
+    # Check if bdf was found
+    if [ -z "$bdf" ]; then
+        continue
+    fi
+    
     vendor=$(cat /sys/kernel/iommu_groups/$group/devices/$bdf/vendor)
     node=$(cat /sys/kernel/iommu_groups/$group/devices/$bdf/numa_node)
     did=$(cat /sys/kernel/iommu_groups/$group/devices/$bdf/device)

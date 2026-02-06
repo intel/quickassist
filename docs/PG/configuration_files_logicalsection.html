@@ -259,7 +259,17 @@ for additional information.</p>
 <p>The following table shows the parameters that can be set for cryptographic logical instances.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><em>Default</em> denotes the value in the configuration file when shipped.</p>
+<ul>
+<li><p><em>Default</em> denotes the value in the configuration file when shipped.</p></li>
+<li><p>For the in-tree driver, the default operational mode is poll mode (<code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">1</span></code>).</p>
+<blockquote>
+<div><p>The response mode can be changed at runtime to epoll mode
+(<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>) using the
+<a class="reference internal" href="apis_additional_pollingapis.html#qat-2-0-pg-supported-apis-additional-apis-pollingapis-cpainstancesetresponsemode"><span class="std std-ref">cpaInstanceSetResponseMode</span></a> API at the instance level.
+See the <a class="reference internal" href="apis_additional_pollingapis.html#qat-2-0-pg-supported-apis-additional-apis-pollingapis"><span class="std std-ref">Device Polling APIs</span></a> section of the Programmer’s Guide for details.</p>
+</div></blockquote>
+</li>
+</ul>
 </div>
 <table class="longtable colwidths-given docutils align-default" id="id3">
 <caption><span class="caption-text">Cryptographic Logical Instance Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
@@ -344,9 +354,17 @@ SSL0 for user section</p></td>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<ul class="simple">
+<ul>
 <li><p>The maximum number of data compression instances supported is 64.</p></li>
 <li><p><em>Default</em> denotes the value in the configuration file when shipped.</p></li>
+<li><p>For the in-tree driver, the default operational mode is poll mode (<code class="docutils literal notranslate"><span class="pre">IsPolled</span> <span class="pre">=</span> <span class="pre">1</span></code>).</p>
+<blockquote>
+<div><p>The response mode can be changed at runtime to epoll mode
+(<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>) using the
+<a class="reference internal" href="apis_additional_pollingapis.html#qat-2-0-pg-supported-apis-additional-apis-pollingapis-cpainstancesetresponsemode"><span class="std std-ref">cpaInstanceSetResponseMode</span></a> API at the instance level.
+See the <a class="reference internal" href="apis_additional_pollingapis.html#qat-2-0-pg-supported-apis-additional-apis-pollingapis"><span class="std std-ref">Device Polling APIs</span></a> section of the Programmer’s Guide for details.</p>
+</div></blockquote>
+</li>
 </ul>
 </div>
 </section>

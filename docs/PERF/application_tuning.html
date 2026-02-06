@@ -192,8 +192,31 @@ packet.</p></li>
 <h3>NUMA Awareness<a class="headerlink" href="#numa-awareness" title="Permalink to this headline"></a></h3>
 <p>For a dual processor system, memory allocated for data submitted to the
 acceleration device should be allocated on the same node as the attached
-acceleration device. This is to prevent having to fetch data for
-processing on memory of the remote node.</p>
+acceleration device. This is because it’s slower to fetch data from or write
+data to the remote node’s memory.</p>
+<p>The memory allocation APIs provide NUMA-aware memory allocation functions,
+which help minimize memory access latency and maximize throughput by
+ensuring memory is allocated close to the QAT device.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA()</span></code> function allows applications to allocate
+DMA-able memory on a specific NUMA node, ensuring data locality with
+the QAT device.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using VFIO mode, the ‘node’ parameter in <code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA()</span></code> is
+not used. Memory is allocated based on the calling thread’s NUMA affinity
+(first-touch policy).</p>
+<p>For best performance:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>Bind your application to the same NUMA node as the QAT device.</p></li>
+</ul>
+</div></blockquote>
+<p>You can check the QAT device’s NUMA node at:
+<code class="docutils literal notranslate"><span class="pre">/sys/bus/pci/devices/&lt;device&gt;/numa_node</span></code></p>
+</div>
+<p>For complete documentation of these APIs, refer to the
+<a class="reference internal" href="../PG/apis_additional_memoryapis.html#qat-2-0-pg-supported-apis-additional-apis-memoryapis"><span class="std std-ref">Memory Driver APIs</span></a>
+section in the Programmer’s Guide.</p>
 </section>
 </section>
 <section id="intel-quickassist-technology-optimization">

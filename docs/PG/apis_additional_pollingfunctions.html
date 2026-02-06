@@ -83,6 +83,7 @@
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_cnvapis.html">Compress and Verify (CnV) Related APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_heartbeatapis.html">Heartbeat APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_pollingapis.html">Device Polling APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_memoryapis.html">Memory Driver APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_congestionapis.html">Congestion Management APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_servicespecificapis.html">Service Specific Polling APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_availabilityapis.html">Check Device Availability APIs</a></li>
@@ -420,6 +421,186 @@ When set to 0, all responses are retrieved.</p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
 <td><p>Indicates a failure.</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-cygetfiledescriptor">
+<h2>icp_sal_CyGetFileDescriptor<a class="headerlink" href="#icp-sal-cygetfiledescriptor" title="Permalink to this headline"></a></h2>
+<p>Get the file descriptor for a cryptographic instance when operating in epoll mode. The file descriptor is used with
+the Linux* epoll interface (<code class="docutils literal notranslate"><span class="pre">epoll_ctl()</span></code>, <code class="docutils literal notranslate"><span class="pre">epoll_wait()</span></code>). The file descriptor will only be returned when the
+instance response mode is configured for <code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code> (epoll mode).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The file descriptor is persistent for the lifetime of the instance. If the instance response mode is changed from epoll
+to poll mode and back to epoll, the same file descriptor remains valid and does not need to be queried again. This API
+will return <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> when the instance is not in epoll mode, even though the file descriptor continues
+to exist and will be valid if the instance is later switched back to epoll mode.</p>
+</div>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_CyGetFileDescriptor(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">int</span> <span class="pre">*fd);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>Cryptographic API instance handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fd</span></code></p></td>
+<td><p>File descriptor address to be set. The fd will be set only in case of success and be
+kept unchanged otherwise.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_CyGetFileDescriptor</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Function executed successfully and the file descriptor has been set.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Function failed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code></p></td>
+<td><p>Instance not in epoll mode (<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-cyputfiledescriptor">
+<h2>icp_sal_CyPutFileDescriptor<a class="headerlink" href="#icp-sal-cyputfiledescriptor" title="Permalink to this headline"></a></h2>
+<p>Put (release) the file descriptor for a cryptographic instance. This function exists for compatibility reasons.</p>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_CyPutFileDescriptor(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">int</span> <span class="pre">fd);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>Cryptographic API instance handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fd</span></code></p></td>
+<td><p>File descriptor.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_CyPutFileDescriptor</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Function executed successfully.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Function failed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code></p></td>
+<td><p>Instance not in epoll mode (<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-dcgetfiledescriptor">
+<h2>icp_sal_DcGetFileDescriptor<a class="headerlink" href="#icp-sal-dcgetfiledescriptor" title="Permalink to this headline"></a></h2>
+<p>Get the file descriptor for a data compression instance when operating in epoll mode. The file descriptor is used with
+the Linux* epoll interface (<code class="docutils literal notranslate"><span class="pre">epoll_ctl()</span></code>, <code class="docutils literal notranslate"><span class="pre">epoll_wait()</span></code>). The file descriptor will only be returned when the
+instance response mode is configured for <code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code> (epoll mode).</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The file descriptor is persistent for the lifetime of the instance. If the instance response mode is changed from epoll
+to poll mode and back to epoll, the same file descriptor remains valid and does not need to be queried again. This API
+will return <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> when the instance is not in epoll mode, even though the file descriptor continues
+to exist and will be valid if the instance is later switched back to epoll mode.</p>
+</div>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_DcGetFileDescriptor(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">int</span> <span class="pre">*fd);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>Data Compression API instance handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fd</span></code></p></td>
+<td><p>File descriptor address to be set. The fd will be set only in case of success and be
+kept unchanged otherwise.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_DcGetFileDescriptor</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Function executed successfully and the file descriptor has been set.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Function failed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code></p></td>
+<td><p>Instance not in epoll mode (<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="icp-sal-dcputfiledescriptor">
+<h2>icp_sal_DcPutFileDescriptor<a class="headerlink" href="#icp-sal-dcputfiledescriptor" title="Permalink to this headline"></a></h2>
+<p>Put (release) the file descriptor for a data compression instance. This function exists for compatibility reasons.</p>
+<p><strong>Syntax</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_DcPutFileDescriptor(CpaInstanceHandle</span> <span class="pre">instanceHandle,</span> <span class="pre">int</span> <span class="pre">fd);</span></code></p>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">instanceHandle</span></code></p></td>
+<td><p>Data Compression API instance handle.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">fd</span></code></p></td>
+<td><p>File descriptor.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">icp_sal_DcPutFileDescriptor</span></code> function returns one of the following codes:</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 75%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_SUCCESS</span></code></p></td>
+<td><p>Function executed successfully.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_FAIL</span></code></p></td>
+<td><p>Function failed.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code></p></td>
+<td><p>Instance not in epoll mode (<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>).</p></td>
 </tr>
 </tbody>
 </table>
