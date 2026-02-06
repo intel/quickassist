@@ -1266,8 +1266,17 @@ stateful decompression.</p></td>
 <h3>Data Plane API Overflow Error<a class="headerlink" href="#data-plane-api-overflow-error" title="Permalink to this headline"></a></h3>
 <p>The Data Plane API considers overflow status as an error. If an overflow occurs with the data plane API, the driver will output the following error message to the user:</p>
 <blockquote>
-<div><p><code class="docutils literal notranslate"><span class="pre">Unrecoverable</span> <span class="pre">error:</span> <span class="pre">stateless</span> <span class="pre">overflow.</span> <span class="pre">You</span> <span class="pre">may</span> <span class="pre">need</span> <span class="pre">to</span> <span class="pre">increase</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">your</span> <span class="pre">destination</span> <span class="pre">buffer</span></code></p>
+<div><p><code class="docutils literal notranslate"><span class="pre">Error:</span> <span class="pre">stateless</span> <span class="pre">overflow.</span> <span class="pre">Try</span> <span class="pre">resubmitting</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">larger</span> <span class="pre">destination</span> <span class="pre">buffer</span></code></p>
 </div></blockquote>
+<dl class="simple">
+<dt>Older versions of the driver may return the following message:</dt><dd><p><code class="docutils literal notranslate"><span class="pre">Error:</span> <span class="pre">stateless</span> <span class="pre">overflow.</span> <span class="pre">You</span> <span class="pre">may</span> <span class="pre">need</span> <span class="pre">to</span> <span class="pre">increase</span> <span class="pre">the</span> <span class="pre">size</span> <span class="pre">of</span> <span class="pre">your</span> <span class="pre">destination</span> <span class="pre">buffer</span></code></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This error is usually recoverable. Applications can resubmit the request with a larger destination buffer.
+The message is only printed in debug builds. Overflow is not considered a fatal error in any case.</p>
+</div>
 <p>In this case, <code class="docutils literal notranslate"><span class="pre">cpaDcRqResults.consumed</span></code>, <code class="docutils literal notranslate"><span class="pre">.produced</span></code> and <code class="docutils literal notranslate"><span class="pre">.checksum</span></code> should be ignored. If length and checksum are required, they must be tracked in the application, because they are not maintained in the session.</p>
 </section>
 <section id="handling-overflow-errors">

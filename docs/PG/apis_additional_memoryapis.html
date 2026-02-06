@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Memory Driver APIs &mdash; Intel® QuickAssist Technology</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo-white-72px.svg"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Congestion Management APIs" href="apis_additional_congestionapis.html" />
+    <link rel="prev" title="Device Polling APIs" href="apis_additional_pollingapis.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
+              <img src="../_static/logo-energyblue-white-72px.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Legal &amp; Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in_tree_vs_oot.html">In-Tree vs. Out-of-Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="services_index.html">Services</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="apis_index.html">Supported APIs</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="apis_qat_apis.html">Intel QuickAssist Technology APIs</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="apis_additional_apis_index.html">Additional APIs</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_dynamicfunctions.html">Dynamic Instance Allocation Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_iommufunctions.html">IOMMU Remapping Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_pollingfunctions.html">Polling Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_userspacefunctions.html">User Space Access Configuration Functions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_versioninformationfunctions.html">Version Information Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_resetfunctions.html">Reset Device Function</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_threadlessapis.html">Thread-Less APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_cnvapis.html">Compress and Verify (CnV) Related APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_heartbeatapis.html">Heartbeat APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_pollingapis.html">Device Polling APIs</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Memory Driver APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_congestionapis.html">Congestion Management APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_servicespecificapis.html">Service Specific Polling APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_availabilityapis.html">Check Device Availability APIs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="apis_index.html">Supported APIs</a></li>
+          <li class="breadcrumb-item"><a href="apis_additional_apis_index.html">Additional APIs</a></li>
+      <li class="breadcrumb-item active">Memory Driver APIs</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="memory-driver-apis">
+<span id="qat-2-0-pg-supported-apis-additional-apis-memoryapis"></span><h1>Memory Driver APIs<a class="headerlink" href="#memory-driver-apis" title="Permalink to this headline"></a></h1>
+<p>These APIs provide memory management functionality for allocating DMA-able
+memory, address translation, and IOVA mapping for QAT operations.</p>
+<p>All function definitions are located in: <code class="docutils literal notranslate"><span class="pre">qae_mem.h</span></code></p>
+<section id="core-memory-management">
+<h2>Core Memory Management<a class="headerlink" href="#core-memory-management" title="Permalink to this headline"></a></h2>
+<section id="qaememalloc">
+<h3>qaeMemAlloc<a class="headerlink" href="#qaememalloc" title="Permalink to this headline"></a></h3>
+<p>When used in user space, allocates memsize bytes of virtual memory.
+When used in kernel space, allocates memsize bytes of contiguous and
+pinned memory.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">qaeMemAlloc</span><span class="p">(</span><span class="kt">size_t</span><span class="w"> </span><span class="n">memsize</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">memsize</span></code></p></td>
+<td><p>The amount of memory in bytes to be allocated.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>Pointer to the allocated memory or NULL if the allocation failed.</p>
+</section>
+<section id="qaememfree">
+<h3>qaeMemFree<a class="headerlink" href="#qaememfree" title="Permalink to this headline"></a></h3>
+<p>Frees memory allocated by the qaeMemAlloc function.
+Applicable for both user and kernel spaces.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">qaeMemFree</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**ptr</span></code></p></td>
+<td><p>Address of the pointer to the memory to be freed.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pre-condition:</strong> <code class="docutils literal notranslate"><span class="pre">*ptr</span></code> points to memory previously allocated by
+<code class="docutils literal notranslate"><span class="pre">qaeMemAlloc</span></code>.</p>
+<p><strong>Post-condition:</strong> Memory is freed and pointer value is set to NULL.</p>
+</div>
+</section>
+<section id="qaememallocnuma">
+<h3>qaeMemAllocNUMA<a class="headerlink" href="#qaememallocnuma" title="Permalink to this headline"></a></h3>
+<p>Allocates and returns virtual memory mapped to pinned, contiguous
+physical memory aligned to phys_alignment_byte. This API enables user to
+choose a CPU node nearest to QAT device. This API is applicable for both
+user and kernel spaces. Based on the address space used, memory mapped
+from corresponding virtual address space will be returned.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">qaeMemAllocNUMA</span><span class="p">(</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">node</span><span class="p">,</span>
+<span class="w">    </span><span class="kt">size_t</span><span class="w"> </span><span class="n">phys_alignment_byte</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">size</span></code></p></td>
+<td><p>A non-zero value representing the amount of memory
+in bytes to be allocated. It cannot exceed
+<code class="docutils literal notranslate"><span class="pre">QAE_MAX_ALLOC_SIZE</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">node</span></code></p></td>
+<td><p>NUMA node.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">phys_alignment_byte</span></code></p></td>
+<td><p>A non-zero value representing memory boundary
+alignment in bytes. It must be in powers of 2 not
+exceeding 4MB.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>Pointer to the allocated memory or NULL if the allocation failed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In user space, <code class="docutils literal notranslate"><span class="pre">NUMA_ANY_NODE</span></code> (-1) can be used to select any
+available NUMA node.</p>
+</div>
+</section>
+<section id="qaememfreenuma">
+<h3>qaeMemFreeNUMA<a class="headerlink" href="#qaememfreenuma" title="Permalink to this headline"></a></h3>
+<p>Frees memory allocated by the qaeMemAllocNUMA function.
+Applicable for both user and kernel spaces.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">qaeMemFreeNUMA</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**ptr</span></code></p></td>
+<td><p>Address of pointer to the memory to be freed.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pre-condition:</strong> <code class="docutils literal notranslate"><span class="pre">*ptr</span></code> points to memory previously allocated by
+<code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA</span></code>.</p>
+<p><strong>Post-condition:</strong> Memory is freed and the pointer value is set to NULL.</p>
+</div>
+</section>
+<section id="qaememfreenonzeronuma">
+<h3>qaeMemFreeNonZeroNUMA<a class="headerlink" href="#qaememfreenonzeronuma" title="Permalink to this headline"></a></h3>
+<p>Frees memory allocated by qaeMemAllocNUMA function. Does not clear the
+memory region before freeing unlike other API. Applicable for user space
+only.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">qaeMemFreeNonZeroNUMA</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">**</span><span class="n">ptr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">**ptr</span></code></p></td>
+<td><p>Address of pointer to the memory to be freed.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pre-condition:</strong> <code class="docutils literal notranslate"><span class="pre">*ptr</span></code> points to memory previously allocated by
+<code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA</span></code>.</p>
+<p><strong>Post-condition:</strong> Memory is freed and the pointer value is set to NULL.</p>
+<p><strong>Performance consideration:</strong> This function does not zero the memory
+before freeing, which may provide better performance when the memory
+content does not need to be cleared for security reasons.</p>
+</div>
+</section>
+</section>
+<section id="address-translation">
+<h2>Address Translation<a class="headerlink" href="#address-translation" title="Permalink to this headline"></a></h2>
+<section id="qaevirttophysnuma">
+<h3>qaeVirtToPhysNUMA<a class="headerlink" href="#qaevirttophysnuma" title="Permalink to this headline"></a></h3>
+<p>Converts a virtual address provided by qaeMemAllocNUMA to a physical one.
+Applicable for both user and kernel spaces.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">qaeVirtToPhysNUMA</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">pVirtAddr</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*pVirtAddr</span></code></p></td>
+<td><p>Pointer to the virtual address.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>Pointer to the physical address or 0 (NULL) on error.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pre-condition:</strong> <code class="docutils literal notranslate"><span class="pre">pVirtAddr</span></code> points to memory previously allocated
+by <code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA</span></code>.</p>
+</div>
+</section>
+<section id="qaephystovirtnuma">
+<h3>qaePhysToVirtNUMA<a class="headerlink" href="#qaephystovirtnuma" title="Permalink to this headline"></a></h3>
+<p>Translates a physical address to a virtual one of a memory allocated by
+qaeMemAllocNUMA() function. Applicable for user space.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="nf">qaePhysToVirtNUMA</span><span class="p">(</span><span class="kt">uint64_t</span><span class="w"> </span><span class="n">physAddress</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">physAddress</span></code></p></td>
+<td><p>Physical address.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>Pointer to the virtual address or 0 (NULL) on error.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pre-condition:</strong> <code class="docutils literal notranslate"><span class="pre">physAddress</span></code> points to memory previously allocated
+by <code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA</span></code>.</p>
+</div>
+</section>
+</section>
+<section id="vfio-device-management">
+<h2>VFIO Device Management<a class="headerlink" href="#vfio-device-management" title="Permalink to this headline"></a></h2>
+<section id="qaeregisterdevice">
+<h3>qaeRegisterDevice<a class="headerlink" href="#qaeregisterdevice" title="Permalink to this headline"></a></h3>
+<p>Registers a VFIO device file descriptor.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">qaeRegisterDevice</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fd</span></code></p></td>
+<td><p>File descriptor.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>Returns 0 on success.</p>
+</section>
+<section id="qaeunregisterdevice">
+<h3>qaeUnregisterDevice<a class="headerlink" href="#qaeunregisterdevice" title="Permalink to this headline"></a></h3>
+<p>Unregisters a VFIO device file descriptor.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">qaeUnregisterDevice</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">fd</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">fd</span></code></p></td>
+<td><p>File descriptor.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>Returns 0 on success.</p>
+</section>
+</section>
+<section id="advanced-iova-mapping">
+<h2>Advanced IOVA Mapping<a class="headerlink" href="#advanced-iova-mapping" title="Permalink to this headline"></a></h2>
+<section id="qaememmapcontiguousiova">
+<h3>qaeMemMapContiguousIova<a class="headerlink" href="#qaememmapcontiguousiova" title="Permalink to this headline"></a></h3>
+<p>Allocates a contiguous IOVA (I/O Virtual Address) region and maps the
+provided user-allocated virtual memory to this IOVA for DMA operations
+with QAT hardware. This function allows users to use their own memory
+buffers (e.g., pre-allocated buffers) for zero-copy DMA transfers.</p>
+<p>The memory region is mapped with both read and write permissions for DMA
+operations. The IOVA is aligned to IOVA_SLAB_SIZE (2MB) internally.</p>
+<p>After successful mapping, qaeVirtToPhysNUMA() can be used to translate
+addresses within the mapped region to their corresponding IOVA.</p>
+<p>This function is thread-safe and not supported when
+ICP_THREAD_SPECIFIC_USDM is defined.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint64_t</span><span class="w"> </span><span class="nf">qaeMemMapContiguousIova</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">virt</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*virt</span></code></p></td>
+<td><p>Pointer to the user-allocated virtual memory to map.
+Must be a valid, non-NULL, accessible virtual address.
+Must be passed to <code class="docutils literal notranslate"><span class="pre">qaeMemUnmapContiguousIova()</span></code> when
+done. Alignment requirements:</p>
+<ul class="simple">
+<li><p>When hugepages enabled: must be 2MB-aligned</p></li>
+<li><p>When hugepages disabled: must be 4KB-aligned</p></li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">size</span></code></p></td>
+<td><p>Size in bytes of the memory region to map. Must be
+greater than 0, a multiple of page size (4KB), and not
+exceed 2GB (2147483648 bytes). When hugepages are
+enabled, size must be 2MB-aligned.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pre-conditions:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">qaeRegisterDevice()</span></code> must have been called prior to using this API
+for the DMA mapping to be effective.</p></li>
+<li><p>The virtual address provided must be valid and accessible.</p></li>
+<li><p>The virtual memory region must remain valid and not be freed while the
+IOVA mapping is active.</p></li>
+</ul>
+<p><strong>Post-condition:</strong> On success, the virtual memory is mapped to a
+per-process IOMMU domain starting with the returned IOVA and can be used
+for DMA operations with QAT hardware. The mapping is also registered in
+the USDM page table for qaeVirtToPhysNUMA() lookups.</p>
+<p><strong>Important considerations:</strong></p>
+<ul class="simple">
+<li><p>This function is only available in VFIO mode and will fail in no-IOMMU
+mode.</p></li>
+<li><p>Memory allocated through <code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA()</span></code> should NOT be mapped
+using this API as it is already managed by USDM internally.</p></li>
+<li><p>Alignment requirements are critical for correct operation. The page
+table granularity depends on whether hugepages are enabled.</p></li>
+<li><p>This function may fail due to IOVA address space fragmentation even if
+there is sufficient total free IOVA space.</p></li>
+<li><p>This function may also fail if there are too many concurrent mappings.
+For example, VFIO might fail if the maximum number of allowed mappings
+is exceeded (this is 65535 with iommu type 1).</p></li>
+</ul>
+<p><strong>Failure conditions:</strong></p>
+<ul class="simple">
+<li><p>This function is not supported (e.g. in the out-of-tree driver, or
+when ICP_THREAD_SPECIFIC_USDM is defined)</p></li>
+<li><p>virt is NULL</p></li>
+<li><p>virt is not properly aligned (4KB when hugepages disabled, 2MB when
+hugepages enabled)</p></li>
+<li><p>Size is 0, not a multiple of page size (4KB), or exceeds 2GB</p></li>
+<li><p>Size is not 2MB-aligned when hugepages are enabled</p></li>
+<li><p>No contiguous IOVA space is available (fragmentation)</p></li>
+<li><p>VFIO container is not registered (qaeRegisterDevice not called)</p></li>
+<li><p>VFIO IOMMU mapping failed</p></li>
+<li><p>VFIO is configured in no-IOMMU mode (not supported for this API)</p></li>
+</ul>
+</div>
+</section>
+<section id="qaememunmapcontiguousiova">
+<h3>qaeMemUnmapContiguousIova<a class="headerlink" href="#qaememunmapcontiguousiova" title="Permalink to this headline"></a></h3>
+<p>Unmaps a previously mapped IOVA region and releases the IOVA address
+space. This function should be called when the user-mapped memory is no
+longer needed for DMA operations.</p>
+<p>This function reverses the operation performed by
+qaeMemMapContiguousIova(). It removes the IOMMU mapping via VFIO, clears
+the page table entries, and releases the IOVA address space in the global
+bitmap for reuse.</p>
+<p>The IOVA is automatically looked up from the page table using the provided
+virtual address, so callers do not need to track the IOVA returned by
+qaeMemMapContiguousIova().</p>
+<p>This function is thread-safe and not supported when
+ICP_THREAD_SPECIFIC_USDM is defined.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">qaeMemUnmapContiguousIova</span><span class="p">(</span><span class="kt">void</span><span class="w"> </span><span class="o">*</span><span class="n">virt</span><span class="p">,</span><span class="w"> </span><span class="kt">size_t</span><span class="w"> </span><span class="n">size</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*virt</span></code></p></td>
+<td><p>Pointer to the virtual memory that was mapped. This
+must be the same pointer passed to
+<code class="docutils literal notranslate"><span class="pre">qaeMemMapContiguousIova()</span></code>. Must not be NULL. Must
+meet the same alignment requirements as
+<code class="docutils literal notranslate"><span class="pre">qaeMemMapContiguousIova()</span></code> (4KB or 2MB based on
+hugepage configuration).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">size</span></code></p></td>
+<td><p>Size in bytes of the memory region. Must be greater
+than 0, a multiple of page size (4KB), and match the
+size used when <code class="docutils literal notranslate"><span class="pre">qaeMemMapContiguousIova()</span></code> was
+called. When hugepages are enabled, size must be
+2MB-aligned.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Success - the IOVA was unmapped and released.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">1</span></code></p></td>
+<td><p>Failure - could not unmap the IOVA.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pre-conditions:</strong></p>
+<ul class="simple">
+<li><p>The memory must have been previously mapped via
+<code class="docutils literal notranslate"><span class="pre">qaeMemMapContiguousIova()</span></code> and no DMA operations should be in
+progress.</p></li>
+<li><p>The size parameter must match the size used during mapping.</p></li>
+</ul>
+<p><strong>Post-condition:</strong> The IOVA is unmapped and the address space is
+released for reuse. The user’s virtual memory is not affected and
+remains valid. <code class="docutils literal notranslate"><span class="pre">qaeVirtToPhysNUMA()</span></code> will no longer return valid
+results for this region.</p>
+<p><strong>Important:</strong></p>
+<ul class="simple">
+<li><p>This function is only available in VFIO mode and will fail in no-IOMMU
+mode.</p></li>
+<li><p>Do NOT use this function to unmap memory that was allocated through
+<code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA()</span></code> - use <code class="docutils literal notranslate"><span class="pre">qaeMemFreeNUMA()</span></code> instead.</p></li>
+</ul>
+<p><strong>Failure conditions:</strong></p>
+<ul class="simple">
+<li><p>This function is not supported (e.g. in the out-of-tree driver, or
+when ICP_THREAD_SPECIFIC_USDM is defined)</p></li>
+<li><p>virt is NULL</p></li>
+<li><p>virt is not properly aligned (4KB when hugepages disabled, 2MB when
+hugepages enabled)</p></li>
+<li><p>Size is 0 or not a multiple of page size (4KB)</p></li>
+<li><p>Size is not 2MB-aligned when hugepages are enabled</p></li>
+<li><p>The virtual address was not previously mapped</p></li>
+<li><p>VFIO IOMMU unmapping failed</p></li>
+<li><p>VFIO is configured in no-IOMMU mode</p></li>
+</ul>
+</div>
+</section>
+</section>
+<section id="utility-functions">
+<h2>Utility Functions<a class="headerlink" href="#utility-functions" title="Permalink to this headline"></a></h2>
+<section id="qaeatfork">
+<h3>qaeAtFork<a class="headerlink" href="#qaeatfork" title="Permalink to this headline"></a></h3>
+<p>Must be called when child process is forked to adjust the kernel memory
+map page. User space only.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">qaeAtFork</span><span class="p">(</span><span class="kt">void</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<p>None.</p>
+<p><strong>Return Value</strong></p>
+<p>None.</p>
+</section>
+<section id="qaememinitandreturnfd">
+<h3>qaeMemInitAndReturnFd<a class="headerlink" href="#qaememinitandreturnfd" title="Permalink to this headline"></a></h3>
+<p>Returns the file descriptor obtained by qaeMemInit. FreeBSD only.</p>
+<p><strong>Syntax</strong></p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">int</span><span class="w"> </span><span class="nf">qaeMemInitAndReturnFd</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">mem_fd</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Parameters</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">*mem_fd</span></code></p></td>
+<td><p>Address of fd which is updated by qaeMemInit.</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Return Value</strong></p>
+<p>Status from qaeMemInit. Returns 0 if the open of the device was successful
+and non-zero otherwise.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><strong>Pre-condition:</strong> File <code class="docutils literal notranslate"><span class="pre">/dev/qae_mem</span></code> is opened successfully.</p>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="apis_additional_pollingapis.html" class="btn btn-neutral float-left" title="Device Polling APIs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="apis_additional_congestionapis.html" class="btn btn-neutral float-right" title="Congestion Management APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -681,15 +681,27 @@ be allocated.</p>
 <tr class="row-even"><td><p><strong>Implication</strong></p></td>
 <td><p>These functional applications will fail with the
 following output:</p>
-<p>./dc_dp_sample: [error] dcCompression_ProcessCallback()
-- : Unrecoverable error: stateless overflow. You may
-need to increase the size of your destination buffer</p>
-<p>./dc_stateless_multi_op_sample: [error]
+<p>./dc_dp_sample: [error] dcCompression_ProcessCallback() -
+: Error: stateless overflow.</p>
+<blockquote>
+<div><div class="line-block">
+<div class="line">Try resubmitting with a larger destination buffer</div>
+</div>
+<blockquote>
+<div><p>Older drivers may still report this as
+“Unrecoverable error: stateless overflow.”</p>
+</div></blockquote>
+</div></blockquote>
+<div class="line-block">
+<div class="line">./dc_stateless_multi_op_sample: [error]
 dcCheckDestinationData() - : Invalid API Param -
-Destination buffer size should be greater or equal to
-512 bytes</p>
-<p>./dc_stateless_sample: compPerformOp(): Results status
-not as expected (status = -11)</p>
+Destination buffer size should be greater or equal
+to 512 bytes</div>
+</div>
+<div class="line-block">
+<div class="line">./dc_stateless_sample: compPerformOp(): Results status
+not as expected (status = -11)</div>
+</div>
 </td>
 </tr>
 <tr class="row-odd"><td><p><strong>Resolution</strong></p></td>

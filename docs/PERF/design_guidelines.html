@@ -91,6 +91,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#avoid-page-faults-when-using-svm">Avoid Page Faults When Using SVM</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#zero-copy-dma-with-user-allocated-buffers">Zero-Copy DMA with User-Allocated Buffers</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="application_tuning.html">Application Tuning</a></li>
@@ -285,6 +286,47 @@ polling thread.</p></li>
 <li><p>CPU usage will be at 0% in idle state in epoll mode versus a non-zero
 value in standard poll mode. However, with a high load state,
 standard poll mode should out-perform epoll mode.</p></li>
+</ul>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Limitation:</strong> epoll mode does not work with Data Plane (DP) APIs. This limitation
+applies to both in-tree and out-of-tree (OOT) stacks. Applications using DP APIs should not expect
+epoll-based event notification to function.</p>
+</div>
+<ul class="simple">
+<li><p>For user-space libraries using QAT through SR-IOV VFs, e.g. qatlib, a single
+VF interrupt line is shared by the 4 ring pairs in a device.
+This causes ring pair events to unblock all instances waiting on
+epoll, even though some of those instances may have no responses ready.
+PF2VF messages also share the same interrupt line, so these
+also trigger epoll events. This means it’s possible to return from
+<code class="docutils literal notranslate"><span class="pre">epoll_wait()</span></code> even if no ring pairs have responses ready. The
+<code class="docutils literal notranslate"><span class="pre">icp_sal_poll_device_events()</span></code> API can be called on returning from
+<code class="docutils literal notranslate"><span class="pre">epoll_wait()</span></code> to handle Device Events in this case.</p></li>
+<li><p>In a crypto instance where both symmetric and asymmetric services are
+configured, both services will have the same response mode
+configuration when set via the <code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode()</span></code> API.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaInstanceGetResponseMode</span></code>, and <code class="docutils literal notranslate"><span class="pre">CpaInstanceResponseMode</span></code>
+APIs are only supported with the in-tree stack.</p>
+</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode()</span></code> function should only be called
+when there are no operations in-flight in the instance. The behaviour
+will be undefined for operations which are in-flight.</p></li>
+<li><p>In the in-tree driver, the default mode for a device is poll mode
+(<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_NONE</span></code>). Using the
+<code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode()</span></code> API, epoll mode
+(<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>) can be enabled at the instance
+level. Refer to
+<a class="reference internal" href="../PG/apis_additional_pollingapis.html#qat-2-0-pg-supported-apis-additional-apis-pollingapis"><span class="std std-ref">Device Polling APIs</span></a>
+for details on the response mode configuration APIs.</p></li>
+<li><p>When using epoll mode, applications should call the appropriate
+polling function at least once after <code class="docutils literal notranslate"><span class="pre">epoll_wait()</span></code> times out to
+ensure all responses are processed, as responses may have arrived
+just before or during the timeout period.</p></li>
 </ul>
 </section>
 </section>
@@ -527,6 +569,41 @@ fault is resolved or times out. This can lead to an underutilization of
 the Intel QAT device. To avoid page faults, the memory submitted to Intel QAT
 should be pinned.</p>
 </section>
+</section>
+<section id="zero-copy-dma-with-user-allocated-buffers">
+<h2>Zero-Copy DMA with User-Allocated Buffers<a class="headerlink" href="#zero-copy-dma-with-user-allocated-buffers" title="Permalink to this headline"></a></h2>
+<p>For applications that manage their own memory allocation (such as
+applications using memory pools or pre-allocated buffers), the Advanced
+IOVA Mapping APIs provide a mechanism to achieve zero-copy DMA operations
+without copying data to QAT-specific memory buffers.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">qaeMemMapContiguousIova()</span></code> and <code class="docutils literal notranslate"><span class="pre">qaeMemUnmapContiguousIova()</span></code> APIs
+enable direct mapping of user-allocated virtual memory to I/O Virtual
+Addresses (IOVAs) that can be used by QAT hardware for DMA operations.
+This approach can significantly improve performance by:</p>
+<ul class="simple">
+<li><p>Eliminating memory copy overhead between application buffers and
+QAT-managed memory.</p></li>
+<li><p>Enabling efficient zero-copy data paths in applications that already
+manage their own buffer pools.</p></li>
+<li><p>Reducing memory footprint by avoiding duplicate buffer allocations.</p></li>
+</ul>
+<p><strong>Important considerations for zero-copy DMA:</strong></p>
+<ul class="simple">
+<li><p>The Advanced IOVA Mapping APIs are only available when using the
+in-tree driver with VFIO enabled. They are not supported in the
+out-of-tree driver or in no-IOMMU mode.</p></li>
+<li><p>Memory alignment is critical: buffers must be 2MB-aligned when
+hugepages are enabled, or 4KB-aligned when hugepages are disabled.</p></li>
+<li><p>Memory allocated through <code class="docutils literal notranslate"><span class="pre">qaeMemAllocNUMA()</span></code> should NOT be mapped
+using these APIs as it is already managed by USDM internally.</p></li>
+<li><p>Applications must ensure that mapped memory remains valid and is not
+freed while QAT operations are in progress.</p></li>
+<li><p>IOVA address space fragmentation may cause mapping failures even when
+sufficient total IOVA space is available.</p></li>
+</ul>
+<p>For detailed API documentation and usage examples, refer to the
+<span class="xref std std-ref">Common Memory Driver APIs</span> section in the
+Programmer’s Guide.</p>
 </section>
 </section>
 

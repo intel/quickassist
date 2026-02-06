@@ -251,16 +251,16 @@ The following commands set the amount of locked memory to 500MB.</p>
 <span id="qat-2-0-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h2>
 <p>The following steps explain how to verify and build the <em>qatlib</em> package from
 source.</p>
-<p>Step 1 walks through optional verification of the signed <cite>25.08.0</cite> tarball
+<p>Step 1 walks through optional verification of the signed <cite>qatlib-26.02.0</cite> tarball
 from the <a class="reference external" href="https://github.com/intel/qatlib/releases">QATlib GitHub releases page</a>,
 followed by the build steps that assume the artifact was verified or otherwise
 trusted.</p>
 <ol class="arabic">
 <li><p><strong>Verify the source package (Optional).</strong></p>
-<p>Use this step whenever you download <cite>25.08.0.tar.gz</cite> directly from the release
+<p>Use this step whenever you download <cite>qatlib-26.02.0.tar.gz</cite> directly from the release
 page and want to confirm the artifact is authentic before compiling.</p>
 <ul>
-<li><p><strong>Download</strong> the <cite>25.08.0.tar.gz</cite> and <cite>25.08.0.tar.gz.asc</cite> files from the
+<li><p><strong>Download</strong> the <cite>qatlib-26.02.0.tar.gz</cite> and <cite>26.02.0.tar.gz.asc</cite> files from the
 release.</p></li>
 <li><p><strong>Import</strong> the public signing key:</p>
 <blockquote>
@@ -278,15 +278,15 @@ release.</p></li>
 </li>
 <li><p><strong>Check</strong> the tarball checksum to ensure the download is complete:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sha256sum 25.08.0.tar.gz</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sha256sum qatlib-26.02.0.tar.gz</span>
 </pre></div>
 </div>
-<p>The value returned must match <cite>b91c3d99c4f8d77af9ccd7e32738272aa7f205e4853a2005ae96c6be511a161</cite>.</p>
+<p>The value returned must match <cite>7c68bf05f196153b1b1669a7d17e5bfba6253e7cafb69f67d30a0d17e7facecb</cite>.</p>
 </div></blockquote>
 </li>
 <li><p><strong>Verify</strong> the signature:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">gpg --verify 25.08.0.tar.gz.asc 25.08.0.tar.gz</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">gpg --verify 26.02.0.tar.gz.asc qatlib-26.02.0.tar.gz</span>
 </pre></div>
 </div>
 <p>A successful verification reports a good signature from the key above.</p>
@@ -618,7 +618,7 @@ for firmware needed to support this feature.</p></td>
 </pre></div>
 </div>
 <p>Example return:</p>
-<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">qatmgr</span><span class="w"> </span><span class="mf">25.08.0</span>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">qatmgr</span><span class="w"> </span><span class="mf">26.02.0</span>
 </pre></div>
 </div>
 </li>
@@ -632,13 +632,13 @@ for firmware needed to support this feature.</p></td>
 
 <span class="n">PACKAGE_OS</span><span class="o">=</span><span class="n">L</span>
 
-<span class="n">PACKAGE_VERSION_MAJOR_NUMBER</span><span class="o">=</span><span class="mi">25</span>
+<span class="n">PACKAGE_VERSION_MAJOR_NUMBER</span><span class="o">=</span><span class="mi">26</span>
 
-<span class="n">PACKAGE_VERSION_MINOR_NUMBER</span><span class="o">=</span><span class="mi">08</span>
+<span class="n">PACKAGE_VERSION_MINOR_NUMBER</span><span class="o">=</span><span class="mo">02</span>
 
 <span class="n">PACKAGE_VERSION_PATCH_NUMBER</span><span class="o">=</span><span class="mi">0</span>
 
-<span class="n">PACKAGE_VERSION_BUILD_NUMBER</span><span class="o">=</span><span class="mo">0002</span><span class="mi">8</span>
+<span class="n">PACKAGE_VERSION_BUILD_NUMBER</span><span class="o">=</span><span class="mo">00024</span>
 </pre></div>
 </div>
 </li>
