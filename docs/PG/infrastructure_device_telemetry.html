@@ -239,8 +239,8 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </table>
 <section id="selecting-ring-pairs">
 <h4>Selecting Ring Pairs<a class="headerlink" href="#selecting-ring-pairs" title="Permalink to this headline"></a></h4>
-<section id="selecting-ring-paris-using-out-of-tree">
-<h5>Selecting Ring Paris Using Out-Of-Tree<a class="headerlink" href="#selecting-ring-paris-using-out-of-tree" title="Permalink to this headline"></a></h5>
+<section id="selecting-ring-pairs-using-out-of-tree">
+<h5>Selecting Ring Pairs Using Out-Of-Tree<a class="headerlink" href="#selecting-ring-pairs-using-out-of-tree" title="Permalink to this headline"></a></h5>
 <p>This section provides guidance on the mapping of ring pairs to the VFs for the PF when using the Out-Of-Tree acceleration driver.</p>
 <p>There are 4 Ring Pairs per VF.  The Ring Pairs for a PF looks like the following:</p>
 <table class="docutils align-default" id="id2">
@@ -391,10 +391,10 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">rd_lat_acc_avg</span></code></p></td>
 <td><p>Average Read Latency, nanoseconds.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_lat</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">max_gp_lat</span></code></p></td>
 <td><p>Max Get To Put latency, nanoseconds.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">lat_acc_avg</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">gp_lat_acc_avg</span></code></p></td>
 <td><p>Average Get To Put latency, nanoseconds.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">bw_in</span></code></p></td>
@@ -403,10 +403,10 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">bw_out</span></code></p></td>
 <td><p>PCIe read bandwidth, Mbps.</p></td>
 </tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">at_page_req_lat_acc_avg</span></code></p></td>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">at_page_req_lat_avg</span></code></p></td>
 <td><p>Average Page Request Latency, nanoseconds.</p></td>
 </tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">at_trans_lat_acc_avg</span></code></p></td>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">at_trans_lat_avg</span></code></p></td>
 <td><p>Average Translation Latency, nanoseconds.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">at_max_tlb_used</span></code></p></td>
@@ -544,7 +544,6 @@ state. It then queries the telemetry data on a periodic basis collecting the dat
   </div>
 
    
-
 </footer>
         </div>
       </div>
