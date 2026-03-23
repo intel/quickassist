@@ -305,12 +305,14 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 <li><p><strong>Download</strong> the firmware files.</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">cd ~</span>
-<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_4xxx.bin</span>
-<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_4xxx_mmp.bin</span>
-<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_402xx.bin</span>
-<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/qat_402xx_mmp.bin</span>
-<span class="go">sudo cp qat_4xxx*.bin qat_402xx*.bin /lib/firmware</span>
-<span class="go">rm qat_4xxx*.bin qat_402xx*.bin</span>
+<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/intel/qat/qat_4xxx.bin</span>
+<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/intel/qat/qat_4xxx_mmp.bin</span>
+<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/intel/qat/qat_402xx.bin</span>
+<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/intel/qat/qat_402xx_mmp.bin</span>
+<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/intel/qat/qat_420xx.bin</span>
+<span class="go">wget https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/plain/intel/qat/qat_420xx_mmp.bin</span>
+<span class="go">sudo cp qat_4xxx*.bin qat_402xx*.bin qat_420xx*.bin /lib/firmware</span>
+<span class="go">rm qat_4xxx*.bin qat_402xx*.bin qat_420xx*.bin</span>
 </pre></div>
 </div>
 </div></blockquote>
