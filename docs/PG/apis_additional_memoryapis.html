@@ -455,6 +455,22 @@ enabled, size must be 2MB-aligned.</p></td>
 </tbody>
 </table>
 <p><strong>Return Value</strong></p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">&gt;0</span></code></p></td>
+<td><p>The allocated IOVA address on success. This value
+should be used as the physical address for QAT DMA
+operations.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">0</span></code></p></td>
+<td><p>Failure - could not allocate IOVA or map the memory.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p><strong>Pre-conditions:</strong></p>

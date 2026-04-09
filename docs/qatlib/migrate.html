@@ -73,7 +73,23 @@
 <li class="toctree-l2"><a class="reference internal" href="configuration.html">Configuration and Tuning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_a_container.html">Running in a Container</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Migrating Applications</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Migrating Applications</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#supported-devices-and-migration-eligibility">Supported Devices and Migration Eligibility</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#pre-migration-checklist">Pre-Migration Checklist</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#step-by-step-migration">Step-by-Step Migration</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#remove-the-oot-software-stack">1. Remove the OOT software stack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#install-the-in-tree-driver-stack-and-qatlib">2. Install the in-tree driver stack and QATlib</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#update-platform-and-system-configuration">3. Update platform and system configuration</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#update-the-application-build">4. Update the application build</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#review-application-code-and-feature-usage">5. Review application code and feature usage</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#validate-the-migrated-application">6. Validate the migrated application</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#common-migration-issues">Common Migration Issues</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#migration-summary">Migration Summary</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="no_iommu.html">QATlib VFIO no-IOMMU Mode Support</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatzip.html">Intel® QuickAssist Technology (QAT) QATzip Library</a></li>
 <li class="toctree-l2"><a class="reference internal" href="qatengine.html">Intel® QuickAssist Technology(QAT) OpenSSL* Engine</a></li>
@@ -119,46 +135,831 @@
              
   <section id="migrating-applications">
 <span id="qat-2-0-qatlib-migrate"></span><h1>Migrating Applications<a class="headerlink" href="#migrating-applications" title="Permalink to this headline"></a></h1>
-<p>This section provides a detailed guide for migrating an application from the Intel QuickAssist Technology (QAT) out-of-tree driver to the in-tree QAT driver and QATlib.
-The in-tree driver is integrated into the Linux kernel, offering a streamlined update process and better compatibility with kernel updates.
-QATlib is a user-space library that facilitates interaction with QAT hardware through a high-level API.</p>
-<ol class="arabic">
-<li><p><strong>Remove the Out-of-Tree Driver</strong></p>
-<blockquote>
-<div><p>Before installing the in-tree driver, you must first remove the out-of-tree driver to prevent conflicts.
-If the out-of-tree driver is currently loaded, you will need to unload it and ensure it does not load on boot.
-You may need to remove or disable any startup scripts or systemd services that load the out-of-tree driver.</p>
-<p>Refer to the <a class="reference internal" href="../GSG/2.X/installation.html#qat-2-0-gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a> section of the Getting Started Guide for details.</p>
-</div></blockquote>
-</li>
-<li><p><strong>Install In-Tree Driver Stack</strong></p>
-<blockquote>
-<div><p>The in-tree driver stack is part of the Linux kernel, and you may need to enable it through your distribution’s kernel configuration.
-Instructions on platform configuration and library installation are included in the <a class="reference internal" href="install.html#qat-2-0-qatlib-install"><span class="std std-ref">Installation</span></a> section.</p>
-<p>Start with the <a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> section.</p>
-</div></blockquote>
-</li>
-<li><p><strong>Update Application Dependencies</strong></p>
-<blockquote>
-<div><p>Adapt your application to use QATlib instead of the out-of-tree driver’s libraries.</p>
+<p>This section provides a practical guide for migrating an application from the
+Intel QuickAssist Technology (QAT) out-of-tree (OOT) software package to the
+in-tree Linux* driver stack and <em>QATlib</em>.</p>
+<p>Use this section together with the following references:</p>
 <ul class="simple">
-<li><p>Link against <strong>libqat.so</strong> and <strong>libusdm.so</strong> instead of <strong>libqat_s.so</strong> and <strong>libusdm_s.so</strong></p></li>
-<li><p>Use system includes with the prefix <strong>qat</strong>, e.g.  <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;qat/cpa.h&gt;</span></code></p></li>
+<li><p><a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> for supported devices, firmware, kernel modules, and boot parameters</p></li>
+<li><p><a class="reference internal" href="install.html#qat-2-0-qatlib-install"><span class="std std-ref">Installation</span></a> for distribution-based and source-based installation steps</p></li>
+<li><p><a class="reference internal" href="configuration.html#qat-2-0-qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> for
+managed mode, standalone mode, <code class="docutils literal notranslate"><span class="pre">POLICY</span></code>, and <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code></p></li>
+<li><p><a class="reference internal" href="../PG/in_tree_vs_oot.html#qat-2-0-pg-intree-vs-oot"><span class="std std-ref">In-Tree vs. Out-of-Tree</span></a> for a broader platform comparison</p></li>
 </ul>
-</div></blockquote>
-</li>
-<li><p><strong>Test the Application</strong></p>
-<blockquote>
-<div><p>Thoroughly test your application to ensure that it works correctly with the in-tree driver and QATlib.</p>
-</div></blockquote>
-</li>
-<li><p><strong>Update Deployment and Configuration</strong></p>
-<blockquote>
-<div><p>Update any deployment scripts, configuration files, or documentation to reflect the changes made to the application and its dependencies.</p>
-<p>Refer to the <a class="reference internal" href="configuration.html#qat-2-0-qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> section of this document for details.</p>
-</div></blockquote>
-</li>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
+<p>The migration from OOT to <em>QATlib</em> is not only a package replacement. It
+usually includes four areas of change:</p>
+<ul class="simple">
+<li><p>The kernel stack moves from a separately installed driver to the in-tree Linux kernel driver.</p></li>
+<li><p>User-space libraries move from legacy OOT library names to <em>QATlib</em> libraries.</p></li>
+<li><p>Platform configuration moves from per-device OOT configuration files to <em>QATlib</em> service management and <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code>.</p></li>
+<li><p>Some legacy or OOT-specific capabilities require application changes before migration is complete.</p></li>
+</ul>
+<p>The following table summarizes the main differences that affect application migration.</p>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 35%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Aspect</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Kernel driver</p></td>
+<td><p>Separate out-of-tree driver</p></td>
+<td><p>In-tree Linux kernel driver</p></td>
+</tr>
+<tr class="row-odd"><td><p>Supported devices</p></td>
+<td><p>Devices up to and including GEN5</p></td>
+<td><p>QAT devices from GEN4 onwards</p></td>
+</tr>
+<tr class="row-even"><td><p>Service management</p></td>
+<td><p>OOT scripts and service flow</p></td>
+<td><p>Two modes: (1) <code class="docutils literal notranslate"><span class="pre">qat</span></code> service with <code class="docutils literal notranslate"><span class="pre">qatmgr</span></code> in managed mode,
+or (2) standalone mode</p></td>
+</tr>
+<tr class="row-odd"><td><p>Service provision model</p></td>
+<td><p>Service provision via PFs or VFs</p></td>
+<td><p>Service provision only via VFs</p></td>
+</tr>
+<tr class="row-even"><td><p>Configuration</p></td>
+<td><p>Per-device <code class="docutils literal notranslate"><span class="pre">*.conf</span></code> files</p></td>
+<td><p>Simplified <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> plus in-tree kernel driver configuration</p></td>
+</tr>
+<tr class="row-odd"><td><p>Device access</p></td>
+<td><p>UIO-based model for OOT user-space acceleration; VFIO is used only
+for VF assignment to guests</p></td>
+<td><p>VFIO-based model for QATlib user-space acceleration</p></td>
+</tr>
+<tr class="row-even"><td><p>DMA memory model</p></td>
+<td><p>Separate kernel memory driver allocates physically contiguous memory;
+user-space allocates DMA-capable buffers via <code class="docutils literal notranslate"><span class="pre">libusdm_s.so</span></code></p></td>
+<td><p>VFIO maps and pins memory for DMA; user-space allocates DMA-capable
+buffers via <code class="docutils literal notranslate"><span class="pre">libusdm.so</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>IOMMU usage</p></td>
+<td><p>Deployment-dependent: often disabled for host UIO usage, enabled when
+VFIO is used for VF assignment to guests</p></td>
+<td><p>Recommended with IOMMU enabled for DMA protection</p></td>
+</tr>
+<tr class="row-even"><td><p>Libraries</p></td>
+<td><p>OOT library names <code class="docutils literal notranslate"><span class="pre">libqat_s.so</span></code> and <code class="docutils literal notranslate"><span class="pre">libusdm_s.so</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">libqat.so</span></code> and <code class="docutils literal notranslate"><span class="pre">libusdm.so</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Build system</p></td>
+<td><p>OOT build flow and variables</p></td>
+<td><p>Autotools-based build and standard packaging</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="supported-devices-and-migration-eligibility">
+<h2>Supported Devices and Migration Eligibility<a class="headerlink" href="#supported-devices-and-migration-eligibility" title="Permalink to this headline"></a></h2>
+<p>Before starting the migration, verify that the target platform is supported by <em>QATlib</em>.</p>
+<p><em>QATlib</em> supports the following device families:</p>
+<ul class="simple">
+<li><p>QAT Gen 4: <code class="docutils literal notranslate"><span class="pre">4xxx</span></code>, <code class="docutils literal notranslate"><span class="pre">401xx</span></code>, <code class="docutils literal notranslate"><span class="pre">402xx</span></code></p></li>
+<li><p>QAT Gen 5: <code class="docutils literal notranslate"><span class="pre">420xx</span></code></p></li>
+</ul>
+<p>Refer to <a class="reference internal" href="requirements.html#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> for the
+complete list of device IDs, kernel modules, and firmware files.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Applications deployed on legacy OOT-only QAT generations, i.e. before
+GEN4 (devices such as QAT1.7, QAT1.8, QAT1.9) cannot be migrated to
+<em>QATlib</em> without changing to a hardware platform supported by <em>QATlib</em>.
+Refer to <a class="reference internal" href="requirements.html#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a>.</p>
+</div>
+</section>
+<section id="pre-migration-checklist">
+<h2>Pre-Migration Checklist<a class="headerlink" href="#pre-migration-checklist" title="Permalink to this headline"></a></h2>
+<p>Complete the following checks before changing the application or host configuration:</p>
+<ul class="simple">
+<li><p>Verify the platform uses a device listed in
+<a class="reference internal" href="requirements.html#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a>.</p></li>
+<li><p>Verify BIOS prerequisites such as Intel VT-d and SR-IOV. See
+<a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a>.</p></li>
+<li><p>Verify the required firmware is present in <code class="docutils literal notranslate"><span class="pre">/lib/firmware</span></code>. See
+<a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-firmware"><span class="std std-ref">Firmware</span></a>.</p></li>
+<li><p>Verify the required kernel modules are loaded. See
+<a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-kernel-drivers"><span class="std std-ref">Kernel Drivers</span></a>.</p></li>
+<li><p>Verify the required Linux boot parameters are configured. See
+<a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-boot-parameters"><span class="std std-ref">Linux Boot Parameters</span></a>.</p></li>
+<li><p>Back up any existing OOT configuration files and deployment scripts.</p></li>
+<li><p>Review the application for dependencies on legacy-only behavior, custom OOT
+configuration sections, or unsupported features.</p></li>
+<li><p>Identify the existing build and packaging assumptions, including include
+paths, linked libraries, and any OOT-specific environment variables.</p></li>
+</ul>
+<p>If you are unsure whether the platform is currently in a migratable state,
+first complete the verification flow in
+<a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> and then
+return to this page.</p>
+</section>
+<section id="step-by-step-migration">
+<h2>Step-by-Step Migration<a class="headerlink" href="#step-by-step-migration" title="Permalink to this headline"></a></h2>
+<section id="remove-the-oot-software-stack">
+<h3>1. Remove the OOT software stack<a class="headerlink" href="#remove-the-oot-software-stack" title="Permalink to this headline"></a></h3>
+<p>Before installing or enabling the in-tree stack, remove the OOT software to
+avoid conflicts between kernel modules, services, and configuration.</p>
+<ul class="simple">
+<li><p>Stop the OOT service and disable any startup logic that loads the OOT stack.</p></li>
+<li><p>Uninstall the OOT package from the build tree used to install it.</p></li>
+<li><p>Remove stale OOT configuration files if they are no longer needed.</p></li>
+<li><p>Unload OOT modules if they are still resident.</p></li>
+</ul>
+<p>Refer to <a class="reference internal" href="../GSG/2.X/installation.html#qat-2-0-gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a> for the detailed uninstall procedure.</p>
+<p>Before continuing to Step 2, confirm that OOT components remain inactive after
+reboot; partial removal can cause module, service, or configuration conflicts
+at runtime.</p>
+</section>
+<section id="install-the-in-tree-driver-stack-and-qatlib">
+<h3>2. Install the in-tree driver stack and QATlib<a class="headerlink" href="#install-the-in-tree-driver-stack-and-qatlib" title="Permalink to this headline"></a></h3>
+<p>After the OOT package is removed, install <em>QATlib</em> either from distribution packages or from source.</p>
+<ul class="simple">
+<li><p>For distribution-based installation, follow <a class="reference internal" href="install.html#qat-2-0-qatlib-install"><span class="std std-ref">Installation</span></a>.</p></li>
+<li><p>For source-based installation, follow
+<a class="reference internal" href="install.html#qat-2-0-qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a>.</p></li>
+<li><p>If managed mode is required, enable and start the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service after installation.</p></li>
+</ul>
+<p>Typical deployment results in the following runtime model:</p>
+<ul class="simple">
+<li><p>The in-tree kernel driver exposes VFs for direct user-space access by
+<em>QATlib</em> and can also provide acceleration services to applications via
+kernel-space APIs.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">qat</span></code> service launches <code class="docutils literal notranslate"><span class="pre">qatmgr</span></code> in managed mode.</p></li>
+<li><p>User-space applications consume QAT resources through <em>QATlib</em>.</p></li>
+</ul>
+<section id="milestone-check-validate-the-in-tree-stack-before-application-migration">
+<h4>Milestone Check: Validate the In-Tree Stack Before Application Migration<a class="headerlink" href="#milestone-check-validate-the-in-tree-stack-before-application-migration" title="Permalink to this headline"></a></h4>
+<p>Before moving to application-specific migration work, validate that the base
+in-tree stack is operating correctly.</p>
+<ul class="simple">
+<li><p>Confirm legacy OOT service/scripts are no longer active on the host.</p></li>
+<li><p>Run the <em>QATlib</em> sample application flow in <a class="reference internal" href="sample_code.html#qat-2-0-qatlib-sample-code"><span class="std std-ref">Running Sample Code</span></a>.</p></li>
+<li><p>Confirm <code class="docutils literal notranslate"><span class="pre">cpa_sample_code</span></code> runs successfully in the same mode you plan to use
+for your application (managed mode or standalone mode).</p></li>
+<li><p>Confirm platform state using <a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-kernel-drivers"><span class="std std-ref">Kernel Drivers</span></a>
+and <a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-boot-parameters"><span class="std std-ref">Linux Boot Parameters</span></a>.</p></li>
+</ul>
+<p>This milestone gives a clear before/after checkpoint: the platform can run
+known-good sample workloads on the in-tree stack before application migration
+begins.</p>
+</section>
+</section>
+<section id="update-platform-and-system-configuration">
+<h3>3. Update platform and system configuration<a class="headerlink" href="#update-platform-and-system-configuration" title="Permalink to this headline"></a></h3>
+<p>Most migration problems are caused by platform configuration rather than application code.</p>
+<p>Review and update the following areas:</p>
+<ul class="simple">
+<li><p>Linux boot parameters such as <code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code> and <code class="docutils literal notranslate"><span class="pre">vfio-pci.ids=...</span></code></p></li>
+<li><p>User permissions, including membership in the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group</p></li>
+<li><p>Locked memory limits required for VFIO mappings</p></li>
+<li><p>Firmware placement and kernel module availability</p></li>
+</ul>
+<p>Use <a class="reference internal" href="requirements.html#qat2-0-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> to
+verify the platform prerequisites, especially:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">Kernel/Firmware Requirements</span></a></p></li>
+<li><p><a class="reference internal" href="requirements.html#qat2-0-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a></p></li>
+</ul>
+<p>Use <a class="reference internal" href="install.html#qat-2-0-qatlib-install"><span class="std std-ref">Installation</span></a> for post-install updates such
+as user group membership, service enablement, and memlock configuration.</p>
+</section>
+<section id="update-the-application-build">
+<h3>4. Update the application build<a class="headerlink" href="#update-the-application-build" title="Permalink to this headline"></a></h3>
+<p>Applications built against the OOT package usually require build-system
+updates even when the core API usage is unchanged.</p>
+<p>At minimum, review the following items:</p>
+<table class="colwidths-given docutils align-default" id="id11">
+<caption><span class="caption-text">Build Updates Required During Migration</span><a class="headerlink" href="#id11" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 65%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Build Area</strong></p></th>
+<th class="head"><p><strong>Migration Action</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Include paths</p></td>
+<td><p>Use the installed <em>QATlib</em> headers, typically with the <code class="docutils literal notranslate"><span class="pre">qat</span></code> include prefix,
+for example <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;qat/cpa.h&gt;</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Library names</p></td>
+<td><p>Link against <code class="docutils literal notranslate"><span class="pre">libqat.so</span></code> and <code class="docutils literal notranslate"><span class="pre">libusdm.so</span></code> instead of legacy OOT library names</p></td>
+</tr>
+<tr class="row-even"><td><p>Legacy compatibility</p></td>
+<td><p>If legacy library names are required, build <em>QATlib</em> with <code class="docutils literal notranslate"><span class="pre">--enable-legacy-lib-names</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p>Packaging assumptions</p></td>
+<td><p>Replace OOT-specific paths, install variables, and deployment logic with
+standard package or Autotools outputs</p></td>
+</tr>
+</tbody>
+</table>
+<p>When building <em>QATlib</em> from source, the following configuration options are
+commonly relevant during migration:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-service</span></code> to enable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service during installation</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-systemd=no</span></code> for environments that do not use <code class="docutils literal notranslate"><span class="pre">systemd</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-lib-names</span></code> to preserve legacy library naming</p></li>
+<li><p>Users may wish to configure <em>QATlib</em> with the same settings used in their
+OOT environment when validating behavior or benchmarking performance parity:
+<code class="docutils literal notranslate"><span class="pre">--enable-icp-debug</span></code>, <code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code>, <code class="docutils literal notranslate"><span class="pre">--disable-stats</span></code>.</p></li>
+</ul>
+<p>See <a class="reference internal" href="install.html#qat-2-0-qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> in the
+installation section for the full option list.</p>
+</section>
+<section id="review-application-code-and-feature-usage">
+<h3>5. Review application code and feature usage<a class="headerlink" href="#review-application-code-and-feature-usage" title="Permalink to this headline"></a></h3>
+<section id="process-flow-apis">
+<h4>Process Flow APIs<a class="headerlink" href="#process-flow-apis" title="Permalink to this headline"></a></h4>
+<p>For many applications, the usage model does not change after migration.</p>
+<ul class="simple">
+<li><p>Initialize user-space access at startup</p></li>
+<li><p>Run QAT operations</p></li>
+<li><p>Release resources during shutdown</p></li>
+</ul>
+<p>In practice, this means applications typically continue to call
+<a class="reference internal" href="../PG/apis_additional_userspacefunctions.html#icp-sal-userstart"><span class="std std-ref">icp_sal_userStart</span></a> before invoking QAT APIs, and
+call <a class="reference internal" href="../PG/apis_additional_userspacefunctions.html#icp-sal-userstop"><span class="std std-ref">icp_sal_userStop</span></a> during shutdown.</p>
+<p>For API behavior and return-code details, refer to
+<a class="reference internal" href="../PG/apis_additional_userspacefunctions.html#qat-2-0-pg-supported-apis-additional-apis-userspacefunctions"><span class="std std-ref">User Space Access Configuration Functions</span></a>
+in the Programmer’s Guide.</p>
+</section>
+<section id="targeted-review-areas">
+<h4>Targeted Review Areas<a class="headerlink" href="#targeted-review-areas" title="Permalink to this headline"></a></h4>
+<p>Even when the start/stop flow remains familiar, applications should still
+perform a targeted migration review.</p>
+<table class="colwidths-given docutils align-default" id="id12">
+<caption><span class="caption-text">Review Areas and Migration Guidance</span><a class="headerlink" href="#id12" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 35%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Review Area</strong></p></th>
+<th class="head"><p><strong>What To Verify</strong></p></th>
+<th class="head"><p><strong>Migration Guidance</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Process name and section assumptions</p></td>
+<td><p>Whether process names or section names are used to select fixed resources</p></td>
+<td><p>Continue using process names as logical identifiers, but do not rely on
+static instance mappings from OOT configuration files. Validate with
+managed-mode policy and service settings.</p></td>
+</tr>
+<tr class="row-odd"><td><p>OOT configuration file dependencies</p></td>
+<td><p>Whether the application or scripts depend on per-device <code class="docutils literal notranslate"><span class="pre">/etc/*_dev*.conf</span></code> content</p></td>
+<td><p>Replace dependencies on per-device OOT <code class="docutils literal notranslate"><span class="pre">*.conf</span></code> files with
+<code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> and current <em>QATlib</em> configuration workflow.</p></td>
+</tr>
+<tr class="row-even"><td><p>Unsupported or legacy-only features</p></td>
+<td><p>Whether the application depends on capabilities that are not available in <em>QATlib</em></p></td>
+<td><p>Add fallback handling, feature gating, or migration blockers for
+unsupported functionality before final cutover.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Resource allocation model</p></td>
+<td><p>Whether code assumes manually pinned VFs/instances from OOT deployment</p></td>
+<td><p>In managed mode, rely on <code class="docutils literal notranslate"><span class="pre">qatmgr</span></code> allocation behavior. For non-managed
+deployments, review standalone mode policy and validate runtime
+allocation behavior explicitly.</p></td>
+</tr>
+</tbody>
+</table>
+<p>For related API and configuration details, refer to
+<a class="reference internal" href="../PG/apis_additional_userspacefunctions.html#qat-2-0-pg-supported-apis-additional-apis-userspacefunctions"><span class="std std-ref">User Space Access Configuration Functions</span></a>,
+<a class="reference internal" href="../PG/configuration_files_logicalsection.html#qat-2-0-pg-configuration-files-logical-instances-section"><span class="std std-ref">Logical Instances Section</span></a>,
+<a class="reference internal" href="configuration.html#qat-2-0-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a>,
+<a class="reference internal" href="configuration.html#qat-2-0-qatlib-policy-setting"><span class="std std-ref">Policy</span></a>,
+<a class="reference internal" href="configuration.html#qat-2-0-qatlib-services-enabled"><span class="std std-ref">Services Enabled</span></a>, and
+<a class="reference internal" href="configuration.html#qat-2-0-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a>.</p>
+<section id="note-oot-configuration-dependencies">
+<h5>Note: OOT Configuration Dependencies<a class="headerlink" href="#note-oot-configuration-dependencies" title="Permalink to this headline"></a></h5>
+<p>OOT applications often depend on per-device configuration files such as
+<code class="docutils literal notranslate"><span class="pre">/etc/4xxx_dev*.conf</span></code> and named process sections such as <code class="docutils literal notranslate"><span class="pre">[SSL]</span></code>.</p>
+<p>With <em>QATlib</em>, the common managed-mode configuration entry point is
+<code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code>.</p>
+<p>The most important migration difference is:</p>
+<ul class="simple">
+<li><p>OOT typically uses detailed per-device configuration files.</p></li>
+<li><p><em>QATlib</em> managed mode uses <code class="docutils literal notranslate"><span class="pre">POLICY</span></code> and <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> to define how
+resources are exposed and allocated.</p></li>
+</ul>
+<p>For example:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
+<span class="go">ServicesEnabled=sym;asym</span>
+</pre></div>
+</div>
+<p>or</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">POLICY=1</span>
+<span class="go">ServicesEnabled=dc</span>
+</pre></div>
+</div>
+<p>Refer to <a class="reference internal" href="configuration.html#qat-2-0-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a>,
+<a class="reference internal" href="configuration.html#qat-2-0-qatlib-policy-setting"><span class="std std-ref">Policy</span></a>, and
+<a class="reference internal" href="configuration.html#qat-2-0-qatlib-services-enabled"><span class="std std-ref">Services Enabled</span></a> for the supported
+values and scaling implications.</p>
+<p>If the application previously depended on explicit instance-to-process mapping
+in OOT configuration files, that logic must be revisited. In <em>QATlib</em> managed
+mode, resource allocation is handled by <code class="docutils literal notranslate"><span class="pre">qatmgr</span></code> rather than by manually
+authored per-process sections.</p>
+</section>
+<section id="note-feature-and-capability-differences">
+<h5>Note: Feature and Capability Differences<a class="headerlink" href="#note-feature-and-capability-differences" title="Permalink to this headline"></a></h5>
+<p>The following tables compare common features and migration-relevant
+capabilities across the two stacks. Entries marked as <em>pending</em> are planned
+for a future release.</p>
+</section>
+<section id="platform-and-distribution">
+<h5>Platform and Distribution<a class="headerlink" href="#platform-and-distribution" title="Permalink to this headline"></a></h5>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature / Capability</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Natively included in Linux kernel</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Available in Red Hat Enterprise Linux (RHEL)</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Available in SUSE / SLES</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Available in Fedora</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Library source on GitHub (qatlib)</p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>QAT GEN4 (4xxx, 401xx, 402xx)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>QAT GEN5 (420xx)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="compression">
+<h5>Compression<a class="headerlink" href="#compression" title="Permalink to this headline"></a></h5>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature / Capability</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Deflate compression</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Deflate decompression</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Compress and Verify (CnV)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Batch and Pack (BnP) compression</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>ZSTD compression</p></td>
+<td><p>No</p></td>
+<td><p>Yes <a class="footnote-reference brackets" href="#zstd" id="id1">1</a></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="zstd"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Supported via QAT-ZSTD-PLUGIN.</p>
+</dd>
+</dl>
+</section>
+<section id="symmetric-cryptography">
+<h5>Symmetric Cryptography<a class="headerlink" href="#symmetric-cryptography" title="Permalink to this headline"></a></h5>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature / Capability</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>AES-CBC</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-CTR</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-GCM</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-GMAC</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>AES-CCM</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>AES-XTS</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SM4 (ECB, CBC, CTR)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA-1</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SHA-2 (224, 256, 384, 512)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>SHA-3</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SM3</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ChaCha20-Poly1305</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Partial packet operations</p></td>
+<td><p>Yes (traditional APIs only; not supported with DP APIs)</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>ZUC (EEA3, EIA3)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes <a class="footnote-reference brackets" href="#wireless" id="id2">2</a></p></td>
+</tr>
+<tr class="row-even"><td><p>Snow3G (UEA2, UIA2)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes <a class="footnote-reference brackets" href="#wireless" id="id3">2</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>KASUMI (F8, F9)</p></td>
+<td><p>Yes</p></td>
+<td><p>No <a class="footnote-reference brackets" href="#wireless" id="id4">2</a></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="wireless"><span class="brackets">2</span><span class="fn-backref">(<a href="#id2">1</a>,<a href="#id3">2</a>,<a href="#id4">3</a>)</span></dt>
+<dd><p>ZUC, Snow3G, and KASUMI are supported on GEN5 platforms.</p>
+</dd>
+</dl>
+</section>
+<section id="asymmetric-cryptography">
+<h5>Asymmetric Cryptography<a class="headerlink" href="#asymmetric-cryptography" title="Permalink to this headline"></a></h5>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature / Capability</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>RSA (encrypt, decrypt, sign, verify)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>ECDSA (sign, verify)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>SM2</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>SSL/TLS key generation</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>ECDH (key generation)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes <a class="footnote-reference brackets" href="#asym" id="id5">3</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>DH (Diffie-Hellman)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes <a class="footnote-reference brackets" href="#asym" id="id6">3</a></p></td>
+</tr>
+<tr class="row-even"><td><p>DSA (sign, verify)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes <a class="footnote-reference brackets" href="#asym" id="id7">3</a></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="asym"><span class="brackets">3</span><span class="fn-backref">(<a href="#id5">1</a>,<a href="#id6">2</a>,<a href="#id7">3</a>)</span></dt>
+<dd><p>DH, DSA, and ECDH are supported on GEN4 and GEN5 platforms.</p>
+</dd>
+</dl>
+</section>
+<section id="device-access">
+<h5>Device Access<a class="headerlink" href="#device-access" title="Permalink to this headline"></a></h5>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature / Capability</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>VFIO-based device access</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes (kernel API only)</p></td>
+</tr>
+<tr class="row-odd"><td><p>UIO-based device access</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>VFIO no-IOMMU mode</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Service via Physical Functions (PFs)</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-even"><td><p>Service via Virtual Functions (VFs)</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>SR-IOV</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="configuration-and-management">
+<h5>Configuration and Management<a class="headerlink" href="#configuration-and-management" title="Permalink to this headline"></a></h5>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature / Capability</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Per-device configuration files (<code class="docutils literal notranslate"><span class="pre">*.conf</span></code>)</p></td>
+<td><p>Yes</p></td>
+<td><p>No</p></td>
+</tr>
+<tr class="row-odd"><td><p>Managed mode with <code class="docutils literal notranslate"><span class="pre">qatmgr</span></code></p></td>
+<td><p>No</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Standalone mode</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-odd"><td><p>Systemd service integration</p></td>
+<td><p>Limited</p></td>
+<td><p>Yes</p></td>
+</tr>
+<tr class="row-even"><td><p>Rate Limiting</p></td>
+<td><p>Yes</p></td>
+<td><p>Yes <a class="footnote-reference brackets" href="#rl" id="id8">4</a></p></td>
+</tr>
+<tr class="row-odd"><td><p>Dynamic Instance Allocation</p></td>
+<td><p>Limited <a class="footnote-reference brackets" href="#dyninst" id="id9">5</a></p></td>
+<td><p>No</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="rl"><span class="brackets"><a class="fn-backref" href="#id8">4</a></span></dt>
+<dd><p>Rate Limiting is supported but uses a different configuration model
+than OOT. Refer to the in-tree driver documentation for details.</p>
+</dd>
+<dt class="label" id="dyninst"><span class="brackets"><a class="fn-backref" href="#id9">5</a></span></dt>
+<dd><p>Dynamic instance allocation in OOT was limited to legacy
+platforms and is not generally available across OOT deployments.</p>
+</dd>
+</dl>
+</section>
+<section id="scalability">
+<h5>Scalability <a class="footnote-reference brackets" href="#scale" id="id10">6</a><a class="headerlink" href="#scalability" title="Permalink to this headline"></a></h5>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature / Capability</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Maximum DC processes per endpoint</p></td>
+<td><p>Up to 64</p></td>
+<td><p>Up to 16</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximum total DC instances per endpoint</p></td>
+<td><p>64</p></td>
+<td><p>64</p></td>
+</tr>
+</tbody>
+</table>
+<table class="colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 46%" />
+<col style="width: 18%" />
+<col style="width: 36%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Feature / Capability</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Maximum crypto processes per endpoint (SYM/ASYM)</p></td>
+<td><p>Up to 32</p></td>
+<td><p>Up to 16</p></td>
+</tr>
+<tr class="row-odd"><td><p>Maximum total crypto instances per endpoint (SYM/ASYM)</p></td>
+<td><p>32</p></td>
+<td><p>32</p></td>
+</tr>
+<tr class="row-even"><td><p>Crypto instance exposure model</p></td>
+<td><p>No CY abstraction; instances are service-specific (for example,
+SYM-only configuration exposes SYM instances)</p></td>
+<td><p>CY instances are supported. With SYM+ASYM configuration, an instance
+can advertise both services; with single-service configuration,
+instances are service-specific</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="footnote brackets">
+<dt class="label" id="scale"><span class="brackets"><a class="fn-backref" href="#id10">6</a></span></dt>
+<dd><p>Scalability figures apply to GEN4 and GEN5 per-endpoint maximums.
+While QATlib limits the number of concurrent processes per endpoint,
+OOT and QATlib use different crypto instance exposure models.
+Higher OOT process counts apply only in UIO (no-IOMMU) mode.</p>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<section id="validate-the-migrated-application">
+<h3>6. Validate the migrated application<a class="headerlink" href="#validate-the-migrated-application" title="Permalink to this headline"></a></h3>
+<p>After the application and host have been updated, validate the migration in stages:</p>
+<ul class="simple">
+<li><p>Confirm the application can initialize, discover instances, and run the required services.</p></li>
+<li><p>Compare functional results and performance against the OOT baseline.</p></li>
+</ul>
+</section>
+</section>
+<section id="common-migration-issues">
+<h2>Common Migration Issues<a class="headerlink" href="#common-migration-issues" title="Permalink to this headline"></a></h2>
+<p>The following issues are common when moving from OOT to the in-tree stack.</p>
+<table class="longtable colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 35%" />
+<col style="width: 35%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Issue</strong></p></th>
+<th class="head"><p><strong>Likely Cause</strong></p></th>
+<th class="head"><p><strong>Recommended Action</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Library not found</p></td>
+<td><p>New libraries installed outside
+the default search path</p></td>
+<td><p>Run <code class="docutils literal notranslate"><span class="pre">ldconfig</span></code> or update the library
+search path after installation</p></td>
+</tr>
+<tr class="row-odd"><td><p>Permission denied on VFIO</p></td>
+<td><p>User is not in the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group
+or the session has not been
+refreshed</p></td>
+<td><p>Add the user to the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group and
+re-login</p></td>
+</tr>
+<tr class="row-even"><td><p>No device found</p></td>
+<td><p>VFs are not bound correctly,
+required boot parameters are
+missing, or the service is not
+running</p></td>
+<td><p>Re-check device support, VFIO binding,
+firmware, boot parameters, and the
+<code class="docutils literal notranslate"><span class="pre">qat</span></code> service state</p></td>
+</tr>
+<tr class="row-odd"><td><p>Compression instances
+missing</p></td>
+<td><p>Services are configured for
+crypto only or the platform setup
+is incomplete</p></td>
+<td><p>Review <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> and kernel
+support for the intended compression
+mode</p></td>
+</tr>
+<tr class="row-even"><td><p>RLIMIT_MEMLOCK exceeded</p></td>
+<td><p>Locked memory limit is too low
+for VFIO mappings</p></td>
+<td><p>Increase the memlock limit and re-login</p></td>
+</tr>
+<tr class="row-odd"><td><p>Process name behavior
+changed</p></td>
+<td><p>The application still assumes OOT
+section-based resource selection</p></td>
+<td><p>Remove assumptions that process names
+alone control instance allocation</p></td>
+</tr>
+<tr class="row-even"><td><p>Managed vs standalone
+mode mismatch</p></td>
+<td><p>Runtime mode does not match the
+configured services/policy</p></td>
+<td><p>Verify whether the deployment is using
+managed mode or standalone mode, then
+align service state and configuration</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="migration-summary">
+<h2>Migration Summary<a class="headerlink" href="#migration-summary" title="Permalink to this headline"></a></h2>
+<p>For most applications, the migration can be reduced to the following sequence:</p>
+<ol class="arabic simple">
+<li><p>Confirm the target platform is supported by <em>QATlib</em>.</p></li>
+<li><p>Remove the OOT stack and install the in-tree driver stack with <em>QATlib</em>.</p></li>
+<li><p>Update system prerequisites such as firmware, VFIO, boot parameters, user
+permissions, and memlock limits.</p></li>
+<li><p>Replace OOT-specific include paths, library names, and deployment assumptions.</p></li>
+<li><p>Refactor code that depends on unsupported OOT-only features.</p></li>
+<li><p>Reconfigure resource allocation using <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> and validate
+the final application behavior.</p></li>
 </ol>
+</section>
 </section>
 
 
