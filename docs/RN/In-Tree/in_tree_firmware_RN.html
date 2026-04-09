@@ -65,6 +65,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#qat-feature-compatibility-and-version-requirements">QAT Feature Compatibility and Version Requirements</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#linux-kernel-release-timeline-features-overview">Linux Kernel Release Timeline &amp; Features Overview</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#known-errata-linux-firmware-kernel-modules">Known Errata (Linux Firmware/Kernel Modules)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#qat20-41604-kernel-driver-reload-fails-after-sysfs-pf-device-reset-on-gen4-devices">QAT20-41604 [KERNEL] Driver reload fails after sysfs PF device reset on GEN4 devices</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qate-102222-kernel-ssm-soft-errors-on-a-compression-or-translation-slices-are-not-reported">QATE-102222 [KERNEL] SSM soft errors on a compression or translation slices are not reported</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures">QAT20-24970 [Firmware] Potential false positive heartbeat failures</a></li>
@@ -662,6 +663,52 @@ This is because the kernel version <em>reported</em> is only the <em>base</em> k
 </section>
 <section id="known-errata-linux-firmware-kernel-modules">
 <h1>Known Errata (Linux Firmware/Kernel Modules)<a class="headerlink" href="#known-errata-linux-firmware-kernel-modules" title="Permalink to this headline"></a></h1>
+<section id="qat20-41604-kernel-driver-reload-fails-after-sysfs-pf-device-reset-on-gen4-devices">
+<h2>QAT20-41604 [KERNEL] Driver reload fails after sysfs PF device reset on GEN4 devices<a class="headerlink" href="#qat20-41604-kernel-driver-reload-fails-after-sysfs-pf-device-reset-on-gen4-devices" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Title</strong></p></th>
+<th class="head"><p>[KERNEL] Driver reload fails after sysfs PF device
+reset on GEN4 devices</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-41604</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>If a QAT GEN4 PF device is reset via sysfs
+(<code class="docutils literal notranslate"><span class="pre">echo</span> <span class="pre">1</span> <span class="pre">&gt;</span> <span class="pre">/sys/bus/pci/devices/&lt;BDF&gt;/reset</span></code>),
+subsequent attempts to reload the driver fail with CSR
+read/write timeout errors and the device cannot be
+brought out of reset.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>After a sysfs-triggered PF reset, the QAT device
+cannot be re-enabled without a platform power cycle.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Power cycle the platform to re-enable the QAT device.
+There is no workaround currently available.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Affected</strong></p>
+<p><strong>Platform</strong></p>
+</td>
+<td><p>QAT GEN4 devices</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>qat_4xxx</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="qate-102222-kernel-ssm-soft-errors-on-a-compression-or-translation-slices-are-not-reported">
 <h2>QATE-102222 [KERNEL] SSM soft errors on a compression or translation slices are not reported<a class="headerlink" href="#qate-102222-kernel-ssm-soft-errors-on-a-compression-or-translation-slices-are-not-reported" title="Permalink to this headline"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
