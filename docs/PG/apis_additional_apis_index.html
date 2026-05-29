@@ -87,6 +87,7 @@
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_congestionapis.html">Congestion Management APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_servicespecificapis.html">Service Specific Polling APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_availabilityapis.html">Check Device Availability APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#physical-function-pf-and-virtual-function-vf-applicability">Physical Function (PF) and Virtual Function (VF) Applicability</a></li>
 </ul>
 </li>
 </ul>
@@ -137,7 +138,7 @@
            <div itemprop="articleBody">
              
   <section id="additional-apis">
-<span id="qat-2-0-pg-supported-apis-additional-apis"></span><h1>Additional APIs<a class="headerlink" href="#additional-apis" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-supported-apis-additional-apis"></span><h1>Additional APIs<a class="headerlink" href="#additional-apis" title="Permalink to this headline"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Not all <em>Additional APIs</em> are supported with all versions of the software package/hardware configuration.</p>
@@ -161,6 +162,45 @@
 <li class="toctree-l1"><a class="reference internal" href="apis_additional_availabilityapis.html">Check Device Availability APIs</a></li>
 </ul>
 </div>
+<section id="physical-function-pf-and-virtual-function-vf-applicability">
+<h2>Physical Function (PF) and Virtual Function (VF) Applicability<a class="headerlink" href="#physical-function-pf-and-virtual-function-vf-applicability" title="Permalink to this headline"></a></h2>
+<p>The following rules apply to Additional APIs in this chapter:</p>
+<ul class="simple">
+<li><p><strong>Default rule (applies unless stated otherwise):</strong> APIs are usable in both PF
+and VF deployments, and behavior reflects resources visible to the calling
+context.</p></li>
+<li><p><strong>Documented exceptions exist for specific API groups:</strong></p>
+<ul>
+<li><p><strong>SLA management APIs</strong> are PF-anchored and VF-targeted. Capability/list
+operations are performed against a PF, while SLA create/update/delete
+operations are used to manage VF policy.</p></li>
+<li><p><strong>PF/VF messaging helper APIs</strong> are implementation-specific stubs. PF&lt;-&gt;VF
+message send/get entry points are provided, but platform/software support
+may be limited by implementation.</p></li>
+</ul>
+</li>
+<li><p><strong>Virtualization-enabled behavior:</strong> When SR-IOV/vQAT is enabled,
+application-visible operational contexts are typically VF-based. Do not
+assume PF operational datapath availability for normal application use in
+that mode.</p></li>
+<li><p><strong>Result semantics:</strong> Counts, handles, and capabilities returned by these APIs
+represent the subset assigned/exposed to the caller context, not a
+platform-global PF+VF union.</p></li>
+<li><p><strong>User-space lifecycle requirement:</strong> User-space SAL/proxy initialization is
+required before invoking Additional APIs that depend on SAL device/context
+discovery.</p></li>
+<li><p><strong>Capability-first usage is required:</strong> Applications should query
+capabilities and handle <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> as a valid
+per-instance/per-context result, especially in mixed PF/VF environments.</p></li>
+<li><p><strong>Service-specific VF availability:</strong> Symmetric cryptographic services
+(AES, SHA, etc.) are typically available on both PF and VF. However, some
+asymmetric cryptographic services (RSA, ECC, ECDSA) may be restricted to
+PF-only contexts on certain platforms. Compression services are commonly
+available on both PF and VF, but format-specific support (e.g., particular
+compression algorithms) may vary by platform. Always use capability query
+APIs to determine actual service availability before use.</p></li>
+</ul>
+</section>
 </section>
 
 

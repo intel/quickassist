@@ -87,6 +87,7 @@
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_congestionapis.html">Congestion Management APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_servicespecificapis.html">Service Specific Polling APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_availabilityapis.html">Check Device Availability APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_apis_index.html#physical-function-pf-and-virtual-function-vf-applicability">Physical Function (PF) and Virtual Function (VF) Applicability</a></li>
 </ul>
 </li>
 </ul>
@@ -138,12 +139,23 @@
            <div itemprop="articleBody">
              
   <section id="reset-device-function">
-<span id="qat-2-0-pg-supported-apis-additional-apis-resetfunctions"></span><h1>Reset Device Function<a class="headerlink" href="#reset-device-function" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-supported-apis-additional-apis-resetfunctions"></span><h1>Reset Device Function<a class="headerlink" href="#reset-device-function" title="Permalink to this headline"></a></h1>
 <p>This API can only be called in user-space.</p>
 <p>The device can be reset using this API call. This will schedule a reset of the device.
 The device can also be reset using the <code class="docutils literal notranslate"><span class="pre">adf_ctl</span></code> utility, e.g., by calling <code class="docutils literal notranslate"><span class="pre">adf_ctl</span> <span class="pre">qat_dev0</span> <span class="pre">reset</span></code>.</p>
+<section id="pf-vf-applicability">
+<h2>PF/VF Applicability<a class="headerlink" href="#pf-vf-applicability" title="Permalink to this headline"></a></h2>
+<p>Reset APIs operate on enumerated devices in the caller context. In mixed PF/VF environments:</p>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">accelId</span></code> parameter refers to the device enumeration index (from <code class="docutils literal notranslate"><span class="pre">cpaGetNumDevices</span></code> /
+<code class="docutils literal notranslate"><span class="pre">cpaGetDeviceInfo</span></code>), not a physical PCIe function ID.</p></li>
+<li><p>A reset on an enumerated device affects only that device (PF or VF); other coexisting functions
+are unaffected.</p></li>
+<li><p>Device reset operations are scoped to the caller context. Applications cannot reset devices
+belonging to other physical or virtual functions.</p></li>
+</ul>
 <section id="icp-sal-reset-device">
-<h2>icp_sal_reset_device<a class="headerlink" href="#icp-sal-reset-device" title="Permalink to this headline"></a></h2>
+<h3>icp_sal_reset_device<a class="headerlink" href="#icp-sal-reset-device" title="Permalink to this headline"></a></h3>
 <p>Resets the device.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_reset_device(Cpa32U</span> <span class="pre">accelId);</span></code></p>
@@ -175,6 +187,7 @@ The device can also be reset using the <code class="docutils literal notranslate
 </tr>
 </tbody>
 </table>
+</section>
 </section>
 </section>
 

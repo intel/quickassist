@@ -74,6 +74,7 @@
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Intel QuickAssist Technology APIs</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#cryptographic-and-data-compression-api-descriptions">Cryptographic and Data Compression API Descriptions</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#intel-qat-api-limitations">Intel<sup>®</sup> QAT API Limitations</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#physical-function-pf-and-virtual-function-vf-applicability">Physical Function (PF) and Virtual Function (VF) Applicability</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="apis_additional_apis_index.html">Additional APIs</a></li>
@@ -125,7 +126,7 @@
            <div itemprop="articleBody">
              
   <section id="intel-quickassist-technology-apis">
-<span id="qat-2-0-pg-supported-apis-qat-apis"></span><h1>Intel QuickAssist Technology APIs<a class="headerlink" href="#intel-quickassist-technology-apis" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-supported-apis-qat-apis"></span><h1>Intel QuickAssist Technology APIs<a class="headerlink" href="#intel-quickassist-technology-apis" title="Permalink to this headline"></a></h1>
 <p>The platforms described in this manual support the following Intel<sup>®</sup> QAT API libraries:</p>
 <ul class="simple">
 <li><p><strong>Cryptographic</strong>: API definitions are located in: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/lac</span></code>, where <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT</span></code> is the directory where the Acceleration software is unpacked. See the <a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/709199?explicitVersion=true">Intel QuickAssist Technology Cryptographic API Reference Manual</a>  for details.</p></li>
@@ -133,12 +134,12 @@
 </ul>
 <section id="cryptographic-and-data-compression-api-descriptions">
 <h2>Cryptographic and Data Compression API Descriptions<a class="headerlink" href="#cryptographic-and-data-compression-api-descriptions" title="Permalink to this headline"></a></h2>
-<p>Full descriptions of the Intel<sup>®</sup> QAT APIs are contained in the <a class="reference internal" href="#qat-2-0-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="#qat-2-0-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a>.</p>
+<p>Full descriptions of the Intel<sup>®</sup> QAT APIs are contained in the <a class="reference internal" href="#qat-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="#qat-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a>.</p>
 <p>In addition to the Intel<sup>®</sup> QAT Data Plane APIs, there are a number of Data Plane Polling APIs that are
-described in the <a class="reference internal" href="apis_additional_pollingfunctions.html#qat-2-0-pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling Functions</span></a> section.</p>
+described in the <a class="reference internal" href="apis_additional_pollingfunctions.html#qat-pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling Functions</span></a> section.</p>
 <section id="data-plane-apis-overview">
 <h3>Data Plane APIs Overview<a class="headerlink" href="#data-plane-apis-overview" title="Permalink to this headline"></a></h3>
-<p>The <a class="reference internal" href="#qat-2-0-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="#qat-2-0-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a> contain information on the APIs that are specific to data plane applications.</p>
+<p>The <a class="reference internal" href="#qat-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="#qat-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a> contain information on the APIs that are specific to data plane applications.</p>
 <p>The APIs are recommended for applications that are executing in a data plane environment where the cost of offload (that is, the cycles consumed by the driver sending requests to the hardware) needs to be minimized. To minimize the cost of offload, several constraints have been placed on the APIs. If these constraints are too restrictive for your application, the traditional APIs can be used instead (at a cost of additional IA cycles).</p>
 <p>The definition of the Cryptographic Data Plane APIs are contained in:
 <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/lac/cpa_cy_sym_dp.h</span></code></p>
@@ -166,7 +167,7 @@ the Intel<sup>®</sup> QAT Endpoint for processing.</p>
 <ul class="simple">
 <li><p>Thread safety is not supported. Each software thread should have access to its own unique instance (<code class="docutils literal notranslate"><span class="pre">CpaInstanceHandle</span></code>) to avoid contention on the hardware rings.</p></li>
 <li><p>For performance, polling is supported, as opposed to interrupts (which are comparatively more expensive).</p></li>
-<li><p><a class="reference internal" href="apis_additional_pollingfunctions.html#qat-2-0-pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling functions</span></a> are provided to read responses from the hardware response queue and dispatch callback functions.</p></li>
+<li><p><a class="reference internal" href="apis_additional_pollingfunctions.html#qat-pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling functions</span></a> are provided to read responses from the hardware response queue and dispatch callback functions.</p></li>
 <li><p>Buffers and buffer lists are passed using physical addresses to avoid virtual-to- physical address translation costs.</p></li>
 <li><p>Alignment restrictions are placed on the operation data (that is, the <code class="docutils literal notranslate"><span class="pre">CpaCySymDpOpData</span></code> structure) passed to the Data Plane API. The operation data must be at least 8-byte aligned, contiguous, resident, DMA-accessible memory.</p></li>
 <li><p>Only asynchronous invocation is supported, that is, synchronous invocation is not supported.</p></li>
@@ -175,6 +176,8 @@ the Intel<sup>®</sup> QAT Endpoint for processing.</p>
 <li><p>The default instance (<code class="docutils literal notranslate"><span class="pre">CPA_INSTANCE_HANDLE_SINGLE</span></code>) is not supported by the Data Plane APIs. The specific handle should be obtained using the instance discovery functions (<code class="docutils literal notranslate"><span class="pre">cpaCyGetNumInstances()</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaCyGetInstances()</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumInstances()</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaDcGetInstances()</span></code>).</p></li>
 <li><p>The submitted requests are always placed on the high-priority ring.</p></li>
 <li><p>The data plane APIs are supported in both user space and polling mode in kernel space, but not supported in interrupt mode in kernel space.</p></li>
+<li><p>Dummy response is not supported by the Data Plane APIs.</p></li>
+<li><p>End-to-End (E2E) CRC is not supported by the Data Plane APIs.</p></li>
 </ul>
 </section>
 </section>
@@ -267,6 +270,146 @@ v1.0/1.1;</p></td>
 </div>
 </li>
 </ul>
+</section>
+<section id="physical-function-pf-and-virtual-function-vf-applicability">
+<h2>Physical Function (PF) and Virtual Function (VF) Applicability<a class="headerlink" href="#physical-function-pf-and-virtual-function-vf-applicability" title="Permalink to this headline"></a></h2>
+<p>The following rules apply to Intel<sup>®</sup> QAT public APIs in this chapter.</p>
+<p>APIs operate on resources that are visible to the calling context. Results
+are not a platform-global PF+VF inventory.
+In general, APIs are callable in both PF and VF deployments, but returned
+counts/handles/capabilities reflect only assigned/exposed functions.</p>
+<section id="device-level-api-behavior">
+<h3>Device-level API behavior<a class="headerlink" href="#device-level-api-behavior" title="Permalink to this headline"></a></h3>
+<p>The following API calls describe what is visible in the caller context.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaGetNumDevices</span></code> returns the number of devices/functions available to the caller context.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaGetDeviceInfo</span></code> reports attributes for each enumerated entry, including whether the entry is a VF and which services are enabled.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>User-space applications shall initialize SAL/proxy by calling <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart()</span></code> before calling these APIs.</p></li>
+<li><p>Kernel-space clients do not call <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart()</span></code></p></li>
+</ul>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In mixed PF/VF environments (where SR-IOV/vQAT is enabled and both physical and
+virtual functions coexist):</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaGetDeviceInfo</span></code> is effective only for enumerated device indices (returned
+by <code class="docutils literal notranslate"><span class="pre">cpaGetNumDevices</span></code>). Passing a PF device ID directly will fail.</p></li>
+<li><p>Applications should always call <code class="docutils literal notranslate"><span class="pre">cpaGetNumDevices</span></code> first to obtain the range
+of valid device indices, then iterate only over those indices when calling
+<code class="docutils literal notranslate"><span class="pre">cpaGetDeviceInfo</span></code>.</p></li>
+</ul>
+</div>
+<section id="enumeration-by-deployment">
+<h4>Enumeration by deployment<a class="headerlink" href="#enumeration-by-deployment" title="Permalink to this headline"></a></h4>
+<p>The following deployment scenarios explain how enumeration results should be interpreted.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 47%" />
+<col style="width: 53%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Deployment context</p></th>
+<th class="head"><p>Enumeration behavior</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Host, virtualization disabled</p></td>
+<td><p>Enumeration reflects PF-visible functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p>Host, virtualization enabled (SR-IOV/vQAT)</p></td>
+<td><p>Normal application datapath usage is VF-based;
+enumeration reflects VFs exposed to the caller
+context.</p></td>
+</tr>
+<tr class="row-even"><td><p>VM with PF passthrough</p></td>
+<td><p>Enumeration reflects passed-through PF function(s).</p></td>
+</tr>
+<tr class="row-odd"><td><p>VM with VF passthrough</p></td>
+<td><p>Enumeration reflects passed-through VF function(s).</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="device-id-and-instance-mapping">
+<h4>Device ID and instance mapping<a class="headerlink" href="#device-id-and-instance-mapping" title="Permalink to this headline"></a></h4>
+<p>In mixed PF/VF environments, device enumeration indices returned by
+<code class="docutils literal notranslate"><span class="pre">cpaGetNumDevices</span></code> and device information structures from <code class="docutils literal notranslate"><span class="pre">cpaGetDeviceInfo</span></code>
+represent logical device indices, not PCIe function IDs.</p>
+<p><strong>Virtual Function ID Structure:</strong></p>
+<ul class="simple">
+<li><p>Each physical function (PF) can expose a range of associated virtual functions (VFs).</p></li>
+<li><p>Device enumeration reflects only the VFs (and/or PFs) visible to the
+current process context.</p></li>
+<li><p>Configuration files use VF-specific device names (for example,
+<code class="docutils literal notranslate"><span class="pre">4xxxvf_dev0</span></code>, <code class="docutils literal notranslate"><span class="pre">4xxxvf_dev1</span></code>) corresponding to enumerated indices.</p></li>
+</ul>
+<p><strong>Key Points:</strong></p>
+<ul class="simple">
+<li><p>Enumerated device indices start at 0 and reflect only assigned/visible
+functions in the caller context.</p></li>
+<li><p>A device index of 0 in enumeration may correspond to any physical or virtual
+function, depending on platform configuration and exposure.</p></li>
+<li><p>Applications must not assume a device index correlates directly to a PCIe
+bus address or function ID; always use the <code class="docutils literal notranslate"><span class="pre">cpaGetDeviceInfo</span></code> structure
+to determine actual function attributes (physical vs. virtual, enabled
+services, etc.).</p></li>
+</ul>
+<p><strong>CpaPhysicalInstanceId field meanings:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">packageId</span></code> identifies the package containing the accelerator. The exact meaning of package is implementation-defined (for example, a chip/package) and is not guaranteed to be the CPU socket.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">acceleratorId</span></code> identifies the specific accelerator within that package.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">executionEngineId</span></code> identifies the execution engine within that accelerator.</p></li>
+</ul>
+<p><strong>Driver-specific note for this codebase:</strong></p>
+<ul class="simple">
+<li><p>In current crypto and compression instance reporting paths, <code class="docutils literal notranslate"><span class="pre">packageId</span></code> and <code class="docutils literal notranslate"><span class="pre">acceleratorId</span></code> are both populated
+from the same internal acceleratorNum value, so they may be numerically equal.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">executionEngineId</span></code> is populated from <code class="docutils literal notranslate"><span class="pre">executionEngine</span></code> for crypto instances; compression
+currently reports <code class="docutils literal notranslate"><span class="pre">executionEngineId</span></code> as 0.</p></li>
+<li><p>Even when <code class="docutils literal notranslate"><span class="pre">packageId</span></code> and <code class="docutils literal notranslate"><span class="pre">acceleratorId</span></code> have the same value on a platform, they represent different
+hierarchy levels in the API contract and should not be treated as interchangeable identifiers.</p></li>
+</ul>
+<p><strong>CpaDeviceInfo field notes:</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">sku</span></code> is primarily informational in the QAT 2.0 access-layer/API path and should not be used as the control point for feature enablement decisions.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">inlineEnabled</span></code> indicates whether inline service is enabled/supported for the device, based on service configuration and inline capability checks.</p></li>
+</ul>
+</section>
+<section id="instance-and-capability-requirements">
+<h4>Instance and capability requirements<a class="headerlink" href="#instance-and-capability-requirements" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>Applications discover instances from the caller context using
+<code class="docutils literal notranslate"><span class="pre">cpaCyGetNumInstances()</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaCyGetInstances()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cpaDcGetNumInstances()</span></code>, and <code class="docutils literal notranslate"><span class="pre">cpaDcGetInstances()</span></code>.</p></li>
+<li><p>Applications treat feature support as instance-specific and
+context-specific (PF vs VF), and query capabilities before use
+(for example, <code class="docutils literal notranslate"><span class="pre">cpaCyQueryCapabilities()</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cpaCySymQueryCapabilities()</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaDcQueryCapabilities()</span></code>).</p></li>
+<li><p>Applications cannot assume that capabilities available on PF are
+identical to capabilities available on VF, even on the same platform.</p></li>
+<li><p>Applications should handle <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> on a per-instance
+API call path as a valid outcome in mixed configurations.</p></li>
+<li><p>For cryptographic and compression service APIs, the instance/component
+lifecycle preconditions remain in effect (for example, instance start
+before operational calls), independent of PF/VF context.</p></li>
+</ul>
+</section>
+<section id="what-to-expect-in-mixed-pf-vf-systems">
+<h4>What to expect in mixed PF/VF systems<a class="headerlink" href="#what-to-expect-in-mixed-pf-vf-systems" title="Permalink to this headline"></a></h4>
+<ul class="simple">
+<li><p>If PFs and VFs coexist on the host, an application may see only VFs (or
+another subset) based on exposure/assignment and process context.</p></li>
+<li><p>Capability differences between PF and VF contexts are expected; applications
+should rely on returned capability/enablement fields rather than assuming
+identical behavior across function types.</p></li>
+</ul>
+</section>
+</section>
 </section>
 </section>
 

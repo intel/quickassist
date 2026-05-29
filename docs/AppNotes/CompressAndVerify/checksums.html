@@ -127,7 +127,7 @@
            <div itemprop="articleBody">
              
   <section id="checksum-discussion">
-<span id="qat-2-0-cnv-checksums"></span><h1>Checksum Discussion<a class="headerlink" href="#checksum-discussion" title="Permalink to this headline"></a></h1>
+<span id="qat-cnv-checksums"></span><h1>Checksum Discussion<a class="headerlink" href="#checksum-discussion" title="Permalink to this headline"></a></h1>
 <p>Intel® QAT computes Cyclic Redundancy Checks (CRCs), checksums, and hash values during compression and decompression
 operations. For brevity, these algorithms will collectively be referred to as checksums in this paper.</p>
 <p>This section introduces the checksums used in CnV, explains the concept of checksum collisions, outlines how each checksum
@@ -191,7 +191,7 @@ for CRC32</p></td>
 <p>When compression or decompression requests are submitted to an Intel® QAT device with the End-to-End CRC feature enabled,
 input and output programmable CRC64 values are included in the response descriptor and may be verified by the application.
 These CRC64 values are not included in the CnV calculation.</p>
-<p>See section <a class="reference internal" href="notes.html#qat-2-0-crc64-end-to-end-mode"><span class="std std-ref">The CRC64 Values Used in End-to-End Mode</span></a> for details.</p>
+<p>See section <a class="reference internal" href="notes.html#qat-crc64-end-to-end-mode"><span class="std std-ref">The CRC64 Values Used in End-to-End Mode</span></a> for details.</p>
 </div>
 </section>
 <section id="collisions-crc32-adler32-and-xxhash32">
@@ -243,7 +243,7 @@ x43a52f78</p></td>
 </table>
 <p>This is referred to as a collision. Empirical evidence shows there is a
 small non-zero likelihood of checksum collisions when minor changes are
-made in the dataset. See section <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.</p>
+made in the dataset. See section <a class="reference internal" href="notes.html#qat-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.</p>
 </section>
 </section>
 <section id="anatomy-of-crc32-checksum">
@@ -251,7 +251,7 @@ made in the dataset. See section <a class="reference internal" href="notes.html#
 <p>CRC32 (Cyclic Redundancy Check) is a popular checksum algorithm used
 to detect errors in data.</p>
 <p>CRC32 checksums are calculated using polynomial division. This is
-implemented by use of the XOR operation and shift values. See <a class="reference internal" href="references.html#qat-2-0-cnv-footnote1"><span class="std std-ref">Footnote 1</span></a> for details.</p>
+implemented by use of the XOR operation and shift values. See <a class="reference internal" href="references.html#qat-cnv-footnote1"><span class="std std-ref">Footnote 1</span></a> for details.</p>
 <p>It is composed by three steps:</p>
 <ol class="arabic">
 <li><p><strong>Division Operation</strong></p>
@@ -303,7 +303,7 @@ altered.</p>
 </section>
 <section id="collision-rate-crc32">
 <h4>Collision Rate CRC32<a class="headerlink" href="#collision-rate-crc32" title="Permalink to this headline"></a></h4>
-<p>Based on the dataset used in an empirical study of collisions (See <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> section for details.),
+<p>Based on the dataset used in an empirical study of collisions (See <a class="reference internal" href="notes.html#qat-empirical-study"><span class="std std-ref">The Empirical Study</span></a> section for details.),
 CRC32 collisions can be expected to occur at a rate of
 approximately 0.2 per billion tests. This indicates that, relative to a
 completely random dataset, a modest reduction in CRC32 collisions is
@@ -333,7 +333,7 @@ Adler32 of DS = B || A
 </div></blockquote>
 <section id="collision-rate-adler32">
 <h3>Collision Rate Adler32<a class="headerlink" href="#collision-rate-adler32" title="Permalink to this headline"></a></h3>
-<p>Based on the dataset used in an empirical study of collisions (See section <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.), Adler32 collisions can be expected to occur at a rate of
+<p>Based on the dataset used in an empirical study of collisions (See section <a class="reference internal" href="notes.html#qat-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.), Adler32 collisions can be expected to occur at a rate of
 approximately 175 collisions per billion tests. It is concluded the
 dataset chosen has significantly higher levels of checksum collision for
 Alder32 checksums compared to random data, especially in small datasets</p>
@@ -342,7 +342,7 @@ Alder32 checksums compared to random data, especially in small datasets</p>
 <section id="anatomy-of-xxhash32">
 <h2>Anatomy of XXHash32<a class="headerlink" href="#anatomy-of-xxhash32" title="Permalink to this headline"></a></h2>
 <p>XXHash32 creates the hash with a series of rotates, addition,
-multiplication and XOR operations. See <a class="reference internal" href="references.html#qat-2-0-cnv-footnote2"><span class="std std-ref">Footnote 2</span></a> for details.</p>
+multiplication and XOR operations. See <a class="reference internal" href="references.html#qat-cnv-footnote2"><span class="std std-ref">Footnote 2</span></a> for details.</p>
 <p>XXHash32 sets up four accumulators, which are based on an optional seed and two prime numbers.</p>
 <blockquote>
 <div><div class="highlight-text notranslate"><div class="highlight"><pre><span></span>u32 acc1 = seed + PRIME32_1 + PRIME32_2;
@@ -399,7 +399,7 @@ acc = acc xor (acc &gt;&gt; 16);
 </div></blockquote>
 <section id="collision-rate-xxhash32">
 <h3>Collision Rate XXHash32<a class="headerlink" href="#collision-rate-xxhash32" title="Permalink to this headline"></a></h3>
-<p>Based on the dataset used in an empirical study of collisions (See section <a class="reference internal" href="notes.html#qat-2-0-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.), XXHash32 collisions are expected to occur at a rate of
+<p>Based on the dataset used in an empirical study of collisions (See section <a class="reference internal" href="notes.html#qat-empirical-study"><span class="std std-ref">The Empirical Study</span></a> for details.), XXHash32 collisions are expected to occur at a rate of
 approximately 3.4 errors per billion tests. This suggests a modest
 reduction when compared to CRC32 collisions, which can be attributed to the nature of the dataset.</p>
 </section>

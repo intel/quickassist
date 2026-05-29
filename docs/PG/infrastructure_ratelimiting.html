@@ -137,7 +137,7 @@
            <div itemprop="articleBody">
              
   <section id="rate-limiting">
-<span id="qat-2-0-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-infrastructure-rate-limiting"></span><h1>Rate Limiting<a class="headerlink" href="#rate-limiting" title="Permalink to this headline"></a></h1>
 <section id="rate-limiting-overview">
 <h2>Rate Limiting Overview<a class="headerlink" href="#rate-limiting-overview" title="Permalink to this headline"></a></h2>
 <p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service. This ensures that resources are allocated according to predefined agreements, preventing any single VF from monopolizing device capacity.</p>
@@ -167,6 +167,7 @@
 <section id="sku-specific-capacity-values">
 <h3>SKU-Specific Capacity Values<a class="headerlink" href="#sku-specific-capacity-values" title="Permalink to this headline"></a></h3>
 <p>Device capacity and performance characteristics vary significantly between different SKUs (such as MCC and XCC variants). The same reference algorithm may achieve different throughput levels depending on the specific hardware configuration.</p>
+<p>In the QAT 2.0 access-layer/API path, SKU fields are informational for reporting and diagnostics. SLA/RL behavior should be treated as capability-driven rather than controlled by SKU-based API branching.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Always consult your device’s performance brief for SKU-specific capacity values and performance characteristics before configuring SLAs.</p>

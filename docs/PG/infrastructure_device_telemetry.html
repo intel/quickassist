@@ -135,9 +135,9 @@
            <div itemprop="articleBody">
              
   <section id="telemetry">
-<span id="qat-2-0-pg-infrastructure-device-telemetry"></span><h1>Telemetry<a class="headerlink" href="#telemetry" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-infrastructure-device-telemetry"></span><h1>Telemetry<a class="headerlink" href="#telemetry" title="Permalink to this headline"></a></h1>
 <p>The telemetry feature is a tool to view the performance and utilization of an acceleration device.
-Telemetry data can be viewed on a per device and a per ring pair (also known as <a class="reference internal" href="infrastructure_queue_pairs.html#qat-2-0-pg-infrastructure-queue-pairs"><span class="std std-ref">queue pair</span></a>) basis.</p>
+Telemetry data can be viewed on a per device and a per ring pair (also known as <a class="reference internal" href="infrastructure_queue_pairs.html#qat-pg-infrastructure-queue-pairs"><span class="std std-ref">queue pair</span></a>) basis.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>There are differences between the implementations of Telemetry with the in-tree acceleration driver and the out-of-tree acceleration driver.</p>
@@ -172,7 +172,7 @@ Telemetry data can be viewed on a per device and a per ring pair (also known as 
 <h3>Telemetry Usage With In-Tree<a class="headerlink" href="#telemetry-usage-with-in-tree" title="Permalink to this headline"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-2-0-in-tree-kernel-requirements"><span class="std std-ref">Release Notes -In-Tree</span></a> for kernel version requirements for enabling this feature.</p>
+<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#qat-in-tree-kernel-requirements"><span class="std std-ref">Release Notes -In-Tree</span></a> for kernel version requirements for enabling this feature.</p>
 </div>
 <p>The telemetry feature is configured and queried using <strong>debugfs</strong> files in the Linux filesystem.</p>
 <p>The telemetry <strong>debugfs</strong> folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_4xxx_*/telemetry</span></code></p>
@@ -485,7 +485,7 @@ By echoing the number of the ring pair (0-63) into a <code class="docutils liter
 </section>
 </section>
 <section id="monitoring-telemetry-text-based">
-<span id="qat2-0-text-based-telemetry"></span><h2>Monitoring Telemetry - Text Based<a class="headerlink" href="#monitoring-telemetry-text-based" title="Permalink to this headline"></a></h2>
+<span id="qat-text-based-telemetry"></span><h2>Monitoring Telemetry - Text Based<a class="headerlink" href="#monitoring-telemetry-text-based" title="Permalink to this headline"></a></h2>
 <p>The following example Python scripts highlight how telemetry data can be monitored at the command line.  The
 script first enables telemetry service for each QAT endpoint that supports telemetry and is in the <code class="docutils literal notranslate"><span class="pre">up</span></code>
 state. It then queries the telemetry data on a periodic basis collecting the data and formatting the display.</p>
