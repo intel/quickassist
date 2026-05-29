@@ -140,7 +140,7 @@
            <div itemprop="articleBody">
              
   <section id="heartbeat">
-<span id="qat-2-0-pg-infrastructure-heartbeat"></span><h1>Heartbeat<a class="headerlink" href="#heartbeat" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-infrastructure-heartbeat"></span><h1>Heartbeat<a class="headerlink" href="#heartbeat" title="Permalink to this headline"></a></h1>
 <p>Under some circumstances, firmware in the Intel<sup>®</sup> QAT devices could become unresponsive, requiring a device reset to recover. The Intel<sup>®</sup> QAT Heartbeat feature provides a mechanism for the customer application to detect and reset unresponsive devices. It also notifies the application processes of the start and end of the reset operation and suspends all Intel<sup>®</sup> QAT instances between the events.</p>
 <section id="heartbeat-operation">
 <h2>Heartbeat Operation<a class="headerlink" href="#heartbeat-operation" title="Permalink to this headline"></a></h2>
@@ -158,6 +158,16 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices(void)</span></code></p></li>
 </ul>
 <p>A failure return code implies the device has failed or hung.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul class="simple">
+<li><p>Heartbeat-triggered autoreset requires Heartbeat checks to be actively
+executed (for example, via <code class="docutils literal notranslate"><span class="pre">icp_sal_check_device()</span></code> or
+<code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices()</span></code>).</p></li>
+<li><p>If no Heartbeat checks are performed, Heartbeat failures are not detected
+by this mechanism and Heartbeat-driven autoreset will not occur.</p></li>
+</ul>
+</div>
 <p>The Heartbeat management thread should satisfy the following conditions:</p>
 <ul class="simple">
 <li><p>For any given device, only one such process/thread should monitor.</p></li>
@@ -174,6 +184,20 @@ This behavior can lead to unexpected QAT device hangs if a simulated or incorrec
 <p>Users should ensure that heartbeat monitoring is performed with an understanding of the potential impact on BusMaster status, especially when configuring
 monitoring frequencies or using failure simulation tools.</p>
 </div>
+</section>
+<section id="pf-vf-heartbeat-monitoring-scope">
+<h3>PF/VF Heartbeat Monitoring Scope<a class="headerlink" href="#pf-vf-heartbeat-monitoring-scope" title="Permalink to this headline"></a></h3>
+<p>In mixed PF/VF environments (where SR-IOV/vQAT is enabled):</p>
+<ul class="simple">
+<li><p>Heartbeat monitoring is per-function. A management thread monitors only the devices
+enumerated in its context using <code class="docutils literal notranslate"><span class="pre">icp_sal_check_device()</span></code> (for specific enumerated devices)
+or <code class="docutils literal notranslate"><span class="pre">icp_sal_check_all_devices()</span></code> (for all enumerated devices in that context).</p></li>
+<li><p>Enumerated devices reflect only assigned/visible functions (PF or VF) for that context.
+A host-side management thread checking PF devices will not monitor VF heartbeats;
+VM-based management must monitor only the VFs visible to that VM.</p></li>
+<li><p>Each physical or virtual function has its own independent heartbeat state. Heartbeat
+failure on one function does not directly affect heartbeat status of other coexisting functions.</p></li>
+</ul>
 </section>
 <section id="resetting-a-failed-device">
 <h3>Resetting a Failed Device<a class="headerlink" href="#resetting-a-failed-device" title="Permalink to this headline"></a></h3>
@@ -216,7 +240,7 @@ monitoring frequencies or using failure simulation tools.</p>
 </section>
 <section id="function-signatures">
 <h4>Function Signatures<a class="headerlink" href="#function-signatures" title="Permalink to this headline"></a></h4>
-<p>The details of the above functions, parameters, and return values can be found in <a class="reference internal" href="apis_additional_apis_index.html#qat-2-0-pg-supported-apis-additional-apis"><span class="std std-ref">Supported APIs &gt; Additional APIs</span></a>.</p>
+<p>The details of the above functions, parameters, and return values can be found in <a class="reference internal" href="apis_additional_apis_index.html#qat-pg-supported-apis-additional-apis"><span class="std std-ref">Supported APIs &gt; Additional APIs</span></a>.</p>
 </section>
 </section>
 </section>
@@ -245,7 +269,7 @@ monitoring frequencies or using failure simulation tools.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">cpaCyInstanceSetNotificationCb</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cpaDcInstanceSetNotificationCb</span></code></p></li>
 </ul>
-<p>The details of the above functions, parameters, and return values can be found in <a class="reference internal" href="apis_additional_apis_index.html#qat-2-0-pg-supported-apis-additional-apis"><span class="std std-ref">Supported APIs &gt; Additional APIs</span></a>.</p>
+<p>The details of the above functions, parameters, and return values can be found in <a class="reference internal" href="apis_additional_apis_index.html#qat-pg-supported-apis-additional-apis"><span class="std std-ref">Supported APIs &gt; Additional APIs</span></a>.</p>
 </section>
 <section id="restart-sequence">
 <h2>Restart Sequence<a class="headerlink" href="#restart-sequence" title="Permalink to this headline"></a></h2>

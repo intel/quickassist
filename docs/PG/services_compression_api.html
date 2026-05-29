@@ -142,7 +142,7 @@
            <div itemprop="articleBody">
              
   <section id="data-compression">
-<span id="qat-2-0-pg-services-compression"></span><h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-services-compression"></span><h1>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this headline"></a></h1>
 <section id="compression-features">
 <h2>Compression Features<a class="headerlink" href="#compression-features" title="Permalink to this headline"></a></h2>
 <ul class="simple">
@@ -163,6 +163,7 @@
 <li><p>Batch and Pack (BnP) compression is not supported.</p></li>
 <li><p>accumulateXXHash is not supported when combined with autoSelectBestHuffmanTree</p></li>
 <li><p>accumulateXXHash is not supported in Decompression or Combined sessions</p></li>
+<li><p>Precompiled Huffman mode is not supported.</p></li>
 </ul>
 </section>
 <section id="compression-session-setup">
@@ -198,7 +199,9 @@ all algorithms</p></td>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CpaDcChecksum</span> <span class="pre">checksum</span></code></p></td>
 </tr>
 <tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">CpaDcHuffType</span> <span class="pre">huffType</span></code></p></td>
-<td><p>Deflate specific</p></td>
+<td><p>Deflate specific.
+<code class="docutils literal notranslate"><span class="pre">CPA_DC_HT_PRECOMP</span></code>
+is not supported.</p></td>
 </tr>
 <tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">CpaDcCompLZ4BlockMaxSize</span></code>
 <code class="docutils literal notranslate"><span class="pre">lz4BlockMaxSize</span></code></p></td>
@@ -218,6 +221,12 @@ all algorithms</p></td>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Should the application use no-session API <code class="docutils literal notranslate"><span class="pre">cpaDcNsCompressData()</span></code>, the properties listed above are available in the <code class="docutils literal notranslate"><span class="pre">CpaDcNsSetupData</span></code> data structure.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In this codebase, capability reporting is aligned with the limitations above:
+<code class="docutils literal notranslate"><span class="pre">CpaDcInstanceCapabilities.precompiledHuffman</span></code> and
+<code class="docutils literal notranslate"><span class="pre">CpaDcInstanceCapabilities.batchAndPack</span></code> are reported as unsupported.</p>
 </div>
 </section>
 <section id="decompression-session-setup">
@@ -265,8 +274,10 @@ all algorithms</p></td>
 <figure class="align-default">
 <a class="reference internal image-reference" href="../_images/deflate_decompression.png"><img alt="../_images/deflate_decompression.png" src="../_images/deflate_decompression.png" style="width: 600px;" /></a>
 </figure>
-<p>When the <em>Deflate Block #3</em> is processed, the property <code class="docutils literal notranslate"><span class="pre">endOfLastBlock</span></code> in the <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure will be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code>. This notifies the application that no more data can be decompressed. At this point, the session must be either removed and re-initialized, or reset.
-With an application handling multi-gzip data, the both the Gzip footer and Gzip header must be skipped.</p>
+<p>When the <em>Deflate Block #3</em> is processed, the property <code class="docutils literal notranslate"><span class="pre">endOfLastBlock</span></code> in the <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure will be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code>. This notifies the application that no more data can be decompressed from the current deflate stream.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">endOfLastBlock</span></code> capability is not limited to stateful decompression. It can also be used with stateless decompression, including checksum-seeded request chaining (sometimes referred to as <em>stateful-lite</em>), where the checksum from one packet is fed into the next packet.</p>
+<p>Support for this behavior is reported through <code class="docutils literal notranslate"><span class="pre">CpaDcInstanceCapabilities.endOfLastBlock</span></code> when querying capabilities with <code class="docutils literal notranslate"><span class="pre">cpaDcQueryCapabilities()</span></code>.</p>
+<p>For applications handling multi-gzip data, both the current Gzip footer and the next Gzip header must be skipped before submitting the next deflate member.</p>
 </section>
 <section id="lz4-decompression">
 <h3>LZ4 Decompression<a class="headerlink" href="#lz4-decompression" title="Permalink to this headline"></a></h3>
@@ -374,13 +385,23 @@ to set BFINAL</p></td>
 <tr class="row-odd"><td><p>Adler32</p></td>
 <td><p>Required for Zlib support</p></td>
 </tr>
-<tr class="row-even"><td><p>XXHash32</p></td>
+<tr class="row-even"><td><p>CRC32 + Adler32</p></td>
+<td><p>Use when the application
+requires both checksum
+values from the same
+data stream.</p></td>
+</tr>
+<tr class="row-odd"><td><p>XXHash32</p></td>
 <td><p>Required for LZ4 support</p></td>
 </tr>
 </tbody>
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p><code class="docutils literal notranslate"><span class="pre">CPA_DC_CRC32_ADLER32</span></code> is accepted by DEFLATE session setup. Dual checksum outputs are explicitly defined for
+chaining APIs (CpaDcChainRqResults.crc32 and .adler32). For non-chaining APIs, CpaDcRqResults exposes a single
+checksum field; obtaining both CRC32 and Adler32 requires using the integrity CRC data path (CpaCrcData) on
+supported configurations.</p>
 <p>In the event the <em>XXHash32</em> checksum should be reset, it must be done calling the API <code class="docutils literal notranslate"><span class="pre">cpaDcResetXXHashState()</span></code>.</p>
 </div>
 </section>
@@ -447,6 +468,11 @@ extra byte with value 0x00.</p>
 <section id="lz4-compression-support">
 <h3>LZ4 Compression Support<a class="headerlink" href="#lz4-compression-support" title="Permalink to this headline"></a></h3>
 <p>With the QAT 2.0 API, the application can create LZ4 frames. This is achieved using APIs <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateHeader()</span></code> and <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateFooter()</span></code>. These APIs are also able to generate GZip and Zlib formats. More information is available in the API reference manual.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><code class="docutils literal notranslate"><span class="pre">cpaDcGenerateHeader()</span></code> and <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateFooter()</span></code> support <strong>both stateless and
+stateful</strong> sessions. They are not limited to stateful compression.</p>
+</div>
 <p>The <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateHeader()</span></code> creates a 7 byte LZ4 frame header which includes:</p>
 <ul>
 <li><p>Magic number 0x184D2204.</p></li>

@@ -224,6 +224,15 @@ API functions that operate on instances.</p>
 <p>Instance discovery is achieved through service-specific API invocations.
 Subsections here provide details on the instance discovery for data compression (<code class="docutils literal notranslate"><span class="pre">dc</span></code>)
 as well as the cryptographic service.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Instance discovery APIs (<code class="docutils literal notranslate"><span class="pre">cpaCyGetNumInstances</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaCyGetInstances</span></code>,
+<code class="docutils literal notranslate"><span class="pre">cpaDcGetNumInstances</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaDcGetInstances</span></code>) return only instances
+assigned and visible to the calling context. In mixed PF/VF environments,
+applications cannot assume access to instances residing on other physical
+or virtual functions. Enumerate and query capabilities for each discovered
+instance to determine actual service availability.</p>
+</div>
 <section id="data-compression">
 <h4>Data Compression<a class="headerlink" href="#data-compression" title="Permalink to this headline"></a></h4>
 <p>In the below example, the number of <code class="docutils literal notranslate"><span class="pre">dc</span></code> instances available to the application is

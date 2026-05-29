@@ -215,7 +215,7 @@ not used. Memory is allocated based on the calling thread’s NUMA affinity
 <code class="docutils literal notranslate"><span class="pre">/sys/bus/pci/devices/&lt;device&gt;/numa_node</span></code></p>
 </div>
 <p>For complete documentation of these APIs, refer to the
-<a class="reference internal" href="../PG/apis_additional_memoryapis.html#qat-2-0-pg-supported-apis-additional-apis-memoryapis"><span class="std std-ref">Memory Driver APIs</span></a>
+<a class="reference internal" href="../PG/apis_additional_memoryapis.html#qat-pg-supported-apis-additional-apis-memoryapis"><span class="std std-ref">Memory Driver APIs</span></a>
 section in the Programmer’s Guide.</p>
 </section>
 </section>
@@ -227,11 +227,21 @@ minimize latency or reduce memory footprint. Refer to the <a class="reference in
 configuration file and its parameters.</p>
 <section id="disable-services-not-used">
 <h3>Disable Services Not Used<a class="headerlink" href="#disable-services-not-used" title="Permalink to this headline"></a></h3>
-<p>The compression service, when enabled, impacts the throughput
-performance of crypto services at larger packet sizes and vice versa.
-This is due to partitioning of internal resources between the two
-services when both are enabled. It is recommended to disable unused
-services.</p>
+<p>When more than one service is enabled, internal hardware resources are
+partitioned between those services. This can reduce the throughput
+available to each individual service, regardless of which combination
+is enabled. On Intel<sup>®</sup> QAT 2.0 and later devices, a maximum of two
+of the three available services (<code class="docutils literal notranslate"><span class="pre">sym</span></code>, <code class="docutils literal notranslate"><span class="pre">asym</span></code>, <code class="docutils literal notranslate"><span class="pre">dc</span></code>) may be enabled
+simultaneously on a single QAT endpoint. Any two-service combination
+— <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code>, <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code>, or <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> — will result in the hardware
+acceleration engines being split 4|4 between the two services, reducing
+peak throughput for each compared to a single-service configuration. For
+best performance, enable only the service(s) your workload requires.</p>
+<p>For details on valid <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> combinations and their performance
+implications, refer to
+<a class="reference internal" href="../PG/configuration_files_maxprocesscalculations.html#services-enabled-definitions"><span class="std std-ref">ServicesEnabled</span></a> and
+<span class="xref std std-ref">Performance Considerations</span>
+in the Programmer’s Guide.</p>
 </section>
 <section id="disable-parameter-checking">
 <h3>Disable Parameter Checking<a class="headerlink" href="#disable-parameter-checking" title="Permalink to this headline"></a></h3>

@@ -125,7 +125,7 @@
            <div itemprop="articleBody">
              
   <section id="software-installation">
-<span id="qat-2-0-gsg-installation"></span><h1>Software Installation<a class="headerlink" href="#software-installation" title="Permalink to this headline"></a></h1>
+<span id="qat-gsg-installation"></span><h1>Software Installation<a class="headerlink" href="#software-installation" title="Permalink to this headline"></a></h1>
 <p>This section provides details on building and installing the software.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -188,8 +188,8 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
-<li><p>If installing the acceleration software for use in a virtual environment refer to the <a class="reference internal" href="../../VIRT/index.html#qat-2-0-virtualization-deployment-guide"><span class="std std-ref">Virtualization Deployment Guide</span></a> for additional details.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script handles many options that may be of interest. For instance, there is a wide range of possible configurations, including build or install virtualization support (host or guest) or no virtualization support. Some build options may need to be passed as a parameter to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script before proceeding with the installation. A complete list of configuration options is available in <a class="reference internal" href="#qat-2-0-gsg-configuration-options"><span class="std std-ref">Configuration Options</span></a>.</p></li>
+<li><p>If installing the acceleration software for use in a virtual environment refer to the <a class="reference internal" href="../../VIRT/index.html#qat-virtualization-deployment-guide"><span class="std std-ref">Virtualization Deployment Guide</span></a> for additional details.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script handles many options that may be of interest. For instance, there is a wide range of possible configurations, including build or install virtualization support (host or guest) or no virtualization support. Some build options may need to be passed as a parameter to the <code class="docutils literal notranslate"><span class="pre">./configure</span></code> script before proceeding with the installation. A complete list of configuration options is available in <a class="reference internal" href="#qat-gsg-configuration-options"><span class="std std-ref">Configuration Options</span></a>.</p></li>
 </ul>
 </div>
 <ol class="arabic">
@@ -240,9 +240,9 @@ Type make followed by make install to build QAT with the following options
 </li>
 </ol>
 <section id="dependencies">
-<span id="qat-2-0-gsg-dependencies"></span><h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
+<span id="qat-gsg-dependencies"></span><h3>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline"></a></h3>
 <p>Various dependencies are required, see the output from <cite>.configure</cite>.</p>
-<p><code class="docutils literal notranslate"><span class="pre">yasm</span></code>, for example, may need to be manually downloaded and installed via <a class="reference external" href="https://yasm.tortall.net/Download.html">https://yasm.tortall.net/Download.html</a> .</p>
+<p><code class="docutils literal notranslate"><span class="pre">yasm</span></code>, for example, may need to be manually downloaded and installed via <a class="reference external" href="http://www.tortall.net/projects/yasm/releases/">http://www.tortall.net/projects/yasm/releases/</a> .</p>
 <p>On Linux:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">wget</span> <span class="pre">&lt;latest</span> <span class="pre">URL&gt;</span></code> (latest URL is <code class="docutils literal notranslate"><span class="pre">http://www.tortall.net/projects/yasm/releases/yasm-1.3.0.tar.gz</span></code> )</p></li>
@@ -254,7 +254,7 @@ Type make followed by make install to build QAT with the following options
 <p>Then return to the QAT directory to perform the <code class="docutils literal notranslate"><span class="pre">.configure</span></code> and <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> commands.</p>
 </section>
 <section id="configuration-options">
-<span id="qat-2-0-gsg-configuration-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
+<span id="qat-gsg-configuration-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
 <p>A complete list of compile flags and build parameters can also be obtained by executing the following command in the shell:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --help</span>
 </pre></div>
@@ -263,153 +263,7 @@ Type make followed by make install to build QAT with the following options
 <p class="admonition-title">Note</p>
 <p>Compiler flags to produce safer binaries are enabled by default.</p>
 </div>
-<table class="longtable colwidths-given docutils align-default" id="id1">
-<caption><span class="caption-text">Compile Flag Options</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
-<colgroup>
-<col style="width: 50%" />
-<col style="width: 50%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p><strong>Compile Flag</strong></p></th>
-<th class="head"><p><strong>Description</strong></p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-option-checking</span></code></p></td>
-<td><p>Ignore unrecognized –enable/–with option.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-FEATURE</span></code></p></td>
-<td><p>Do not include FEATURE (same as <code class="docutils literal notranslate"><span class="pre">--enable-FEATURE=no</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-FEATURE[=ARG]</span></code></p></td>
-<td><p>Include <code class="docutils literal notranslate"><span class="pre">FEATURE</span> <span class="pre">[ARG=yes]</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-silent-rules</span></code></p></td>
-<td><p>Less verbose build output (undo: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">V=1</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-silent-rules</span></code></p></td>
-<td><p>Verbose build output (undo: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">V=0</span></code>).</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-maintainer-mode</span></code></p></td>
-<td><p>Enable make rules and dependencies not useful (and sometimes
-confusing) to the casual installer.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dependency-tracking</span></code></p></td>
-<td><p>Do not reject slow dependency extractors.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dependency-tracking</span></code></p></td>
-<td><p>Speeds up one-time build.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-debug</span></code></p></td>
-<td><p>Enables debugging.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code></p></td>
-<td><p>Disables parameters checking in the top-level APIs
-(use for performance optimization).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dc-dyn</span></code></p></td>
-<td><p>Disables dynamic compression support.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-stats</span></code></p></td>
-<td><p>Disables statistic collection (use for performance
-optimization).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-drbg-poll-and-wait</span></code></p></td>
-<td><p>Modifies the behavior of DRBG HT functions to use single
-threaded operation.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-log-syslog</span></code></p></td>
-<td><p>Enables debugging messages to be outputted to the system log
-instead of standard output.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-nonblocking-partials-perform</span></code></p></td>
-<td><p>Partial operations results are not being blocked.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-sriov</span></code></p></td>
-<td><p>Enables Single-root I/O Virtualization in the QAT driver
-(available options: <code class="docutils literal notranslate"><span class="pre">host</span></code>, <code class="docutils literal notranslate"><span class="pre">guest</span></code>).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-trace</span></code></p></td>
-<td><p>Enables tracing for the Cryptography API.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-asym-only</span></code></p></td>
-<td><p>Enables driver to support Asymmetric Crypto services only.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-sym-only</span></code></p></td>
-<td><p>Enables driver to support Symmetric Crypto services only.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-only</span></code></p></td>
-<td><p>Enables driver supports only compression service
-(can optimize size of build objects).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-sym-only</span></code></p></td>
-<td><p>Enables driver to support Data Compression and
-Symmetric Crypto services only.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-dc-return-counters-on-error</span></code></p></td>
-<td><p>Enables updates of consumed/produced results in case
-of error during compression or decompression operations.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-icp-inline</span></code></p></td>
-<td><p>When defined, function inlining for functions that cannot be
-inlined by the compiler is removed to enable compilation
-of the driver for kernels build without
-<code class="docutils literal notranslate"><span class="pre">CONFIG_ARCH_SUPPORTS_OPTIMIZED_INLINING</span></code>.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-inline</span></code></p></td>
-<td><p>Enables <code class="docutils literal notranslate"><span class="pre">INLINE</span></code> feature.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-hb-fail-sim</span></code></p></td>
-<td><p>Enable Heartbeat Failure Simulation.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-coexistence</span></code></p></td>
-<td><p>Enables legacy and upstream driver coexistence.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-lkcf</span></code></p></td>
-<td><p>Enables QAT registration with Linux Kernel Crypto Framework.
-Kernel instances are disabled by default. See
-<a class="reference internal" href="../../PG/configuration_files_logicalsection.html#qat-2-0-pg-configuration-files-logical-instances-section"><span class="std std-ref">Logical Instances Section of the Programmer’s Guide</span></a>
-for additional details.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-qat-kpt-debug-key</span></code></p></td>
-<td><p>Enable QAT debug issue certificate.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dc-strict-mode</span></code></p></td>
-<td><p>Disables Compress and Verify (CnV) functionality.
-See <a class="reference internal" href="#qat-2-0-cnv-messaging"><span class="std std-ref">below</span></a> for details.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
-<td><p>Enables Data Compression Error Simulation.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-kpt</span></code></p></td>
-<td><p>Enables kpt.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-algorithms</span></code></p></td>
-<td><p>Enables legacy algorithms.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-sla-mgr</span></code></p></td>
-<td><p>Enables the legacy SLA manager.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
-<td><p>USDM allocates and handles memory specific to threads (for
-multi-thread apps, allocated memory information will be
-maintained separately for each thread).</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-128k-slab</span></code></p></td>
-<td><p>Enables 128k slab allocator in USDM. It could improve
-performance and reduce memory consumption for the large
-number of threads when thread specific memory allocator is
-enabled.</p></td>
-</tr>
-<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-without-qp-submission-lock</span></code></p></td>
-<td><p>Remove QP submission locks.</p></td>
-</tr>
-<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-kapi</span></code></p></td>
-<td><p>Enables Intel<sup>®</sup> QuickAssist API in Kernel space.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition important" id="qat-2-0-cnv-messaging">
+<div class="admonition important" id="qat-cnv-messaging">
 <p class="admonition-title">Important</p>
 <p>The Compress and Verify feature checks and ensures data integrity in the compression operation of the
 Intel<sup>®</sup> QAT Data Compression API. This feature introduces an independent capability to verify the
@@ -422,10 +276,10 @@ the Compress and Verify capability.</p>
 </section>
 </section>
 <section id="install-acceleration-software">
-<span id="qat-2-0-gsg-install-software"></span><h2>Install Acceleration Software<a class="headerlink" href="#install-acceleration-software" title="Permalink to this headline"></a></h2>
+<span id="qat-gsg-install-software"></span><h2>Install Acceleration Software<a class="headerlink" href="#install-acceleration-software" title="Permalink to this headline"></a></h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>It is recommended to <a class="reference internal" href="#qat-2-0-gsg-uninstall-software"><span class="std std-ref">uninstall</span></a> previous installations of the acceleration software (if previously installed).</p>
+<p>It is recommended to <a class="reference internal" href="#qat-gsg-uninstall-software"><span class="std std-ref">uninstall</span></a> previous installations of the acceleration software (if previously installed).</p>
 </div>
 <ol class="arabic">
 <li><p><strong>Open</strong> a terminal window and <strong>switch</strong> to superuser. Provide root password when prompted.</p>
@@ -496,7 +350,7 @@ irqbypass              16384  2 intel_qat,kvm
 </div>
 </section>
 <section id="uninstall-acceleration-software">
-<span id="qat-2-0-gsg-uninstall-software"></span><h2>Uninstall Acceleration Software<a class="headerlink" href="#uninstall-acceleration-software" title="Permalink to this headline"></a></h2>
+<span id="qat-gsg-uninstall-software"></span><h2>Uninstall Acceleration Software<a class="headerlink" href="#uninstall-acceleration-software" title="Permalink to this headline"></a></h2>
 <ol class="arabic">
 <li><p><strong>Open</strong> a terminal windows and <strong>switch</strong> to superuser. Provide root password when prompted.</p>
 <blockquote>
@@ -518,7 +372,7 @@ irqbypass              16384  2 intel_qat,kvm
 </ol>
 </section>
 <section id="starting-stopping-the-acceleration-software">
-<span id="qat-2-0-gsg-start-stop-software"></span><h2>Starting/Stopping the Acceleration Software<a class="headerlink" href="#starting-stopping-the-acceleration-software" title="Permalink to this headline"></a></h2>
+<span id="qat-gsg-start-stop-software"></span><h2>Starting/Stopping the Acceleration Software<a class="headerlink" href="#starting-stopping-the-acceleration-software" title="Permalink to this headline"></a></h2>
 <p>When the acceleration software is installed, a script file titled <code class="docutils literal notranslate"><span class="pre">qat_service</span></code> is installed in the <code class="docutils literal notranslate"><span class="pre">/etc/init.d</span></code> directory. The script file can be used to start and stop the acceleration software.</p>
 <p>To <em>start</em> the software, issue the following command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">service qat_service start</span>
@@ -561,7 +415,7 @@ has more than one type of hardware device or SKU, verify that the correct config
 <p class="admonition-title">Important</p>
 <p>The software package has been validated with the default configuration files. Changes to the configuration files could have adverse effects.</p>
 </div>
-<p>Refer to the <a class="reference internal" href="../../PG/configuration_files_index.html#qat-2-0-pg-configuration-files"><span class="std std-ref">Programmer’s Guide</span></a> for additional information on the configuration files.</p>
+<p>Refer to the <a class="reference internal" href="../../PG/configuration_files_index.html#qat-pg-configuration-files"><span class="std std-ref">Programmer’s Guide</span></a> for additional information on the configuration files.</p>
 </section>
 <section id="running-applications-as-non-root-user">
 <span id="running-applications-as-non-root"></span><h2>Running Applications as Non-Root User<a class="headerlink" href="#running-applications-as-non-root-user" title="Permalink to this headline"></a></h2>

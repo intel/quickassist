@@ -87,6 +87,7 @@
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_congestionapis.html">Congestion Management APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_servicespecificapis.html">Service Specific Polling APIs</a></li>
 <li class="toctree-l4"><a class="reference internal" href="apis_additional_availabilityapis.html">Check Device Availability APIs</a></li>
+<li class="toctree-l4"><a class="reference internal" href="apis_additional_apis_index.html#physical-function-pf-and-virtual-function-vf-applicability">Physical Function (PF) and Virtual Function (VF) Applicability</a></li>
 </ul>
 </li>
 </ul>
@@ -138,7 +139,7 @@
            <div itemprop="articleBody">
              
   <section id="user-space-access-configuration-functions">
-<span id="qat-2-0-pg-supported-apis-additional-apis-userspacefunctions"></span><h1>User Space Access Configuration Functions<a class="headerlink" href="#user-space-access-configuration-functions" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-supported-apis-additional-apis-userspacefunctions"></span><h1>User Space Access Configuration Functions<a class="headerlink" href="#user-space-access-configuration-functions" title="Permalink to this headline"></a></h1>
 <p>Functions that allow the configuration of user space access to the Intel<sup>®</sup> QAT services from processes running in user space.</p>
 <p>All user space access configuration function definitions are located in <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/lookaside/access_layer/include/icp_sal_user.h</span></code></p>
 <section id="icp-sal-userstart">
@@ -172,7 +173,7 @@ LimitDevAccess = 1
 </div></blockquote>
 <p>Then <em>MxN</em> internal sections are generated (each with instances on one device only) and <em>MxN</em> processes can be started at any given time.
 Each process can call <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart(&quot;SSL&quot;)</span></code> and the driver determines the unique name to use for each process.</p>
-<p>Refer to <a class="reference internal" href="configuration_files_multipleprocesses.html#qat-2-0-pg-configuration-files-multiple-processes-multiple-endpoints"><span class="std std-ref">Configuring Multiple Processes on a System with Multiple Intel® QAT Endpoints</span></a> for detailed example.</p>
+<p>Refer to <a class="reference internal" href="configuration_files_multipleprocesses.html#qat-pg-configuration-files-multiple-processes-multiple-endpoints"><span class="std std-ref">Configuring Multiple Processes on a System with Multiple Intel® QAT Endpoints</span></a> for detailed example.</p>
 <p><strong>Syntax</strong></p>
 <p><code class="docutils literal notranslate"><span class="pre">CpaStatus</span> <span class="pre">icp_sal_userStart(const</span> <span class="pre">char</span> <span class="pre">*pSectionName);</span></code></p>
 <p><strong>Parameters</strong></p>

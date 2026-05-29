@@ -222,6 +222,11 @@ headers and footers.</p>
 <p>Stateful data compression is not available in Intel® QAT v1.8 and later releases.
 However, stateful decompression is available in Intel® QAT v1.8 and later releases.</p>
 </div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateHeader()</span></code> and <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateFooter()</span></code> APIs demonstrated in this
+section are <strong>not</strong> restricted to stateful sessions.</p>
+</div>
 <section id="session-establishment">
 <h3>Session Establishment<a class="headerlink" href="#session-establishment" title="Permalink to this headline"></a></h3>
 <p>This is the main entry point for the sample compression code. It demonstrates the
@@ -450,6 +455,11 @@ algorithm specific footer.</p>
 </div>
 <p>Because this session was created with <code class="docutils literal notranslate"><span class="pre">CPA_DC_DIR_COMBINED</span></code> it can also be used to
 decompress data.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The GZIP header and footer generation shown above using <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateHeader()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateFooter()</span></code> applies equally to stateless sessions.</p>
+</div>
 <p>The stateful decompression operation demonstrates looping through a file, reading
 the compressed data, invoking the data decompress operation, and writing the results
 to the output file. In this case, the overflow condition has to be considered. See below example.</p>

@@ -133,7 +133,7 @@
            <div itemprop="articleBody">
              
   <section id="general-section">
-<span id="qat-2-0-pg-configuration-files-general-section"></span><h1>General Section<a class="headerlink" href="#general-section" title="Permalink to this headline"></a></h1>
+<span id="qat-pg-configuration-files-general-section"></span><h1>General Section<a class="headerlink" href="#general-section" title="Permalink to this headline"></a></h1>
 <p>The general section of the configuration file contains general parameters and statistics parameters.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -239,25 +239,42 @@ data compression [dc]).</p>
 </table>
 <section id="servicesenabled">
 <h2>ServicesEnabled<a class="headerlink" href="#servicesenabled" title="Permalink to this headline"></a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p><strong>Enable only the services your workload requires.</strong> Enabling more services than
+needed partitions internal hardware resources and reduces the peak throughput
+available to each active service. This applies to all valid two-service
+combinations: <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code>, <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code>, and <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code>.</p>
+</div>
 <p>Additional details on the <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> parameter:</p>
 <ul class="simple">
 <li><p>This parameter is valid for all QAT devices.</p></li>
 <li><p>Default value varies depending on the underlying QAT Endpoint.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cy</span></code> is not valid value for QAT2.0 devices. <code class="docutils literal notranslate"><span class="pre">asym</span></code> and <code class="docutils literal notranslate"><span class="pre">sym</span></code> are used.</p></li>
-<li><p>Only two of the three services (<code class="docutils literal notranslate"><span class="pre">asym</span></code>, <code class="docutils literal notranslate"><span class="pre">sym</span></code>, and <code class="docutils literal notranslate"><span class="pre">dc</span></code>) may be enabled on an individual QAT2.0 Endpoints.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cy</span></code> is not a valid value for QAT 2.0 devices; use <code class="docutils literal notranslate"><span class="pre">asym</span></code> and/or <code class="docutils literal notranslate"><span class="pre">sym</span></code> instead.</p></li>
+<li><p>On QAT 2.0 endpoints, a maximum of two of the three services (<code class="docutils literal notranslate"><span class="pre">asym</span></code>, <code class="docutils literal notranslate"><span class="pre">sym</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">dc</span></code>) may be enabled simultaneously.</p></li>
 </ul>
 <section id="performance-considerations">
 <h3>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The following is applicable to QAT2.0 devices only.</p>
+<p>The following is applicable to QAT 2.0 devices only.</p>
 </div>
-<p>In order to maximize QAT throughput performance for a given service type, one should specify ONLY that service type parameter for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code>.</p>
-<p>By design, two Acceleration Engine clusters are available, each containing four Acceleration Engines.  Each of these two clusters are limited to using a single service.  Therefore, the possible split options are 4|4 or 8 for a given service type.</p>
+<p>To maximize throughput for a given service, specify <strong>only</strong> that service in
+<code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code>. By design, the QAT 2.0 device contains two Acceleration Engine
+clusters, each with four Acceleration Engines. Each cluster is limited to a single
+service, so the possible engine splits are 8|0 (single service) or 4|4 (two services).</p>
+<p>When two services are enabled, the engine split is always 4|4 regardless of the
+actual workload mix. This means that enabling a second service <strong>will reduce
+throughput for the primary service even if the second service is idle</strong>.</p>
 <p>Configuration examples:</p>
 <ul class="simple">
-<li><p>While using VFs on a system configured for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym;dc</span></code> , 4 acceleration engines will be dedicated to SYM and 4 acceleration engines will be dedicated to DC, so only 2 resource providers per child VF can be used for SYM. Here, we should expect some performance degradation for SYM (even if DC is not used).</p></li>
-<li><p>While using VFs on a system configured for <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym</span></code> , all 8 acceleration engines will be dedicated to SYM, so all 4 resource providers of a child VF can be used for SYM only. Here, we will see the best SYM performance.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym</span></code> — all 8 acceleration engines are dedicated to SYM,
+providing all 4 resource providers per VF. This gives the best SYM throughput.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym;dc</span></code> — 4 engines are dedicated to SYM and 4 to DC,
+providing only 2 resource providers per VF for SYM. Performance degradation for
+SYM should be expected, even if DC is never used.</p></li>
+<li><p>The same 4|4 split applies to <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code> and <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> combinations.</p></li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -405,10 +422,10 @@ the device.)</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code> - Configure the device to enable/disable power management idle supporting. Power management idle support is enabled by default.</p></li>
 </ul>
-<p>Refer to the <a class="reference internal" href="infrastructure_power_management.html#qat-2-0-pg-infrastructure-power-management"><span class="std std-ref">Power Management</span></a> section for additional details.</p>
+<p>Refer to the <a class="reference internal" href="infrastructure_power_management.html#qat-pg-infrastructure-power-management"><span class="std std-ref">Power Management</span></a> section for additional details.</p>
 </section>
 <section id="shared-virtual-memory-svm-parameters">
-<span id="qat-2-0-pg-svm-configuration-parameters"></span><h2>Shared Virtual Memory (SVM) Parameters<a class="headerlink" href="#shared-virtual-memory-svm-parameters" title="Permalink to this headline"></a></h2>
+<span id="qat-pg-svm-configuration-parameters"></span><h2>Shared Virtual Memory (SVM) Parameters<a class="headerlink" href="#shared-virtual-memory-svm-parameters" title="Permalink to this headline"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This parameter is valid for QAT2.0 devices.</p>
@@ -422,7 +439,7 @@ translation will use IOMMU hardware based translation table instead of using the
 set, it is not required to submit buffers that are physically contiguous.</p>
 <p><strong>Details</strong></p>
 <ul class="simple">
-<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-2-0-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
+<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
 <li><p>The parameter is valid for both PF and VF configuration files.</p></li>
 <li><p>It <strong>is</strong> possible for the VF to enable this parameter even if the parameter is disabled in the corresponding PF configuration file.</p></li>
 </ul>
@@ -434,7 +451,7 @@ have the ability to handle page faults using Page Request Service (PRS) when usi
 virtual memory allocated by systemcall such as <code class="docutils literal notranslate"><span class="pre">malloc</span></code>.</p>
 <p><strong>Details</strong></p>
 <ul class="simple">
-<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-2-0-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
+<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
 <li><p>SVMEnabled <strong>must</strong> be enabled in order to enable ATEnabled.</p></li>
 <li><p>The parameter is valid for both PF and VF configuration files.</p></li>
 <li><p>It is <strong>not</strong> possible for the VF to enable the service if the parameter is disabled in the corresponding PF configuration file.</p></li>
