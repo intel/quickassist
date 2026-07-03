@@ -126,7 +126,7 @@
            <div itemprop="articleBody">
              
   <section id="intel-quickassist-technology-apis">
-<span id="qat-pg-supported-apis-qat-apis"></span><h1>Intel QuickAssist Technology APIs<a class="headerlink" href="#intel-quickassist-technology-apis" title="Permalink to this headline"></a></h1>
+<span id="pg-supported-apis-qat-apis"></span><h1>Intel QuickAssist Technology APIs<a class="headerlink" href="#intel-quickassist-technology-apis" title="Permalink to this headline"></a></h1>
 <p>The platforms described in this manual support the following Intel<sup>®</sup> QAT API libraries:</p>
 <ul class="simple">
 <li><p><strong>Cryptographic</strong>: API definitions are located in: <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/lac</span></code>, where <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT</span></code> is the directory where the Acceleration software is unpacked. See the <a class="reference external" href="https://cdrdv2.intel.com/v1/dl/getContent/709199?explicitVersion=true">Intel QuickAssist Technology Cryptographic API Reference Manual</a>  for details.</p></li>
@@ -134,12 +134,12 @@
 </ul>
 <section id="cryptographic-and-data-compression-api-descriptions">
 <h2>Cryptographic and Data Compression API Descriptions<a class="headerlink" href="#cryptographic-and-data-compression-api-descriptions" title="Permalink to this headline"></a></h2>
-<p>Full descriptions of the Intel<sup>®</sup> QAT APIs are contained in the <a class="reference internal" href="#qat-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="#qat-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a>.</p>
+<p>Full descriptions of the Intel<sup>®</sup> QAT APIs are contained in the <a class="reference internal" href="#pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="#pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a>.</p>
 <p>In addition to the Intel<sup>®</sup> QAT Data Plane APIs, there are a number of Data Plane Polling APIs that are
-described in the <a class="reference internal" href="apis_additional_pollingfunctions.html#qat-pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling Functions</span></a> section.</p>
+described in the <a class="reference internal" href="apis_additional_pollingfunctions.html#pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling Functions</span></a> section.</p>
 <section id="data-plane-apis-overview">
 <h3>Data Plane APIs Overview<a class="headerlink" href="#data-plane-apis-overview" title="Permalink to this headline"></a></h3>
-<p>The <a class="reference internal" href="#qat-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="#qat-pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a> contain information on the APIs that are specific to data plane applications.</p>
+<p>The <a class="reference internal" href="#pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Cryptographic API Reference Manual</span></a> and the <a class="reference internal" href="#pg-supported-apis-qat-apis"><span class="std std-ref">Intel QuickAssist Technology Data Compression API Reference Manual</span></a> contain information on the APIs that are specific to data plane applications.</p>
 <p>The APIs are recommended for applications that are executing in a data plane environment where the cost of offload (that is, the cycles consumed by the driver sending requests to the hardware) needs to be minimized. To minimize the cost of offload, several constraints have been placed on the APIs. If these constraints are too restrictive for your application, the traditional APIs can be used instead (at a cost of additional IA cycles).</p>
 <p>The definition of the Cryptographic Data Plane APIs are contained in:
 <code class="docutils literal notranslate"><span class="pre">$ICP_ROOT/quickassist/include/lac/cpa_cy_sym_dp.h</span></code></p>
@@ -167,7 +167,7 @@ the Intel<sup>®</sup> QAT Endpoint for processing.</p>
 <ul class="simple">
 <li><p>Thread safety is not supported. Each software thread should have access to its own unique instance (<code class="docutils literal notranslate"><span class="pre">CpaInstanceHandle</span></code>) to avoid contention on the hardware rings.</p></li>
 <li><p>For performance, polling is supported, as opposed to interrupts (which are comparatively more expensive).</p></li>
-<li><p><a class="reference internal" href="apis_additional_pollingfunctions.html#qat-pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling functions</span></a> are provided to read responses from the hardware response queue and dispatch callback functions.</p></li>
+<li><p><a class="reference internal" href="apis_additional_pollingfunctions.html#pg-supported-apis-additional-apis-pollingfunctions"><span class="std std-ref">Polling functions</span></a> are provided to read responses from the hardware response queue and dispatch callback functions.</p></li>
 <li><p>Buffers and buffer lists are passed using physical addresses to avoid virtual-to- physical address translation costs.</p></li>
 <li><p>Alignment restrictions are placed on the operation data (that is, the <code class="docutils literal notranslate"><span class="pre">CpaCySymDpOpData</span></code> structure) passed to the Data Plane API. The operation data must be at least 8-byte aligned, contiguous, resident, DMA-accessible memory.</p></li>
 <li><p>Only asynchronous invocation is supported, that is, synchronous invocation is not supported.</p></li>

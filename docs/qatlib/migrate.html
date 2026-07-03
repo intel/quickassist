@@ -74,7 +74,6 @@
 <li class="toctree-l2"><a class="reference internal" href="running_in_vm.html">Running in a Virtual Machine (VM)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="running_in_a_container.html">Running in a Container</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Migrating Applications</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#supported-devices-and-migration-eligibility">Supported Devices and Migration Eligibility</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#pre-migration-checklist">Pre-Migration Checklist</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#step-by-step-migration">Step-by-Step Migration</a><ul>
@@ -134,25 +133,26 @@
            <div itemprop="articleBody">
              
   <section id="migrating-applications">
-<span id="qat-qatlib-migrate"></span><h1>Migrating Applications<a class="headerlink" href="#migrating-applications" title="Permalink to this headline"></a></h1>
+<span id="qatlib-migrate"></span><h1>Migrating Applications<a class="headerlink" href="#migrating-applications" title="Permalink to this headline"></a></h1>
 <p>This section provides a practical guide for migrating an application from the
 Intel QuickAssist Technology (QAT) out-of-tree (OOT) software package to the
 in-tree Linux* driver stack and <em>QATlib</em>.</p>
 <p>Use this section together with the following references:</p>
-<ul class="simple">
-<li><p><a class="reference internal" href="requirements.html#qat-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> for supported devices, firmware, kernel modules, and boot parameters</p></li>
-<li><p><a class="reference internal" href="install.html#qat-qatlib-install"><span class="std std-ref">Installation</span></a> for distribution-based and source-based installation steps</p></li>
-<li><p><a class="reference internal" href="configuration.html#qat-qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> for managed mode, standalone mode, <code class="docutils literal notranslate"><span class="pre">POLICY</span></code>, and <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code></p></li>
-<li><p><a class="reference internal" href="../PG/in_tree_vs_oot.html#qat-pg-intree-vs-oot"><span class="std std-ref">In-Tree vs. Out-of-Tree</span></a> for a broader platform comparison</p></li>
+<ul>
+<li><p><a class="reference internal" href="requirements.html#qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> for supported devices, firmware, kernel modules, and boot parameters</p></li>
+<li><p><a class="reference internal" href="install.html#qatlib-install"><span class="std std-ref">Installation</span></a> for distribution-based and source-based installation steps</p></li>
+<li><p><a class="reference internal" href="configuration.html#qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> for managed mode, standalone mode, <code class="docutils literal notranslate"><span class="pre">POLICY</span></code>, and <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code></p></li>
+<li><p><a class="reference internal" href="../PG/in_tree_vs_oot.html#pg-intree-vs-oot"><span class="std std-ref">In-Tree vs. Out-of-Tree</span></a> for a broader platform comparison</p>
+<blockquote>
+<div><p>Refer to the <a class="reference internal" href="../GSG/2.X/installation.html#gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a> section of the Getting Started Guide for details.</p>
+</div></blockquote>
+</li>
 </ul>
-<section id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
 <p>Before installing or enabling the in-tree stack, remove the OOT software stack
 to avoid conflicts.</p>
-<p>Refer to the <a class="reference internal" href="../GSG/2.X/installation.html#qat-gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a>
-section of the Getting Started Guide for details.</p>
-<p>The migration from OOT to <em>QATlib</em> is not only a package replacement. It
-usually includes four areas of change:</p>
+<p>The in-tree driver stack is part of the Linux kernel, and you may need to enable it through your distribution’s kernel configuration.
+Instructions on platform configuration and library installation are included in the <a class="reference internal" href="install.html#qatlib-install"><span class="std std-ref">Installation</span></a> section.
+Start with the <a class="reference internal" href="requirements.html#qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> section.</p>
 <ul class="simple">
 <li><p>The kernel stack moves from a separately installed driver to the in-tree Linux kernel driver.</p></li>
 <li><p>User-space libraries move from legacy OOT library names to <em>QATlib</em> libraries.</p></li>
@@ -160,7 +160,75 @@ usually includes four areas of change:</p>
 <li><p>Some legacy or OOT-specific capabilities require application changes before migration is complete.</p></li>
 </ul>
 <p>The following table summarizes the main differences that affect application migration.</p>
-</section>
+<table class="longtable colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 40%" />
+<col style="width: 40%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Aspect</strong></p></th>
+<th class="head"><p><strong>OOT Package</strong></p></th>
+<th class="head"><p><strong>QATlib / In-Tree Stack</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><strong>Kernel Driver</strong></p></td>
+<td><p>Separate out-of-tree driver</p></td>
+<td><p>In-tree Linux kernel driver</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Supported Devices</strong></p></td>
+<td><p>Devices up to and including GEN5</p></td>
+<td><p>QAT devices from GEN4 onwards</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Service Management</strong></p></td>
+<td><p>OOT scripts and service flow</p></td>
+<td><p>Two modes: (1) <code class="docutils literal notranslate"><span class="pre">qat</span></code> service with <code class="docutils literal notranslate"><span class="pre">qatmgr</span></code>
+in managed mode, or (2) standalone mode</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Service Provision Model</strong></p></td>
+<td><p>Service provision via PFs or VFs</p></td>
+<td><p>Service provision only via VFs</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Configuration</strong></p></td>
+<td><p>Per-device <code class="docutils literal notranslate"><span class="pre">*.conf</span></code> files</p></td>
+<td><p>Simplified <code class="docutils literal notranslate"><span class="pre">/etc/sysconfig/qat</span></code> plus in-tree
+kernel driver configuration</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Device Access</strong></p></td>
+<td><p>UIO-based model for OOT user-space
+acceleration; VFIO is used only for VF
+assignment to guests</p></td>
+<td><p>VFIO-based model for QATlib user-space
+acceleration</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>DMA Memory Model</strong></p></td>
+<td><p>Separate kernel memory driver allocates
+physically contiguous memory; user-space
+allocates DMA-capable buffers via
+<code class="docutils literal notranslate"><span class="pre">libusdm_s.so</span></code></p></td>
+<td><p>VFIO maps and pins memory for DMA; user-space
+allocates DMA-capable buffers via
+<code class="docutils literal notranslate"><span class="pre">libusdm.so</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>IOMMU Usage</strong></p></td>
+<td><p>Deployment-dependent: often disabled for host
+UIO usage, enabled when VFIO is used for VF
+assignment to guests</p></td>
+<td><p>Recommended with IOMMU enabled for DMA
+protection</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Libraries</strong></p></td>
+<td><p>OOT library names <code class="docutils literal notranslate"><span class="pre">libqat_s.so</span></code> and
+<code class="docutils literal notranslate"><span class="pre">libusdm_s.so</span></code></p></td>
+<td><p><code class="docutils literal notranslate"><span class="pre">libqat.so</span></code> and <code class="docutils literal notranslate"><span class="pre">libusdm.so</span></code></p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Build System</strong></p></td>
+<td><p>OOT build flow and variables</p></td>
+<td><p>Autotools-based build and standard packaging</p></td>
+</tr>
+</tbody>
+</table>
 <section id="supported-devices-and-migration-eligibility">
 <h2>Supported Devices and Migration Eligibility<a class="headerlink" href="#supported-devices-and-migration-eligibility" title="Permalink to this headline"></a></h2>
 <p>Before starting the migration, verify that the target platform is supported by <em>QATlib</em>.</p>
@@ -169,30 +237,28 @@ usually includes four areas of change:</p>
 <li><p>QAT Gen 4: <code class="docutils literal notranslate"><span class="pre">4xxx</span></code>, <code class="docutils literal notranslate"><span class="pre">401xx</span></code>, <code class="docutils literal notranslate"><span class="pre">402xx</span></code></p></li>
 <li><p>QAT Gen 5: <code class="docutils literal notranslate"><span class="pre">420xx</span></code></p></li>
 </ul>
-<p>Refer to <a class="reference internal" href="requirements.html#qat-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> for the
+<p>Refer to <a class="reference internal" href="requirements.html#qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> for the
 complete list of device IDs, kernel modules, and firmware files.</p>
-<div class="admonition important">
-<p class="admonition-title">Important</p>
+<p>Refer to the <a class="reference internal" href="configuration.html#qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> section of this document for details.</p>
 <p>Applications deployed on legacy OOT-only QAT generations, i.e. before
 GEN4 (devices such as QAT1.7, QAT1.8, QAT1.9) cannot be migrated to
 <em>QATlib</em> without changing to a hardware platform supported by <em>QATlib</em>.
-Refer to <a class="reference internal" href="requirements.html#qat-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a>.</p>
-</div>
+Refer to <a class="reference internal" href="requirements.html#qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a>.</p>
 </section>
 <section id="pre-migration-checklist">
 <h2>Pre-Migration Checklist<a class="headerlink" href="#pre-migration-checklist" title="Permalink to this headline"></a></h2>
 <p>Complete the following checks before changing the application or host configuration:</p>
 <ul class="simple">
-<li><p>Verify the platform uses a device listed in <a class="reference internal" href="requirements.html#qat-qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a>.</p></li>
+<li><p>Verify the platform uses a device listed in <a class="reference internal" href="requirements.html#qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a>.</p></li>
 <li><p>Verify BIOS prerequisites such as Intel VT-d and SR-IOV.</p></li>
-<li><p>Verify the required firmware is present in <code class="docutils literal notranslate"><span class="pre">/lib/firmware</span></code>. See <a class="reference internal" href="requirements.html#qat-qatlib-userguide-firmware"><span class="std std-ref">Firmware</span></a>.</p></li>
-<li><p>Verify the platform and software baseline with <a class="reference internal" href="requirements.html#qat-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a>.</p></li>
+<li><p>Verify the required firmware is present in <code class="docutils literal notranslate"><span class="pre">/lib/firmware</span></code>. See <a class="reference internal" href="requirements.html#qatlib-userguide-firmware"><span class="std std-ref">Firmware</span></a>.</p></li>
+<li><p>Verify the platform and software baseline with <a class="reference internal" href="requirements.html#qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a>.</p></li>
 <li><p>Back up any existing OOT configuration files and deployment scripts.</p></li>
 <li><p>Review the application for dependencies on legacy-only behavior, custom OOT configuration sections, or unsupported features.</p></li>
 <li><p>Identify existing build and packaging assumptions, including include paths, linked libraries, and any OOT-specific environment variables.</p></li>
 </ul>
 <p>If you are unsure whether the platform is currently in a migratable state,
-complete the verification flow in <a class="reference internal" href="requirements.html#qat-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a>
+complete the verification flow in <a class="reference internal" href="requirements.html#qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a>
 first, then return to this page.</p>
 </section>
 <section id="step-by-step-migration">
@@ -207,7 +273,7 @@ avoid conflicts between kernel modules, services, and configuration.</p>
 <li><p>Remove stale OOT configuration files if they are no longer needed.</p></li>
 <li><p>Unload OOT modules if they are still resident.</p></li>
 </ul>
-<p>Refer to <a class="reference internal" href="../GSG/2.X/installation.html#qat-gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a>
+<p>Refer to <a class="reference internal" href="../GSG/2.X/installation.html#gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a>
 for the detailed uninstall procedure.</p>
 <p>Before continuing to Step 2, confirm that OOT components remain inactive after
 reboot. Partial removal can cause module, service, or configuration conflicts
@@ -218,8 +284,8 @@ at runtime.</p>
 <p>After the OOT package is removed, install <em>QATlib</em> either from distribution
 packages or from source.</p>
 <ul class="simple">
-<li><p>For distribution-based installation, follow <a class="reference internal" href="install.html#qat-qatlib-install"><span class="std std-ref">Installation</span></a>.</p></li>
-<li><p>For source-based installation, follow <a class="reference internal" href="install.html#qat-qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a>.</p></li>
+<li><p>For distribution-based installation, follow <a class="reference internal" href="install.html#qatlib-install"><span class="std std-ref">Installation</span></a>.</p></li>
+<li><p>For source-based installation, follow <a class="reference internal" href="install.html#qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a>.</p></li>
 <li><p>If managed mode is required, enable and start the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service after installation.</p></li>
 </ul>
 </section>
@@ -233,8 +299,8 @@ packages or from source.</p>
 <li><p>Locked memory limits required for VFIO mappings</p></li>
 <li><p>Firmware placement and kernel module availability</p></li>
 </ul>
-<p>Use <a class="reference internal" href="requirements.html#qat-qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> to verify
-platform prerequisites, and <a class="reference internal" href="install.html#qat-qatlib-install"><span class="std std-ref">Installation</span></a> for
+<p>Use <a class="reference internal" href="requirements.html#qatlib-userguide-requirements"><span class="std std-ref">System Requirements</span></a> to verify
+platform prerequisites, and <a class="reference internal" href="install.html#qatlib-install"><span class="std std-ref">Installation</span></a> for
 post-install updates such as user group membership, service enablement, and
 memlock configuration.</p>
 </section>
@@ -246,8 +312,8 @@ updates even when core API usage is unchanged.</p>
 <table class="colwidths-given docutils align-default" id="id1">
 <caption><span class="caption-text">Build Updates Required During Migration</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 35%" />
-<col style="width: 65%" />
+<col style="width: 25%" />
+<col style="width: 75%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Build Area</strong></p></th>
@@ -255,23 +321,23 @@ updates even when core API usage is unchanged.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Include paths</p></td>
+<tr class="row-even"><td><p><strong>Include Paths</strong></p></td>
 <td><p>Use installed <em>QATlib</em> headers, typically with the <code class="docutils literal notranslate"><span class="pre">qat</span></code> include prefix,
 for example <code class="docutils literal notranslate"><span class="pre">#include</span> <span class="pre">&lt;qat/cpa.h&gt;</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>Library names</p></td>
+<tr class="row-odd"><td><p><strong>Library Names</strong></p></td>
 <td><p>Link against <code class="docutils literal notranslate"><span class="pre">libqat.so</span></code> and <code class="docutils literal notranslate"><span class="pre">libusdm.so</span></code> instead of legacy OOT library names.</p></td>
 </tr>
-<tr class="row-even"><td><p>Legacy compatibility</p></td>
+<tr class="row-even"><td><p><strong>Legacy Compatibility</strong></p></td>
 <td><p>If legacy library names are required, build <em>QATlib</em> with <code class="docutils literal notranslate"><span class="pre">--enable-legacy-lib-names</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p>Packaging assumptions</p></td>
+<tr class="row-odd"><td><p><strong>Packaging Assumptions</strong></p></td>
 <td><p>Replace OOT-specific paths, install variables, and deployment logic with
 standard package or Autotools outputs.</p></td>
 </tr>
 </tbody>
 </table>
-<p>See <a class="reference internal" href="install.html#qat-qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> in the
+<p>See <a class="reference internal" href="install.html#qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> in the
 installation section for the full option list.</p>
 </section>
 <section id="review-application-code-and-feature-usage">
@@ -286,7 +352,7 @@ installation section for the full option list.</p>
 <a class="reference internal" href="../PG/apis_additional_userspacefunctions.html#icp-sal-userstart"><span class="std std-ref">icp_sal_userStart</span></a> before invoking QAT APIs, and
 call <a class="reference internal" href="../PG/apis_additional_userspacefunctions.html#icp-sal-userstop"><span class="std std-ref">icp_sal_userStop</span></a> during shutdown.</p>
 <p>For API behavior and return-code details, refer to
-<a class="reference internal" href="../PG/apis_additional_userspacefunctions.html#qat-pg-supported-apis-additional-apis-userspacefunctions"><span class="std std-ref">User Space Access Configuration Functions</span></a>.</p>
+<a class="reference internal" href="../PG/apis_additional_userspacefunctions.html#pg-supported-apis-additional-apis-userspacefunctions"><span class="std std-ref">User Space Access Configuration Functions</span></a>.</p>
 </section>
 <section id="validate-the-migrated-application">
 <h3>6. Validate the migrated application<a class="headerlink" href="#validate-the-migrated-application" title="Permalink to this headline"></a></h3>
@@ -313,20 +379,20 @@ call <a class="reference internal" href="../PG/apis_additional_userspacefunction
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>Library not found</p></td>
+<tr class="row-even"><td><p><strong>Library not found</strong></p></td>
 <td><p>New libraries installed outside
 the default search path</p></td>
 <td><p>Run <code class="docutils literal notranslate"><span class="pre">ldconfig</span></code> or update the library
 search path after installation</p></td>
 </tr>
-<tr class="row-odd"><td><p>Permission denied on VFIO</p></td>
+<tr class="row-odd"><td><p><strong>Permission denied on VFIO</strong></p></td>
 <td><p>User is not in the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group
 or the session has not been
 refreshed</p></td>
 <td><p>Add the user to the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group and
 re-login</p></td>
 </tr>
-<tr class="row-even"><td><p>No device found</p></td>
+<tr class="row-even"><td><p><strong>No device found</strong></p></td>
 <td><p>VFs are not bound correctly,
 required boot parameters are
 missing, or service is not
@@ -335,7 +401,7 @@ running</p></td>
 firmware, boot parameters, and the
 <code class="docutils literal notranslate"><span class="pre">qat</span></code> service state</p></td>
 </tr>
-<tr class="row-odd"><td><p>RLIMIT_MEMLOCK exceeded</p></td>
+<tr class="row-odd"><td><p><strong>RLIMIT_MEMLOCK exceeded</strong></p></td>
 <td><p>Locked memory limit is too low
 for VFIO mappings</p></td>
 <td><p>Increase memlock limit and re-login</p></td>

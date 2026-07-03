@@ -133,7 +133,7 @@
            <div itemprop="articleBody">
              
   <section id="general-section">
-<span id="qat-pg-configuration-files-general-section"></span><h1>General Section<a class="headerlink" href="#general-section" title="Permalink to this headline"></a></h1>
+<span id="pg-configuration-files-general-section"></span><h1>General Section<a class="headerlink" href="#general-section" title="Permalink to this headline"></a></h1>
 <p>The general section of the configuration file contains general parameters and statistics parameters.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -422,10 +422,10 @@ the device.)</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">PmIdleSupport</span></code> - Configure the device to enable/disable power management idle supporting. Power management idle support is enabled by default.</p></li>
 </ul>
-<p>Refer to the <a class="reference internal" href="infrastructure_power_management.html#qat-pg-infrastructure-power-management"><span class="std std-ref">Power Management</span></a> section for additional details.</p>
+<p>Refer to the <a class="reference internal" href="infrastructure_power_management.html#pg-infrastructure-power-management"><span class="std std-ref">Power Management</span></a> section for additional details.</p>
 </section>
 <section id="shared-virtual-memory-svm-parameters">
-<span id="qat-pg-svm-configuration-parameters"></span><h2>Shared Virtual Memory (SVM) Parameters<a class="headerlink" href="#shared-virtual-memory-svm-parameters" title="Permalink to this headline"></a></h2>
+<span id="pg-svm-configuration-parameters"></span><h2>Shared Virtual Memory (SVM) Parameters<a class="headerlink" href="#shared-virtual-memory-svm-parameters" title="Permalink to this headline"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>This parameter is valid for QAT2.0 devices.</p>
@@ -439,7 +439,7 @@ translation will use IOMMU hardware based translation table instead of using the
 set, it is not required to submit buffers that are physically contiguous.</p>
 <p><strong>Details</strong></p>
 <ul class="simple">
-<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
+<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
 <li><p>The parameter is valid for both PF and VF configuration files.</p></li>
 <li><p>It <strong>is</strong> possible for the VF to enable this parameter even if the parameter is disabled in the corresponding PF configuration file.</p></li>
 </ul>
@@ -451,7 +451,7 @@ have the ability to handle page faults using Page Request Service (PRS) when usi
 virtual memory allocated by systemcall such as <code class="docutils literal notranslate"><span class="pre">malloc</span></code>.</p>
 <p><strong>Details</strong></p>
 <ul class="simple">
-<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#qat-pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
+<li><p>This parameter is disabled by default.  Refer to <a class="reference internal" href="infrastructure_memory_management.html#pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a> section for additional details.</p></li>
 <li><p>SVMEnabled <strong>must</strong> be enabled in order to enable ATEnabled.</p></li>
 <li><p>The parameter is valid for both PF and VF configuration files.</p></li>
 <li><p>It is <strong>not</strong> possible for the VF to enable the service if the parameter is disabled in the corresponding PF configuration file.</p></li>

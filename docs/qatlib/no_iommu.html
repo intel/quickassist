@@ -134,7 +134,7 @@
            <div itemprop="articleBody">
              
   <section id="qatlib-vfio-no-iommu-mode-support">
-<span id="qat-qatlib-no-iommu"></span><h1>QATlib VFIO no-IOMMU Mode Support<a class="headerlink" href="#qatlib-vfio-no-iommu-mode-support" title="Permalink to this headline"></a></h1>
+<span id="qatlib-no-iommu"></span><h1>QATlib VFIO no-IOMMU Mode Support<a class="headerlink" href="#qatlib-vfio-no-iommu-mode-support" title="Permalink to this headline"></a></h1>
 <section id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline"></a></h2>
 <p>QATlib now supports VFIO no-IOMMU mode, allowing customers to use VFIO without viommu in virtual machines (VMs). In this mode, QATlib passes the guest physical address directly to the host IOMMU, instead of using an IOVA. This feature is automatically detected by QATlib when it identifies QAT devices on VMs, switching to no-IOMMU mode as needed.</p>

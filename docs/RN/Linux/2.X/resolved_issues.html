@@ -100,7 +100,7 @@
            <div itemprop="articleBody">
              
   <section id="resolved-issues">
-<span id="qat-rn-linux-resolvedissues"></span><h1>Resolved Issues<a class="headerlink" href="#resolved-issues" title="Permalink to this headline"></a></h1>
+<span id="rn-linux-resolvedissues"></span><h1>Resolved Issues<a class="headerlink" href="#resolved-issues" title="Permalink to this headline"></a></h1>
 <section id="qate20-3331-sample-code-functional-sample-code-compression-applications-execution-will-fail">
 <h2>QATE20-3331 [Sample Code] Functional Sample Code Compression applications execution will fail<a class="headerlink" href="#qate20-3331-sample-code-functional-sample-code-compression-applications-execution-will-fail" title="Permalink to this headline"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
@@ -814,7 +814,45 @@ CPA_DC_OVERFLOW (-11 ).</p></td>
 </table>
 </section>
 <section id="qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled">
-<span id="qat-rn-svm-issue"></span><h2>QAT20-23616 [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT) disabled<a class="headerlink" href="#qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled" title="Permalink to this headline"></a></h2>
+<span id="rn-svm-issue"></span><h2>QAT20-23616 [Firmware] Shared Virtual Memory (SVM) and Address Translation (AT) disabled<a class="headerlink" href="#qat20-23616-firmware-shared-virtual-memory-svm-and-address-translation-at-disabled" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[Firmware] Shared Virtual Memory (SVM) and Address
+Translation (AT) disabled</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-23616</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When running QAT workloads with AT enabled under loaded
+traffic conditions, memory page corruption may occur.</p>
+<p>Intel is looking at a possible workaround for the
+problem, and until then the QAT firmware/Driver will
+not make use of or enable SVM with AT.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>It is not currently possible to run with SVM and AT.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>SVM and AT are available starting with the 1.0.10
+release.  Refer to the
+<a class="reference internal" href="../../../PG/infrastructure_memory_management.html#pg-svm-kernel-requirements"><span class="std std-ref">SVM Kernel Requirements</span></a>
+section of the Programmer’s Guide for details on enabling.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>All</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT Firmware</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance">
 <h2>QATE20-19310 [DC] Additional configuration required to enable 8K data decompression performance<a class="headerlink" href="#qate20-19310-dc-additional-configuration-required-to-enable-8k-data-decompression-performance" title="Permalink to this headline"></a></h2>

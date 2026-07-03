@@ -127,14 +127,14 @@
            <div itemprop="articleBody">
              
   <section id="troubleshooting-tips">
-<span id="qat-containers-troubleshooting"></span><h1>Troubleshooting Tips<a class="headerlink" href="#troubleshooting-tips" title="Permalink to this headline"></a></h1>
+<span id="containers-troubleshooting"></span><h1>Troubleshooting Tips<a class="headerlink" href="#troubleshooting-tips" title="Permalink to this headline"></a></h1>
 <section id="virtual-functions-vfs-not-visible">
 <h2>Virtual Functions (VFs) Not Visible<a class="headerlink" href="#virtual-functions-vfs-not-visible" title="Permalink to this headline"></a></h2>
 <p>If no VFs appear in the <code class="docutils literal notranslate"><span class="pre">/dev/vfio/</span></code> directory, enable them using this command:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">for i in `(lspci -D -d :4940 || lspci -D -d :4942 || lspci -D -d :4944 || lspci -D -d :4946)| awk &#39;{print $1}&#39;`; do echo 16|sudo tee /sys/bus/pci/devices/$i/sriov_numvfs; done</span>
 </pre></div>
 </div>
-<p>If VFs remain unavailable after following the setup instructions in <a class="reference internal" href="setup.html#qat-containers-setup"><span class="std std-ref">Setting Up Host Platform</span></a>, you may have the Intel® QAT Out-of-Tree driver installed. This driver conflicts with VF enablement and must be removed first. See <a class="reference internal" href="../../GSG/2.X/installation.html#qat-gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a> for removal instructions.</p>
+<p>If VFs remain unavailable after following the setup instructions in <a class="reference internal" href="setup.html#containers-setup"><span class="std std-ref">Setting Up Host Platform</span></a>, you may have the Intel® QAT Out-of-Tree driver installed. This driver conflicts with VF enablement and must be removed first. See <a class="reference internal" href="../../GSG/2.X/installation.html#gsg-uninstall-software"><span class="std std-ref">Uninstall Acceleration Software</span></a> for removal instructions.</p>
 </section>
 <section id="docker-error-is-not-an-absolute-path">
 <h2>Docker Error: ‘is not an absolute path’<a class="headerlink" href="#docker-error-is-not-an-absolute-path" title="Permalink to this headline"></a></h2>

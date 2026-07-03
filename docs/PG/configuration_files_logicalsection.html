@@ -133,7 +133,7 @@
            <div itemprop="articleBody">
              
   <section id="logical-instances-section">
-<span id="qat-pg-configuration-files-logical-instances-section"></span><h1>Logical Instances Section<a class="headerlink" href="#logical-instances-section" title="Permalink to this headline"></a></h1>
+<span id="pg-configuration-files-logical-instances-section"></span><h1>Logical Instances Section<a class="headerlink" href="#logical-instances-section" title="Permalink to this headline"></a></h1>
 <p>This section allows the configuration of logical instances in each address domain (kernel space and individual user space processes).</p>
 <p>The address domains are in the following format:</p>
 <ul class="simple">
@@ -142,7 +142,7 @@
 </ul>
 <p>In user space, to allow the driver to configure the logical instances associated with a user process correctly, the process must call the function
 <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart</span></code> passing the <code class="docutils literal notranslate"><span class="pre">xxxxx</span></code> string during process initialization. When the user space process is finished, it must call the function
-<code class="docutils literal notranslate"><span class="pre">icp_sal_userStop</span></code> to free resources. Refer to <a class="reference internal" href="apis_additional_userspacefunctions.html#qat-pg-supported-apis-additional-apis-userspacefunctions"><span class="std std-ref">User Space Access Configuration Functions</span></a> for more information.</p>
+<code class="docutils literal notranslate"><span class="pre">icp_sal_userStop</span></code> to free resources. Refer to <a class="reference internal" href="apis_additional_userspacefunctions.html#pg-supported-apis-additional-apis-userspacefunctions"><span class="std std-ref">User Space Access Configuration Functions</span></a> for more information.</p>
 <p>A single VF configured for the SR-IOV use case cannot have both user space instances and kernel space instances. Separate VFs must be created for user space and kernel space.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">NumProcesses</span></code> parameter (in the User Process section) indicates the max number of user space processes within that section name with access to instances on this device. Refer to <a class="reference internal" href="apis_additional_userspacefunctions.html#icp-sal-userstart"><span class="std std-ref">icp_sal_userStart</span></a> for more information.</p>
 <p>The items that can be configured for a logical instance are:</p>
@@ -202,6 +202,57 @@ be defined. Common names for this section are <code class="docutils literal notr
 <p>Check the SKU information for your specific device to determine how  many Intel<sup>®</sup> QAT Endpoints the device contains.</p>
 </div>
 <p>This table shows the parameters in the configuration file that can be set for user process [xxxxx] sections.</p>
+<table class="longtable colwidths-given docutils align-default" id="id2">
+<caption><span class="caption-text">[User Process] Section Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 35%" />
+<col style="width: 10%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+<th class="head"><p><strong>Default</strong></p></th>
+<th class="head"><p><strong>Range</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NumProcesses</span></code></p></td>
+<td><p>The number of user space processes with section name [xxxxx] that have access to this device.</p>
+<p>The maximum number of processes that can call <code class="docutils literal notranslate"><span class="pre">icp_sal_userStart</span></code> and be active at any one time. See <a class="reference internal" href="apis_additional_userspacefunctions.html#icp-sal-userstart"><span class="std std-ref">icp_sal_userStart</span></a>
+for additional information.</p>
+<p><em>Caution</em>: Resources are pre-allocated. If this parameter value is set too high, the driver fails to load.</p>
+</td>
+<td><p>1</p></td>
+<td><p>For constraints, see <a class="reference internal" href="configuration_files_maxprocesscalculations.html#pg-configuration-files-max-numofprocesses-calculation"><span class="std std-ref">Maximum Number of Process Calculations</span></a>.</p>
+<p>For exceptions, see <a class="reference internal" href="configuration_files_maxprocesscalculations.html#increasing-max-numofprocesses"><span class="std std-ref">Increasing the Maximum Number of Processes/Instances</span></a>.</p>
+</td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">LimitDevAccess</span></code></p></td>
+<td><p>Indicates if the user space processes in this section are limited to only access instances on this Intel® QAT Endpoint.</p></td>
+<td><p>0</p></td>
+<td><p>0 (disabled, processes in this section can access multiple Intel® QAT Endpoints), or</p>
+<p>1 (enabled, processes in this section can only access this Intel® QAT Endpoint).</p>
+<p>For additional information, see <a class="reference internal" href="configuration_files_multipleprocesses.html#pg-configuration-files-multiple-processes-multiple-endpoints"><span class="std std-ref">Configuring Multiple Processes on a System with Multiple Intel® QAT Endpoints</span></a>.</p>
+</td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">NumberCyInstances</span></code></p></td>
+<td><p>Specifies the number of cryptographic instances.</p>
+<p>Note: Depends on the number of allocations to other services.</p>
+</td>
+<td><p>6</p></td>
+<td><p>0 to 32. For exceptions, see <a class="reference internal" href="configuration_files_maxprocesscalculations.html#increasing-max-numofprocesses"><span class="std std-ref">Increasing the Maximum Number of Processes/Instances</span></a>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">NumberDcInstances</span></code></p></td>
+<td><p>Specifies the number of data compression instances.</p>
+<p>Note: Depends on the number of allocations to other services.</p>
+</td>
+<td><p>2</p></td>
+<td><p>0 to 32. For exceptions, see <a class="reference internal" href="configuration_files_maxprocesscalculations.html#increasing-max-numofprocesses"><span class="std std-ref">Increasing the Maximum Number of Processes/Instances</span></a>.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="cryptographic-logical-instance-parameters">
 <h2>Cryptographic Logical Instance Parameters<a class="headerlink" href="#cryptographic-logical-instance-parameters" title="Permalink to this headline"></a></h2>
@@ -214,14 +265,14 @@ be defined. Common names for this section are <code class="docutils literal notr
 <blockquote>
 <div><p>The response mode can be changed at runtime to epoll mode
 (<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>) using the
-<a class="reference internal" href="apis_additional_pollingapis.html#qat-pg-supported-apis-additional-apis-pollingapis-cpainstancesetresponsemode"><span class="std std-ref">cpaInstanceSetResponseMode</span></a> API at the instance level.
-See the <a class="reference internal" href="apis_additional_pollingapis.html#qat-pg-supported-apis-additional-apis-pollingapis"><span class="std std-ref">Device Polling APIs</span></a> section of the Programmer’s Guide for details.</p>
+<a class="reference internal" href="apis_additional_pollingapis.html#pg-supported-apis-additional-apis-pollingapis-cpainstancesetresponsemode"><span class="std std-ref">cpaInstanceSetResponseMode</span></a> API at the instance level.
+See the <a class="reference internal" href="apis_additional_pollingapis.html#pg-supported-apis-additional-apis-pollingapis"><span class="std std-ref">Device Polling APIs</span></a> section of the Programmer’s Guide for details.</p>
 </div></blockquote>
 </li>
 </ul>
 </div>
-<table class="longtable colwidths-given docutils align-default" id="id2">
-<caption><span class="caption-text">Cryptographic Logical Instance Parameters</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id3">
+<caption><span class="caption-text">Cryptographic Logical Instance Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 35%" />
@@ -263,8 +314,8 @@ SSL0 for user section</p></td>
 <section id="data-compression-logical-instance-parameters">
 <h2>Data Compression Logical Instance Parameters<a class="headerlink" href="#data-compression-logical-instance-parameters" title="Permalink to this headline"></a></h2>
 <p>This table shows the parameters in the configuration file that can be set for data compression logical instances.</p>
-<table class="longtable colwidths-given docutils align-default" id="id3">
-<caption><span class="caption-text">Data Compression Logical Instance Parameters</span><a class="headerlink" href="#id3" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id4">
+<caption><span class="caption-text">Data Compression Logical Instance Parameters</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 20%" />
 <col style="width: 35%" />
@@ -310,8 +361,8 @@ SSL0 for user section</p></td>
 <blockquote>
 <div><p>The response mode can be changed at runtime to epoll mode
 (<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>) using the
-<a class="reference internal" href="apis_additional_pollingapis.html#qat-pg-supported-apis-additional-apis-pollingapis-cpainstancesetresponsemode"><span class="std std-ref">cpaInstanceSetResponseMode</span></a> API at the instance level.
-See the <a class="reference internal" href="apis_additional_pollingapis.html#qat-pg-supported-apis-additional-apis-pollingapis"><span class="std std-ref">Device Polling APIs</span></a> section of the Programmer’s Guide for details.</p>
+<a class="reference internal" href="apis_additional_pollingapis.html#pg-supported-apis-additional-apis-pollingapis-cpainstancesetresponsemode"><span class="std std-ref">cpaInstanceSetResponseMode</span></a> API at the instance level.
+See the <a class="reference internal" href="apis_additional_pollingapis.html#pg-supported-apis-additional-apis-pollingapis"><span class="std std-ref">Device Polling APIs</span></a> section of the Programmer’s Guide for details.</p>
 </div></blockquote>
 </li>
 </ul>

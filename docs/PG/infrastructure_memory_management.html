@@ -137,10 +137,10 @@
            <div itemprop="articleBody">
              
   <section id="memory-management">
-<span id="qat-pg-infrastructure-memory-management"></span><h1>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline"></a></h1>
+<span id="pg-infrastructure-memory-management"></span><h1>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline"></a></h1>
 <p>This section describes memory management requirements for submitting buffers to the QAT hardware.</p>
 <section id="shared-virtual-memory">
-<span id="qat-pg-shared-virtual-memory"></span><h2>Shared Virtual Memory<a class="headerlink" href="#shared-virtual-memory" title="Permalink to this headline"></a></h2>
+<span id="pg-shared-virtual-memory"></span><h2>Shared Virtual Memory<a class="headerlink" href="#shared-virtual-memory" title="Permalink to this headline"></a></h2>
 <p>Shared Virtual Memory (SVM) is a new feature in QAT 2.0 hardware. In QAT 1.x hardware, memory needs to be
 submitted to the hardware as pinned and physically contiguous memory. In QAT 2.0, SVM allows direct submission
 of an applications buffer, thus removing the memcpy cycle cost, cache thrashing, and memory bandwidth.
@@ -152,7 +152,7 @@ The SVM feature enables passing virtual addresses to the QAT hardware for proces
 <li><p>Can tolerate page faults but Pinning (i.e. locked, guaranteed resident in physical memory) is recommended for performance.</p></li>
 </ul>
 <section id="svm-kernel-requirements">
-<span id="qat-pg-svm-kernel-requirements"></span><h3>SVM Kernel Requirements<a class="headerlink" href="#svm-kernel-requirements" title="Permalink to this headline"></a></h3>
+<span id="pg-svm-kernel-requirements"></span><h3>SVM Kernel Requirements<a class="headerlink" href="#svm-kernel-requirements" title="Permalink to this headline"></a></h3>
 <p>In order to use SVM, ensure that kernel version v6.1 or higher is used. Alternatively verify the following kernel patches are applied.</p>
 <ul class="simple">
 <li><p>81c95fbaebfa5990c3c786c8c3e87426a33106fe</p></li>
@@ -165,7 +165,7 @@ git<span class="w"> </span>tag<span class="w"> </span>--contains<span class="w">
 </pre></div>
 </div>
 </div></blockquote>
-<p>This requirement provides mitigation for the issue <a class="reference internal" href="../RN/Linux/2.X/updates.html#qat-rn-svm-issue"><span class="std std-ref">QAT20-23616</span></a> described in the Release Notes.</p>
+<p>This requirement provides mitigation for the issue <a class="reference internal" href="../RN/Linux/2.X/updates.html#rn-svm-issue"><span class="std std-ref">QAT20-23616</span></a> described in the Release Notes.</p>
 <p>On kernels earlier than 5.7, the driver depends on the legacy <code class="docutils literal notranslate"><span class="pre">intel_svm_*</span></code> helpers
 and the <code class="docutils literal notranslate"><span class="pre">&lt;linux/intel-svm.h&gt;</span></code> header. In those builds you must enable
 <code class="docutils literal notranslate"><span class="pre">CONFIG_INTEL_IOMMU_SVM=y</span></code> so the header and symbols exist; without that option
@@ -178,7 +178,7 @@ to guarantee the QAT driver runs with SVM enabled.</p>
 <blockquote>
 <div><p><code class="docutils literal notranslate"><span class="pre">intel_iommu=on,sm_on</span></code></p>
 </div></blockquote>
-<p>Refer to <a class="reference internal" href="configuration_files_generalsection.html#qat-pg-svm-configuration-parameters"><span class="std std-ref">Shared Virtual Memory Parameters</span></a> for details on QAT configuration files updates required to support SVM.</p>
+<p>Refer to <a class="reference internal" href="configuration_files_generalsection.html#pg-svm-configuration-parameters"><span class="std std-ref">Shared Virtual Memory Parameters</span></a> for details on QAT configuration files updates required to support SVM.</p>
 </section>
 </section>
 <section id="dma-able-memory">

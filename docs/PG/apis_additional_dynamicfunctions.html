@@ -139,7 +139,7 @@
            <div itemprop="articleBody">
              
   <section id="dynamic-instance-allocation-functions">
-<span id="qat-pg-supported-apis-additional-apis-dynamicfunctions"></span><h1>Dynamic Instance Allocation Functions<a class="headerlink" href="#dynamic-instance-allocation-functions" title="Permalink to this headline"></a></h1>
+<span id="pg-supported-apis-additional-apis-dynamicfunctions"></span><h1>Dynamic Instance Allocation Functions<a class="headerlink" href="#dynamic-instance-allocation-functions" title="Permalink to this headline"></a></h1>
 <p>These functions are intended for the dynamic allocation of instances in user space. The user can use these functions to allocate/free instances defined in the <code class="docutils literal notranslate"><span class="pre">[DYN]</span></code> section of the configuration file.</p>
 <p>These functions are useful if the user needs to dynamically allocate/free cryptographic (CY) or Data Compression (DC) instances at runtime. This is in contrast to statically specifying the number of CY or DC instances at configuration time, where the number of instances cannot be changed unless the user modifies the <code class="docutils literal notranslate"><span class="pre">.conf</span></code> file and restarts the acceleration service.</p>
 <p>The advantage of using these functions is that the number of CY/DC instances can be changed on-demand at runtime. The disadvantage is that runtime performance is impacted if the number of CY/DC instances is changed frequently.</p>

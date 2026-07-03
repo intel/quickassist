@@ -131,7 +131,7 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<span id="qat-qatlib-install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
+<span id="qatlib-install"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h1>
 <p>The <em>qatlib</em> library can be installed by either:</p>
 <ul class="simple">
 <li><p>Installing from pre-built packages</p></li>
@@ -157,7 +157,7 @@
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>To install <em>qatlib</em> on older versions of Ubuntu, you must manually compile and install it from the source code.</p>
-<p>See the <a class="reference internal" href="#qat-qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a> section for instructions on installing from source.</p>
+<p>See the <a class="reference internal" href="#qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a> section for instructions on installing from source.</p>
 </div>
 <ol class="arabic">
 <li><p><strong>Update</strong> list of available packages and then upgrade the installed packages to their latest versions.</p>
@@ -207,7 +207,7 @@ sudo<span class="w"> </span>apt<span class="w"> </span>update
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo dnf remove qatlib</span>
 </pre></div>
 </div>
-<p>See the <a class="reference internal" href="#qat-qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a> section for instructions on installing from source.</p>
+<p>See the <a class="reference internal" href="#qatlib-installfromsource"><span class="std std-ref">Installing from Sources</span></a> section for instructions on installing from source.</p>
 </div>
 </div></blockquote>
 </section>
@@ -248,7 +248,7 @@ The following commands set the amount of locked memory to 500MB.</p>
 </section>
 </section>
 <section id="installing-from-sources">
-<span id="qat-qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h2>
+<span id="qatlib-installfromsource"></span><h2>Installing from Sources<a class="headerlink" href="#installing-from-sources" title="Permalink to this headline"></a></h2>
 <p>The following steps explain how to verify and build the <em>qatlib</em> package from
 source.</p>
 <p>Step 1 walks through optional verification of the signed <cite>qatlib-26.02.0</cite> tarball
@@ -331,7 +331,7 @@ release.</p></li>
 </div>
 </div></blockquote>
 </li>
-<li><p>If the <code class="docutils literal notranslate"><span class="pre">nasm</span></code> compiler is unavailable see the <code class="docutils literal notranslate"><span class="pre">--disable-fast-crc-in-assembler</span></code> option in the <a class="reference internal" href="#qat-qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> section.</p></li>
+<li><p>If the <code class="docutils literal notranslate"><span class="pre">nasm</span></code> compiler is unavailable see the <code class="docutils literal notranslate"><span class="pre">--disable-fast-crc-in-assembler</span></code> option in the <a class="reference internal" href="#qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> section.</p></li>
 </ul>
 </div>
 </li>
@@ -372,7 +372,7 @@ be called with exactly the same options as were originally used so whatever was 
 <span class="go">./autogen.sh</span>
 </pre></div>
 </div>
-<p>A complete list of configuration options are listed <a class="reference internal" href="#qat-qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> section
+<p>A complete list of configuration options are listed <a class="reference internal" href="#qatlib-configure-options"><span class="std std-ref">Configuration Options</span></a> section
 or can be obtained by running the following command:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --help</span>
@@ -396,14 +396,14 @@ or creating a file <code class="docutils literal notranslate"><span class="pre">
 </pre></div>
 </div>
 </div>
-<p>To run in <a class="reference internal" href="configuration.html#qat-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a>, enable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service. This can be done
+<p>To run in <a class="reference internal" href="configuration.html#qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a>, enable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service. This can be done
 automatically with the following command:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">./configure --enable-service --prefix=/usr</span>
 </pre></div>
 </div>
 </div></blockquote>
-<p>To run in <a class="reference internal" href="configuration.html#qat-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a>, disable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service. This is
+<p>To run in <a class="reference internal" href="configuration.html#qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a>, disable the <code class="docutils literal notranslate"><span class="pre">qat</span></code> service. This is
 often preferable when running in containers to avoid dependency on <code class="docutils literal notranslate"><span class="pre">systemd</span></code>. This can be done with
 the following command:</p>
 <blockquote>
@@ -480,7 +480,7 @@ The following commands set the amount of locked memory to 500MB.</p>
 </div>
 </div>
 <section id="configuration-options">
-<span id="qat-qatlib-configure-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
+<span id="qatlib-configure-options"></span><h3>Configuration Options<a class="headerlink" href="#configuration-options" title="Permalink to this headline"></a></h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul class="simple">
@@ -503,9 +503,115 @@ The following commands set the amount of locked memory to 500MB.</p>
 </pre></div>
 </div>
 </div></blockquote>
+<table class="longtable colwidths-given docutils align-default" id="id1">
+<caption><span class="caption-text">Available Configuration Options</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 60%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Parameter</strong></p></th>
+<th class="head"><p><strong>Description</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-option-checking</span></code></p></td>
+<td><p>Ignores unrecognized configure options when
+run along with it.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-FEATURE</span></code></p></td>
+<td><p>Does not include <code class="docutils literal notranslate"><span class="pre">FEATURE</span></code> (same as
+<code class="docutils literal notranslate"><span class="pre">--enable-FEATURE=no</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-FEATURE[=ARG]</span></code></p></td>
+<td><p>Includes <code class="docutils literal notranslate"><span class="pre">FEATURE</span> <span class="pre">[ARG=yes]</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-silent-rules</span></code></p></td>
+<td><p>Less verbose build output (undo: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">V=1</span></code>).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-silent-rules</span></code></p></td>
+<td><p>Verbose build output (undo: <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">V=0</span></code>).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dependency-tracking</span></code></p></td>
+<td><p>Does not reject slow dependency extractors.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-dependency-tracking</span></code></p></td>
+<td><p>Speeds up one-time build.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-systemd</span></code></p></td>
+<td><p>Enable <code class="docutils literal notranslate"><span class="pre">systemd</span></code> support. Set it to <code class="docutils literal notranslate"><span class="pre">No</span></code> to remove
+dependency on systemd (default = <code class="docutils literal notranslate"><span class="pre">yes</span></code>).
+<strong>Note:</strong> <code class="docutils literal notranslate"><span class="pre">--enable-service</span></code> should not be used
+in this case.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-fast-crc-in-assembler</span></code></p></td>
+<td><p>Force use of C code instead of faster
+assembler implementation of CRC for <em>DC</em>
+<em>integrityCrc</em> feature. Not recommended unless
+<code class="docutils literal notranslate"><span class="pre">nasm</span></code> assembler compiler is unavailable.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-debug</span></code></p></td>
+<td><p>Enables debugging.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code></p></td>
+<td><p>Disables parameters checking in the top-level
+APIs (used for performance optimization).</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--disable-stats</span></code></p></td>
+<td><p>Disables statistic collection (used for
+performance optimization).</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-log-syslog</span></code></p></td>
+<td><p>Enables debugging messages to be outputted
+to the system log instead of standard output.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-trace</span></code></p></td>
+<td><p>Enables tracing for the Cryptography API.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-dc-error-simulation</span></code></p></td>
+<td><p>Enables Data Compression Error Simulation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-hb-error-simulation</span></code></p></td>
+<td><p>Enables Heartbeat Error Simulation.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-thread-specific-usdm</span></code></p></td>
+<td><p>USDM allocates and handles memory specific to threads (For multi-thread apps, allocated memory
+information will be maintained separately for each thread). [default=no]</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-lib-names</span></code></p></td>
+<td><p>Enables legacy names for libraries.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-service</span></code></p></td>
+<td><p>Automatically creates the <code class="docutils literal notranslate"><span class="pre">qat</span></code> group and
+enables <code class="docutils literal notranslate"><span class="pre">systemd</span></code> service during installation.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-legacy-algorithms</span></code></p></td>
+<td><p>Enables deprecated legacy crypto algorithms.
+See the <a class="reference external" href="https://github.com/intel/qatlib/blob/main/README.md#insecure-algorithms">README</a>
+for the list of algorithms which are deprecated by default.</p></td>
+</tr>
+<tr class="row-even"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-icp-without-qp-submission-lock</span></code></p></td>
+<td><p>This allows for the removal of Queue Pair (QP) submission locks and is designed to optimize performance in environments
+where QPs assigned to one thread are not shared by another thread. In these scenarios, the frequent invocation of
+mutex_lock/unlock during hardware request submissions is unnecessary and can affect performance. By enabling this flag,
+the locks around QP submissions are eliminated, thus reducing the cost of offload.
+As QPs are assigned to instances, only enable this if instances are not shared across threads,
+else undefined behaviour could occur.</p></td>
+</tr>
+<tr class="row-odd"><td><p><code class="docutils literal notranslate"><span class="pre">--enable-treat-crc-from-comp-engine-as-error</span></code></p></td>
+<td><p>When the device calculates a CRC over the uncompressed data, it usually uses the decompression engine to do the CRC calculation.
+In compression operation cases where the stored block is returned e.g. due to input data being incompressible, the returned CRC
+is calculated using the compression engine, which should give exactly the same CRC as the decompression engine would.
+Enabling this option causes any case where the CRC is calculated by the compression engine to be reported as a
+CPA_DC_E2E_NO_DECOMPRESSION error, rather than as a successful operation.
+Please see <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a>
+for firmware needed to support this feature.</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="confirm-current-version">
-<span id="qat-qatlib-check-version"></span><h3>Confirm Current Version<a class="headerlink" href="#confirm-current-version" title="Permalink to this headline"></a></h3>
+<span id="qatlib-check-version"></span><h3>Confirm Current Version<a class="headerlink" href="#confirm-current-version" title="Permalink to this headline"></a></h3>
 <ol class="arabic">
 <li><p>To confirm your current qatlib version, use one of the following:</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">qatmgr -v</span>
