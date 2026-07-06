@@ -127,7 +127,7 @@
            <div itemprop="articleBody">
              
   <section id="run-containers-using-intel-qat-acceleration">
-<span id="qat-containers-run"></span><h1>Run Containers using Intel® QAT Acceleration<a class="headerlink" href="#run-containers-using-intel-qat-acceleration" title="Permalink to this headline"></a></h1>
+<span id="containers-run"></span><h1>Run Containers using Intel® QAT Acceleration<a class="headerlink" href="#run-containers-using-intel-qat-acceleration" title="Permalink to this headline"></a></h1>
 <p>This section includes details on how to launch a container image with QAT support.</p>
 <p>Topics include:</p>
 <ul class="simple">
@@ -157,7 +157,7 @@ For most configurations, setting QAT_POLICY to <strong>1</strong> is appropriate
 </pre></div>
 </div>
 </div></blockquote>
-<p>Refer to <a class="reference internal" href="../../qatlib/configuration.html#qat-qatlib-policy-setting"><span class="std std-ref">QATlib User’s Guide</span></a> for additional details on POLICY settings.</p>
+<p>Refer to <a class="reference internal" href="../../qatlib/configuration.html#qatlib-policy-setting"><span class="std std-ref">QATlib User’s Guide</span></a> for additional details on POLICY settings.</p>
 </section>
 <section id="security-configuration-optional">
 <h3>Security Configuration (OPTIONAL)<a class="headerlink" href="#security-configuration-optional" title="Permalink to this headline"></a></h3>
@@ -211,7 +211,7 @@ For most configurations, setting QAT_POLICY to <strong>1</strong> is appropriate
 <p>This results in all QAT resources being allocated to the container image. In this case only one container image that uses QAT resources can run at a time as
 this container is consuming all available QAT resources.</p>
 <p>In order to support multiple containers that utilize QAT we need to provide a subset of VFIO IDs instead of IDs. This raises the question of which VFIO IDS to provide and how many.</p>
-<p>To answer the question of which VFIOs to provide, we can use this <a class="reference internal" href="../../qatlib/configuration.html#qat-qatlib-configuration-script"><span class="std std-ref">configuration script</span></a> to obtain the information.</p>
+<p>To answer the question of which VFIOs to provide, we can use this <a class="reference internal" href="../../qatlib/configuration.html#qatlib-configuration-script"><span class="std std-ref">configuration script</span></a> to obtain the information.</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>[sdp@fl6u41 ~]$ qatlistconfig.sh
 VFIO GROUP    | NODE  | PF BDF       | VF BDF       | SERVICES
 --------------------------------------------------------------
@@ -253,7 +253,7 @@ VFIO GROUP    | NODE  | PF BDF       | VF BDF       | SERVICES
 <p class="admonition-title">Important</p>
 <p>When providing subset of available VFIO device IDs to container, it is very important to include QAT_POLICY command line parameter when launching the container.</p>
 </div>
-<p>Refer to <a class="reference internal" href="orchestration.html#qat-containers-orchestration"><span class="std std-ref">Orchestration Software</span></a> for additional information.</p>
+<p>Refer to <a class="reference internal" href="orchestration.html#containers-orchestration"><span class="std std-ref">Orchestration Software</span></a> for additional information.</p>
 </section>
 <section id="tuning-parameters">
 <h2>Tuning Parameters<a class="headerlink" href="#tuning-parameters" title="Permalink to this headline"></a></h2>

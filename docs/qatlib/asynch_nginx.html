@@ -136,7 +136,7 @@
            <div itemprop="articleBody">
              
   <section id="asynch-mode-for-nginx">
-<span id="qat-qatlib-asynch-nginx"></span><h1>Asynch Mode for NGINX*<a class="headerlink" href="#asynch-mode-for-nginx" title="Permalink to this headline"></a></h1>
+<span id="qatlib-asynch-nginx"></span><h1>Asynch Mode for NGINX*<a class="headerlink" href="#asynch-mode-for-nginx" title="Permalink to this headline"></a></h1>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
 <p>The Asynch Mode for NGINX (<strong>asynch_nginx</strong>) package can be installed using the instructions in this section.</p>
@@ -146,7 +146,7 @@
 <p>If using the out-of-tree QAT package, refer to the latest installation instructions available at the <a class="reference external" href="https://github.com/intel/asynch_mode_nginx">asynch_mode_nginx GitHub repository</a>.</p>
 </div>
 <section id="package-dependencies">
-<span id="qat-qatlib-asynch-mode-nginx-install-source"></span><h3>Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permalink to this headline"></a></h3>
+<span id="qatlib-asynch-mode-nginx-install-source"></span><h3>Package Dependencies<a class="headerlink" href="#package-dependencies" title="Permalink to this headline"></a></h3>
 <p>This section includes instructions on installing the required packages dependencies.</p>
 <section id="rpm-based-package-dependencies">
 <h4>RPM-based package dependencies<a class="headerlink" href="#rpm-based-package-dependencies" title="Permalink to this headline"></a></h4>
@@ -196,12 +196,12 @@
 <h3>Pre-Requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline"></a></h3>
 <p>Prior to installing <em>async_nginx</em> ensure the following packages have been installed:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="install.html#qat-qatlib-install"><span class="std std-ref">QATlib</span></a></p></li>
-<li><p><a class="reference internal" href="qatengine.html#qat-qatlib-qatengine"><span class="std std-ref">QAT_Engine</span></a></p></li>
+<li><p><a class="reference internal" href="install.html#qatlib-install"><span class="std std-ref">QATlib</span></a></p></li>
+<li><p><a class="reference internal" href="qatengine.html#qatlib-qatengine"><span class="std std-ref">QAT_Engine</span></a></p></li>
 </ul>
 <p>If using compression service, ensure the following package has been installed:</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="qatzip.html#qat-qatzip-install"><span class="std std-ref">QATzip</span></a></p></li>
+<li><p><a class="reference internal" href="qatzip.html#qatzip-install"><span class="std std-ref">QATzip</span></a></p></li>
 </ul>
 </section>
 <section id="installation-instructions">
@@ -272,12 +272,12 @@
 <p class="admonition-title">Important</p>
 <p>Newer versions of the QAT Kernel modules include support for additional service configuration options, including asymmetric/compression (<strong>asym;dc</strong>).
 This mode is ideal if both compression and asymmetric crypto support is required.</p>
-<p>Refer to  <a class="reference internal" href="configuration.html#qat-qatlib-services-enabled"><span class="std std-ref">Services Enabled</span></a> section of the QATlib User’s Guide for additional details.</p>
+<p>Refer to  <a class="reference internal" href="configuration.html#qatlib-services-enabled"><span class="std std-ref">Services Enabled</span></a> section of the QATlib User’s Guide for additional details.</p>
 </div>
 <p>Refer to the following sections for details on configuring <em>qatlib</em>.</p>
 <ul class="simple">
-<li><p><a class="reference internal" href="configuration.html#qat-qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a> (when qat service is enabled)</p></li>
-<li><p><a class="reference internal" href="configuration.html#qat-qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a> (without service)</p></li>
+<li><p><a class="reference internal" href="configuration.html#qatlib-managed-mode"><span class="std std-ref">Managed Mode</span></a> (when qat service is enabled)</p></li>
+<li><p><a class="reference internal" href="configuration.html#qatlib-standalone-mode"><span class="std std-ref">Standalone Mode</span></a> (without service)</p></li>
 </ul>
 </section>
 <section id="nginx-configuration">
@@ -330,7 +330,7 @@ This mode is ideal if both compression and asymmetric crypto support is required
 </ul>
 </dd>
 </dl>
-<p>Refer to <a class="reference internal" href="configuration.html#qat-qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> for details.</p>
+<p>Refer to <a class="reference internal" href="configuration.html#qatlib-userguide-configuration"><span class="std std-ref">Configuration and Tuning</span></a> for details.</p>
 </div>
 </div></blockquote>
 <p><code class="docutils literal notranslate"><span class="pre">worker_rlimit_nofile</span> <span class="pre">500000;</span></code> : Sets numbers of open files that each worker process can have open at one time.</p>
