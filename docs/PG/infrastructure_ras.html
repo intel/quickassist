@@ -137,6 +137,15 @@
 <span id="pg-infrastructure-ras"></span><h1>Reliability, Availability, and Serviceability (RAS)<a class="headerlink" href="#reliability-availability-and-serviceability-ras" title="Permalink to this headline"></a></h1>
 <p>The RAS feature goal is to support the acceleration devices Reliability, Availability and Serviceability by handling the error interrupts initiated
 by the device.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p>RAS is supported across Intel QAT platforms, including QAT 2.x and QAT 5.1 (6xxx devices).</p></li>
+<li><p>For QATlib (in-tree driver) deployments, refer to
+<a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a>
+(<strong>RAS</strong> row) in the QATlib Release Notes for minimum kernel/firmware combinations per platform.</p></li>
+</ul>
+</div>
 <div class="line-block">
 <div class="line">Additionally the types of errors are counted and the counters made available via sysfs.</div>
 <div class="line">For additional details refer to <a class="reference external" href="https://www.kernel.org/doc/Documentation/ABI/testing/sysfs-driver-qat_ras">sysfs-driver-qat_ras documentation.</a></div>

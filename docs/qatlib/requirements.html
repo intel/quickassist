@@ -139,8 +139,8 @@
 <blockquote>
 <div><ul class="simple">
 <li><p>Required BIOS parameters must be enabled.</p></li>
-<li><p>Platform must have a 4xxx Intel<sup>®</sup> Communication device.  This includes 4xxx, 401xx, 402xx, and 420xx.</p></li>
-<li><p>Firmware must be available for the 4xxx Intel<sup>®</sup> Communication device.</p></li>
+<li><p>Platform must have a supported Intel<sup>®</sup> QAT device. This includes 4xxx, 401xx, 402xx, 420xx, and 6xxx.</p></li>
+<li><p>Firmware must be available for the Intel<sup>®</sup> QAT device.</p></li>
 <li><p>Kernel drivers must be running and properly bound to the Intel<sup>®</sup> QAT Physical and Virtual Functions (PF and VF).</p></li>
 <li><p>Required Linux boot parameters must be configured.</p></li>
 </ul>
@@ -196,7 +196,8 @@ BIOS vendor navigation menu, these parameters are usually found in the following
 </section>
 <section id="kernel-firmware-requirements">
 <h2>Kernel/Firmware Requirements<a class="headerlink" href="#kernel-firmware-requirements" title="Permalink to this headline"></a></h2>
-<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">Kernel/Firmware Requirements</span></a> for details on required kernel/firmware version.</p>
+<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a>
+in the QATlib Release Notes for details on required kernel/firmware version.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>Intel recommends using the latest available QATlib release and the latest
@@ -230,7 +231,7 @@ features may require newer versions.</p>
 <td><p>v5.15.3+</p></td>
 <td><p>Any</p></td>
 </tr>
-<tr class="row-odd"><td><p>Intel Xeon 6 (SRF/GNR)</p></td>
+<tr class="row-odd"><td><p>401xx device family (uses qat_4xxx firmware family)</p></td>
 <td><p>401xx</p></td>
 <td><p>22.07+</p></td>
 <td><p>v5.19+</p></td>
@@ -246,10 +247,22 @@ features may require newer versions.</p>
 <td><p>420xx</p></td>
 <td><p>24.02+</p></td>
 <td><p>v6.8+</p></td>
-<td><p>Any (current in-tree release is 0.9.0)</p></td>
+<td><p>1.0.0+</p></td>
+</tr>
+<tr class="row-even"><td><p>Intel® Xeon® 7 (DMR)</p></td>
+<td><p>6xxx</p></td>
+<td><p>26.08+</p></td>
+<td><p>v6.16+</p></td>
+<td><p>Pending</p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For consistency with <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-firmware-release-notes"><span class="std std-ref">QAT Firmware Available</span></a>,
+401xx devices use the <code class="docutils literal notranslate"><span class="pre">qat_4xxx</span></code> firmware family and 420xx devices use the
+<code class="docutils literal notranslate"><span class="pre">qat_420xx</span></code> firmware family.</p>
+</div>
 </section>
 <section id="supported-devices">
 <span id="qatlib-supported-devices"></span><h2>Supported Devices<a class="headerlink" href="#supported-devices" title="Permalink to this headline"></a></h2>
@@ -318,11 +331,22 @@ features may require newer versions.</p>
 </div>
 </td>
 </tr>
+<tr class="row-even"><td><p>6</p></td>
+<td><p>6xxx</p></td>
+<td><p>qat_6xxx</p></td>
+<td><p>4948</p></td>
+<td><p>4949</p></td>
+<td><div class="line-block">
+<div class="line">qat_6xxx.bin</div>
+<div class="line">qat_6xxx_mmp.bin</div>
+</div>
+</td>
+</tr>
 </tbody>
 </table>
 <p>Verify the platform contains a supported 4xxx Intel<sup>®</sup> Communications device by running the below command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -d 8086:4940 &amp;&amp; lspci -d 8086:4941 &amp;&amp; lspci -d 8086:4942 &amp;&amp; lspci -d 8086:4943 &amp;&amp; lspci -d 8086:4944 &amp;&amp; lspci -d 8086:4945 &amp;&amp; lspci -d 8086:4946 &amp;&amp; lspci -d 8086:4947) | wc -l` supported devices found.</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -d 8086:4940 &amp;&amp; lspci -d 8086:4941 &amp;&amp; lspci -d 8086:4942 &amp;&amp; lspci -d 8086:4943 &amp;&amp; lspci -d 8086:4944 &amp;&amp; lspci -d 8086:4945 &amp;&amp; lspci -d 8086:4946 &amp;&amp; lspci -d 8086:4947 &amp;&amp; lspci -d 8086:4948 &amp;&amp; lspci -d 8086:4949 ) | wc -l` supported devices found.</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -341,8 +365,8 @@ features may require newer versions.</p>
 </div>
 <p>Verify the supported firmware for your platform is available in the <code class="docutils literal notranslate"><span class="pre">/lib/firmware</span></code> directory by running the below commands:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ls /lib/firmware/{qat_4xxx,qat_402xx,qat_420xx}.bin* 2&gt;/dev/null</span>
-<span class="go">ls /lib/firmware/{qat_4xxx,qat_402xx,qat_420xx}_mmp.bin* 2&gt;/dev/null</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">ls /lib/firmware/{qat_4xxx,qat_402xx,qat_420xx,qat_6xxx}.bin* 2&gt;/dev/null</span>
+<span class="go">ls /lib/firmware/{qat_4xxx,qat_402xx,qat_420xx,qat_6xxx}_mmp.bin* 2&gt;/dev/null</span>
 </pre></div>
 </div>
 <p>The output will look like:</p>
@@ -434,6 +458,9 @@ CONFIG_CRYPTO_DEV_QAT_DH895xCC=m
 CONFIG_CRYPTO_DEV_QAT_C3XXX=m
 CONFIG_CRYPTO_DEV_QAT_C62X=m
 CONFIG_CRYPTO_DEV_QAT_4XXX=m
+CONFIG_CRYPTO_DEV_QAT_402XX=m
+CONFIG_CRYPTO_DEV_QAT_420XX=m
+CONFIG_CRYPTO_DEV_QAT_6XXX=m
 CONFIG_CRYPTO_DEV_QAT_DH895xCCVF=m
 CONFIG_CRYPTO_DEV_QAT_C3XXXVF=m
 CONFIG_CRYPTO_DEV_QAT_C62XVF=m
@@ -453,7 +480,7 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </div></blockquote>
 <p>Lastly, verify the appropriate kernel driver is bound to each Intel<sup>®</sup> QAT Physical Function (PF) by running the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4940 &amp;&amp; lspci -vvv -d 8086:4942 &amp;&amp; lspci -vvv -d 8086:4944 &amp;&amp; lspci -vvv -d 8086:4946) | grep &quot;Kernel driver&quot;`</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4940 &amp;&amp; lspci -vvv -d 8086:4942 &amp;&amp; lspci -vvv -d 8086:4944 &amp;&amp; lspci -vvv -d 8086:4946 &amp;&amp; lspci -vvv -d 8086:4948 &amp;&amp; lspci -vvv -d 8086:4949) | grep &quot;Kernel driver&quot;`</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -490,7 +517,7 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </div></blockquote>
 <p>Lastly, verify the <code class="docutils literal notranslate"><span class="pre">vfio_pci</span></code> kernel driver is bound to each Intel<sup>®</sup> QAT Virtual Function (VF) by running the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4941 &amp;&amp; lspci -vvv -d 8086:4943 &amp;&amp; lspci -vvv -d 8086:4945 &amp;&amp; lspci -vvv -d 8086:4947) | grep &quot;Kernel driver&quot;`</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">echo `(lspci -vvv  -d 8086:4941 &amp;&amp; lspci -vvv -d 8086:4943 &amp;&amp; lspci -vvv -d 8086:4945 &amp;&amp; lspci -vvv -d 8086:4947 &amp;&amp; lspci -vvv -d 8086:4949) | grep &quot;Kernel driver&quot;`</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -511,7 +538,7 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 </ul>
 <p>Verify these settings are enabled by running the following command:</p>
 <blockquote>
-<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">grep -E &#39;intel_iommu=on&#39; /proc/cmdline &amp;&amp; grep -o &#39;vfio-pci.ids=[^ ]*&#39; /proc/cmdline | grep -E &#39;8086:4941|8086:4943|8086:4945|8086:4947&#39;</span>
+<div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">grep -E &#39;intel_iommu=on&#39; /proc/cmdline &amp;&amp; grep -o &#39;vfio-pci.ids=[^ ]*&#39; /proc/cmdline | grep -E &#39;8086:4941|8086:4943|8086:4945|8086:4947|8086:4949&#39;</span>
 </pre></div>
 </div>
 </div></blockquote>
@@ -534,7 +561,7 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 <div><div class="admonition note">
 <p class="admonition-title">Note</p>
 <div class="line-block">
-<div class="line">In the command above we added the 8086:4941 device id.  Depending on your system, this ID could also be 8086:4943, 8086:4945, or 8086:4947.</div>
+<div class="line">In the command above we added the 8086:4941 device id.  Depending on your system, this ID could also be 8086:4943, 8086:4945, 8086:4947, or 8086:4949.</div>
 <div class="line">Refer to <a class="reference internal" href="#qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> section of QATlib Users Guide for additional details.</div>
 </div>
 </div>
@@ -571,7 +598,7 @@ CONFIG_CRYPTO_DEV_QAT_C62XVF=m
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <div class="line-block">
-<div class="line">In the command above we added the 8086:4941 device id.  Depending on your system, this ID could also be 8086:4943, 8086:4945, or 8086:4947.</div>
+<div class="line">In the command above we added the 8086:4941 device id.  Depending on your system, this ID could also be 8086:4943, 8086:4945, 8086:4947, or 8086:4949.</div>
 <div class="line">Refer to <a class="reference internal" href="#qatlib-supported-devices"><span class="std std-ref">Supported Devices</span></a> section of QATlib Users Guide for additional details.</div>
 </div>
 </div>

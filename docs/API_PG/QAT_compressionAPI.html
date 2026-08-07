@@ -79,6 +79,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#sessions">Sessions</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="#platform-specific-compression-behavior-considerations">Platform-Specific Compression Behavior Considerations</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#stateful-data-compression">Stateful Data Compression</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#session-establishment">Session Establishment</a></li>
 </ul>
@@ -209,6 +210,45 @@ between calls. The amount of history and state carried between calls depends
 on the compression level. For stateful decompression, only one outstanding
 request may be in-flight at any one time for that session.</p>
 </section>
+</section>
+<section id="platform-specific-compression-behavior-considerations">
+<h2>Platform-Specific Compression Behavior Considerations<a class="headerlink" href="#platform-specific-compression-behavior-considerations" title="Permalink to this headline"></a></h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For features governed by platform and kernel compatibility requirements
+(for example, Z-Standard support and integrity behaviors) in the
+in-tree driver (QATlib), refer to
+<a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a> in the QATlib Release Notes for
+platform and kernel version support details.</p>
+</div>
+<p><strong>Zero-Length Requests</strong></p>
+<ul class="simple">
+<li><p>Query instance capabilities before use and handle unsupported outcomes per instance.</p></li>
+</ul>
+<p><strong>LZ4 Behavior</strong></p>
+<ul class="simple">
+<li><p>Dictionary metadata behavior for LZ4 header generation is fixed in this API
+path. Generated frame headers carry <code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">ID</span> <span class="pre">present</span> <span class="pre">=</span> <span class="pre">0</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">ID</span> <span class="pre">=</span> <span class="pre">0</span></code>.</p></li>
+</ul>
+<p><strong>Z-Standard Behavior</strong></p>
+<ul class="simple">
+<li><p>For out-of-tree (OOT) deployments on 4xxx, 401xx, 402xx, and 420xx
+platforms, plugin-based Z-Standard support provides partial
+compression acceleration only.</p></li>
+<li><p>For QATlib (in-tree driver) deployments, full-service Z-Standard
+compression and decompression is introduced in QATlib 26.08 with
+6xxx platform enablement.</p></li>
+<li><p>For full-service Z-Standard requests, use <code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_FINAL</span></code>
+and provide complete frame input in the decompression direction.</p></li>
+<li><p>Z-Standard checksum seeding is not supported.</p></li>
+</ul>
+<p><strong>Integrity Check Workflows</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_DC_E2E_NO_DECOMPRESSION</span></code> indicates a compression-side
+CRC-source outcome. Applications should handle this status
+according to their integrity policy.</p></li>
+</ul>
 </section>
 <section id="stateful-data-compression">
 <h2>Stateful Data Compression<a class="headerlink" href="#stateful-data-compression" title="Permalink to this headline"></a></h2>

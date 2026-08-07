@@ -143,7 +143,13 @@
 <p>Rate Limiting is implemented by monitoring the utilization of the device on a per-VF, per-service basis and comparing that to the SLA allocated to that VF and service. This ensures that resources are allocated according to predefined agreements, preventing any single VF from monopolizing device capacity.</p>
 <p>Rate Limiting is set up on the host system, allowing administrators to manage and allocate resources effectively. It can be configured for each Physical Function (PF) on the device, providing granular control over resource distribution across different services and virtual functions.</p>
 <p>Resources are shared across guests, and the resource utilization of each guest is measured relative to the capacity of the physical function. The feature is supported for SYM, ASYM, and DC services.</p>
-<p>This document provides instructions for enabling Rate Limiting for both Out-of-Tree (OOT) and In-tree stacks.</p>
+<p>This document provides instructions for enabling Rate Limiting for both out-of-tree (OOT) and in-tree stacks.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Rate limiting availability depends on the release and platform in the in-tree stack (QATlib). Refer to
+<a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-release-timeline"><span class="std std-ref">Linux Kernel Release Timeline &amp; Features Overview</span></a> in the QATlib Release Notes
+for details on which platforms and kernel versions support rate limiting.</p>
+</div>
 </section>
 <section id="rate-limiting-reference-algorithms-and-capacity">
 <h2>Rate Limiting Reference Algorithms and Capacity<a class="headerlink" href="#rate-limiting-reference-algorithms-and-capacity" title="Permalink to this headline"></a></h2>

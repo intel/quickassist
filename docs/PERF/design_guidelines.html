@@ -213,6 +213,45 @@ impacted.</p></li>
 <p>The appropriate coalescing timer configuration will depend on the
 characteristics of the application. It is recommended that the value
 chosen is tuned to achieve optimal performance.</p>
+<section id="interrupt-coalescing-timer-configuration">
+<h4>Interrupt Coalescing Timer Configuration<a class="headerlink" href="#interrupt-coalescing-timer-configuration" title="Permalink to this headline"></a></h4>
+<p>Interrupt coalescing timer tuning should be treated as a primary
+performance control for epoll/interrupt mode. It provides a direct
+latency versus offload-cost trade-off and should be tuned with the
+target workload profile.</p>
+<p>Configuration varies by stack:</p>
+<ul class="simple">
+<li><p>Out-of-tree (OOT) stack: configure interrupt coalescing using the
+configuration file parameters documented in the sections
+<a class="reference internal" href="../PG/configuration_files_generalsection.html#pg-configuration-files-general-section"><span class="std std-ref">General Section</span></a>
+and <a class="reference internal" href="../PG/configuration_files_logicalsection.html#pg-configuration-files-logical-instances-section"><span class="std std-ref">Logical Instances Section</span></a>
+of the Programmer’s Guide.</p></li>
+<li><p>In-tree stack (QATlib): starting with QATlib 26.08, use the
+per-instance API described below to read and set the timer.</p></li>
+</ul>
+<p>For the in-tree stack per-instance API control (QATlib 26.08 and newer), use:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaInstanceGetRxInterruptMetaData()</span></code> to read current timer and
+metadata (including <code class="docutils literal notranslate"><span class="pre">coalescingTimerMaxInNs</span></code> and
+<code class="docutils literal notranslate"><span class="pre">coalescingTimerGranularityInNs</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaInstanceSetIntCoalescingTimer()</span></code> to set the timer value in
+nanoseconds for the target instance/service. Setting the value to
+<code class="docutils literal notranslate"><span class="pre">0</span></code> effectively disables interrupt coalescing.</p></li>
+</ul>
+<p>Recommended tuning flow:</p>
+<ul class="simple">
+<li><p>Configure event response mode (<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>)
+using <code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode()</span></code>.</p></li>
+<li><p>Read timer metadata first, then tune in steps larger than
+<code class="docutils literal notranslate"><span class="pre">coalescingTimerGranularityInNs</span></code>.</p></li>
+<li><p>Validate the selected value under expected workload mix (burst size,
+packet size, and response rate).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Per-instance API control may return <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> on
+stacks or releases where that API capability is not available.</p>
+</div>
 <p>Using interrupts to notify user space applications is achieved using
 <em>epoll mode</em> which utilizes the kernel device drivers poll function to
 allow an application to get notified of interrupt events.</p>
@@ -230,6 +269,7 @@ driver, there is significant overhead in propagating the interrupt to
 the user space process that the driver is running in. This leads to an
 increased offload cost. Hence it is recommended that interrupts should
 not be used with the user space Intel QuickAssist Technology driver.</p>
+</section>
 </section>
 <section id="polling-mode">
 <span id="qat-perf-opt-guide-polling-mode"></span><h3>Polling Mode<a class="headerlink" href="#polling-mode" title="Permalink to this headline"></a></h3>
@@ -266,6 +306,51 @@ packets. This approach often leads to the best performance since the
 polling rate can be easily tuned to match the submission rate so
 throughput is maximized and offload cost is minimized.</p></li>
 </ul>
+<section id="queue-pair-qp-locking-strategy">
+<span id="qat-perf-opt-guide-qp-locking-strategy"></span><h4>Queue Pair (QP) Locking Strategy<a class="headerlink" href="#queue-pair-qp-locking-strategy" title="Permalink to this headline"></a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">--enable-icp-without-qp-submission-lock</span></code> configure option
+controls whether Queue Pair (QP) submission and polling paths use
+mutex locking. It is available in both the out-of-tree (OOT) driver
+stack and the in-tree stack (qatlib).</p>
+<section id="behavior-by-version">
+<h5>Behavior by Version<a class="headerlink" href="#behavior-by-version" title="Permalink to this headline"></a></h5>
+<p>The option’s scope has expanded across releases:</p>
+<p><strong>Submission path only (original behavior)</strong></p>
+<p>Removes locking on the submission path only for performance-sensitive
+single-owner threading models, enabling lockless operation in
+<code class="docutils literal notranslate"><span class="pre">adf_user_put_msg</span></code> and similar functions. The configure logic defines
+the compile-time flag <code class="docutils literal notranslate"><span class="pre">ICP_WITHOUT_QP_SUBMISSION_LOCK_AC</span></code>.</p>
+<ul class="simple">
+<li><p>OOT driver: introduced in <code class="docutils literal notranslate"><span class="pre">QAT20.L.1.2.30-00090</span></code></p></li>
+<li><p>qatlib: introduced in QATlib 25.08 (July 2025)</p></li>
+</ul>
+<p><strong>Submission and polling paths (extended behavior)</strong></p>
+<p>Lockless operation extends to both the submission and polling paths.</p>
+<ul class="simple">
+<li><p>OOT driver: introduced in <code class="docutils literal notranslate"><span class="pre">QAT20.L.1.2.30-00239</span></code></p></li>
+<li><p>qatlib: introduced in QATlib 26.08 (August 2026)</p></li>
+</ul>
+</section>
+<section id="locked-vs-lockless-mode">
+<h5>Locked vs Lockless Mode<a class="headerlink" href="#locked-vs-lockless-mode" title="Permalink to this headline"></a></h5>
+<p><strong>Locked mode (default)</strong></p>
+<p>The polling path acquires <code class="docutils literal notranslate"><span class="pre">user_lock</span></code> while traversing ring state.
+This serializes submission and polling access and is the recommended
+mode for shared-QP or multi-threaded ownership patterns.</p>
+<p><strong>Lockless mode</strong></p>
+<p>Enabled with the compile-time flag <code class="docutils literal notranslate"><span class="pre">ICP_WITHOUT_QP_SUBMISSION_LOCK</span></code>.
+Both submission and polling skip mutex acquisition, reducing
+per-operation synchronization overhead. This can lower per-request
+latency in controlled, single-owner threading models.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Use lockless mode only when your application guarantees that each
+QP instance is owned by exactly one thread at a time. If QP
+instances are shared across threads, keep locking enabled to
+prevent race conditions.</p>
+</div>
+</section>
+</section>
 </section>
 <section id="recommendations">
 <h3>Recommendations<a class="headerlink" href="#recommendations" title="Permalink to this headline"></a></h3>

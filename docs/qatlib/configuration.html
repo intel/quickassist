@@ -193,14 +193,16 @@ Setting it in a VM which has VFs assigned to it has no effect.</p>
 on each PF.</p>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Newer QAT Kernel modules include support for the following configuration options.</p>
-<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Kernel Driver Releases &amp; Features</span></a> section of the In-Tree Release Notes for details.</p>
+<ul class="simple">
+<li><p>Newer QAT Kernel modules include support for the following configuration options.</p></li>
+<li><p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a> in the QATlib Release Notes for details.</p></li>
+</ul>
 </div>
 <table class="longtable colwidths-given docutils align-default" id="id2">
 <caption><span class="caption-text">Services Enabled Settings</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
-<col style="width: 30%" />
-<col style="width: 70%" />
+<col style="width: 15%" />
+<col style="width: 85%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p><strong>Value</strong></p></th>
@@ -261,6 +263,13 @@ setting when chaining is needed.</p>
 </tr>
 </tbody>
 </table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the QATlib configuration path, <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> uses the combinations
+listed above, such as <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code>, <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code>, <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code>, <code class="docutils literal notranslate"><span class="pre">dc</span></code>, and
+<code class="docutils literal notranslate"><span class="pre">dcc</span></code>. The older <code class="docutils literal notranslate"><span class="pre">cy</span></code> restriction applies to the QAT 2.0 configuration
+model and is not a QATlib <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> setting.</p>
+</div>
 <section id="performance-considerations">
 <h4>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h4>
 <div class="admonition important">

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Key Protection Technology (KPT) &mdash; Intel® QuickAssist Technology</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/qat.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/logo-white-72px.svg"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/clipboard.min.js"></script>
+        <script src="../_static/copybutton.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Supported APIs" href="apis_index.html" />
+    <link rel="prev" title="Cryptographic Services" href="services_cryptography_api.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Intel® QuickAssist Technology
+              <img src="../_static/logo-energyblue-white-72px.svg" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Legal &amp; Overview</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/legal.html">Legal Notices &amp; Disclaimers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Intro/terminology.html">Terminology</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Release Notes</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../RN/In-Tree/index.html">Release Notes - In-Tree</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/Linux/2.X/index.html">Release Notes - Linux*</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../RN/VMware/2.X/index.html">Release Notes - VMware*</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">User Guides</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../GSG/2.X/index.html">Getting Started Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Programmer’s Guide</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">About this Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="in_tree_vs_oot.html">In-Tree vs. Out-of-Tree</a></li>
+<li class="toctree-l2"><a class="reference internal" href="architecture.html">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="infrastructure_index.html">Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="acceleration_driver.html">Acceleration Driver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="configuration_files_index.html">Configuration Files</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="services_index.html">Services</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="services_compression_api.html">Data Compression</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services_cryptography_api.html">Cryptographic Services</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Key Protection Technology (KPT)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#platform-support">Platform Support</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#primary-source-files">Primary Source Files</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#kpt-api-surface-public">KPT API Surface (Public)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#capability-gating">Capability Gating</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#key-data-structures-and-formats">Key Data Structures and Formats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#cryptographic-packaging-details">Cryptographic Packaging Details</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#firmware-provisioning-interface">Firmware Provisioning Interface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#sample-derived-execution-flow">Sample-Derived Execution Flow</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#error-handling-patterns-to-reuse">Error Handling Patterns To Reuse</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#practical-integration-checklist">Practical Integration Checklist</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#usage-notes">Usage Notes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="virtualization.html">Virtualization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html">Secure Architecture Considerations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="revision_history.html">Revision History</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../VIRT/index.html">Virtualization Deployment Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../PERF/index.html">Performance Optimization Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qatlib/index.html">QATlib User’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Developer Resources</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../AppNotes/index.html">Application Notes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../API_PG/index.html">API Programmer’s Guide</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/contact.html">Contact &amp; Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../qat_general/collateral_list.html">Documentation &amp; Resources</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Intel® QuickAssist Technology</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Programmer’s Guide</a></li>
+          <li class="breadcrumb-item"><a href="services_index.html">Services</a></li>
+      <li class="breadcrumb-item active">Key Protection Technology (KPT)</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="key-protection-technology-kpt">
+<span id="qat-pg-services-kpt"></span><h1>Key Protection Technology (KPT)<a class="headerlink" href="#key-protection-technology-kpt" title="Permalink to this headline"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section documents the Intel<sup>®</sup> QuickAssist Technology KPT API
+surface, data structures, and usage flow. KPT is supported on Intel<sup>®</sup> QAT 6xxx (QAT 5.1) platforms. Applications must confirm support at
+runtime using the capability check described in
+<a class="reference internal" href="#qat-pg-services-kpt-capability"><span class="std std-ref">Capability Gating</span></a>.</p>
+</div>
+<section id="platform-support">
+<span id="qat-pg-services-kpt-scope"></span><h2>Platform Support<a class="headerlink" href="#platform-support" title="Permalink to this headline"></a></h2>
+<p>Intel<sup>®</sup> Key Protection Technology (KPT) is supported on Intel<sup>®</sup> QAT 6xxx (QAT 5.1) platforms.</p>
+<p>Because availability also depends on the firmware and driver stack in use,
+applications must verify KPT capability at runtime before issuing KPT calls.
+See <a class="reference internal" href="#qat-pg-services-kpt-capability"><span class="std std-ref">Capability Gating</span></a> for the required
+check.</p>
+</section>
+<section id="primary-source-files">
+<h2>Primary Source Files<a class="headerlink" href="#primary-source-files" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">quickassist/include/lac/cpa_cy_kpt.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quickassist/include/lac/cpa_cy_im.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quickassist/lookaside/firmware/include/icp_qat_fw_kpt_pro.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quickassist/lookaside/access_layer/src/sample_code/functional/asym/kpt/kpt_sample_common.h</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quickassist/lookaside/access_layer/src/sample_code/functional/asym/kpt/kpt_sample_common.c</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quickassist/lookaside/access_layer/src/sample_code/functional/asym/kpt/kpt_ecdsa_sample/kpt_ecdsa_sample_main.c</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">quickassist/lookaside/access_layer/src/sample_code/functional/asym/kpt/kpt_ecdsa_sample/kpt_ecdsa_sample_op.c</span></code></p></li>
+</ul>
+</section>
+<section id="kpt-api-surface-public">
+<h2>KPT API Surface (Public)<a class="headerlink" href="#kpt-api-surface-public" title="Permalink to this headline"></a></h2>
+<p>From <code class="docutils literal notranslate"><span class="pre">cpa_cy_kpt.h</span></code>.</p>
+<p>Discovery / provisioning:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cpaCyKptQueryIssuingKeys</span><span class="p">(</span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"> </span><span class="n">pPublicX509IssueCert</span><span class="p">,</span><span class="w"> </span><span class="n">pKptStatus</span><span class="p">)</span>
+<span class="n">cpaCyKptQueryDeviceCredentials</span><span class="p">(</span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"> </span><span class="n">pDevCredential</span><span class="p">,</span><span class="w"> </span><span class="n">pKptStatus</span><span class="p">)</span>
+<span class="n">cpaCyKptLoadKey</span><span class="p">(</span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"> </span><span class="n">pSWK</span><span class="p">,</span><span class="w"> </span><span class="n">keyHandle</span><span class="p">,</span><span class="w"> </span><span class="n">pKptStatus</span><span class="p">)</span>
+<span class="n">cpaCyKptDeleteKey</span><span class="p">(</span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"> </span><span class="n">keyHandle</span><span class="p">,</span><span class="w"> </span><span class="n">pKptStatus</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Usage:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="n">cpaCyKptRsaDecrypt</span><span class="p">(</span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"> </span><span class="n">cb</span><span class="p">,</span><span class="w"> </span><span class="n">callbackTag</span><span class="p">,</span><span class="w"> </span><span class="n">pDecryptOpData</span><span class="p">,</span><span class="w"> </span><span class="n">pOutputData</span><span class="p">,</span><span class="w"> </span><span class="n">pKptUnwrapContext</span><span class="p">)</span>
+<span class="n">cpaCyKptEcdsaSignRS</span><span class="p">(</span><span class="n">instanceHandle</span><span class="p">,</span><span class="w"> </span><span class="n">cb</span><span class="p">,</span><span class="w"> </span><span class="n">callbackTag</span><span class="p">,</span><span class="w"> </span><span class="n">pOpData</span><span class="p">,</span><span class="w"> </span><span class="n">pSignStatus</span><span class="p">,</span><span class="w"> </span><span class="n">pR</span><span class="p">,</span><span class="w"> </span><span class="n">pS</span><span class="p">,</span><span class="w"> </span><span class="n">pKptUnwrapContext</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>KPT management status enum:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_CY_KPT_SUCCESS</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_CY_KPT_LOADKEY_FAIL_QUOTA_EXCEEDED_PER_VFID</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_CY_KPT_LOADKEY_FAIL_QUOTA_EXCEEDED_PER_PASID</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_CY_KPT_LOADKEY_FAIL_QUOTA_EXCEEDED</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_CY_KPT_SWK_FAIL_NOT_FOUND</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_CY_KPT_FAILED</span></code></p></li>
+</ul>
+</section>
+<section id="capability-gating">
+<span id="qat-pg-services-kpt-capability"></span><h2>Capability Gating<a class="headerlink" href="#capability-gating" title="Permalink to this headline"></a></h2>
+<p>From <code class="docutils literal notranslate"><span class="pre">cpa_cy_im.h</span></code> capabilities:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CpaCyCapabilitiesInfo</span></code> includes <code class="docutils literal notranslate"><span class="pre">kptSupported</span></code>.</p></li>
+</ul>
+<p>Expected runtime behavior pattern:</p>
+<ol class="arabic simple">
+<li><p>Query instance capabilities via <code class="docutils literal notranslate"><span class="pre">cpaCyQueryCapabilities</span></code>.</p></li>
+<li><p>Require <code class="docutils literal notranslate"><span class="pre">kptSupported</span> <span class="pre">==</span> <span class="pre">CPA_TRUE</span></code> before issuing KPT calls.</p></li>
+<li><p>Handle API returns such as <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> and <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code>.</p></li>
+</ol>
+<p>The sample helper <code class="docutils literal notranslate"><span class="pre">queryCapabilitiesForKpt</span></code> uses exactly this check and fails
+early when KPT is not supported.</p>
+</section>
+<section id="key-data-structures-and-formats">
+<h2>Key Data Structures and Formats<a class="headerlink" href="#key-data-structures-and-formats" title="Permalink to this headline"></a></h2>
+<p>From <code class="docutils literal notranslate"><span class="pre">cpa_cy_kpt.h</span></code>:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CpaCyKptHandle</span></code> — 64-bit handle representing a loaded wrapping key in the
+device key table.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CpaCyKptLoadKey</span></code> — contains encrypted SWK (eSWK) and <code class="docutils literal notranslate"><span class="pre">wrappingAlgorithm</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CpaCyKptUnwrapContext</span></code> — contains:</p>
+<ul>
+<li><p><code class="docutils literal notranslate"><span class="pre">kptHandle</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">iv</span></code> (max length 12)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">additionalAuthData</span></code> (max length 16)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">aadLenInBytes</span></code></p></li>
+</ul>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CpaCyKptRsaPrivateKeyRep1</span></code> / <code class="docutils literal notranslate"><span class="pre">Rep2</span></code> and <code class="docutils literal notranslate"><span class="pre">CpaCyKptRsaPrivateKey</span></code> —
+represent wrapped RSA private key encodings and metadata.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CpaCyKptEcdsaSignRSOpData</span></code> — contains wrapped private key plus message
+digest for the ECDSA sign operation.</p></li>
+</ul>
+<p>Constants:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_CY_KPT_MAX_IV_LENGTH</span> <span class="pre">=</span> <span class="pre">12</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_CY_KPT_MAX_AAD_LENGTH</span> <span class="pre">=</span> <span class="pre">16</span></code></p></li>
+<li><p>AuthTag length indicated as 16 bytes in API comments and sample code.</p></li>
+</ul>
+</section>
+<section id="cryptographic-packaging-details">
+<h2>Cryptographic Packaging Details<a class="headerlink" href="#cryptographic-packaging-details" title="Permalink to this headline"></a></h2>
+<p>As documented in KPT header comments, the private key wrapping model is
+AES-256-GCM with:</p>
+<ul class="simple">
+<li><p>Key: SWK</p></li>
+<li><p>IV: nonce</p></li>
+<li><p>AAD: DER(OID) for algorithm/curve context</p></li>
+<li><p>Output: wrapped private key ciphertext plus 16-byte AuthTag</p></li>
+</ul>
+<p>Documented OID/AAD examples include:</p>
+<ul class="simple">
+<li><p>RSA context OID <code class="docutils literal notranslate"><span class="pre">1.2.840.113549.1.1</span></code></p></li>
+<li><p>ECDSA curves <code class="docutils literal notranslate"><span class="pre">secp256r1</span></code>, <code class="docutils literal notranslate"><span class="pre">secp384r1</span></code>, <code class="docutils literal notranslate"><span class="pre">secp521r1</span></code> with corresponding
+DER encodings</p></li>
+</ul>
+<p>Operational requirement repeatedly noted in source:</p>
+<ul class="simple">
+<li><p>The nonce (IV) must be unique per SWK encryption operation.</p></li>
+</ul>
+</section>
+<section id="firmware-provisioning-interface">
+<h2>Firmware Provisioning Interface<a class="headerlink" href="#firmware-provisioning-interface" title="Permalink to this headline"></a></h2>
+<p>From <code class="docutils literal notranslate"><span class="pre">icp_qat_fw_kpt_pro.h</span></code>:</p>
+<ul class="simple">
+<li><p>Firmware request/response structures for KPT provisioning are defined.</p></li>
+<li><p>Command and service fields are explicit.</p></li>
+<li><p>The request contains source and destination physical addresses and key
+handle.</p></li>
+</ul>
+<p>This confirms an explicit firmware messaging interface for KPT provisioning is
+present in source.</p>
+</section>
+<section id="sample-derived-execution-flow">
+<h2>Sample-Derived Execution Flow<a class="headerlink" href="#sample-derived-execution-flow" title="Permalink to this headline"></a></h2>
+<p>Based on <code class="docutils literal notranslate"><span class="pre">kpt_sample_common.c</span></code> and <code class="docutils literal notranslate"><span class="pre">kpt_ecdsa_sample_op.c</span></code>:</p>
+<ol class="arabic simple">
+<li><p>Capability gate:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaCyQueryCapabilities</span></code></p></li>
+<li><p>require <code class="docutils literal notranslate"><span class="pre">kptSupported</span></code></p></li>
+</ul>
+</li>
+<li><p>Obtain device credentials:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaCyKptQueryDeviceCredentials</span></code> with a retry loop on
+<code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code></p></li>
+</ul>
+</li>
+<li><p>Encrypt SWK for device:</p>
+<ul class="simple">
+<li><p>Build RSA public key from the queried per-part public key</p></li>
+<li><p>Encrypt SWK using OpenSSL <code class="docutils literal notranslate"><span class="pre">EVP_PKEY</span></code> with OAEP + SHA-256</p></li>
+</ul>
+</li>
+<li><p>Load encrypted SWK:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaCyKptLoadKey</span></code> returns <code class="docutils literal notranslate"><span class="pre">kptHandle</span></code></p></li>
+</ul>
+</li>
+<li><p>Wrap private key locally:</p>
+<ul class="simple">
+<li><p>AES-256-GCM using SWK, IV, AAD</p></li>
+<li><p>append AuthTag</p></li>
+</ul>
+</li>
+<li><p>Build unwrap context:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">kptHandle</span></code>, IV, AAD, AAD length</p></li>
+</ul>
+</li>
+<li><p>Invoke KPT crypto op:</p>
+<ul class="simple">
+<li><p>The ECDSA sample calls <code class="docutils literal notranslate"><span class="pre">cpaCyKptEcdsaSignRS</span></code></p></li>
+<li><p>The RSA sample path is analogous via <code class="docutils literal notranslate"><span class="pre">cpaCyKptRsaDecrypt</span></code></p></li>
+</ul>
+</li>
+<li><p>Cleanup:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaCyKptDeleteKey</span></code></p></li>
+<li><p>free allocated buffers</p></li>
+</ul>
+</li>
+</ol>
+</section>
+<section id="error-handling-patterns-to-reuse">
+<h2>Error Handling Patterns To Reuse<a class="headerlink" href="#error-handling-patterns-to-reuse" title="Permalink to this headline"></a></h2>
+<p>Observed in samples:</p>
+<ul class="simple">
+<li><p>Retry bounded loops for provisioning calls returning <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_RETRY</span></code>.</p></li>
+<li><p>Validate both the generic API status and the KPT-specific status value.</p></li>
+<li><p>Treat capability mismatch as a hard fail before operation setup.</p></li>
+<li><p>Explicit cleanup on all failure paths.</p></li>
+</ul>
+</section>
+<section id="practical-integration-checklist">
+<h2>Practical Integration Checklist<a class="headerlink" href="#practical-integration-checklist" title="Permalink to this headline"></a></h2>
+<p>To use KPT on a supported 6xxx (QAT 5.1) platform:</p>
+<ol class="arabic simple">
+<li><p>Confirm runtime support: <code class="docutils literal notranslate"><span class="pre">cpaCyQueryCapabilities</span></code> -&gt;
+<code class="docutils literal notranslate"><span class="pre">kptSupported</span> <span class="pre">==</span> <span class="pre">CPA_TRUE</span></code>.</p></li>
+<li><p>Validate the firmware/driver stack matches package requirements.</p></li>
+<li><p>Query issuing and per-part credentials as needed.</p></li>
+<li><p>Encrypt and load SWK, capture <code class="docutils literal notranslate"><span class="pre">CpaCyKptHandle</span></code>.</p></li>
+<li><p>Wrap private keys with AES-256-GCM, unique IV per encryption.</p></li>
+<li><p>Populate <code class="docutils literal notranslate"><span class="pre">CpaCyKptUnwrapContext</span></code> correctly.</p></li>
+<li><p>Execute the KPT RSA/ECDSA API path.</p></li>
+<li><p>Delete the SWK handle before session teardown.</p></li>
+</ol>
+</section>
+<section id="usage-notes">
+<h2>Usage Notes<a class="headerlink" href="#usage-notes" title="Permalink to this headline"></a></h2>
+<ul class="simple">
+<li><p>KPT is supported on Intel<sup>®</sup> QAT 6xxx (QAT 5.1) platforms.</p></li>
+<li><p>Always confirm <code class="docutils literal notranslate"><span class="pre">kptSupported</span> <span class="pre">==</span> <span class="pre">CPA_TRUE</span></code> at runtime before issuing KPT
+calls, as availability also depends on the firmware and driver stack in use.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="services_cryptography_api.html" class="btn btn-neutral float-left" title="Cryptographic Services" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="apis_index.html" class="btn btn-neutral float-right" title="Supported APIs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Intel Corporation.</p>
+  </div>
+
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

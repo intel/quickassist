@@ -140,56 +140,65 @@
 Telemetry data can be viewed on a per device and a per ring pair (also known as <a class="reference internal" href="infrastructure_queue_pairs.html#pg-infrastructure-queue-pairs"><span class="std std-ref">queue pair</span></a>) basis.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>There are differences between the implementations of Telemetry with the in-tree acceleration driver and the out-of-tree acceleration driver.</p>
-<p>Details for each are included in the sections below.</p>
+<p>There are differences between the implementations of telemetry with the in-tree acceleration driver (QATlib) and the out-of-tree acceleration driver.
+Details for each are included in the sections below.</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<ul class="simple">
+<li><p>Telemetry is supported across Intel QAT platforms, including QAT 2.x and QAT 5.1 (6xxx devices).</p></li>
+<li><p>For QATlib (in-tree driver) deployments, refer to
+<a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a>
+(<strong>Telemetry</strong> row) in the QATlib Release Notes for minimum kernel/firmware combinations per platform.</p></li>
+</ul>
 </div>
 <section id="telemetry-usage">
 <h2>Telemetry Usage<a class="headerlink" href="#telemetry-usage" title="Permalink to this headline"></a></h2>
-<section id="telemetry-usage-with-out-of-tree">
-<h3>Telemetry Usage With Out-Of-Tree<a class="headerlink" href="#telemetry-usage-with-out-of-tree" title="Permalink to this headline"></a></h3>
-<p>The telemetry feature is configured and queried using <strong>sysfs</strong> files in the Linux filesystem.</p>
-<p>The telemetry <strong>sysfs</strong> folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/telemetry</span></code></p>
-<blockquote>
-<div><p>Where:</p>
+<section id="usage-with-out-of-tree-driver">
+<h3>Usage With Out-Of-Tree Driver<a class="headerlink" href="#usage-with-out-of-tree-driver" title="Permalink to this headline"></a></h3>
+<p>The telemetry feature is configured and queried using <strong>sysfs</strong> files in the Linux filesystem.
+The telemetry sysfs folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/devices/pciAAAA:BB/AAAA:BB:CC.D/telemetry</span></code>.</p>
 <blockquote>
 <div><ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">AAAA:BB:CC.D</span></code> is the <em>Domain:BDF</em> of the target Intel® QAT Endpoint.</p></li>
 </ul>
-</div></blockquote>
 </div></blockquote>
 <p>Example:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ls /sys/devices/pci0000\:6b/0000\:6b\:00.0/telemetry/</span>
 </pre></div>
 </div>
+</div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Update the <em>Domain:BDF</em> above as needed.</p>
 </div>
-</div></blockquote>
 </section>
-<section id="telemetry-usage-with-in-tree">
-<h3>Telemetry Usage With In-Tree<a class="headerlink" href="#telemetry-usage-with-in-tree" title="Permalink to this headline"></a></h3>
+<section id="usage-with-in-tree-driver-qatlib">
+<h3>Usage With In-Tree Driver (QATlib)<a class="headerlink" href="#usage-with-in-tree-driver-qatlib" title="Permalink to this headline"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">Release Notes -In-Tree</span></a> for kernel version requirements for enabling this feature.</p>
+<p>Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a>
+in the QATlib Release Notes for kernel version requirements for enabling this feature.</p>
 </div>
-<p>The telemetry feature is configured and queried using <strong>debugfs</strong> files in the Linux filesystem.</p>
-<p>The telemetry <strong>debugfs</strong> folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_4xxx_*/telemetry</span></code></p>
+<p>The telemetry feature is configured and queried using <strong>debugfs</strong> files in the Linux filesystem.
+The telemetry debugfs folder is located at <code class="docutils literal notranslate"><span class="pre">/sys/kernel/debug/qat_*_*/telemetry</span></code>.</p>
 <blockquote>
-<div><blockquote>
-<div><p>Where:</p>
-</div></blockquote>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">qat_4xxx_*</span></code> is the <em>Domain:BDF</em> of the target Intel® QAT Endpoint.</p></li>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">qat_&lt;device&gt;_*</span></code> is the <em>Domain:BDF</em> of the target Intel® QAT Endpoint.</p></li>
+<li><p>For 6xxx platforms, the device prefix is <code class="docutils literal notranslate"><span class="pre">qat_6xxx_*</span></code>.</p></li>
 </ul>
 </div></blockquote>
 <p>Example:</p>
 <blockquote>
 <div><div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">sudo ls /sys/kernel/debug/qat_4xxx_0000:6b:00.0/telemetry/</span>
+<span class="go">sudo ls /sys/kernel/debug/qat_6xxx_0000:6b:00.0/telemetry/</span>
 </pre></div>
 </div>
 </div></blockquote>
+<p>The telemetry debugfs interface uses the same file model across supported
+platforms: <code class="docutils literal notranslate"><span class="pre">device_data</span></code> and <code class="docutils literal notranslate"><span class="pre">rp_[A|B|C|D]_data</span></code>. Ring pair telemetry
+selection remains limited to four ring pairs at a time.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Update the <em>Domain:BDF</em> above as needed.</p>
