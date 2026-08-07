@@ -285,11 +285,24 @@ buffers are represented using physical rather than virtual addresses.</p>
 </section>
 <section id="huge-pages-hugepages">
 <h2>Huge Pages (Hugepages)<a class="headerlink" href="#huge-pages-hugepages" title="Permalink to this headline"></a></h2>
-<p>The included User space DMAable Memory driver USDM supports 2MB pages. This allows direct access to main memory by devices other than the CPU.
-However, the actual supported maximum memory size in one individual allocation when huge pages are enabled is slightly less than the full 2MB page size,
-specifically 2MB - 5KB. The 5KB is reserved for memory management purposes by the memory driver itself, leaving 2MB - 5KB available for actual data storage.
-The use of 2MB pages provides benefits, but also requires additional configuration. Use of this capability assumes that a sufficient number of huge pages
-are allocated in the operating system for the particular use case and configuration.</p>
+<p>The included User Space DMAable Memory (USDM) driver supports 2MB pages in the
+out-of-tree example flows shown below. This allows direct access to main memory
+by devices other than the CPU. However, the actual supported maximum memory
+size in one individual allocation when hugepages are enabled is slightly less
+than the full 2MB page size, specifically 2MB - 5KB. The 5KB is reserved for
+memory management purposes by the memory driver itself, leaving 2MB - 5KB
+available for actual data storage. The use of 2MB pages provides benefits, but
+also requires additional configuration. Use of this capability assumes that a
+sufficient number of hugepages are allocated in the operating system for the
+particular use case and configuration.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use 2MB hugepages in QATlib (in-tree driver) deployments, the environment
+variable <code class="docutils literal notranslate"><span class="pre">QAT_MAX_2M_HPG_PER_PROCESS</span></code> must be configured. If not configured,
+the system defaults to the 4KB allocation path.
+Refer to <a class="reference internal" href="../qatlib/no_iommu.html#qatlib-no-iommu"><span class="std std-ref">QATlib VFIO no-IOMMU Mode Support</span></a>
+in the QATlib User’s Guide for host and guest hugepage setup examples.</p>
+</div>
 <section id="out-of-tree-example-use-cases">
 <h3>Out-Of-Tree Example Use cases<a class="headerlink" href="#out-of-tree-example-use-cases" title="Permalink to this headline"></a></h3>
 <p>Here are some example use cases that apply to the USDM driver included with the Out-Of-Tree package:</p>

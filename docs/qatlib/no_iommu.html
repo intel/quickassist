@@ -151,7 +151,7 @@
 <p>Follow the sections below to enable VFIO no-IOMMU mode for QAT applications.</p>
 <section id="setup-hugepages-on-the-host">
 <h3>Setup Hugepages on the Host<a class="headerlink" href="#setup-hugepages-on-the-host" title="Permalink to this headline"></a></h3>
-<p>Hugepages must be enabled for optimal performance. Hugepage support is required to reserve large page sizes (2MB or 1GB per page) to reduce TLB (Translation Lookaside Buffers) misses and improve cache efficiency.</p>
+<p>Hugepages must be enabled for optimal performance. Hugepage support is required to reserve large page sizes (2MB per page) to reduce Translation Lookaside Buffer (TLB) misses and improve cache efficiency.</p>
 <p>For 2MB pages, you can activate hugepages while booting or at any time after the system is booted. Define hugepages setting in <cite>/etc/default/grub</cite> to activate it while booting, or overwrite the number of 2MB hugepages as follows:</p>
 <blockquote>
 <div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">echo</span><span class="w"> </span><span class="m">1024</span><span class="w"> </span>&gt;<span class="w"> </span>/sys/kernel/mm/hugepages/hugepages-2048kB/nr_hugepages
@@ -178,6 +178,12 @@
 </li>
 </ol>
 </div></blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To use 2MB hugepages in QATlib (in-tree driver) deployments, the environment
+variable <code class="docutils literal notranslate"><span class="pre">QAT_MAX_2M_HPG_PER_PROCESS</span></code> must be configured. If not configured,
+the system defaults to the 4KB allocation path.</p>
+</div>
 </section>
 <section id="configure-qemu-for-hugepages">
 <h3>Configure QEMU for Hugepages<a class="headerlink" href="#configure-qemu-for-hugepages" title="Permalink to this headline"></a></h3>

@@ -81,7 +81,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#lz4s-compressed-data-block-format">LZ4s Compressed Data Block format</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#compress-and-verify">Compress-and-Verify</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#dynamic-compression">Dynamic Compression</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#maximum-expansion-with-auto-select-best-feature-asb">Maximum Expansion with Auto Select Best Feature (ASB)</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#maximum-expansion-with-auto-select-best-asb-feature">Maximum Expansion with Auto-Select Best (ASB) Feature</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#maximum-compression-expansion">Maximum Compression Expansion</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#no-session-api">No Session API</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#compression-levels">Compression Levels</a></li>
@@ -93,6 +93,7 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="services_cryptography_api.html">Cryptographic Services</a></li>
+<li class="toctree-l3"><a class="reference internal" href="services_kpt.html">Key Protection Technology (KPT)</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="apis_index.html">Supported APIs</a></li>
@@ -149,6 +150,7 @@
 <li><p>Deflate Compression Algorithm.</p></li>
 <li><p>LZ77 and Huffman Encoding.</p></li>
 <li><p>LZ4/LZ4s Compression Algorithm.</p></li>
+<li><p>Z-Standard Compression/Decompression Algorithm (where supported).</p></li>
 <li><p>Compress and Verify.</p></li>
 <li><p>Checksums.</p></li>
 <li><p>Programmable CRC64.</p></li>
@@ -363,6 +365,64 @@ to set BFINAL</p></td>
 <p class="admonition-title">Note</p>
 <p>QAT1.X hardware devices still support stateful decompression operations. QAT2.0 hardware device only supports stateless operations.</p>
 </div>
+<section id="deflate-bfinal-control">
+<h3>Deflate BFINAL Control<a class="headerlink" href="#deflate-bfinal-control" title="Permalink to this headline"></a></h3>
+<p>For Deflate stateless streaming flows, applications should use:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_FULL</span></code> for intermediate requests (BFINAL not set).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_FINAL</span></code> for the last request (BFINAL set).</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This flush behavior is specific to Deflate stateless streaming flows
+and does not apply to LZ4, LZ4s, or Z-Standard.</p>
+</div>
+</section>
+<section id="zero-length-request-behavior">
+<h3>Zero-Length Request Behavior<a class="headerlink" href="#zero-length-request-behavior" title="Permalink to this headline"></a></h3>
+<p>If an application uses zero-length compression/decompression requests, query
+capabilities and handle unsupported outcomes per instance.</p>
+<p>When operating in mixed deployments, do not assume uniform
+accept or reject behavior across instances for zero-length requests.
+Use a capability-query-first flow and validate request results,
+including <code class="docutils literal notranslate"><span class="pre">consumed</span></code> and <code class="docutils literal notranslate"><span class="pre">produced</span></code> fields, per request.</p>
+</section>
+<section id="z-standard-support">
+<span id="pg-services-compression-z-standard-support"></span><h3>Z-Standard Support<a class="headerlink" href="#z-standard-support" title="Permalink to this headline"></a></h3>
+<p>Z-Standard support differs by software stack and platform generation:</p>
+<ul class="simple">
+<li><p>For out-of-tree (OOT) deployments on 4xxx, 401xx, 402xx, and 420xx
+platforms, Z-Standard support is partial in the plugin-based path, where
+QAT accelerates sequence generation while software completes block
+generation.</p></li>
+<li><p>For QATlib (in-tree driver) deployments, Z-Standard support is introduced in
+QATlib 26.08 with 6xxx platform enablement, including full-service
+Z-Standard compression and decompression.</p></li>
+</ul>
+<p>For QATlib (in-tree driver) deployments, refer to
+<a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a> in the QATlib Release Notes
+for details on which releases and platforms support Z-Standard.</p>
+<p><strong>Session and Request Guidance (for full-service Z-Standard support)</strong></p>
+<ul class="simple">
+<li><p>Z-Standard uses the existing session setup structures.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_FINAL</span></code> is required for Z-Standard requests.</p></li>
+<li><p>Decompression requires complete frame input; concatenated frames are
+supported when complete.</p></li>
+<li><p>Checksum seeding is not supported for Z-Standard requests.</p></li>
+</ul>
+<p><strong>Checksum Behavior</strong></p>
+<ul class="simple">
+<li><p>Z-Standard uses <code class="docutils literal notranslate"><span class="pre">CPA_DC_XXHASH64</span></code> in supported flows.</p></li>
+<li><p>The request <code class="docutils literal notranslate"><span class="pre">checksum</span></code> field carries the least significant 4 bytes
+of the Z-Standard frame checksum.</p></li>
+</ul>
+<p><strong>Frame Constraints and Validation</strong></p>
+<ul class="simple">
+<li><p>Unsupported frame formats return <code class="docutils literal notranslate"><span class="pre">CPA_DC_INVALID_ZSTD_FRAME</span></code>.</p></li>
+<li><p>Applications should use capability checks and error handling to determine when
+to fall back to software-based compression.</p></li>
+</ul>
+</section>
 </section>
 <section id="checksums">
 <h2>Checksums<a class="headerlink" href="#checksums" title="Permalink to this headline"></a></h2>
@@ -495,6 +555,18 @@ stateful</strong> sessions. They are not limited to stateful compression.</p>
 </ul>
 <p>The <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateFooter()</span></code> API must be used after processing all the requests. This API must be called last to append the frame footer. The <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateFooter()</span></code> API creates an 8 byte frame footer adding both the end marker (4 bytes set to 0x00) and the XXHash32 checksum computed by Intel<sup>®</sup> QAT hardware.</p>
 </section>
+<section id="dictionary-field-behavior">
+<h3>Dictionary Field Behavior<a class="headerlink" href="#dictionary-field-behavior" title="Permalink to this headline"></a></h3>
+<p>For LZ4 frame header generation through <code class="docutils literal notranslate"><span class="pre">cpaDcGenerateHeader()</span></code>, the
+Dictionary fields in the generated frame descriptor are fixed to:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">ID</span> <span class="pre">present</span> <span class="pre">=</span> <span class="pre">0</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">ID</span> <span class="pre">=</span> <span class="pre">0</span></code></p></li>
+</ul>
+<p>Applications that require non-zero dictionary identifiers in the frame
+metadata should not assume they are emitted by this API path and should
+handle framing policy accordingly.</p>
+</section>
 </section>
 <section id="compress-and-verify">
 <h2>Compress-and-Verify<a class="headerlink" href="#compress-and-verify" title="Permalink to this headline"></a></h2>
@@ -581,9 +653,9 @@ decompressor does not attempt to decode the cleartext data that follows the head
 defined as: <em>Stored block size = Source buffer size + 5 Bytes</em> (used for the deflate header).</p>
 <p>The recovery behaves differently on QAT2.0 than on QAT1.X devices. With QAT1.X devices, the recovery creates only one stored block, If the stored block size exceeds 65,535 bytes, the Intel<sup>®</sup> QAT solution creates one stored block of 65,535 bytes and <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults.status</span></code> returns <code class="docutils literal notranslate"><span class="pre">CPA_DC_OVERFLOW</span></code>.
 On QAT2.0 device, when the recovery takes place, multiple stored blocks are created. This improvement was added to avoid the application having to handle the overflow.</p>
-<p><strong>CnV Recovery with LZ4 compression</strong></p>
+<p><strong>CnV Recovery with LZ4 Compression</strong></p>
 <p>When LZ4 compression is used, QAT software will generate an uncompressed LZ4 block in the event of a recovery. The LZ4 uncompressed block will have bit &lt;31&gt; set in the block header followed by the cleartext in the data section of the block.</p>
-<p><strong>CnV Recovery with LZ4s compression</strong></p>
+<p><strong>CnV Recovery with LZ4s Compression</strong></p>
 <p>LZ4s algorithm is an Intel<sup>®</sup> specific format. LZ4s  payloads do not have a block header like LZ4. When a CnV recovery occurs, the source data will be copied to the destination and <code class="docutils literal notranslate"><span class="pre">dataUncompressed</span></code> property will be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code> in <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure.</p>
 <p><strong>Counting Recovered Compression Errors</strong></p>
 <p>The Intel<sup>®</sup> QAT API has been updated to allow the application to track recovered compression errors. The <code class="docutils literal notranslate"><span class="pre">CpaDcStats</span></code> data structure has a new property called <code class="docutils literal notranslate"><span class="pre">numCompCnvErrorsRecovered</span></code>
@@ -602,13 +674,21 @@ that is incremented every time a compression recovery happens.</p>
 a deflate stream with dynamic Huffman trees.</p>
 <p>When using QAT2.0 device, it is no longer required to allocate intermediate buffers. The API <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumIntermediateBuffers()</span></code> returns 0. As a good programming practice, the application should still call <code class="docutils literal notranslate"><span class="pre">cpaDcGetNumIntermediateBuffers()</span></code> and ensure that the number of intermediate buffers returned is 0.</p>
 </section>
-<section id="maximum-expansion-with-auto-select-best-feature-asb">
-<h2>Maximum Expansion with Auto Select Best Feature (ASB)<a class="headerlink" href="#maximum-expansion-with-auto-select-best-feature-asb" title="Permalink to this headline"></a></h2>
+<section id="maximum-expansion-with-auto-select-best-asb-feature">
+<h2>Maximum Expansion with Auto-Select Best (ASB) Feature<a class="headerlink" href="#maximum-expansion-with-auto-select-best-asb-feature" title="Permalink to this headline"></a></h2>
 <p>Compressing some input data may lead to a lower-than-expected compression ratio. This is because the input data may not be very compressible. To achieve a maximum compression ratio,
-the acceleration unit provides an auto select best (ASB) feature.</p>
-<p>With QAT1.X devices, the Intel<sup>®</sup> QuickAssist Technology hardware will first execute static compression followed by dynamic compression and then select the output that yields the best compression ratio.</p>
-<p>With QAT2.0 devices, the is different. ASB features chooses between a static and a stored block. ASB features with choose the block type that offers the best compression ratio.</p>
+the acceleration unit provides an auto-select best (ASB) feature.</p>
+<ul class="simple">
+<li><p>With QAT1.X devices, the Intel<sup>®</sup> QAT hardware will first execute static compression followed by dynamic compression and then select the output that yields the best compression ratio.</p></li>
+<li><p>With QAT2.0 devices, this is different. The ASB feature chooses between a static and a stored block. The ASB feature will choose the block type that offers the best compression ratio.</p></li>
+</ul>
 <p>Regardless of the ASB setting selected, dynamic compression will only be attempted if the session is configured for dynamic compression.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Before enabling or disabling ASB, it is necessary to query the ASB preference setting via
+the <code class="docutils literal notranslate"><span class="pre">cpaDcQueryCapabilityByType()</span></code> API using the <code class="docutils literal notranslate"><span class="pre">CPA_DC_CAP_BOOL_ASB_ENABLE_PREFERRED</span></code>
+capability query value.</p>
+</div>
 <table class="longtable docutils align-default" id="id8">
 <caption><span class="caption-text">ASB Settings</span><a class="headerlink" href="#id8" title="Permalink to this table"></a></caption>
 <colgroup>
@@ -629,6 +709,41 @@ the acceleration unit provides an auto select best (ASB) feature.</p>
 </tr>
 </tbody>
 </table>
+<table class="longtable docutils align-default" id="id9">
+<caption><span class="caption-text">ASB Algorithm Support</span><a class="headerlink" href="#id9" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 48%" />
+<col style="width: 52%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p><strong>Algorithm</strong></p></th>
+<th class="head"><p><strong>ASB Support</strong></p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Deflate</p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>LZ4</p></td>
+<td><p>Supported</p></td>
+</tr>
+<tr class="row-even"><td><p>LZ4s</p></td>
+<td><p>Not supported</p></td>
+</tr>
+<tr class="row-odd"><td><p>Z-Standard</p></td>
+<td><p>Supported on capable platforms</p></td>
+</tr>
+</tbody>
+</table>
+<p>ASB behavior and controls depend on the release and platform in the in-tree stack (QATlib).
+Refer to
+<a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a> in the QATlib Release Notes
+for details on which releases and platforms support ASB.</p>
+<p>Runtime controls can be set with:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaDcSetAsbThreshold()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaDcSetAsbRatio()</span></code></p></li>
+</ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
@@ -654,6 +769,7 @@ the acceleration unit provides an auto select best (ASB) feature.</p>
 <li><p><code class="docutils literal notranslate"><span class="pre">cpaDcDeflateCompressBound()</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cpaDcLZ4CompressBound()</span></code></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">cpaDcLZ4SCompressBound()</span></code></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">cpaDcZstdCompressBound()</span></code></p></li>
 </ul>
 <p>This new set of APIs will return to the application the size of the destination buffer that must be allocated to avoid an overflow exception. Each function initializes the <code class="docutils literal notranslate"><span class="pre">outputSize</span></code> parameter. The <code class="docutils literal notranslate"><span class="pre">outputSize</span></code> parameter takes into account the maximal expansion that the compressed data size can reach.
 The returned <code class="docutils literal notranslate"><span class="pre">outputSize</span></code> value must be used both to allocate the size of the <code class="docutils literal notranslate"><span class="pre">pData</span></code> and to initialize the <code class="docutils literal notranslate"><span class="pre">dataLenInBytes</span></code> in the <code class="docutils literal notranslate"><span class="pre">CpaBufferList</span></code> structure.</p>
@@ -678,12 +794,24 @@ The no session API is especially useful to simplify existing applications as ses
 <p>It is still possible to seed checksums for CRC32 and Adler32 by setting the <code class="docutils literal notranslate"><span class="pre">checksum</span></code> field of the <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> to the seed checksum value before submission. This will allow an overall checksum to be maintained across multiple submissions. For LZ4, checksum seeding is not supported. If checksums need to be maintained between LZ4 requests then the session based API must be used. The no session API supports data integrity checksums but as stateful operation is not supported the integrity checksums will always be for the current request only.</p>
 <p>The no session API does support stateless overflow in the compression direction only like the session based API. In that case <code class="docutils literal notranslate"><span class="pre">consumed</span></code>, <code class="docutils literal notranslate"><span class="pre">produced</span></code> and <code class="docutils literal notranslate"><span class="pre">checksum</span></code> fields within the <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure will be valid when a status of <code class="docutils literal notranslate"><span class="pre">CPA_DC_OVERFLOW</span></code> is returned. It is the application’s responsibility to arrange data buffers for the next submission, ensure the checksum is seeded and maintain an overall count of the bytes consumed if footer generation is required. For performance reasons it is recommended that the compressBound API is used to size the destination buffer correctly to avoid overflow. It is necessary for an application to seed the checksum whether it wishes to continue the series of requests or to start a new one, only in the latter case, the seed is 0 for CRC32 and 1 for Adler32.</p>
 <p>The no session API does not support setting the <code class="docutils literal notranslate"><span class="pre">sessDirection</span></code> field of the <code class="docutils literal notranslate"><span class="pre">CpaDcNsSetupData</span></code> structure to <code class="docutils literal notranslate"><span class="pre">CPA_DC_DIR_COMBINED</span></code>. In addition, it does not support setting the <code class="docutils literal notranslate"><span class="pre">sessState</span></code> field to <code class="docutils literal notranslate"><span class="pre">CPA_DC_STATEFUL</span></code>, or the <code class="docutils literal notranslate"><span class="pre">flushFlag</span></code> field of the <code class="docutils literal notranslate"><span class="pre">CpaDcOpData</span></code> structure to <code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_NONE</span></code> or <code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_SYNC</span></code>.</p>
+<p><strong>No-session Z-Standard Notes (where supported)</strong></p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">CPA_DC_FLUSH_FINAL</span></code>.</p></li>
+<li><p>Submit complete frame input for decompression requests.</p></li>
+<li><p>Checksum seeding is not supported.</p></li>
+<li><p>Query capabilities and handle <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> as a valid outcome
+on non-supporting instances.</p></li>
+</ul>
+<p>No-session Z-Standard availability follows the support model described in
+<a class="reference internal" href="#pg-services-compression-z-standard-support"><span class="std std-ref">Z-Standard Support</span></a> above.
+Refer to <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a> in the QATlib Release Notes
+for releases and platforms support details.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">cpaDcNsGenerateHeader()</span></code> and <code class="docutils literal notranslate"><span class="pre">cpaDcNsGenerateFooter()</span></code> functions are also very similar to the session based equivalents but take a <code class="docutils literal notranslate"><span class="pre">CpaDcNsSetupData</span></code> instead of a <code class="docutils literal notranslate"><span class="pre">CpaDcSessionHandle</span></code>. For <code class="docutils literal notranslate"><span class="pre">cpaDcNsGenerateFooter()</span></code> an additional parameter is required called <code class="docutils literal notranslate"><span class="pre">count</span></code> that contains the overall length of the uncompressed input data. For most cases this will be the <code class="docutils literal notranslate"><span class="pre">consumed</span></code> value from the single submission contained in the <code class="docutils literal notranslate"><span class="pre">CpaDcRqResults</span></code> structure but in cases where multiple submissions represent the overall file then it is the application’s responsibility to maintain the overall count of consumed bytes.</p>
 </section>
 <section id="compression-levels">
 <h2>Compression Levels<a class="headerlink" href="#compression-levels" title="Permalink to this headline"></a></h2>
-<table class="longtable docutils align-default" id="id9">
-<caption><span class="caption-text">Compression Levels</span><a class="headerlink" href="#id9" title="Permalink to this table"></a></caption>
+<table class="longtable docutils align-default" id="id10">
+<caption><span class="caption-text">Compression Levels</span><a class="headerlink" href="#id10" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 9%" />
 <col style="width: 13%" />
@@ -782,8 +910,8 @@ the block uncompressed or to compress the block with software.</p>
 </div>
 <section id="compression-api-errors">
 <span id="error-codes"></span><h3>Compression API Errors<a class="headerlink" href="#compression-api-errors" title="Permalink to this headline"></a></h3>
-<table class="longtable colwidths-given docutils align-default" id="id10">
-<caption><span class="caption-text">Compression API Errors</span><a class="headerlink" href="#id10" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id11">
+<caption><span class="caption-text">Compression API Errors</span><a class="headerlink" href="#id11" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 8%" />
 <col style="width: 44%" />
@@ -1219,8 +1347,8 @@ uncompressed data.</p></td>
 <span id="overflowerrors"></span><h2>Overflows Errors<a class="headerlink" href="#overflows-errors" title="Permalink to this headline"></a></h2>
 <p>This table describes the behavior of the Intel<sup>®</sup> QAT compression service when an overflow occurs during a compression or decompression operation.
 It also describes the expected behavior of an application when an overflow occurs.</p>
-<table class="longtable colwidths-given docutils align-default" id="id11">
-<caption><span class="caption-text">Overflows Errors</span><a class="headerlink" href="#id11" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id12">
+<caption><span class="caption-text">Overflows Errors</span><a class="headerlink" href="#id12" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 14%" />
 <col style="width: 14%" />
@@ -1338,8 +1466,8 @@ A detailed explanation of <em>compressBound</em> APIs is provided in the <a clas
 <p>Integrity checksums use an additional structure that is the application’s responsibility to allocate, maintain, and free.
 The structure must be allocated by the user, and the QAT Library will populate it based on values returned by the hardware.
 The structure is <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> and contains the following fields:</p>
-<table class="longtable colwidths-given docutils align-default" id="id12">
-<caption><span class="caption-text">Integrity Checksums</span><a class="headerlink" href="#id12" title="Permalink to this table"></a></caption>
+<table class="longtable colwidths-given docutils align-default" id="id13">
+<caption><span class="caption-text">Integrity Checksums</span><a class="headerlink" href="#id13" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 25%" />
 <col style="width: 75%" />
@@ -1407,6 +1535,23 @@ within the HW.</p></td>
 <h3>Verify HW Integrity CRC’s<a class="headerlink" href="#verify-hw-integrity-crc-s" title="Permalink to this headline"></a></h3>
 <p>There is an additional feature to integrity checksums that can be enabled to automatically check that no corruption to data buffers has occurred during transport to and from the Intel<sup>®</sup> QAT HW. This works by calculating integrity checksums across the source and destination buffers within the Intel<sup>®</sup> QAT API, and comparing the checksums with those generated within the Intel<sup>®</sup> QAT HW. Any discrepancies will result in a status of <code class="docutils literal notranslate"><span class="pre">CPA_DC_INTEG_ERR</span></code> being returned within the <code class="docutils literal notranslate"><span class="pre">cpaDcRqResults</span></code> structure. These additional checksums are calculated in SW using the CPU and have a cost in terms of performance.
 In order to enable the <em>Verify HW Integrity CRC</em> feature on a per request basis the <code class="docutils literal notranslate"><span class="pre">verifyHwIntegrityCrcs</span></code> field contained in the <code class="docutils literal notranslate"><span class="pre">cpaDcOpdata</span></code> structure needs to be set to <code class="docutils literal notranslate"><span class="pre">CPA_TRUE</span></code>. Additionally the <code class="docutils literal notranslate"><span class="pre">integrityCrcCheck</span></code> field must be enabled and a <code class="docutils literal notranslate"><span class="pre">cpaCrcData</span></code> structure allocated and a pointer to it must be assigned to the <code class="docutils literal notranslate"><span class="pre">pCrcData</span></code> field.</p>
+</section>
+<section id="e2e-input-crc-source-selection-notes">
+<h3>E2E Input CRC Source Selection Notes<a class="headerlink" href="#e2e-input-crc-source-selection-notes" title="Permalink to this headline"></a></h3>
+<p>This behavior corresponds to the in-tree feature matrix entry
+<em>Treating a CRC generated by the compression engine as an error</em>
+listed in <a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a> in the QATlib Release Notes.
+Support depends on the QATlib release, kernel version, and
+per-platform firmware minimums.</p>
+<p>For compression requests using integrity CRC checks and
+Compress-and-Verify (CnV) related paths,
+<code class="docutils literal notranslate"><span class="pre">CPA_DC_E2E_NO_DECOMPRESSION</span></code> can indicate that the input CRC source was
+provided from compression-side processing (for example, uncompressed/stored
+block outcomes) rather than decompression-side reconstruction.</p>
+<p>Applications should handle this status according to their configured integrity
+policy. In strict verification workflows, treat
+<code class="docutils literal notranslate"><span class="pre">CPA_DC_E2E_NO_DECOMPRESSION</span></code> as an error condition (non-success outcome) and reprocess
+the request according to your application policy.</p>
 </section>
 </section>
 <section id="data-compression-applications">

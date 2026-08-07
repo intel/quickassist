@@ -426,6 +426,30 @@ of the Rate Limiting feature.</p>
 <section id="threats-specific-to-cryptographic-service">
 <h3>Threats Specific to Cryptographic Service<a class="headerlink" href="#threats-specific-to-cryptographic-service" title="Permalink to this headline"></a></h3>
 <p>Threats against the cryptographic service include:</p>
+<section id="side-channel-resistance-dpa">
+<h4>Side-Channel Resistance (DPA)<a class="headerlink" href="#side-channel-resistance-dpa" title="Permalink to this headline"></a></h4>
+<p><strong>Threat</strong>: Side-channel attacks, such as Differential Power Analysis (DPA),
+attempt to infer secret-dependent behavior from physical observations.</p>
+<p><strong>Mitigation</strong>: Side-channel hardening (including DPA-focused protection)
+is available only for supported platforms, firmware, and algorithms. This
+is not a universal capability across all Intel<sup>®</sup> QuickAssist
+Technology devices. In most deployments where supported, the protection is
+transparent and requires no additional system configuration. Where
+side-channel-protected operations are exposed through explicit API entry
+points, applications should follow the documented API requirements,
+including platform support checks.</p>
+<p><strong>Support Scope and Verification</strong>:</p>
+<ul class="simple">
+<li><p>For QATlib (in-tree driver) deployments, confirm platform and version support in
+<a class="reference internal" href="../RN/In-Tree/in_tree_firmware_RN.html#in-tree-kernel-requirements"><span class="std std-ref">QAT Feature Compatibility and Version Requirements</span></a>
+in the QATlib Release Notes.</p></li>
+<li><p>Confirm algorithm-level support in
+<a class="reference internal" href="services_cryptography_api.html"><span class="doc">Cryptographic Services</span></a> in the Programmer’s Guide (for example, asymmetric algorithm
+support tables and unsupported-status behavior).</p></li>
+<li><p>Treat a <code class="docutils literal notranslate"><span class="pre">CPA_STATUS_UNSUPPORTED</span></code> return value as authoritative for
+unsupported platform, firmware, or algorithm combinations.</p></li>
+</ul>
+</section>
 <section id="reading-cryptographic-keys">
 <h4>Reading Cryptographic Keys<a class="headerlink" href="#reading-cryptographic-keys" title="Permalink to this headline"></a></h4>
 <p><strong>Threat</strong>: Cryptographic keys are stored in DRAM. An attacker who can determine where these are stored could read the DRAM to get access to the keys or could write the DRAM to use keys known by the attacker, thereby compromising the confidentiality of data protected by these keys. Some cryptographic keys have long lives. The impact of an attacker obtaining the key may exist for the lifetime of the key itself.</p>
