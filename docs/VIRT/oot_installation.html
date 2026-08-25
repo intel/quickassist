@@ -124,6 +124,12 @@
 <span id="virtualization-deployment-guide-oot-installation"></span><h1>Virtualization with OOT<a class="headerlink" href="#virtualization-with-oot" title="Permalink to this headline"></a></h1>
 <p>This section describes the steps required to enable QAT in a virtualized environment using the <em>OOT package</em>.  Details on setting up virtualization with
 the <em>in-tree stack</em> are included in <a class="reference internal" href="../qatlib/running_in_vm.html#qatlib-usersguide-running-in-vm"><span class="std std-ref">Running in a Virtual Machine</span></a> section of QATlib User’s Guide.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>In out-of-tree (OOT) packages, KAPI (Kernel API) is not supported when
+<code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code> is enabled.
+This limitation applies to both host and guest configurations.</p>
+</div>
 <section id="installing-intel-qat-on-the-host">
 <h2>Installing Intel QAT on the Host<a class="headerlink" href="#installing-intel-qat-on-the-host" title="Permalink to this headline"></a></h2>
 <div class="admonition note">

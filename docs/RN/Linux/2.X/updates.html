@@ -72,6 +72,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#qat20-24970-firmware-potential-false-positive-heartbeat-failures">QAT20-24970 [Firmware] Potential false positive heartbeat failures</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat20-23946-svm-iommu-request-issue-doesn-t-appear-in-response">QAT20-23946 [SVM/IOMMU] Request issue doesn’t appear in response</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#qat20-40475-gen-kernel-panic-may-be-observed-with-in-tree-qat-driver-and-2-x-oot-driver-installed-during-fast-automated-reboots">QAT20-40475 [GEN] Kernel Panic May Be Observed with In-tree QAT Driver and 2.x OOT Driver Installed During Fast Automated Reboots</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels">QAT20-41281 [GEN] make -j install may fail on some Linux kernels</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#resolved-issues">Resolved Issues</a><ul>
@@ -648,6 +649,53 @@ In-tree driver patch in kernel 6.17.</p></td>
 <tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
 <td><p>Intel QAT In-tree Driver, Intel QAT 2.x Out-of-Tree
 Driver</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels">
+<h3>QAT20-41281 [GEN] make -j install may fail on some Linux kernels<a class="headerlink" href="#qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels" title="Permalink to this headline"></a></h3>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[GEN] make -j install may fail on some Linux kernels.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-41281</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When installing the QAT driver with multiple jobs running
+simultaneously (-j), errors are observed and installation
+may fail (for example Fedora 40 with kernel
+6.10.6-200.fc40.x86_64 or later).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>QAT driver installation fails even though compilation
+succeeds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><div class="line-block">
+<div class="line">Use <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> without <code class="docutils literal notranslate"><span class="pre">-j</span></code>.</div>
+<div class="line">Alternative: update <code class="docutils literal notranslate"><span class="pre">INSTALL_TARGETS</span></code> in</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Makefile.in</span></code> so <code class="docutils literal notranslate"><span class="pre">.WAIT</span></code> appears before</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">qat-service-install</span></code>.</div>
+<div class="line">Example: &#64;QAT_ENABLE_XEN_FALSE&#64;INSTALL_TARGETS =</div>
+<div class="line">qat-upstream-check (…) qat-service-files-install</div>
+<div class="line">.WAIT qat-service-install</div>
+<div class="line"><br /></div>
+<div class="line">.WAIT added in 1.2.30-00178; requires <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">&gt;</span> <span class="pre">4.4</span></code>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
 </tr>
 </tbody>
 </table>

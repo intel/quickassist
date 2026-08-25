@@ -394,18 +394,22 @@ configuration when set via the <code class="docutils literal notranslate"><span 
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaInstanceGetResponseMode</span></code>, and <code class="docutils literal notranslate"><span class="pre">CpaInstanceResponseMode</span></code>
-APIs are only supported with the in-tree stack.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaInstanceGetResponseMode</span></code>,
+and <code class="docutils literal notranslate"><span class="pre">CpaInstanceResponseMode</span></code> APIs are supported with both in-tree
+and out-of-tree (OOT) stacks. Refer to
+<a class="reference internal" href="../RN/Linux/2.X/revision_history.html#rn-linux-revision-history"><span class="std std-ref">Linux Release Notes Revision History</span></a> for the release where this support
+was introduced.</p>
 </div>
 <ul class="simple">
 <li><p>The <code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode()</span></code> function should only be called
 when there are no operations in-flight in the instance. The behaviour
 will be undefined for operations which are in-flight.</p></li>
-<li><p>In the in-tree driver, the default mode for a device is poll mode
-(<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_NONE</span></code>). Using the
-<code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode()</span></code> API, epoll mode
-(<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>) can be enabled at the instance
-level. Refer to
+<li><p>In the in-tree stack, the default mode for a device is poll mode
+(<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_NONE</span></code>). In the out-of-tree (OOT) stack, the
+initial mode follows the user setting in the configuration file and
+may not be poll mode. Using the <code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode()</span></code> API,
+epoll mode (<code class="docutils literal notranslate"><span class="pre">CPA_INST_RX_NOTIFY_BY_EVENT</span></code>) can be enabled at the
+instance level. Refer to
 <a class="reference internal" href="../PG/apis_additional_pollingapis.html#pg-supported-apis-additional-apis-pollingapis"><span class="std std-ref">Device Polling APIs</span></a>
 for details on the response mode configuration APIs.</p></li>
 <li><p>When using epoll mode, applications should call the appropriate

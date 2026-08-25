@@ -151,6 +151,7 @@ in the <a class="reference internal" href="#rn-linux-related-documentation"><spa
 <li><p>Device co-existence with QAT1.7 plugin cards.</p></li>
 <li><p>Lockless Request submission. This requires configuration with <code class="docutils literal notranslate"><span class="pre">enable-icp-without-qp-submission_lock</span></code>.</p></li>
 <li><p>Internal decompressed data CRC as input buffer CRC for enhanced data integrity and hardware fault detection.</p></li>
+<li><p>Response mode configuration APIs (<code class="docutils literal notranslate"><span class="pre">cpaInstanceSetResponseMode</span></code>, <code class="docutils literal notranslate"><span class="pre">cpaInstanceGetResponseMode</span></code>, and <code class="docutils literal notranslate"><span class="pre">CpaInstanceResponseMode</span></code>) are supported for out-of-tree (OOT) stack deployments.</p></li>
 </ul>
 </section>
 <section id="limitations">
@@ -159,6 +160,8 @@ in the <a class="reference internal" href="#rn-linux-related-documentation"><spa
 <li><p>Symmetric Crypto Sample applications do not run out of box without configuration file update. Refer to the <a class="reference internal" href="../../../GSG/2.X/sampleapplications.html#default-configuration"><span class="std std-ref">Getting Started Guide</span></a> for additional information.</p></li>
 <li><p>Stateful decompression is not supported.</p></li>
 <li><p>Key Protection Technology (KPT) is not currently supported.</p></li>
+<li><p>KAPI (Kernel API) is not supported with <code class="docutils literal notranslate"><span class="pre">intel_iommu=on</span></code>. This limitation applies to both host and guest
+configurations.</p></li>
 <li><p>Auto-select best (ASB) is not supported with rolling <em>XXHash32</em>.</p></li>
 <li><p>Dynamic Power Management (DPM) is not currently supported.</p></li>
 <li><p>Firmware or Hardware Anti-Rollback (ARB) mechanisms are not natively supported.  Customers must support their own implementation of firmware or software anti-rollback mechanisms. Customers that do not implement ARB solutions accept all security risks of doing so.</p></li>
@@ -270,12 +273,6 @@ devices utilize separate configurations for symmetric (sym) and asymmetric (asym
 <tr class="row-odd"><td><p>Fedora release 32- 5.10</p></td>
 <td><p>5.10.15-100.fc32.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux Server 7.6</p></td>
-<td><p>3.10.0-957.el7.x86_64</p></td>
-</tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux Server 7.8</p></td>
-<td><p>3.10.0-1127.el7.x86_64</p></td>
-</tr>
 <tr class="row-even"><td><p>Red Hat Enterprise Linux 8.0</p></td>
 <td><p>4.18.0-80.el8.x86_64</p></td>
 </tr>
@@ -311,6 +308,12 @@ devices utilize separate configurations for symmetric (sym) and asymmetric (asym
 </tr>
 <tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.4</p></td>
 <td><p>5.14.0-427.13.1.el9_4.x86_64</p></td>
+</tr>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.6</p></td>
+<td><p>5.14.0-570.x86_64</p></td>
+</tr>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.7</p></td>
+<td><p>5.14.0-611.5.1.el9_7.x86_64</p></td>
 </tr>
 <tr class="row-even"><td><p>SUSE Linux Enterprise Server 12</p></td>
 <td><p>4.12.14-94.41-default</p></td>
@@ -349,7 +352,7 @@ devices utilize separate configurations for symmetric (sym) and asymmetric (asym
 <td><p>5.13.0-14-generic</p></td>
 </tr>
 <tr class="row-even"><td><p>Ubuntu 22.04 LTS</p></td>
-<td><p>6.14.0-37-generic</p></td>
+<td><p>5.15.0-25-generic</p></td>
 </tr>
 <tr class="row-odd"><td><p>Ubuntu 22.04 LTS (realtime)</p></td>
 <td><p>5.15.0-1097-realtime</p></td>
@@ -389,7 +392,7 @@ platform supported in this release.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Top-Level Package</p></td>
-<td><p>QAT20.L.1.2.30-00178</p></td>
+<td><p>QAT20.L.1.2.30-00239</p></td>
 </tr>
 </tbody>
 </table>
@@ -482,8 +485,8 @@ test files</p></td>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>QAT20.L.1.2.30-00178</p></td>
-<td><p>afaa6fd31064d638d507f114e80a4631d00c0b4aa5b889dda4887e09cab63c41</p></td>
+<tr class="row-even"><td><p>QAT20.L.1.2.30-00239</p></td>
+<td><p>2161b701b4fa1aa88345398011cb6c2fde076e0bb8a4e33272340750106de2f3</p></td>
 </tr>
 </tbody>
 </table>
