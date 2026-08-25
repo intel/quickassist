@@ -598,6 +598,53 @@ Driver</p></td>
 </tbody>
 </table>
 </section>
+<section id="qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels">
+<h2>QAT20-41281 [GEN] make -j install may fail on some Linux kernels<a class="headerlink" href="#qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[GEN] make -j install may fail on some Linux kernels.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-41281</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When installing the QAT driver with multiple jobs running
+simultaneously (-j), errors are observed and installation
+may fail (for example Fedora 40 with kernel
+6.10.6-200.fc40.x86_64 or later).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>QAT driver installation fails even though compilation
+succeeds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><div class="line-block">
+<div class="line">Use <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> without <code class="docutils literal notranslate"><span class="pre">-j</span></code>.</div>
+<div class="line">Alternative: update <code class="docutils literal notranslate"><span class="pre">INSTALL_TARGETS</span></code> in</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">Makefile.in</span></code> so <code class="docutils literal notranslate"><span class="pre">.WAIT</span></code> appears before</div>
+<div class="line"><code class="docutils literal notranslate"><span class="pre">qat-service-install</span></code>.</div>
+<div class="line">Example: &#64;QAT_ENABLE_XEN_FALSE&#64;INSTALL_TARGETS =</div>
+<div class="line">qat-upstream-check (…) qat-service-files-install</div>
+<div class="line">.WAIT qat-service-install</div>
+<div class="line"><br /></div>
+<div class="line">.WAIT added in 1.2.30-00178; requires <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">&gt;</span> <span class="pre">4.4</span></code>.</div>
+</div>
+</td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 
 
