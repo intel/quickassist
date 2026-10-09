@@ -101,6 +101,138 @@
              
   <section id="known-issues">
 <span id="rn-linux-knownissues"></span><h1>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline"></a></h1>
+<section id="qat20-42523-compression-instances-are-not-available-when-built-with-gcc-16">
+<h2>QAT20-42523 Compression instances are not available when built with GCC 16<a class="headerlink" href="#qat20-42523-compression-instances-are-not-available-when-built-with-gcc-16" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>Compression instances are not available when the
+driver is built with GCC 16</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-42523</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When the driver is built with GCC 16 and optimization
+is enabled, the compiler narrows a 32-bit register
+read to a byte-wide access. QAT mailbox registers
+require 32-bit accesses, so the VF-to-PF mailbox
+polling loop times out instead of observing the
+acknowledgement from the PF.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>VF2PF capability discovery times out and compression
+instances are not exposed to user space. Sample
+applications report
+<code class="docutils literal notranslate"><span class="pre">There</span> <span class="pre">are</span> <span class="pre">no</span> <span class="pre">compression</span> <span class="pre">instances</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>GCC 16 is not a supported compiler for this release.
+Build the driver with a supported compiler version.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-44178-firmware-update-is-not-applied-after-an-mmp-firmware-load-failure">
+<h2>QAT20-44178 Firmware update is not applied after an MMP firmware load failure<a class="headerlink" href="#qat20-44178-firmware-update-is-not-applied-after-an-mmp-firmware-load-failure" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>Firmware update is not applied after an MMP firmware
+load failure, until the system is rebooted</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-44178</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>If the MMP firmware (qat_4xxx_mmp.bin or
+qat_402xx_mmp.bin) fails to load, the driver returns
+without releasing the reference taken on qat_4xxx.bin
+or qat_402xx.bin. The kernel firmware cache is keyed
+by firmware name, so the leaked reference keeps the
+cached firmware image alive.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>Subsequent driver loads use the cached firmware image
+rather than the file on disk. After replacing the
+firmware files with a newer package, the stale cached
+image is used and firmware loading can fail.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Reboot the system to clear the kernel firmware cache.
+Future fix.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - ADF</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-44172-kernel-firmware-search-order-can-load-an-unintended-firmware-version">
+<h2>QAT20-44172 Kernel firmware search order can load an unintended firmware version<a class="headerlink" href="#qat20-44172-kernel-firmware-search-order-can-load-an-unintended-firmware-version" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>Kernel firmware search order can load an unintended
+firmware version without an error or warning</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-44172</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>The kernel searches several locations for firmware,
+in this order: a custom path set through
+/sys/module/firmware_class/parameters/path, the
+updates and kernel-version subdirectories under
+/lib/firmware, and finally /lib/firmware itself.
+Firmware included in initramfs can also take
+precedence. If an older firmware image is present
+in a location searched earlier, that image is
+loaded instead of the one in /lib/firmware.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>A firmware version other than the one supplied with
+the installed package can be loaded with no error
+or warning. The mismatch is reported only when the
+firmware interface changes, for example when a new
+firmware object name is expected.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>The package installer places firmware images directly
+in /lib/firmware. Remove any copies of the QAT
+firmware images from earlier search locations and
+from initramfs.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - ADF</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="qat20-26988-chaining-compression-encryption-failure-status-is-not-returned-when-chained-operation-fails">
 <h2>QAT20-26988 [Chaining] compression/encryption failure status is not returned when chained operation fails<a class="headerlink" href="#qat20-26988-chaining-compression-encryption-failure-status-is-not-returned-when-chained-operation-fails" title="Permalink to this headline"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
@@ -215,8 +347,8 @@ only the single service required by the workload.</p></td>
 </tbody>
 </table>
 </section>
-<section id="qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail">
-<h2>QATE20-8981 [Sample Code] sym_dp_update_sample Functional Sample Code application execution will fail<a class="headerlink" href="#qate20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail" title="Permalink to this headline"></a></h2>
+<section id="qat20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail">
+<h2>QAT20-8981 [Sample Code] sym_dp_update_sample Functional Sample Code application execution will fail<a class="headerlink" href="#qat20-8981-sample-code-sym-dp-update-sample-functional-sample-code-application-execution-will-fail" title="Permalink to this headline"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">
 <colgroup>
 <col style="width: 20%" />
@@ -228,7 +360,7 @@ only the single service required by the workload.</p></td>
 Code application execution will fail</p></td>
 </tr>
 <tr class="row-even"><td><p><strong>Reference</strong></p></td>
-<td><p>QATE20-8981</p></td>
+<td><p>QAT20-8981</p></td>
 </tr>
 <tr class="row-odd"><td><p><strong>Description</strong></p></td>
 <td><p>CPM2.0 hardware does not support the wireless Kasumi
@@ -594,53 +726,6 @@ In-tree driver patch in kernel 6.17.</p></td>
 <tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
 <td><p>Intel QAT In-tree Driver, Intel QAT 2.x Out-of-Tree
 Driver</p></td>
-</tr>
-</tbody>
-</table>
-</section>
-<section id="qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels">
-<h2>QAT20-41281 [GEN] make -j install may fail on some Linux kernels<a class="headerlink" href="#qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels" title="Permalink to this headline"></a></h2>
-<table class="rn-table colwidths-given docutils align-default">
-<colgroup>
-<col style="width: 20%" />
-<col style="width: 80%" />
-</colgroup>
-<tbody>
-<tr class="row-odd"><td><p><strong>Title</strong></p></td>
-<td><p>[GEN] make -j install may fail on some Linux kernels.</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Reference</strong></p></td>
-<td><p>QAT20-41281</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Description</strong></p></td>
-<td><p>When installing the QAT driver with multiple jobs running
-simultaneously (-j), errors are observed and installation
-may fail (for example Fedora 40 with kernel
-6.10.6-200.fc40.x86_64 or later).</p></td>
-</tr>
-<tr class="row-even"><td><p><strong>Implication</strong></p></td>
-<td><p>QAT driver installation fails even though compilation
-succeeds.</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
-<td><div class="line-block">
-<div class="line">Use <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">install</span></code> without <code class="docutils literal notranslate"><span class="pre">-j</span></code>.</div>
-<div class="line">Alternative: update <code class="docutils literal notranslate"><span class="pre">INSTALL_TARGETS</span></code> in</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">Makefile.in</span></code> so <code class="docutils literal notranslate"><span class="pre">.WAIT</span></code> appears before</div>
-<div class="line"><code class="docutils literal notranslate"><span class="pre">qat-service-install</span></code>.</div>
-<div class="line">Example: &#64;QAT_ENABLE_XEN_FALSE&#64;INSTALL_TARGETS =</div>
-<div class="line">qat-upstream-check (…) qat-service-files-install</div>
-<div class="line">.WAIT qat-service-install</div>
-<div class="line"><br /></div>
-<div class="line">.WAIT added in 1.2.30-00178; requires <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">&gt;</span> <span class="pre">4.4</span></code>.</div>
-</div>
-</td>
-</tr>
-<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
-<td><p>Linux</p></td>
-</tr>
-<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
-<td><p>QAT IA - General</p></td>
 </tr>
 </tbody>
 </table>

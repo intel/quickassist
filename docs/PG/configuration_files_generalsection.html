@@ -238,19 +238,25 @@ data compression [dc]).</p>
 </tbody>
 </table>
 <section id="servicesenabled">
-<h2>ServicesEnabled<a class="headerlink" href="#servicesenabled" title="Permalink to this headline"></a></h2>
+<span id="pg-services-enabled"></span><h2>ServicesEnabled<a class="headerlink" href="#servicesenabled" title="Permalink to this headline"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p><strong>Enable only the services your workload requires.</strong> Enabling more services than
-needed partitions internal hardware resources and reduces the peak throughput
-available to each active service. This applies to all valid two-service
-combinations: <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code>, <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code>, and <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code>.</p>
+<p><strong>Enable only the services your workload requires.</strong> Enabling multiple
+services can partition internal hardware resources and may reduce the peak
+throughput available to an individual service. The resource allocation
+depends on the service combination and QAT 2.0 software version; in
+particular, combined SYM+ASYM mode differs from SYM+DC and ASYM+DC modes.</p>
 </div>
 <p>Additional details on the <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> parameter:</p>
 <ul class="simple">
 <li><p>This parameter is valid for all QAT devices.</p></li>
-<li><p>Default value varies depending on the underlying QAT Endpoint.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">cy</span></code> is not a valid value for QAT 2.0 devices; use <code class="docutils literal notranslate"><span class="pre">asym</span></code> and/or <code class="docutils literal notranslate"><span class="pre">sym</span></code> instead.</p></li>
+<li><p>The default value varies depending on the underlying QAT Endpoint.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">cy</span></code> is not a valid <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> value for QAT 2.0 devices. The</dt><dd><p>combined firmware object’s <code class="docutils literal notranslate"><span class="pre">cy</span></code> name does not change configuration syntax;
+use <code class="docutils literal notranslate"><span class="pre">asym</span></code> and/or <code class="docutils literal notranslate"><span class="pre">sym</span></code> instead.</p>
+</dd>
+</dl>
+</li>
 <li><p>On QAT 2.0 endpoints, a maximum of two of the three services (<code class="docutils literal notranslate"><span class="pre">asym</span></code>, <code class="docutils literal notranslate"><span class="pre">sym</span></code>,
 and <code class="docutils literal notranslate"><span class="pre">dc</span></code>) may be enabled simultaneously.</p></li>
 </ul>
@@ -258,28 +264,42 @@ and <code class="docutils literal notranslate"><span class="pre">dc</span></code
 <h3>Performance Considerations<a class="headerlink" href="#performance-considerations" title="Permalink to this headline"></a></h3>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>The following is applicable to QAT 2.0 devices only.</p>
+<p>The following applies to QAT 2.0 devices. Actual performance depends on
+workload characteristics, including packet size; benchmark the target
+configuration for workload-specific results.</p>
 </div>
-<p>To maximize throughput for a given service, specify <strong>only</strong> that service in
-<code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code>. By design, the QAT 2.0 device contains two Acceleration Engine
-clusters, each with four Acceleration Engines. Each cluster is limited to a single
-service, so the possible engine splits are 8|0 (single service) or 4|4 (two services).</p>
-<p>When two services are enabled, the engine split is always 4|4 regardless of the
-actual workload mix. This means that enabling a second service <strong>will reduce
-throughput for the primary service even if the second service is idle</strong>.</p>
+<p>To maximize the hardware resources available to a service, specify only that
+service in <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code>. A QAT 2.0 device has two Acceleration Engine
+clusters, each with four Acceleration Engines.</p>
+<ul class="simple">
+<li><p>With one service enabled, both crypto units can be assigned to that service.</p></li>
+<li><dl class="simple">
+<dt>With <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code> or <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code>, the allocation remains a 4|4 split, with</dt><dd><p>one four-AE unit assigned to each service, independent of the workload mix.
+An idle second service does not cause its allocated AEs to be reassigned.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>Starting with QAT20.L.1.2.30-00263, <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> uses combined crypto firmware</dt><dd><p>and configures both crypto units for multi-service operation. Unlike the
+earlier separate-unit allocation, SYM-capable threads are available across
+all eight crypto AEs. Some threads on each AE remain allocated to ASYM, so
+this is not equivalent to dedicating all AE threads to SYM.</p>
+</dd>
+</dl>
+</li>
+</ul>
 <p>Configuration examples:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym</span></code> — all 8 acceleration engines are dedicated to SYM,
-providing all 4 resource providers per VF. This gives the best SYM throughput.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym;dc</span></code> — 4 engines are dedicated to SYM and 4 to DC,
-providing only 2 resource providers per VF for SYM. Performance degradation for
-SYM should be expected, even if DC is never used.</p></li>
-<li><p>The same 4|4 split applies to <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code> and <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> combinations.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym</span></code> — both crypto units are assigned to SYM.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym;dc</span></code> — four AEs are assigned to SYM and four to DC.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">asym;dc</span></code> — four AEs are assigned to ASYM and four to DC.</p></li>
+<li><dl class="simple">
+<dt><code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span> <span class="pre">=</span> <span class="pre">sym;asym</span></code> — both crypto units use combined firmware.</dt><dd><p>Both services have threads across the eight crypto AEs, with threads
+allocated to each service within each AE.</p>
+</dd>
+</dl>
+</li>
 </ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Packet size will also modulate the impact of the above configuration settings.</p>
-</div>
 </section>
 </section>
 <section id="servicesprofile">
