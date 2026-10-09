@@ -1017,6 +1017,121 @@ on the HW counter.</p></td>
 </tbody>
 </table>
 </section>
+<section id="qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels">
+<h2>QAT20-41281 [GEN] make -j install may fail on some Linux kernels<a class="headerlink" href="#qat20-41281-gen-make-j-install-may-fail-on-some-linux-kernels" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[GEN] make -j install may fail on some Linux kernels.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-41281</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>When installing the QAT driver with multiple jobs running
+simultaneously (-j), errors are observed and installation
+may fail (for example Fedora 40 with kernel
+6.10.6-200.fc40.x86_64 or later).</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>QAT driver installation fails even though compilation
+succeeds.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 1.2.30-00263 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-42518-gen-segmentation-fault-during-icp-sal-userstart">
+<h2>QAT20-42518 [GEN] Segmentation Fault during icp_sal_userStart<a class="headerlink" href="#qat20-42518-gen-segmentation-fault-during-icp-sal-userstart" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[GEN] Segmentation Fault (core dumped) failure
+when calling icp_sal_userStart</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-42518</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>If a memory allocation fails during pool creation,
+cleanup may use uninitialized metadata and attempt to
+free an invalid address, causing a segmentation fault.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>icp_sal_userStart() may terminate with a segmentation
+fault when contiguous-memory allocation fails.</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>This is resolved with the 1.2.30-00239 release.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT IA - General</p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="qat20-43336-lz4-compression-engine-slice-hang-in-optimized-data-path-during-lz4-block-drop-processing">
+<h2>QAT20-43336 [LZ4] Compression engine slice hang in optimized data path during LZ4 block drop processing<a class="headerlink" href="#qat20-43336-lz4-compression-engine-slice-hang-in-optimized-data-path-during-lz4-block-drop-processing" title="Permalink to this headline"></a></h2>
+<table class="rn-table colwidths-given docutils align-default">
+<colgroup>
+<col style="width: 20%" />
+<col style="width: 80%" />
+</colgroup>
+<tbody>
+<tr class="row-odd"><td><p><strong>Title</strong></p></td>
+<td><p>[LZ4] Compression engine slice hang in optimized data path
+during LZ4 block drop processing</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Reference</strong></p></td>
+<td><p>QAT20-43336</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Description</strong></p></td>
+<td><p>Under specific stress conditions involving concurrent LZ4
+compression and decompression workloads, a firmware
+timing issue may occur during LZ4 block-drop handling in
+the optimized data path used for payloads less than or
+equal to 8 KB. When processing highly incompressible
+data, firmware may miss handling of block-drop if the
+notification is received later than expected while the
+hardware is under heavy load from concurrent
+decompression activity</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Implication</strong></p></td>
+<td><p>The compression slice may hang due to missed block-drop
+handling, resulting in a slice-hang error for the
+affected job</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Resolution</strong></p></td>
+<td><p>Fixed in FW v1.2.91; included in release 1.2.30-00263.</p></td>
+</tr>
+<tr class="row-even"><td><p><strong>Affected OS</strong></p></td>
+<td><p>Linux</p></td>
+</tr>
+<tr class="row-odd"><td><p><strong>Driver/Module</strong></p></td>
+<td><p>QAT 2.0 OOT</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 <section id="qat20-28723-svm-iommu-incorrect-reporting-slice-timeout-due-to-page-request-latency">
 <h2>QAT20-28723 [SVM/IOMMU] Incorrect reporting slice timeout due to page request latency<a class="headerlink" href="#qat20-28723-svm-iommu-incorrect-reporting-slice-timeout-due-to-page-request-latency" title="Permalink to this headline"></a></h2>
 <table class="rn-table colwidths-given docutils align-default">

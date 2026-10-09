@@ -139,6 +139,8 @@ in the <a class="reference internal" href="#rn-linux-related-documentation"><spa
 <span id="features-implemented"></span><h2>Features<a class="headerlink" href="#features" title="Permalink to this headline"></a></h2>
 <ul class="simple">
 <li><p>Sym/Asym Crypto.</p></li>
+<li><p>Combined SYM+ASYM crypto service mode. See <a class="reference internal" href="../../../PG/configuration_files_generalsection.html#pg-services-enabled"><span class="std std-ref">ServicesEnabled</span></a>
+in the Programmer’s Guide for details.</p></li>
 <li><p>TLS1.3 elliptical curves Montgomery encryption (curve 25519 and curve 448).</p></li>
 <li><p>Data Compression with CnV for Deflate and LZ4/LZ4s algorithms and CnVnR for Deflate and LZ4s.</p></li>
 <li><p>Telemetry.</p></li>
@@ -157,6 +159,7 @@ in the <a class="reference internal" href="#rn-linux-related-documentation"><spa
 <section id="limitations">
 <h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline"></a></h2>
 <ul class="simple">
+<li><p>Starting with QAT20.L.1.2.30-00263, 32-bit operating systems are not supported.</p></li>
 <li><p>Symmetric Crypto Sample applications do not run out of box without configuration file update. Refer to the <a class="reference internal" href="../../../GSG/2.X/sampleapplications.html#default-configuration"><span class="std std-ref">Getting Started Guide</span></a> for additional information.</p></li>
 <li><p>Stateful decompression is not supported.</p></li>
 <li><p>Key Protection Technology (KPT) is not currently supported.</p></li>
@@ -261,59 +264,41 @@ devices utilize separate configurations for symmetric (sym) and asymmetric (asym
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>CentOS Linux release 8.2.2004 (Core)</p></td>
-<td><p>4.18.0-193.el8.x86_64</p></td>
+<tr class="row-even"><td><p>CentOS Stream release 9</p></td>
+<td><p>6.6.37.1-51 (BHS), 6.2-19.2-52 (EGS)</p></td>
 </tr>
-<tr class="row-odd"><td><p>CentOS Stream release 8</p></td>
-<td><p>5.19.0-emr.bkc.2.11.13.x86_64</p></td>
-</tr>
-<tr class="row-even"><td><p>Fedora release 32</p></td>
-<td><p>5.6.6-300.fc32.x86_64</p></td>
-</tr>
-<tr class="row-odd"><td><p>Fedora release 32- 5.10</p></td>
-<td><p>5.10.15-100.fc32.x86_64</p></td>
-</tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.0</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.0</p></td>
 <td><p>4.18.0-80.el8.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.1</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.1</p></td>
 <td><p>4.18.0-147.el8.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.2</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.2</p></td>
 <td><p>4.18.0-193.el8.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.3</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.3</p></td>
 <td><p>4.18.0-240.el8.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.4</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.4</p></td>
 <td><p>4.18.0-305.el8.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.5</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.5</p></td>
 <td><p>4.18.0-348.el8.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 8.6</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 8.6</p></td>
 <td><p>4.18.0-372.9.1.el8.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.0</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.0</p></td>
 <td><p>5.14.0-70.13.1.el9_0.x86_64</p></td>
 </tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.1</p></td>
+<tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.1</p></td>
 <td><p>5.14.0-162.6.1.el9_1.x86_64</p></td>
 </tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.2</p></td>
+<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.2</p></td>
 <td><p>5.14.0-284.11.1.el9_2.x86_64</p></td>
-</tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.3</p></td>
-<td><p>5.14.0-362.8.1.el9_3.x86_64</p></td>
 </tr>
 <tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.4</p></td>
 <td><p>5.14.0-427.13.1.el9_4.x86_64</p></td>
-</tr>
-<tr class="row-even"><td><p>Red Hat Enterprise Linux 9.6</p></td>
-<td><p>5.14.0-570.x86_64</p></td>
-</tr>
-<tr class="row-odd"><td><p>Red Hat Enterprise Linux 9.7</p></td>
-<td><p>5.14.0-611.5.1.el9_7.x86_64</p></td>
 </tr>
 <tr class="row-even"><td><p>SUSE Linux Enterprise Server 12</p></td>
 <td><p>4.12.14-94.41-default</p></td>
@@ -333,32 +318,14 @@ devices utilize separate configurations for symmetric (sym) and asymmetric (asym
 <tr class="row-odd"><td><p>SUSE Linux Enterprise Server 15 SP6</p></td>
 <td><p>6.4.0-150600.21-default</p></td>
 </tr>
-<tr class="row-even"><td><p>Ubuntu 19.04</p></td>
-<td><p>5.0.0-38-generic</p></td>
-</tr>
-<tr class="row-odd"><td><p>Ubuntu 19.10</p></td>
-<td><p>5.3.0-64-generic</p></td>
-</tr>
 <tr class="row-even"><td><p>Ubuntu 20.04 LTS</p></td>
 <td><p>5.4.0-26-generic</p></td>
 </tr>
-<tr class="row-odd"><td><p>Ubuntu 20.10</p></td>
-<td><p>5.8.0-63-generic</p></td>
+<tr class="row-odd"><td><p>Ubuntu 22.04 LTS</p></td>
+<td><p>6.14.0-37-generic</p></td>
 </tr>
-<tr class="row-even"><td><p>Ubuntu 21.04</p></td>
-<td><p>5.11.0-16-generic</p></td>
-</tr>
-<tr class="row-odd"><td><p>Ubuntu 21.10</p></td>
-<td><p>5.13.0-14-generic</p></td>
-</tr>
-<tr class="row-even"><td><p>Ubuntu 22.04 LTS</p></td>
-<td><p>5.15.0-25-generic</p></td>
-</tr>
-<tr class="row-odd"><td><p>Ubuntu 22.04 LTS (realtime)</p></td>
+<tr class="row-even"><td><p>Ubuntu 22.04 LTS (realtime)</p></td>
 <td><p>5.15.0-1097-realtime</p></td>
-</tr>
-<tr class="row-even"><td><p>Ubuntu 22.10</p></td>
-<td><p>5.19.0-46-generic</p></td>
 </tr>
 <tr class="row-odd"><td><p>Ubuntu 24.04</p></td>
 <td><p>6.14.0-37-generic</p></td>
@@ -392,7 +359,7 @@ platform supported in this release.</p>
 </thead>
 <tbody>
 <tr class="row-even"><td><p>Top-Level Package</p></td>
-<td><p>QAT20.L.1.2.30-00239</p></td>
+<td><p>QAT20.L.1.2.30-00263</p></td>
 </tr>
 </tbody>
 </table>
@@ -485,8 +452,8 @@ test files</p></td>
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>QAT20.L.1.2.30-00239</p></td>
-<td><p>2161b701b4fa1aa88345398011cb6c2fde076e0bb8a4e33272340750106de2f3</p></td>
+<tr class="row-even"><td><p>QAT20.L.1.2.30-00263</p></td>
+<td><p>fccddfa0d82239f6059b02e1534b643153662aaea70ddcf6b2067335b7c8d15b</p></td>
 </tr>
 </tbody>
 </table>

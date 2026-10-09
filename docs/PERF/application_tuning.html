@@ -228,15 +228,15 @@ configuration file and its parameters.</p>
 <section id="disable-services-not-used">
 <h3>Disable Services Not Used<a class="headerlink" href="#disable-services-not-used" title="Permalink to this headline"></a></h3>
 <p>When more than one service is enabled, internal hardware resources are
-partitioned between those services. This can reduce the throughput
-available to each individual service, regardless of which combination
-is enabled. On Intel<sup>®</sup> QAT 2.0 and later devices, a maximum of two
-of the three available services (<code class="docutils literal notranslate"><span class="pre">sym</span></code>, <code class="docutils literal notranslate"><span class="pre">asym</span></code>, <code class="docutils literal notranslate"><span class="pre">dc</span></code>) may be enabled
-simultaneously on a single QAT endpoint. Any two-service combination
-— <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code>, <code class="docutils literal notranslate"><span class="pre">asym;dc</span></code>, or <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> — will result in the hardware
-acceleration engines being split 4|4 between the two services, reducing
-peak throughput for each compared to a single-service configuration. For
-best performance, enable only the service(s) your workload requires.</p>
+partitioned between those services. This may reduce the throughput available
+to an individual service. On Intel<sup>®</sup> QAT 2.0 and later devices, a
+maximum of two of the three available services (<code class="docutils literal notranslate"><span class="pre">sym</span></code>, <code class="docutils literal notranslate"><span class="pre">asym</span></code>, <code class="docutils literal notranslate"><span class="pre">dc</span></code>)
+may be enabled simultaneously on a single QAT endpoint. With <code class="docutils literal notranslate"><span class="pre">sym;dc</span></code> or
+<code class="docutils literal notranslate"><span class="pre">asym;dc</span></code>, the hardware acceleration engines are split 4|4 between the
+services. Starting with QAT20.L.1.2.30-00263, <code class="docutils literal notranslate"><span class="pre">sym;asym</span></code> uses combined
+crypto firmware for multi-service operation across both crypto units, with a
+different resource allocation. For best performance, enable only the
+service(s) your workload requires.</p>
 <p>For details on valid <code class="docutils literal notranslate"><span class="pre">ServicesEnabled</span></code> combinations and their performance
 implications, refer to
 <a class="reference internal" href="../PG/configuration_files_maxprocesscalculations.html#services-enabled-definitions"><span class="std std-ref">ServicesEnabled</span></a> and
