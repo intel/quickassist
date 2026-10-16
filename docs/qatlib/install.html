@@ -607,6 +607,14 @@ for firmware needed to support this feature.</p></td>
 </tr>
 </tbody>
 </table>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Parameter checking is enabled by default and should remain enabled during
+application development. Use <code class="docutils literal notranslate"><span class="pre">--disable-param-check</span></code> in production only
+to reduce offload cost and only after verifying that the application passes
+parameters defined by the API. Passing invalid parameters can result in
+undefined behavior.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The parameter <code class="docutils literal notranslate"><span class="pre">--enable-icp-without-qp-submission-lock</span></code> was introduced in QATlib 25.08

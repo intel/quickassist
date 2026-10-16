@@ -237,6 +237,11 @@ Type make followed by make install to build QAT with the following options
 ============================================================================
 </pre></div>
 </div>
+<p>The example shows <code class="docutils literal notranslate"><span class="pre">ICP_PARAM_CHECK</span></code> disabled. Parameter checking
+should always be enabled during application development. Disable it in
+production only when the application has been verified to pass parameters
+defined by the API; passing invalid parameters can result in undefined
+behavior.</p>
 </li>
 </ol>
 <section id="dependencies">

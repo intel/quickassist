@@ -250,6 +250,14 @@ by the driver. By default, parameter checking is enabled. This is
 controlled by <code class="docutils literal notranslate"><span class="pre">ICP_PARAM_CHECK</span></code>, which can be set as an environment
 variable or it can be controlled with the configure script option, if
 available.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Parameter checking should always be enabled during application
+development. If it is disabled in a production environment to reduce
+offload cost, the application developer is responsible for ensuring
+that only parameters defined by the API are passed to the library.
+Passing invalid parameters can result in undefined behavior.</p>
+</div>
 </section>
 <section id="adjusting-the-polling-interval">
 <h3>Adjusting the Polling Interval<a class="headerlink" href="#adjusting-the-polling-interval" title="Permalink to this headline"></a></h3>
